@@ -1,0 +1,13 @@
+@import './mixins.scss';
+@import './variables.scss';
+
+/* Reusable class should be defined bellow 
+  Read more https://github.com/css-modules/css-modules
+*/
+
+.container {
+  @include full-screen;
+  display: flex;
+  padding: 20px;
+  background-color: $primary-color;
+}
