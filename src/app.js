@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import routes, { RenderRoutes } from 'src/routes';
 
-
 // app styles
 import 'src/assets/styles/app.scss';
 

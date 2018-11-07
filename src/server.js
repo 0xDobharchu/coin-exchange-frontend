@@ -4,9 +4,11 @@ import App from './app';
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
+import morgan from 'morgan';
 import { StaticRouter } from "react-router";
 
 const app = express();
+app.use(morgan('short'));
 app.use('/public', express.static(path.join(__dirname, '../client')));
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
 
@@ -14,7 +16,6 @@ global.__SERVER__ = true;
 global.__CLIENT__ = false;
 
 function renderFullPage(appString, preloadedState, callback) {
-  console.log(appString)
   fs.readFile(
     path.resolve(__dirname, "../client/index.html"),
     "utf8",
