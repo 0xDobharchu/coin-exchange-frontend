@@ -1,9 +1,8 @@
 @import './mixins.scss';
 @import './common.scss';
-
 /* App global styles */
 :global {
-  html, body {
+  html, body, div#root-app {
     margin: 0px;
     @include full-screen;
   }

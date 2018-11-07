@@ -1,7 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
@@ -29,7 +27,6 @@ module.exports = merge(commonConfig, {
     // the target directory for all output files
     // must be an absolute path (use the Node.js path module)
     filename: "[hash:8].js", // string    // the filename template for entry chunks
-    publicPath: "/", // string    // the url to the output directory resolved relative to the HTML page
     // the name of the exported library
   },
   module: {
@@ -69,8 +66,8 @@ module.exports = merge(commonConfig, {
       },
     ],
   },
+  devtool: "source-map",
   plugins: [
-    new CleanWebpackPlugin(path.resolve(__dirname, 'dist')),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       title: 'Ninja Project',
@@ -79,8 +76,8 @@ module.exports = merge(commonConfig, {
       minify: true
     }),
     new MiniCssExtractPlugin({
-      filename: "main.[hash:8].css",
-      chunkFilename: "[id].css"
+      filename: "assets/main.[hash:8].css",
+      chunkFilename: "assets/[id].css"
     })
   ],
   optimization: {

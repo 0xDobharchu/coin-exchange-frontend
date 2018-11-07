@@ -1,4 +1,3 @@
 .container {
-  composes: container from '../../assets/styles/common.scss';
-  color: blue;
+  color: lighten($color: #000000, $amount: 20%);
 }
