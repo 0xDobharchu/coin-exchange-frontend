@@ -6,6 +6,9 @@ import fs from 'fs';
 import path from 'path';
 import morgan from 'morgan';
 import { StaticRouter } from "react-router";
+import { createStore } from 'redux';
+import rootReducer from 'src/redux/reducer';
+import { Provider } from 'react-redux';
 
 const app = express();
 app.use(morgan('short'));
@@ -40,19 +43,19 @@ function renderFullPage(appString, preloadedState, callback) {
 
 function handleRender(req, res) {
   // Create a new Redux store instance
-  // let store = createStore(reducer);
+  let store = createStore(rootReducer);
   let context = {};
   // Render the component to a string
   const html = renderToString(
-    // <Provider store={store}>
+    <Provider store={store}>
       <StaticRouter location={req.originalUrl} context={context}>
         <App />
       </StaticRouter>
-    // </Provider>
+    </Provider>
   );
 
   // // Grab the initial state from our Redux store
-  // const preloadedState = store.getState();
+  const preloadedState = store.getState();
 
   // Send the rendered page back to the client
   if (context.url) {
@@ -61,7 +64,7 @@ function handleRender(req, res) {
     });
     res.end();
   } else {
-    renderFullPage(html, {}, function(fullHTML) {
+    renderFullPage(html, preloadedState, function(fullHTML) {
       res.send(fullHTML);
     });
   }

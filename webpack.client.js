@@ -4,6 +4,8 @@ const merge = require('webpack-merge');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const isDev = process.env.NODE_ENV === 'development';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
 
@@ -36,5 +38,25 @@ module.exports = merge(isDev ? devConfig : prodConfig, {
       __CLIENT__: true,
       __SERVER__: false
     }),
-  ]
+  ],
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        exclude: /\/(dist|node_modules|bower_components)/,
+        // include: /\/(src)/,
+        uglifyOptions: {
+          compress: {
+            // Drop console statements
+            drop_console: true
+          },
+          // Eliminate comments
+          comments: false,
+        },
+        cache: true,
+        parallel: true,
+        sourceMap: true, // set to true if you want JS source maps
+      }),
+      new OptimizeCSSAssetsPlugin({})
+    ]
+  },
 });

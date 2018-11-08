@@ -15,11 +15,11 @@ module.exports = {
           loader: "babel-loader",
           options: {
             presets: [
+              "@babel/preset-react",
               ['@babel/preset-env', {
                 shippedProposals: true, // to support spread operators
                 forceAllTransforms: true
               }],
-              "@babel/preset-react",
             ],
             plugins: [
               "@babel/plugin-syntax-dynamic-import",
