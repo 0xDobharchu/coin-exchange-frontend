@@ -5,11 +5,11 @@ import fs from 'fs';
 import path from 'path';
 import morgan from 'morgan';
 import { StaticRouter } from 'react-router';
-import { createStore } from 'redux';
-import rootReducer from 'src/redux/reducer';
 import { Provider } from 'react-redux';
+import configureStore from 'src/redux/store';
 import App from './app';
 
+const store = configureStore();
 const app = express();
 app.use(morgan('short'));
 app.use('/public', express.static(path.join(__dirname, '../client')));
@@ -38,7 +38,7 @@ function renderFullPage(appString, preloadedState, callback) {
 
 function handleRender(req, res) {
   // Create a new Redux store instance
-  const store = createStore(rootReducer);
+  // const store = createStore(rootReducer);
   const context = {};
   // Render the component to a string
   const html = renderToString(
@@ -68,6 +68,5 @@ function handleRender(req, res) {
 app.use(handleRender);
 
 app.listen(8000, () => {
-  console.log(path.dirname(__filename));
   console.log('App is running on 8000');
 });

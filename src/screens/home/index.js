@@ -39,8 +39,8 @@ class Home extends Component {
 const mapState = state => ({ time: state?.homeReducer?.time });
 
 const mapDispatch = dispatch => ({
-  mount: bindActionCreators(mount, dispatch),
-  testGetDataAsync: bindActionCreators(testGetDataAsync, dispatch),
+  mountBound: bindActionCreators(mount, dispatch),
+  testGetDataAsyncBound: bindActionCreators(testGetDataAsync, dispatch),
 });
 
 Home.propTypes = {

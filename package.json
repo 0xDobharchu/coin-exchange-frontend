@@ -11,7 +11,8 @@
     "mon-server": "nodemon ./dist/server/server.js",
     "build": "yarn build-client && yarn build-server",
     "start": "yarn build && pm2 start dist/server/server.js",
-    "monitor": "pm2 list",
+    "monitor": "pm2 monit",
+    "reload": "pm2 reload all",
     "lint": "eslint --ext .js --ext .jsx src/",
     "precommit": "yarn lint"
   },
