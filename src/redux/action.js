@@ -6,8 +6,8 @@ const dispatchType = {
   CALLING: 'CALLING'
 };
 
-const makeAction = ({ type, data, dispatchType }) => {
-  const _type = dispatchType ? `${type}-${dispatchType}` : type;
+const makeAction = ({ type, data, dispatchtype }) => {
+  const _type = dispatchtype ? `${type}-${dispatchtype}` : type;
   return {
     type: _type,
     data
@@ -15,20 +15,22 @@ const makeAction = ({ type, data, dispatchType }) => {
 };
 
 export const makeRequest = (params = {}) => {
-  const { type, url, method, data, onSuccess, onError } = params;
+  const {
+    type, url, method, data, onSuccess, onError
+  } = params;
   const METHOD = method ? String(method).toLowerCase() : 'get';
   return async (dispatch) => {
-    dispatch(makeAction({ type, dispatchType: dispatchType.CALLING, data: { payload: data, url, method }}));
+    dispatch(makeAction({ type, dispatchType: dispatchType.CALLING, data: { payload: data, url, method } }));
     try {
       const res = await http[METHOD](url, data);
       if (res) {
-        dispatch(makeAction({ type, data: res, dispatchType: dispatchType.SUCCESS}));
-        if (typeof onSuccess === 'function') { 
+        dispatch(makeAction({ type, data: res, dispatchType: dispatchType.SUCCESS }));
+        if (typeof onSuccess === 'function') {
           onSuccess(res);
         }
       }
-    } catch(e) {
-      dispatch(makeAction({ type, data: e, dispatchType: dispatchType.ERROR}));
+    } catch (e) {
+      dispatch(makeAction({ type, data: e, dispatchType: dispatchType.ERROR }));
       if (typeof onError === 'function') {
         onError(e);
       }

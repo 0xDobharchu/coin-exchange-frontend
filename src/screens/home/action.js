@@ -1,6 +1,5 @@
-import { MOUNT, TEST_GET_DATA_ASYNC } from './type';
 import { makeRequest } from 'src/redux/action';
-import { Promise } from 'core-js';
+import { MOUNT, TEST_GET_DATA_ASYNC } from './type';
 
 export const mount = () => ({
   type: MOUNT,
@@ -9,9 +8,7 @@ export const mount = () => ({
   }
 });
 
-export const testGetDataAsync = (data) => {
-  return makeRequest({
-    type: TEST_GET_DATA_ASYNC,
-    url: `/${data}`,
-  });
-};
+export const testGetDataAsync = data => makeRequest({
+  type: TEST_GET_DATA_ASYNC,
+  url: `/${data}`,
+});

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDom from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from 'src/app';
@@ -12,5 +12,5 @@ ReactDom.render(
     <Provider store={store}>
       <App />
     </Provider>
-  </Router>,
-container);
+  </Router>, container
+);

@@ -1,7 +1,7 @@
+import Home from 'src/screens/home';
+import Contact from 'src/screens/contact';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
-import Home from "src/screens/home";
-import Contact from "src/screens/contact";
 
 const routes = [
   {
@@ -15,7 +15,7 @@ const routes = [
     exact: true,
   },
   {
-    path: "/contact/a",
+    path: '/contact/a',
     component: Home,
     exact: true,
   },

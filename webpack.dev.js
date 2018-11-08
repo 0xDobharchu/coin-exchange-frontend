@@ -1,12 +1,17 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-const commonConfig = require('./webpack.common');
 const merge = require('webpack-merge');
+const commonConfig = require('./webpack.common');
 
 const cssLoader = [
   'style-loader',
-  { loader: 'css-loader', options: { sourceMap: true, modules: true, camelCase: true, localIdentName: '[path][name]__[local]--[hash:base64:5]' } },
+  {
+    loader: 'css-loader',
+    options: {
+      sourceMap: true, modules: true, camelCase: true, localIdentName: '[path][name]__[local]--[hash:base64:5]'
+    },
+  },
   {
     loader: 'resolve-url-loader',
     options: {
@@ -15,13 +20,13 @@ const cssLoader = [
   },
 ];
 module.exports = merge(commonConfig, {
-  mode: "development",
+  mode: 'development',
   output: {
     // options related to how webpack emits results
-    path: path.resolve(__dirname, "dist"), // string
+    path: path.resolve(__dirname, 'dist'), // string
     // the target directory for all output files
     // must be an absolute path (use the Node.js path module)
-    filename: "[hash].js", // string    // the filename template for entry chunks
+    filename: '[hash].js', // string    // the filename template for entry chunks
     // the name of the exported library
   },
   module: {
@@ -61,11 +66,11 @@ module.exports = merge(commonConfig, {
     ],
   },
   performance: {
-    hints: "warning", // enum    maxAssetSize: 200000, // int (in bytes),
+    hints: 'warning', // enum    maxAssetSize: 200000, // int (in bytes),
   },
-  devtool: "source-map", // enum  // enhance debugging by adding meta info for the browser devtools
+  devtool: 'source-map', // enum  // enhance debugging by adding meta info for the browser devtools
   // source-map most detailed at the expense of build speed.
-  stats: "errors-only",  // lets you precisely control what bundle information gets displayed
+  stats: 'errors-only', // lets you precisely control what bundle information gets displayed
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({

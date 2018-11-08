@@ -1,14 +1,14 @@
-import { renderToString } from  'react-dom/server';
+import { renderToString } from 'react-dom/server';
 import React from 'react';
-import App from './app';
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import morgan from 'morgan';
-import { StaticRouter } from "react-router";
+import { StaticRouter } from 'react-router';
 import { createStore } from 'redux';
 import rootReducer from 'src/redux/reducer';
 import { Provider } from 'react-redux';
+import App from './app';
 
 const app = express();
 app.use(morgan('short'));
@@ -20,31 +20,26 @@ global.__CLIENT__ = false;
 
 function renderFullPage(appString, preloadedState, callback) {
   fs.readFile(
-    path.resolve(__dirname, "../client/index.html"),
-    "utf8",
+    path.resolve(__dirname, '../client/index.html'),
+    'utf8',
     (er, html) => {
       if (er) return callback(er.message);
-
-      html = html.replace(
-        `<div id="root-app"></div>`,
+      const newHtml = html.replace(
+        '<div id="root-app"></div>',
         `<div id="root-app">${appString}</div>
         <script>
-        window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(
-          /</g,
-          "\\u003c"
-        )}
-      </script>
-        `
+          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+        </script>`
       );
-      callback(html);
+      return callback(newHtml);
     }
   );
 }
 
 function handleRender(req, res) {
   // Create a new Redux store instance
-  let store = createStore(rootReducer);
-  let context = {};
+  const store = createStore(rootReducer);
+  const context = {};
   // Render the component to a string
   const html = renderToString(
     <Provider store={store}>
@@ -64,15 +59,15 @@ function handleRender(req, res) {
     });
     res.end();
   } else {
-    renderFullPage(html, preloadedState, function(fullHTML) {
+    renderFullPage(html, preloadedState, (fullHTML) => {
       res.send(fullHTML);
     });
   }
 }
 
-app.use(handleRender)
+app.use(handleRender);
 
 app.listen(8000, () => {
-  console.log(path.dirname(__filename))
+  console.log(path.dirname(__filename));
   console.log('App is running on 8000');
 });
