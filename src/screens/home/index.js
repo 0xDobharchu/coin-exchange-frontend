@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import photo from 'src/assets/images/1.png';
 import { Link } from 'react-router-dom';
+import { mount, testGetDataAsync } from './action';
 import style from './style.scss';
 
-export default class Home extends Component {
+class Home extends Component {
+  componentDidMount() {
+    this.props.mount();
+    this.props.testGetDataAsync('json');
+  }
   componentWillMount() {
-    console.log('__SERVER__', __SERVER__)
-    __CLIENT__ && console.log(window, document);
+    console.log(`This render from server __SERVER__=${__SERVER__}`)
+    __CLIENT__ &&  console.log(`This render from client __CLIENT__=${__CLIENT__}`)
   }
   render() {
+    const { time } = this.props;
     return (
       <div className={`common-container ${style.container}`}>
-        <h1>HOMesss</h1>
-        <span>{String(__SERVER__)}</span>
-        <span>C{String(__CLIENT__)}</span>
-        <button onClick={() => {
-          alert(`${__CLIENT__} ${__SERVER__}`)
-        }}>A</button>
+        <h1>HOME</h1>
+        <span>Time {new Date(time).toISOString()}</span>
         <Link to="contact">Contact</Link>
         <img className={style.photo} src={photo} />
       </div>
     );
   }
 }
+
+const mapState = (state) => ({ time: state?.homeReducer?.time });
+
+const mapDispatch = (dispatch) => ({
+  mount: bindActionCreators(mount, dispatch),
+  testGetDataAsync: bindActionCreators(testGetDataAsync, dispatch),
+});
+
+export default connect(mapState, mapDispatch)(Home);

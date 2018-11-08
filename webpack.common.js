@@ -21,7 +21,15 @@ module.exports = {
               }],
               "@babel/preset-react",
             ],
-            plugins: ["@babel/plugin-syntax-dynamic-import"],
+            plugins: [
+              "@babel/plugin-syntax-dynamic-import",
+              "transform-function-bind",
+              ["transform-class-properties", { "spec": true }],
+              "@babel/plugin-proposal-optional-chaining",
+              ["@babel/plugin-transform-runtime", {
+                "regenerator": true
+              }],
+            ],
           }
         }
       },

@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import routes, { RenderRoutes } from 'src/routes';
-
-// app styles
+import { Provider } from 'react-redux';
+import configureStore from 'src/redux/store';
 import 'src/assets/styles/app.scss';
+
+const store = configureStore()
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <Provider store={store}>
         <RenderRoutes routes={routes} />
-      </div>
+      </Provider>
     );
   }
 }
