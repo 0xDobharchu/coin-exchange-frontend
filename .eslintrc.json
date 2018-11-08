@@ -21,6 +21,7 @@
     "__CLIENT__": true
   },
   "rules": {
+    "react/forbid-prop-types": 0,
     "import/prefer-default-export": 0,
     "import/no-unresolved": 0,
     "comma-dangle": 0,

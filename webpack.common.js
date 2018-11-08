@@ -22,6 +22,23 @@ module.exports = {
               }],
             ],
             plugins: [
+              ['transform-imports', {
+                'react-bootstrap': {
+                  // eslint-disable-next-line
+                  transform: 'react-bootstrap/lib/${member}',
+                  preventFullImport: true
+                },
+                lodash: {
+                  // eslint-disable-next-line
+                  transform: 'lodash/${member}',
+                  preventFullImport: true
+                },
+                'react-icons': {
+                  // eslint-disable-next-line
+                  transform: 'react-icons/md/${member}',
+                  preventFullImport: true
+                }
+              }],
               '@babel/plugin-syntax-dynamic-import',
               'transform-function-bind',
               ['transform-class-properties', { spec: true }],

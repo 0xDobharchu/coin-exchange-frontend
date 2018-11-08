@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import photo from 'src/assets/images/1.png';
 import { Link } from 'react-router-dom';
+import Container from 'react-bootstrap/lib/Container';
+import { MdHome } from 'react-icons/md';
 import { mount, testGetDataAsync } from './action';
 import style from './style.scss';
 
@@ -23,15 +25,18 @@ class Home extends Component {
   render() {
     const { time } = this.props;
     return (
-      <div className={`common-container ${style.container}`}>
-        <h1>HOME</h1>
+      <Container className={`common-container ${style.container}`}>
+        <h1>
+          <MdHome />
+          HOME
+        </h1>
         <span>
           Time
           { new Date(time).toISOString() }
         </span>
         <Link to="contact">Contact</Link>
         <img className={style.photo} src={photo} alt="" />
-      </div>
+      </Container>
     );
   }
 }
@@ -43,10 +48,13 @@ const mapDispatch = dispatch => ({
   testGetDataAsyncBound: bindActionCreators(testGetDataAsync, dispatch),
 });
 
+Home.defaultProps = {
+  time: new Date(),
+};
 Home.propTypes = {
   mountBound: PropTypes.func.isRequired,
   testGetDataAsyncBound: PropTypes.func.isRequired,
-  time: PropTypes.string.isRequired,
+  time: PropTypes.object,
 };
 
 export default connect(mapState, mapDispatch)(Home);
