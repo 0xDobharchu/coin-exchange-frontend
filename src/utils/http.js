@@ -21,14 +21,14 @@ instance.interceptors.response.use(
     try {
       const { response } = error;
       console.warn('Response error', error);
-      return Promise.reject(new Error({
+      return Promise.reject({
         error: true,
-        code: error?.code,
         status: response?.status,
         data: response?.data,
-      }));
+        statusText: response?.statusText,
+      });
     } catch (e) {
-      return Promise.reject(new Error(e));
+      return Promise.reject(e);
     }
   },
 );

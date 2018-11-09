@@ -13,7 +13,7 @@ class Home extends Component {
   componentWillMount() {
     const { mountBound, testGetDataAsyncBound } = this.props;
     mountBound();
-    testGetDataAsyncBound('json');
+    testGetDataAsyncBound('json').then(console.log).catch(console.error);
   }
 
   render() {
