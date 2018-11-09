@@ -21,6 +21,10 @@
     "__CLIENT__": true
   },
   "rules": {
+    "react/destructuring-assignment": 1,
+    "react/prop-types": 1,
+    "prefer-promise-reject-errors": 0,
+    "react/sort-comp": 0,
     "react/forbid-prop-types": 0,
     "import/prefer-default-export": 0,
     "import/no-unresolved": 0,

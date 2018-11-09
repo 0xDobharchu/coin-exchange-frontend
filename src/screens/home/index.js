@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import photo from 'src/assets/images/1.png';
+import photo from 'src/assets/images/ninja-header-black.svg';
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/lib/Container';
 import { MdHome } from 'react-icons/md';
@@ -13,7 +13,7 @@ class Home extends Component {
   componentWillMount() {
     const { mountBound, testGetDataAsyncBound } = this.props;
     mountBound();
-    testGetDataAsyncBound('json');
+    testGetDataAsyncBound('json').then(console.log).catch(console.error);
   }
 
   render() {
