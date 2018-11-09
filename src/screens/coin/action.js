@@ -1,10 +1,11 @@
 import { makeRequest } from 'src/redux/action';
-import { API_URL } from 'src/resources/constants/url';
+// import { API_URL } from 'src/resources/constants/url';
 import { GET_REVIEW, GET_BUY_PRICE, GET_SELL_PRICE } from './type';
 
-export const getReview = () => makeRequest({
+export const getReview = params => makeRequest({
   type: GET_REVIEW,
-  url: API_URL.INTERNAL.REVIEW_COIN_ORDER,
+  url: '',
+  params
 });
 
 export const coinGetSellPrice = () => makeRequest({

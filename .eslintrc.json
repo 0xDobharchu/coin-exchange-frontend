@@ -21,6 +21,7 @@
     "__CLIENT__": true
   },
   "rules": {
+    "react/jsx-one-expression-per-line": 0,
     "react/destructuring-assignment": 1,
     "react/prop-types": 1,
     "prefer-promise-reject-errors": 0,

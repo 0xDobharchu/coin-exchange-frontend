@@ -14,15 +14,20 @@ const makeAction = ({ type, data, dispatchType }) => {
   };
 };
 
-export const makeRequest = (params = {}) => {
+export const makeRequest = (config = {}) => {
   const {
-    type, url, method, data, onSuccess, onError
-  } = params;
+    type, url, method, data, onSuccess, onError, params
+  } = config;
   const METHOD = method ? String(method).toLowerCase() : 'get';
   return async (dispatch) => {
     dispatch(makeAction({ type, dispatchType: DISPATCH_TYPE.CALLING, data: { payload: data, url, method: METHOD } }));
     try {
-      const res = await http[METHOD](url, data);
+      const res = await http({
+        url,
+        method: METHOD,
+        data,
+        params
+      });
       if (res) {
         dispatch(makeAction({ type, data: res, dispatchType: DISPATCH_TYPE.SUCCESS }));
         if (typeof onSuccess === 'function') {

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Review from 'src/components/dump';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getReview } from 'src/screens/coin/action';
 import Contact from './contact';
 import Header from './header';
 import PricePanel from './pricePanel';
+import Review from './reviewList';
 import styles from './styles.scss';
 
 class CoinDesktop extends Component {
