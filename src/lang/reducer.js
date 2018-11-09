@@ -4,12 +4,12 @@ const initState = {
 };
 
 export default (state = initState, { type, payload }) => {
-  switch(type) {
-    case CHANGE_LANG: 
+  switch (type) {
+    case CHANGE_LANG:
       return {
         lang: payload
       };
-  default:
-    return state;
+    default:
+      return state;
   }
 };

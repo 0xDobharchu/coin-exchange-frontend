@@ -4,11 +4,13 @@ import { FormattedMessage } from 'react-intl';
 
 class LabelLang extends PureComponent {
   render() {
+    // eslint-disable-next-line
     return (<FormattedMessage id={this.props.id} />);
   }
 }
 
 const mapState = state => ({
   lang: state.langReducer.lang || 'en'
-})
+});
+
 export default connect(mapState, null)(LabelLang);

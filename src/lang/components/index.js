@@ -1,3 +1,3 @@
-import LabelLang from './LabelLang';
+import Label from './LabelLang';
 
-export const LabelLang;
+export const LabelLang = Label;

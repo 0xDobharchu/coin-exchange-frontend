@@ -1,7 +1,4 @@
 export default {
-  'appTitle': 'Tieu De ngon ngu viet',
-  'helloWorld': 'Xin Chao',
-  'app': {
-    'title': 'TILTE APP HERE'
-  }
-}
+  appTitle: 'Tieu De ngon ngu viet',
+  helloWorld: 'Xin Chao',
+};

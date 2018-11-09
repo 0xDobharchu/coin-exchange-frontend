@@ -1,10 +1,8 @@
 import Home from 'src/screens/home';
 import Contact from 'src/screens/contact';
+import Localization from 'src/screens/localization';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
-import Home from "src/screens/home";
-import Contact from "src/screens/contact";
-import Localization from "src/screens/localization";
 
 const routes = [
   {
@@ -23,7 +21,7 @@ const routes = [
     exact: true,
   },
   {
-    path: "/localization",
+    path: '/localization',
     component: Localization,
     exact: true,
   },

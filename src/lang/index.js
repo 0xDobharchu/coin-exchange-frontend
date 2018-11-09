@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { connect } from 'react-redux';
-import { changeLang } from './action';
 import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
 import zh from 'react-intl/locale-data/zh';
@@ -12,6 +12,9 @@ import ru from 'react-intl/locale-data/ru';
 import es from 'react-intl/locale-data/es';
 import vi from 'react-intl/locale-data/vi';
 import messages from './messages';
+import { changeLang } from './action';
+
+
 addLocaleData([...en, ...fr, ...zh, ...de, ...ja, ...ko, ...ru, ...es, ...vi]);
 // let lang = 'vi';
 
@@ -38,22 +41,28 @@ if (!window.Intl) {
     require('intl/locale-data/jsonp/ja.js');
     require('intl/locale-data/jsonp/ko.js');
     require('intl/locale-data/jsonp/ru.js');
-  })
+  });
 }
 
-class IntlCustomProvider extends Component {
-  render() {
-    const { lang } = this.props;
-    console.log('===IntlCustomProvider', lang, messages[lang]);
-    return (
-      <IntlProvider locale={lang} messages={messages[lang]} >
-        {this.props.children}
-      </IntlProvider>
-    );
-  }
-}
+// eslint-disable-next-line
+const IntlCustomProvider = ({ lang, children }) => (
+  <IntlProvider locale={lang} messages={messages[lang]}>
+    {children}
+  </IntlProvider>
+);
+
+IntlCustomProvider.defaultProps = {
+  lang: 'en',
+  children: {}
+};
+
+IntlCustomProvider.propsType = {
+  lang: PropTypes.string.isRequired,
+  children: PropTypes.object,
+};
+
 const mapState = state => ({
   lang: state.langReducer.lang || 'en'
-})
-const mapDispatch = { changeLang }
-export default connect(mapState, mapDispatch)(IntlCustomProvider)
+});
+const mapDispatch = { changeLang };
+export default connect(mapState, mapDispatch)(IntlCustomProvider);

@@ -8,7 +8,6 @@ import Container from 'react-bootstrap/lib/Container';
 import { MdHome } from 'react-icons/md';
 import { mount, testGetDataAsync } from './action';
 import style from './style.scss';
-import { FormattedMessage } from 'react-intl';
 
 class Home extends Component {
   componentWillMount() {
