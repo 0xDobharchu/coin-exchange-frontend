@@ -1,0 +1,6 @@
+/dist/**
+/node_modules/**
+!.eslintrc.js
+src/service-worker.js
+src/sw.js
+workbox-config.js

@@ -18,7 +18,7 @@ import { changeLang } from './action';
 addLocaleData([...en, ...fr, ...zh, ...de, ...ja, ...ko, ...ru, ...es, ...vi]);
 // let lang = 'vi';
 
-if (!window.Intl) {
+if (!__SERVER__ && !window.Intl) {
   require.ensure([
     'intl',
     'intl/locale-data/jsonp/en.js',

@@ -4,6 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// const WorkboxPlugin = require('workbox-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
@@ -20,6 +21,7 @@ module.exports = merge(isDev ? devConfig : prodConfig, {
   devServer: isDev ? {
     port: 1337,
     publicPath: PUBLIC_PATH,
+    historyApiFallback: true,
     // contentBase: path.resolve(__dirname, 'src'),
     compress: true, // enable gzip compression
     // historyApiFallback: true, // true for index.html upon 404, object for multiple paths

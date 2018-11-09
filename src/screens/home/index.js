@@ -14,12 +14,6 @@ class Home extends Component {
     const { mountBound, testGetDataAsyncBound } = this.props;
     mountBound();
     testGetDataAsyncBound('json');
-    if (__SERVER__) {
-      console.log(`This render from server __SERVER__=${__SERVER__}`);
-    }
-    if (__CLIENT__) {
-      console.log(`This render from client __CLIENT__=${__CLIENT__}`);
-    }
   }
 
   render() {
@@ -30,6 +24,11 @@ class Home extends Component {
           <MdHome />
           HOME
         </h1>
+        <span>
+          This was rendered on
+          {__CLIENT__ && 'Client'}
+          {__SERVER__ && 'Server'}
+        </span>
         <span>
           Time
           { new Date(time).toISOString() }

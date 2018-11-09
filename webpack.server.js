@@ -1,6 +1,7 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const merge = require('webpack-merge');
+const webpack = require('webpack');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const prodConfig = require('./webpack.prod');
 
@@ -27,6 +28,10 @@ module.exports = merge(prodConfig, {
   },
   plugins: [
     ...(!isDev ? [new CleanWebpackPlugin(path.resolve(__dirname, 'dist/server'))] : []),
+    new webpack.DefinePlugin({
+      __CLIENT__: false,
+      __SERVER__: true
+    }),
   ],
   optimization: {
     minimizer: [
