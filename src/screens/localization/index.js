@@ -17,14 +17,16 @@ class Localization extends Component {
     this.setState({ isEng: !this.state.isEng});
     this.changeLang(newLang ? 'en' : 'vi')
   }
-  changeLang = (newlang) => this.props.changeLang(newlang);
+  changeLang = newlang => this.props.changeLang(newlang);
+  showBtnText = () => 'Click to change to ' + (this.state.isEng ? 'Vietnam' : 'English');
+
   render() {
     return (<div className={style.container}>
-      <button onClick={this.toggleLang}>{this.state.isEng ? 'Change to Vietnam' : 'Change to English'}</button>
-      <div style={{ display: 'flex', justifyContent: 'center', padding: 10 }}>Test Multi languages</div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', padding: 10 }}>
-        <div style={{ display: 'flex'}}><BestHandleLang /></div>
-        <div style={{ display: 'flex'}}><BadHandleLang /></div>
+      <button className={style.btn} onClick={this.toggleLang}>{this.showBtnText()}</button>
+      <div className={style.title}>Test Multi languages</div>
+      <div className={style.mainBox}>
+        <div className={style.boxGreen}><BestHandleLang /></div>
+        <div className={style.boxRed}><BadHandleLang /></div>
       </div>
     </div>)
   }
