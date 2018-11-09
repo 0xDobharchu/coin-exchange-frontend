@@ -1,8 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const commonConfig = require('./webpack.common');
 const merge = require('webpack-merge');
+const commonConfig = require('./webpack.common');
 
 const cssLoader = [
   {
@@ -18,13 +18,13 @@ const cssLoader = [
   },
 ];
 module.exports = merge(commonConfig, {
-  mode: "production",
+  mode: 'production',
   output: {
     // options related to how webpack emits results
-    path: path.resolve(__dirname, "dist"), // string
+    path: path.resolve(__dirname, 'dist'), // string
     // the target directory for all output files
     // must be an absolute path (use the Node.js path module)
-    filename: "[hash:8].js", // string    // the filename template for entry chunks
+    filename: '[hash:8].js', // string    // the filename template for entry chunks
     // the name of the exported library
   },
   module: {
@@ -42,14 +42,14 @@ module.exports = merge(commonConfig, {
                 loader: 'file-loader',
                 options: {
                   outputPath: 'assets',
-                  name(file) {
+                  name() {
                     return '[name]-[hash:8].[ext]';
-                  }
-                }
-              }
-            }
-          }
-        ]
+                  },
+                },
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
@@ -64,18 +64,18 @@ module.exports = merge(commonConfig, {
       },
     ],
   },
-  devtool: "source-map",
+  devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
       title: 'Ninja Project',
       template: path.resolve(__dirname, 'src/template/app.html'),
       hash: true,
-      minify: true
+      minify: true,
     }),
     new MiniCssExtractPlugin({
-      filename: "assets/main.[hash:8].css",
-      chunkFilename: "assets/[id].css"
-    })
+      filename: 'assets/main.[hash:8].css',
+      chunkFilename: 'assets/[id].css',
+    }),
   ],
 });

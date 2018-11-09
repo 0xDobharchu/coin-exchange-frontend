@@ -8,26 +8,43 @@ module.exports = {
       {
         test: /\.js[x]?$/,
         include: [
-          path.resolve(__dirname, "src")
+          path.resolve(__dirname, 'src')
         ],
         exclude: /(node_modules|bower_components)/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             presets: [
-              "@babel/preset-react",
+              '@babel/preset-react',
               ['@babel/preset-env', {
                 shippedProposals: true, // to support spread operators
                 forceAllTransforms: true
               }],
             ],
             plugins: [
-              "@babel/plugin-syntax-dynamic-import",
-              "transform-function-bind",
-              ["transform-class-properties", { "spec": true }],
-              "@babel/plugin-proposal-optional-chaining",
-              ["@babel/plugin-transform-runtime", {
-                "regenerator": true
+              ['transform-imports', {
+                'react-bootstrap': {
+                  // eslint-disable-next-line
+                  transform: 'react-bootstrap/lib/${member}',
+                  preventFullImport: true
+                },
+                lodash: {
+                  // eslint-disable-next-line
+                  transform: 'lodash/${member}',
+                  preventFullImport: true
+                },
+                'react-icons': {
+                  // eslint-disable-next-line
+                  transform: 'react-icons/md/${member}',
+                  preventFullImport: true
+                }
+              }],
+              '@babel/plugin-syntax-dynamic-import',
+              'transform-function-bind',
+              ['transform-class-properties', { spec: true }],
+              '@babel/plugin-proposal-optional-chaining',
+              ['@babel/plugin-transform-runtime', {
+                regenerator: true
               }],
             ],
           }
@@ -40,4 +57,4 @@ module.exports = {
       src: path.resolve(__dirname, 'src'),
     }
   },
-}
+};

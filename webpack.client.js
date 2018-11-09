@@ -1,19 +1,20 @@
-const prodConfig = require('./webpack.prod');
-const devConfig = require('./webpack.dev');
 const merge = require('webpack-merge');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
 const isDev = process.env.NODE_ENV === 'development';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
+const prodConfig = require('./webpack.prod');
+const devConfig = require('./webpack.dev');
 
 module.exports = merge(isDev ? devConfig : prodConfig, {
-  entry: "./src/client", // string | object | array  // defaults to './src'
+  entry: './src/client', // string | object | array  // defaults to './src'
   output: {
     // options related to how webpack emits results
-    path: path.resolve(__dirname, "dist/client/"), // string
+    path: path.resolve(__dirname, 'dist/client/'), // string
     publicPath: PUBLIC_PATH,
   },
   devServer: isDev ? {
@@ -29,7 +30,7 @@ module.exports = merge(isDev ? devConfig : prodConfig, {
   } : {},
   context: __dirname, // string (absolute path!)
   // the home directory for webpack
-  target: "web", // enum  // the environment in which the bundle should run
+  target: 'web', // enum  // the environment in which the bundle should run
   // changes chunk loading behavior and available modules
   // lets you provide options for webpack-serve
   plugins: [

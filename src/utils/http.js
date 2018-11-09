@@ -8,7 +8,7 @@ const instance = axios.create({
 
 // Add a response interceptor
 instance.interceptors.response.use(
-  function(response) {
+  (response) => {
     try {
       const { data } = response;
       console.info('Response', response);
@@ -17,18 +17,18 @@ instance.interceptors.response.use(
       return null;
     }
   },
-  function(error) {
+  (error) => {
     try {
       const { response } = error;
       console.warn('Response error', error);
-      return Promise.reject({
+      return Promise.reject(new Error({
         error: true,
         code: error?.code,
         status: response?.status,
         data: response?.data,
-      });
+      }));
     } catch (e) {
-      return Promise.reject(null);
+      return Promise.reject(new Error(e));
     }
   },
 );
