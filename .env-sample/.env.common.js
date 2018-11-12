@@ -1,5 +1,4 @@
 module.exports = {
-    title: '',
     BASE_API_URL: "",
     CDN_URL: "",
     GOOGLE_API_KEY: '',
@@ -11,5 +10,5 @@ module.exports = {
       storageBucket: '',
       messagingSenderId: '',
     },
-    dropConsole: false
+    dropConsole: true
   };
