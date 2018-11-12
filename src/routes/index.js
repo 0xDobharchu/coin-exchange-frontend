@@ -1,5 +1,7 @@
 import Home from 'src/screens/home';
 import Contact from 'src/screens/contact';
+import Login from 'src/screens/login';
+import Register from 'src/screens/register';
 import Coin from 'src/screens/coin';
 import Localization from 'src/screens/localization';
 import routeWrapper from './routeWraper';
@@ -19,6 +21,16 @@ const routes = [
   {
     path: '/contact',
     component: Contact,
+    exact: true,
+  },
+  {
+    path: '/login',
+    component: Login,
+    exact: true,
+  },
+  {
+    path: '/register',
+    component: Register,
     exact: true,
   },
   {

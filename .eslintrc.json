@@ -38,6 +38,13 @@
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "no-console": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "jsx-a11y/label-has-for": [ 1, {
+      "components": [ "Label" ],
+      "required": {
+        "every": [ "nesting", "id" ]
+      },
+      "allowChildren": false
+    }]
   }
 }

@@ -34,6 +34,7 @@ class Home extends Component {
           { new Date(time).toISOString() }
         </span>
         <Link to="contact">Contact</Link>
+        <Link to="login">Login</Link>
         <Link to="localization">Localization</Link>
         <img className={style.photo} src={photo} alt="" />
       </Container>
