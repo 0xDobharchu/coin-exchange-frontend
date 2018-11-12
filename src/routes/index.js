@@ -1,5 +1,6 @@
 import Home from 'src/screens/home';
 import Contact from 'src/screens/contact';
+import Coin from 'src/screens/coin';
 import Localization from 'src/screens/localization';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
@@ -8,6 +9,11 @@ const routes = [
   {
     path: '/',
     component: Home,
+    exact: true,
+  },
+  {
+    path: '/coin',
+    component: Coin,
     exact: true,
   },
   {

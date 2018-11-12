@@ -22,6 +22,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
+    "bignumber.js": "^8.0.1",
     "bootstrap": "^4.1.3",
     "express": "^4.16.4",
     "intl": "^1.2.5",
