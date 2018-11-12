@@ -9,7 +9,7 @@ export default class BestHandleLang extends PureComponent {
       <div className={style.horizontal}>
         <div>Best Sample</div>
         {Date.now()}
-        <LabelLang id="helloWorld" />
+        <LabelLang id="app.title" />
       </div>
     );
   }
