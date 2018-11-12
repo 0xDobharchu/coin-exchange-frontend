@@ -35,6 +35,7 @@ class Home extends Component {
         </span>
         <Link to="contact">Contact</Link>
         <Link to="localization">Localization</Link>
+        <Link to="me">Localization</Link>
         <img className={style.photo} src={photo} alt="" />
       </Container>
     );
