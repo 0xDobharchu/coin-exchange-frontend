@@ -4,6 +4,13 @@ const merge = require('webpack-merge');
 const webpack = require('webpack');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const prodConfig = require('./webpack.prod');
+const commonEnv = require('./.env.common');
+const serverEnv = require('./.env.server');
+
+const env = {
+  ...commonEnv,
+  ...serverEnv
+};
 
 const isDev = process.env.NODE_ENV === 'development';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
@@ -29,6 +36,7 @@ module.exports = merge(prodConfig, {
   plugins: [
     ...(!isDev ? [new CleanWebpackPlugin(path.resolve(__dirname, 'dist/server'))] : []),
     new webpack.DefinePlugin({
+      'process.env': JSON.stringify(env),
       __CLIENT__: false,
       __SERVER__: true
     }),

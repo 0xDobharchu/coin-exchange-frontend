@@ -10,6 +10,13 @@ const isDev = process.env.NODE_ENV === 'development';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
 const prodConfig = require('./webpack.prod');
 const devConfig = require('./webpack.dev');
+const commonEnv = require('./.env.common');
+const clientEnv = require('./.env.client');
+
+const env = {
+  ...commonEnv,
+  ...clientEnv
+};
 
 module.exports = merge(isDev ? devConfig : prodConfig, {
   entry: './src/client', // string | object | array  // defaults to './src'
@@ -38,6 +45,7 @@ module.exports = merge(isDev ? devConfig : prodConfig, {
   plugins: [
     ...(!isDev ? [new CleanWebpackPlugin(path.resolve(__dirname, 'dist/client'))] : []),
     new webpack.DefinePlugin({
+      'process.env': JSON.stringify(env),
       __CLIENT__: true,
       __SERVER__: false
     }),
