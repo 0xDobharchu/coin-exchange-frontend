@@ -58,7 +58,7 @@ module.exports = merge(isDev ? devConfig : prodConfig, {
         uglifyOptions: {
           compress: {
             // Drop console statements
-            drop_console: true
+            drop_console: env.dropConsole || true,
           },
           // Eliminate comments
           comments: false,
