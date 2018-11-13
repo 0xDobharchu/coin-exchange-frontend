@@ -1,7 +1,12 @@
+import { REGISTER } from './type';
+import { makeRequest } from '../../redux/action';
+
 function register(user) {
-  return (dispatch) => {
-    console.log(dispatch, user);
-  };
+  return makeRequest({
+    type: REGISTER,
+    url: '/json',
+    data: user
+  });
 }
 export const userActions = {
   register,

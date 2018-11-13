@@ -21,4 +21,10 @@ export const testGetDataAsyncWithDispatch = data => (dispatch) => {
 export const testGetDataAsyncShorthand = data => makeRequest({
   type: TEST_GET_DATA_ASYNC,
   url: `/${data}`,
+  onSuccess: () => {
+    console.log(123);
+  },
+  onError: (err) => {
+    console.log(err);
+  }
 });

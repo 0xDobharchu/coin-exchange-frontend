@@ -1,52 +1,47 @@
-
 import localStore from '@/services/localStore';
-import { Bitcoin } from '@/services/Wallets/Bitcoin.js';
-import { BitcoinCash } from '@/services/Wallets/BitcoinCash.js';
-import { BitcoinCashTestnet } from '@/services/Wallets/BitcoinCashTestnet.js';
-import { BitcoinTestnet } from '@/services/Wallets/BitcoinTestnet.js';
-import { Ethereum } from '@/services/Wallets/Ethereum.js';
-import { Wallet } from '@/services/Wallets/Wallet.js';
-import { TokenERC20 } from '@/services/Wallets/Tokens/TokenERC20';
-import { Shuriken } from '@/services/Wallets/Tokens/Shuriken.js';
-import { TokenERC721 } from '@/services/Wallets/Collectibles/TokenERC721';
-import { CryptoPunks } from '@/services/Wallets/Collectibles/CryptoPunks';
-import { CryptoStrikers } from '@/services/Wallets/Collectibles/CryptoStrikers';
-import { CryptoKitties } from '@/services/Wallets/Collectibles/CryptoKitties';
-import { Axie } from '@/services/Wallets/Collectibles/Axie';
-import { BlockchainCuties } from '@/services/Wallets/Collectibles/BlockchainCuties';
-import { ChibiFighters } from '@/services/Wallets/Collectibles/ChibiFighters';
-import { CryptoClown } from '@/services/Wallets/Collectibles/CryptoClown';
-import { CryptoCrystal } from '@/services/Wallets/Collectibles/CryptoCrystal';
-import { Cryptogs } from '@/services/Wallets/Collectibles/Cryptogs';
-import { CryptoHorse } from '@/services/Wallets/Collectibles/CryptoHorse';
-import { CryptoSoccr } from '@/services/Wallets/Collectibles/CryptoSoccr';
-import { CryptoZodiacs } from '@/services/Wallets/Collectibles/CryptoZodiacs';
-import { CSCPreSaleFactory } from '@/services/Wallets/Collectibles/CSCPreSaleFactory';
-import { DopeRaider } from '@/services/Wallets/Collectibles/DopeRaider';
-import { Etherbots } from '@/services/Wallets/Collectibles/Etherbots';
-import { EtheremonAsset } from '@/services/Wallets/Collectibles/EtheremonAsset';
-import { EtherLambos } from '@/services/Wallets/Collectibles/EtherLambos';
-import { ExoPlanets } from '@/services/Wallets/Collectibles/ExoPlanets';
-import { Giftomon } from '@/services/Wallets/Collectibles/Giftomon';
-import { HelloDog } from '@/services/Wallets/Collectibles/HelloDog';
-import { OxcertKYC } from '@/services/Wallets/Collectibles/OxcertKYC';
-import { PandaEarth } from '@/services/Wallets/Collectibles/PandaEarth';
-import { PirateKittyToken } from '@/services/Wallets/Collectibles/PirateKittyToken';
-import { UnicornGO } from '@/services/Wallets/Collectibles/UnicornGO';
-import { WarToken } from '@/services/Wallets/Collectibles/WarToken';
+import {Bitcoin} from '@/services/Wallets/Bitcoin.js';
+import {BitcoinCash} from '@/services/Wallets/BitcoinCash.js';
+import {BitcoinCashTestnet} from '@/services/Wallets/BitcoinCashTestnet.js';
+import {BitcoinTestnet} from '@/services/Wallets/BitcoinTestnet.js';
+import {Ethereum} from '@/services/Wallets/Ethereum.js';
+import {Wallet} from '@/services/Wallets/Wallet.js';
+import {TokenERC20} from '@/services/Wallets/Tokens/TokenERC20';
+import {Shuriken} from '@/services/Wallets/Tokens/Shuriken.js';
+import {TokenERC721} from '@/services/Wallets/Collectibles/TokenERC721';
+import {CryptoPunks} from '@/services/Wallets/Collectibles/CryptoPunks';
+import {CryptoStrikers} from '@/services/Wallets/Collectibles/CryptoStrikers';
+import {CryptoKitties} from '@/services/Wallets/Collectibles/CryptoKitties';
+import {Axie} from '@/services/Wallets/Collectibles/Axie';
+import {BlockchainCuties} from '@/services/Wallets/Collectibles/BlockchainCuties';
+import {ChibiFighters} from '@/services/Wallets/Collectibles/ChibiFighters';
+import {CryptoClown} from '@/services/Wallets/Collectibles/CryptoClown';
+import {CryptoCrystal} from '@/services/Wallets/Collectibles/CryptoCrystal';
+import {Cryptogs} from '@/services/Wallets/Collectibles/Cryptogs';
+import {CryptoHorse} from '@/services/Wallets/Collectibles/CryptoHorse';
+import {CryptoSoccr} from '@/services/Wallets/Collectibles/CryptoSoccr';
+import {CryptoZodiacs} from '@/services/Wallets/Collectibles/CryptoZodiacs';
+import {CSCPreSaleFactory} from '@/services/Wallets/Collectibles/CSCPreSaleFactory';
+import {DopeRaider} from '@/services/Wallets/Collectibles/DopeRaider';
+import {Etherbots} from '@/services/Wallets/Collectibles/Etherbots';
+import {EtheremonAsset} from '@/services/Wallets/Collectibles/EtheremonAsset';
+import {EtherLambos} from '@/services/Wallets/Collectibles/EtherLambos';
+import {ExoPlanets} from '@/services/Wallets/Collectibles/ExoPlanets';
+import {Giftomon} from '@/services/Wallets/Collectibles/Giftomon';
+import {HelloDog} from '@/services/Wallets/Collectibles/HelloDog';
+import {OxcertKYC} from '@/services/Wallets/Collectibles/OxcertKYC';
+import {PandaEarth} from '@/services/Wallets/Collectibles/PandaEarth';
+import {PirateKittyToken} from '@/services/Wallets/Collectibles/PirateKittyToken';
+import {UnicornGO} from '@/services/Wallets/Collectibles/UnicornGO';
+import {WarToken} from '@/services/Wallets/Collectibles/WarToken';
 
-import { APP, BASE_API } from '@/constants';
-import Helper, { StringHelper } from '@/services/helper';
-import Neuron from '@/services/neuron/Neutron';
+// import {APP, BASE_API} from '@/constants';
+import Helper, {StringHelper} from '@/services/helper';
+// import Neuron from '@/services/neuron/Neutron';
 import axios from 'axios';
-import { isEqual } from '@/utils/array.js';
-import qs from 'qs';
-import { Ripple } from '@/services/Wallets/Ripple.js';
+import {Ripple} from '@/services/Wallets/Ripple.js';
 
 const bip39 = require('bip39');
-
-const CryptoJS = require('crypto-js');
-const SHA256 = require('crypto-js/sha256');
+const crypto = require('crypto');
 
 export class MasterWallet {
     // list coin is supported, can add some more Ripple ...
@@ -92,9 +87,9 @@ export class MasterWallet {
 
     static ListCoinReward = { Ethereum, Bitcoin };
 
-    static neutronMainNet = new Neuron(1);
+    // static neutronMainNet = new Neuron(1);
 
-    static neutronTestNet = new Neuron(4);
+    // static neutronTestNet = new Neuron(4);
 
     static KEY = 'wallets';
 
@@ -104,7 +99,7 @@ export class MasterWallet {
 
     // Create an autonomous wallet:
 
-    static createMasterWallets() {
+    static createMasterWallets(password) {
       const t0 = performance.now();
 
       // let mnemonic = 'canal marble trend ordinary rookie until combine hire rescue cousin issue that';
@@ -161,66 +156,22 @@ export class MasterWallet {
       // }
 
       // Save to local store:
-      MasterWallet.UpdateLocalStore(masterWallet);
+     /// MasterWallet.UpdateLocalStore(masterWallet);
 
       const t1 = performance.now();
 
       MasterWallet.log(`Call to createMasterWallet took ${t1 - t0} milliseconds.`);
-
-      return masterWallet;
+      const masterWalletEncrypt = MasterWallet.encrypt(masterWallet, password);
+      return {
+        masterWallet: masterWalletEncrypt,
+      };
     }
 
-    // return list coin temp for create/import:
-    static getListCoinTemp() {
-      const tempWallet = [];
-      for (const k1 in MasterWallet.ListDefaultCoin) {
-        for (const k2 in MasterWallet.ListDefaultCoin[k1].Network) {
-          // check production, only get mainnet:
-          if (process.env.isLive && k2 != 'Mainnet') {
-            break;
-          }
-          const wallet = new MasterWallet.ListDefaultCoin[k1]();
-          wallet.network = MasterWallet.ListCoin[k1].Network[k2];
-          tempWallet.push(wallet);
-        }
-      }
-      if (tempWallet.length > 0) tempWallet[0].default = true;
-      return tempWallet;
+    static hashPassword(password) {
+      const hash = crypto.createHash('sha256');
+      hash.update(password);
+      return hash.digest('hex');
     }
-
-    // for create new wallets:
-    static createNewsallets(listCoinTemp, mnemonic) {
-      let isImport = false;
-      if (mnemonic == '') {
-        mnemonic = bip39.generateMnemonic(); // generates string
-      } else if (!bip39.validateMnemonic(mnemonic)) {
-        return false;
-      } else {
-        isImport = true;
-      }
-      const masterWallet = MasterWallet.getMasterWallet();
-      listCoinTemp.forEach((wallet) => {
-        if (wallet.default) {
-          wallet.default = false;
-          wallet.mnemonic = mnemonic;
-          wallet.protected = isImport;
-          // create address, private-key ...
-          wallet.createAddressPrivatekey();
-          masterWallet.push(wallet);
-        }
-      });
-      MasterWallet.UpdateLocalStore(masterWallet, true);
-      return masterWallet;
-    }
-
-    static AddToken(newToken) {
-      const wallets = MasterWallet.getWalletDataLocalString();
-      if (wallets === false) return false;
-      wallets.push(JSON.parse(JSON.stringify(newToken)));
-      MasterWallet.UpdateLocalStore(wallets, true);
-      return true;
-    }
-
     static UpdateLocalStore(masterWallet, sync = false) {
       // encrypt wallet:
       const encryptWalletData = MasterWallet.encrypt(JSON.stringify(masterWallet));
@@ -704,95 +655,48 @@ export class MasterWallet {
       return false;
     }
 
-    static convertToJsonETH(wallet) {
-      if (wallet !== false) {
-        const {
-          address, name, chainId,
-        } = wallet;
-        return JSON.stringify({
-          ETH: {
-            address, name, chainId,
-          },
-        });
-      }
-      return false;
-    }
-
-    static getShurikenWalletJson() {
-      const shuries = MasterWallet.getShuriWallet();
-      if (shuries !== false) {
-        const {
-          address, name, chainId,
-        } = shuries;
-        return JSON.stringify({
-          ETH: {
-            address, name, chainId,
-          },
-        });
-      }
-      return false;
-    }
-
-    static getRewardWalletJson() {
-      const walletReward = MasterWallet.getMasterWallet();
-      const reward_wallet_string = {};
-      walletReward.forEach((reward_wallet) => {
-        if (reward_wallet.isReward) {
-          reward_wallet_string[reward_wallet.name] = {
-            address: reward_wallet.address, name: reward_wallet.name, network: reward_wallet.network, chainId: reward_wallet.chainId,
-          };
-        }
-      });
-      return JSON.stringify(reward_wallet_string);
-    }
-
-    static encryptWalletsByPassword(password) {
-      try {
-        const wallets = MasterWallet.getWalletDataLocalString();
-        const ciphertext = CryptoJS.AES.encrypt(JSON.stringify(wallets), password);
-        return ciphertext.toString();
-      } catch (err) {
-        return false;
-      }
-    }
-
-    static decryptWalletsByPassword(ciphertext, password) {
-      try {
-        const bytes = CryptoJS.AES.decrypt(ciphertext, password);
-        const plaintext = bytes.toString(CryptoJS.enc.Utf8);
-        const walletsObject = MasterWallet.IsJsonString(plaintext);
-        return walletsObject;
-      } catch (err) {
-        return false;
-      }
-    }
-
     static log(data, key = MasterWallet.KEY) {
       console.log(`%c ${StringHelper.format('{0}: ', key)}`, 'background: #222; color: #bada55', data);
     }
 
-    static encrypt(message) {
-      try {
-        const WALLET_SECRET_KEY = process.env.WALLET_SECRET_KEY;
-        const ciphertext = CryptoJS.AES.encrypt(message, WALLET_SECRET_KEY);
-        return ciphertext.toString();
-      } catch (e) {
-        console.log('encrypt', e);
-        return false;
-      }
+    static encrypt(drawData, password) {
+      const hash = MasterWallet.hashPassword(password);
+      const cipher = crypto.createCipher('aes192', hash);
+      let encrypted = cipher.update(drawData, 'utf8', 'hex');
+      encrypted += cipher.final('hex');
+      return encrypted;
     }
 
-    static decrypt(ciphertext) {
-      try {
-        const WALLET_SECRET_KEY = process.env.WALLET_SECRET_KEY;
-        const bytes = CryptoJS.AES.decrypt(ciphertext, WALLET_SECRET_KEY);
-        const plaintext = bytes.toString(CryptoJS.enc.Utf8);
-        return plaintext;
-      } catch (e) {
-        console.log('decrypt', e);
-        return false;
-      }
+    static decrypte(encrypted, password) {
+      const hash = MasterWallet.hashPassword(password);
+      const decipher = crypto.createDecipher('aes192', hash);
+      let decrypted = decipher.update(encrypted, 'hex', 'utf8');
+      decrypted += decipher.final('utf8');
+      return decrypted;
     }
+
+    // static encrypt(message) {
+    //   try {
+    //     const WALLET_SECRET_KEY = process.env.WALLET_SECRET_KEY;
+    //     const ciphertext = CryptoJS.AES.encrypt(message, WALLET_SECRET_KEY);
+    //     return ciphertext.toString();
+    //   } catch (e) {
+    //     console.log('encrypt', e);
+    //     return false;
+    //   }
+    // }
+    //
+    // static decrypt(ciphertext) {
+    //   try {
+    //     const WALLET_SECRET_KEY = process.env.WALLET_SECRET_KEY;
+    //     const bytes = CryptoJS.AES.decrypt(ciphertext, WALLET_SECRET_KEY);
+    //     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    //     return plaintext;
+    //   } catch (e) {
+    //     console.log('decrypt', e);
+    //     return false;
+    //   }
+    // }
 
     /**
     * Get coin type from its wallet address
