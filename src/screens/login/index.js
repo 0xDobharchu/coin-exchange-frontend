@@ -1,66 +1,79 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { bindActionCreators } from 'redux';
+import { history } from 'src/utils/history';
+import createForm from 'src/components/core/form/createForm';
+import { Field, formValueSelector } from 'redux-form';
 import { userActions } from './action';
+import inputField, { inputValidator } from '../../components/core/form/fields/input';
+
+const LoginForm = createForm({
+  propsReduxForm: {
+    form: 'LoginForm',
+    initialValues: {
+      input: '',
+    },
+  },
+});
+
+const selectorForm = formValueSelector('LoginForm');
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
 
-    // reset login status
-    this.props.dispatch(userActions.logout());
-
     this.state = {
-      username: '',
-      password: '',
-      submitted: false
+      loggingIn: false
     };
 
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    this.setState({ submitted: true });
-    const { username, password } = this.state;
-    const { dispatch } = this.props;
+  handleSubmit() {
+    // e.preventDefault();
+    this.setState({ loggingIn: true });
+    const { username, password } = this.props;
     if (username && password) {
-      dispatch(userActions.login(username, password));
+      console.log(username, password);
+      this.props.loginBound(username, password).then((user) => {
+        console.log(user);
+        this.setState({ loggingIn: false });
+        history.push('/');
+      }, (err) => {
+        history.push('/');
+        this.setState({ loggingIn: false });
+        console.log(123, err);
+      });
     }
   }
 
   render() {
-    const { loggingIn } = this.props;
-    const { username, password, submitted } = this.state;
+    const { loggingIn } = this.state;
     return (
       <div className="row justify-content-md-center">
         <div className="col-md-6">
-          <h2>Login {submitted} </h2>
-          <form name="form" onSubmit={this.handleSubmit}>
-            <div className={`form-group${submitted && !username ? ' has-error' : ''}`}>
-              <label htmlFor={username}>
-                <input type="text" className="form-control" id="username" name="username" value={username} onChange={this.handleChange} />
-                  Username
-              </label>
-              {submitted && !username
-                        && <div className="help-block">Username is required</div>
-                        }
+          <h2>Login</h2>
+          <LoginForm onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
+              <Field
+                name="username"
+                className="form-control"
+                component={inputField}
+                validate={inputValidator}
+                type="text"
+              />
             </div>
-            <div className={`form-group${submitted && !password ? ' has-error' : ''}`}>
-              <label htmlFor="password">
-                <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
-                Password
-              </label>
-              {submitted && !password
-                        && <div className="help-block">Password is required</div>
-                        }
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <Field
+                name="password"
+                className="form-control"
+                component={inputField}
+                validate={inputValidator}
+                type="password"
+              />
             </div>
             <div className="form-group">
               <button type="submit" className="btn btn-primary">Login</button>
@@ -69,19 +82,21 @@ class Login extends React.Component {
                         }
               <Link to="/register" className="btn btn-link">Register</Link>
             </div>
-          </form>
+          </LoginForm>
         </div>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  const { loggingIn } = state?.authentication || {};
-  return {
-    loggingIn
-  };
-}
+const mapStateToProps = state => ({
+  username: selectorForm(state, 'username'),
+  password: selectorForm(state, 'password')
+});
 
-const connectedLoginPage = connect(mapStateToProps)(Login);
+const mapDispatch = dispatch => ({
+  loginBound: bindActionCreators(userActions.login, dispatch),
+});
+
+const connectedLoginPage = connect(mapStateToProps, mapDispatch)(Login);
 export default connectedLoginPage;
