@@ -36,6 +36,7 @@
     "hdkey": "^0.8.0",
     "history": "^4.7.2",
     "intl": "^1.2.5",
+    "js-cookie": "^2.2.0",
     "lodash": "^4.17.11",
     "md5": "^2.2.1",
     "mobile-detect": "^1.4.2",
@@ -69,6 +70,7 @@
     "ripple-lib-transactionparser": "github:0xngoubou/transactionparser",
     "rmc-tabs": "^1.2.27",
     "satoshi-bitcoin": "^1.0.4",
+    "tls": "^0.0.1",
     "web3": "1.0.0-beta.34"
   },
   "devDependencies": {

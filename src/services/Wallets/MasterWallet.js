@@ -1,45 +1,44 @@
-import localStore from 'src/services/localStore';
-import {Bitcoin} from 'src/services/Wallets/Bitcoin.js';
-import {BitcoinCash} from 'src/services/Wallets/BitcoinCash.js';
+import localStore from '@/services/localStore';
+import {Bitcoin} from '@/services/Wallets/Bitcoin.js';
+import {BitcoinCash} from '@/services/Wallets/BitcoinCash.js';
 import {BitcoinCashTestnet} from '@/services/Wallets/BitcoinCashTestnet.js';
-import {BitcoinTestnet} from 'src/services/Wallets/BitcoinTestnet.js';
-import {Ethereum} from 'src/services/Wallets/Ethereum.js';
-import {Wallet} from 'src/services/Wallets/Wallet.js';
-import {TokenERC20} from 'src/services/Wallets/Tokens/TokenERC20';
-import {Shuriken} from 'src/services/Wallets/Tokens/Shuriken.js';
-import {TokenERC721} from 'src/services/Wallets/Collectibles/TokenERC721';
-import {CryptoPunks} from 'src/services/Wallets/Collectibles/CryptoPunks';
-import {CryptoStrikers} from 'src/services/Wallets/Collectibles/CryptoStrikers';
-import {CryptoKitties} from 'src/services/Wallets/Collectibles/CryptoKitties';
-import {Axie} from 'src/services/Wallets/Collectibles/Axie';
-import {BlockchainCuties} from 'src/services/Wallets/Collectibles/BlockchainCuties';
-import {ChibiFighters} from 'src/services/Wallets/Collectibles/ChibiFighters';
-import {CryptoClown} from 'src/services/Wallets/Collectibles/CryptoClown';
-import {CryptoCrystal} from 'src/services/Wallets/Collectibles/CryptoCrystal';
-import {Cryptogs} from 'src/services/Wallets/Collectibles/Cryptogs';
-import {CryptoHorse} from 'src/services/Wallets/Collectibles/CryptoHorse';
-import {CryptoSoccr} from 'src/services/Wallets/Collectibles/CryptoSoccr';
-import {CryptoZodiacs} from 'src/services/Wallets/Collectibles/CryptoZodiacs';
-import {CSCPreSaleFactory} from 'src/services/Wallets/Collectibles/CSCPreSaleFactory';
-import {DopeRaider} from 'src/services/Wallets/Collectibles/DopeRaider';
-import {Etherbots} from 'src/services/Wallets/Collectibles/Etherbots';
-import {EtheremonAsset} from 'src/services/Wallets/Collectibles/EtheremonAsset';
-import {EtherLambos} from 'src/services/Wallets/Collectibles/EtherLambos';
-import {ExoPlanets} from 'src/services/Wallets/Collectibles/ExoPlanets';
-import {Giftomon} from 'src/services/Wallets/Collectibles/Giftomon';
-import {HelloDog} from 'src/services/Wallets/Collectibles/HelloDog';
-import {OxcertKYC} from 'src/services/Wallets/Collectibles/OxcertKYC';
-import {PandaEarth} from 'src/services/Wallets/Collectibles/PandaEarth';
-import {PirateKittyToken} from 'src/services/Wallets/Collectibles/PirateKittyToken';
-import {UnicornGO} from 'src/services/Wallets/Collectibles/UnicornGO';
-import {WarToken} from 'src/services/Wallets/Collectibles/WarToken';
+import {BitcoinTestnet} from '@/services/Wallets/BitcoinTestnet.js';
+import {Ethereum} from '@/services/Wallets/Ethereum.js';
+import {Wallet} from '@/services/Wallets/Wallet.js';
+import {TokenERC20} from '@/services/Wallets/Tokens/TokenERC20';
+import {Shuriken} from '@/services/Wallets/Tokens/Shuriken.js';
+import {TokenERC721} from '@/services/Wallets/Collectibles/TokenERC721';
+import {CryptoPunks} from '@/services/Wallets/Collectibles/CryptoPunks';
+import {CryptoStrikers} from '@/services/Wallets/Collectibles/CryptoStrikers';
+import {CryptoKitties} from '@/services/Wallets/Collectibles/CryptoKitties';
+import {Axie} from '@/services/Wallets/Collectibles/Axie';
+import {BlockchainCuties} from '@/services/Wallets/Collectibles/BlockchainCuties';
+import {ChibiFighters} from '@/services/Wallets/Collectibles/ChibiFighters';
+import {CryptoClown} from '@/services/Wallets/Collectibles/CryptoClown';
+import {CryptoCrystal} from '@/services/Wallets/Collectibles/CryptoCrystal';
+import {Cryptogs} from '@/services/Wallets/Collectibles/Cryptogs';
+import {CryptoHorse} from '@/services/Wallets/Collectibles/CryptoHorse';
+import {CryptoSoccr} from '@/services/Wallets/Collectibles/CryptoSoccr';
+import {CryptoZodiacs} from '@/services/Wallets/Collectibles/CryptoZodiacs';
+import {CSCPreSaleFactory} from '@/services/Wallets/Collectibles/CSCPreSaleFactory';
+import {DopeRaider} from '@/services/Wallets/Collectibles/DopeRaider';
+import {Etherbots} from '@/services/Wallets/Collectibles/Etherbots';
+import {EtheremonAsset} from '@/services/Wallets/Collectibles/EtheremonAsset';
+import {EtherLambos} from '@/services/Wallets/Collectibles/EtherLambos';
+import {ExoPlanets} from '@/services/Wallets/Collectibles/ExoPlanets';
+import {Giftomon} from '@/services/Wallets/Collectibles/Giftomon';
+import {HelloDog} from '@/services/Wallets/Collectibles/HelloDog';
+import {OxcertKYC} from '@/services/Wallets/Collectibles/OxcertKYC';
+import {PandaEarth} from '@/services/Wallets/Collectibles/PandaEarth';
+import {PirateKittyToken} from '@/services/Wallets/Collectibles/PirateKittyToken';
+import {UnicornGO} from '@/services/Wallets/Collectibles/UnicornGO';
+import {WarToken} from '@/services/Wallets/Collectibles/WarToken';
 
-import {APP, BASE_API} from 'src/constants';
-import Helper, {StringHelper} from 'src/services/helper';
-import Neuron from 'src/services/neuron/Neutron';
+// import {APP, BASE_API} from '@/constants';
+import Helper, {StringHelper} from '@/services/helper';
+// import Neuron from '@/services/neuron/Neutron';
 import axios from 'axios';
-import {isEqual} from 'src/utils/array.js';
-import {Ripple} from 'src/services/Wallets/Ripple.js';
+import {Ripple} from '@/services/Wallets/Ripple.js';
 
 const bip39 = require('bip39');
 const crypto = require('crypto');
@@ -88,9 +87,9 @@ export class MasterWallet {
 
     static ListCoinReward = { Ethereum, Bitcoin };
 
-    static neutronMainNet = new Neuron(1);
+    // static neutronMainNet = new Neuron(1);
 
-    static neutronTestNet = new Neuron(4);
+    // static neutronTestNet = new Neuron(4);
 
     static KEY = 'wallets';
 
