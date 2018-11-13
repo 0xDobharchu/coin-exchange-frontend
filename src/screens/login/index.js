@@ -48,15 +48,17 @@ class Login extends React.Component {
           <h2>Login {submitted} </h2>
           <form name="form" onSubmit={this.handleSubmit}>
             <div className={`form-group${submitted && !username ? ' has-error' : ''}`}>
-              <label htmlFor="username">Username</label>
-              <input type="text" className="form-control" id="username" name="username" value={username} onChange={this.handleChange} />
+              <label htmlFor="username">Username
+                <input type="text" className="form-control" id="username" name="username" value={username} onChange={this.handleChange} />
+              </label>
               {submitted && !username
                         && <div className="help-block">Username is required</div>
                         }
             </div>
             <div className={`form-group${submitted && !password ? ' has-error' : ''}`}>
-              <label htmlFor="password">Password</label>
-              <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
+              <label htmlFor="password">Password
+                <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
+              </label>
               {submitted && !password
                         && <div className="help-block">Password is required</div>
                         }
