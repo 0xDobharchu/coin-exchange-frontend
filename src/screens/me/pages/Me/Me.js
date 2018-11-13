@@ -1,13 +1,12 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import loadingSVG from 'src/assets/images/icon/loading.gif';
 import AvatarSVG from 'src/assets/images/icon/avatar.svg';
 import ExpandArrowSVG from 'src/assets/images/icon/expand-arrow.svg';
 import Image from 'src/components/core/presentation/Image';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { MyMessage } from 'src/lang/components';
 import style from './style.scss';
-
 
 class Me extends React.PureComponent {
   constructor(props) {
@@ -20,6 +19,9 @@ class Me extends React.PureComponent {
 
   render() {
     const { isLoading } = this.state;
+    const {
+      avatar, updateProfile, text, arrow
+    } = style;
     if (isLoading) {
       return (
         <div className={`discover-overlay ${isLoading ? 'show' : ''}`}>
@@ -32,13 +34,13 @@ class Me extends React.PureComponent {
         <div>
           <Row>
             <Col md={12}>
-              <Link className={style.updateProfile} to="/me/profile" title="profile">
-                <Image className="avatar" src={AvatarSVG} alt="avatar" />
-                <div className="text">
-                  <strong><FormattedMessage id="me.feed.profileTitle" /></strong>
-                  <p><FormattedMessage id="me.feed.profileDescription" /></p>
+              <Link className={updateProfile} to="/me/profile" title="profile">
+                <Image className={avatar} src={AvatarSVG} alt="avatar" />
+                <div className={text}>
+                  <strong><MyMessage id="me.feed.profileTitle" /></strong>
+                  <p><MyMessage id="me.feed.profileDescription" /></p>
                 </div>
-                <div className="arrow">
+                <div className={arrow}>
                   <Image src={ExpandArrowSVG} alt="arrow" />
                 </div>
               </Link>
