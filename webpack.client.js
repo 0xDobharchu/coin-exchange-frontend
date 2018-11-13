@@ -10,8 +10,8 @@ const isDev = process.env.NODE_ENV === 'development';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
 const prodConfig = require('./webpack.prod');
 const devConfig = require('./webpack.dev');
-const commonEnv = require('./.env.common');
-const clientEnv = require('./.env.client');
+const commonEnv = require('./.env/.env.common');
+const clientEnv = require('./.env/.env.client');
 
 const env = {
   ...commonEnv,

@@ -4,8 +4,8 @@ const merge = require('webpack-merge');
 const webpack = require('webpack');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const prodConfig = require('./webpack.prod');
-const commonEnv = require('./.env.common');
-const serverEnv = require('./.env.server');
+const commonEnv = require('./.env/.env.common');
+const serverEnv = require('./.env/.env.server');
 
 const env = {
   ...commonEnv,

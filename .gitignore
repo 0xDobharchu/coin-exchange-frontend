@@ -3,6 +3,6 @@ dist/
 yarn-error.log
 .idea/
 .vscode
-.env.js
-.env.*.js
 .DS_Store
+.env.*.js
+.env/
