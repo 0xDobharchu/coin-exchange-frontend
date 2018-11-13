@@ -45,6 +45,7 @@
         "every": [ "nesting", "id" ]
       },
       "allowChildren": false
-    }]
+    }],
+    "object-curly-newline": 0
   }
 }
