@@ -3,8 +3,6 @@ import { Wallet } from '@/services/Wallets/Wallet';
 import configs from '@/configs';
 import { StringHelper } from '@/services/helper';
 import Tx from 'ethereumjs-tx';
-import { getEstimateGas } from '@/components/handshakes/betting/utils';
-import { getGasPrice } from '@/utils/gasPrice';
 import { set, getJSON } from 'js-cookie';
 
 
@@ -199,8 +197,9 @@ export class Ethereum extends Wallet {
   })
 
   async getFee() {
-    await getGasPrice();
-    return await getEstimateGas();
+    // await getGasPrice();
+    // return await getEstimateGas();
+    alert("getFee function have removed");
   }
 
 
