@@ -14,12 +14,20 @@ const makeAction = ({ type, data, dispatchType }) => {
   };
 };
 
-export const makeRequest = (config = {}) => {
+export const makeRequest = (config = {}, _dispatch) => {
   const {
     type, url, method, data, onSuccess, onError, params
   } = config;
   const METHOD = method ? String(method).toLowerCase() : 'get';
-  return async (dispatch) => {
+  return async (d) => {
+    let dispatch = d;
+    if (typeof d !== 'function') {
+      dispatch = _dispatch;
+    }
+
+    if (typeof dispatch !== 'function') {
+      throw new Error('Redux makeRequest func required dispatch!');
+    }
     dispatch(makeAction({ type, dispatchType: DISPATCH_TYPE.CALLING, data: { payload: data, url, method: METHOD } }));
     try {
       const res = await http({
