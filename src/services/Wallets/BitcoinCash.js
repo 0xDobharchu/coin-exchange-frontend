@@ -2,7 +2,8 @@ import axios from 'axios';
 import satoshi from 'satoshi-bitcoin';
 import { StringHelper } from '@/services/helper';
 import { Bitcoin } from '@/services/Wallets/Bitcoin';
-import { NB_BLOCKS } from '@/constants';
+// import { NB_BLOCKS } from '@/constants';
+export const NB_BLOCKS = 20;
 
 const bitcore = require('bitcore-lib-cash');
 const BigNumber = require('bignumber.js');
