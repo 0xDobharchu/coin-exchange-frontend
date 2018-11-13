@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+// import { MasterWallet } from 'src/services/Wallets/MasterWallet';
+import { ReCaptcha } from 'react-recaptcha-google';
 import { userActions } from './action';
+import { history } from '../../utils/history';
 
 class RegisterPage extends React.Component {
   constructor(props) {
@@ -15,7 +19,7 @@ class RegisterPage extends React.Component {
         password: '',
         confirmPassword: ''
       },
-      submitted: false
+      submitted: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -35,16 +39,23 @@ class RegisterPage extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
     this.setState({ submitted: true });
     const { user } = this.state;
-    const { dispatch } = this.props;
     if (user.firstName && user.lastName && user.username && user.password && user.confirmPassword) {
-      dispatch(userActions.register(user));
+      userActions.register(user).then((loginUser) => {
+        // /MasterWallet.createMasterWallets(user.password);
+        console.log('create wallet success');
+        // console.log(MasterWallet);
+        console.log(loginUser);
+      }, (err) => {
+        history.push('/');
+        console.log(123, err);
+      });
     }
   }
 
   render() {
+    const recaptchaRef = React.createRef();
     const { registering } = this.props;
     const { user, submitted } = this.state;
     return (
@@ -53,52 +64,49 @@ class RegisterPage extends React.Component {
           <h2>Register</h2>
           <form name="form" onSubmit={this.handleSubmit}>
             <div className={`form-group${submitted && !user.firstName ? ' has-error' : ''}`}>
-              <label htmlFor="firstName">
-                <input type="text" className="form-control" name="firstName" value={user.firstName} onChange={this.handleChange} />
-                First Name
-              </label>
+              <label htmlFor="firstName">First Name</label>
+              <input type="text" className="form-control" name="firstName" value={user.firstName} onChange={this.handleChange} />
               {submitted && !user.firstName
                         && <div className="help-block">First Name is required</div>
                         }
             </div>
             <div className={`form-group${submitted && !user.lastName ? ' has-error' : ''}`}>
-              <label htmlFor="lastName">
-                <input type="text" className="form-control" name="lastName" value={user.lastName} onChange={this.handleChange} />
-                Last Name
-              </label>
+              <label htmlFor="lastName">Last Name</label>
+              <input type="text" className="form-control" name="lastName" value={user.lastName} onChange={this.handleChange} />
               {submitted && !user.lastName
                         && <div className="help-block">Last Name is required</div>
                         }
             </div>
             <div className={`form-group${submitted && !user.username ? ' has-error' : ''}`}>
-              <label htmlFor="username">
-                <input type="text" className="form-control" name="username" value={user.username} onChange={this.handleChange} />
-                Username
-              </label>
+              <label htmlFor="username"> Username</label>
+              <input type="text" className="form-control" name="username" value={user.username} onChange={this.handleChange} />
+
               {submitted && !user.username
                         && <div className="help-block">Username is required</div>
                         }
             </div>
             <div className={`form-group${submitted && !user.password ? ' has-error' : ''}`}>
-              <label htmlFor="password">
-                <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} />
-                Password
-              </label>
+              <label htmlFor="password">Password</label>
+              <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} />
               {submitted && !user.password
                         && <div className="help-block">Password is required</div>
                         }
             </div>
             <div className={`form-group${submitted && !user.confirmPassword ? ' has-error' : ''}`}>
-              <label htmlFor="password">
-                <input type="password" className="form-control" name="confirmPassword" value={user.confirmPassword} onChange={this.handleChange} />
-                Confirm Password
-              </label>
+              <label htmlFor="password">Confirm Password</label>
+              <input type="password" className="form-control" name="confirmPassword" value={user.confirmPassword} onChange={this.handleChange} />
               {submitted && !user.confirmPassword
                         && <div className="help-block">Confirm password is required</div>
                         }
               {submitted && (user.confirmPassword !== user.password)
                         && <div className="help-block">Passwords do not match.</div>
                         }
+            </div>
+            <div className="form-group">
+              <ReCaptcha
+                ref={recaptchaRef}
+                sitekey="6LcBY3oUAAAAAJ6g25Hen60o3Q7DOHc0VYC97DRa"
+              />
             </div>
             <div className="form-group">
               <button type="submit" className="btn btn-primary">Register</button>
@@ -121,5 +129,9 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedRegisterPage = connect(mapStateToProps)(RegisterPage);
+const mapDispatch = dispatch => ({
+  registerBound: bindActionCreators(userActions.register, dispatch),
+});
+
+const connectedRegisterPage = connect(mapStateToProps, mapDispatch)(RegisterPage);
 export default connectedRegisterPage;

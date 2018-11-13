@@ -1,15 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { bindActionCreators } from 'redux';
+import { history } from 'src/utils/history';
 import { userActions } from './action';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
-
-    // reset login status
-    this.props.dispatch(userActions.logout());
 
     this.state = {
       username: '',
@@ -30,9 +28,14 @@ class Login extends React.Component {
     e.preventDefault();
     this.setState({ submitted: true });
     const { username, password } = this.state;
-    const { dispatch } = this.props;
     if (username && password) {
-      dispatch(userActions.login(username, password));
+      this.props.loginBound(username, password).then((user) => {
+        console.log(user);
+        history.push('/');
+      }, (err) => {
+        history.push('/');
+        console.log(123, err);
+      });
     }
   }
 
@@ -45,19 +48,15 @@ class Login extends React.Component {
           <h2>Login {submitted} </h2>
           <form name="form" onSubmit={this.handleSubmit}>
             <div className={`form-group${submitted && !username ? ' has-error' : ''}`}>
-              <label htmlFor={username}>
-                <input type="text" className="form-control" id="username" name="username" value={username} onChange={this.handleChange} />
-                  Username
-              </label>
+              <label htmlFor="username">Username</label>
+              <input type="text" className="form-control" id="username" name="username" value={username} onChange={this.handleChange} />
               {submitted && !username
                         && <div className="help-block">Username is required</div>
                         }
             </div>
             <div className={`form-group${submitted && !password ? ' has-error' : ''}`}>
-              <label htmlFor="password">
-                <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
-                Password
-              </label>
+              <label htmlFor="password">Password</label>
+              <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
               {submitted && !password
                         && <div className="help-block">Password is required</div>
                         }
@@ -83,5 +82,10 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedLoginPage = connect(mapStateToProps)(Login);
+const mapDispatch = dispatch => ({
+  loginBound: bindActionCreators(userActions.login, dispatch),
+});
+
+
+const connectedLoginPage = connect(mapStateToProps, mapDispatch)(Login);
 export default connectedLoginPage;
