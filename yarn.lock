@@ -4690,7 +4690,7 @@ hoist-non-react-statics@^2.5.0, hoist-non-react-statics@^2.5.4, hoist-non-react-
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
 
-hoist-non-react-statics@^3.1.0:
+hoist-non-react-statics@^3.0.1, hoist-non-react-statics@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.1.0.tgz#42414ccdfff019cd2168168be998c7b3bd5245c0"
   dependencies:
@@ -5410,6 +5410,10 @@ joi@^11.1.1:
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.4.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.9.tgz#748911fb04f48a60c4771b375cac45a80df11c03"
+
+js-cookie@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
 
 js-git@^0.7.8:
   version "0.7.8"
@@ -7998,6 +8002,13 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-async-script@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-async-script/-/react-async-script-1.0.0.tgz#3578153247bc3f9654a5878c4142539ffbf65c2d"
+  dependencies:
+    hoist-non-react-statics "^3.0.1"
+    prop-types "^15.5.0"
+
 react-bootstrap@^1.0.0-beta.2:
   version "1.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-1.0.0-beta.2.tgz#8f4483ed39d534fcc3bc3ab03e2c26f98f1cb5a0"
@@ -8037,6 +8048,13 @@ react-dom@^16.6.0:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^16.6.2"
+
+react-google-recaptcha@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-google-recaptcha/-/react-google-recaptcha-1.0.5.tgz#fc5a1c5c9fd678ccea11c9a47b22f38a8b9d3c88"
+  dependencies:
+    prop-types "^15.5.0"
+    react-async-script "^1.0.0"
 
 react-icons@^3.2.2:
   version "3.2.2"
@@ -9609,6 +9627,10 @@ timers-browserify@^2.0.4:
 timsort@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
+
+tls@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/tls/-/tls-0.0.1.tgz#0ab2bf5968d71df2f8c0e1515d24a2240b98aac8"
 
 tmp@^0.0.33:
   version "0.0.33"
