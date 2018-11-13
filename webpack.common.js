@@ -46,6 +46,7 @@ module.exports = {
               ['@babel/plugin-transform-runtime', {
                 regenerator: true
               }],
+              '@babel/plugin-proposal-export-default-from'
             ],
           }
         }
