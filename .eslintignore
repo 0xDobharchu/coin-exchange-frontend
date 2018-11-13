@@ -5,3 +5,5 @@ src/service-worker.js
 src/sw.js
 workbox-config.js
 src/services/Wallets
+src/screens/wallet
+src/components/wallet
