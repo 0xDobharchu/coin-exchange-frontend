@@ -3,51 +3,58 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // import { MasterWallet } from 'src/services/Wallets/MasterWallet';
-import { ReCaptcha } from 'react-recaptcha-google';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { history } from 'src/utils/history';
+import createForm from 'src/components/core/form/createForm';
+import { Field, formValueSelector } from 'redux-form';
 import { userActions } from './action';
-import { history } from '../../utils/history';
+import inputField, { inputValidator } from '../../components/core/form/fields/input';
+
+const TEST_SITE_KEY = '6LeEa3oUAAAAANL9v6vxyzG9_x4u2ZBlQD8YnLzg';
+
+const RegisterForm = createForm({
+  propsReduxForm: {
+    form: 'RegisterForm',
+    initialValues: {
+      input: '',
+    },
+  },
+});
+
+const selectorForm = formValueSelector('RegisterForm');
 
 class RegisterPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: {
-        firstName: '',
-        lastName: '',
-        username: '',
-        password: '',
-        confirmPassword: ''
-      },
-      submitted: false,
+      registering: false,
     };
-
-    this.handleChange = this.handleChange.bind(this);
+    this._reCaptchaRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    const { name, value } = event.target;
-    const { user } = this.state;
-    this.setState({
-      user: {
-        ...user,
-        [name]: value
-      }
-    });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.setState({ submitted: true });
-    const { user } = this.state;
-    if (user.firstName && user.lastName && user.username && user.password && user.confirmPassword) {
-      userActions.register(user).then((loginUser) => {
+    this.setState({ registering: true });
+    const {
+      firstName, lastName, username, password, confirmPassword
+    } = this.props;
+    if (firstName && lastName && username && password && confirmPassword) {
+      userActions.register({
+        firstName,
+        lastName,
+        username,
+        password,
+        confirmPassword
+      }).then((loginUser) => {
         // /MasterWallet.createMasterWallets(user.password);
+        this.setState({ registering: false });
         console.log('create wallet success');
         // console.log(MasterWallet);
         console.log(loginUser);
       }, (err) => {
+        this.setState({ registering: false });
         history.push('/');
         console.log(123, err);
       });
@@ -55,57 +62,67 @@ class RegisterPage extends React.Component {
   }
 
   render() {
-    const recaptchaRef = React.createRef();
-    const { registering } = this.props;
-    const { user, submitted } = this.state;
+    const { registering } = this.state;
     return (
       <div className="row justify-content-md-center">
         <div className="col-md-6">
           <h2>Register</h2>
-          <form name="form" onSubmit={this.handleSubmit}>
-            <div className={`form-group${submitted && !user.firstName ? ' has-error' : ''}`}>
+          <RegisterForm onSubmit={this.handleSubmit}>
+            <div className="form-group">
               <label htmlFor="firstName">First Name</label>
-              <input type="text" className="form-control" name="firstName" value={user.firstName} onChange={this.handleChange} />
-              {submitted && !user.firstName
-                        && <div className="help-block">First Name is required</div>
-                        }
-            </div>
-            <div className={`form-group${submitted && !user.lastName ? ' has-error' : ''}`}>
-              <label htmlFor="lastName">Last Name</label>
-              <input type="text" className="form-control" name="lastName" value={user.lastName} onChange={this.handleChange} />
-              {submitted && !user.lastName
-                        && <div className="help-block">Last Name is required</div>
-                        }
-            </div>
-            <div className={`form-group${submitted && !user.username ? ' has-error' : ''}`}>
-              <label htmlFor="username"> Username</label>
-              <input type="text" className="form-control" name="username" value={user.username} onChange={this.handleChange} />
-
-              {submitted && !user.username
-                        && <div className="help-block">Username is required</div>
-                        }
-            </div>
-            <div className={`form-group${submitted && !user.password ? ' has-error' : ''}`}>
-              <label htmlFor="password">Password</label>
-              <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} />
-              {submitted && !user.password
-                        && <div className="help-block">Password is required</div>
-                        }
-            </div>
-            <div className={`form-group${submitted && !user.confirmPassword ? ' has-error' : ''}`}>
-              <label htmlFor="password">Confirm Password</label>
-              <input type="password" className="form-control" name="confirmPassword" value={user.confirmPassword} onChange={this.handleChange} />
-              {submitted && !user.confirmPassword
-                        && <div className="help-block">Confirm password is required</div>
-                        }
-              {submitted && (user.confirmPassword !== user.password)
-                        && <div className="help-block">Passwords do not match.</div>
-                        }
+              <Field
+                name="firstName"
+                className="form-control"
+                component={inputField}
+                validate={inputValidator}
+                type="text"
+              />
             </div>
             <div className="form-group">
-              <ReCaptcha
-                ref={recaptchaRef}
-                sitekey="6LcBY3oUAAAAAJ6g25Hen60o3Q7DOHc0VYC97DRa"
+              <label htmlFor="lastName">Last Name</label>
+              <Field
+                name="lastName"
+                className="form-control"
+                component={inputField}
+                validate={inputValidator}
+                type="text"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
+              <Field
+                name="username"
+                className="form-control"
+                component={inputField}
+                validate={inputValidator}
+                type="text"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <Field
+                name="password"
+                className="form-control"
+                component={inputField}
+                validate={inputValidator}
+                type="password"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="confirmPassword">Confirm password</label>
+              <Field
+                name="confirmPassword"
+                className="form-control"
+                component={inputField}
+                validate={inputValidator}
+                type="password"
+              />
+            </div>
+            <div className="form-group">
+              <ReCAPTCHA
+                style={{ display: 'inline-block' }}
+                ref={this._reCaptchaRef}
+                sitekey={TEST_SITE_KEY}
               />
             </div>
             <div className="form-group">
@@ -115,20 +132,20 @@ class RegisterPage extends React.Component {
                         }
               <Link to="/login" className="btn btn-link">Cancel</Link>
             </div>
-          </form>
+          </RegisterForm>
         </div>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  const { registering } = state.registration || {};
-  return {
-    registering
-  };
-}
-
+const mapStateToProps = state => ({
+  firstName: selectorForm(state, 'firstName'),
+  lastName: selectorForm(state, 'lastName'),
+  username: selectorForm(state, 'username'),
+  password: selectorForm(state, 'password'),
+  confirmPassword: selectorForm(state, 'confirmPassword')
+});
 const mapDispatch = dispatch => ({
   registerBound: bindActionCreators(userActions.register, dispatch),
 });
