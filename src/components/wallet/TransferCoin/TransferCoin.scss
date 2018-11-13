@@ -1,0 +1,354 @@
+.walletNotFound{
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 2rem 0;
+}
+
+.sendwallet-wrapper{
+
+  .rangeslider-horizontal {
+    .rangeslider__fill {
+      background-color: #607bed;
+    }
+    .rangeslider__handle{
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 -1px 2px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  .maxAmount{
+    color:#007bff;
+    text-align: right;
+    margin: 10px 0;
+    font-weight:400;
+  }
+  .fromContact{
+    color:#007bff;    
+    font-weight:400;
+    float: right;
+  }
+  .block-hidden{
+    display: block;
+    overflow: hidden;
+  }
+
+  ul.rangeslider__labels .rangeslider__label-item:first-child {
+    padding-right: 20px;
+  }
+  .fee-level-box{
+    height: 45px;
+    margin-top: -5px;
+  }
+
+  margin: auto;
+  width: 100%;
+  margin-bottom: 5px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background-color: #fff;
+  margin-top: 15px!important;
+
+  .bgBox{
+    // background-image: url('../../../assets/images/pages/wallet/bg-box-wallet-coin.svg');
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    padding: 12px;
+    // color: #fff;
+    border-radius: 6px;
+    // margin-top: 20px;
+    ::placeholder{
+      // color: #ffffff;
+    }
+  }
+
+  .text-danger{
+    font-size: 14px;
+
+  }
+
+  .label-balance{
+    margin-top: 9px;
+    // color: #ffffff;
+    font-size: 16px;
+    display: block;
+  }
+
+  input[type=text], input[type=tel], input[type=number]{
+    font-size: 16px;
+    line-height: 22px;
+    height: 45px;
+    // background: #4869D1;
+    // border: 1px solid #6485F6;
+
+    // border: 1px solid #6c95ea;
+    // background: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    // color: #fff;
+    font-weight: 300;
+    ::placeholder{
+      // color: #ffffff;
+    }
+  }
+}
+
+.input12Phrase{
+  margin-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.bodyTitle{
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 15px;
+}
+
+  .div-amount-coin{
+    position: relative;
+    width:49%;
+  }
+
+  .div-amount-money{
+    float:right;
+    width:49%;
+  }
+
+  .div-100{
+    width: 100% !important;
+  }
+
+.div-address-qr-code{
+  position: relative;
+  margin-bottom: 15px;
+  font-size: 18px;
+  line-height: 22px;
+  // border: 1px solid #EFEFEF;
+  // overflow: hidden;
+  // height: 54px;
+  .input-address-qr-code{
+    // border: 0 !important;
+    margin: 0 !important;
+    padding-right: 60px;
+  }
+  .icon-qr-code-black{
+    width: 35px;
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    opacity: 0.6;
+  }
+}
+.wallet-page{
+  button:disabled{
+    background: Silver;
+    border-color:Silver;
+  }
+}
+.labelText{
+  margin-bottom: 10px;
+  font-weight: 400;
+  margin-top: 10px;
+}
+.textCenter{
+  text-align: center;
+}
+
+.div-amount {
+  padding-bottom: 10px;
+  position: relative;
+
+  .prepend{
+    padding-top: 10px;
+    position: absolute;
+    right: 10px;
+    color: #7b7b7b;
+  }
+
+  input {
+    padding-right: 80px;
+  }
+}
+
+
+.dropdown-wallet-tranfer{
+  margin: 0!important;
+  margin-bottom: 10px!important;
+
+  .btn-group > .btn:first-child, .btn-light:not(:disabled):not(.disabled):active, .btn-light:not(:disabled):not(.disabled).active, .show > .btn-light.dropdown-toggle{
+    background: transparent;
+    border: none;
+  }
+
+  .btn{
+    padding-left: 10px;
+    text-align: left;
+    // border: 0!important;
+    // background: transparent!important;
+    // box-shadow: none!important;
+    // color: #ffffff;
+  };
+  .btn-group{
+    // background: #4869D1;
+    // border: 1px solid #6485F6;
+
+    // border: 1px solid #6c95ea;
+    // background: rgba(255, 255, 255, 0.15);
+    border: 1px solid #ced4da;
+    background: #ffffff;
+
+    padding: 5px;
+    border-radius: 5px;
+    padding-left: 1px;
+    button{
+      background-color:transparent;
+      // border: none;
+    }
+    button:hover{
+      background-color:transparent;
+      // border: none;
+    }
+  }
+  .dropdown-custom-item{
+    margin-left: 10px!important;
+  };
+  .dropdown-toggle::after{
+    float: right;
+    margin-top: 10px;
+  }
+  .dropdown-item{
+    border-bottom: 1px solid #ededed;
+    padding: 0.6rem 1.5rem;
+  }
+  .dropdown-menu{
+    width: 100%;
+  }
+  .dropdown-item:last-child{
+    border: 0;
+  }
+}
+.button-wallet-cpn{
+  // position: fixed;
+  // bottom: 0;
+  // width: 100%;
+  // left: 0;
+  // border-radius: 0;
+  padding: 0.9625rem 0;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+
+
+.bodyConfirm .left{
+    float: left;
+    width: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+    min-width: 125px;
+  }
+.bodyConfirm .right{
+  float: right;
+  width: auto;
+  padding-left: 30px;
+  padding-right: 30px;
+  min-width: 125px;
+}
+.bodyConfirm{
+  padding: 15px;
+  overflow: hidden;
+  margin: auto;
+  width: 100%;
+  margin-bottom: 5px;
+
+}
+
+
+.walletSelected {
+  border: solid 1px #EAEAEC;
+  border-radius: 5px;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  margin-top: 1rem;
+  -webkit-box-shadow: -1px 2px 10px 1px rgba(0,0,0,0.1);
+  -moz-box-shadow: -1px 2px 10px 1px rgba(0,0,0,0.1);
+  box-shadow: -1px 2px 10px 1px rgba(0,0,0,0.1);
+
+  .icon{
+    padding-right: 0 !important;
+    padding-top: 0.5rem !important;
+
+    img {
+      height: 42px;
+      border:solid 1px white;
+      border-radius: 50%;
+      background: white;
+    }
+  }
+
+  .lastCol{
+    text-align:right;
+    padding-right: 1rem !important;
+    overflow-y: hidden;
+
+    .balance{
+      font-size: 1rem;
+      font-weight:400;
+    }
+    .arrow{
+      position: absolute;
+      right: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  .name{
+    color:Gray;
+    font-size: 1rem;
+  }
+
+  .address{
+    font-size: 1rem;
+    font-weight:300;
+    color:black;
+  }
+
+  .col-2, .col-5, .col-6, .col-4{
+    padding: 0 0.5rem;
+    line-height: 1.9;
+  }
+}
+
+@media (max-width: 330px){
+  .walletSelected {
+    .col-5{
+      flex: 0 0 60%;
+    }
+
+    .lastCol{
+      margin-left: 16.5%;
+      text-align: left;
+
+      .arrow{
+        top: 0;
+        padding-right: 0;
+      }
+    }
+
+    .col-5{
+      flex:none;
+      max-width: 83%;
+    }
+
+    .balance{
+      display: contents !important;
+    }
+
+    .arrow{
+      float: right;
+    }
+  }
+
+  .sendwallet-wrapper{
+    .fee-level-box{
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+  }
+}
