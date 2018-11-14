@@ -10,7 +10,7 @@ import './AddressBook.scss';
 
 import iconAvatar from '@/assets/images/wallet/icons/avatar.svg';
 
-import { ICON } from '@/styles/images';
+import { ICON } from '@/components/wallet/images';
 
 import Modal from '@/components/core/controls/Modal';
 
