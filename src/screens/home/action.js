@@ -8,7 +8,23 @@ export const mount = () => ({
   }
 });
 
-export const testGetDataAsync = data => makeRequest({
+export const testGetDataAsyncWithDispatch = data => (dispatch) => {
+  const req = makeRequest({
+    type: TEST_GET_DATA_ASYNC,
+    url: `/${data}`,
+  }, dispatch);
+  return req().then((res) => {
+    console.log('testGetDataAsyncWithDispatch', res); return res;
+  });
+};
+
+export const testGetDataAsyncShorthand = data => makeRequest({
   type: TEST_GET_DATA_ASYNC,
   url: `/${data}`,
+  onSuccess: () => {
+    console.log(123);
+  },
+  onError: (err) => {
+    console.log(err);
+  }
 });

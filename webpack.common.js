@@ -46,6 +46,7 @@ module.exports = {
               ['@babel/plugin-transform-runtime', {
                 regenerator: true
               }],
+              '@babel/plugin-proposal-export-default-from'
             ],
           }
         }
@@ -56,6 +57,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       src: path.resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, 'src'),
     }
   },
 };
