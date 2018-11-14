@@ -11,8 +11,8 @@ export const hideModal = () => ({ type: APP_ACTION.CLOSE_MODAL });
 export const updateModal = payload => ({ type: APP_ACTION.UPDATE_MODAL, payload });
 
 // Alert
-export const showAlert = config => ({ type: APP_ACTION.SHOW_ALERT, payload: { isShow: true, ...config } });
-export const hideAlert = config => ({ type: APP_ACTION.HIDE_ALERT, payload: { isShow: false, ...config } });
+export const showAlert = config => ({ type: APP_ACTION.UPDATE_APP_STATE, payload: { configAlert: { isShow: true, ...config } } });
+export const hideAlert = config => ({ type: APP_ACTION.UPDATE_APP_STATE, payload: { configAlert: { isShow: false, ...config } } });
 
 // Header
 export const setHeaderTitle = title => ({ type: APP_ACTION.HEADER_TITLE_SET, payload: title });
