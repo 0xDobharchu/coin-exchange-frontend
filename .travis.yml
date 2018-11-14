@@ -1,0 +1,30 @@
+language: node_js
+sudo: required
+node_js:
+- "10"
+cache:
+  yarn: true
+  directories:
+  - node_modules
+  - "$HOME/google-cloud-sdk/"
+before_install:
+- gcloud version || true
+- if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export
+  CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash > /dev/null; fi
+- source /home/travis/google-cloud-sdk/path.bash.inc
+- gcloud components install kubectl || true
+install:
+- yarn install
+- yarn lint
+- yarn build
+deploy:
+- provider: script
+  skip_cleanup: true
+  script: bash ./deploy.sh production
+  on:
+    branch: develop
+- provider: script
+  skip_cleanup: true
+  script: bash ./deploy.sh staging
+  on:
+    branch: staging
