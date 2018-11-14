@@ -8,7 +8,8 @@ import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
 import Button from '@/components/core/controls/Button';
 import { API_URL } from "@/constants";
-import {getFiatCurrency} from '@/reducers/exchange/action';
+// todo: import getFiatCurrency
+// import {getFiatCurrency} from '@/reducers/exchange/action';
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
 
 import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';

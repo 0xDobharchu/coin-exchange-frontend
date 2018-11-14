@@ -38,7 +38,7 @@ class Home extends Component {
       <Container className={`common-container ${style.container}`}>
         <h1>
           <MdHome />
-          HOME
+          {this.props.title || 'Home'}
         </h1>
         <span>
           This was rendered on

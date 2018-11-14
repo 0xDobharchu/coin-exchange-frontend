@@ -1,5 +1,5 @@
 import React from 'react';
-import MainLayout from 'src/components/dump';
+import MainLayout from './mainLayout';
 import CoinDesktop from './desktopLayout';
 import styles from './styles.scss';
 
