@@ -9,7 +9,7 @@ import ModalDialog from '@/components/core/controls/ModalDialog';
 import { showLoading, hideLoading } from '@/reducers/app/action';
 import iconQRCodeBlack from '@/assets/images/wallet/icons/icon-qrcode-black.svg';
 import iconQRCodeWhite from '@/assets/images/wallet/icons/icon-qrcode-white.svg';
-import iconSelected from '@/assets/images/pages/payment/check-circle-solid.svg';
+import iconSelected from '@/assets/images/wallet/icons/check-circle-solid.svg';
 import './ListCoin.scss';
 
 const QRCode = require('qrcode.react');

@@ -1,2 +1,3 @@
-const A = () => 'OK';
-export default A;
+import BuyCoin from '../buy';
+
+export default BuyCoin;
