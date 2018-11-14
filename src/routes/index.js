@@ -8,6 +8,7 @@ import Me from 'src/screens/me';
 // import Wallet from 'src/screens/wallet';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
+import privateRoute from './privateRoute';
 
 const routes = [
   {
@@ -49,6 +50,7 @@ const routes = [
     path: '/me',
     component: Me,
     exact: true,
+    auth: true,
   },
   // {
   //   path: '/wallet',
@@ -60,3 +62,4 @@ const routes = [
 export default routes;
 export const RouteWrapper = routeWrapper;
 export const RenderRoutes = renderRoutes;
+export const PrivateRoute = privateRoute;
