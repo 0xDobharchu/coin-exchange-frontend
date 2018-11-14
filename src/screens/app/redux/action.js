@@ -3,7 +3,7 @@ import IpInfo from 'src/models/IpInfo';
 import { APP } from 'src/constants';
 import local from 'src/services/localStore';
 import APP_ACTION from './type';
-
+import { signUp } from './api';
 
 // Modal
 export const showModal = modalContent => ({ type: APP_ACTION.MODAL, modalContent });
@@ -31,7 +31,19 @@ export const setNotFound = () => ({ type: APP_ACTION.NOT_FOUND_SET });
 export const clearNotFound = () => ({ type: APP_ACTION.NOT_FOUND_REMOVE });
 
 // IP
-export const setIpInfo = data => ({ type: APP_ACTION.IP_INFO, payload: data });
+export const setIpInfo = (ipInfo) => {
+  console.log('Going to set Ip Info', ipInfo);
+  local.save(APP.IP_INFO, ipInfo);
+  const isBannedIp = ['US'].indexOf(ipInfo.country) >= 0;
+  const payload = {
+    ipInfo,
+    isBannedIp
+  };
+  return {
+    type: APP_ACTION.UPDATE_APP_STATE,
+    payload
+  };
+};
 
 
 export const scrollToBottom = () => {
@@ -55,7 +67,13 @@ export const setLanguage = (data, autoDetect = true) => ({
 // |-- loading
 export const setRootLoading = rootLoading => ({ type: APP_ACTION.UPDATE_APP_STATE, payload: { rootLoading } });
 
-const continueAfterInitApp = (language, ref, dispatch, data) => {
+const authentication = async () => {
+  console.log('adfsdfasdf');
+  const result = await signUp();
+  console.log('results is', result);
+};
+
+const continueAfterInitApp = async (language, ref, dispatch, data) => {
   const ipInfoRes = { language: 'en', bannedPrediction: false, bannedCash: false };
   const languageSaved = local.get(APP.LOCALE);
 
@@ -66,11 +84,13 @@ const continueAfterInitApp = (language, ref, dispatch, data) => {
   }
 
   const completedLanguage = language || ipInfoRes.language;
-
+  console.log('completed language', completedLanguage);
   if (APP.isSupportedLanguages.indexOf(completedLanguage) >= 0) {
+    console.log('set lang', completedLanguage);
     dispatch(setLanguage(completedLanguage, !language));
   }
   dispatch(setRootLoading(false));
+  await authentication();
   // if (process.env.isProduction) {
   //   // should use country code: .country ISO 3166-1 alpha-2
   //   // https://ipapi.co/api/#complete-location
