@@ -7,6 +7,7 @@ import { URL } from 'src/constants';
 import meIcon from 'src/assets/images/navigation/ic_me.svg';
 import creditIcon from 'src/assets/images/navigation/ic_credit.svg';
 // import creditIcon from 'src/assets/icons/coin/bch.svg';
+import styles from './styles.scss';
 
 class Navigation extends React.Component {
   state = {
@@ -25,33 +26,20 @@ class Navigation extends React.Component {
 
   checkSelected = (URLS) => {
     const { currentPath } = this.state;
-    return URLS.indexOf(currentPath) >= 0 ? 'selected' : '';
+    return URLS.indexOf(currentPath) >= 0 ? styles.selected : '';
   }
 
   render() {
-    console.log('navigation', this.props);
     return (
-      <footer className="footer">
-        <div className="main">
-          {/* <li className={cn(this.checkSelected([URL.BUY_COIN_URL, URL.INDEX]))}>
-            <Link to={URL.INDEX}>
-              <div><img alt="creditIcon" src={creditIcon} /></div>
-              <span><MyMessage id="app.navigation.ninjaCoin" /></span>
-            </Link>
-          </li>
-          <li className={cn(this.checkSelected([URL.HANDSHAKE_ME_INDEX]))}>
-            <Link to={URL.HANDSHAKE_ME_INDEX}>
-              <div><img alt="meIcon" src={meIcon} /></div>
-              <span><MyMessage id="app.navigation.me" /></span>
-            </Link>
-          </li> */}
-          <div className={cn('item', this.checkSelected([URL.BUY_COIN_URL, URL.INDEX]))}>
+      <footer className={styles.footer}>
+        <div className={styles.main}>
+          <div className={cn(styles.item, this.checkSelected([URL.BUY_COIN_URL, URL.INDEX]))}>
             <Link to={URL.INDEX}>
               <img alt="creditIcon" src={creditIcon} />
               <MyMessage id="app.navigation.ninjaCoin" />
             </Link>
           </div>
-          <div className={cn('item', this.checkSelected([URL.HANDSHAKE_ME_INDEX]))}>
+          <div className={cn(styles.item, this.checkSelected([URL.HANDSHAKE_ME_INDEX]))}>
             <Link to={URL.HANDSHAKE_ME_INDEX}>
               <img alt="meIcon" src={meIcon} />
               <MyMessage id="app.navigation.me" />
