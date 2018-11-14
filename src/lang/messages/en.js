@@ -4,7 +4,11 @@ export default {
   helloWorld: 'Hello World',
   app: {
     title: 'khoa {name}',
-    name: '<p style="color: #00adb5;">Test En html</p>'
+    name: '<p style="color: #00adb5;">Test En html</p>',
+    navigation: {
+      me: 'Me',
+      ninjaCoin: 'Coin'
+    }
   },
   me: {
     profile: {

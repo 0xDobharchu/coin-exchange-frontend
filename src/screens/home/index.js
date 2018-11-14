@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import photo from 'src/assets/images/ninja-header-black.svg';
 import { Link } from 'react-router-dom';
-import Container from 'react-bootstrap/lib/Container';
+import { Container } from 'react-bootstrap';
 import { MdHome } from 'react-icons/md';
 import { mount, testGetDataAsync } from './action';
 import style from './style.scss';
@@ -19,7 +19,7 @@ class Home extends Component {
   render() {
     const { time } = this.props;
     return (
-      <Container className={`common-container ${style.container}`}>
+      <Container className={style.container}>
         <h1>
           <MdHome />
           HOME
