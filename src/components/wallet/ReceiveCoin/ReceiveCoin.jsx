@@ -12,7 +12,8 @@ import { API_URL } from "@/constants";
 // import {getFiatCurrency} from '@/reducers/exchange/action';
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
 
-import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
+// todo: add action
+// import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
 import { StringHelper } from '@/services/helper';
 import createForm from '@/components/core/form/createForm';
 import './ReceiveCoin.scss';
