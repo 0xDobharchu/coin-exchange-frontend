@@ -1,4 +1,4 @@
-export const API_BASE = 'https://httpbin.org';
+export const API_BASE = APP_ENV.BASE_API_URL;
 export const URL = {
   INDEX: '/',
   HANDSHAKE_ME: '/me',
