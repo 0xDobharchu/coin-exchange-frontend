@@ -10,10 +10,20 @@ import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
 import privateRoute from './privateRoute';
 
+/**
+ * {
+    path: '/some-path',
+    component: YourComponent,
+    componentProps: { name: 'Component Name' },
+    auth: bool ==> need to auth to see this view
+    ...react-router props
+  },
+ */
 const routes = [
   {
     path: '/',
     component: Home,
+    componentProps: { title: 'Oh yeah!' },
     exact: true,
   },
   {
