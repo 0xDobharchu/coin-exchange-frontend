@@ -6,12 +6,12 @@ import {connect} from "react-redux";
 import Button from '@/components/core/controls/Button';
 import ModalDialog from '@/components/core/controls/ModalDialog';
 import Modal from '@/components/core/controls/Modal';
-import createForm from '@/components/core/form/createForm'
-import { fieldInput } from '@/components/core/form/customField'
+import createForm from '@/components/core/form/createForm';
+import { fieldInput } from '@/components/core/form/customField';
 import { API_URL } from "@/constants";
 import local from '@/services/localStore';
 import {APP} from '@/constants';
-import {required} from '@/components/core/form/validation'
+import {required} from '@/components/core/form/validation';
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
 import { bindActionCreators } from "redux";
 import {getFiatCurrency} from '@/reducers/exchange/action';
@@ -19,10 +19,10 @@ import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
 import QrReader from 'react-qr-reader';
 import { StringHelper } from '@/services/helper';
 import './TransferCoin.scss';
-import { ICON } from '@/styles/images';
+import { ICON } from '@/components/wallet/images';
 import BrowserDetect from '@/services/browser-detect';
 import WalletSelected from '@/components/wallet/WalletSelected';
-import Slider from 'react-rangeslider'
+import Slider from 'react-rangeslider';
 
 import AddressBook from "../AddressBook";
 import iconAddContact from '@/assets/images/wallet/icons/icon-add-user.svg';

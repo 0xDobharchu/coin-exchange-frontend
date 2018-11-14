@@ -66,8 +66,8 @@ import WalletPreferences from '@/components/wallet/WalletPreferences';
 import { requestWalletPasscode, showScanQRCode, showQRCodeContent  } from '@/reducers/app/action';
 import QRCodeContent from '@/components/wallet/QRCodeContent';
 import Redeem from '@/components/wallet/Redeem';
-import RemindPayment from '@/components/Payment/Remind';
-import { ICON } from '@/styles/images';
+// import RemindPayment from '@/components/Payment/Remind';
+import { ICON } from '@/components/wallet/images';
 
 const QRCode = require('qrcode.react');
 
@@ -972,7 +972,7 @@ class Wallet extends React.Component {
         <img onClick={()=> {this.props.showScanQRCode({onFinish: (data) => {this.onQRCodeScaned(data);}});}} className="float-button-scan-qrcode" src={floatButtonScanQRCode} />
 
         {/* remind checkout */}
-        <RemindPayment />
+        {/* <RemindPayment /> */}
 
         {/* history modal */}
         <Modal customRightIconClick={()=>{this.onOpenWalletPreferences(this.state.walletSelected);}}  customRightIcon={customRightIcon} customBackIcon={BackChevronSVGWhite} modalBodyStyle={this.modalBodyStyle} modalHeaderStyle={this.modalHeaderStyle} title={this.state.walletSelected ? this.state.walletSelected.title : messages.wallet.action.history.header} onRef={modal => this.modalHistoryRef = modal} onClose={this.closeHistory}>
