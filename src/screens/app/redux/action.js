@@ -3,7 +3,7 @@ import IpInfo from 'src/models/IpInfo';
 import { APP } from 'src/constants';
 import local from 'src/services/localStore';
 import APP_ACTION from './type';
-import { signUp } from './api';
+// import { signUp } from './api';
 
 // Modal
 export const showModal = modalContent => ({ type: APP_ACTION.MODAL, modalContent });
@@ -67,19 +67,19 @@ export const setLanguage = (data, autoDetect = true) => ({
 // |-- loading
 export const setRootLoading = rootLoading => ({ type: APP_ACTION.UPDATE_APP_STATE, payload: { rootLoading } });
 
-const authentication = async ({ ref, dispatch, ipInfo }) => {
-  console.log('authentication', ref, dispatch, ipInfo);
-  const token = local.get(APP.AUTH_TOKEN);
-  if (token) {
-    console.log('handle if token is existed');
-  } else {
-    console.log('sign up new user');
-    const result = await signUp();
-    console.log('results is', result);
-  }
-};
+// const authentication = async ({ ref, dispatch, ipInfo }) => {
+//   console.log('authentication', ref, dispatch, ipInfo);
+//   const token = local.get(APP.AUTH_TOKEN);
+//   if (token) {
+//     console.log('handle if token is existed');
+//   } else {
+//     console.log('sign up new user');
+//     const result = await signUp();
+//     console.log('results is', result);
+//   }
+// };
 
-const continueAfterInitApp = async (language, ref, dispatch, data) => {
+const continueAfterInitApp = (language, ref, dispatch, data) => {
   const ipInfoRes = { language: 'en', bannedPrediction: false, bannedCash: false };
   const languageSaved = local.get(APP.LOCALE);
 
@@ -96,7 +96,7 @@ const continueAfterInitApp = async (language, ref, dispatch, data) => {
     dispatch(setLanguage(completedLanguage, !language));
   }
   dispatch(setRootLoading(false));
-  await authentication();
+  // authentication();
   // if (process.env.isProduction) {
   //   // should use country code: .country ISO 3166-1 alpha-2
   //   // https://ipapi.co/api/#complete-location
@@ -136,7 +136,7 @@ export const initApp = (language, ref) => (dispatch) => {
       console.log('App Action InitApp', e);
       // TO-DO: handle error
       dispatch(setRootLoading(false));
-      continueAfterInitApp(language, ref, dispatch, {});
+      // continueAfterInitApp(language, ref, dispatch, {});
     });
   } catch (e) {
     console.log(e);

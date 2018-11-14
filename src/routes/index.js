@@ -1,3 +1,4 @@
+import { URL } from 'src/constants';
 import Home from 'src/screens/home';
 import Contact from 'src/screens/contact';
 import Login from 'src/screens/login';
@@ -5,6 +6,7 @@ import Register from 'src/screens/register';
 import Coin from 'src/screens/coin';
 import Localization from 'src/screens/localization';
 import Me from 'src/screens/me';
+import MeProfile from 'src/screens/me/pages/MeProfile';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
 
@@ -49,6 +51,11 @@ const routes = [
     component: Me,
     exact: true,
   },
+  {
+    path: URL.HANDSHAKE_ME_PROFILE,
+    component: MeProfile,
+    exact: true,
+  }
 ];
 
 export default routes;
