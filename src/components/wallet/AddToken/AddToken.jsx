@@ -14,7 +14,7 @@ import {TokenERC20} from "@/services/Wallets/Tokens/TokenERC20";
 import { bindActionCreators } from "redux";
 import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
 import QrReader from 'react-qr-reader';
-import { ICON } from '@/styles/images';
+import { ICON } from '@/components/wallet/images';
 import PropTypes from 'prop-types';
 import './AddToken.scss';
 import Dropdown from '@/components/core/controls/Dropdown';

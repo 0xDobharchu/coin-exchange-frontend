@@ -5,6 +5,7 @@ import Register from 'src/screens/register';
 import Coin from 'src/screens/coin';
 import Localization from 'src/screens/localization';
 import Me from 'src/screens/me';
+// import Wallet from 'src/screens/wallet';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
 
@@ -49,6 +50,11 @@ const routes = [
     component: Me,
     exact: true,
   },
+  // {
+  //   path: '/wallet',
+  //   component: Wallet,
+  //   exact: true,
+  // }
 ];
 
 export default routes;
