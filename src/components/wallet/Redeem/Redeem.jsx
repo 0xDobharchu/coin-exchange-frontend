@@ -10,8 +10,10 @@ import { referredInfo } from '@/reducers/auth/action';
 import { StringHelper } from '@/services/helper';
 import './Redeem.scss';
 import local from '@/services/localStore';
-import { APP } from '@/constants';
-import { getReferalInfo } from '@/reducers/exchange/action';
+// todo: add constants
+// import { APP } from '@/constants';
+// todo add getReferalInfo
+// import { getReferalInfo } from '@/reducers/exchange/action';
 import { shortenUser } from '@/services/offer-util';
 import Button from '@/components/core/controls/Button';
 import Input from '../Input';

@@ -7,7 +7,6 @@ import iconReceived from '@/assets/images/wallet/icons/icon-received.svg';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import './Wallet.scss';
-import { HANDSHAKE_EXCHANGE_SHOP_OFFER_SHAKE_STATUS } from '@/constants';
 
 const moment = require('moment');
 

@@ -2,7 +2,8 @@ import axios from 'axios';
 import React from 'react';
 import {injectIntl} from 'react-intl';
 import {connect} from "react-redux";
-import { showLoading, hideLoading, showAlert, showScanQRCode, showQRCodeContent } from '@/reducers/app/action';
+// todo: add action
+// import { showLoading, hideLoading, showAlert, showScanQRCode, showQRCodeContent } from '@/reducers/app/action';
 import QRCodeContent from '@/components/wallet/QRCodeContent';
 import '../WalletPreferences/WalletPreferences.scss';
 
