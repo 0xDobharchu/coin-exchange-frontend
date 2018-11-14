@@ -9,3 +9,10 @@ export const API_URL = {
     REVIEW_COIN_ORDER: 'exchange/coin/review', // `GET /cash/order?status=processing|tranferring|success`
   },
 };
+
+export const LANDING_PAGE_TYPE = {
+  landing: {
+    text: '',
+    url: '',
+  },
+};
