@@ -18,7 +18,8 @@
   "plugins": ["react"],
   "globals": {
     "__SERVER__": true,
-    "__CLIENT__": true
+    "__CLIENT__": true,
+    "APP_ENV": true
   },
   "rules": {
     "react/jsx-one-expression-per-line": 0,
