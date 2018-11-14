@@ -6,6 +6,7 @@ import Coin from 'src/screens/coin';
 import Localization from 'src/screens/localization';
 import Me from 'src/screens/me';
 // import Wallet from 'src/screens/wallet';
+import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
 import privateRoute from './privateRoute';
@@ -29,6 +30,11 @@ const routes = [
   {
     path: '/coin',
     component: Coin,
+    exact: true,
+  },
+  {
+    path: '/coin/faq',
+    component: CoinBowlFAQ,
     exact: true,
   },
   {

@@ -64,3 +64,10 @@ export const API_URL = {
     SET_OFFLINE_STATUS: 'exchange/user/profile/offline',
   }
 };
+
+export const LANDING_PAGE_TYPE = {
+  landing: {
+    text: '',
+    url: '',
+  },
+};

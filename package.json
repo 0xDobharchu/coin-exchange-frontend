@@ -72,7 +72,8 @@
     "rmc-tabs": "^1.2.27",
     "satoshi-bitcoin": "^1.0.4",
     "tls": "^0.0.1",
-    "web3": "1.0.0-beta.34"
+    "web3": "1.0.0-beta.34",
+    "react-helmet": "^5.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
