@@ -67,10 +67,16 @@ export const setLanguage = (data, autoDetect = true) => ({
 // |-- loading
 export const setRootLoading = rootLoading => ({ type: APP_ACTION.UPDATE_APP_STATE, payload: { rootLoading } });
 
-const authentication = async () => {
-  console.log('adfsdfasdf');
-  const result = await signUp();
-  console.log('results is', result);
+const authentication = async ({ ref, dispatch, ipInfo }) => {
+  console.log('authentication', ref, dispatch, ipInfo);
+  const token = local.get(APP.AUTH_TOKEN);
+  if (token) {
+    console.log('handle if token is existed');
+  } else {
+    console.log('sign up new user');
+    const result = await signUp();
+    console.log('results is', result);
+  }
 };
 
 const continueAfterInitApp = async (language, ref, dispatch, data) => {
