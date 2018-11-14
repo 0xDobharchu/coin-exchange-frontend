@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { history } from 'src/utils/history';
+// import { history } from 'src/utils/history';
 import createForm from 'src/components/core/form/createForm';
 import { Field, formValueSelector } from 'redux-form';
 import { userActions } from './action';
@@ -39,9 +39,9 @@ class Login extends React.Component {
       this.props.loginBound(username, password).then((user) => {
         console.log(user);
         this.setState({ loggingIn: false });
-        history.push('/');
+        // history.push('/');
       }, (err) => {
-        history.push('/');
+        // history.push('/');
         this.setState({ loggingIn: false });
         console.log(123, err);
       });

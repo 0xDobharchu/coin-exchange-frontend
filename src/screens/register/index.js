@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 // import { MasterWallet } from 'src/services/Wallets/MasterWallet';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { history } from 'src/utils/history';
+// import { history } from 'src/utils/history';
 import createForm from 'src/components/core/form/createForm';
 import { Field, formValueSelector } from 'redux-form';
 import { userActions } from './action';
