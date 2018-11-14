@@ -1,4 +1,4 @@
-@import './src/styles/style';
+//@import './src/styles/style';
 
 .app{
   padding-top: 0;
@@ -720,7 +720,7 @@
   -webkit-box-shadow: 0px 0px 30px rgba(0, 0, 0, .1);
   -moz-box-shadow: 0px 0px 30px rgba(0, 0, 0, .1);
   box-shadow: 0px 0px 30px rgba(0, 0, 0, .1);
-  background: url('../../assets/images/icon/pay/arrow-select.svg') no-repeat 99% center;
+  background: url('../../assets/images/wallet/icons/arrow-select.svg') no-repeat 99% center;
   .name{
     float:left;
     width: 50%;
@@ -865,7 +865,7 @@
       background-size: cover;
     }
     .name{
-      color: $white;
+      color: #fff;
     }
   }
 

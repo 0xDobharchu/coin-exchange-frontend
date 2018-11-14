@@ -10,7 +10,7 @@ import iconWarning from '@/assets/images/wallet/icons/icon-warning.svg';
 
 import iconChecked from '@/assets/images/wallet/icons/checked-green.svg';
 import iconQRCode from '@/assets/images/wallet/icons/icon-qrcode-black.svg';
-import bgCollectibles from '@/assets/images/pages/wallet/tokenerc721-mainnet.svg'
+import bgCollectibles from '@/assets/images/wallet/images/tokenerc721-mainnet.svg'
 
 import dontIcon from '@/assets/images/wallet/icons/3-dot-icon-black.svg';
 import needBackup from '@/assets/images/wallet/icons/need-backup.svg';

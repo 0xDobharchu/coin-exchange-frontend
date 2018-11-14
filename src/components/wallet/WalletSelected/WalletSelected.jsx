@@ -4,8 +4,9 @@ import {injectIntl} from 'react-intl';
 import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
 import Modal from '@/components/core/controls/Modal';
+// todo: add showLoading, hideLoading
 import { showLoading, hideLoading } from '@/reducers/app/action';
-import { ICON } from '@/styles/images';
+import { ICON } from '@/components/wallet/images';
 import ListCoin from '@/components/wallet/ListCoin';
 import './WalletSelected.scss';
 
