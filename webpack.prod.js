@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+// const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackIncludePlugin = require('html-webpack-include-assets-plugin');
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.common');
@@ -68,9 +68,9 @@ module.exports = merge(commonConfig, {
   },
   devtool: 'source-map',
   plugins: [
-    new CopyPlugin([
-      { from: path.resolve(__dirname, 'src/assets/libs'), to: path.resolve(__dirname, 'dist/client/assets/libs') }
-    ]),
+    // new CopyPlugin([
+    //   { from: path.resolve(__dirname, 'src/assets/libs'), to: path.resolve(__dirname, 'dist/client/assets/libs') }
+    // ]),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       title: 'The Coinbowl',

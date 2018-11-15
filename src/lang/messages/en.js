@@ -19,6 +19,10 @@ export default {
         required: 'Name required',
       },
       verify: {
+        step1: 'Level 1 : Email Verification',
+        step2: 'Level 2 : Phone Verification',
+        step3: 'Level 3 : ID Card Verification',
+        step4: 'Level 4 : Upload Photo Selfie',
         alert: {
           send: {
             phone: 'We sent the secret code to your phone.',
@@ -104,8 +108,8 @@ export default {
           desc9: 'Please take a selfie with your previous ID card and a piece of paper writing "I am in Ninja\'s dojo". Make sure that the photo is complete and clearly visible, in JPG or PNG format.',
           desc10: 'Email',
           desc11: 'Identification Document',
-          desc12: 'Level 1 verification: Trade with a limit of 500 USD a day.',
-          desc13: 'Level 2 verification: Trade with the top limit of 5000 USD a day.',
+          desc12: 'Trade with a limit upto 500 USD a day.',
+          desc13: 'Trade with the top limit of 5000 USD a day.',
           uploading: 'Uploading',
           button: {
             upload: 'Upload file',
@@ -327,6 +331,7 @@ export default {
       registerButton: 'Don\'t have an account?',
       forgetPassword: 'Forget password?',
       requiredPassword: 'Please enter your password',
+      notValidUsername: 'Invalid email address',
       requiredUsername: 'Please enter your email'
     },
     register: {
