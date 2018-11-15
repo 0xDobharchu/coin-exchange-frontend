@@ -2,15 +2,12 @@ import axios from 'axios';
 import React from 'react';
 import {injectIntl} from 'react-intl';
 import {connect} from "react-redux";
-// todo: add action
-// import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
+import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
 import PropTypes from 'prop-types';
 import local from '@/services/localStore';
-// todo: add constants
 import { APP } from '@/constants';
 
-// todo: add action
-// import { setLanguage } from '@/reducers/app/action';
+import { setLanguage } from '@/reducers/app/action';
 
 import './SettingWallet.scss';
 import Dropdown from '@/components/core/controls/Dropdown';
@@ -18,8 +15,7 @@ import Dropdown from '@/components/core/controls/Dropdown';
 import '../WalletPreferences/WalletPreferences.scss';
 
 import Switch from '@/components/core/controls/Switch';
-// todo: add action
-// import { newPasscode, requestWalletPasscode, updatePasscode } from '@/reducers/app/action';
+import { newPasscode, requestWalletPasscode, updatePasscode } from '@/reducers/app/action';
 
 import iconLock from '@/assets/images/wallet/icons/icon-lock.svg';
 import iconCurrentcy from '@/assets/images/wallet/icons/icon-currency.svg';

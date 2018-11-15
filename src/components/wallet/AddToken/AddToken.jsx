@@ -7,14 +7,12 @@ import ModalDialog from '@/components/core/controls/ModalDialog';
 import Modal from '@/components/core/controls/Modal';
 import createForm from '@/components/core/form/createForm';
 import { change } from 'redux-form';
-// todo: add customField
-// import {fieldDropdown, fieldInput, fieldRadioButton} from '@/components/core/form/customField';
+import {fieldDropdown, fieldInput, fieldRadioButton} from '@/components/core/form/customField';
 import {required} from '@/components/core/form/validation';
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
 import {TokenERC20} from "@/services/Wallets/Tokens/TokenERC20";
 import { bindActionCreators } from "redux";
-// todo: action
-// import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
+import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
 import QrReader from 'react-qr-reader';
 import { ICON } from '@/components/wallet/images';
 import PropTypes from 'prop-types';

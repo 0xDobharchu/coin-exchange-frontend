@@ -58,21 +58,21 @@ class Home extends Component {
           <Field
             name="input"
             component={inputField}
-            validate={inputValidator}
+            validate={inputValidator()}
             type="number"
             /** other input props... */
           />
           <Field
             name="textarea"
             component={textareaField}
-            validate={textareaValidator}
+            validate={textareaValidator()}
             placeholder="OK"
             /** other textarea props... */
           />
           <Field
             name="dropdown"
             component={dropdownField}
-            validate={dropdownValidator}
+            validate={dropdownValidator()}
             toggle={<b>Click me</b>}
             list={[
               {

@@ -7,10 +7,8 @@ import ModalDialog from '@/components/core/controls/ModalDialog';
 import Modal from '@/components/core/controls/Modal';
 import createForm from '@/components/core/form/createForm'
 import { change } from 'redux-form'
-// todo: add customField
-// import {fieldDropdown, fieldInput, fieldRadioButton} from '@/components/core/form/customField'
-// todo: add validation
-// import {required} from '@/components/core/form/validation'
+import {fieldDropdown, fieldInput, fieldRadioButton} from '@/components/core/form/customField'
+import {required} from '@/components/core/form/validation'
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
 import {CryptoKitties} from "@/services/Wallets/Collectibles/CryptoKitties";
 import {CryptoPunks} from "@/services/Wallets/Collectibles/CryptoPunks";
@@ -37,8 +35,7 @@ import { PirateKittyToken } from '@/services/Wallets/Collectibles/PirateKittyTok
 import { UnicornGO } from '@/services/Wallets/Collectibles/UnicornGO';
 import { WarToken } from '@/services/Wallets/Collectibles/WarToken';
 import { bindActionCreators } from "redux";
-// todo: add action
-// import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
+import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
 import { ICON } from '@/assets/styles/images';
 import PropTypes from 'prop-types';
 

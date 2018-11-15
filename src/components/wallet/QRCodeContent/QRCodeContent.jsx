@@ -9,8 +9,7 @@ import Button from '@/components/core/controls/Button';
 import ModalDialog from '@/components/core/controls/ModalDialog';
 
 import './QRCodeContent.scss';
-//todo: add action
-// import { showAlert, hideQRCodeContent } from '@/reducers/app/action';
+import { showAlert, hideQRCodeContent } from '@/reducers/app/action';
 
 import { MasterWallet } from '@/services/Wallets/MasterWallet';
 

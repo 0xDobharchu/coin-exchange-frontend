@@ -4,13 +4,11 @@ import {Field, formValueSelector, clearFields} from "redux-form";
 import {connect} from "react-redux";
 import Button from '@/components/core/controls/Button';
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
-// todo: action 
-// import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
+import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from "redux";
 import local from '@/services/localStore';
-// todo: add constants
-// import {APP} from '@/constants';
+import {APP} from '@/constants';
 import './BackupWallet.scss';
 
 window.Clipboard = (function (window, document, navigator) { let textArea, copy; function isOS() { return navigator.userAgent.match(/ipad|iphone/i); } function createTextArea(text) { textArea = document.createElement('textArea'); textArea.value = text; document.body.appendChild(textArea); } function selectText() { let range, selection; if (isOS()) { range = document.createRange(); range.selectNodeContents(textArea); selection = window.getSelection(); selection.removeAllRanges(); selection.addRange(range); textArea.setSelectionRange(0, 999999); } else { textArea.select(); } } function copyToClipboard() { document.execCommand('copy'); document.body.removeChild(textArea); } copy = function (text) { createTextArea(text); selectText(); copyToClipboard(); }; return { copy }; }(window, document, navigator));
