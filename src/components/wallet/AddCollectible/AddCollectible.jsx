@@ -36,7 +36,7 @@ import { UnicornGO } from '@/services/Wallets/Collectibles/UnicornGO';
 import { WarToken } from '@/services/Wallets/Collectibles/WarToken';
 import { bindActionCreators } from "redux";
 import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
-import { ICON } from '@/styles/images';
+import { ICON } from '@/assets/styles/images';
 import PropTypes from 'prop-types';
 
 import './AddCollectible.scss';

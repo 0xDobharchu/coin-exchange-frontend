@@ -5,10 +5,10 @@ import {connect} from "react-redux";
 import Button from '@/components/core/controls/Button';
 import ModalDialog from '@/components/core/controls/ModalDialog';
 import Modal from '@/components/core/controls/Modal';
-import createForm from '@/components/core/form/createForm'
-import { change } from 'redux-form'
-import {fieldDropdown, fieldInput, fieldRadioButton} from '@/components/core/form/customField'
-import {required} from '@/components/core/form/validation'
+import createForm from '@/components/core/form/createForm';
+import { change } from 'redux-form';
+import {fieldDropdown, fieldInput, fieldRadioButton} from '@/components/core/form/customField';
+import {required} from '@/components/core/form/validation';
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
 import {TokenERC20} from "@/services/Wallets/Tokens/TokenERC20";
 import { bindActionCreators } from "redux";
