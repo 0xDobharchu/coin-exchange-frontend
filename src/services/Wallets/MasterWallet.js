@@ -33,14 +33,10 @@ import {PandaEarth} from '@/services/Wallets/Collectibles/PandaEarth';
 import {PirateKittyToken} from '@/services/Wallets/Collectibles/PirateKittyToken';
 import {UnicornGO} from '@/services/Wallets/Collectibles/UnicornGO';
 import {WarToken} from '@/services/Wallets/Collectibles/WarToken';
-
 import Helper, {StringHelper} from '@/services/helper';
-
 import axios from 'axios';
 import {Ripple} from '@/services/Wallets/Ripple.js';
-
 const bip39 = require('bip39');
-const crypto = require('crypto');
 
 export class MasterWallet {
     // list coin is supported ...
@@ -52,7 +48,7 @@ export class MasterWallet {
       Ethereum,
       Bitcoin,
       BitcoinTestnet,
-      BitcoinCash,      
+      BitcoinCash,
       BitcoinCashTestnet,
       TokenERC20,
       TokenERC721,
@@ -82,7 +78,7 @@ export class MasterWallet {
       UnicornGO,
       WarToken
     };
-       
+
     static KEY = 'wallets';
 
     static QRCODE_TYPE = {
@@ -126,6 +122,8 @@ export class MasterWallet {
           // create address, private-key ...
           wallet.createAddressPrivatekey();
 
+          // encrypt secret data of wallet
+          wallet.enscrypt(password);
           masterWallet.push(wallet);
         }
       }
@@ -134,24 +132,16 @@ export class MasterWallet {
       for (let i = 0; i < defaultWallet.length; i++) {
         masterWallet[defaultWallet[i]].default = true;
       }
-      
+
       // Save to local store:
      /// MasterWallet.UpdateLocalStore(masterWallet);
 
       const t1 = performance.now();
 
       MasterWallet.log(`Call to createMasterWallet took ${t1 - t0} milliseconds.`);
-      const masterWalletEncrypt = MasterWallet.encrypt(masterWallet, password);
-      return {
-        masterWallet: masterWalletEncrypt,
-      };
+      return masterWallet;
     }
 
-    static hashPassword(password) {
-      const hash = crypto.createHash('sha256');
-      hash.update(password);
-      return hash.digest('hex');
-    }
     static UpdateLocalStore(masterWallet, sync = false) {
       // encrypt wallet:
       const encryptWalletData = MasterWallet.encrypt(JSON.stringify(masterWallet));
@@ -254,8 +244,8 @@ export class MasterWallet {
       const masterWallet = JSON.parse(masterWalletDataString);
       localStore.save(MasterWallet.KEY, masterWallet);
       return masterWallet;
-    }   
-    
+    }
+
 
     // get wallet data string local store:
     static getWalletDataLocalString() {
@@ -293,11 +283,11 @@ export class MasterWallet {
         if (wallet != false) {
           listWallet.push(wallet);
         }
-      });      
+      });
 
       return listWallet;
     }
-    
+
 
     static getWallets(coinName = '') {
       const wallets = MasterWallet.getWalletDataLocalString();
@@ -369,7 +359,7 @@ export class MasterWallet {
         if (e !== BreakException) throw e;
       }
       return false;
-    }    
+    }
 
     static convertObject(walletJson) {
       try {
@@ -462,26 +452,10 @@ export class MasterWallet {
         // console.log('Wallet is invaild', e);
       }
       return false;
-    } 
+    }
 
     static log(data, key = MasterWallet.KEY) {
       console.log(`%c ${StringHelper.format('{0}: ', key)}`, 'background: #222; color: #bada55', data);
-    }
-
-    static encrypt(drawData, password) {
-      const hash = MasterWallet.hashPassword(password);
-      const cipher = crypto.createCipher('aes192', hash);
-      let encrypted = cipher.update(drawData, 'utf8', 'hex');
-      encrypted += cipher.final('hex');
-      return encrypted;
-    }
-
-    static decrypte(encrypted, password) {
-      const hash = MasterWallet.hashPassword(password);
-      const decipher = crypto.createDecipher('aes192', hash);
-      let decrypted = decipher.update(encrypted, 'hex', 'utf8');
-      decrypted += decipher.final('utf8');
-      return decrypted;
     }
 
     // static encrypt(message) {

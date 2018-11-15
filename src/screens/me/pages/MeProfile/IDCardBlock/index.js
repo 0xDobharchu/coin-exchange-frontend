@@ -8,7 +8,7 @@ const IDCardBlock = ({ style }) => (
         <MyMessage id="me.profile.verify.step3" />
       </p>
       <div className={style.extend}>
-        <span className="badge badge-success">{true ? 'Verified' : ''}</span>
+        <span className="badge badge-success">Verified</span>
       </div>
     </div>
     <div className={style.content}>

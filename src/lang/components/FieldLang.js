@@ -10,6 +10,9 @@ class FieldLang extends PureComponent {
       placeholderValues,
       intl
     } = this.props;
+    if (!placeholder) {
+      return (<Field {...this.props} />);
+    }
     const placeHolderLang = intl.formatMessage({ id: placeholder, defaultMessage: placeholder }, placeholderValues);
     // eslint-disable-next-line
     return (<Field {...this.props} placeholder={placeHolderLang}/>);
