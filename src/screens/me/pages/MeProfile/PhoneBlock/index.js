@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
 import { MyMessage } from 'src/lang/components';
 import valid from 'src/services/validate';
-import EmailForm from './EmailForm';
+import PhoneForm from './PhoneForm';
 
 // eslint-disable-next-line
-const EmailBlock = ({ style, showAlert, email }) => {
+const PhoneBlock = ({ style, showAlert, phone }) => {
   const handleVerifyEmail = (values) => {
-    console.log('veerify email', values);
-    const { email: emailForm } = values;
+    console.log('veerify phone', values);
+    const { phone: emailForm } = values;
     if (emailForm) {
       if (valid.email(emailForm)) {
         console.log('email is invalid');
@@ -26,22 +26,22 @@ const EmailBlock = ({ style, showAlert, email }) => {
     <div className={style.collapse_custom}>
       <div className={style.head}>
         <p className={style.label}>
-          <MyMessage id="me.profile.verify.step1" />
+          <MyMessage id="me.profile.verify.step2" />
         </p>
         <div className={style.extend}>
-          <span className="badge badge-success">{email ? 'Verified' : ''}</span>
+          <span className="badge badge-success">{phone ? 'Verified' : ''}</span>
         </div>
       </div>
       <div className={style.content}>
-        <p className={style.text}><MyMessage id="me.profile.text.id_verification.desc12" /></p>
+        <p className={style.text}><MyMessage id="me.profile.text.id_verification.desc13" /></p>
       </div>
-      <EmailForm onSubmit={handleVerifyEmail} />
+      <PhoneForm onSubmit={handleVerifyEmail} />
     </div>
   );
 };
 
 const mapState = state => ({
-  email: state.auth.profile?.email || null,
+  phone: state.auth.profile?.phone || null,
 });
 const mapDispatch = { showAlert };
-export default connect(mapState, mapDispatch)(EmailBlock);
+export default connect(mapState, mapDispatch)(PhoneBlock);
