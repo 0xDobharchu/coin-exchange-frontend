@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Field, reduxForm } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import { Row } from 'react-bootstrap';
-import { MyMessage } from 'src/lang/components';
+// import { FieldLang } from 'src/lang/components';
+import { MyMessage, FieldLang } from 'src/lang/components';
 import style from '../styles.scss';
 
 // eslint-disable-next-line
@@ -11,11 +12,11 @@ const EmailForm = ({ handleSubmit, onSubmit }) => (
   <div>
     <Row>
       <div className="col-10">
-        <Field
+        <FieldLang
           name="email"
           component="input"
           type="text"
-          placeholder="Email"
+          placeholder="me.profile.text.email.desc3"
           style={{ width: '100%' }}
         />
       </div>

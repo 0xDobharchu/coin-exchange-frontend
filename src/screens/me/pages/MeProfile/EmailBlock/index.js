@@ -2,18 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
 import { MyMessage } from 'src/lang/components';
+import valid from 'src/services/validate';
 import EmailForm from './EmailForm';
-// import valid from 'src/services/validate';
 
 // eslint-disable-next-line
 const EmailBlock = ({ style, showAlert, email }) => {
   const handleVerifyEmail = (values) => {
     console.log('veerify email', values);
-    showAlert({
-      message: `Email invalid ${values.email}`,
-      timeOut: 3000,
-      type: 'danger'
-    });
+    const { email: emailForm } = values;
+    if (emailForm) {
+      if (valid.email(email)) {
+        showAlert({
+          message: <MyMessage id="me.profile.verify.alert.notValid.client.email" />,
+          timeOut: 3000,
+          type: 'danger'
+        });
+      }
+    }
   };
 
   return (

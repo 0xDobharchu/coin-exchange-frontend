@@ -2,7 +2,7 @@
 const mockState = {
   token: '3Spjg41uj3CTsH9ts77AaVnyfOAHOjtqRzC9ZIUyv_AU5nKO_PK5DIgJ8A==',
   profile: {
-    email: '',
+    email: 'vankhoa@autonomous.nyc',
   }
 };
 
