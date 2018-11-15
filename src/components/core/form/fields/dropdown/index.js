@@ -21,9 +21,10 @@ const inputField = ({
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {
-            _list.map(item => (
+            _list.map((item, index) => (
               item && (
                 <Dropdown.Item
+                  key={item.id || index}
                   onClick={() => {
                     onChange(item?.value);
                     if (typeof item?.onClick === 'function') {

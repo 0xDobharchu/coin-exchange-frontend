@@ -47,10 +47,12 @@ class Collapse extends React.PureComponent {
         >
           {isList ? (
             <dl>
-              {content.map(item => [
-                <dt>{item.title}</dt>,
-                <dd>{item.content}</dd>,
-              ])}
+              {content.map((item, index) => (
+                <React.Fragment key={index}>
+                  <dt>{item.title}</dt>
+                  <dd>{item.content}</dd>
+                </React.Fragment>
+              ))}
             </dl>
           ) : (
             <div>
