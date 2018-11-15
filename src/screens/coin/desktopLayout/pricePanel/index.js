@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import btcIcon from 'src/assets/icons/coin/btc.svg';
 import ethIcon from 'src/assets/icons/coin/eth.svg';
 import { injectIntl } from 'react-intl';
-import CryptoPrice from './CryptoPrice';
+import CryptoPrice from './cryptoPrice';
 import styles from './styles.scss';
 
 const CRYPTOS = [
