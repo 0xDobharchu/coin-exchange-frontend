@@ -33,7 +33,7 @@ module.exports = merge(commonConfig, {
     // configuration regarding modules
     rules: [
       {
-        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/i,
+        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|raw)$/i,
         use: [
           {
             loader: 'url-loader',

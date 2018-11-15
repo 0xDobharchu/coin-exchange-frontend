@@ -14,7 +14,6 @@ import local from '@/services/localStore';
 // import { APP } from '@/constants';
 // todo add getReferalInfo
 // import { getReferalInfo } from '@/reducers/exchange/action';
-import { shortenUser } from '@/services/offer-util';
 import Button from '@/components/core/controls/Button';
 import Input from '../Input';
 import Modal from '@/components/core/controls/Modal';

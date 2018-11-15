@@ -25,8 +25,9 @@ button {
   overflow: hidden;
 }
 
+
 @import "app/splash";
-@import "app";
+@import "./app";
 @import "forms/dropdown-input";
 
 @import "pages/recruiting";

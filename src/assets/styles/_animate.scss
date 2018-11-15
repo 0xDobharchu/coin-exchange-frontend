@@ -1,7 +1,7 @@
 /*
 * animate.css -http://daneden.me/animate
 */
-
+:global {
 .animated {
   animation-duration: $animation-duration;
   animation-fill-mode: both;
@@ -55,4 +55,5 @@
 .slideInUp {
   -webkit-animation-name: slideInUp;
   animation-name: slideInUp;
+}
 }
