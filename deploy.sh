@@ -1,5 +1,8 @@
 #!/bin/bash
 
+cp -r ./deployments/$1 ./.env
+yarn build
+
 builNumber=$(date "+%Y%m%d_%H%M%S")
 
 PROJECT="coin-exchange-221604"
