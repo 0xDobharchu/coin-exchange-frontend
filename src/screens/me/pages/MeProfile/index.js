@@ -22,6 +22,7 @@ const MeProfile = () => (
         <IDCardBlock style={style} />
       </Col>
     </Row>
+    <Row style={{ height: '60px' }} />
   </Container>
 );
 
