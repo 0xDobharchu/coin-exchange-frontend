@@ -18,7 +18,7 @@ class CoinTemp extends React.Component {
     
     render(){ 
         const {wallet, onClick} =  this.props;        
-        const bgImg = require("@/assets/images/pages/wallet/" + wallet.getBackgroundImg());
+        const bgImg = require("@/assets/images/wallet/images/" + wallet.getBackgroundImg());
         const itemSelected = wallet.default ? "feed feed-selected" : "feed";
 
         return  ( 
