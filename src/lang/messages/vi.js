@@ -3,7 +3,11 @@ export default {
   helloWorld: 'Xin Chao',
   app: {
     title: 'khoavn22',
-    name: '<p style="color: yellow;">Test VN html</p>'
+    name: '<p style="color: yellow;">Test VN html</p>',
+    navigation: {
+      me: 'Me',
+      ninjaCoin: 'Coin'
+    }
   },
   me: {
     profile: {

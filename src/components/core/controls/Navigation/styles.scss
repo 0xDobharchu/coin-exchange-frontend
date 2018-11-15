@@ -1,0 +1,48 @@
+@import 'src/assets/styles/_var.scss';
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: $footer-height;
+  width: 100%;
+  // max-width: $app-width;
+  background: #FFFFFF;
+  z-index: 2;
+  box-shadow: 0 -2px 13px 0 rgba(221,235,242,0.50);
+  .main {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: $footer-height;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 400;
+    .item {
+      display: flex;
+      flex-direction: column;
+      a {
+        display: flex;
+        flex-direction: column;
+      }
+      a:hover {
+        text-decoration: none;
+      }
+      span {
+        text-align: center;
+      }
+      &.selected {
+        a {
+          //color: rgba(248, 248, 248, 0.95);
+          span {
+            background-color: #1E4EFF;
+            border-radius: 9px;
+            color: #ffffff;
+            padding: 2px;
+          }
+        }
+      }
+    }
+  }
+}
