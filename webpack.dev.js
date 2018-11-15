@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const HtmlWebpackIncludePlugin = require('html-webpack-include-assets-plugin');
 const commonConfig = require('./webpack.common');
 
 const cssLoader = [
@@ -76,6 +77,11 @@ module.exports = merge(commonConfig, {
     new HtmlWebpackPlugin({
       title: 'Ninja Project',
       template: path.resolve(__dirname, 'src/template/app.html'),
+    }),
+    new HtmlWebpackIncludePlugin({
+      assets: [],
+      append: true,
+      jsExtensions: ['.js', '.jsx']
     }),
   ],
 });

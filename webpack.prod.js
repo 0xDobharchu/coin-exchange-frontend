@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const HtmlWebpackIncludePlugin = require('html-webpack-include-assets-plugin');
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.common');
 
@@ -66,12 +68,20 @@ module.exports = merge(commonConfig, {
   },
   devtool: 'source-map',
   plugins: [
+    new CopyPlugin([
+      { from: path.resolve(__dirname, 'src/assets/libs'), to: path.resolve(__dirname, 'dist/client/assets/libs') }
+    ]),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      title: 'Ninja Project',
+      title: 'The Coinbowl',
       template: path.resolve(__dirname, 'src/template/app.html'),
       hash: true,
       minify: true,
+    }),
+    new HtmlWebpackIncludePlugin({
+      assets: [],
+      append: true,
+      jsExtensions: ['.js', '.jsx']
     }),
     new MiniCssExtractPlugin({
       filename: 'assets/main.[hash:8].css',
