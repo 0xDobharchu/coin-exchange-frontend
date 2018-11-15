@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
 // import { Field, formValueSelector } from 'redux-form';
 import LandingWrapper from 'src/components/LandingWrapper';
-import Collapse from 'src/components/Collapse';
+// import Collapse from 'src/components/Collapse';
 // import createForm from 'src/components/core/form/createForm';
 // import { fieldInput } from 'src/components/core/form/customField';
 // import { email, required } from 'src/components/core/form/validation';
@@ -17,6 +17,8 @@ import { LANDING_PAGE_TYPE } from 'src/resources/constants/url';
 import messages from 'src/lang/messages';
 
 import './styles.scss';
+import Faq from 'src/components/FAQ';
+
 // const nameFormSubscribeEmail = 'subscribeEmail';
 // const FormSubscribeEmail = createForm({
 //   propsReduxForm: {
@@ -85,7 +87,7 @@ class Index extends React.PureComponent {
     //   name, img, imgContent, getEmail, intl, type, entireContentComponent, contentComponent, reactHelmetElement, noBreadCrumbs, fullWidthContent = false,
     // } = this.props;
     const {
-      name, type, entireContentComponent, reactHelmetElement, fullWidthContent = false
+      name, type, reactHelmetElement, fullWidthContent = false, faqContent
     } = this.props;
 
     // const { hasSubscribed } = this.state;
@@ -99,7 +101,7 @@ class Index extends React.PureComponent {
     //   <MyMessage id={`landing_page.${name}.btnSubmitEmail`] || 'Submit';
     // const youtubeVideoId = <MyMessage id={`landing_page.${name}.youtubeVideoId`} />;
     // const faq = messages[`en`][`app.name`];
-    const faq = messages[`en.landing_page.${name}.faq`];
+    // const faq = messages[`en.landing_page.${name}.faq`];
     // const disclaim = <MyMessage id={`landing_page.${name}.disclaim`} />;
     // const btnBecomeAtm = <MyMessage id={`landing_page.${name}.btnBecomeAtm`} />;
     // const btnJoinTelegram = <MyMessage id={`landing_page.${name}.btnJoinTelegram`} />;
@@ -250,7 +252,7 @@ class Index extends React.PureComponent {
               </React.Fragment>
             )
           } */}
-          {
+          {/* {
             faq && (
               <div className="row mt-5" id="faq" ref={(c) => { this.faq = c; }}>
                 <div className="col">
@@ -272,7 +274,8 @@ class Index extends React.PureComponent {
                 </div>
               </div>
             )
-          }
+          } */}
+          <Faq faq={faqContent} />
           {/* {disclaim && this.renderDisclaim(name)} */}
         </div>
       </LandingWrapper>

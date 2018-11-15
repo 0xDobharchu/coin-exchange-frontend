@@ -18,7 +18,8 @@
     "pm2-stop": "pm2 stop process.yml",
     "lint": "eslint --ext .js --ext .jsx src/",
     "precommit": "yarn lint",
-    "build-sw": "workbox injectManifest workbox-config.js"
+    "build-sw": "workbox injectManifest workbox-config.js",
+    "test": "__tests__/fake_test.sh"
   },
   "author": "",
   "license": "ISC",

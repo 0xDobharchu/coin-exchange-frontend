@@ -1,4 +1,5 @@
 import { StringHelper } from '@/services/helper';
+const crypto = require('crypto');
 
 export class Wallet {
   constructor() {
@@ -26,6 +27,33 @@ export class Wallet {
     this.hideBalance = false;
   }
   
+
+  enscrypt(password) {
+    this.mnemonic = Wallet.encrypt(this.mnemonic, password);
+    this.privateKey = Wallet.encrypt(this.privateKey, password);
+    this.secret = Wallet.encrypt(this.secret, password);
+  }
+  static hashPassword(password) {
+    const hash = crypto.createHash('sha256');
+    hash.update(password);
+    return hash.digest('hex');
+  }
+
+  static encrypt(drawData, password) {
+    const hash = Wallet.hashPassword(password);
+    const cipher = crypto.createCipher('aes192', hash);
+    let encrypted = cipher.update(drawData, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    return encrypted;
+  }
+
+  static decrypte(encrypted, password) {
+    const hash = Wallet.hashPassword(password);
+    const decipher = crypto.createDecipher('aes192', hash);
+    let decrypted = decipher.update(encrypted, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
+    return decrypted;
+  }
 
   getShortAddress() {
     return this.address.replace(this.address.substr(4, 34), '...');
