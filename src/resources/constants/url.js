@@ -65,6 +65,9 @@ export const API_URL = {
   ME: {
     BASE: 'handshake/me',
     SET_OFFLINE_STATUS: 'exchange/user/profile/offline',
+  },
+  LANDING: {
+    FAQ: 'static/faq',
   }
 };
 
