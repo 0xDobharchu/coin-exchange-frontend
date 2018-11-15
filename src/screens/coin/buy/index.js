@@ -9,7 +9,7 @@ import { change, Field, formValueSelector, touch } from 'redux-form';
 import { connect } from 'react-redux';
 import createForm from 'src/components/core/form/createForm';
 import fieldInput, { inputValidator } from 'src/components/core/form/fields/input';
-import { minValue, required } from 'src/components/core/form/validator';
+import { minValue, isRequired } from 'src/components/core/form/validator';
 import { /* API_URL, */ URL } from 'src/resources/constants/url';
 import { CRYPTO_CURRENCY, CRYPTO_CURRENCY_NAME, MIN_AMOUNT } from 'src/resources/constants/crypto';
 import { FIAT_CURRENCY_NAME, FIAT_CURRENCY } from 'src/resources/constants/fiat';
@@ -557,7 +557,7 @@ class BuyCryptoCoin extends React.Component {
     }
 
     const validateMin = currency === CRYPTO_CURRENCY.BTC ? minValueBTC : minValueETH;
-    errors.coinMoneyExchange = amount === 0 ? required('') : validateMin(amount);
+    errors.coinMoneyExchange = amount === 0 ? isRequired()('') : validateMin(amount);
 
     if (errors.coinMoneyExchange) {
       this.setState({ isValidToSubmit: false });
