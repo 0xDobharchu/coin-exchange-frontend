@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   module: {
@@ -15,11 +16,11 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              '@babel/preset-react',
               ['@babel/preset-env', {
                 shippedProposals: true, // to support spread operators
                 forceAllTransforms: true
               }],
+              '@babel/preset-react',
             ],
             plugins: [
               ['transform-imports', {
@@ -51,13 +52,22 @@ module.exports = {
           }
         }
       },
+      {
+        test: /\.node$/,
+        use: [
+          { loader: 'node-loader' },
+        ],
+      },
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.json', '.node'],
     alias: {
       src: path.resolve(__dirname, 'src'),
       '@': path.resolve(__dirname, 'src'),
     }
   },
+  plugins: [
+    new webpack.IgnorePlugin(/^electron$/)
+  ] 
 };
