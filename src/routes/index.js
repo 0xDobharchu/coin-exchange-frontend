@@ -80,7 +80,7 @@ const routes = [
   //   path: '/wallet',
   //   component: Wallet,
   //   exact: true,
-  // }
+  // },
   {
     path: URL.HANDSHAKE_ME_PROFILE,
     component: MeProfile,
