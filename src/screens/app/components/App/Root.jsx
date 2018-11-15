@@ -27,7 +27,7 @@ class Root extends React.Component {
 
   render() {
     // eslint-disable-next-line
-    if (this.props.app.rootLoading) return null;
+    // if (this.props.app.rootLoading) return null;
     // eslint-disable-next-line
     console.log('lfkajsdlfkjaslfkjasdlfkjasldfkjalsdkfj', this.props);
     return (
