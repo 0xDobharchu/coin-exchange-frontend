@@ -6,7 +6,7 @@
     "es6": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb"],
+  "extends": ["airbnb", "eslint:recommended", "plugin:react/recommended"],
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
@@ -22,6 +22,8 @@
     "APP_ENV": true
   },
   "rules": {
+    "react/no-array-index-key": 0,
+    "react/display-name": 0,
     "react/jsx-one-expression-per-line": 0,
     "react/destructuring-assignment": 1,
     "react/prop-types": 1,
