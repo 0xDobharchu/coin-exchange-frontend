@@ -4,6 +4,8 @@ const mockState = {
   profile: {
     email: 'vankhoa@autonomous.nyc',
     phone: '',
+    idVerificationLevel: 0,
+    verified: 1,
   }
 };
 
