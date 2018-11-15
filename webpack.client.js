@@ -52,21 +52,21 @@ module.exports = merge(isDev ? devConfig : prodConfig, {
   ],
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        exclude: /\/(dist|node_modules|bower_components)/,
-        // include: /\/(src)/,
-        uglifyOptions: {
-          compress: {
-            // Drop console statements
-            drop_console: env.dropConsole || true,
-          },
-          // Eliminate comments
-          comments: false,
-        },
-        cache: true,
-        parallel: true,
-        sourceMap: true, // set to true if you want JS source maps
-      }),
+      // new UglifyJsPlugin({
+      //   exclude: /\/(dist|node_modules|bower_components)/,
+      //   // include: /\/(src)/,
+      //   uglifyOptions: {
+      //     compress: {
+      //       // Drop console statements
+      //       drop_console: env.dropConsole || true,
+      //     },
+      //     // Eliminate comments
+      //     comments: false,
+      //   },
+      //   cache: true,
+      //   parallel: true,
+      //   sourceMap: true, // set to true if you want JS source maps
+      // }),
       new OptimizeCSSAssetsPlugin({})
     ]
   },
