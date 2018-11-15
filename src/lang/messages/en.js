@@ -331,6 +331,7 @@ export default {
       registerButton: 'Don\'t have an account?',
       forgetPassword: 'Forget password?',
       requiredPassword: 'Please enter your password',
+      notValidUsername: 'Invalid email address',
       requiredUsername: 'Please enter your email'
     },
     register: {
