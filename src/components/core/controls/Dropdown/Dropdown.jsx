@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import isEqual from '@/utils/isEqual';
 // component
 // style
+import cn from 'classnames';
 import ExpandArrowSVG from '@/assets/images/icon/expand-arrow.svg';
 import SEARCH_ICON_SVG from '@/assets/images/icon/ic_search.svg';
-import './Dropdown.scss';
+import style from './Dropdown.scss';
 
 class Dropdown extends React.PureComponent {
   constructor(props) {
@@ -104,19 +105,19 @@ class Dropdown extends React.PureComponent {
     } = this.state;
 
     return (
-      <div className={`dropdown dropdown-custom ${className || ''}`}>
+      <div className={`${style.dropdown} ${style.dropdown_custom} ${className || ''}`}>
         <button type="button" className={`btn ${isShow ? 'show-flex' : ''}`} onClick={this.handleShow}>
           <p>{text}</p>
           <div>
             <img src={ExpandArrowSVG} alt="expand arrow" />
           </div>
         </button>
-        <ul className={`dropdown-custom-menu ${isShow ? 'show' : 'hide'}`}>
+        <ul className={`${style.dropdown_custom_menu} ${isShow ? 'show' : 'hide'}`}>
           {
             hasSearch && (
-              <li className="dropdown-custom-item search-block">
+              <li className={`${style.dropdown_custom_item} ${style.search_block}`}>
                 <input
-                  className="search-box"
+                  className={style.search_box}
                   onChange={e => this.filterSource(e.target.value)}
                   type="text"
                   // eslint-disable-next-line
@@ -133,7 +134,7 @@ class Dropdown extends React.PureComponent {
                   <li
                     role="presentation"
                     key={item.id}
-                    className={`dropdown-custom-item ${idActive === item.id ? 'active' : ''} ${item.className ? item.className : ''}`}
+                    className={`${style.dropdown_custom_item} ${idActive === item.id ? 'active' : ''} ${item.className ? item.className : ''}`}
                     style={item.style || null}
                     // eslint-disable-next-line
                     onClick={() => (!item.disableClick ? this.onItemSelected(item) : '')}
@@ -143,7 +144,7 @@ class Dropdown extends React.PureComponent {
                   </li>
                 ))
               ) : (
-                <li className="dropdown-custom-item no-results">
+                <li className={cn(style.dropdown_custom_item, style.no_results)}>
                   No results match
                 </li>
               )
