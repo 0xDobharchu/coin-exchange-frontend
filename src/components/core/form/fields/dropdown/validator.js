@@ -1,1 +1,1 @@
-export default from '../../validator/required';
+export isRequired from '../../validator/isRequired';

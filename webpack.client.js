@@ -45,9 +45,9 @@ module.exports = merge(isDev ? devConfig : prodConfig, {
   plugins: [
     ...(!isDev ? [new CleanWebpackPlugin(path.resolve(__dirname, 'dist/client'))] : []),
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify(env),
       __CLIENT__: true,
-      __SERVER__: false
+      __SERVER__: false,
+      APP_ENV: JSON.stringify(env),
     }),
   ],
   optimization: {

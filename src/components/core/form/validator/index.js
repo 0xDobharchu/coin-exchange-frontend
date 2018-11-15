@@ -1,2 +1,5 @@
 export minValue from './minValue';
-export required from './required';
+export isRequired from './isRequired';
+export isPassword from './isPassword';
+export isConfirmPassword from './isConfirmPassword';
+export isEmail from './isEmail';

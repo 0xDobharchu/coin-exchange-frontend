@@ -16,7 +16,7 @@ const makeAction = ({ type, data, dispatchType }) => {
 
 export const makeRequest = (config = {}, _dispatch) => {
   const {
-    type, url, method, data, onSuccess, onError, params
+    type, url, method, data, onSuccess, onError, onFinal, params
   } = config;
   const METHOD = method ? String(method).toLowerCase() : 'get';
   return async (d) => {
@@ -42,6 +42,10 @@ export const makeRequest = (config = {}, _dispatch) => {
           console.warn('Should use Promise instead of callback!');
           onSuccess(res);
         }
+        if (typeof onFinal === 'function') {
+          console.warn('Should use Promise instead of callback!');
+          onFinal(res);
+        }
       }
       return Promise.resolve(res);
     } catch (e) {
@@ -49,6 +53,10 @@ export const makeRequest = (config = {}, _dispatch) => {
       if (typeof onError === 'function') {
         console.warn('Should use Promise instead of callback!');
         onError(e);
+      }
+      if (typeof onFinal === 'function') {
+        console.warn('Should use Promise instead of callback!');
+        onFinal(e);
       }
       return Promise.reject(e);
     }
