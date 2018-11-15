@@ -7,3 +7,5 @@ yarn-error.log
 .env.*.js
 .env/
 .vscode
+deployments/
+deployments.tar
