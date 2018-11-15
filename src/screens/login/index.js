@@ -2,11 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// import { history } from 'src/utils/history';
 import createForm from 'src/components/core/form/createForm';
 import { Field, formValueSelector } from 'redux-form';
-import { userActions } from './action';
-import inputField, { inputValidator } from '../../components/core/form/fields/input';
+import inputField from 'src/components/core/form/fields/input';
+import { isEmail, isPassword, isRequired } from 'src/components/core/form/validator';
+import { USER } from 'src/resources/constants/user';
+import LabelLang from 'src/lang/components/LabelLang';
+import { login } from './action';
 
 const LoginForm = createForm({
   propsReduxForm: {
@@ -31,19 +33,16 @@ class Login extends React.Component {
   }
 
   handleSubmit() {
-    // e.preventDefault();
     this.setState({ loggingIn: true });
     const { username, password } = this.props;
     if (username && password) {
-      console.log(username, password);
-      this.props.loginBound(username, password).then((user) => {
-        console.log(user);
+      this.props.loginBound(username, password).then((res) => {
+        if (res === USER.LOGIN_SUCCESS) {
+          console.log('Login successfull');
+          this.props.history.push('/');
+        }
+      }).finally(() => {
         this.setState({ loggingIn: false });
-        // history.push('/');
-      }, (err) => {
-        // history.push('/');
-        this.setState({ loggingIn: false });
-        console.log(123, err);
       });
     }
   }
@@ -53,34 +52,44 @@ class Login extends React.Component {
     return (
       <div className="row justify-content-md-center">
         <div className="col-md-6">
-          <h2>Login</h2>
+          <h2><LabelLang id="user.login.title" /></h2>
           <LoginForm onSubmit={this.handleSubmit}>
             <div className="form-group">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username"><LabelLang id="user.login.username" /></label>
               <Field
                 name="username"
                 className="form-control"
                 component={inputField}
-                validate={inputValidator}
+                validate={[isRequired(<LabelLang id="user.login.requiredUsername" />), isEmail]}
                 type="text"
               />
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password"><LabelLang id="user.login.password" /></label>
               <Field
                 name="password"
                 className="form-control"
                 component={inputField}
-                validate={inputValidator}
+                validate={[isRequired(<LabelLang id="user.login.requiredPassword" />), isPassword(8)]}
                 type="password"
               />
             </div>
             <div className="form-group">
-              <button type="submit" className="btn btn-primary">Login</button>
+              <Field
+                name="keepSignin"
+                id="keepSignin"
+                component={inputField}
+                type="checkbox"
+              />
+              <label htmlFor="keepSignin"><LabelLang id="user.login.keepSignin" /></label>
+            </div>
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary"><LabelLang id="user.login.loginButton" /></button>
               {loggingIn
                         && <img alt="is login" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                         }
-              <Link to="/register" className="btn btn-link">Register</Link>
+              <Link to="/register" className="btn btn-link"><LabelLang id="user.login.registerButton" /></Link>
+              <Link to="/forget-password" className="btn btn-link"><LabelLang id="user.login.forgetPassword" /></Link>
             </div>
           </LoginForm>
         </div>
@@ -95,7 +104,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  loginBound: bindActionCreators(userActions.login, dispatch),
+  loginBound: bindActionCreators(login, dispatch),
 });
 
 const connectedLoginPage = connect(mapStateToProps, mapDispatch)(Login);

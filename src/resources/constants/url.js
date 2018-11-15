@@ -15,6 +15,9 @@ export const URL = {
   CRYPTO_COIN_URL: '/coin',
   BUY_COIN_FAQ_URL: '/coin/faq',
   SELL_COIN_URL: '/sell-coin',
+
+  USER_LOGIN: '/token/',
+  USER_SIGN_UP: '/user/sign-up',
 };
 
 export const API_URL = {

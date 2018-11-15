@@ -10,5 +10,6 @@ module.exports = {
       storageBucket: '',
       messagingSenderId: '',
     },
-    dropConsole: true
+    dropConsole: true,
+    GOOGLE_CAPTCH_SITE_KEY: ''
   };

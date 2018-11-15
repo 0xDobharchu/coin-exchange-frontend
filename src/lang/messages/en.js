@@ -313,4 +313,41 @@ export default {
       answer: 'Feel free to contact us via live chat if you need any support for buying coin on Ninja',
     },
   ],
+  user: {
+    login: {
+      title: 'LOGIN',
+      username: 'Username',
+      password: 'Password',
+      loginButton: 'Login',
+      keepSignin: 'keep signin on user computer',
+      registerButton: 'Don\'t have an account?',
+      forgetPassword: 'Forget password?',
+      requiredPassword: 'Please enter your password',
+      requiredUsername: 'Please enter your email'
+    },
+    register: {
+      title: 'REGISTER',
+      firstName: 'First name',
+      requiredFirstName: 'First name is required',
+      placeholderFirstName: 'Enter your first name',
+      lastName: 'Last name',
+      requiredLastName: 'Last name is required',
+      placeholderLastName: 'Enter your last name',
+      username: 'Username',
+      requiredUsername: 'Username is required',
+      notValidUsername: 'Invalid email address',
+      password: 'Password',
+      requiredPassword: 'Password is required',
+      notValidPassword: 'Password must be 8 characters or more',
+      placeholderPassword: 'Enter your password',
+      confirmPassword: 'Confirm password',
+      notValidConfirmPassword: 'Confirm password not match',
+      placeholderConfirmPassword: 'Enter confirm password',
+      country: 'Country',
+      placeholderCountry: 'Please select your country',
+      notValidReCaptcha: 'Please validate your reCAPTCHA.',
+      registerButton: 'Register',
+      loginButton: 'Login',
+    }
+  }
 };
