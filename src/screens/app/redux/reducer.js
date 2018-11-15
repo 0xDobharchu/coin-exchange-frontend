@@ -5,7 +5,8 @@ const {
   HEADER_RIGHT_REMOVE,
   HEADER_LEFT_REMOVE,
   HEADER_HIDE,
-  HEADER_DEFAULT
+  HEADER_DEFAULT,
+  UPDATE_APP_STATE
 } = APP_TYPE;
 
 const initState = {
@@ -80,6 +81,11 @@ export default (state = initState, { type, payload }) => {
       return {
         ...state,
         showHeader: false,
+      };
+    case UPDATE_APP_STATE:
+      return {
+        ...state,
+        ...payload
       };
     default:
       return state;

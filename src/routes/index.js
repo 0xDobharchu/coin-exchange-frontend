@@ -1,3 +1,4 @@
+import { URL } from 'src/constants';
 import Home from 'src/screens/home';
 import Contact from 'src/screens/contact';
 import Login from 'src/screens/login';
@@ -7,6 +8,7 @@ import Localization from 'src/screens/localization';
 import Me from 'src/screens/me';
 // import Wallet from 'src/screens/wallet';
 import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
+import MeProfile from 'src/screens/me/pages/MeProfile';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
 import privateRoute from './privateRoute';
@@ -73,6 +75,11 @@ const routes = [
   //   component: Wallet,
   //   exact: true,
   // }
+  {
+    path: URL.HANDSHAKE_ME_PROFILE,
+    component: MeProfile,
+    exact: true,
+  }
 ];
 
 export default routes;

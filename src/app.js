@@ -1,12 +1,12 @@
 import React from 'react';
+import Root from 'src/screens/app/components/App/Root';
 import routes, { RenderRoutes } from 'src/routes';
-import IntlCustomProvider from './lang';
-
 import 'src/assets/styles/app.scss';
 
+
 const App = () => (
-  <IntlCustomProvider>
+  <Root>
     <RenderRoutes routes={routes} />
-  </IntlCustomProvider>
+  </Root>
 );
 export default App;

@@ -1,0 +1,37 @@
+@import 'src/assets/styles/_var.scss';
+@import 'src/assets/styles/_functions.scss';
+
+.alerts {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: $app-width;
+    margin: 0 auto;
+    z-index: $z-index-alert;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+.alert-success{
+  svg {
+    margin-bottom: 1px;
+    margin-right: 5px;
+  }
+}
+
+.slideInDown {
+  animation-name: slideInDown;
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
