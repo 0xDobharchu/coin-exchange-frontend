@@ -26,6 +26,7 @@ export class Wallet {
     // settings:
     this.hideBalance = false;
   }
+  
 
   enscrypt(password) {
     this.mnemonic = Wallet.encrypt(this.mnemonic, password);
