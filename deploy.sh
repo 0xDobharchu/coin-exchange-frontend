@@ -11,7 +11,7 @@ NGINX_IMAGE="$NAME_SPACE-nginx"
 FRONTEND_IMAGE="$NAME_SPACE-frontend-service"
 
 gcloud auth activate-service-account --key-file deployments/deploy.cred.json
-gcloud container clusters get-credentials server-cluster-1 --zone asia-southeast1-a --project coin-exchange-221604
+gcloud container clusters get-credentials service-cluster-1 --zone asia-southeast1-a --project coin-exchange-221604
 docker build -t gcr.io/$PROJECT/$NGINX_IMAGE:$builNumber .
 
 printf '\033[31m%s\033[0m\n' "=== READY TO DEPLOY ======";
