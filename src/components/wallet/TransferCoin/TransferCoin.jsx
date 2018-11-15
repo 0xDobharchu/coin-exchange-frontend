@@ -8,7 +8,6 @@ import ModalDialog from '@/components/core/controls/ModalDialog';
 import Modal from '@/components/core/controls/Modal';
 import createForm from '@/components/core/form/createForm';
 import { fieldInput } from '@/components/core/form/customField';
-// todo: add constants
 import { API_URL } from "@/constants";
 import local from '@/services/localStore';
 import {APP} from '@/constants';
@@ -16,8 +15,7 @@ import {required} from '@/components/core/form/validation';
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
 import { bindActionCreators } from "redux";
 import {getFiatCurrency} from '@/reducers/exchange/action';
-// todo: add action
-// import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
+import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
 import QrReader from 'react-qr-reader';
 import { StringHelper } from '@/services/helper';
 import './TransferCoin.scss';

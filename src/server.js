@@ -11,6 +11,7 @@ import App from './app';
 
 const store = configureStore();
 const app = express();
+const PORT = process.env.PORT || 8000;
 app.use(morgan('short'));
 app.use('/public', express.static(path.join(__dirname, '../client')));
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
@@ -67,6 +68,6 @@ function handleRender(req, res) {
 
 app.use(handleRender);
 
-app.listen(8000, () => {
-  console.log('App is running on 8000');
+app.listen(PORT, () => {
+  console.log(`App is running on port ${PORT}`);
 });
