@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cp -r ./deployments/$1 ./.env
+cp -r deployments/$1 ./.env
 yarn build
 
 builNumber=$(date "+%Y%m%d_%H%M%S")
@@ -10,7 +10,7 @@ NAME_SPACE=$1
 NGINX_IMAGE="$NAME_SPACE-nginx"
 FRONTEND_IMAGE="$NAME_SPACE-frontend-service"
 
-gcloud auth activate-service-account --key-file /deployments/deploy.cred.json
+gcloud auth activate-service-account --key-file deployments/deploy.cred.json
 gcloud container clusters get-credentials server-cluster-1 --zone asia-southeast1-a --project coin-exchange-221604
 docker build -t gcr.io/$PROJECT/$NGINX_IMAGE:$builNumber .
 
