@@ -18,6 +18,10 @@ export default {
         required: 'Name required',
       },
       verify: {
+        step1: 'Cấp Độ 1 : Xác Thực Email',
+        step2: 'Cấp Độ 2 : Xác Thực Số Điện Thoại',
+        step3: 'Cấp Độ 3',
+        step4: 'Cấp Độ 4',
         alert: {
           send: {
             phone: 'We sent the secret code to your phone.',
