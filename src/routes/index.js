@@ -6,18 +6,35 @@ import Coin from 'src/screens/coin';
 import Localization from 'src/screens/localization';
 import Me from 'src/screens/me';
 import Wallet from 'src/screens/wallet';
+import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
+import privateRoute from './privateRoute';
 
+/**
+ * {
+    path: '/some-path',
+    component: YourComponent,
+    componentProps: { name: 'Component Name' },
+    auth: bool ==> need to auth to see this view
+    ...react-router props
+  },
+ */
 const routes = [
   {
     path: '/',
     component: Home,
+    componentProps: { title: 'Oh yeah!' },
     exact: true,
   },
   {
     path: '/coin',
     component: Coin,
+    exact: true,
+  },
+  {
+    path: '/coin/faq',
+    component: CoinBowlFAQ,
     exact: true,
   },
   {
@@ -49,6 +66,7 @@ const routes = [
     path: '/me',
     component: Me,
     exact: true,
+    auth: true,
   },
   {
     path: '/wallet',
@@ -60,3 +78,4 @@ const routes = [
 export default routes;
 export const RouteWrapper = routeWrapper;
 export const RenderRoutes = renderRoutes;
+export const PrivateRoute = privateRoute;

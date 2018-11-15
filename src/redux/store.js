@@ -10,8 +10,8 @@ export default function configureStore() {
   // eslint-disable-next-line no-underscore-dangle
   const composeEnhancers = isProd ? compose : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const middlewares = [
-    ...(isProd ? [] : [logger]),
     reduxThunk,
+    ...(isProd ? [] : [logger]),
   ];
   const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middlewares)));
   if (process.env.NODE_ENV !== 'production' && module.hot) {

@@ -1,4 +1,4 @@
-export const API_BASE = 'https://httpbin.org';
+export const API_BASE = APP_ENV.BASE_API_URL;
 export const URL = {
   INDEX: '/',
   HANDSHAKE_ME: '/me',
@@ -15,6 +15,9 @@ export const URL = {
   CRYPTO_COIN_URL: '/coin',
   BUY_COIN_FAQ_URL: '/coin/faq',
   SELL_COIN_URL: '/sell-coin',
+
+  USER_LOGIN: '/token/',
+  USER_SIGN_UP: '/user/sign-up',
 };
 
 export const API_URL = {
@@ -63,4 +66,11 @@ export const API_URL = {
     BASE: 'handshake/me',
     SET_OFFLINE_STATUS: 'exchange/user/profile/offline',
   }
+};
+
+export const LANDING_PAGE_TYPE = {
+  landing: {
+    text: '',
+    url: '',
+  },
 };

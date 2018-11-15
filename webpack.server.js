@@ -36,7 +36,7 @@ module.exports = merge(prodConfig, {
   plugins: [
     ...(!isDev ? [new CleanWebpackPlugin(path.resolve(__dirname, 'dist/server'))] : []),
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify(env),
+      APP_ENV: JSON.stringify(env),
       __CLIENT__: false,
       __SERVER__: true
     }),

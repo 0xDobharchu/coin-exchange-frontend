@@ -1,0 +1,126 @@
+@import 'src/assets/styles/style.scss';
+
+.project-detail {
+  font-family: azo-sans-web, sans-serif;
+  font-weight: 400;
+  .emailField {
+    position: relative;
+    width: rem-calc(300px);
+  }
+  .wrapperEmail{
+    display: flex;
+    justify-content: space-between;
+  }
+  .btnEmail {
+    padding: 0px;
+    border: none;
+  }
+  .emailSubmit {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+  }
+  .btnTelegram {
+    background: #FFF988;
+    border-radius: rem-calc(5px);
+    font-size: rem-calc(16px);
+    letter-spacing: 0;
+    border: 1px solid #F5D516;
+    height: rem-calc(44px);
+    width: rem-calc(250px);
+    margin-left: rem-calc(10px);
+  }
+
+  .pd-breadcrumb {
+    font-size: 16px;
+    color: #484848;
+    letter-spacing: 0;
+    span {
+      opacity: 1;
+    }
+    a {
+      color: #484848;
+      opacity: 0.6;
+    }
+  }
+  .pd-heading {
+    font-family: azo-sans-web, sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: #484848;
+    letter-spacing: 0;
+    line-height: 44px;
+  }
+  .pd-subHeading {
+    .font-normal {
+      font-weight: 300px ! important;
+    }
+
+    opacity: 1;
+    font-family: azo-sans-web, sans-serif;
+    font-weight: 400;
+    font-size: 19px;
+    color: #484848;
+    letter-spacing: 0;
+    line-height: 29px;
+    margin-top: 18px;
+
+
+  }
+
+  .pd-content {
+    opacity: 0.85;
+    font-size: 18px;
+    color: #484848;
+    letter-spacing: 0;
+    line-height: 33px;
+  }
+  .pd-small-content {
+    opacity: 0.85;
+    font-size: 12px;
+    color: #484848;
+    letter-spacing: 0;
+    line-height: 33px;
+  }
+  .pd-faq {
+    font-weight: 600;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 120px;
+  }
+  .pd-faq-no-content {
+    font-weight: 600;
+    font-size: 30px;
+    text-align: center;
+  }
+  .pd-disclaim {
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 120px;
+  }
+  .control-subscribe-email {
+    height: 48px;
+    min-width: 210px;
+  }
+  .text-email {
+    color: #484848;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  .text-send-link {
+    color: #484848;
+    font-size: 17px;
+    padding-top: 12px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .why-use{
+    .card-deck{
+      .card { flex:auto }
+    }
+  }
+
+}

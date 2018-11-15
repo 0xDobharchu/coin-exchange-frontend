@@ -18,7 +18,8 @@
   "plugins": ["react"],
   "globals": {
     "__SERVER__": true,
-    "__CLIENT__": true
+    "__CLIENT__": true,
+    "APP_ENV": true
   },
   "rules": {
     "react/jsx-one-expression-per-line": 0,
@@ -41,6 +42,7 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "jsx-a11y/label-has-for": [ 0, { "components": [ "Label" ], "required": {"every": [ "nesting", "id" ]},"allowChildren": false}],
     "jsx-a11y/label-has-associated-control": [ 0, {"labelComponents": ["CustomInputLabel"],"labelAttributes": ["label"],"controlComponents": ["CustomInput"],"depth": 3}],
-    "object-curly-newline": 0
+    "object-curly-newline": 0,
+    "class-methods-use-this": 0
   }
 }
