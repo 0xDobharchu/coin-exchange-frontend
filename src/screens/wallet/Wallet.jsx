@@ -46,7 +46,7 @@ import AddCollectible from '@/components/wallet/AddCollectible/AddCollectible';
 // style
 import './Wallet.scss';
 import './BottomSheet.scss';
-import CoinTemp from '@/pages/wallet/CoinTemp';
+import CoinTemp from '@/screens/wallet/CoinTemp';
 import BackupWallet from '@/components/wallet/BackupWallet/BackupWallet';
 import RestoreWallet from '@/components/wallet/RestoreWallet/RestoreWallet';
 import SettingWallet from '@/components/wallet/SettingWallet/SettingWallet';
@@ -65,7 +65,6 @@ import floatButtonScanQRCode from '@/assets/images/wallet/icons/float-button-sca
 import WalletPreferences from '@/components/wallet/WalletPreferences';
 import { requestWalletPasscode, showScanQRCode, showQRCodeContent  } from '@/reducers/app/action';
 import QRCodeContent from '@/components/wallet/QRCodeContent';
-import Redeem from '@/components/wallet/Redeem';
 // import RemindPayment from '@/components/Payment/Remind';
 import { ICON } from '@/components/wallet/images';
 
@@ -149,8 +148,7 @@ class Wallet extends React.Component {
       modalRemindCheckout: '',
       backupWalletContent: "",
       exportPrivateContent: "",
-      restoreWalletContent: "",
-      redeemContent: "",
+      restoreWalletContent: "",      
 
       // sortable:
       listSortable: {coin: false, token: false, collectitble: false},
@@ -937,28 +935,7 @@ class Wallet extends React.Component {
       data: result
     });
   }
-
-  // redeem:
-  showRedeemModal=(data)=>{
-    this.setState({
-      redeemContent:
-        (
-          <Redeem
-            data={data}
-            onFinish={(result) => {
-              this.modalRedeemRef.close();
-              this.setState({redeemContent: ''});
-             }}
-          />
-        ),
-      }, ()=>{
-      this.modalRedeemRef.open();
-    });
-  }
-
-  closeModalRedeem=(data)=>{
-    this.setState({redeemContent: ''});
-  }
+  
 
   render = () => {
     const { messages } = this.props.intl;
@@ -985,12 +962,8 @@ class Wallet extends React.Component {
         </Modal>
 
         {/* qrcode result detected modal popup*/}
-        <QRCodeContent onRedeemClick={(data)=> {this.showRedeemModal(data);}}  onTransferClick={(data)=> {this.showTransferFromQRCode(data);}} />
-
-        <Modal title={messages.wallet.action.redeem.title} onRef={modal => this.modalRedeemRef = modal} customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle} onClose={this.closeModalRedeem}>
-          {this.state.redeemContent}
-        </Modal>
-
+        <QRCodeContent onTransferClick={(data)=> {this.showTransferFromQRCode(data);}} />
+        
         {/* add new token modal */}
         <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  onClose={() => this.setState({formAddTokenIsActive: false})} title="Add Custom Token" onRef={modal => this.modalAddNewTokenRef = modal}>
             <AddToken formAddTokenIsActive={formAddTokenIsActive} onFinish={() => {this.addedCustomToken()}}/>
