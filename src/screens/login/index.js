@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import createForm from 'src/components/core/form/createForm';
-import { Field, formValueSelector } from 'redux-form';
+import { formValueSelector } from 'redux-form';
+import { FieldLang } from 'src/lang/components';
 import inputField from 'src/components/core/form/fields/input';
 import { isEmail, isPassword, isRequired } from 'src/components/core/form/validator';
 import { USER } from 'src/resources/constants/user';
@@ -56,17 +57,17 @@ class Login extends React.Component {
           <LoginForm onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="username"><LabelLang id="user.login.username" /></label>
-              <Field
+              <FieldLang
                 name="username"
                 className="form-control"
                 component={inputField}
-                validate={[isRequired(<LabelLang id="user.login.requiredUsername" />), isEmail]}
+                validate={[isRequired(<LabelLang id="user.login.requiredUsername" />), isEmail(<LabelLang id="user.login.notValidUsername" />)]}
                 type="text"
               />
             </div>
             <div className="form-group">
               <label htmlFor="password"><LabelLang id="user.login.password" /></label>
-              <Field
+              <FieldLang
                 name="password"
                 className="form-control"
                 component={inputField}
@@ -75,7 +76,7 @@ class Login extends React.Component {
               />
             </div>
             <div className="form-group">
-              <Field
+              <FieldLang
                 name="keepSignin"
                 id="keepSignin"
                 component={inputField}

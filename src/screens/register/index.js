@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReCAPTCHA from 'react-google-recaptcha';
 import createForm from 'src/components/core/form/createForm';
-import { Field, formValueSelector, change } from 'redux-form';
+import { formValueSelector, change } from 'redux-form';
+import { FieldLang } from 'src/lang/components';
 import inputField from 'src/components/core/form/fields/input';
 import { isEmail, isPassword, isConfirmPassword, isRequired } from 'src/components/core/form/validator';
 import { USER } from 'src/resources/constants/user';
 import LabelLang from 'src/lang/components/LabelLang';
 import dropdownField from 'src/components/core/form/fields/dropdown';
-import { injectIntl } from 'react-intl';
 import { register } from './action';
 
 const RegisterForm = createForm({
@@ -74,29 +74,29 @@ class RegisterPage extends React.Component {
           <RegisterForm onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="firstName"><LabelLang id="user.register.firstName" /></label>
-              <Field
+              <FieldLang
                 name="firstName"
                 className="form-control"
                 component={inputField}
                 validate={isRequired(<LabelLang id="user.register.requiredFirstName" />)}
                 type="text"
-                placeholder={this.props.intl.formatMessage({ id: 'user.register.placeholderFirstName' })}
+                placeholder="user.register.placeholderFirstName"
               />
             </div>
             <div className="form-group">
               <label htmlFor="lastName"><LabelLang id="user.register.firstName" /></label>
-              <Field
+              <FieldLang
                 name="lastName"
                 className="form-control"
                 component={inputField}
                 validate={isRequired(<LabelLang id="user.register.requiredLastName" />)}
                 type="text"
-                placeholder={this.props.intl.formatMessage({ id: 'user.register.placeholderLastName' })}
+                placeholder="user.register.placeholderLastName"
               />
             </div>
             <div className="form-group">
               <label htmlFor="username"><LabelLang id="user.register.username" /></label>
-              <Field
+              <FieldLang
                 name="username"
                 className="form-control"
                 component={inputField}
@@ -107,39 +107,41 @@ class RegisterPage extends React.Component {
             </div>
             <div className="form-group">
               <label htmlFor="password"><LabelLang id="user.register.password" /></label>
-              <Field
+              <FieldLang
                 name="password"
                 className="form-control"
                 component={inputField}
                 validate={[isRequired(<LabelLang id="user.register.requiredPassword" />), isPassword(8, <LabelLang id="user.register.notValidPassword" />)]}
                 type="password"
-                placeholder={this.props.intl.formatMessage({ id: 'user.register.placeholderPassword' })}
+                placeholder="user.register.placeholderPassword"
               />
             </div>
             <div className="form-group">
               <label htmlFor="confirmPassword"><LabelLang id="user.register.confirmPassword" /></label>
-              <Field
+              <FieldLang
                 name="confirmPassword"
                 className="form-control"
                 component={inputField}
                 validate={[(value, values) => isConfirmPassword(values.password)(value)]}
                 type="password"
-                placeholder={this.props.intl.formatMessage({ id: 'user.register.placeholderConfirmPassword' })}
+                placeholder="user.register.placeholderConfirmPassword"
               />
             </div>
             <div className="form-group">
               <label htmlFor="country"><LabelLang id="user.register.country" /></label>
-              <Field
+              <FieldLang
                 name="country"
                 className="form-control"
                 component={dropdownField}
                 toggle={<LabelLang id="user.register.placeholderCountry" />}
                 list={[
                   {
+                    key: 'PH',
                     label: 'Philippines',
                     value: 'PH'
                   },
                   {
+                    key: 'IN',
                     label: 'Indonesia',
                     value: 'IN'
                   }
@@ -153,7 +155,7 @@ class RegisterPage extends React.Component {
                 sitekey={APP_ENV.GOOGLE_CAPTCH_SITE_KEY}
                 onChange={this.verifyCallback}
               />
-              <Field
+              <FieldLang
                 name="recaptchaValue"
                 className="form-control"
                 component={inputField}
@@ -191,4 +193,4 @@ const mapDispatch = dispatch => ({
 });
 
 const connectedRegisterPage = connect(mapStateToProps, mapDispatch)(RegisterPage);
-export default injectIntl(connectedRegisterPage);
+export default connectedRegisterPage;
