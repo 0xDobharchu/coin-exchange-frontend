@@ -1,6 +1,7 @@
 import { URL } from 'src/constants';
 import Home from 'src/screens/home';
 import Contact from 'src/screens/contact';
+import About from 'src/screens/about';
 import Login from 'src/screens/login';
 import Register from 'src/screens/register';
 import Coin from 'src/screens/coin';
@@ -42,6 +43,11 @@ const routes = [
   {
     path: '/contact',
     component: Contact,
+    exact: true,
+  },
+  {
+    path: '/about',
+    component: About,
     exact: true,
   },
   {
