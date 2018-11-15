@@ -4,7 +4,6 @@ import React from 'react';
 // import { Switch, Route } from 'react-router-dom';
 import DynamicImport from 'src/screens/app/components/DynamicImport';
 
-console.log(DynamicImport);
 
 const Loading = () => (<div>Loading...</div>);
 

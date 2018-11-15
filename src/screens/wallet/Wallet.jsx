@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 
 // service, constant
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 // components
 import Button from '@/components/core/controls/Button';
@@ -1105,7 +1105,7 @@ class Wallet extends React.Component {
             <Header />
           </Modal>
 
-          <Grid>
+          <Container>
 
           {/* 1. Header Wallet ============================================== */}
           <div id="header-wallet">
@@ -1202,7 +1202,7 @@ class Wallet extends React.Component {
             {this.listRewardWalletBalance}
           </Row> */}
 
-        </Grid>
+        </Container>
       </div>
     );
   }

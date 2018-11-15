@@ -25,6 +25,7 @@ export class Wallet {
     // settings:
     this.hideBalance = false;
   }
+  
 
   getShortAddress() {
     return this.address.replace(this.address.substr(4, 34), '...');
