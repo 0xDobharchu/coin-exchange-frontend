@@ -3,6 +3,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
 const prodConfig = require('./webpack.prod');
 const commonEnv = require('./.env/.env.common');
 const serverEnv = require('./.env/.env.server');
@@ -42,8 +44,26 @@ module.exports = merge(prodConfig, {
     }),
   ],
   optimization: {
+    minimize: true,
     minimizer: [
-      new OptimizeCSSAssetsPlugin({}),
+      new TerserPlugin({
+        terserOptions: {
+          warnings: false,
+          compress: {
+            comparisons: false,
+          },
+          parse: {},
+          mangle: true,
+          output: {
+            comments: false,
+            ascii_only: true,
+          },
+        },
+        parallel: true,
+        cache: true,
+        sourceMap: true,
+      }),
+      new OptimizeCSSAssetsPlugin({})
     ],
   },
 });

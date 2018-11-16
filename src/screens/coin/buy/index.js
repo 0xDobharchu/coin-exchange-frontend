@@ -21,7 +21,7 @@ import iconBitcoin from 'src/assets/icons/coin/btc.svg';
 import iconEthereum from 'src/assets/icons/coin/eth.svg';
 import iconBitcoinCash from 'src/assets/icons/coin/bch.svg';
 import iconUsd from 'src/assets/icons/coin/icons8-us_dollar.svg';
-import loadingSVG from 'src/assets/icons/loading.gif';
+import loadingSVG from 'src/assets/images/icon/loading.gif';
 import ConfirmButton from 'src/components/confirmButton';
 import { formatMoney } from 'src/utils/format/curency';
 import { Link, withRouter } from 'react-router-dom';
