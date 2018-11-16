@@ -67,7 +67,7 @@ export const API_URL = {
     SET_OFFLINE_STATUS: 'exchange/user/profile/offline',
   },
   LANDING: {
-    FAQ: 'static/faq',
+    FAQ: 'content/faq/',
   }
 };
 
