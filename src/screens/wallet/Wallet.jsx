@@ -11,7 +11,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 // components
 import Button from '@/components/core/controls/Button';
 import { MasterWallet } from '@/services/Wallets/MasterWallet';
-import Input from '@/components/core/forms/Input/Input';
+import Input from '@/components/core/controls/input';
 import { StringHelper } from '@/services/helper';
 
 import {
@@ -36,12 +36,12 @@ import WalletHistory from './WalletHistory';
 import TransferCoin from '@/components/wallet/TransferCoin';
 import ReceiveCoin from '@/components/wallet/ReceiveCoin';
 import ReactBottomsheet from 'react-bottomsheet';
-import { showLoading, hideLoading, showAlert, setHeaderRight } from '@/reducers/app/action';
+import { showLoading, hideLoading, showAlert, setHeaderRight } from '@/screens/app/redux/action';
 import local from '@/services/localStore';
 import {APP} from '@/constants';
 
-import AddToken from '@/components/wallet/AddToken/AddToken';
-import AddCollectible from '@/components/wallet/AddCollectible/AddCollectible';
+// import AddToken from '@/components/wallet/AddToken/AddToken';
+// import AddCollectible from '@/components/wallet/AddCollectible/AddCollectible';
 
 // style
 import './Wallet.scss';
@@ -57,13 +57,13 @@ import iconMoreSettings from '@/assets/images/wallet/icons/icon-more-settings.sv
 import SortableComponent from "./SortableComponent";
 import iconAddPlus from '@/assets/images/wallet/icons/icon-add-plus.svg';
 import iconAlignJust from '@/assets/images/wallet/icons/icon-align-just.svg';
-import { hideHeader } from '@/reducers/app/action';
+import { hideHeader } from '@/screens/app/redux/action';
 import BackChevronSVGWhite from '@/assets/images/wallet/icons/back-chevron-white.svg';
 import customRightIcon from '@/assets/images/wallet/icons/icon-options.svg';
 import floatButtonScanQRCode from '@/assets/images/wallet/icons/float-button-scan.svg';
 
 import WalletPreferences from '@/components/wallet/WalletPreferences';
-import { requestWalletPasscode, showScanQRCode, showQRCodeContent  } from '@/reducers/app/action';
+import { requestWalletPasscode, showScanQRCode, showQRCodeContent  } from '@/screens/app/redux/action';
 import QRCodeContent from '@/components/wallet/QRCodeContent';
 // import RemindPayment from '@/components/Payment/Remind';
 import { ICON } from '@/components/wallet/images';
@@ -370,7 +370,7 @@ class Wallet extends React.Component {
 
     if (!wallet.isCollectibles){
       obj.push({
-        title: messages.wallet.action.transfer.title,
+        title: messages['wallet.action.transfer.title'],
         handler: () => {
           this.toggleBottomSheet();
           this.showTransfer(wallet);
@@ -378,7 +378,7 @@ class Wallet extends React.Component {
       })
     }
     obj.push({
-      title: messages.wallet.action.receive.title,
+      title: messages['wallet.action.receive.title'],
       handler: () => {
         this.toggleBottomSheet();
         this.showReceive(wallet);
@@ -387,7 +387,7 @@ class Wallet extends React.Component {
 
     if (!wallet.protected) {
       obj.push({
-        title: messages.wallet.action.protect.title,
+        title: messages['wallet.action.protect.title'],
         handler: () => {
           this.setState({ walletSelected: wallet,
           modalSecure: <WalletProtect onCopy={this.onCopyProtected}
@@ -405,18 +405,18 @@ class Wallet extends React.Component {
 
     if (wallet.name != "XRP" && !wallet.isToken)
       obj.push({
-        title: messages.wallet.action.history.title,
+        title: messages['wallet.action.history.title'],
         handler: async () => {
           this.toggleBottomSheet();
           this.onWalletItemClick(wallet);
         }
       });
     obj.push({
-      title: messages.wallet.action.copy.title,
+      title: messages['wallet.action.copy.title'],
       handler: () => {
         Clipboard.copy(wallet.address);
         this.toggleBottomSheet();
-        this.showToast(messages.wallet.action.copy.message);
+        this.showToast(messages['wallet.action.copy.message']);
       },
     });
 
@@ -424,7 +424,7 @@ class Wallet extends React.Component {
     let canSetDefault = !wallet.isToken && !wallet.isReward;
     if (canSetDefault && !wallet.default) {
       obj.push({
-        title: StringHelper.format(messages.wallet.action.default.title, wallet.name) + (wallet.default ? "✓ " : ""),
+        title: StringHelper.format(messages['wallet.action.default.title, wallet.name']) + (wallet.default ? "✓ " : ""),
         handler: () => {
           wallet.default = !wallet.default;
           this.toggleBottomSheet();
@@ -511,7 +511,7 @@ class Wallet extends React.Component {
           errors.to_address = result;
       // check amount:
       if (parseFloat(this.state.walletSelected.balance) <= parseFloat(value['amount']))
-        errors.amount = messages.wallet.action.transfer.error + ` ${this.state.walletSelected.balance} ${this.state.walletSelected.name}`
+        errors.amount = messages['wallet.action.transfer.error'] + ` ${this.state.walletSelected.balance} ${this.state.walletSelected.name}`
     }
     return errors
   }
@@ -683,10 +683,10 @@ class Wallet extends React.Component {
       this.setState({ isRestoreLoading: false, erroValueBackup: true });
 
       if (phrase != '') {
-        this.showError(messages.wallet.action.create.error.recovery_words_invalid)
+        this.showError(messages['wallet.action.create.error.recovery_words_invalid'])
       }
       else{
-        this.showError(messages.wallet.action.create.error.random);
+        this.showError(messages['wallet.action.create.error.random']);
       }
     } else {
       if (phrase != '') {// need get balance
@@ -747,10 +747,10 @@ class Wallet extends React.Component {
         this.setState({
           exportPrivateContent: (
               <div className="export-private-key">
-                <div className="ex-title">{messages.wallet.action.export_private_key.title}</div>
-                <QRCode size={230} value={this.state.walletSelected.privateKey} onClick={() => { Clipboard.copy(this.state.walletSelected.privateKey); this.showToast(messages.wallet.action.copy.success);}} />
-                <div className="ex-desc">{messages.wallet.action.export_private_key.desc} </div>
-                <Button onClick={()=> {Clipboard.copy(this.state.walletSelected.privateKey); this.showToast(messages.wallet.action.copy.success);}}>Copy</Button>
+                <div className="ex-title">{messages['wallet.action.export_private_key.title']}</div>
+                <QRCode size={230} value={this.state.walletSelected.privateKey} onClick={() => { Clipboard.copy(this.state.walletSelected.privateKey); this.showToast(messages['wallet.action.copy.success']);}} />
+                <div className="ex-desc">{messages['wallet.action.export_private_key.desc']} </div>
+                <Button onClick={()=> {Clipboard.copy(this.state.walletSelected.privateKey); this.showToast(messages['wallet.action.copy.success']);}}>Copy</Button>
               </div>
           )
         }, ()=>{
@@ -902,7 +902,7 @@ class Wallet extends React.Component {
   onCopyProtected = () => {
     const { messages } = this.props.intl;
     Clipboard.copy(this.state.walletSelected.mnemonic);
-    this.showToast(messages.wallet.action.copy.success);
+    this.showToast(messages['wallet.action.copy.success']);
   }
 
   successWalletProtect = (wallet) => {
@@ -913,7 +913,7 @@ class Wallet extends React.Component {
     MasterWallet.UpdateLocalStore(lstWalletTemp);
     this.modalProtectRef.close();
     this.splitWalletData(lstWalletTemp);
-    this.showSuccess(messages.wallet.action.protect.success);
+    this.showSuccess(messages['wallet.action.protect.success']);
     // for form wallet detail:
     if (this.state.modalHistory != ''){
       this.onWalletItemClick(wallet);
@@ -952,7 +952,7 @@ class Wallet extends React.Component {
         {/* <RemindPayment /> */}
 
         {/* history modal */}
-        <Modal customRightIconClick={()=>{this.onOpenWalletPreferences(this.state.walletSelected);}}  customRightIcon={customRightIcon} customBackIcon={BackChevronSVGWhite} modalBodyStyle={this.modalBodyStyle} modalHeaderStyle={this.modalHeaderStyle} title={this.state.walletSelected ? this.state.walletSelected.title : messages.wallet.action.history.header} onRef={modal => this.modalHistoryRef = modal} onClose={this.closeHistory}>
+        <Modal customRightIconClick={()=>{this.onOpenWalletPreferences(this.state.walletSelected);}}  customRightIcon={customRightIcon} customBackIcon={BackChevronSVGWhite} modalBodyStyle={this.modalBodyStyle} modalHeaderStyle={this.modalHeaderStyle} title={this.state.walletSelected ? this.state.walletSelected.title : messages['wallet.action.history.header']} onRef={modal => this.modalHistoryRef = modal} onClose={this.closeHistory}>
           {modalHistory}
         </Modal>
 
@@ -965,14 +965,14 @@ class Wallet extends React.Component {
         <QRCodeContent onTransferClick={(data)=> {this.showTransferFromQRCode(data);}} />
         
         {/* add new token modal */}
-        <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  onClose={() => this.setState({formAddTokenIsActive: false})} title="Add Custom Token" onRef={modal => this.modalAddNewTokenRef = modal}>
+        {/* <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  onClose={() => this.setState({formAddTokenIsActive: false})} title="Add Custom Token" onRef={modal => this.modalAddNewTokenRef = modal}>
             <AddToken formAddTokenIsActive={formAddTokenIsActive} onFinish={() => {this.addedCustomToken()}}/>
-        </Modal>
+        </Modal> */}
 
         {/* add collectible modal */}
-        <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  onClose={() => this.setState({formAddCollectibleIsActive: false})} title="Add Collectible" onRef={modal => this.modalAddNewCollectibleRef = modal}>
+        {/* <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  onClose={() => this.setState({formAddCollectibleIsActive: false})} title="Add Collectible" onRef={modal => this.modalAddNewCollectibleRef = modal}>
             <AddCollectible formAddCollectibleIsActive={formAddCollectibleIsActive} onFinish={() => {this.addedCollectible()}}/>
-        </Modal>
+        </Modal> */}
 
           {/* Tooltim menu Bottom */ }
           <ReactBottomsheet
@@ -983,71 +983,71 @@ class Wallet extends React.Component {
           />
 
           {/* ModalDialog for confirm remove wallet */}
-          <ModalDialog title={messages.wallet.action.remove.header} onRef={modal => this.modalRemoveRef = modal}>
-            <div className="bodyConfirm"><span>{messages.wallet.action.remove.message}</span></div>
+          <ModalDialog title={messages['wallet.action.remove.header']} onRef={modal => this.modalRemoveRef = modal}>
+            <div className="bodyConfirm"><span>{messages['wallet.action.remove.message']}</span></div>
             <div className="bodyConfirm">
-              <Button className="left pl-0 pr-0" cssType="danger" onClick={this.removeWallet} >{messages.wallet.action.remove.button_yes}</Button>
-              <Button className="right pl-0 pr-0" cssType="secondary" onClick={() => { this.modalRemoveRef.close(); }}>{messages.wallet.action.remove.button_cancel}</Button>
+              <Button className="left pl-0 pr-0" cssType="danger" onClick={this.removeWallet} >{messages['wallet.action.remove.button_yes']}</Button>
+              <Button className="right pl-0 pr-0" cssType="secondary" onClick={() => { this.modalRemoveRef.close(); }}>{messages['wallet.action.remove.button_cancel']}</Button>
             </div>
           </ModalDialog>
 
            {/* Modal for Setting wallets : */}
-           <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={{"padding": 0}} title={messages.wallet.action.setting.header} onRef={modal => this.modalSettingRef = modal} onClose={this.closeSetting}>
+           <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={{"padding": 0}} title={messages['wallet.action.setting.header']} onRef={modal => this.modalSettingRef = modal} onClose={this.closeSetting}>
             {modalSetting}
           </Modal>
 
           {/* ModalDialog for transfer coin */}
-          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages.wallet.action.transfer.header} onRef={modal => this.modalSendRef = modal}  onClose={this.closeTransfer}>
+          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages['wallet.action.transfer.header']} onRef={modal => this.modalSendRef = modal}  onClose={this.closeTransfer}>
             {modalTransferCoin}
           </Modal>
 
-          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle} title={messages.create.cash.credit.title} onRef={modal => this.modalBuyCoin = modal} onClose={this.closeBuyCoin}>
+          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle} title="Buy coin ..." onRef={modal => this.modalBuyCoin = modal} onClose={this.closeBuyCoin}>
             {modalBuyCoin}
           </Modal>
 
-          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages.wallet.action.protect.header} onRef={modal => this.modalProtectRef = modal} onClose={this.closeSecure}>
+          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages['wallet.action.protect.header']} onRef={modal => this.modalProtectRef = modal} onClose={this.closeSecure}>
             {modalSecure}
           </Modal>
 
           {/* Modal for Backup wallets : */}
-          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages.wallet.action.backup.header} onRef={modal => this.modalBackupRef = modal} onClose={this.closeBackupWalletAccount}>
+          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages['wallet.action.backup.header']} onRef={modal => this.modalBackupRef = modal} onClose={this.closeBackupWalletAccount}>
             {backupWalletContent}
           </Modal>
 
           {/* Modal for Restore wallets : */}
-          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages.wallet.action.restore.header} onRef={modal => this.modalRestoreRef = modal} onClose={this.closeRestoreWalletAccount}>
+          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages['wallet.action.restore.header']} onRef={modal => this.modalRestoreRef = modal} onClose={this.closeRestoreWalletAccount}>
             {restoreWalletContent}
           </Modal>
 
           {/* Modal for Export Private key : */}
-          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages.wallet.action.preferecens.list_item.export_private_key} onRef={modal => this.modalExportPrivateKeyRef = modal} onClose={this.onCloseExportPrivateKey}>
+          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages['wallet.action.preferecens.list_item.export_private_key']} onRef={modal => this.modalExportPrivateKeyRef = modal} onClose={this.onCloseExportPrivateKey}>
             {exportPrivateContent}
           </Modal>
 
 
 
           {/* Modal for Copy address : */}
-          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}   title={messages.wallet.action.receive.title} onRef={modal => this.modalReceiveCoinRef = modal} onClose={()=> {this.setState({modalReceiveCoin: false})}}>
+          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}   title={messages['wallet.action.receive.title']} onRef={modal => this.modalReceiveCoinRef = modal} onClose={()=> {this.setState({modalReceiveCoin: false})}}>
             {modalReceiveCoin}
           </Modal>
 
           {/* Modal for Create/Import wallet : */}
-          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages.wallet.action.create.header} onRef={modal => this.modalCreateWalletRef = modal} onClose={this.closeCreate}>
+          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages['wallet.action.create.header']} onRef={modal => this.modalCreateWalletRef = modal} onClose={this.closeCreate}>
             <Row className="list">
-              <Header title={messages.wallet.action.create.label.select_coins} hasLink={false} />
+              <Header title={messages['wallet.action.create.label.select_coins']} hasLink={false} />
             </Row>
             <Row className="list">
               {this.getListCoinTempForCreate}
             </Row>
             <Row className="list">
-              <Header title={messages.wallet.action.create.label.wallet_key} />
+              <Header title={messages['wallet.action.create.label.wallet_key']} />
             </Row>
             <div className="wallet-create-footer">
               <Dropdown
                 className="dropdown-wallet"
-                placeholder={messages.wallet.action.create.placeholder.wallet_key}
+                placeholder={messages['wallet.action.create.placeholder.wallet_key']}
                 defaultId={this.state.walletKeySelected}
-                source={[{ id: 1, value: messages.wallet.action.create.text.random }, { id: 2, value: messages.wallet.action.create.text.specify_phrase }]}
+                source={[{ id: 1, value: messages['wallet.action.create.text.random']}, { id: 2, value: messages['wallet.action.create.text.specify_phrase']}]}
                 onItemSelected={(item) => {
                     this.setState({
                       walletKeyDefaultToCreate: item.id,
@@ -1061,7 +1061,7 @@ class Wallet extends React.Component {
               { this.state.walletKeyDefaultToCreate == 2 ?
                 <Input
                   name="phrase"
-                  placeholder={messages.wallet.action.create.placeholder.phrase}
+                  placeholder={messages['wallet.action.create.placeholder.phrase']}
                   required
                   value={this.state.input12PhraseValue}
                   className={this.state.erroValueBackup ? 'input12Phrase error' : 'input12Phrase'}
@@ -1073,7 +1073,7 @@ class Wallet extends React.Component {
 
 
             <Button block isLoading={this.state.isRestoreLoading} disabled={this.state.countCheckCoinToCreate == 0 || (this.state.walletKeyDefaultToCreate == 2 && this.state.input12PhraseValue.trim().split(/\s+/g).length != 12)} className="button button-wallet" cssType="primary" onClick={() => { this.createNewWallets(); }} >
-              {messages.wallet.action.create.button.create}
+              {messages['wallet.action.create.button.create']}
             </Button>
             <Header />
           </Modal>
@@ -1096,8 +1096,8 @@ class Wallet extends React.Component {
             {!process.env.isDojo ?
               <Row className="list">
                 {!this.state.listSortable.coin ?
-                <Header icon2={this.state.listMainWalletBalance.length > 1 ? iconAlignJust : null} onIcon2Click={this.updateSortableForCoin} icon={iconAddPlus} title={messages.wallet.action.create.label.header_coins} hasLink={true} linkTitle={messages.wallet.action.create.button.add_new} onLinkClick={this.showModalAddCoin} />
-                :<Header title={messages.wallet.action.create.label.header_coins} hasLink={true} linkTitle={messages.wallet.action.create.button.done} onLinkClick={this.updateSortableForCoin} />
+                <Header icon2={this.state.listMainWalletBalance.length > 1 ? iconAlignJust : null} onIcon2Click={this.updateSortableForCoin} icon={iconAddPlus} title={messages['wallet.action.create.label.header_coins']} hasLink={true} linkTitle={messages['wallet.action.create.button.add_new']} onLinkClick={this.showModalAddCoin} />
+                :<Header title={messages['wallet.action.create.label.header_coins']} hasLink={true} linkTitle={messages['wallet.action.create.button.done']} onLinkClick={this.updateSortableForCoin} />
                }
               </Row>
             :""}
@@ -1114,8 +1114,8 @@ class Wallet extends React.Component {
             {!process.env.isDojo ?
             <Row className="list">
               {!this.state.listSortable.token ?
-                <Header icon2={this.state.listTokenWalletBalance.length > 1 ? iconAlignJust : null} onIcon2Click={this.updateSortableForToken} icon={iconAddPlus} title={messages.wallet.action.create.label.header_tokens} hasLink={true} linkTitle={messages.wallet.action.create.button.header_tokens} onLinkClick={this.showModalAddToken} />
-                :<Header title={messages.wallet.action.create.label.header_tokens} hasLink={true} linkTitle={messages.wallet.action.create.button.done} onLinkClick={this.updateSortableForToken} />
+                <Header icon2={this.state.listTokenWalletBalance.length > 1 ? iconAlignJust : null} onIcon2Click={this.updateSortableForToken} icon={iconAddPlus} title={messages['wallet.action.create.label.header_tokens']} hasLink={true} linkTitle={messages['wallet.action.create.button.header_tokens']} onLinkClick={this.showModalAddToken} />
+                :<Header title={messages['wallet.action.create.label.header_tokens']} hasLink={true} linkTitle={messages['wallet.action.create.button.done']} onLinkClick={this.updateSortableForToken} />
               }
 
             </Row>
@@ -1134,8 +1134,8 @@ class Wallet extends React.Component {
             <Row className="list">
 
                {!this.state.listSortable.collectitble ?
-                <Header icon2={this.state.listCollectibleWalletBalance.length > 1 ? iconAlignJust : null} onIcon2Click={this.updateSortableForCollectible} icon={iconAddPlus} title={messages.wallet.action.create.label.header_collectibles} hasLink={true} linkTitle={messages.wallet.action.create.button.header_collectibles} onLinkClick={this.showModalAddCollectible} />
-                :<Header title={messages.wallet.action.create.label.header_collectibles} hasLink={true} linkTitle={messages.wallet.action.create.button.done} onLinkClick={this.updateSortableForCollectible} />
+                <Header icon2={this.state.listCollectibleWalletBalance.length > 1 ? iconAlignJust : null} onIcon2Click={this.updateSortableForCollectible} icon={iconAddPlus} title={messages['wallet.action.create.label.header_collectibles']} hasLink={true} linkTitle={messages['wallet.action.create.button.header_collectibles']} onLinkClick={this.showModalAddCollectible} />
+                :<Header title={messages['wallet.action.create.label.header_collectibles']} hasLink={true} linkTitle={messages['wallet.action.create.button.done']} onLinkClick={this.updateSortableForCollectible} />
               }
 
             </Row>
@@ -1152,7 +1152,7 @@ class Wallet extends React.Component {
             {!process.env.isLive ?
             <Row className="list">
               {!process.env.isDojo ?
-              <Header title={messages.wallet.action.create.label.test_net} hasLink linkTitle={messages.wallet.action.create.button.request_free_eth} onLinkClick={this.getETHFree} />
+              <Header title={messages['wallet.action.create.label.test_net']} hasLink linkTitle={messages['wallet.action.create.button.request_free_eth']} onLinkClick={this.getETHFree} />
               :
               <Header title=""/>
               }
@@ -1182,9 +1182,7 @@ class Wallet extends React.Component {
 }
 
 const mapState = (state) => ({
-  cryptoPrice: state.exchange.cryptoPrice,
-  userCcLimit: state.exchange.userCcLimit,
-  ccLimits: state.exchange.ccLimits,
+  
 });
 
 const mapDispatch = ({

@@ -6,7 +6,7 @@ import routes, { RenderRoutes } from 'src/routes';
 // import { withFirebase } from 'react-redux-firebase';
 // // contants
 // // actions
-// import { setFirebaseUser } from '@/reducers/app/action';
+// import { setFirebaseUser } from '@/screens/app/redux/action';
 // import { authUpdate } from '@/reducers/auth/action';
 // // components
 // import Loading from '@/components/core/presentation/Loading';

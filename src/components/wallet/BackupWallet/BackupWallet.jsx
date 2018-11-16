@@ -4,7 +4,7 @@ import {Field, formValueSelector, clearFields} from "redux-form";
 import {connect} from "react-redux";
 import Button from '@/components/core/controls/Button';
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
-import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
+import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from "redux";
 import local from '@/services/localStore';
@@ -66,13 +66,13 @@ class BackupWallet extends React.Component {
     let walletData = this.state.walletData ? MasterWallet.encrypt(JSON.stringify(this.state.walletData)) : '';
     return (
         <div className="backupwallet">
-          <div className="bodyTitle">{messages.wallet.action.backup.description}</div>
+          <div className="bodyTitle">{messages['wallet.action.backup.description']}</div>
             <div className="bodyBackup">
               <textarea
                 readOnly
                 value={walletData}
               />
-              <Button className="button" cssType="danger" onClick={() => { Clipboard.copy(walletData); this.showToast(messages.wallet.action.backup.success.copied);this.onFinish(); }} >{messages.wallet.action.backup.button.copy}</Button>
+              <Button className="button" cssType="danger" onClick={() => { Clipboard.copy(walletData); this.showToast(messages['wallet.action.backup.success.copied']);this.onFinish(); }} >{messages['wallet.action.backup.button.copy']}</Button>
             </div>
         </div>
     )
