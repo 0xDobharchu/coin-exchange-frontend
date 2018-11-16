@@ -9,8 +9,7 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import './Wallet.scss';
 import WalletTransaction from './WalletTransaction';
-// todo: add showLoading, hideLoading
-// import { showLoading, hideLoading } from '@/reducers/app/action';
+import { showLoading, hideLoading } from '@/reducers/app/action';
 import Modal from '@/components/core/controls/Modal';
 import {Tabs} from 'rmc-tabs';
 
