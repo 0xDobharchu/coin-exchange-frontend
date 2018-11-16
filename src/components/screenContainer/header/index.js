@@ -36,7 +36,9 @@ const buttons = {
 
 const Header = () => (
   <header className={styles.headerContainer}>
-    <img className={styles.logo} src={logo} alt="coinbowl-logo" />
+    <Link to="/">
+      <img className={styles.logo} src={logo} alt="coinbowl-logo" />
+    </Link>
     <div className={styles.items}>
       {
         Object.entries(menus).map(([ key, menu ]) => (
