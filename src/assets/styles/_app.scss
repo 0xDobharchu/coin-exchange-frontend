@@ -19,20 +19,38 @@
     max-width: 100%;
   }
   span, p {
-    font-size: 16px;
+    font-size: $font-size-base;
     font-weight: normal;
     letter-spacing: 0;
   }
   button {
     height: 44px;
-    background: #5522DD;
+    background: $primary-medium;
     border-radius: 6px 6px 6px 6px;
-    color: #FFFFFF;
+    color: $white;
     font-size: 16px;
     font-weight: 500;
     text-align: center;
     letter-spacing: 0;
     border: none;
+  }
+  input, textarea {
+    padding: 4px 15px;
+    min-width: 297px;
+    height: 50px;
+    background: $white;
+    border: 1px solid #DCDCDE;
+    border-radius: 4px 4px 4px 4px;
+    ::placeholder {
+      color: #DCDCDE;
+      font-size: 16px;
+      font-weight: reg;
+      text-align: left;
+      letter-spacing: 0;
+    }
+  }
+  textarea {
+    height: auto;
   }
   .discover-overlay {
     width: 100vw;
