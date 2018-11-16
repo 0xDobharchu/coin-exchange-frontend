@@ -14,8 +14,8 @@ import {APP} from '@/constants';
 import {required} from '@/components/core/form/validation';
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
 import { bindActionCreators } from "redux";
-import {getFiatCurrency} from '@/reducers/exchange/action';
-import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
+import { makeRequest } from 'src/redux/action';
+import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action';
 import QrReader from 'react-qr-reader';
 import { StringHelper } from '@/services/helper';
 import './TransferCoin.scss';
@@ -304,7 +304,7 @@ class Transfer extends React.Component {
       if(coinName){
         this.setState({walletNotFound:
           <div className="walletNotFound">
-            {coinName} {messages.wallet.action.transfer.error.wallet_not_found}
+            {coinName} {messages['wallet.action.transfer.error.wallet_not_found']}
           </div>
         }, ()=> {
 
@@ -329,7 +329,7 @@ class Transfer extends React.Component {
       // check amount:
 
       if (parseFloat(this.state.walletSelected.balance) <= parseFloat(value['amountCoin']))
-        errors.amountCoin = `${messages.wallet.action.transfer.error.not_enough_coin}`
+        errors.amountCoin = `${messages['wallet.action.transfer.error.not_enough_coin']}`
     }
     return errors
   }
@@ -515,7 +515,7 @@ calcMaxAmount = () => {
   }
 
   if(result < 0) {
-    this.showError(messages.wallet.action.transfer.error.max_amount);
+    this.showError(messages['wallet.action.transfer.error.max_amount']);
     result = 0;
   }
 
@@ -564,15 +564,15 @@ render() {
 
         {/* Dialog confirm transfer coin */}
         <ModalDialog title="Confirmation" onRef={modal => this.modalConfirmTranferRef = modal}>
-        <div className="bodyConfirm"><span>{messages.wallet.action.transfer.text.confirm_transfer} {amount} {this.state.walletSelected ? this.state.walletSelected.name : ''}?</span></div>
+        <div className="bodyConfirm"><span>{messages['wallet.action.transfer.text.confirm_transfer']} {amount} {this.state.walletSelected ? this.state.walletSelected.name : ''}?</span></div>
         <div className="bodyConfirm">
-            <Button className="left" cssType="danger" onClick={this.submitSendCoin} >{messages.wallet.action.transfer.button.confirm}</Button>
+            <Button className="left" cssType="danger" onClick={this.submitSendCoin} >{messages['wallet.action.transfer.button.confirm']}</Button>
             <Button className="right" cssType="secondary" onClick={() => { this.modalConfirmTranferRef.close(); }}>Cancel</Button>
         </div>
         </ModalDialog>
 
         {/* QR code dialog */}
-        <Modal onClose={() => this.oncloseQrCode()} title={messages.wallet.action.transfer.label.scan_qrcode} onRef={modal => this.modalScanQrCodeRef = modal} customBackIcon={customBackIcon} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle}>
+        <Modal onClose={() => this.oncloseQrCode()} title={messages['wallet.action.transfer.label.scan_qrcode']} onRef={modal => this.modalScanQrCodeRef = modal} customBackIcon={customBackIcon} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle}>
           {this.state.qrCodeOpen || this.state.legacyMode ?
             <QrReader
               ref="qrReader1"
@@ -586,7 +586,7 @@ render() {
             : ''}
         </Modal>
 
-        <Modal onClose={()=>{this.onCloseAddressBook();}} title={messages.wallet.action.setting.label.select_a_contact} onRef={modal => this.modalAddressBookRef = modal} customBackIcon={customBackIcon} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle} customRightIcon={iconAddContact} customRightIconClick={()=>{this.openAddNewContact()}}>
+        <Modal onClose={()=>{this.onCloseAddressBook();}} title={messages['wallet.action.setting.label.select_a_contact']} onRef={modal => this.modalAddressBookRef = modal} customBackIcon={customBackIcon} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle} customRightIcon={iconAddContact} customRightIconClick={()=>{this.openAddNewContact()}}>
               {this.state.addressBookContent}
         </Modal>
 
@@ -594,8 +594,8 @@ render() {
 
         {/* Box: */}
         <div className="bgBox">
-          <p className="labelText block-hidden">{messages.wallet.action.transfer.label.to_address}
-            <span onClick={()=> {this.onChooseFromContact();}} className="fromContact">{messages.wallet.action.transfer.label.from_contact}</span>
+          <p className="labelText block-hidden">{messages['wallet.action.transfer.label.to_address']}
+            <span onClick={()=> {this.onChooseFromContact();}} className="fromContact">{messages['wallet.action.transfer.label.from_contact']}</span>
           </p>
           
           <div className="div-address-qr-code">
@@ -603,7 +603,7 @@ render() {
               name="to_address"
               type="text"
               className="form-control input-address-qr-code"
-              placeholder={messages.wallet.action.transfer.placeholder.to_address}
+              placeholder={messages['wallet.action.transfer.placeholder.to_address']}
               component={fieldInput}
               value={this.state.inputAddressAmountValue}
               onChange={evt => this.updateSendAddressValue(evt)}
@@ -612,9 +612,9 @@ render() {
             <span onClick={() => { this.openQrcode() }} className="icon-qr-code-black">{ICON.QRCode()}</span>
           </div>
           <div className="row">
-            <div className="col-6"><p className="labelText">{messages.wallet.action.transfer.label.amount}</p></div>
+            <div className="col-6"><p className="labelText">{messages['wallet.action.transfer.label.amount']}</p></div>
             { walletSelected && (walletSelected.name == 'ETH' || walletSelected.name == 'BTC') &&
-              <div className="col-6"><p className="maxAmount" onClick={() => this.calcMaxAmount()}>{messages.wallet.action.transfer.label.max_amount}</p></div>
+              <div className="col-6"><p className="maxAmount" onClick={() => this.calcMaxAmount()}>{messages['wallet.action.transfer.label.max_amount']}</p></div>
             }
           </div>
             <div className="div-amount">
@@ -651,7 +651,7 @@ render() {
 
             {this.state.listFeeObject &&
             <div>
-              <p className="labelText">{messages.wallet.action.transfer.label.feel_level} {this.state.listFeeObject.listFee[this.state.volume].description}</p>
+              <p className="labelText">{messages['wallet.action.transfer.label.feel_level']} {this.state.listFeeObject.listFee[this.state.volume].description}</p>
               <div className="fee-level-box">
                 <Slider
                   min={this.state.listFeeObject.min}
@@ -666,11 +666,11 @@ render() {
             }
 
             <div>
-              <p className="labelText">{messages.wallet.action.transfer.label.from_wallet}</p>
+              <p className="labelText">{messages['wallet.action.transfer.label.from_wallet']}</p>
               { walletSelected && <WalletSelected wallets={wallets} walletSelected={walletSelected} onSelect={wallet => { this.selectWallet(wallet); }}></WalletSelected> }
             </div>
 
-            <Button className="button-wallet-cpn" isLoading={this.state.isRestoreLoading}  type="submit" block={true}>{messages.wallet.action.transfer.button.transfer}</Button>
+            <Button className="button-wallet-cpn" isLoading={this.state.isRestoreLoading}  type="submit" block={true}>{messages['wallet.action.transfer.button.transfer']}</Button>
           </div>
 
 
@@ -703,7 +703,7 @@ const mapDispatchToProps = (dispatch) => ({
   showLoading: bindActionCreators(showLoading, dispatch),
   hideLoading: bindActionCreators(hideLoading, dispatch),
   clearFields: bindActionCreators(clearFields, dispatch),
-  getFiatCurrency: bindActionCreators(getFiatCurrency, dispatch),
+  getFiatCurrency: bindActionCreators(makeRequest, dispatch),
 });
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Transfer));

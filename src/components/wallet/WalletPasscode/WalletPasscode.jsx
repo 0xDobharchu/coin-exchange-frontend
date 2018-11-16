@@ -9,7 +9,7 @@ import Modal from '@/components/core/controls/Modal';
 import './WalletPasscode.scss';
 
 import Passcode from '../Passcode';
-import { hidePasscode } from '@/reducers/app/action';
+import { hidePasscode } from '@/screens/app/redux/action';
 
 import localStore from '@/services/localStore';
 import {APP} from '@/constants';

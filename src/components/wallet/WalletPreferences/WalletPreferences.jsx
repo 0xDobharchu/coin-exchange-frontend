@@ -45,9 +45,9 @@ class WalletPreferences extends React.Component {
     const disabled = !this.state.walletName ? "disabled" : "";
     this.setState({walletNameContent: (
         <div className="update-name">
-          <label>{this.messages.wallet.action.preferecens.update_name.label}</label>
-          <Input required placeholder={this.messages.wallet.action.preferecens.update_name.title} maxLength="40" value={this.state.walletName} onChange={(evt) => {this.handleWalletNameChange(evt)}} />
-          <button type="button" onClick={()=> {this.handleUpdateNameOnClick();}} disabled={!this.state.walletName} className="button wallet-new-button">{this.messages.wallet.action.preferecens.update_name.button.save}</button>
+          <label>{this.messages['wallet.action.preferecens.update_name.label']}</label>
+          <Input required placeholder={this.messages['wallet.action.preferecens.update_name.title']} maxLength="40" value={this.state.walletName} onChange={(evt) => {this.handleWalletNameChange(evt)}} />
+          <button type="button" onClick={()=> {this.handleUpdateNameOnClick();}} disabled={!this.state.walletName} className="button wallet-new-button">{this.messages['wallet.action.preferecens.update_name.button.save']}</button>
         </div>
       )
     }, ()=>{
@@ -73,7 +73,7 @@ class WalletPreferences extends React.Component {
           <div className="box-setting">
               <div className="item" onClick={()=> {this.onOpenModalName();}}>
                   <div className="name">
-                      <label>{this.messages.wallet.action.preferecens.list_item.wallet_name}</label>
+                      <label>{this.messages['wallet.action.preferecens.list_item.wallet_name']}</label>
                   </div>
                   <div className="value">
                       <span className="text">{wallet.title}</span>
@@ -82,7 +82,7 @@ class WalletPreferences extends React.Component {
 
               <div className="item">
                   <div className="name">
-                      <label>{this.messages.wallet.action.preferecens.list_item.hide_balance}</label>
+                      <label>{this.messages['wallet.action.preferecens.list_item.hide_balance']}</label>
                   </div>
                   <div className="value">
                     <Switch isChecked={this.props.wallet.hideBalance} onChange={(isChecked)=> {this.onHideBalanceChange(isChecked)}} />
@@ -91,7 +91,7 @@ class WalletPreferences extends React.Component {
 
               <div className="item" onClick={this.props.onWarningClick}>
                   <div className="name">
-                      <label>{this.messages.wallet.action.preferecens.list_item.backup_wallet}</label>
+                      <label>{this.messages['wallet.action.preferecens.list_item.backup_wallet']}</label>
                   </div>
                   <div className="value">
 
@@ -100,7 +100,7 @@ class WalletPreferences extends React.Component {
 
               <div className="item" onClick={this.props.onExportPrivateKeyClick}>
                   <div className="name">
-                      <label>{this.messages.wallet.action.preferecens.list_item.export_private_key}</label>
+                      <label>{this.messages['wallet.action.preferecens.list_item.export_private_key']}</label>
                   </div>
                   <div className="value">
 
@@ -110,7 +110,7 @@ class WalletPreferences extends React.Component {
 
               <div className="item" onClick={this.props.onDeleteWalletClick}>
                   <div className="name">
-                      <label className="text-danger">{this.messages.wallet.action.preferecens.list_item.delete_wallet}</label>
+                      <label className="text-danger">{this.messages['wallet.action.preferecens.list_item.delete_wallet']}</label>
                   </div>
                   <div className="value">
 

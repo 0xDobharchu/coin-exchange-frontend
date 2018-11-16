@@ -13,7 +13,7 @@ import {required} from '@/components/core/form/validation'
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
 import { bindActionCreators } from "redux";
 import {getFiatCurrency} from '@/reducers/exchange/action';
-import { showAlert, showLoading, hideLoading } from '@/reducers/app/action';
+import { showAlert, showLoading, hideLoading } from '@/screens/app/redux/action';
 import QrReader from 'react-qr-reader';
 import { StringHelper } from '@/services/helper';
 import './TransferToken.scss';
@@ -182,7 +182,7 @@ class TransferToken extends React.Component {
       // check amount:
 
       if (parseFloat(this.state.walletSelected.balance) <= parseFloat(value['amountCoin']))
-        errors.amountCoin = `${messages.wallet.action.transfer.error}`
+        errors.amountCoin = `${messages['wallet.action.transfer.error']}`
     }
     return errors
   }
@@ -351,21 +351,21 @@ class TransferToken extends React.Component {
     return !isAdvanced && (<div>
       <div className="basicWallet">
         <div className="line">
-          <div className="label">{messages.wallet.action.transfer.label.to_address2}</div>
+          <div className="label">{messages['wallet.action.transfer.label.to_address2']}</div>
           <div className="toAddress">{inputAddressAmountValue}</div>
         </div>
         <div className="line">
-          <div className="label">{messages.wallet.action.transfer.label.amount}</div>
+          <div className="label">{messages['wallet.action.transfer.label.amount']}</div>
           <div className="value">{inputSendAmountValue} {walletSelected && walletSelected.name}</div>
         </div>
         { this.props.gasLimit && (<div className="line">
-            <div className="label">{messages.wallet.action.transfer.label.gas_limit}</div>
+            <div className="label">{messages['wallet.action.transfer.label.gas_limit']}</div>
             <div className="value">{gasLimit}</div>
           </div>)
         }
 
         { this.props.data && (<div className="line">
-            <div className="label">{messages.wallet.action.transfer.label.data}</div>
+            <div className="label">{messages['wallet.action.transfer.label.data']}</div>
             <div className="data"><textarea rows="2" defaultValue={data} readOnly /></div>
           </div>)
         }
@@ -383,13 +383,13 @@ class TransferToken extends React.Component {
     const { inputSendAmountValue, gasLimit, data, walletSelected, isAdvanced } = this.state;
 
     return isAdvanced && (<div>
-      <p className="labelText">{messages.wallet.action.transfer.label.to_address2}</p>
+      <p className="labelText">{messages['wallet.action.transfer.label.to_address2']}</p>
       <div className="div-address-qr-code">
         <Field
           name="to_address"
           type="text"
           className="form-control input-address-qr-code"
-          placeholder={messages.wallet.action.transfer.placeholder.to_address}
+          placeholder={messages['wallet.action.transfer.placeholder.to_address']}
           component={fieldInput}
           value={this.state.inputAddressAmountValue}
           onChange={evt => this.updateSendAddressValue(evt)}
@@ -397,7 +397,7 @@ class TransferToken extends React.Component {
         />
         <span onClick={() => { this.openQrcode() }} className="icon-qr-code-black">{ICON.QRCode()}</span>
       </div>
-      <p className="labelText">{messages.wallet.action.transfer.label.amount}</p>
+      <p className="labelText">{messages['wallet.action.transfer.label.amount']}</p>
       <div className="div-amount">
         <div className="prepend">{ this.state.walletSelected ? StringHelper.format("{0}", this.state.walletSelected.name) : ''}</div>
         <Field
@@ -412,7 +412,7 @@ class TransferToken extends React.Component {
           autoComplete="off"
         />
       </div>
-      <p className="labelText">{messages.wallet.action.transfer.label.gas_limit}</p>
+      <p className="labelText">{messages['wallet.action.transfer.label.gas_limit']}</p>
       <div className="div-amount">
         <Field
           name="gasLimit"
@@ -426,7 +426,7 @@ class TransferToken extends React.Component {
         />
       </div>
       { this.props.data && (<div>
-        <p className="labelText">{messages.wallet.action.transfer.label.data}</p>
+        <p className="labelText">{messages['wallet.action.transfer.label.data']}</p>
         <div className="div-amount">
           <textarea
             className="form-control"
@@ -455,15 +455,15 @@ class TransferToken extends React.Component {
     <div>
         {/* Dialog confirm transfer coin */}
         <ModalDialog title="Confirmation" onRef={modal => this.modalConfirmTranferRef = modal}>
-        <div className="bodyConfirm"><span>{messages.wallet.action.transfer.text.confirm_transfer} {this.state.inputSendAmountValue} {this.state.walletSelected ? this.state.walletSelected.name : ''}?</span></div>
+        <div className="bodyConfirm"><span>{messages['wallet.action.transfer.text.confirm_transfer']} {this.state.inputSendAmountValue} {this.state.walletSelected ? this.state.walletSelected.name : ''}?</span></div>
         <div className="bodyConfirm">
-            <Button className="left" cssType="danger" onClick={this.submitSendCoin} >{messages.wallet.action.transfer.button.confirm}</Button>
+            <Button className="left" cssType="danger" onClick={this.submitSendCoin} >{messages['wallet.action.transfer.button.confirm']}</Button>
             <Button className="right" cssType="secondary" onClick={() => { this.modalConfirmTranferRef.close(); }}>Cancel</Button>
         </div>
         </ModalDialog>
 
         {/* QR code dialog */}
-        <Modal onClose={() => this.oncloseQrCode()} title={messages.wallet.action.transfer.label.scan_qrcode} onRef={modal => this.modalScanQrCodeRef = modal}>
+        <Modal onClose={() => this.oncloseQrCode()} title={messages['wallet.action.transfer.label.scan_qrcode']} onRef={modal => this.modalScanQrCodeRef = modal}>
           {this.state.qrCodeOpen || this.state.legacyMode ?
             <QrReader
               ref="qrReader1"
@@ -485,7 +485,7 @@ class TransferToken extends React.Component {
         {this.showAdvancedData}
 
           <div className ="dropdown-wallet-tranfer">
-            <p className="labelText">{messages.wallet.action.transfer.label.from_wallet}</p>
+            <p className="labelText">{messages['wallet.action.transfer.label.from_wallet']}</p>
             {this.showWallet}
 
             <div className="wallets-wrapper">
@@ -495,7 +495,7 @@ class TransferToken extends React.Component {
             </div>
           </div>
 
-          <Button className="button-wallet-cpn" isLoading={this.state.isRestoreLoading}  type="submit" block={true}>{messages.wallet.action.transfer.button.transfer}</Button>
+          <Button className="button-wallet-cpn" isLoading={this.state.isRestoreLoading}  type="submit" block={true}>{messages['wallet.action.transfer.button.transfer']}</Button>
         </div>
 
 
