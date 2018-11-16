@@ -12,6 +12,8 @@ class Faq extends React.PureComponent {
       faq
     } = this.props;
 
+    console.log('faq',faq);
+
     return (
       <div>
         { faq && (
