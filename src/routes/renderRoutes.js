@@ -8,15 +8,12 @@ import PrivateRoute from './privateRoute';
 export default ({ routes = [] }) => (
   <Switch>
     { routes && routes.map(route => {
-      const Component = route.auth ? <PrivateRoute key={route.path} {...route} /> : <RouteWrapper key={route.path} {...route} />;
-      if (route.noContainer === true) {
-        return Component;
-      } else {
-        return (
-          <ScreenContainer>{Component}</ScreenContainer>
-        );
-      }
+      const Component = route.auth ? PrivateRoute : RouteWrapper;
+      return <Component key={route.path} {...route} />;
     })}
-    <Route component={NotFoundPage} />
+    <Route render={props => (
+      <ScreenContainer><NotFoundPage {...props} /></ScreenContainer>
+    )}
+    />
   </Switch>
 );
