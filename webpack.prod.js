@@ -27,6 +27,7 @@ module.exports = merge(commonConfig, {
     // the target directory for all output files
     // must be an absolute path (use the Node.js path module)
     filename: '[hash:8].js', // string    // the filename template for entry chunks
+    chunkFilename: '[name].[chunkhash].chunk.js',
     // the name of the exported library
   },
   module: {
@@ -76,7 +77,18 @@ module.exports = merge(commonConfig, {
       title: 'The Coinbowl',
       template: path.resolve(__dirname, 'src/template/app.html'),
       hash: true,
-      minify: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true,
+      },
     }),
     new HtmlWebpackIncludePlugin({
       assets: [],

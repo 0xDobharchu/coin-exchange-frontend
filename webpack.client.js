@@ -2,9 +2,9 @@ const merge = require('webpack-merge');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 // const WorkboxPlugin = require('workbox-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
@@ -16,6 +16,56 @@ const clientEnv = require('./.env/.env.client');
 const env = {
   ...commonEnv,
   ...clientEnv
+};
+
+const optimization = {
+  minimize: true,
+  minimizer: [
+    new TerserPlugin({
+      terserOptions: {
+        warnings: false,
+        compress: {
+          comparisons: false,
+        },
+        parse: {},
+        mangle: true,
+        output: {
+          comments: false,
+          ascii_only: true,
+        },
+      },
+      parallel: true,
+      cache: true,
+      sourceMap: true,
+    }),
+    new OptimizeCSSAssetsPlugin({})
+  ],
+  nodeEnv: 'production',
+  sideEffects: true,
+  concatenateModules: true,
+  splitChunks: {
+    chunks: 'all',
+    minSize: 30000,
+    maxSize: 300000,
+    minChunks: 1,
+    maxAsyncRequests: 5,
+    maxInitialRequests: 3,
+    name: true,
+    cacheGroups: {
+      commons: {
+        test: /[\\/]node_modules[\\/]/,
+        name: 'vendor',
+        chunks: 'all',
+      },
+      main: {
+        chunks: 'all',
+        minChunks: 2,
+        reuseExistingChunk: true,
+        enforce: true,
+      },
+    },
+  },
+  runtimeChunk: true,
 };
 
 module.exports = merge(isDev ? devConfig : prodConfig, {
@@ -50,24 +100,5 @@ module.exports = merge(isDev ? devConfig : prodConfig, {
       APP_ENV: JSON.stringify(env),
     }),
   ],
-  optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        exclude: /\/(dist|node_modules|bower_components)/,
-        // include: /\/(src)/,
-        uglifyOptions: {
-          compress: {
-            // Drop console statements
-            drop_console: env.dropConsole || true,
-          },
-          // Eliminate comments
-          comments: false,
-        },
-        cache: true,
-        parallel: true,
-        sourceMap: true, // set to true if you want JS source maps
-      }),
-      new OptimizeCSSAssetsPlugin({})
-    ]
-  },
+  optimization: isDev ? {} : optimization,
 });
