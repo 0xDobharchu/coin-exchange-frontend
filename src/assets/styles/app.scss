@@ -9,6 +9,24 @@
     margin: 0px;
     @include full-screen;
   }
+  span, p {
+    font-size: 16px;
+    font-family: AcuminPro-Regular;
+    font-weight: normal;
+    letter-spacing: 0;
+  }
+  button {
+    height: 44px;
+    background: #5522DD;
+    border-radius: 6px 6px 6px 6px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-family: HelveticaNeue-Medium;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0;
+    border: none;
+  }
   .discover-overlay {
     width: 100vw;
     height: 100vh;
