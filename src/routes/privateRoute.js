@@ -1,10 +1,13 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import currentUser from 'src/utils/authentication';
 
 /**
  * Mock func
  */
-const checkAuth = () => true;
+const checkAuth = () => {
+  return currentUser.isLogin();
+};
 
 const PrivateRoute = ({ component: Component, routes, path, componentProps, ...rest }) => (
   <Route
@@ -14,10 +17,10 @@ const PrivateRoute = ({ component: Component, routes, path, componentProps, ...r
       <Redirect
         to={{
           pathname: '/login',
-          state: { from: props.location }
+          state: {from: props.location}
         }}
       />))
-    }
+      }
   />
 );
 
