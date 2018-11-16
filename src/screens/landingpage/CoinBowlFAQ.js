@@ -6,7 +6,8 @@ import { getFaqContent } from './redux/action';
 
 class CoinBowlFAQ extends React.PureComponent {
   componentDidMount() {
-    this.props.getFaqContent();
+    const params = { language: 'en' };
+    this.props.getFaqContent({ params });
   }
 
   render() {
