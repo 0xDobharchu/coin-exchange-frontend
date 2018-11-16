@@ -1,0 +1,47 @@
+.headerContainer {
+  padding: 15px;
+  max-height: 88px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #3F2782;
+  .logo {
+    width: 75px;
+  }
+  
+  .items {
+    display: flex;
+    .menu-item {
+      margin: 0px 20px;
+      color: #FFFFFF;
+      font-size: 16px;
+      font-family: AcuminPro-Regular;
+      font-weight: normal;
+      text-align: left;
+      letter-spacing: 0;
+      display: flex;
+      align-items: center;
+    }
+  }
+  
+  .button {
+    width: 117px;
+  }
+
+  .button-sign-up {
+    background: #39DDE3;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-family: AcuminPro-Semibold;
+    font-weight: 600;
+    letter-spacing: 0.22px;
+  }
+  .button-sign-in {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-family: AcuminPro-Regular;
+    font-weight: normal;
+    letter-spacing: 0;  
+    background-color: transparent;
+  }
+}
