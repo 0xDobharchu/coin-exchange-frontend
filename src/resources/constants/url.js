@@ -1,23 +1,23 @@
 export const API_BASE = APP_ENV.BASE_API_URL;
 export const URL = {
   INDEX: '/',
-  HANDSHAKE_ME: '/me',
-  HANDSHAKE_ME_INDEX: '/me',
-  HANDSHAKE_ME_PROFILE: '/me/profile',
-  HANDSHAKE_ME_VERIRY_EMAIL: '/me/verify/email',
+  HANDSHAKE_ME: '/me/',
+  HANDSHAKE_ME_INDEX: '/me/',
+  HANDSHAKE_ME_PROFILE: '/me/profile/',
+  HANDSHAKE_ME_VERIRY_EMAIL: '/me/verify/email/',
 
-  HANDSHAKE_CREATE: '/create',
-  HANDSHAKE_CREATE_INDEX: '/create',
+  HANDSHAKE_CREATE: '/create/',
+  HANDSHAKE_CREATE_INDEX: '/create/',
 
-  HANDSHAKE_EXCHANGE: '/exchange',
-  HANDSHAKE_EXCHANGE_INDEX: '/exchange',
-  BUY_COIN_URL: '/coin',
-  CRYPTO_COIN_URL: '/coin',
-  BUY_COIN_FAQ_URL: '/coin/faq',
-  SELL_COIN_URL: '/sell-coin',
+  HANDSHAKE_EXCHANGE: '/exchange/',
+  HANDSHAKE_EXCHANGE_INDEX: '/exchange/',
+  BUY_COIN_URL: '/coin/',
+  CRYPTO_COIN_URL: '/coin/',
+  BUY_COIN_FAQ_URL: '/coin/faq/',
+  SELL_COIN_URL: '/sell-coin/',
 
   USER_LOGIN: '/token/',
-  USER_SIGN_UP: '/user/sign-up',
+  USER_SIGN_UP: '/user/sign-up/',
 };
 
 export const API_URL = {
@@ -67,7 +67,7 @@ export const API_URL = {
     SET_OFFLINE_STATUS: 'exchange/user/profile/offline',
   },
   LANDING: {
-    FAQ: 'static/faq',
+    FAQ: 'content/faq/',
   }
 };
 
