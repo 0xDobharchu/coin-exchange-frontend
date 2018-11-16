@@ -1,10 +1,10 @@
 // style
-// @import './src/styles/style';
+@import 'src/assets/styles/_var.scss';
 $secondary : #b7b7b7;
 
 .button {
   padding: rem-calc(9px 0);
-  font-weight: $normal;
+  font-weight: 300;
   font-size: rem-calc(20px);
   color: $white;
   letter-spacing: 0;

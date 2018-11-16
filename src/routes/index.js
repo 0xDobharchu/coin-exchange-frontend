@@ -1,6 +1,7 @@
 import { URL } from 'src/constants';
 import Home from 'src/screens/home';
 import Contact from 'src/screens/contact';
+import About from 'src/screens/about';
 import Login from 'src/screens/login';
 import Register from 'src/screens/register';
 import Coin from 'src/screens/coin';
@@ -45,6 +46,11 @@ const routes = [
     exact: true,
   },
   {
+    path: '/about',
+    component: About,
+    exact: true,
+  },
+  {
     path: '/login',
     component: Login,
     exact: true,
@@ -74,7 +80,7 @@ const routes = [
   //   path: '/wallet',
   //   component: Wallet,
   //   exact: true,
-  // }
+  // },
   {
     path: URL.HANDSHAKE_ME_PROFILE,
     component: MeProfile,
