@@ -1,14 +1,16 @@
 import axios from 'axios';
 import { API_BASE } from 'src/resources/constants/url';
 
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
+};
+
 const instance = axios.create({
   baseURL: API_BASE,
   timeout: 10000,
   crossDomain: true,
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-  }
+  headers
 });
 
 // Add a response interceptor
