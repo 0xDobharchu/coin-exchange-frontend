@@ -7,24 +7,25 @@
 @import "mixin";
 @import "animate";
 
-body {
-  font-family: $font-family-base;
-  font-style: normal;
-  font-size: $font-size-base;
-  font-weight: $extra-light;
-  color: $black;
-  background-color: $bg-gray;
-}
+:global {
+  body {
+    font-family: $font-family-base;
+    font-style: normal;
+    font-size: $font-size-base;
+    font-weight: $extra-light;
+    color: $black;
+    background-color: $bg-gray;
+  }
 
-img {
-  max-width: 100%;
-}
+  img {
+    max-width: 100%;
+  }
 
-button {
-  text-overflow: ellipsis;
-  overflow: hidden;
+  button {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
-
 
 @import "app/splash";
 @import "./app";
