@@ -1,4 +1,5 @@
 import http from 'src/utils/http';
+import currentUser from 'src/utils/authentication';
 
 const DISPATCH_TYPE = {
   SUCCESS: 'SUCCESS',
@@ -30,12 +31,17 @@ export const makeRequest = (config = {}, _dispatch) => {
     }
     dispatch(makeAction({ type, dispatchType: DISPATCH_TYPE.CALLING, data: { payload: data, url, method: METHOD } }));
     try {
-      const res = await http({
+
+      const options = {
         url,
         method: METHOD,
         data,
         params
-      });
+      };
+      if(currentUser.isLogin()) {
+        options.headers = {Authorization: 'Bearer ' + currentUser.getToken() };
+      }
+      const res = await http(options);
       if (res) {
         dispatch(makeAction({ type, data: res, dispatchType: DISPATCH_TYPE.SUCCESS }));
         if (typeof onSuccess === 'function') {
