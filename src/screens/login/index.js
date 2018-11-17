@@ -40,7 +40,8 @@ class Login extends React.Component {
       this.props.loginBound(username, password).then((res) => {
         if (res === USER.LOGIN_SUCCESS) {
           console.log('Login successfull');
-          this.props.history.push('/');
+          const redirectTo = this.props.location.state.from? this.props.location.state.from.pathname : '/';
+          this.props.history.push(redirectTo);
         }
       }).finally(() => {
         this.setState({ loggingIn: false });

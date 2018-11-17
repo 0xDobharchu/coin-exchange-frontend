@@ -1,8 +1,5 @@
 #!/bin/bash
 
-cp -r deployments/$1 ./.env
-yarn build
-
 builNumber=$(date "+%Y%m%d_%H%M%S")
 
 PROJECT="coin-exchange-221604"
@@ -11,6 +8,8 @@ FRONTEND_IMAGE="$NAME_SPACE-frontend-service"
 
 gcloud auth activate-service-account --key-file deployments/deploy.cred.json
 gcloud container clusters get-credentials service-cluster-1 --zone asia-southeast1-a --project coin-exchange-221604
+
+cp -r deployments/$1 ./.env
 docker build -t gcr.io/$PROJECT/$FRONTEND_IMAGE:$builNumber .
 
 printf '\033[31m%s\033[0m\n' "=== READY TO DEPLOY ======";
