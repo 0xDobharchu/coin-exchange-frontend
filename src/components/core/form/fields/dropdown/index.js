@@ -1,9 +1,10 @@
 /* eslint react/prop-types:0 */
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
+import {LabelLang} from 'src/lang/components';
 
 const inputField = ({
-  input, meta, toggle, list
+  input, meta, toggle, labelText, labelClassName, containerClassName, list
 }) => {
   const {
     onChange, onBlur, onFocus, value
@@ -14,8 +15,9 @@ const inputField = ({
   const shouldShowError = !!(touched && error);
   const selectedItem = _list.find(i => i.value === value) || {};
   return (
-    <div>
-      <Dropdown value={selectedItem.value}>
+    <div className={containerClassName ? containerClassName : ''}>
+      {labelText && (<label className={labelClassName ||  ''}>{ <LabelLang id={labelText} /> }</label>)}
+      <Dropdown value={selectedItem.value} className="dropdown-warper">
         <Dropdown.Toggle variant="basic" onFocus={() => onFocus()} onBlur={() => onBlur()}>
           {selectedItem?.label || _toggle}
         </Dropdown.Toggle>
@@ -40,7 +42,7 @@ const inputField = ({
           }
         </Dropdown.Menu>
       </Dropdown>
-      { shouldShowError && <span>{error}</span>}
+      { shouldShowError && <small className="text-danger">{error}</small>}
     </div>
   );
 };
