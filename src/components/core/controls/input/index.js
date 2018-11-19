@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
+import styles from './styles.scss';
 
 const Input = (props) => {
-  const { type } = props;
+  const { label, labelClassname,  ...inputProps } = props;
   return (
-    <input
-      type={type}
-    />
+    <label className={styles.container}>
+      <span className={cx(styles.label, labelClassname)}>{label}</span>
+      <input
+        {...inputProps}
+      />
+    </label>
   );
 };
 
