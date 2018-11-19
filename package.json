@@ -82,7 +82,8 @@
     "satoshi-bitcoin": "^1.0.4",
     "sprintf-js": "^1.1.1",
     "tls": "^0.0.1",
-    "web3": "^1.0.0-beta.36"
+    "web3": "^1.0.0-beta.36",
+    "handshake-i18n": "github:ninjadotorg/handshake-i18n"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
