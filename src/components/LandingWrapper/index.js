@@ -1,11 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedHTMLMessage, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 // import { updateModal } from 'src/reducers/app/action';
 // import VideoYoutube from 'src/components/core/controls/VideoYoutube';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 // import { LANDING_PAGE_TYPE, URL } from 'src/constants';
 // import {
 //   Modal, ModalHeader, ModalBody, ModalFooter
@@ -13,13 +13,13 @@ import { Link } from 'react-router-dom';
 
 // style
 // import imgNinja from 'src/assets/images/ninja-header-black.svg';
-import imgLogo from 'src/assets/images/logo.svg';
+// import imgLogo from 'src/assets/images/logo.svg';
 import { SEOHome } from 'src/components/SEO';
-import './styles.scss';
+import styles from './styles.scss';
 
 class Index extends React.PureComponent {
   static propTypes = {
-    intl: PropTypes.object.isRequired,
+    // intl: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
@@ -32,27 +32,27 @@ class Index extends React.PureComponent {
   }
 
   render() {
-    const { messages } = this.props.intl;
+    // const { messages } = this.props.intl;
     const {
-      name, children, btnToggleLeftMenu, fullWidthContent,
+      children, fullWidthContent,
       // modal: { className, show, body, title, centered },
     } = this.props;
-    const logo = <Link to="/" className="d-inline-block mt-1"><img src={imgLogo} width="100" alt="logo" /></Link>;
-    const navLinks = (
-      <span>
-        {/* <span><Link className={`${type === 'product' ? 'active' : ''} landing-nav-link`} to={LANDING_PAGE_TYPE.product.url}>Product</Link></span> */}
-        {/* <span><Link className={`${type === 'research' ? 'active' : ''} landing-nav-link`} to={LANDING_PAGE_TYPE.research.url}>Research</Link></span> */}
-      </span>
-    );
-    const btnJoin = <span />;// <Link className="btn btn-primary-landing" to={URL.RECRUITING}><FormattedMessage id="landing_page.btn.joinOurTeam" /></Link>
+    // const logo = <Link to="/" className="d-inline-block mt-1"><img src={imgLogo} width="100" alt="logo" /></Link>;
+    // const navLinks = (
+    //   <span>
+    //     {/* <span><Link className={`${type === 'product' ? 'active' : ''} landing-nav-link`} to={LANDING_PAGE_TYPE.product.url}>Product</Link></span> */}
+    //     {/* <span><Link className={`${type === 'research' ? 'active' : ''} landing-nav-link`} to={LANDING_PAGE_TYPE.research.url}>Research</Link></span> */}
+    //   </span>
+    // );
+    // const btnJoin = <span />;// <Link className="btn btn-primary-landing" to={URL.RECRUITING}><FormattedMessage id="landing_page.btn.joinOurTeam" /></Link>
 
     return (
-      <div className={`landing-page ct-${name}`}>
+      <div className={styles.landingPage}>
         {SEOHome}
-        <div className="landing-background">
+        <div className={styles.landingBackground}>
           <div>
             {/* mobile */}
-            <div className="container">
+            {/*<div className="container">
               <div className="row d-md-none">
                 <div className="col-5">
                   {logo}
@@ -68,7 +68,7 @@ class Index extends React.PureComponent {
                 <div className="col text-right">{navLinks}</div>
               </div>
 
-              {/* desktop */}
+               desktop
               <div className="row d-none d-md-flex">
                 <div className="col-2">
                   {logo}
@@ -80,7 +80,7 @@ class Index extends React.PureComponent {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>*/}
 
             {
               fullWidthContent ? children : (
@@ -90,7 +90,7 @@ class Index extends React.PureComponent {
               )
             }
 
-            <div className="container">
+            {/*<div className="container">
               <hr className="landing-hr" />
 
               <div className="row landing-footer no-gutters">
@@ -125,7 +125,7 @@ class Index extends React.PureComponent {
                   )
                 }
               </div>
-            </div>
+            </div>*/}
 
 
           </div>
