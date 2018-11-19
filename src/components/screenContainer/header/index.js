@@ -5,6 +5,7 @@ import cx from 'classnames';
 import { URL } from 'src/resources/constants/url';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import styles from './styles.scss';
+import ChangeLanguage from '@/components/ChangeLanguage';
 
 const menus = {
   about_us: {
@@ -56,6 +57,7 @@ const Header = () => (
         ))
       }
     </div>
+    <ChangeLanguage />
     <div className={styles.buttons}>
       {
         Object.entries(buttons).map(([ key, button ]) => (
