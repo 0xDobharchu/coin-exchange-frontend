@@ -11,6 +11,10 @@ const menus = {
     link: '/about-us',
     icon: <MdKeyboardArrowDown />
   },
+  contact_us: {
+    name: 'Contact Us',
+    link: '/contact-us',    
+  },
   faq: {
     name: 'FAQ',
     link: '/faq'
