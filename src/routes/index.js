@@ -1,3 +1,4 @@
+import { URL } from 'src/resources/constants/url';
 import Home from 'src/screens/home';
 import Contact from 'src/screens/contact';
 import About from 'src/screens/about';
@@ -9,7 +10,6 @@ import Me from 'src/screens/me';
 import Wallet from 'src/screens/wallet';
 import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
 import MeProfile from 'src/screens/me/pages/MeProfile';
-import { URL } from 'src/resources/constants/url';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
 import privateRoute from './privateRoute';
@@ -20,18 +20,19 @@ import privateRoute from './privateRoute';
     component: YourComponent,
     componentProps: { name: 'Component Name' },
     auth: bool ==> need to auth to see this view
+    noContainer: bool ==> wrapper container with header & footer
     ...react-router props
   },
  */
 const routes = [
   {
-    path: '/',
+    path: URL.HOME,
     component: Home,
     componentProps: { title: 'Oh yeah!' },
     exact: true,
   },
   {
-    path: '/coin',
+    path: URL.COIN,
     component: Coin,
     exact: true,
   },
@@ -41,12 +42,12 @@ const routes = [
     exact: true,
   },
   {
-    path: '/contact-us',
+    path: URL.CONTACT,
     component: Contact,
     exact: true,
   },
   {
-    path: '/about-us',
+    path: URL.ABOUT_US,
     component: About,
     exact: true,
   },
@@ -58,11 +59,6 @@ const routes = [
   {
     path: '/register',
     component: Register,
-    exact: true,
-  },
-  {
-    path: '/contact/a',
-    component: Home,
     exact: true,
   },
   {
