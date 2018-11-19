@@ -14,7 +14,7 @@ const menus = {
   },
   contact_us: {
     name: 'Contact Us',
-    link: '/contact-us',    
+    link: '/contact-us',
   },
   faq: {
     name: 'FAQ',
@@ -29,7 +29,7 @@ const menus = {
 const buttons = {
   sign_in: {
     name: 'Sign In',
-    link: '/sign-in',
+    link: URL.USER_SIGN_IN,
     className: 'buttonSignIn'
   },
   sign_up: {
