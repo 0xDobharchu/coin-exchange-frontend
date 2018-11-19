@@ -9,6 +9,7 @@ import { FieldLang } from 'src/lang/components';
 import inputField from 'src/components/core/form/fields/input';
 import { isEmail, isPassword, isConfirmPassword, isRequired } from 'src/components/core/form/validator';
 import { USER } from 'src/resources/constants/user';
+import { URL } from 'src/resources/constants/url';
 import LabelLang from 'src/lang/components/LabelLang';
 import dropdownField from 'src/components/core/form/fields/dropdown';
 import { register } from './action';
@@ -52,7 +53,7 @@ class RegisterPage extends React.Component {
       }).then((res) => {
         if (res === USER.REGISTER_SUCCESS) {
           console.log('Register successfull');
-          this.props.history.push('/login');
+          this.props.history.push(URL.USER_SIGN_IN);
         }
       }).finally(() => {
         this.setState({ registering: false });

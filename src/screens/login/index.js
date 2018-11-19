@@ -43,7 +43,10 @@ class Login extends React.Component {
       this.props.loginBound(username, password).then((res) => {
         if (res === USER.LOGIN_SUCCESS) {
           console.log('Login successfull');
-          const redirectTo = this.props.location.state.from? this.props.location.state.from.pathname : '/';
+          let redirectTo = '/';
+          if( this.props.location.state && this.props.location.state.from){
+            redirectTo = this.props.location.state.from.pathname;
+          }
           this.props.history.push(redirectTo);
         }
       }).finally(() => {
@@ -68,6 +71,7 @@ class Login extends React.Component {
                     validate={[isRequired(<LabelLang id="user.login.requiredUsername" />), isEmail(<LabelLang id="user.login.notValidUsername" />)]}
                     type="text"
                     className='form-control'
+                    placeholder="user.login.username"
                   />
                   <FieldLang
                     containerClassName="form-group"
@@ -76,6 +80,7 @@ class Login extends React.Component {
                     component={inputField}
                     validate={[isRequired(<LabelLang id="user.login.requiredPassword" />), isPassword(8)]}
                     type="password"
+                    placeholder="user.login.password"
                   />
                   <div className={cx('form-control mb-3', style.customCheckbox)}>
                     <div className="row">
