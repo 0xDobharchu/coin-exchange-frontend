@@ -37,7 +37,7 @@ const routes = [
     exact: true,
   },
   {
-    path: URL.FAQ,
+    path: URL.FAQ_URL,
     component: CoinBowlFAQ,
     exact: true,
   },

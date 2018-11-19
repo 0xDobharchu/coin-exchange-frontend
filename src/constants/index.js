@@ -39,7 +39,7 @@ export const URL = {
   BUY_BY_CC_URL: '/buy-by-credit-card',
   BUY_COIN_URL: '/coin',
   CRYPTO_COIN_URL: '/coin',
-  BUY_COIN_FAQ_URL: '/coin/faq',
+  FAQ_URL: '/coin/faq',
   SELL_COIN_URL: '/sell-coin',
 
   HANDSHAKE_ME: '/me',

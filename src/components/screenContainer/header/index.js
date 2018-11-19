@@ -14,7 +14,7 @@ const menus = {
   },
   faq: {
     name: 'FAQ',
-    link: URL.FAQ
+    link: URL.FAQ_URL
   },
   team: {
     name: 'Team',
