@@ -18,6 +18,7 @@ export const URL = {
 
   USER_SIGN_IN: '/sign-in/',
   USER_SIGN_UP: '/sign-up/',
+  USER_FORGET_PASSWORD: '/forget-password/',
   HOME: '/',
   ABOUT_US: '/about-us',
   TEAM: '/team',

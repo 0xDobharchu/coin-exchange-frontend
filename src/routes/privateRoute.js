@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import currentUser from 'src/utils/authentication';
 import ScreenContainer from 'src/components/screenContainer';
-
+import { URL } from 'src/resources/constants/url';
 /**
  * Mock func
  */
@@ -26,7 +26,7 @@ const PrivateRoute = ({ component: Component, routes, path, noContainer, compone
       return (
         <Redirect
           to={{
-            pathname: '/login',
+            pathname: URL.USER_SIGN_IN,
             state: {from: props.location}
           }}
         />

@@ -7,12 +7,15 @@ import createForm from 'src/components/core/form/createForm';
 import { formValueSelector, change } from 'redux-form';
 import { FieldLang } from 'src/lang/components';
 import inputField from 'src/components/core/form/fields/input';
-import { isEmail, isPassword, isConfirmPassword, isRequired } from 'src/components/core/form/validator';
+import { isEmail, isPassword, isConfirmPassword, isRequired, mustChecked } from 'src/components/core/form/validator';
 import { USER } from 'src/resources/constants/user';
 import { URL } from 'src/resources/constants/url';
 import LabelLang from 'src/lang/components/LabelLang';
 import dropdownField from 'src/components/core/form/fields/dropdown';
+import checkBoxField from 'src/components/core/form/fields/checkbox';
+import cx from 'classnames';
 import { register } from './action';
+import style from './style.scss';
 
 const RegisterForm = createForm({
   propsReduxForm: {
@@ -40,9 +43,9 @@ class RegisterPage extends React.Component {
   handleSubmit() {
     this.setState({ registering: true });
     const {
-      firstName, lastName, username, password, confirmPassword, country, recaptchaValue
+      firstName, lastName, username, password, confirmPassword, country, recaptchaValue, agreement
     } = this.props;
-    if (firstName && lastName && username && password && confirmPassword && country && recaptchaValue) {
+    if (firstName && lastName && username && password && confirmPassword && country && recaptchaValue && agreement) {
       this.props.registerBound({
         first_name: firstName,
         last_name: lastName,
@@ -69,109 +72,118 @@ class RegisterPage extends React.Component {
   render() {
     const { registering } = this.state;
     return (
-      <div className="row justify-content-md-center">
-        <div className="col-md-6">
-          <h2><LabelLang id="user.register.title" /></h2>
-          <RegisterForm onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="firstName"><LabelLang id="user.register.firstName" /></label>
-              <FieldLang
-                name="firstName"
-                className="form-control"
-                component={inputField}
-                validate={isRequired(<LabelLang id="user.register.requiredFirstName" />)}
-                type="text"
-                placeholder="user.register.placeholderFirstName"
-              />
+      <div className={cx('container', style['register-warper'])}>
+        <div className="row">
+          <div className="col-sm-10 col-md-9 col-lg-7 mx-auto">
+            <h5 className={cx(style.registerTitle, 'text-center')}><LabelLang id="user.register.title" /></h5>
+            <div className={cx('card', style['register-card'])}>
+              <div className="card-body">
+                <RegisterForm onSubmit={this.handleSubmit} className="form-register">
+                  <div className="form-row">
+                    <FieldLang
+                      name="firstName"
+                      containerClassName="form-group col-md-6 col-sm-6"
+                      component={inputField}
+                      validate={isRequired(<LabelLang id="user.register.requiredFirstName" />)}
+                      type="text"
+                      className="form-control"
+                      placeholder="user.register.placeholderFirstName"
+                    />
+                    <FieldLang
+                      name="lastName"
+                      containerClassName="form-group col-md-6 col-sm-6"
+                      component={inputField}
+                      validate={isRequired(<LabelLang id="user.register.requiredLastName" />)}
+                      type="text"
+                      className="form-control"
+                      placeholder="user.register.placeholderLastName"
+                    />
+                  </div>
+                  <FieldLang
+                    name="username"
+                    containerClassName="form-group"
+                    component={inputField}
+                    validate={[isRequired(<LabelLang id="user.register.requiredUsername" />), isEmail(<LabelLang id="user.register.notValidUsername" />)]}
+                    type="email"
+                    className='form-control'
+                    placeholder="user.register.username"
+                  />
+                  <FieldLang
+                    containerClassName="form-group"
+                    name="password"
+                    className="form-control"
+                    component={inputField}
+                    validate={[isRequired(<LabelLang id="user.register.requiredPassword" />), isPassword(8)]}
+                    type="password"
+                    placeholder="user.register.password"
+                  />
+                  <FieldLang
+                    containerClassName="form-group"
+                    name="confirmPassword"
+                    className="form-control"
+                    component={inputField}
+                    validate={[(value, values) => isConfirmPassword(values.password)(value)]}
+                    type="password"
+                    placeholder="user.register.placeholderConfirmPassword"
+                  />
+                  <FieldLang
+                    containerClassName="form-group"
+                    name="country"
+                    className="form-control"
+                    component={dropdownField}
+                    validate={isRequired(<LabelLang id="user.register.requiredCountry" />)}
+                    toggle={<LabelLang id="user.register.placeholderCountry" />}
+                    list={[
+                      {
+                        key: 'PH',
+                        label: 'Philippines',
+                        value: 'PH'
+                      },
+                      {
+                        key: 'IN',
+                        label: 'Indonesia',
+                        value: 'IN'
+                      }
+                    ]}
+                  />
+                  <div className="form-group">
+                    <ReCAPTCHA
+                      ref={this._reCaptchaRef}
+                      sitekey={APP_ENV.GOOGLE_CAPTCH_SITE_KEY}
+                      size="normal"
+                      badge="inline"
+                      onChange={this.verifyCallback}
+                    />
+                    <FieldLang
+                      name="recaptchaValue"
+                      className="form-control"
+                      component={inputField}
+                      validate={isRequired(<LabelLang id="user.register.notValidReCaptcha" />)}
+                      type="hidden"
+                    />
+                  </div>
+                  <FieldLang
+                    containerClassName="form-group"
+                    name="agreement"
+                    id="agreement"
+                    component={checkBoxField}
+                    type="checkbox"
+                    validate={mustChecked(<LabelLang id="user.register.requiredAgreement" />, true)}
+                    className="form-check-input"
+                    labelText="user.register.agreement"
+                  />
+                  <div className="form-group">
+                    <button type="submit" className={cx('btn btn-primary btn-block', style.buttonRegister, registering ? 'disabled': '')}><LabelLang id="user.register.registerButton" /></button>
+                  </div>
+                </RegisterForm>
+              </div>
             </div>
-            <div className="form-group">
-              <label htmlFor="lastName"><LabelLang id="user.register.firstName" /></label>
-              <FieldLang
-                name="lastName"
-                className="form-control"
-                component={inputField}
-                validate={isRequired(<LabelLang id="user.register.requiredLastName" />)}
-                type="text"
-                placeholder="user.register.placeholderLastName"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="username"><LabelLang id="user.register.username" /></label>
-              <FieldLang
-                name="username"
-                className="form-control"
-                component={inputField}
-                validate={[isRequired(<LabelLang id="user.register.requiredUsername" />), isEmail(<LabelLang id="user.register.notValidUsername" />)]}
-                type="email"
-                placeholder="email@coinbowls.com"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password"><LabelLang id="user.register.password" /></label>
-              <FieldLang
-                name="password"
-                className="form-control"
-                component={inputField}
-                validate={[isRequired(<LabelLang id="user.register.requiredPassword" />), isPassword(8, <LabelLang id="user.register.notValidPassword" />)]}
-                type="password"
-                placeholder="user.register.placeholderPassword"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="confirmPassword"><LabelLang id="user.register.confirmPassword" /></label>
-              <FieldLang
-                name="confirmPassword"
-                className="form-control"
-                component={inputField}
-                validate={[(value, values) => isConfirmPassword(values.password)(value)]}
-                type="password"
-                placeholder="user.register.placeholderConfirmPassword"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="country"><LabelLang id="user.register.country" /></label>
-              <FieldLang
-                name="country"
-                className="form-control"
-                component={dropdownField}
-                toggle={<LabelLang id="user.register.placeholderCountry" />}
-                list={[
-                  {
-                    key: 'PH',
-                    label: 'Philippines',
-                    value: 'PH'
-                  },
-                  {
-                    key: 'IN',
-                    label: 'Indonesia',
-                    value: 'IN'
-                  }
-                ]}
-              />
-            </div>
-            <div className="form-group">
-              <ReCAPTCHA
-                style={{ display: 'inline-block' }}
-                ref={this._reCaptchaRef}
-                sitekey={APP_ENV.GOOGLE_CAPTCH_SITE_KEY}
-                onChange={this.verifyCallback}
-              />
-              <FieldLang
-                name="recaptchaValue"
-                className="form-control"
-                component={inputField}
-                validate={isRequired(<LabelLang id="user.register.notValidReCaptcha" />)}
-                type="hidden"
-              />
-            </div>
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary"><LabelLang id="user.register.registerButton" /></button>
-              {registering
-                        && <img alt="is register" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        }
-              <Link to="/login" className="btn btn-link"><LabelLang id="user.register.loginButton" /></Link>
-            </div>
-          </RegisterForm>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-12 text-center">
+            <Link to={URL.USER_SIGN_IN} className={cx('btn btn-link', style.link)}><LabelLang id="user.register.loginButton" /></Link>
+          </div>
         </div>
       </div>
     );
@@ -186,6 +198,7 @@ const mapStateToProps = state => ({
   confirmPassword: selectorForm(state, 'confirmPassword'),
   country: selectorForm(state, 'country'),
   recaptchaValue: selectorForm(state, 'recaptchaValue'),
+  agreement: selectorForm(state, 'agreement'),
 });
 
 const mapDispatch = dispatch => ({

@@ -3,16 +3,16 @@ import {LabelLang} from 'src/lang/components';
 import cx from 'classnames';
 import React from 'react';
 
-const inputField = ({ input, meta, ...props }) => {
+const inputField = ({ input, meta, labelText, labelClassName, containerClassName, ...props }) => {
   const {
     onChange, onBlur, onFocus, value
   } = input;
   const { error, touched } = meta;
   const shouldShowError = !!(touched && error);
   return (
-    <div className={cx('checkboxWarper',props.containerClassName ? props.containerClassName : '')}>
-      <label className={props.labelClassName ||  ''}>
-        {props.labelText && (<LabelLang id={props.labelText} />) }
+    <div className={cx('checkbox-warper',containerClassName ? containerClassName : '')}>
+      <label className={labelClassName ||  ''}>
+        {labelText && (<LabelLang id={labelText} />) }
         <input
           type="checkbox"
           {...props}
@@ -22,8 +22,8 @@ const inputField = ({ input, meta, ...props }) => {
           onChange={onChange}
         />
         <span className="checkmark" />
-        { shouldShowError && <span>{error}</span>}
       </label>
+      { shouldShowError && <small className="text-danger">{error}</small>}
     </div>
   );
 };
