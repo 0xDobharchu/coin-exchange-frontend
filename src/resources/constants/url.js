@@ -13,17 +13,16 @@ export const URL = {
   HANDSHAKE_EXCHANGE_INDEX: '/exchange/',
   BUY_COIN_URL: '/coin/',
   CRYPTO_COIN_URL: '/coin/',
-  BUY_COIN_FAQ_URL: '/coin/faq/',
+  FAQ_URL: '/faq',
   SELL_COIN_URL: '/sell-coin/',
 
   USER_LOGIN: '/token/',
   USER_SIGN_UP: '/user/sign-up/',
   HOME: '/',
-  FAQ: '/faq',
   ABOUT_US: '/about-us',
   TEAM: '/team',
   COIN: '/coin',
-  CONTACT: '/contact'
+  CONTACT: '/contact',
 };
 
 export const API_URL = {
