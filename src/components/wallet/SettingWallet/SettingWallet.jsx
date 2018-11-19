@@ -2,12 +2,12 @@ import axios from 'axios';
 import React from 'react';
 import {injectIntl} from 'react-intl';
 import {connect} from "react-redux";
-import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
+import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action';
 import PropTypes from 'prop-types';
 import local from '@/services/localStore';
 import { APP } from '@/constants';
 
-import { setLanguage } from '@/reducers/app/action';
+import { setLanguage } from '@/screens/app/redux/action';
 
 import './SettingWallet.scss';
 import Dropdown from '@/components/core/controls/Dropdown';
@@ -15,7 +15,7 @@ import Dropdown from '@/components/core/controls/Dropdown';
 import '../WalletPreferences/WalletPreferences.scss';
 
 import Switch from '@/components/core/controls/Switch';
-import { newPasscode, requestWalletPasscode, updatePasscode } from '@/reducers/app/action';
+import { newPasscode, requestWalletPasscode, updatePasscode } from '@/screens/app/redux/action';
 
 import iconLock from '@/assets/images/wallet/icons/icon-lock.svg';
 import iconCurrentcy from '@/assets/images/wallet/icons/icon-currency.svg';
@@ -192,7 +192,7 @@ class SettingWallet extends React.Component {
     let settings = this.state.settings;
     this.setState({
       listCurrenciesContent: (<Dropdown customResultCss={{"maxHeight": "none"}}
-              placeholder={messages.wallet.action.setting.label.select_alternative_currency}
+              placeholder={messages['wallet.action.setting.label.select_alternative_currency']}
               defaultId={settings.wallet.alternateCurrency}
               source={this.state.currencies}
               onItemSelected={this.onCurrenciesSelected}
@@ -253,21 +253,21 @@ class SettingWallet extends React.Component {
 
         <div className="box-setting">
 
-            <Modal title={messages.wallet.action.setting.label.select_alternative_currency} onRef={modal => this.modalSelectCurrencyRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle}>
+            <Modal title={messages['wallet.action.setting.label.select_alternative_currency']} onRef={modal => this.modalSelectCurrencyRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle}>
               <div className="list-currency">
                   {this.state.listCurrenciesContent}
               </div>
             </Modal>
              
 
-            <Modal onClose={()=>{this.onCloseAddressBook();}} title={messages.wallet.action.setting.label.address_book} onRef={modal => this.modalAddressBookRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle} modalBodyStyle={this.props.modalBodyStyle} customRightIcon={iconAddContact} customRightIconClick={()=>{this.openAddNewContact()}}>
+            <Modal onClose={()=>{this.onCloseAddressBook();}} title={messages['wallet.action.setting.label.address_book']} onRef={modal => this.modalAddressBookRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle} modalBodyStyle={this.props.modalBodyStyle} customRightIcon={iconAddContact} customRightIconClick={()=>{this.openAddNewContact()}}>
               {this.state.addressBookContent}
             </Modal>                        
 
             <div className="item">
                 <img className="icon" src={iconLock} />
                 <div className="name" onClick={()=> {this.onClickPasscode();}}>
-                    <label>{messages.wallet.action.setting.label.passcode}</label>
+                    <label>{messages['wallet.action.setting.label.passcode']}</label>
                 </div>
                 <div className="value">
                   {this.state.switchContent}
@@ -277,7 +277,7 @@ class SettingWallet extends React.Component {
             <div className="item">
                 <img className="icon" src={iconNotifications} />
                 <div className="name">
-                    <label>{messages.wallet.action.setting.label.push_notifications}</label>
+                    <label>{messages['wallet.action.setting.label.push_notifications']}</label>
                 </div>
                 <div className="value">
                   <Switch isChecked={settings.wallet.push_notification} onChange={(isChecked)=> {this.onClickNotification(isChecked)}} />
@@ -287,7 +287,7 @@ class SettingWallet extends React.Component {
             <div className="item" onClick={()=> {this.onClickCurrency();}}>
                 <img className="icon" src={iconCurrentcy} />
                 <div className="name">
-                    <label>{messages.wallet.action.setting.label.alternative_currency}</label>
+                    <label>{messages['wallet.action.setting.label.alternative_currency']}</label>
                 </div>
                 <div className="value">
                   <span className="text">{settings.wallet.alternateCurrency}</span>
@@ -297,7 +297,7 @@ class SettingWallet extends React.Component {
              <div className="item" onClick={this.openAddressBook}>
                 <img className="icon" src={iconContact} />
                 <div className="name">
-                    <label>{messages.wallet.action.setting.label.select_alternative_currency}</label>
+                    <label>{messages['wallet.action.setting.label.select_alternative_currency']}</label>
                 </div>
                 <div className="value">
 
@@ -307,7 +307,7 @@ class SettingWallet extends React.Component {
             <div className="item" onClick={this.openSupport}>
                 <img className="icon" src={iconSupport} />
                 <div className="name">
-                    <label>{messages.wallet.action.setting.label.support}</label>
+                    <label>{messages['wallet.action.setting.label.support']}</label>
                 </div>
                 <div className="value">
 
@@ -315,13 +315,13 @@ class SettingWallet extends React.Component {
             </div>
 
             <div className="item header">
-              <label>{messages.wallet.action.setting.label.wallet_account}</label>
+              <label>{messages['wallet.action.setting.label.wallet_account']}</label>
             </div>
 
             <div className="item" onClick={this.props.onBackupWalletAccountClick}>
                 <img className="icon" src={iconBackupWallet} />
                 <div className="name">
-                    <label>{messages.wallet.action.backup.title}</label>
+                    <label>{messages['wallet.action.backup.title']}</label>
                 </div>
                 <div className="value">
 
@@ -330,7 +330,7 @@ class SettingWallet extends React.Component {
             <div className="item" onClick={this.props.onRestoreWalletAccountClick}>
                 <img className="icon" src={iconRestoreWallet} />
                 <div className="name">
-                    <label>{messages.wallet.action.restore.title}</label>
+                    <label>{messages['wallet.action.restore.title']}</label>
                 </div>
                 <div className="value">
 
@@ -340,7 +340,7 @@ class SettingWallet extends React.Component {
 
 
             <div className="item header">
-              <label>{messages.wallet.action.setting.label.community}</label>
+              <label>{messages['wallet.action.setting.label.community']}</label>
             </div>
 
             <div className="item" onClick={()=> {this.openTwitter();}}>

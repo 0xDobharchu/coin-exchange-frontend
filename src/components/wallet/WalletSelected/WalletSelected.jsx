@@ -4,7 +4,7 @@ import {injectIntl} from 'react-intl';
 import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
 import Modal from '@/components/core/controls/Modal';
-import { showLoading, hideLoading } from '@/reducers/app/action';
+import { showLoading, hideLoading } from '@/screens/app/redux/action';
 import { ICON } from '@/components/wallet/images';
 import ListCoin from '@/components/wallet/ListCoin';
 import './WalletSelected.scss';
@@ -89,7 +89,7 @@ class WalletSelected extends React.Component {
       <div className="">
         {this.showWallet}
 
-        <Modal title={messages.wallet.action.transfer.placeholder.select_wallet} onRef={modal => this.modalListCoinRef = modal}>
+        <Modal title={messages['wallet.action.transfer.placeholder.select_wallet']} onRef={modal => this.modalListCoinRef = modal}>
           {modalListCoin}
         </Modal>
       </div>
