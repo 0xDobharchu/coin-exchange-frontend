@@ -4,7 +4,7 @@ import ADD_CONTACT from './type';
 function addContact(name, phone, email, description) {
   return makeRequest({
     type: ADD_CONTACT,
-    url: '/contact-us/',
+    url: '/system/contacts/',
     method: 'POST',
     data: {
       name, phone, email, description
