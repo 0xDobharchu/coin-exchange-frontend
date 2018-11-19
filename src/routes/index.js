@@ -52,12 +52,12 @@ const routes = [
     exact: true,
   },
   {
-    path: '/login',
+    path: '/sign-in',
     component: Login,
     exact: true,
   },
   {
-    path: '/register',
+    path: '/sign-up',
     component: Register,
     exact: true,
   },

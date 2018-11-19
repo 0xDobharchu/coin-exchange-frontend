@@ -1,5 +1,6 @@
 /* eslint react/prop-types:0 */
 import React from 'react';
+import {LabelLang} from 'src/lang/components';
 
 const inputField = ({ input, meta, ...props }) => {
   const {
@@ -8,7 +9,8 @@ const inputField = ({ input, meta, ...props }) => {
   const { error, touched } = meta;
   const shouldShowError = !!(touched && error);
   return (
-    <div>
+    <div className={props.containerClassName ? props.containerClassName : ''}>
+      {props.labelText && (<label className={props.labelClassName ||  ''}>{ <LabelLang id={props.labelText} /> }</label>)}
       <input
         {...props}
         value={value}
