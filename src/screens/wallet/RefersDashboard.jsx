@@ -9,8 +9,8 @@ import {
 import {required} from '@/components/core/form/validation';
 import {change, Field, formValueSelector, clearFields} from 'redux-form';
 import {bindActionCreators} from 'redux';
-import { showAlert } from '@/reducers/app/action';
-import { showLoading, hideLoading } from '@/reducers/app/action';
+import { showAlert } from '@/screens/app/redux/action';
+import { showLoading, hideLoading } from '@/screens/app/redux/action';
 import { referredInfo } from '@/reducers/auth/action';
 import iconSuccessChecked from '@/assets/images/wallet/icons/icon-checked-green.svg';
 import local from '@/services/localStore';

@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import ReactDOM from 'react-dom';
-
 import { FormattedMessage, injectIntl } from 'react-intl';
 // import { Field, formValueSelector } from 'redux-form';
 import LandingWrapper from 'src/components/LandingWrapper';
@@ -16,9 +14,7 @@ import { LANDING_PAGE_TYPE } from 'src/resources/constants/url';
 // import { MyMessage } from 'src/lang/components';
 import messages from 'src/lang/messages';
 
-import './styles.scss';
 import Faq from 'src/components/FAQ';
-
 // const nameFormSubscribeEmail = 'subscribeEmail';
 // const FormSubscribeEmail = createForm({
 //   propsReduxForm: {
@@ -26,6 +22,9 @@ import Faq from 'src/components/FAQ';
 //   },
 // });
 // const selectorFormSubscribeEmail = formValueSelector(nameFormSubscribeEmail);
+import styles from './styles.scss';
+
+// import ReactDOM from 'react-dom';
 
 class Index extends React.PureComponent {
   // state = {
@@ -110,12 +109,12 @@ class Index extends React.PureComponent {
     return (
       <LandingWrapper name={name} fullWidthContent={fullWidthContent}>
         {reactHelmetElement}
-        <div className="project-detail">
+        <div className={styles.projectDetail}>
           {
             messages[`landing_page.${name}.breadcrumb`] && (
               <div className="row mt-5">
                 <div className="col">
-                  <div className="pd-breadcrumb">
+                  <div className={styles.pdBreadcrumb}>
                     {
                       type !== 'landing' && (
                         <React.Fragment>

@@ -35,7 +35,7 @@ import { PirateKittyToken } from '@/services/Wallets/Collectibles/PirateKittyTok
 import { UnicornGO } from '@/services/Wallets/Collectibles/UnicornGO';
 import { WarToken } from '@/services/Wallets/Collectibles/WarToken';
 import { bindActionCreators } from "redux";
-import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
+import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action';
 import { ICON } from '@/assets/styles/images';
 import PropTypes from 'prop-types';
 

@@ -50,19 +50,19 @@ class WalletTransaction extends React.Component {
           }
 
           if(data.pending){
-            status = messages.wallet.action.history.label.pending;
+            status = messages['wallet.action.history.label.pending'];
           }
           else{
             if(data.txreceipt_status) {
-              status = Number(data.txreceipt_status) > 0 ? messages.wallet.action.history.label.success : messages.wallet.action.history.label.failed;
+              status = Number(data.txreceipt_status) > 0 ? messages['wallet.action.history.label.success'] : messages['wallet.action.history.label.failed'];
             }
             else {
               if(data.txreceipt_status == undefined) {
                 if(data.isError == "1") {
-                  status = messages.wallet.action.history.label.error;
+                  status = messages['wallet.action.history.label.error'];
                 }
                 else {
-                  status = messages.wallet.action.history.label.success;
+                  status = messages['wallet.action.history.label.success'];
                 }
               }
             }
@@ -185,18 +185,18 @@ class WalletTransaction extends React.Component {
         </div>
         {
           detail.header.coin == "ETH" &&
-            <div className="url"><a target="_blank" href={""+wallet.getAPIUrlTransaction(detail.body.hash)}>{messages.wallet.action.history.label.detail_etherscan}</a></div>
+            <div className="url"><a target="_blank" href={""+wallet.getAPIUrlTransaction(detail.body.hash)}>{messages['wallet.action.history.label.detail_etherscan']}</a></div>
         }
         {
           detail.header.coin == "BTC" &&
-            <div className="url"><a target="_blank" href={""+wallet.getAPIUrlTransaction(detail.body.transaction)}>{messages.wallet.action.history.label.detail_blockchaininfo}</a></div>
+            <div className="url"><a target="_blank" href={""+wallet.getAPIUrlTransaction(detail.body.transaction)}>{messages['wallet.action.history.label.detail_blockchaininfo']}</a></div>
         }
         <div className="confirmation">
           {
-            detail.header.status ? <div className={css_status.toLowerCase()}>{messages.wallet.action.history.label.status} {detail.header.status}</div> : ""
+            detail.header.status ? <div className={css_status.toLowerCase()}>{messages['wallet.action.history.label.status']} {detail.header.status}</div> : ""
           }
           {
-            detail.header.confirmations || detail.header.confirmations == 0 ? <div>{detail.header.confirmations} {messages.wallet.action.history.label.confirmations}</div>
+            detail.header.confirmations || detail.header.confirmations == 0 ? <div>{detail.header.confirmations} {messages['wallet.action.history.label.confirmations']}</div>
             : ""
           }
         </div>
@@ -214,9 +214,9 @@ class WalletTransaction extends React.Component {
                     {
                       val.map(e => {
                         return <div key={Math.random()} className="value-it">
-                          <span className="text-secondary">{messages.wallet.action.history.label.transfer}</span> {e.amount} ETH
-                          <span className="text-secondary"> {messages.wallet.action.history.label.from}</span> {e.from}
-                          <span className="text-secondary"> {messages.wallet.action.history.label.to}</span> {e.to}
+                          <span className="text-secondary">{messages['wallet.action.history.label.transfer']}</span> {e.amount} ETH
+                          <span className="text-secondary"> {messages['wallet.action.history.label.from']}</span> {e.from}
+                          <span className="text-secondary"> {messages['wallet.action.history.label.to']}</span> {e.to}
                         </div>
                       })
                     }
