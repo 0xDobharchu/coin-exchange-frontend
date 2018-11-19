@@ -1,17 +1,11 @@
 import React from 'react';
-import MainLayout from './mainLayout';
-import CoinDesktop from './desktopLayout';
+import BuyCoin from './buy';
 import styles from './styles.scss';
 
 const Coin = () => (
   <React.Fragment>
     <div className={styles.desktop}>
-      <CoinDesktop>
-        <MainLayout />
-      </CoinDesktop>
-    </div>
-    <div className={styles.mobile}>
-      <MainLayout />
+      <BuyCoin />
     </div>
   </React.Fragment>
 );

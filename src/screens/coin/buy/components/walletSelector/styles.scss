@@ -1,0 +1,11 @@
+.container {
+  position: relative;
+  .input {
+    width: 100%;
+  }
+  .icon {
+    position: absolute;
+    right: 20px;
+    top: 50px;
+  }
+}
