@@ -75,7 +75,7 @@ module.exports = merge(commonConfig, {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Ninja Project',
+      title: 'Coin Bowl',
       template: path.resolve(__dirname, 'src/template/app.html'),
     }),
     new HtmlWebpackIncludePlugin({

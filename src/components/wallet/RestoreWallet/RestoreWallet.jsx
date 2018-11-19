@@ -4,7 +4,7 @@ import { clearFields } from "redux-form";
 import {connect} from "react-redux";
 import Button from '@/components/core/controls/Button';
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
-import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
+import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action';
 import { bindActionCreators } from "redux";
 import { ICON } from '@/components/wallet/images';
 import './RestoreWallet.scss';
@@ -57,7 +57,7 @@ class RestoreWallet extends React.Component {
         return;
       }
     }
-    this.showError(messages.wallet.action.restore.error);
+    this.showError(messages['wallet.action.restore.error']);
     this.setState({ erroValueBackup: true, isRestoreLoading: false, inputRestoreWalletValue: '' });
   }
 
@@ -71,7 +71,7 @@ class RestoreWallet extends React.Component {
     const { messages } = this.props.intl;
     return (
         <div className="restorewallet">
-          <div className="bodyTitle">{messages.wallet.action.restore.description}</div>
+          <div className="bodyTitle">{messages['wallet.action.restore.description']}</div>
             <div className="bodyBackup">
               <textarea
                 required
@@ -80,7 +80,7 @@ class RestoreWallet extends React.Component {
                 onChange={evt => this.updateRestoreWalletValue(evt)}
               />
               <Button isLoading={this.state.isRestoreLoading} className="button" cssType="danger" onClick={() => { this.restoreWallets(); }} >
-                {messages.wallet.action.restore.button.restore}
+                {messages['wallet.action.restore.button.restore']}
               </Button>
             </div>
         </div>

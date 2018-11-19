@@ -3,7 +3,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { hideAlert, showAlert } from '@/reducers/app/action';
+// import { hideAlert, showAlert } from '@/screens/app/redux/action';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { change, Field, formValueSelector, touch } from 'redux-form';
 import { connect } from 'react-redux';

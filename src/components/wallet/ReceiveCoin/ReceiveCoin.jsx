@@ -8,10 +8,10 @@ import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
 import Button from '@/components/core/controls/Button';
 import { API_URL } from "@/constants";
-import {getFiatCurrency} from '@/reducers/exchange/action';
+import { makeRequest } from 'src/redux/action';
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
 
-import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
+import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action';
 import { StringHelper } from '@/services/helper';
 import createForm from '@/components/core/form/createForm';
 import './ReceiveCoin.scss';
@@ -320,11 +320,11 @@ class ReceiveCoin extends React.Component {
 
     return (
       <div className="receive-coins">
-          {/* <div className="bodyTitle"><span>{messages.wallet.action.receive.message} { this.state.walletSelected ? this.state.walletSelected.name : ''} </span></div> */}
+          {/* <div className="bodyTitle"><span>{messages['wallet.action.receive.message']} { this.state.walletSelected ? this.state.walletSelected.name : ''} </span></div> */}
           <div className={['bodyBackup bodyShareAddress']}>
 
           {/* <div className="bodyTitle">
-            <span>{messages.wallet.action.receive.title2}</span>
+            <span>{messages['wallet.action.receive.title2']}</span>
           </div> */}
 
           <div className="box-addresses">
@@ -342,7 +342,7 @@ class ReceiveCoin extends React.Component {
                   <Field
                     name="showWalletSelected"
                     component={fieldDropdown}
-                    placeholder={messages.wallet.action.receive.placeholder.choose_wallet}
+                    placeholder={messages['wallet.action.receive.placeholder.choose_wallet']}
                     defaultText={this.state.walletSelected.text}
                     list={this.state.wallets}
                       onChange={(item) => {
@@ -358,14 +358,14 @@ class ReceiveCoin extends React.Component {
             </div>
 
             <div className="box-qr-code">
-                <QRCode size={230} value={qrCodeValue} onClick={() => { Clipboard.copy(qrCodeValue); this.showToast(messages.wallet.action.receive.success.share);}} />
+                <QRCode size={230} value={qrCodeValue} onClick={() => { Clipboard.copy(qrCodeValue); this.showToast(messages['wallet.action.receive.success.share']);}} />
             </div>
 
 
             <div className="box-link">
-              <a className="link-copy-address" onClick={() => { Clipboard.copy(this.state.walletSelected.address); this.showToast(messages.wallet.action.receive.success.share);}}>{messages.wallet.action.receive.link.copy_address}</a>
+              <a className="link-copy-address" onClick={() => { Clipboard.copy(this.state.walletSelected.address); this.showToast(messages['wallet.action.receive.success.share']);}}>{messages['wallet.action.receive.link.copy_address']}</a>
               <a className="link-download" ref={(ref) => this.downloadRef = ref} onClick={()=> {this.download(qrCodeValue);}}>
-                {messages.wallet.action.receive.link.download_qrcode}
+                {messages['wallet.action.receive.link.download_qrcode']}
               </a>
             </div>
             
@@ -415,14 +415,14 @@ class ReceiveCoin extends React.Component {
                 </div>
               }
 
-            {/* <div className="link-request-custom-amount" onClick={() => { this.modalCustomAmountRef.open(); this.setState({ inputSendAmountValue: '' }); }}>{messages.wallet.action.receive.button.request_amount}</div> */}
+            {/* <div className="link-request-custom-amount" onClick={() => { this.modalCustomAmountRef.open(); this.setState({ inputSendAmountValue: '' }); }}>{messages['wallet.action.receive.button.request_amount}</div> */}
 
             {/* <a className="button-download" ref={(ref) => this.downloadRef = ref} onClick={()=> {this.download(value);}}>
-                {messages.wallet.action.receive.link.download_qrcode}
+                {messages['wallet.action.receive.link.download_qrcode}
             </a>
 
-            <Button className="button" cssType="primary" onClick={() => { Clipboard.copy(this.state.walletSelected.address); this.showToast(messages.wallet.action.receive.success.share);}} >
-              {messages.wallet.action.receive.button.text}
+            <Button className="button" cssType="primary" onClick={() => { Clipboard.copy(this.state.walletSelected.address); this.showToast(messages['wallet.action.receive.success.share);}} >
+              {messages['wallet.action.receive.button.text}
             </Button> */}
           </div>
 
@@ -445,7 +445,7 @@ const mapDispatchToProps = (dispatch) => ({
   showAlert: bindActionCreators(showAlert, dispatch),
   showLoading: bindActionCreators(showLoading, dispatch),
   hideLoading: bindActionCreators(hideLoading, dispatch),
-  getFiatCurrency: bindActionCreators(getFiatCurrency, dispatch),
+  getFiatCurrency: bindActionCreators(makeRequest, dispatch),
   clearFields: bindActionCreators(clearFields, dispatch),
 });
 
