@@ -335,14 +335,14 @@ export default {
       requiredUsername: 'Please enter your email'
     },
     register: {
-      title: 'REGISTER',
+      title: 'Create your account',
       firstName: 'First name',
       requiredFirstName: 'First name is required',
       placeholderFirstName: 'Enter your first name',
       lastName: 'Last name',
       requiredLastName: 'Last name is required',
       placeholderLastName: 'Enter your last name',
-      username: 'Username',
+      username: 'Your email',
       requiredUsername: 'Username is required',
       notValidUsername: 'Invalid email address',
       password: 'Password',
@@ -354,9 +354,12 @@ export default {
       placeholderConfirmPassword: 'Enter confirm password',
       country: 'Country',
       placeholderCountry: 'Please select your country',
+      requiredCountry: 'Country is required',
       notValidReCaptcha: 'Please validate your reCAPTCHA.',
-      registerButton: 'Register',
-      loginButton: 'Login',
+      agreement: 'I certify that I am 18 years of age or older, and I agree to the User Agreement and Privacy Policy.',
+      requiredAgreement: 'Please indicate that you have read and agree to the User Agreement and Privacy Policy',
+      registerButton: 'Create account',
+      loginButton: 'Already have an account?',
     }
   },
   landingPage: {
@@ -365,16 +368,16 @@ export default {
       yourName: 'Your name',
       requiredYourName: 'Your name is required',
       placeholderYourName: 'Enter your name',
-      email: 'Your email',      
+      email: 'Your email',
       requiredEmail: 'Your email is required',
       notValidEmail: 'Invalid email address',
       phone: 'Your phone',
       placeholderPhone: 'Enter your phone number',
-      description: 'Your message',      
+      description: 'Your message',
       placeholderDescription: 'Enter your message',
-      requiredDescription: 'Your message is required',      
+      requiredDescription: 'Your message is required',
       contactButton: 'Submit',
-      
+
     }
   },
   wallet: {

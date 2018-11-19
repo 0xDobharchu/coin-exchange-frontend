@@ -1,8 +1,13 @@
 @import 'src/assets/styles/_var.scss';
 @import 'src/assets/styles/_functions.scss';
 
+$blur_color: #868DAD;
+
 .modal-dialog-custom {
   background-color: transparent !important;
+}
+.modal.modal-custom-show {
+  display: block !important;
 }
 .modal {
   max-width: $app-width;

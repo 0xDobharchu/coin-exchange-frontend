@@ -10,6 +10,7 @@ import checkBoxField from 'src/components/core/form/fields/checkbox';
 import { isEmail, isPassword, isRequired } from 'src/components/core/form/validator';
 import { USER } from 'src/resources/constants/user';
 import LabelLang from 'src/lang/components/LabelLang';
+import { URL } from 'src/resources/constants/url';
 import cx from 'classnames';
 import { login } from './action';
 import style from './style.scss';
@@ -59,7 +60,7 @@ class Login extends React.Component {
     return (
       <div className={cx('container', style['login-warper'])}>
         <div className="row">
-          <div className="col-sm-10 col-md-8 col-lg-6 mx-auto">
+          <div className="col-sm-10 col-md-9 col-lg-7 mx-auto">
             <h5 className={cx(style.loginTitle, 'text-center')}><LabelLang id="user.login.title" /></h5>
             <div className={cx('card', style['login-card'])}>
               <div className="card-body">
@@ -69,7 +70,7 @@ class Login extends React.Component {
                     containerClassName="form-group"
                     component={inputField}
                     validate={[isRequired(<LabelLang id="user.login.requiredUsername" />), isEmail(<LabelLang id="user.login.notValidUsername" />)]}
-                    type="text"
+                    type="email"
                     className='form-control'
                     placeholder="user.login.username"
                   />
@@ -105,9 +106,9 @@ class Login extends React.Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            <Link to="/forget-password" className={cx('btn btn-link', style.link)}><LabelLang id="user.login.forgetPassword" /></Link>
-            <Link to="/sign-up" className={cx('btn btn-link', style.link)}><LabelLang id="user.login.registerButton" /></Link>
+          <div className="col-12 text-center">
+            <Link to={URL.USER_FORGET_PASSWORD} className={cx('btn btn-link', style.link)}><LabelLang id="user.login.forgetPassword" /></Link>
+            <Link to={URL.USER_SIGN_UP} className={cx('btn btn-link', style.link)}><LabelLang id="user.login.registerButton" /></Link>
           </div>
         </div>
       </div>

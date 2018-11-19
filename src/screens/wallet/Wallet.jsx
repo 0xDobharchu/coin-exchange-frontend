@@ -35,7 +35,7 @@ import WalletProtect from './WalletProtect';
 import WalletHistory from './WalletHistory';
 import TransferCoin from '@/components/wallet/TransferCoin';
 import ReceiveCoin from '@/components/wallet/ReceiveCoin';
-import ReactBottomsheet from 'react-bottomsheet';
+import ReactBottomsheet from './ReactBottomsheet/ReactBottomsheet';
 import { showLoading, hideLoading, showAlert, setHeaderRight } from '@/screens/app/redux/action';
 import local from '@/services/localStore';
 import {APP} from '@/constants';
@@ -44,8 +44,8 @@ import {APP} from '@/constants';
 // import AddCollectible from '@/components/wallet/AddCollectible/AddCollectible';
 
 // style
-import './Wallet.scss';
-import './BottomSheet.scss';
+import style from './Wallet.scss';
+
 import CoinTemp from '@/screens/wallet/CoinTemp';
 import BackupWallet from '@/components/wallet/BackupWallet/BackupWallet';
 import RestoreWallet from '@/components/wallet/RestoreWallet/RestoreWallet';
@@ -71,6 +71,8 @@ import { ICON } from '@/components/wallet/images';
 const QRCode = require('qrcode.react');
 
 import { Ethereum } from '@/services/Wallets/Ethereum.js';
+
+import cx from 'classnames'
 
 window.Clipboard = (function (window, document, navigator) {
   let textArea,
@@ -111,8 +113,7 @@ class Wallet extends React.Component {
       listMainWalletBalance: [],
       listTokenWalletBalance: [],
       listCollectibleWalletBalance: [],
-      listTestWalletBalance: [],
-      listRewardWalletBalance: [],
+      listTestWalletBalance: [],      
       bottomSheet: false,
       listMenu: [],
       walletSelected: null,
@@ -160,7 +161,7 @@ class Wallet extends React.Component {
 
   showAlert(msg, type = 'success', timeOut = 3000, icon = '') {
     this.props.showAlert({
-      message: <div className="textCenter">{icon}{msg}</div>,
+      message: <div className={style.textCenter}>{icon}{msg}</div>,
       timeOut,
       type,
       callBack: () => {},
@@ -181,33 +182,28 @@ class Wallet extends React.Component {
 
   splitWalletData(listWallet) {
     let listMainWallet = [];
-    let listTestWallet = [];
-    let listRewardWallet = [];
+    let listTestWallet = [];    
     let listTokenWallet = [];
     let listCollectibleWallet = [];
 
     listWallet.forEach((wallet) => {
-      // is reward wallet:
-      if (wallet.isReward) {
-        // listRewardWallet.push(wallet);
-      }
+
       // is Mainnet (coin, token, collectible)
-      else if (wallet.network === MasterWallet.ListCoin[wallet.className].Network.Mainnet) {
-        if (!process.env.isDojo)
-        { // not show for Dojo
-          if(wallet.isToken){
-            wallet.default = false;
-            if (wallet.isCollectibles){
-              listCollectibleWallet.push(wallet);
-            }
-            else{
-              listTokenWallet.push(wallet);
-            }
+      if (wallet.network === MasterWallet.ListCoin[wallet.className].Network.Mainnet) {
+        
+        if(wallet.isToken){
+          wallet.default = false;
+          if (wallet.isCollectibles){
+            listCollectibleWallet.push(wallet);
           }
           else{
-            listMainWallet.push(wallet);
+            listTokenWallet.push(wallet);
           }
         }
+        else{
+          listMainWallet.push(wallet);
+        }
+        
       } else {
         // is Testnet
         listTestWallet.push(wallet);
@@ -215,7 +211,7 @@ class Wallet extends React.Component {
     });
 
     this.setState({
-      isLoading: true, listMainWalletBalance: listMainWallet, listTokenWalletBalance: listTokenWallet, listCollectibleWalletBalance: listCollectibleWallet, listTestWalletBalance: listTestWallet, listRewardWalletBalance: listRewardWallet,
+      isLoading: true, listMainWalletBalance: listMainWallet, listTokenWalletBalance: listTokenWallet, listCollectibleWalletBalance: listCollectibleWallet, listTestWalletBalance: listTestWallet,
     });
   }
 
@@ -250,68 +246,35 @@ class Wallet extends React.Component {
   }
 
   componentWillUnmount() {
-    try{document.querySelector(".app").style.backgroundColor = '#ffffff';} catch (e){};
-    // this.detachScrollListener();
+    try{document.querySelector(".app").style.backgroundColor = '#ffffff';} catch (e){};    
   }
 
   async componentDidMount() {
-
+    
     try{document.querySelector(".app").style.backgroundColor = '#f4f4fb';} catch (e){};
+    
     this.getSetting();
-    // this.attachScrollListener();
-    let listWallet = await MasterWallet.getMasterWallet();
 
-    if (listWallet == false) {
-      listWallet = await MasterWallet.createMasterWallets();
-      await this.splitWalletData(listWallet);
-    } else {
-      this.splitWalletData(listWallet);
-      await this.getListBalace(listWallet);
+    // todo call api get wallet data ...
+    let listWallet = [];
+    var i = 0;
+    for (const k1 in MasterWallet.ListDefaultCoin) {
+      i ++;      
+      for (const k2 in MasterWallet.ListDefaultCoin[k1].Network) {
+        const wallet = new MasterWallet.ListDefaultCoin[k1]();
+          // set mnemonic, if not set then auto gen.          
+          wallet.mnemonic = "mnemonic" + i.toString();
+          wallet.network = MasterWallet.ListDefaultCoin[k1].Network[k2];
+          wallet.address = "address" + i.toString();
+          listWallet.push(wallet);
+      }
     }
 
-  //   setTimeout(() => {
-  //     /*eslint-disable */
-  //     window?.$zopim?.livechat?.window?.onShow(() => {
-  //       this.isShow = true;
-  //       console.log('onShow', this.isShow);
-  //     });
-  //     window?.$zopim?.livechat?.window?.onHide(() => {
-  //       this.isShow = false;
-  //       console.log('onHide', this.isShow);
-  //     });
-  //     this.scrollListener();
-  //     /* eslint-enable */
-  //   }, 6000);
-  //   this.attachScrollListener();
+    this.splitWalletData(listWallet);
+    //await this.getListBalace(listWallet);
+
   }
-
-  // scrollListener = async () => {
-  //   /*eslint-disable */
-  //   if (!this.isShow) {
-  //     window?.$zopim && window?.$zopim(() => {
-  //       window?.$zopim?.livechat.button.hide();
-  //       window?.$zopim?.livechat.button.setOffsetVerticalMobile(120);
-  //       window?.$zopim?.livechat.button.setOffsetHorizontalMobile(10);
-  //       window?.$zopim?.livechat.button.show();
-  //     });
-  //   }
-  //   /* eslint-enable */
-  // }
-
-  // attachScrollListener() {
-  //   window.addEventListener('scroll', this.scrollListener);
-  //   window.addEventListener('resize', this.scrollListener);
-  //   this.scrollListener();
-  // }
-
-  // detachScrollListener() {
-  //   this.isShow = true;
-  //   /*eslint-disable */
-  //   window?.$zopim?.livechat.button.hide();
-  //   window.removeEventListener('scroll', this.scrollListener);
-  //   window.removeEventListener('resize', this.scrollListener);
-  //   /* eslint-enable */
-  // }
+      
 
   async getSetting(){
     let setting = local.get(APP.SETTING), alternateCurrency = "USD";
@@ -327,7 +290,7 @@ class Wallet extends React.Component {
   }
 
   getAllWallet() {
-    return this.state.listMainWalletBalance.concat(this.state.listTestWalletBalance).concat(this.state.listRewardWalletBalance).concat(this.state.listTokenWalletBalance).concat(this.state.listCollectibleWalletBalance);
+    return this.state.listMainWalletBalance.concat(this.state.listTestWalletBalance).concat(this.state.listTokenWalletBalance).concat(this.state.listCollectibleWalletBalance);
   }
 
   async getListBalace(listWallet) {
@@ -421,10 +384,10 @@ class Wallet extends React.Component {
     });
 
 
-    let canSetDefault = !wallet.isToken && !wallet.isReward;
+    let canSetDefault = !wallet.isToken
     if (canSetDefault && !wallet.default) {
       obj.push({
-        title: StringHelper.format(messages['wallet.action.default.title, wallet.name']) + (wallet.default ? "✓ " : ""),
+        title: StringHelper.format(messages['wallet.action.default.title'], wallet.name) + (wallet.default ? "✓ " : ""),        
         handler: () => {
           wallet.default = !wallet.default;
           this.toggleBottomSheet();
@@ -746,10 +709,10 @@ class Wallet extends React.Component {
       onSuccess: () => {
         this.setState({
           exportPrivateContent: (
-              <div className="export-private-key">
-                <div className="ex-title">{messages['wallet.action.export_private_key.title']}</div>
+              <div className={style.exportPrivateKey}>
+                <div className={style.exTitle}>{messages['wallet.action.export_private_key.title']}</div>
                 <QRCode size={230} value={this.state.walletSelected.privateKey} onClick={() => { Clipboard.copy(this.state.walletSelected.privateKey); this.showToast(messages['wallet.action.copy.success']);}} />
-                <div className="ex-desc">{messages['wallet.action.export_private_key.desc']} </div>
+                <div className={style.exDesc}>{messages['wallet.action.export_private_key.desc']} </div>
                 <Button onClick={()=> {Clipboard.copy(this.state.walletSelected.privateKey); this.showToast(messages['wallet.action.copy.success']);}}>Copy</Button>
               </div>
           )
@@ -839,11 +802,7 @@ class Wallet extends React.Component {
     setting = setting ? setting.wallet : false;
     return this.state.listTestWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onMoreClick={() => this.onMoreClick(wallet)} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
   }
-
-  get listRewardWalletBalance() {
-    return this.state.listRewardWalletBalance.map(wallet => <WalletItem key={Math.random()} wallet={wallet} onMoreClick={() => this.onMoreClick(wallet)} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
-  }
-
+ 
   get getListCoinTempForCreate() {
     return this.state.listCoinTempToCreate.map(walletTemp => <CoinTemp key={Math.random()} wallet={walletTemp} onClick={() => this.onSelectCoinClick(walletTemp)} />);
   }
@@ -943,10 +902,10 @@ class Wallet extends React.Component {
       modalHistory, modalSecure, modalWalletPreferences, modalReceiveCoin, walletSelected, walletsData, backupWalletContent, restoreWalletContent, exportPrivateContent} = this.state;
 
     return (
-      <div className="wallet-page">
+      <div className={style.walletPage}>
 
         {/* float button qrcode */}
-        <img onClick={()=> {this.props.showScanQRCode({onFinish: (data) => {this.onQRCodeScaned(data);}});}} className="float-button-scan-qrcode" src={floatButtonScanQRCode} />
+        <img onClick={()=> {this.props.showScanQRCode({onFinish: (data) => {this.onQRCodeScaned(data);}});}} className={style.floatButtonScanQrcode} src={floatButtonScanQRCode} />
 
         {/* remind checkout */}
         {/* <RemindPayment /> */}
@@ -984,10 +943,10 @@ class Wallet extends React.Component {
 
           {/* ModalDialog for confirm remove wallet */}
           <ModalDialog title={messages['wallet.action.remove.header']} onRef={modal => this.modalRemoveRef = modal}>
-            <div className="bodyConfirm"><span>{messages['wallet.action.remove.message']}</span></div>
-            <div className="bodyConfirm">
-              <Button className="left pl-0 pr-0" cssType="danger" onClick={this.removeWallet} >{messages['wallet.action.remove.button_yes']}</Button>
-              <Button className="right pl-0 pr-0" cssType="secondary" onClick={() => { this.modalRemoveRef.close(); }}>{messages['wallet.action.remove.button_cancel']}</Button>
+            <div className={style.bodyConfirm}><span>{messages['wallet.action.remove.message']}</span></div>
+            <div className={style.bodyConfirm}>
+              <Button className={ cx(style.left, style.pl0, style.pr0)} cssType="danger" onClick={this.removeWallet} >{messages['wallet.action.remove.button_yes']}</Button>
+              <Button className={cx(style.right, style.pl0, style.pr0)} cssType="secondary" onClick={() => { this.modalRemoveRef.close(); }}>{messages['wallet.action.remove.button_cancel']}</Button>
             </div>
           </ModalDialog>
 
@@ -1033,18 +992,18 @@ class Wallet extends React.Component {
 
           {/* Modal for Create/Import wallet : */}
           <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages['wallet.action.create.header']} onRef={modal => this.modalCreateWalletRef = modal} onClose={this.closeCreate}>
-            <Row className="list">
+            <Row className={style.list}>
               <Header title={messages['wallet.action.create.label.select_coins']} hasLink={false} />
             </Row>
-            <Row className="list">
+            <Row className={style.list}>
               {this.getListCoinTempForCreate}
             </Row>
-            <Row className="list">
+            <Row className={style.list}>
               <Header title={messages['wallet.action.create.label.wallet_key']} />
             </Row>
-            <div className="wallet-create-footer">
+            <div className={style.walletCreateFooter}>
               <Dropdown
-                className="dropdown-wallet"
+                className={style.dropdownWallet}
                 placeholder={messages['wallet.action.create.placeholder.wallet_key']}
                 defaultId={this.state.walletKeySelected}
                 source={[{ id: 1, value: messages['wallet.action.create.text.random']}, { id: 2, value: messages['wallet.action.create.text.specify_phrase']}]}
@@ -1072,7 +1031,7 @@ class Wallet extends React.Component {
             </div>
 
 
-            <Button block isLoading={this.state.isRestoreLoading} disabled={this.state.countCheckCoinToCreate == 0 || (this.state.walletKeyDefaultToCreate == 2 && this.state.input12PhraseValue.trim().split(/\s+/g).length != 12)} className="button button-wallet" cssType="primary" onClick={() => { this.createNewWallets(); }} >
+            <Button block isLoading={this.state.isRestoreLoading} disabled={this.state.countCheckCoinToCreate == 0 || (this.state.walletKeyDefaultToCreate == 2 && this.state.input12PhraseValue.trim().split(/\s+/g).length != 12)} className={ "button" + style.buttonWallet} cssType="primary" onClick={() => { this.createNewWallets(); }} >
               {messages['wallet.action.create.button.create']}
             </Button>
             <Header />
@@ -1082,9 +1041,9 @@ class Wallet extends React.Component {
 
           {/* 1. Header Wallet ============================================== */}
           <div id="header-wallet">
-              <div className="header-wallet">
-                  <img className="logo-wallet" src={logoWallet} />
-                  <div onClick={this.onIconRightHeaderClick} className="header-right"><img src={iconMoreSettings} /></div>
+              <div className={style.headerWallet}>
+                  <img className={style.logoWallet} src={logoWallet} />
+                  <div onClick={this.onIconRightHeaderClick} className={style.headerRight}><img src={iconMoreSettings} /></div>
               </div>
           </div>
 
@@ -1092,16 +1051,14 @@ class Wallet extends React.Component {
           {/* 2. Render list wallet here ===================================== */}
 
           {/* 2.1 List Coin */}
-          <Row className="wallet-box">
-            {!process.env.isDojo ?
-              <Row className="list">
+          <Row className={style.walletBox}>            
+              <Row className={style.list}>
                 {!this.state.listSortable.coin ?
                 <Header icon2={this.state.listMainWalletBalance.length > 1 ? iconAlignJust : null} onIcon2Click={this.updateSortableForCoin} icon={iconAddPlus} title={messages['wallet.action.create.label.header_coins']} hasLink={true} linkTitle={messages['wallet.action.create.button.add_new']} onLinkClick={this.showModalAddCoin} />
                 :<Header title={messages['wallet.action.create.label.header_coins']} hasLink={true} linkTitle={messages['wallet.action.create.button.done']} onLinkClick={this.updateSortableForCoin} />
                }
-              </Row>
-            :""}
-            <Row className="list">
+              </Row>            
+            <Row className={style.list}>
               {/* {this.listMainWalletBalance} */}
               { this.state.listMainWalletBalance.length > 0 ?
                 <SortableComponent onSortableSuccess={items => this.onSortableCoinSuccess(items)} onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)}  isSortable={this.state.listSortable.coin} items={this.state.listMainWalletBalance} />
@@ -1110,17 +1067,16 @@ class Wallet extends React.Component {
           </Row>
 
           {/* 2.2 List Tokens */}
-          <Row className="wallet-box">
-            {!process.env.isDojo ?
-            <Row className="list">
+          <Row className={style.walletBox}>            
+            <Row className={style.list}>
               {!this.state.listSortable.token ?
                 <Header icon2={this.state.listTokenWalletBalance.length > 1 ? iconAlignJust : null} onIcon2Click={this.updateSortableForToken} icon={iconAddPlus} title={messages['wallet.action.create.label.header_tokens']} hasLink={true} linkTitle={messages['wallet.action.create.button.header_tokens']} onLinkClick={this.showModalAddToken} />
                 :<Header title={messages['wallet.action.create.label.header_tokens']} hasLink={true} linkTitle={messages['wallet.action.create.button.done']} onLinkClick={this.updateSortableForToken} />
               }
 
             </Row>
-            : ""}
-            <Row className="list">
+            
+            <Row className={style.list}>
               {/* {this.listTokenWalletBalance} */}
               { this.state.listTokenWalletBalance.length > 0 ?
                   <SortableComponent onSortableSuccess={items => this.onSortableTokenSuccess(items)} onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} isSortable={this.state.listSortable.token}  items={this.state.listTokenWalletBalance}/>
@@ -1129,9 +1085,8 @@ class Wallet extends React.Component {
           </Row>
 
           {/* 2.3 Collectible */}
-          <Row className="wallet-box">
-            {!process.env.isDojo ?
-            <Row className="list">
+          <Row className={style.walletBox}>            
+            <Row className={style.list}>
 
                {!this.state.listSortable.collectitble ?
                 <Header icon2={this.state.listCollectibleWalletBalance.length > 1 ? iconAlignJust : null} onIcon2Click={this.updateSortableForCollectible} icon={iconAddPlus} title={messages['wallet.action.create.label.header_collectibles']} hasLink={true} linkTitle={messages['wallet.action.create.button.header_collectibles']} onLinkClick={this.showModalAddCollectible} />
@@ -1139,8 +1094,8 @@ class Wallet extends React.Component {
               }
 
             </Row>
-            :""}
-            <Row className="list">
+                        
+            <Row className={style.list}>
               {/* {this.listCollectibleWalletBalance} */}
               { this.state.listCollectibleWalletBalance.length > 0 ?
                   <SortableComponent onSortableSuccess={items => this.onSortableCollectibleSuccess(items)} onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} isSortable={this.state.listSortable.collectitble}  items={this.state.listCollectibleWalletBalance}/>
@@ -1148,32 +1103,22 @@ class Wallet extends React.Component {
             </Row>
           </Row>
 
-          <Row className="wallet-box">
-            {!process.env.isLive ?
-            <Row className="list">
-              {!process.env.isDojo ?
-              <Header title={messages['wallet.action.create.label.test_net']} hasLink linkTitle={messages['wallet.action.create.button.request_free_eth']} onLinkClick={this.getETHFree} />
-              :
-              <Header title=""/>
-              }
-            </Row>
-            : ''}
-            {!process.env.isLive ?
-            <Row className="list">
-              {/* {this.listTestWalletBalance} */}
-              { this.state.listTestWalletBalance.length > 0 ?
-                  <SortableComponent onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} items={this.state.listTestWalletBalance}/>
+          <Row className={style.walletBox}>
+              {!process.env.isProduction ?
+              <Row className={style.list}>              
+                <Header title={messages['wallet.action.create.label.test_net']} hasLink linkTitle={messages['wallet.action.create.button.request_free_eth']} onLinkClick={this.getETHFree} />                              
+              </Row>
               : ''}
-            </Row>
-            : ''}
-            </Row>
-
-          {/* <Row className="list">
-            <Header title="Reward wallets" hasLink={false} />
-          </Row>
-          <Row className="list">
-            {this.listRewardWalletBalance}
-          </Row> */}
+              {!process.env.isProduction &&
+              <Row className={style.list}>
+                {/* {this.listTestWalletBalance} */}
+                { this.state.listTestWalletBalance.length > 0 ?
+                    <SortableComponent onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} items={this.state.listTestWalletBalance}/>
+                : ''}
+              </Row>
+              }
+            
+            </Row>          
 
         </Container>
       </div>

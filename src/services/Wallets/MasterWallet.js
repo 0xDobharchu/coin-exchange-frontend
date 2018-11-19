@@ -144,14 +144,14 @@ export class MasterWallet {
 
     static UpdateLocalStore(masterWallet, sync = false) {
       // encrypt wallet:
-      const encryptWalletData = MasterWallet.encrypt(JSON.stringify(masterWallet));
+      // const encryptWalletData = MasterWallet.encrypt(JSON.stringify(masterWallet));
 
-      localStore.save(MasterWallet.KEY, encryptWalletData);
+      // localStore.save(MasterWallet.KEY, encryptWalletData);
 
-      // call api update list address:
-      if (sync) {
-        MasterWallet.SyncWalletAddress();
-      }
+      // // call api update list address:
+      // if (sync) {
+      //   MasterWallet.SyncWalletAddress();
+      // }
     }
 
     static getListWalletAddressJson() {
