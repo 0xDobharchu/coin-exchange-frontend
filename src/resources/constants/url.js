@@ -18,6 +18,11 @@ export const URL = {
 
   USER_LOGIN: '/token/',
   USER_SIGN_UP: '/user/sign-up/',
+  HOME: '/',
+  ABOUT_US: '/about-us',
+  TEAM: '/team',
+  COIN: '/coin',
+  CONTACT: '/contact-us',
 };
 
 export const API_URL = {

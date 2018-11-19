@@ -5,7 +5,7 @@ import { injectIntl } from 'react-intl';
 import './Wallet.scss';
 
 import Button from '@/components/core/controls/Button';
-import Checkbox from '@/components/core/forms/Checkbox/Checkbox';
+import Checkbox from '@/components/core/controls/Checkbox/Checkbox';
 import Modal from '@/components/core/controls/Modal';
 import ModalDialog from '@/components/core/controls/ModalDialog';
 
@@ -37,13 +37,13 @@ class WalletProtect extends React.Component {
     (
       <div className="protectwallet-wrapper" >
           <div className="msg1">
-            {messages.wallet.action.protect.text.msg1}
+            {messages['wallet.action.protect.text.msg1']}
           </div>
           <div className="msg2">
-            {messages.wallet.action.protect.text.step1_msg2}
+            {messages['wallet.action.protect.text.step1_msg2']}
           </div>
           <div className="msg3">
-            <Checkbox name="checkBoxProtected" label={messages.wallet.action.protect.text.step1_label}
+            <Checkbox name="checkBoxProtected" label={messages['wallet.action.protect.text.step1_label']}
               defaultChecked={this.state.step1_confirm}
               onClick={() => { this.setState({step1_confirm: !this.state.step1_confirm}); }} />
           </div>
@@ -62,7 +62,7 @@ class WalletProtect extends React.Component {
     (
       <div className="protectwallet-wrapper" >
           <div className="msg1">
-            {messages.wallet.action.protect.text.step2_msg1}
+            {messages['wallet.action.protect.text.step2_msg1']}
           </div>
           <div className="pass_phrase">
             {/* fill pass phrase */}
@@ -70,8 +70,8 @@ class WalletProtect extends React.Component {
               return <div key={str} className="btn cursor-initial bg-light">{str}</div>
             })}
           </div>
-          <div onClick={onCopy} className="pass-phrase-link-copy">{messages.wallet.action.protect.button.copy_clipboard}</div>
-          <Button className="button-wallet" block type="submit" onClick={this.doStep2}>{messages.wallet.action.protect.button.verify}</Button>
+          <div onClick={onCopy} className="pass-phrase-link-copy">{messages['wallet.action.protect.button.copy_clipboard']}</div>
+          <Button className="button-wallet" block type="submit" onClick={this.doStep2}>{messages['wallet.action.protect.button.verify']}</Button>
         </div>
     )
     : "";
@@ -84,7 +84,7 @@ class WalletProtect extends React.Component {
     (
       <div className="protectwallet-wrapper" >
           <div className="msg1">
-          {messages.wallet.action.protect.text.step3_msg1}
+          {messages['wallet.action.protect.text.step3_msg1']}
           </div>
           <div className="confirm_pass_phrase">
             {this.state.arr_confirm.map((str) => {
@@ -97,7 +97,7 @@ class WalletProtect extends React.Component {
               return <div key={str}  className="btn btn-light" onClick={() => this.pickPassPhrase(str, true)}>{str}</div>
             })}
           </div>
-          <Button className="button-wallet" block type="submit" onClick={this.doStep3}>{messages.wallet.action.protect.button.verify}</Button>
+          <Button className="button-wallet" block type="submit" onClick={this.doStep3}>{messages['wallet.action.protect.button.verify']}</Button>
         </div>
     )
     : "";
@@ -202,9 +202,9 @@ class WalletProtect extends React.Component {
         {this.showStep2}
         {this.showStep3}
         <ModalDialog title="Try again" onRef={modal => this.modalConfirmRef = modal}>
-          <div className="wrong-pass-phrase">{messages.wallet.action.protect.error.confirm}</div>
+          <div className="wrong-pass-phrase">{messages['wallet.action.protect.error.confirm']}</div>
           <div className="text-center p-3 ">
-            <button className="btn-block btn btn-secondary p-2" onClick={this.tryDoStep3}>{messages.wallet.action.protect.button.ok}</button>
+            <button className="btn-block btn btn-secondary p-2" onClick={this.tryDoStep3}>{messages['wallet.action.protect.button.ok']}</button>
           </div>
         </ModalDialog>
       </div>
