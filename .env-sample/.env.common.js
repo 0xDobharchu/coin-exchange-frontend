@@ -12,5 +12,6 @@ module.exports = {
     },
     dropConsole: true,
     GOOGLE_CAPTCH_SITE_KEY: ''
-    ZOPIM_CHAT_ACCOUNT_KEY: ''
+    ZOPIM_CHAT_ACCOUNT_KEY: '',    
+    isProduction: false,
 };
