@@ -10,6 +10,9 @@
     &:hover {
       cursor: pointer;
     }
+    &:focus {
+      outline: none;
+    }
     .label {
       width: 94%;
       display: flex;
@@ -17,7 +20,7 @@
       font-size: rem-calc(20px);
       color: #FFFFFF;
       letter-spacing: 0;
-      font-weight: $light;
+      font-weight: $bold;
       line-height: rem-calc(35px);
       .index {
         flex-basis: 4%;
@@ -51,7 +54,6 @@
 }
 
 .collapse-custom-white {
-  font-family: azo-sans-web, sans-serif;
   &:not(:last-of-type) {
     border-bottom: 1px solid #efefef;
   }
@@ -64,6 +66,9 @@
     &:hover {
       cursor: pointer;
     }
+    &:focus {
+      outline: none;
+    }
     .label {
       width: 94%;
       display: flex;
@@ -71,7 +76,7 @@
       font-size: 18px;
       color: #484848;
       letter-spacing: 0;
-      font-weight: 500;
+      font-weight: $bold;
       line-height: rem-calc(35px);
       .index {
         width: 8%;
