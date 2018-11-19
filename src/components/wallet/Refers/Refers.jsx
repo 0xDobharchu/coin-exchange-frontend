@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Input } from 'reactstrap';
 import { bindActionCreators } from 'redux';
-import { hideLoading, showAlert, showLoading } from '@/reducers/app/action';
+import { hideLoading, showAlert, showLoading } from '@/screens/app/redux/action';
 import Image from '@/components/core/presentation/Image';
 import ExpandArrowSVG from '@/assets/images/wallet/icons/expand-arrow.svg';
 import { referredInfo } from '@/reducers/auth/action';
