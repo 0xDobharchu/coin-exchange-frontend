@@ -1,8 +1,8 @@
 import React from 'react';
 import ExpandArrowSVG from 'src/assets/images/icon/expand-arrow-white.svg';
-import styles from './styles.scss';
 import { FormattedHTMLMessage } from 'react-intl';
 import cx from 'classnames';
+import styles from './styles.scss';
 
 class Collapse extends React.PureComponent {
   constructor(props) {
