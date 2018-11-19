@@ -2,22 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from 'src/assets/images/logo.svg';
 import cx from 'classnames';
+import { URL } from 'src/resources/constants/url';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import styles from './styles.scss';
 
 const menus = {
   about_us: {
     name: 'About Us',
-    link: '/about-us',
+    link: URL.ABOUT_US,
     icon: <MdKeyboardArrowDown />
   },
   faq: {
     name: 'FAQ',
-    link: '/faq'
+    link: URL.FAQ
   },
   team: {
     name: 'Team',
-    link: '/team'
+    link: URL.TEAM
   },
 };
 
@@ -29,14 +30,14 @@ const buttons = {
   },
   sign_up: {
     name: 'Sign up',
-    link: '/sign-up',
+    link: URL.USER_SIGN_UP,
     className: 'buttonSignUp'
   },
 };
 
 const Header = () => (
   <header className={styles.headerContainer}>
-    <Link to="/">
+    <Link to={URL.HOME}>
       <img className={styles.logo} src={logo} alt="coinbowl-logo" />
     </Link>
     <div className={styles.items}>
