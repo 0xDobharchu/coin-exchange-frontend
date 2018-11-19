@@ -1,7 +1,8 @@
 import React from 'react';
 import ExpandArrowSVG from 'src/assets/images/icon/expand-arrow-white.svg';
-import './styles.scss';
 import { FormattedHTMLMessage } from 'react-intl';
+import cx from 'classnames';
+import styles from './styles.scss';
 
 class Collapse extends React.PureComponent {
   constructor(props) {
@@ -21,29 +22,27 @@ class Collapse extends React.PureComponent {
     const {
       label, content, isList, index, theme = 'black'
     } = this.props;
-    const classWrapper = theme === 'black' ? 'collapse-custom-black' : 'collapse-custom-white';
+    const classWrapper = theme === 'black' ? styles.collapseCustomBlack: styles.collapseCustomWhite;
     return (
       <div className={classWrapper}>
-        <div className="head" onClick={() => {}} onKeyPress={this.toggle} role="button" tabIndex={index}>
-          <div className="label">
-            <div className="index">
+        <div className={styles.head} onClick={() => { this.toggle(); }} onKeyPress={this.toggle} role="button" tabIndex={index}>
+          <div className={styles.label}>
+            <div className={styles.index}>
               {index}
               {index > 9 ? '.' : '. '}
             </div>
-            <div className="collapse-content">{label}</div>
+            <div className={styles.collapseContent}>{label}</div>
           </div>
-          <div className="extend">
+          <div className={styles.extend}>
             <img
-              className={isCollapsed ? 'rotate' : ''}
+              className={isCollapsed ? styles.rotate : ''}
               src={ExpandArrowSVG}
               alt="arrow"
             />
           </div>
         </div>
         <div
-          className={`content ${isList ? '' : 'noList'} ${
-            !isCollapsed ? '' : 'd-none'
-          }`}
+          className={cx(styles.content, isList ? '' : styles.noList, !isCollapsed ? '' : 'd-none')}
         >
           {isList ? (
             <dl>

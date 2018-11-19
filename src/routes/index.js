@@ -1,4 +1,3 @@
-import { URL } from 'src/constants';
 import Home from 'src/screens/home';
 import Contact from 'src/screens/contact';
 import About from 'src/screens/about';
@@ -10,6 +9,7 @@ import Me from 'src/screens/me';
 import Wallet from 'src/screens/wallet';
 import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
 import MeProfile from 'src/screens/me/pages/MeProfile';
+import { URL } from 'src/resources/constants/url';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
 import privateRoute from './privateRoute';
@@ -36,7 +36,7 @@ const routes = [
     exact: true,
   },
   {
-    path: '/coin/faq',
+    path: URL.FAQ_URL,
     component: CoinBowlFAQ,
     exact: true,
   },
