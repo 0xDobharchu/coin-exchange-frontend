@@ -39,7 +39,8 @@ class Contact extends React.Component {
       this.props.addContact(fullname,  phone, email, description).then((data) => {
         console.log('data addContact', data);
         this.setState({ isSubmiting: false });
-        alert(message);
+        alert(message);        
+        this.props.history.push('/');
       }, (err) => {
         alert('OH! something went wrong!');
         this.setState({ isSubmiting: false });

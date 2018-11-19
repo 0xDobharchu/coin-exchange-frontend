@@ -16,8 +16,8 @@ export const URL = {
   FAQ_URL: '/faq',
   SELL_COIN_URL: '/sell-coin/',
 
-  USER_LOGIN: '/token/',
-  USER_SIGN_UP: '/user/sign-up/',
+  USER_SIGN_IN: '/sign-in/',
+  USER_SIGN_UP: '/sign-up/',
   HOME: '/',
   ABOUT_US: '/about-us',
   TEAM: '/team',
@@ -70,6 +70,11 @@ export const API_URL = {
   ME: {
     BASE: 'handshake/me',
     SET_OFFLINE_STATUS: 'exchange/user/profile/offline',
+  },
+  USER: {
+    USER_SIGN_IN: '/token/', // POST /user/token
+    USER_SIGN_UP: '/user/sign-up/', // POST /user/sign-up
+    USER_WALLET: '/user/wallet/', // POST,GET /user/wallet
   },
   LANDING: {
     FAQ: 'content/faq/',
