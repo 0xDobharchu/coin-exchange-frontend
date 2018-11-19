@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Header from './header';
-import Footer from './footer';
+// import Footer from './footer';
 import styles from './styles.scss';
 
 class ScreenContainer extends PureComponent {
@@ -11,7 +11,7 @@ class ScreenContainer extends PureComponent {
         <div className={styles.body}>
           { this.props.children }
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </React.Fragment>
     );
   }
