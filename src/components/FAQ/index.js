@@ -1,6 +1,7 @@
 import React from 'react';
-import './styles.scss';
+import styles from './styles.scss';
 import Collapse from '@/components/Collapse';
+import { LabelLang } from '@/lang/components';
 
 class Faq extends React.PureComponent {
   componentDidMount() {
@@ -12,22 +13,30 @@ class Faq extends React.PureComponent {
       faq
     } = this.props;
 
+    console.log('faq',faq);
+
     return (
       <div>
         { faq && (
           <div className="row mt-5" id="faq" ref={(c) => { this.faq = c; }}>
             <div className="col">
+              <div className={styles.pdFaq}>
+                <LabelLang id="COIN_EXCHANGE_LP_FAQ_TITLE"/>
+              </div>
               <div>
-                {faq.map((item, index) => (
-                  <Collapse
-                    label={item.question}
-                    content={item.answer}
-                    isList={item.isList}
-                    theme="white"
-                    key={item.question}
-                    index={index + 1}
-                  />
-                ))}
+                {faq.map((item) => {
+                  const { question, answer, order } = item;
+                  return (
+                    <Collapse
+                      label={question}
+                      content={answer}
+                      isList={item.isList}
+                      theme="white"
+                      key={order}
+                      index={order}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>

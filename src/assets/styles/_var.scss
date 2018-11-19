@@ -1,12 +1,13 @@
 // basic
 $white: #ffffff;
-$black: #2c2c2c;
+$black: #000000;
 $bg-gray: #efefef;
 $text-black: #090909;
 $text-gray: #989898;
 $red: #f00;
 $gray: #f4f5f7;
 $splash-background-color: #1A1919;
+$background-color: $white;
 /*
 * Color Pallette
 * ======================================================================== */
@@ -32,6 +33,74 @@ $dark-orchid: #9c27b0;
 $red-orange: #ff3b30;
 $nation-blue: #5677fc;
 $portland-orange: #ff5722;
+
+//main color coinex
+$primary: #552FD9;
+$primary-thin: $primary;
+$primary-extra-light: $primary;
+$primary-light: #BDB3E6;
+$primary-normal: #8F6CF0;
+$primary-medium: #5522DD;
+$primary-semi-bold: #3911A8;
+$primary-bold: #2C0A8A;
+$primary-extra-bold: #3F2782;
+$primary-heavy: #1C0362;
+
+//color black coinex
+$black-thin: #FAFAFA;
+$black-extra-light: #E2DFEB;
+$black-light: #C7C7D1;
+$black-normal: #C4C4CF;
+$black-medium: #A5A5AD;
+$black-semi-bold: #797980;
+$black-bold: #47464A;
+$black-extra-bold: #403F42;
+$black-heavy: $black;
+
+$ce-red-thin: #FFF2F2;
+$ce-red-extra-light: #F5DFDF;
+$ce-red-light: #FCACAD;
+$ce-red-normal: #FA7375;
+$ce-red-medium: #F4181C;
+$ce-red-semi-bold: #DB0B0E;
+$ce-red-bold: #B00712;
+$ce-red-extra-bold: #960610;
+$ce-red-heavy: #630208;
+$ce-red: #F4181C;
+
+$ce-yellow-thin: #FFF5E3;
+$ce-yellow-extra-light: #FFF2D9;
+$ce-yellow-light: #FFDD9E;
+$ce-yellow-normal: #FFC457;
+$ce-yellow-medium: #FFA500;
+$ce-yellow-semi-bold: #D98D00;
+$ce-yellow-bold: #A66C00;
+$ce-yellow-extra-bold: #734B00;
+$ce-yellow-heavy: #4D3200;
+$ce-yellow: #FFA500;
+
+$ce-green-thin: #F5FAF2;
+$ce-green-extra-light: #D9EDCE;
+$ce-green-light: #B5EB9B;
+$ce-green-normal: #57BB24;
+$ce-green-medium: #57BB24;
+$ce-green-semi-bold: #4CA61F;
+$ce-green-bold: #418C1B;
+$ce-green-extra-bold: #2B5E12;
+$ce-green-heavy: #19360A;
+$ce-green: #57BB24;
+
+$ce-cyan-thin: #F5FAF2;
+$ce-cyan-extra-light: #E8F9FA;
+$ce-cyan-light: #C4FDFF;
+$ce-cyan-normal: #49EDF2;
+$ce-cyan-medium: #39DDE3;
+$ce-cyan-semi-bold: #33C7CC;
+$ce-cyan-bold: #00A0A6;
+$ce-cyan-extra-bold: #006063;
+$ce-cyan-heavy: #003133;
+$ce-cyan: #00E0E8;
+
 /*
 * Dimension
 * ======================================================================== */
@@ -42,7 +111,7 @@ $footer-height: 60px;
 * Font base
 * ======================================================================== */
 $font-size-base:          16px !default;
-$font-family-base:        motiva-sans, sans-serif !default;
+$font-family-base:        acumin-pro, sans-serif !default;
 /*
 * Font weight
 * ======================================================================== */

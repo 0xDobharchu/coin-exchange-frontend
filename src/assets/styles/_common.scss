@@ -1,7 +1,7 @@
 @import './mixins.scss';
-@import './variables.scss';
+@import './_var.scss';
 
-/* Reusable class should be defined bellow 
+/* Reusable class should be defined bellow
   Read more https://github.com/css-modules/css-modules
 */
 $scopeName: 'common';
@@ -9,7 +9,7 @@ $scopeName: 'common';
   .#{$scopeName}-fluid {
     @include full-screen;
   }
-  
+
   .#{$scopeName}-container {
     @include full-screen;
     padding: 20px;
@@ -18,5 +18,18 @@ $scopeName: 'common';
 
   .#{$scopeName}-clickable {
     cursor: pointer;
+  }
+  .#{$scopeName}-btn-large {
+    min-width: 227px;
+    height: 54px;
+    background: $primary-medium;
+  }
+  .#{$scopeName}-btn-medium {
+    width: 215px;
+    height: 44px; 
+  }
+  .#{$scopeName}-btn-medium {
+    width: 188px;
+    height: 36px;
   }
 }
