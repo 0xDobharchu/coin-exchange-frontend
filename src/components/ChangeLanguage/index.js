@@ -4,22 +4,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// action
 import { setLanguage } from '@/screens/app/redux/action';
-// style
 import cx from 'classnames';
+import { change, Field } from 'redux-form';
 import styles from './styles.scss';
+import { changeLang } from '@/lang/action';
+import dropdownField from '@/components/core/form/fields/dropdown';
+import createForm from '@/components/core/form/createForm';
 
-const LANGUAGES = {
-  EN: {
-    code: 'en',
-    name: '🇺🇸 English',
+const LANGUAGES =[
+  {
+    key: 'en',
+    label: '🇺🇸 English',
+    value: 'en'
   },
-  VN: {
-    code: 'vi',
-    name: '🇻🇳 Tiếng Việt',
+  {
+    key: 'vi',
+    label: '🇻🇳 Tiếng Việt',
+    value: 'vi'
+  }
+];
+
+const chooseLanguageFormName = 'chooseLanguageFormName';
+const ChooseLanguageForm = createForm({
+  propsReduxForm: {
+    form: chooseLanguageFormName,
+    initialValues: {
+      input: '',
+    },
   },
-};
+});
 
 class ChangeLanguage extends React.PureComponent {
   constructor(props) {
@@ -28,26 +42,32 @@ class ChangeLanguage extends React.PureComponent {
     this.changeCountry = ::this.changeCountry;
   }
 
-  getOtherLang() {
+  componentDidMount() {
     const { locale } = this.props;
-    if (locale === 'vi') {
-      return LANGUAGES.EN;
-    }
-    return LANGUAGES.VN;
+
+    this.props.change(chooseLanguageFormName, 'language', locale);
   }
 
-  changeCountry(locale) {
-    this.props.setLanguage(locale, true);
+  changeCountry(e, newValue) {
+    this.props.setLanguage(newValue, true);
+    this.props.changeLang(newValue);
   }
 
   render() {
-    const otherLang = this.getOtherLang();
     const { className } = this.props;
+    const { locale } = this.props;
     return (
       <div className={cx(styles.changeLanguageContainer, className)}>
-        <span className={styles.countryName} onClick={() => this.changeCountry(otherLang.code)} onKeyPress={() => this.changeCountry(otherLang.code)} role="button" tabIndex={0}>
-          {otherLang.name}
-        </span>
+        <ChooseLanguageForm>
+          <Field
+            name="language"
+            className="form-control"
+            component={dropdownField}
+            list={LANGUAGES}
+            onChange={this.changeCountry}
+            value={locale}
+          />
+        </ChooseLanguageForm>
       </div>
     );
   }
@@ -56,7 +76,7 @@ class ChangeLanguage extends React.PureComponent {
 ChangeLanguage.propTypes = {
   className: PropTypes.string,
   setLanguage: PropTypes.func.isRequired,
-  // locale: PropTypes.string.isRequired,
+  locale: PropTypes.string.isRequired,
 };
 
 ChangeLanguage.defaultProps = {
@@ -69,6 +89,8 @@ const mapState = state => ({
 
 const mapDispatch = ({
   setLanguage,
+  changeLang,
+  change,
 });
 
 export default connect(mapState, mapDispatch)(ChangeLanguage);
