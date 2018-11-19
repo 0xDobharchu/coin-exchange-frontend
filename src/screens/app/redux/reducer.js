@@ -1,4 +1,6 @@
+import { APP } from 'src/constants';
 import APP_TYPE from './type';
+import local from '@/services/localStore';
 
 const {
   HEADER_TITLE_SET,
@@ -6,7 +8,8 @@ const {
   HEADER_LEFT_REMOVE,
   HEADER_HIDE,
   HEADER_DEFAULT,
-  UPDATE_APP_STATE
+  UPDATE_APP_STATE,
+  SET_LANGUAGE,
 } = APP_TYPE;
 
 const initState = {
@@ -60,12 +63,12 @@ const initState = {
   }
 };
 
-export default (state = initState, { type, payload }) => {
-  switch (type) {
+export default (state = initState, action) => {
+  switch (action.type) {
     case HEADER_TITLE_SET:
       return {
         ...state,
-        headerTitle: payload,
+        headerTitle: action.payload,
       };
     case HEADER_RIGHT_REMOVE:
       return {
@@ -85,8 +88,17 @@ export default (state = initState, { type, payload }) => {
     case UPDATE_APP_STATE:
       return {
         ...state,
-        ...payload
+        ...action.payload
       };
+    case SET_LANGUAGE: {
+      if (!action.autoDetect) {
+        local.save(APP.LOCALE, action.payload);
+      }
+      return {
+        ...state,
+        locale: action.payload,
+      };
+    }
     default:
       return state;
   }
