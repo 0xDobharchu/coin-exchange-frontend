@@ -1,22 +1,27 @@
 /* eslint react/prop-types:0 */
 import React from 'react';
+import {LabelLang} from 'src/lang/components';
+import cx from 'classnames';
 
-const inputField = ({ input, meta, ...props }) => {
+const inputField = ({ input, meta, containerClassName, labelClassName, labelText, ...props }) => {
   const {
     onChange, onBlur, onFocus, value
   } = input;
   const { error, touched } = meta;
   const shouldShowError = !!(touched && error);
+
   return (
-    <div>
+    <div className={containerClassName ? containerClassName : ''}>
+      {labelText && (<label className={labelClassName ||  ''}>{ <LabelLang id={labelText} /> }</label>)}
       <input
         {...props}
         value={value}
         onBlur={onBlur}
         onFocus={onFocus}
         onChange={onChange}
+        className={cx(props.className, shouldShowError ? 'is-invalid' : '')}
       />
-      { shouldShowError && <span>{error}</span>}
+      { shouldShowError && <small className="text-danger">{error}</small>}
     </div>
   );
 };

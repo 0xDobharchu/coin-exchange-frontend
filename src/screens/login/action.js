@@ -1,12 +1,12 @@
 import { makeRequest } from 'src/redux/action';
-import { URL } from 'src/resources/constants/url';
+import { API_URL } from 'src/resources/constants/url';
 import { USER } from 'src/resources/constants/user';
 import { LOGIN } from './type';
 
 export const login = (username, password) => (dispatch) => {
   const makeLogin = makeRequest({
     type: LOGIN,
-    url: URL.USER_LOGIN,
+    url: API_URL.USER.USER_SIGN_IN,
     method: 'POST',
     data: {
       username,

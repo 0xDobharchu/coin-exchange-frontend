@@ -323,10 +323,10 @@ export default {
   ],
   user: {
     login: {
-      title: 'LOGIN',
-      username: 'Username',
+      title: 'Sign in to Coinbowl',
+      username: 'Your email',
       password: 'Password',
-      loginButton: 'Login',
+      loginButton: 'Sign in',
       keepSignin: 'keep signin on user computer',
       registerButton: 'Don\'t have an account?',
       forgetPassword: 'Forget password?',
