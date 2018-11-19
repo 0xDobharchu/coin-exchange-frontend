@@ -16,7 +16,7 @@ import dontIcon from '@/assets/images/wallet/icons/3-dot-icon-black.svg';
 import needBackup from '@/assets/images/wallet/icons/need-backup.svg';
 
 
-import './Wallet.scss';
+import style from './Wallet.scss';
 
 
 
@@ -31,65 +31,50 @@ class WalletItem extends React.Component {
 
   get showCryptoAddress(){
     const {wallet, settingWallet} =  this.props;
-
-    let html = '';
-    // if(settingWallet && settingWallet.cryptoAddress == 3)
-    //   html = ""
-    // else if(settingWallet && settingWallet.cryptoAddress == 2)
-    //   html = wallet.getShortestAddress();
-    // else
-    //   html = wallet.getShortAddress();
-
+    
     return (<div>
-        <img src={iconQRCode} /> {html}
+        <img src={iconQRCode} />
       </div>)
   }
 
   get showBackup(){
     const { messages } = this.props.intl;
     const {wallet, settingWallet, onWarningClick} =  this.props;
-    let html = <div><img className="safe" src={needBackup} /> <span className="warning" onClick={onWarningClick}>{messages['wallet.action.protect.text.need_backup']}</span></div>;
+    let html = <div><img className={style.safe} src={needBackup} /> <span className={style.warning} onClick={onWarningClick}>{messages['wallet.action.protect.text.need_backup']}</span></div>;
 
     return (html)
   }
 
   render(){
       const {wallet, onMoreClick, onAddressClick, isSortable, onItemClick} =  this.props;
-      const { messages } = this.props.intl;
-      //const iconProtected = !wallet.protected ? iconWarning : iconSafe;
+      const { messages } = this.props.intl;      
       let logo = require("@/assets/images/wallet/icons/coins/" + wallet.icon);
       try{ logo = require("@/assets/images/wallet/icons/coins/" + wallet.getCoinLogo());} catch (e){};
 
-      // const itemSelected = wallet.default ? "feed feed-selected" : "feed";
       return  (
 
         <div>
-            {!wallet.protected && <img className="safe" src={needBackup} /> }
-            <img onClick={onItemClick} className="coin-logo" src={logo}/>
-            <div className="item-center" onClick={onItemClick}>
-              <div className="name">
+            {!wallet.protected && <img className={style.safe} src={needBackup} /> }
+            <img onClick={onItemClick} className={style.coinLogo} src={logo}/>
+            <div className={style.itemCenter} onClick={onItemClick}>
+              <div className={style.name}>
                 {wallet.title}
-                {wallet.default ? <img className="iconDefault" src={iconChecked}/> : ''}
+                {wallet.default ? <img className={style.iconDefault} src={iconChecked}/> : ''}
               </div>
               {!wallet.hideBalance ?
-              <span className="balance"> {wallet.getShortBalance()} {wallet.name} </span>
-              :<span className="balance">[{messages['wallet.action.history.label.balance_hidden']}]</span> }
+              <span className={style.balance}> {wallet.getShortBalance()} {wallet.name} </span>
+              :<span className={style.balance}>[{messages['wallet.action.history.label.balance_hidden']}]</span> }
             </div>
 
             {!isSortable ?
-              <span className="item-right">
-                <span className="address hidden-xss-down" onClick={onAddressClick}>
+              <span className={style.itemRight}>
+                <span className={style.address +  " hidden-xss-down"} onClick={onAddressClick}>
                     {this.showCryptoAddress}
                 </span>
-                <span className="more" onClick={onMoreClick}><img src={dontIcon}/></span>
+                <span className={style.more} onClick={onMoreClick}><img src={dontIcon}/></span>
 
               </span>
-            : ""}
-
-
-            {/* <div className="address" onClick={onAddressClick}>
-              {this.showCryptoAddress}
-            </div> */}
+            : ""}            
           </div>
       );
   }
