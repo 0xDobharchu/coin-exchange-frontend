@@ -22,7 +22,7 @@ export const URL = {
   ABOUT_US: '/about-us',
   TEAM: '/team',
   COIN: '/coin',
-  CONTACT: '/contact',
+  CONTACT: '/contact-us',
 };
 
 export const API_URL = {
