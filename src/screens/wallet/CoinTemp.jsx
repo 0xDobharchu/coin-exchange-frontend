@@ -7,7 +7,7 @@ import iconChecked from '@/assets/images/wallet/icons/icon-checked-wallet.svg';
 
 
 import PropTypes from 'prop-types';
-import './Wallet.scss';
+import style from './Wallet.scss';
 
 class CoinTemp extends React.Component {
 
@@ -22,11 +22,11 @@ class CoinTemp extends React.Component {
         const itemSelected = wallet.default ? "feed feed-selected" : "feed";
 
         return  ( 
-            <Col sm={6} md={6} xs={6} className="wallet-box-add-new">              
+            <Col sm={6} md={6} xs={6} className={style.walletBoxAddNew}>              
               <div onClick={onClick}  className={itemSelected} style={{backgroundImage: "url('"+bgImg+"')"}}>
-                <span className="name">{wallet.getNetworkName() + " (" + wallet.name + ")"}</span>                 
+                <span className={style.name}>{wallet.getNetworkName() + " (" + wallet.name + ")"}</span>                 
                 
-                {wallet.default ? <img className="iconChecked" src={iconChecked}/> : ''}
+                {wallet.default ? <img className={style.iconChecked} src={iconChecked}/> : ''}
                 
               </div>        
             </Col>

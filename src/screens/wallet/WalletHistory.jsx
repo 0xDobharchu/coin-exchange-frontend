@@ -7,9 +7,10 @@ import iconCreate from '@/assets/images/wallet/icons/icon-create.svg';
 import iconReceived from '@/assets/images/wallet/icons/icon-received.svg';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import './Wallet.scss';
+import style from './Wallet.scss';
 import WalletTransaction from './WalletTransaction';
 import { showLoading, hideLoading } from '@/screens/app/redux/action';
+import cx from 'classnames'
 import Modal from '@/components/core/controls/Modal';
 import {Tabs} from 'rmc-tabs';
 
@@ -167,13 +168,13 @@ class WalletHistory extends React.Component {
   getNoTransactionYet(text){
     const wallet = this.props.wallet;
 
-    return <div className="history-no-trans">
+    return <div className={style.historyNoTrans}>
       {wallet && !wallet.isLoading ?
         <div>
           <img src={imgNoTrans} />
-          <div className="header-history-tx">{text}</div>
+          <div className={style.headerHistoryTx}>{text}</div>
         </div>
-        : <img className="icon-loading-history" src={iconLoadding} />}
+        : <img className={style.iconLoadingHistory} src={iconLoadding} />}
     </div>
   }
 
@@ -217,20 +218,20 @@ class WalletHistory extends React.Component {
         res.is_sent = tran.is_sent;
 
         return <div key={tran.transaction_no} className="row" onClick={() =>{this.detailTransaction(res)}}>
-            <div className="col3">
-              <div className="time">{tran.transaction_relative_time}</div>
+            <div className={style.col3}>
+              <div className={style.time}>{tran.transaction_relative_time}</div>
               <div className={cssValue}>{tran.is_sent == 1 ? "-" : ""}{Number(tran.value)} {tran.coin_name}</div>
-              {tran.confirmations <= 0 ? <div className="unconfirmation">{messages['wallet.action.history.label.unconfirmed']}</div> : ""}
-              {tran.is_error ? <div className="unconfirmation">{messages['wallet.action.history.label.failed']}</div> : ""}
+              {tran.confirmations <= 0 ? <div className={style.unconfirmation}>{messages['wallet.action.history.label.unconfirmed']}</div> : ""}
+              {tran.is_error ? <div className={style.unconfirmation}>{messages['wallet.action.history.label.failed']}</div> : ""}
             </div>
-            <div className="col1"><img className="iconDollar" src={icon} /></div>
-            <div className="col2 history-address">
+            <div className={style.col1}><img className={style.iconDollar} src={icon} /></div>
+            <div className={cx(style.col2, style.history-address)}>
               <div className={cssLabel}>
                 {label}
               </div>
               {
                 tran.addresses.map((addr) => {
-                  return <div key={addr} className="addr">{addr}</div>
+                  return <div key={addr} className={style.addr}>{addr}</div>
                 })
               }
             </div>
@@ -279,13 +280,13 @@ class WalletHistory extends React.Component {
         }
 
         return <div key={tran.transaction_no} className="row" onClick={() =>{this.detailTransaction(res)}}>
-            <div className="col3">
-              <div className="time">{tran.transaction_relative_time}</div>
+            <div className={style.col3}>
+              <div className={style.time}>{tran.transaction_relative_time}</div>
               <div className={cssValue}>{tran.is_sent == 1 ? "-" : ""}{Number(tran.value)} ETH</div>
-              {tran.is_error ? <div className="unconfirmation">{messages['wallet.action.history.label.failed']}</div> : ""}
+              {tran.is_error ? <div className={style.unconfirmation}>{messages['wallet.action.history.label.failed']}</div> : ""}
             </div>
-            <div className="col1"><img className="iconDollar" src={icon} /></div>
-            <div className="col2 history-address">
+            <div className={style.col1}><img className={style.iconDollar} src={icon} /></div>
+            <div className={style.col2 + ' ' + style.historyAddress}>
               <div className={cssLabel}>{label}</div>
               {
                 tran.addresses.map((addr) => {
@@ -345,59 +346,30 @@ class WalletHistory extends React.Component {
 
     return wallet ?
     (
-      <div className="clear-fix">
-        <div className="wallet-detail">
-          <div><img className="logo-detail" src={logo}/></div>
+      <div className={style.clearFix}>
+        <div className={style.walletDetail}>
+          <div><img className={style.logoDetail} src={logo}/></div>
           {!wallet.hideBalance ?
-          <div className="balance">{wallet.balance} {wallet.name}</div>
-          :<div className="balance">[{messages['wallet.action.history.label.balance_hidden']}]</div>}
+          <div className={style.balance}>{wallet.balance} {wallet.name}</div>
+          :<div className={style.balance}>[{messages['wallet.action.history.label.balance_hidden']}]</div>}
 
-          <div className="box-button">
+          <div className={style.boxButton}>
             {!wallet.isCollectibles ? <div>
-              <div className="bt1"><button onClick={this.props.onTransferClick}>{messages['wallet.action.history.label.send']}</button></div>
-              <div className="bt2"><button onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</button></div>
+              <div className={style.bt1}><button onClick={this.props.onTransferClick}>{messages['wallet.action.history.label.send']}</button></div>
+              <div className={style.bt2}><button onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</button></div>
             </div>
-            : <div className="bt"><button onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</button></div>
+            : <div className={style.bt}><button onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</button></div>
             }
           </div>
-
-          {/*wallet.transaction_count > 0 &&
-            <div className="header-history-tx">
-              <div className="float-left">{wallet.transaction_count} {messages['wallet.action.history.label.transactions}</div>
-              {wallet && (wallet.name == "ETH" || wallet.isToken) &&
-                <div className="float-right">
-                  <a target="_blank" href={""+wallet.getAPIUrlAddress(this.state.tabActive)}>{messages['wallet.action.history.label.view_all_etherscan}</a>
-                  <a target="_blank" href={""+wallet.getAPIUrlAddress(this.state.tabActive)} className="ml-1"><img width="18px" src={iconExternalLink} /></a>
-                </div>
-              }
-            </div>
-          */}
+          
 
           {!wallet.protected &&
-            <div className="box-warning" onClick={this.props.onWarningClick}>
+            <div className={style.boxWarning} onClick={this.props.onWarningClick}>
             {messages['wallet.action.protect.text.need_backup']} <img src={needBackupWhite} />
             </div>
           }
         </div>
-
-
-
-        {/* <div className="history-balance">
-          {messages['wallet.action.history.label.transactions}: {wallet.transaction_count}<br/>
-          {wallet && wallet.name == "ETH" ?
-            <a target="_blank" href={""+wallet.getAPIUrlAddress(this.state.tabActive)}>{messages['wallet.action.history.label.view_all_etherscan}</a>
-            : ""
-          }
-        </div> */}
-
-          {/* {wallet && wallet.name == "ETH" && (this.state.internalTransactions && this.state.internalTransactions.length > 0) ?
-
-            <ul className="history-tab">
-              <li className={this.state.tabActive == 0 ? "active" : ""} onClick={() => this.setState({tabActive: 0})}>{messages['wallet.action.history.label.transactions}</li>
-              <li className={this.state.tabActive == 1 ? "active" : ""} onClick={() => this.setState({tabActive: 1})}>{messages['wallet.action.history.label.internal_transactions}</li>
-            </ul>
-            : <ul className="history-tab"></ul>
-          } */}
+        
       </div>
     ) : "";
   }
@@ -407,14 +379,14 @@ class WalletHistory extends React.Component {
     const { messages } = this.props.intl;
 		return (
     <div>
-      <div className="historywallet-wrapper">
+      <div className={style.historywalletWrapper}>
         {this.load_balance}
 
         {/* Not support render */}
         {wallet && wallet.isHistorySupport === false ?
           this.getNoTransactionYet(messages['wallet.action.history.label.coming_soon'])
         :
-          <div className="history-content">
+          <div className={style.historyCcontent}>
             {wallet && (wallet.name == "ETH" || wallet.isToken) && (this.state.internalTransactions && this.state.internalTransactions.length > 0) ?
             <Tabs onChange={(tab, index) => this.setState({tabActive: index})} tabs={[
                 { key: 't1', title: messages['wallet.action.history.label.transactions']},
@@ -431,7 +403,7 @@ class WalletHistory extends React.Component {
         }
 
       </div>
-      <div className="historywallet-wrapper">
+      <div className={style.historywalletWrapper}>
         {this.detail_transaction}
       </div>
     </div>
