@@ -1,17 +1,15 @@
-import USER from 'src/resources/constants/user';
+import {USER} from 'src/resources/constants/user';
 
 const currentUser = {
-  isLogined() {
-    const token = localStorage.getItem(USER.ACCESS_TOKEN);
+  isLogin() {
+    const token = currentUser.getToken();
     return !!token;
   },
   getToken() {
-    const token = localStorage.getItem(USER.ACCESS_TOKEN);
-    return token;
+    return localStorage.getItem(USER.ACCESS_TOKEN);
   },
   getRefeshToken() {
-    const token = localStorage.getItem(USER.REFRESH_TOKEN);
-    return token;
+    return localStorage.getItem(USER.REFRESH_TOKEN);
   }
 };
 export default currentUser;
