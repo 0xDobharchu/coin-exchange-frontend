@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 
 // style
 // import imgNinja from 'src/assets/images/ninja-header-black.svg';
-import imgLogo from 'src/assets/images/logo.png';
+import imgLogo from 'src/assets/images/logo.svg';
 import { SEOHome } from 'src/components/SEO';
 import './styles.scss';
 
