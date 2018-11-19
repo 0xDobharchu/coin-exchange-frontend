@@ -12,6 +12,10 @@ const menus = {
     link: URL.ABOUT_US,
     icon: <MdKeyboardArrowDown />
   },
+  contact_us: {
+    name: 'Contact Us',
+    link: '/contact-us',    
+  },
   faq: {
     name: 'FAQ',
     link: URL.FAQ_URL

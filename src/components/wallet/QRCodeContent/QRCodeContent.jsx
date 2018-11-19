@@ -9,7 +9,7 @@ import Button from '@/components/core/controls/Button';
 import ModalDialog from '@/components/core/controls/ModalDialog';
 
 import './QRCodeContent.scss';
-import { showAlert, hideQRCodeContent } from '@/reducers/app/action';
+import { showAlert, hideQRCodeContent } from '@/screens/app/redux/action';
 
 import { MasterWallet } from '@/services/Wallets/MasterWallet';
 
@@ -114,7 +114,7 @@ class QRCodeContent extends React.Component {
           <img className="icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFfSURBVGhD7Zm9SsRAHAeDioUgIoIogq2NjdjaWYrYKL6AD6GFxYG9pY2tKDY+gHa2PoGtYKfYCH6AOr/cCeG4NXtmd8nCf2DIbkKyTKqQLQzDMAYxitMJnMQozOAFvuJ3Ih9wD4NyiXr4Bz4n8AW13heuYxDG8A3fcV4nErGPijkpZwGYQj1QbyklG6h1z8pZACykIRbiwkIaYiEuLKQhFuLCQhpiIS4spCFJQ8ZxdQiX0JekIYuoa77eoi9JQ+bwrkbd1/qQOnbwE7MOqUZc9Y7ZhWzjb8QBrvXGWYX0R4jsQgZFiKxCXBEim5C/IkQWIXURovUhPhGiVSH6O17FN0Is4zUelzM/ooQ84Uo56zJMxH8JHjKBqSNE8JAqqSJEtJCUEWILg4e4IrTxo4/D0O7iDWq9DgbjFPsjFvAedT6WjziLwdBu7mZ3WDKCR6i9xRie4yEGjTAMw2gLRfEDjBVAygs87g0AAAAASUVORK5CYII=" />
           <div className="name"><label>Open Website</label></div>          
         </div>
-        <div className="item" onClick={()=> {Clipboard.copy(url);this.showToast(messages.wallet.action.copy.message);}}>
+        <div className="item" onClick={()=> {Clipboard.copy(url);this.showToast(messages['wallet.action.copy.message']);}}>
           <img className="icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACuSURBVEhL7c0xCoNAEAXQPXaKnMAUqYMp0okewBN4IkkIpIjycYRFdnRmd4qE3Q+/+zPP/UVOl/uk6fn6GOg0LXg2fiZRsa3q9muCa+Hn622Da2FkF8dI01vTBzG/2K1hcX90FGyrujvEtz+DuBZenuzj2HElVg8jEjzUZBiJwU1gRIsnwVxD0LbYEauDuRSYa4HpPD4F5lpgOo9PnrC0xNrB9E6ePGGL0rtfjnMzL6TZzGCR4V8AAAAASUVORK5CYII=" />
           <div className="name"><label>Copy to clipboard</label></div>          
         </div>        
@@ -138,7 +138,7 @@ class QRCodeContent extends React.Component {
           {/* <img className="icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACZSURBVEhL7Y2xDYAwEAMzNgUTQMEAUNCyByOB6ABZ+gJFhCf+NFFykgtHeZ+rgKafLibtMK8ywYGRWHDTjctpkrPibT9sclYMTHKLGNByqxhQclYciszq4HMqqvgTX4wekyfoMqvjH1vIU4z+J2/gXWZ1QiMMeYrRY/IEXWZ1/GMLeYrR/+QNvMusTmiEoYo/KVOcMjJbNM7dlkMYXKQcUGAAAAAASUVORK5CYII=" />       */}
           <div className="name">{text}</div>          
         </div>        
-        <div className="item" onClick={()=> {Clipboard.copy(text);this.showToast(messages.wallet.action.copy.message);}}>
+        <div className="item" onClick={()=> {Clipboard.copy(text);this.showToast(messages['wallet.action.copy.message']);}}>
           <img className="icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACuSURBVEhL7c0xCoNAEAXQPXaKnMAUqYMp0okewBN4IkkIpIjycYRFdnRmd4qE3Q+/+zPP/UVOl/uk6fn6GOg0LXg2fiZRsa3q9muCa+Hn622Da2FkF8dI01vTBzG/2K1hcX90FGyrujvEtz+DuBZenuzj2HElVg8jEjzUZBiJwU1gRIsnwVxD0LbYEauDuRSYa4HpPD4F5lpgOo9PnrC0xNrB9E6ePGGL0rtfjnMzL6TZzGCR4V8AAAAASUVORK5CYII=" />
           <div className="name"><label>Copy to clipboard</label></div>          
         </div>
@@ -182,7 +182,7 @@ class QRCodeContent extends React.Component {
           <div className="name"><label>Send payment to this address</label></div>          
         </div>
         
-        <div className="item" onClick={()=> {Clipboard.copy(address);this.showToast(messages.wallet.action.copy.message);}}>
+        <div className="item" onClick={()=> {Clipboard.copy(address);this.showToast(messages['wallet.action.copy.message']);}}>
           <img className="icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACuSURBVEhL7c0xCoNAEAXQPXaKnMAUqYMp0okewBN4IkkIpIjycYRFdnRmd4qE3Q+/+zPP/UVOl/uk6fn6GOg0LXg2fiZRsa3q9muCa+Hn622Da2FkF8dI01vTBzG/2K1hcX90FGyrujvEtz+DuBZenuzj2HElVg8jEjzUZBiJwU1gRIsnwVxD0LbYEauDuRSYa4HpPD4F5lpgOo9PnrC0xNrB9E6ePGGL0rtfjnMzL6TZzGCR4V8AAAAASUVORK5CYII=" />
           <div className="name"><label>Copy to clipboard</label></div>          
         </div>

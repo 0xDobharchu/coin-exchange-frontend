@@ -12,7 +12,7 @@ import {required} from '@/components/core/form/validation';
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
 import {TokenERC20} from "@/services/Wallets/Tokens/TokenERC20";
 import { bindActionCreators } from "redux";
-import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
+import { showLoading, hideLoading } from '@/screens/app/redux/action';
 import QrReader from 'react-qr-reader';
 import { ICON } from '@/components/wallet/images';
 import PropTypes from 'prop-types';
@@ -49,25 +49,6 @@ class AddToken extends React.Component {
       listToken: [],
     }
   }
-
-  showAlert(msg, type = 'success', timeOut = 3000, icon = '') {
-    this.props.showAlert({
-      message: <div className="textCenter">{icon}{msg}</div>,
-      timeOut,
-      type,
-      callBack: () => {},
-    });
-  }
-  showToast(mst) {
-    this.showAlert(mst, 'primary', 2000);
-  }
-  showError(mst) {
-    this.showAlert(mst, 'danger', 3000);
-  }
-  showSuccess(mst) {
-    this.showAlert(mst, 'success', 4000, ICON.SuccessChecked() );
-  }
-
   componentDidMount() {
     // clear form:
     this.resetForm();
@@ -408,8 +389,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  rfChange: bindActionCreators(change, dispatch),
-  showAlert: bindActionCreators(showAlert, dispatch),
+  rfChange: bindActionCreators(change, dispatch),  
   showLoading: bindActionCreators(showLoading, dispatch),
   hideLoading: bindActionCreators(hideLoading, dispatch),
   clearFields: bindActionCreators(clearFields, dispatch),
