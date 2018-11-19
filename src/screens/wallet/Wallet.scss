@@ -1,4 +1,6 @@
 //@import './src/styles/style';
+@import 'src/assets/styles/_var.scss';
+@import 'src/assets/styles/_functions.scss';
 
 .app{
   padding-top: 0;
@@ -88,6 +90,12 @@
 }
 
 .wallet-page{
+
+  padding: 0 0 60px 0;
+  margin: 0 auto;
+  min-height: 100vh;
+  max-width: 414px;
+  overflow: hidden;
 
   margin-bottom: 7px;
   padding: rem-calc(10px 5px 10px 0);
@@ -373,7 +381,7 @@
 
   .cursor-initial{cursor: initial !important;}
 
-  .pass_phrase, .confirm_pass_phrase{
+  .pass-phrase, .confirm-pass-phrase{
     margin:10px;
     padding: 10px;
     background:#D8D8D8;

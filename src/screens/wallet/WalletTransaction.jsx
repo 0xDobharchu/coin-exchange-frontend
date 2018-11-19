@@ -6,7 +6,7 @@ import iconCreate from '@/assets/images/wallet/icons/icon-create.svg';
 import iconReceived from '@/assets/images/wallet/icons/icon-received.svg';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import './Wallet.scss';
+import style from './Wallet.scss';
 
 const moment = require('moment');
 
@@ -177,9 +177,9 @@ class WalletTransaction extends React.Component {
 
     return detail ?
     (
-      <div className="transaction-detail-wrapper" >
-        <div className="col1"><img className="iconDollar" src={icon} /></div>
-        <div className="col2">
+      <div className={style.transactionDetailWwrapper} >
+        <div className={style.col1}><img className={style.iconDollar} src={icon} /></div>
+        <div className={style.col2}>
           {detail.header.value} {detail.header.coin}<br />
           <span>{moment(detail.timeStamp).format('llll')}</span>
         </div>
@@ -189,9 +189,9 @@ class WalletTransaction extends React.Component {
         }
         {
           detail.header.coin == "BTC" &&
-            <div className="url"><a target="_blank" href={""+wallet.getAPIUrlTransaction(detail.body.transaction)}>{messages['wallet.action.history.label.detail_blockchaininfo']}</a></div>
+            <div className={style.url}><a target="_blank" href={""+wallet.getAPIUrlTransaction(detail.body.transaction)}>{messages['wallet.action.history.label.detail_blockchaininfo']}</a></div>
         }
-        <div className="confirmation">
+        <div className={style.confirmation}>
           {
             detail.header.status ? <div className={css_status.toLowerCase()}>{messages['wallet.action.history.label.status']} {detail.header.status}</div> : ""
           }
@@ -208,15 +208,15 @@ class WalletTransaction extends React.Component {
             return (
               char == "internal_transactions" ?
                 (val.length > 0 ?
-                  <div className="body" key={char}>
-                    <div className="key">{char.replace(/_/g, " ")}</div>
-                    <div className="value">
+                  <div className={style.body} key={char}>
+                    <div className={style.key}>{char.replace(/_/g, " ")}</div>
+                    <div className={style.value}>
                     {
                       val.map(e => {
-                        return <div key={Math.random()} className="value-it">
-                          <span className="text-secondary">{messages['wallet.action.history.label.transfer']}</span> {e.amount} ETH
-                          <span className="text-secondary"> {messages['wallet.action.history.label.from']}</span> {e.from}
-                          <span className="text-secondary"> {messages['wallet.action.history.label.to']}</span> {e.to}
+                        return <div key={Math.random()} className={style.valueIt}>
+                          <span className={textSecondary}>{messages['wallet.action.history.label.transfer']}</span> {e.amount} ETH
+                          <span className={style.textSecondary}> {messages['wallet.action.history.label.from']}</span> {e.from}
+                          <span className={style.text-secondary}> {messages['wallet.action.history.label.to']}</span> {e.to}
                         </div>
                       })
                     }
@@ -224,9 +224,9 @@ class WalletTransaction extends React.Component {
                   </div>
                 : "")
               :
-                <div className="body" key={char}>
-                  <div className="key">{char.replace(/_/g, " ")}</div>
-                  <div className="value">{val}</div>
+                <div className={style.body} key={char}>
+                  <div className={style.key}>{char.replace(/_/g, " ")}</div>
+                  <div className={style.value}>{val}</div>
                 </div>
             )
           })
