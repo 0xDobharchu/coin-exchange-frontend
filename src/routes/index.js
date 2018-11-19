@@ -41,12 +41,12 @@ const routes = [
     exact: true,
   },
   {
-    path: '/contact',
+    path: '/contact-us',
     component: Contact,
     exact: true,
   },
   {
-    path: '/about',
+    path: '/about-us',
     component: About,
     exact: true,
   },

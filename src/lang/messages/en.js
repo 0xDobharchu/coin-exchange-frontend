@@ -359,6 +359,24 @@ export default {
       loginButton: 'Login',
     }
   },
+  landingPage: {
+    contactUS:{
+      title: 'Contact US',
+      yourName: 'Your name',
+      requiredYourName: 'Your name is required',
+      placeholderYourName: 'Enter your name',
+      email: 'Your email',      
+      requiredEmail: 'Your email is required',
+      notValidEmail: 'Invalid email address',
+      phone: 'Your phone',
+      placeholderPhone: 'Enter your phone number',
+      description: 'Your message',      
+      placeholderDescription: 'Enter your message',
+      requiredDescription: 'Your message is required',      
+      contactButton: 'Submit',
+      
+    }
+  },
   wallet: {
     top_banner: {
       message: 'Shuriken Airdrop (limited)',
