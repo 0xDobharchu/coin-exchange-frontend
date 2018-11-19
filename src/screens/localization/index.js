@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import BestHandleLang from './BestHandleLang';
 import BadHandleLang from './BadHandleLang';
 import style from './style.scss';
-import { changeLang } from '../../lang/action';
+import { changeLang } from '@/lang/action';
 
 class Localization extends Component {
   constructor(props) {

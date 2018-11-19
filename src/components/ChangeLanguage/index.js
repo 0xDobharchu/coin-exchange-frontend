@@ -9,6 +9,7 @@ import { setLanguage } from '@/screens/app/redux/action';
 // style
 import cx from 'classnames';
 import styles from './styles.scss';
+import { changeLang } from '@/lang/action';
 
 const LANGUAGES = {
   EN: {
@@ -38,6 +39,7 @@ class ChangeLanguage extends React.PureComponent {
 
   changeCountry(locale) {
     this.props.setLanguage(locale, true);
+    this.props.changeLang(locale);
   }
 
   render() {
@@ -69,6 +71,7 @@ const mapState = state => ({
 
 const mapDispatch = ({
   setLanguage,
+  changeLang,
 });
 
 export default connect(mapState, mapDispatch)(ChangeLanguage);
