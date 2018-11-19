@@ -49,6 +49,55 @@
       letter-spacing: 0;
     }
   }
+  //styling for custom checkbox
+  .checkboxWarper {
+    display: inline-block;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    input[type=checkbox] {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+      &:checked ~ .checkmark{
+        border-color: $text-black;
+        &:after {
+          display: block;
+        }
+      }
+    }
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 24px;
+      width: 24px;
+      border-radius: 3px;
+      border: 2px solid $border-color;
+      background-color: $white;
+      cursor: pointer;
+      &:after {
+        content: "";
+        position: absolute;
+        display: none;
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid $text-black;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+    }
+  }
   textarea {
     height: auto;
   }
