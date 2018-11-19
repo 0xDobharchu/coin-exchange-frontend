@@ -35,7 +35,7 @@ import WalletProtect from './WalletProtect';
 import WalletHistory from './WalletHistory';
 import TransferCoin from '@/components/wallet/TransferCoin';
 import ReceiveCoin from '@/components/wallet/ReceiveCoin';
-import ReactBottomsheet from 'react-bottomsheet';
+import ReactBottomsheet from './ReactBottomsheet/ReactBottomsheet';
 import { showLoading, hideLoading, showAlert, setHeaderRight } from '@/screens/app/redux/action';
 import local from '@/services/localStore';
 import {APP} from '@/constants';
@@ -44,8 +44,6 @@ import {APP} from '@/constants';
 // import AddCollectible from '@/components/wallet/AddCollectible/AddCollectible';
 
 // style
-import bottomSheet './BottomSheet.scss';
-
 import style from './Wallet.scss';
 
 import CoinTemp from '@/screens/wallet/CoinTemp';
@@ -389,7 +387,7 @@ class Wallet extends React.Component {
     let canSetDefault = !wallet.isToken
     if (canSetDefault && !wallet.default) {
       obj.push({
-        title: StringHelper.format(messages['wallet.action.default.title, wallet.name']) + (wallet.default ? "✓ " : ""),
+        title: StringHelper.format(messages['wallet.action.default.title'], wallet.name) + (wallet.default ? "✓ " : ""),        
         handler: () => {
           wallet.default = !wallet.default;
           this.toggleBottomSheet();
@@ -1106,20 +1104,20 @@ class Wallet extends React.Component {
           </Row>
 
           <Row className={style.walletBox}>
-            {!process.env.isProduction ?
-            <Row className={style.list}>              
-              <Header title={messages['wallet.action.create.label.test_net']} hasLink linkTitle={messages['wallet.action.create.button.request_free_eth']} onLinkClick={this.getETHFree} />              
-              }
-            </Row>
-            : ''}
-            {!process.env.isProduction ?
-            <Row className={style.list}>
-              {/* {this.listTestWalletBalance} */}
-              { this.state.listTestWalletBalance.length > 0 ?
-                  <SortableComponent onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} items={this.state.listTestWalletBalance}/>
+              {!process.env.isProduction ?
+              <Row className={style.list}>              
+                <Header title={messages['wallet.action.create.label.test_net']} hasLink linkTitle={messages['wallet.action.create.button.request_free_eth']} onLinkClick={this.getETHFree} />                              
+              </Row>
               : ''}
-            </Row>
-            : ''}
+              {!process.env.isProduction &&
+              <Row className={style.list}>
+                {/* {this.listTestWalletBalance} */}
+                { this.state.listTestWalletBalance.length > 0 ?
+                    <SortableComponent onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} items={this.state.listTestWalletBalance}/>
+                : ''}
+              </Row>
+              }
+            
             </Row>          
 
         </Container>
