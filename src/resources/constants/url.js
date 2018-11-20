@@ -24,6 +24,8 @@ export const URL = {
   TEAM: '/team',
   COIN: '/coin',
   CONTACT: '/contact-us',
+  WALLET: '/wallet',
+  ME: '/me'
 };
 
 export const API_URL = {
@@ -76,6 +78,7 @@ export const API_URL = {
     USER_SIGN_IN: '/token/', // POST /user/token
     USER_SIGN_UP: '/user/sign-up/', // POST /user/sign-up
     USER_WALLET: '/user/wallet/', // POST,GET /user/wallet
+    USER_PROFILE: '/user/profile/', // GET /user/profile
   },
   LANDING: {
     FAQ: 'content/faq/',
