@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
-import loading from '@/assets/images/icon/loading.svg.raw';
+// import loading from '@/assets/images/icon/loading.svg.raw';
 // style
 import './Button.scss';
 
@@ -98,12 +98,12 @@ class Button extends React.PureComponent {
   }
 
   loading() {
-    if (this.props.isLoading) {
-      return <span dangerouslySetInnerHTML={{ __html: loading }} />;
-    }
-    if (this.props.app.isCalling && !this.getImmunity()) {
-      return <span dangerouslySetInnerHTML={{ __html: loading }} />;
-    }
+    // if (this.props.isLoading) {
+    //   return <span dangerouslySetInnerHTML={{ __html: loading }} />;
+    // }
+    // if (this.props.app.isCalling && !this.getImmunity()) {
+    //   return <span dangerouslySetInnerHTML={{ __html: loading }} />;
+    // }
     return null;
   }
 
