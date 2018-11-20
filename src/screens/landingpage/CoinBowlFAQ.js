@@ -5,9 +5,27 @@ import { bindActionCreators } from 'redux';
 import { getFaqContent } from './redux/action';
 
 class CoinBowlFAQ extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      locale: this.props.locale,
+    };
+  }
+
   componentDidMount() {
-    const params = { language: 'en' };
+    const { locale } = this.props;
+    const params = { language: locale };
     this.props.getFaqContent({ params });
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (JSON.stringify(nextProps.locale) !== JSON.stringify(prevState.locale)) {
+      const params = { language: nextProps.locale };
+      nextProps.getFaqContent({ params });
+      return { locale: nextProps.locale };
+    }
+
+    return null;
   }
 
   render() {
@@ -24,7 +42,8 @@ class CoinBowlFAQ extends React.PureComponent {
 }
 
 const mapState = state => ({
-  faqContent: state.landingReducer.faqContent
+  faqContent: state.landingReducer.faqContent,
+  locale: state?.app.locale || 'en',
 });
 
 const mapDispatch = dispatch => ({
