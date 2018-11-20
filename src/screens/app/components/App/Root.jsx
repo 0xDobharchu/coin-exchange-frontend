@@ -10,6 +10,7 @@ import IntlCustomProvider from 'src/lang';
 // import '@/styles/main';
 // import '@/styles/custom-icons/styles.css';
 import Layout from 'src/screens/app/components/Layout';
+import BarcodeScanner from 'src/components/BarcodeScanner';
 
 class Root extends React.Component {
   static propTypes = {
@@ -34,6 +35,7 @@ class Root extends React.Component {
       <IntlCustomProvider>
         <Layout {...this.props}>
           {this.props.children}
+          <BarcodeScanner />
         </Layout>
       </IntlCustomProvider>
     );

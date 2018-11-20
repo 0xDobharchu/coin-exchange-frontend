@@ -143,3 +143,16 @@ export const initApp = (language, ref) => (dispatch) => {
     console.log(e);
   }
 };
+
+// QR Code
+export const openQrScanner = () => (dispatch) => {
+  dispatch({
+    type: APP_ACTION.SHOW_SCAN_QRCODE
+  });
+};
+
+export const closeQrScanner = () => (dispatch) => {
+  dispatch({
+    type: APP_ACTION.HIDE_SCAN_QRCODE
+  });
+};

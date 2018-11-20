@@ -10,6 +10,8 @@ const {
   HEADER_DEFAULT,
   UPDATE_APP_STATE,
   SET_LANGUAGE,
+  SHOW_SCAN_QRCODE,
+  HIDE_SCAN_QRCODE
 } = APP_TYPE;
 
 const initState = {
@@ -60,7 +62,8 @@ const initState = {
     body: null,
     title: null,
     centered: false,
-  }
+  },
+  openQrScanner: false,
 };
 
 export default (state = initState, action) => {
@@ -101,6 +104,16 @@ export default (state = initState, action) => {
         locale: action.payload,
       };
     }
+    case SHOW_SCAN_QRCODE: 
+      return {
+        ...state,
+        openQrScanner: true
+      };
+    case HIDE_SCAN_QRCODE: 
+      return {
+        ...state,
+        openQrScanner: false
+      };
     default:
       return state;
   }
