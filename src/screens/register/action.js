@@ -2,6 +2,7 @@ import { makeRequest } from 'src/redux/action';
 import { API_URL } from 'src/resources/constants/url';
 import { USER } from 'src/resources/constants/user';
 import { MasterWallet } from 'src/services/Wallets/MasterWallet';
+import authentication from 'src/utils/authentication';
 import { REGISTER } from './type';
 import {LOGIN} from '../login/type';
 
@@ -31,10 +32,10 @@ export const register = user => (dispatch) => {
   }, dispatch);
   return makeRegister().then(() => {
     return makeLogin(user.username, user.password, dispatch)().then((loginRes) => {
-      (__CLIENT__) && localStorage.setItem(USER.ACCESS_TOKEN, loginRes.access);
+      (__CLIENT__) && authentication.setAccessToken(loginRes.access);
       const masterWallet = MasterWallet.createMasterWallets(user.password);
       return makeSaveWallet(masterWallet, dispatch)().then(()=>{
-        (__CLIENT__) && localStorage.removeItem(USER.ACCESS_TOKEN);
+        (__CLIENT__) && authentication.removeAccessToken();
         return USER.REGISTER_SUCCESS;
       });
     });
