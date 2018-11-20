@@ -98,22 +98,16 @@ export class MasterWallet {
       const masterWallet = [];
 
       let defaultWallet = [1, 3];// eth main, eth test, btc main, btc test => local web
-      if (process.env.isLive) { // // eth main, eth test, btc main, btc test => live web
-        defaultWallet = [0, 1, 2, 3];
+      if (process.env.isProduction) { // // eth main, eth test, btc main, btc test => live web
+        defaultWallet = [0, 1, 2];
       }
-      if (process.env.isDojo) { // eth test, shuri test, btc test => dojo web
-        defaultWallet = [0, 2];
-      }
-
+      
       for (const k1 in MasterWallet.ListDefaultCoin) {
         for (const k2 in MasterWallet.ListDefaultCoin[k1].Network) {
           // check production, only get mainnet:
-          if (process.env.isLive && k2 != 'Mainnet') {
+          if (process.env.isProduction && k2 != 'Mainnet') {
             break;
-          }
-          if (!process.env.isLive && process.env.isDojo && k2 == 'Mainnet') {
-            continue;
-          }
+          }         
           // init a wallet:
           const wallet = new MasterWallet.ListDefaultCoin[k1]();
           // set mnemonic, if not set then auto gen.
