@@ -3,19 +3,19 @@ import { Link } from 'react-router-dom';
 import logo from 'src/assets/images/logo.svg';
 import cx from 'classnames';
 import { URL } from 'src/resources/constants/url';
-// import { MdKeyboardArrowDown } from 'react-icons/md';
+import {  MdPerson } from 'react-icons/md';
+import currentUser from 'src/utils/authentication';
+import ChangeLanguage from 'src/components/ChangeLanguage';
 import styles from './styles.scss';
-import ChangeLanguage from '@/components/ChangeLanguage';
 
 const menus = {
   about_us: {
     name: 'About Us',
     link: URL.ABOUT_US,
-    // icon: <MdKeyboardArrowDown />
   },
   contact_us: {
     name: 'Contact Us',
-    link: '/contact-us',
+    link: URL.CONTACT,
   },
   faq: {
     name: 'FAQ',
@@ -25,29 +25,35 @@ const menus = {
     name: 'Team',
     link: URL.TEAM
   },
+  wallet: {
+    name: 'Wallet',
+    link: URL.WALLET,
+    auth: true
+  },
 };
 
 const buttons = {
   sign_in: {
     name: 'Sign In',
     link: URL.USER_SIGN_IN,
-    className: 'buttonSignIn'
+    className: ''
   },
   sign_up: {
     name: 'Sign up',
     link: URL.USER_SIGN_UP,
-    className: 'buttonSignUp'
+    className: 'active'
   },
 };
 
-const Header = () => (
-  <header className={styles.headerContainer}>
-    <Link to={URL.HOME}>
-      <img className={styles.logo} src={logo} alt="coinbowl-logo" />
-    </Link>
-    <div className={styles.items}>
-      {
-        Object.entries(menus).map(([ key, menu ]) => (
+const Header = () => {
+  return (
+    <header className={styles.headerContainer}>
+      <Link to={URL.HOME}>
+        <img className={styles.logo} src={logo} alt="coinbowl-logo" />
+      </Link>
+      <div className={styles.items}>
+        {
+        Object.entries(menus).map(([ key, menu ]) => (!menu.auth || menu.auth === currentUser.isLogin()) && (
           <Link to={menu.link} key={key}>
             <span className={styles.menuItem}>
               {menu.name}
@@ -56,16 +62,19 @@ const Header = () => (
           </Link>
         ))
       }
-    </div>
-    <ChangeLanguage />
-    <div className={styles.buttons}>
-      {
+      </div>
+      <ChangeLanguage />
+      {currentUser.isLogin() ? (
+        <div className={styles.welcome}><span className={styles.icon}><MdPerson color="#3f2184" size="28px" /></span> {currentUser.getCurrentUser().name} </div>
+      ): (
+        <div className={styles.buttons}>
+          {
         Object.entries(buttons).map(([ key, button ]) => (
           <Link to={button.link} key={key}><button type="button" className={cx(styles[button.className], styles.button)}>{button.name}</button></Link>
         ))
       }
-    </div>
-  </header>
-);
+        </div>) }
+    </header>
+  );};
 
 export default Header;

@@ -35,6 +35,8 @@ WORKDIR /app
 
 COPY ./ /app/
 
+RUN rm -rf /app/node_modules
+
 EXPOSE 8000 8000
 
 ENTRYPOINT ["sh", "/app/entrypoint.sh"]

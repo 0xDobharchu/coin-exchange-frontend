@@ -3,6 +3,12 @@ import { API_URL } from 'src/resources/constants/url';
 import { USER } from 'src/resources/constants/user';
 import { LOGIN } from './type';
 
+const makeGetProfile = (dispatch) => makeRequest({
+  type: LOGIN,
+  url: API_URL.USER.USER_PROFILE,
+  method: 'GET'
+}, dispatch);
+
 export const login = (username, password) => (dispatch) => {
   const makeLogin = makeRequest({
     type: LOGIN,
@@ -14,13 +20,18 @@ export const login = (username, password) => (dispatch) => {
     }
   }, dispatch);
   return makeLogin().then((res) => {
-    if (res.refresh && res.access) {
+    if (res.refresh && res.access && __CLIENT__) {
       localStorage.setItem(USER.ACCESS_TOKEN, res.access);
       localStorage.setItem(USER.REFRESH_TOKEN, res.refresh);
+      return makeGetProfile(dispatch)().then((profile) => {
+        const user = {name: profile.name, email: profile.email};
+        localStorage.setItem(USER.CURRENT_PROFILE, JSON.stringify(user));
+        return USER.LOGIN_SUCCESS;
+      });
     } else {
       alert('OH! something went wrong!');
+      return USER.LOGIN_FAILURE;
     }
-    return USER.LOGIN_SUCCESS;
   }, (err) => {
     console.log(err);
     alert('Username password do not match');
