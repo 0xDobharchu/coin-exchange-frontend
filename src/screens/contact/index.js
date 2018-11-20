@@ -8,7 +8,9 @@ import inputField from '@/components/core/form/fields/input';
 import LabelLang from 'src/lang/components/LabelLang';
 import { FieldLang } from 'src/lang/components';
 import { isEmail, isRequired } from 'src/components/core/form/validator';
+import cx from 'classnames';
 import { contactActions } from './action';
+import style from './style.scss';
 
 const ContactForm = createForm({
   propsReduxForm: {
@@ -52,58 +54,68 @@ class Contact extends React.Component {
   render() {
     const { isSubmiting } = this.state;
     return (
-      <div className="container">        
-        <h2><LabelLang id="landingPage.contactUS.title" /></h2>
-        <ContactForm onSubmit={this.submitAddContact}>
-          <div className="form-group">
-            <label htmlFor="fullname"><LabelLang id="landingPage.contactUS.yourName" /></label>
-            <FieldLang
-              name="fullname"
-              className="form-control"
-              component={inputField}
-              validate={isRequired(<LabelLang id="landingPage.contactUS.requiredYourName" />)}
-              type="text"
-              placeholder="landingPage.contactUS.placeholderYourName"
-            />                                          
-          </div>            
-          <div className="form-group">
-            <label htmlFor="email"><LabelLang id="landingPage.contactUS.email" /></label>
-            <FieldLang
-              name="email"
-              className="form-control"
-              component={inputField}
-              validate={[isRequired(<LabelLang id="landingPage.contactUS.requiredEmail" />), isEmail(<LabelLang id="landingPage.contactUS.notValidEmail" />)]}
-              type="email"
-              placeholder="Enter your email"
-            />            
+
+      <div className={cx('container', style['contact-warper'])}>
+        <div className="row">
+          <div className="col-sm-10 col-md-9 col-lg-7 mx-auto">
+            <h5 className={cx(style.contactTitle, 'text-center')}><LabelLang id="landingPage.contactUS.title" /></h5>
+            <div className={cx('card', style['contact-card'])}>
+              <div className="card-body">
+                <ContactForm onSubmit={this.submitAddContact}>
+                  <div className="form-group">
+                    {/* <label htmlFor="fullname"><LabelLang id="landingPage.contactUS.yourName" /></label> */}
+                    <FieldLang
+                      name="fullname"
+                      className="form-control"
+                      component={inputField}
+                      validate={isRequired(<LabelLang id="landingPage.contactUS.requiredYourName" />)}
+                      type="text"
+                      placeholder="landingPage.contactUS.placeholderYourName"
+                    />                                          
+                  </div>            
+                  <div className="form-group">
+                    {/* <label htmlFor="email"><LabelLang id="landingPage.contactUS.email" /></label> */}
+                    <FieldLang
+                      name="email"
+                      className="form-control"
+                      component={inputField}
+                      validate={[isRequired(<LabelLang id="landingPage.contactUS.requiredEmail" />), isEmail(<LabelLang id="landingPage.contactUS.notValidEmail" />)]}
+                      type="email"
+                      placeholder="Enter your email"
+                    />            
+                  </div>
+                  <div className="form-group">
+                    {/* <label htmlFor="phone"><LabelLang id="landingPage.contactUS.phone" /></label> */}
+                    <FieldLang
+                      name="phone"
+                      className="form-control"
+                      component={inputField}    
+                      placeholder="landingPage.contactUS.placeholderPhone"                           
+                      type="phone"                
+                    /> 
+                  </div>
+                  <div className="form-group">
+                    {/* <label htmlFor="description"><LabelLang id="landingPage.contactUS.description" /></label> */}
+                    <FieldLang
+                      name="description"
+                      className="form-control"
+                      component={textareaField}  
+                      placeholder="landingPage.contactUS.placeholderDescription"                                         
+                      type="text"  
+                      validate={[isRequired(<LabelLang id="landingPage.contactUS.requiredDescription" />)]}              
+                    />               
+                  </div>
+                  <div className="form-group">
+                    <button type="submit" className={cx('btn btn-primary btn-block', style.buttonContact)}><LabelLang id="landingPage.contactUS.contactButton" /></button>
+                    
+                    {isSubmiting && <img alt="is login" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />}
+                  </div>
+                </ContactForm>
+              </div>
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="phone"><LabelLang id="landingPage.contactUS.phone" /></label>
-            <FieldLang
-              name="phone"
-              className="form-control"
-              component={inputField}    
-              placeholder="landingPage.contactUS.placeholderPhone"                           
-              type="phone"                
-            /> 
-          </div>
-          <div className="form-group">
-            <label htmlFor="description"><LabelLang id="landingPage.contactUS.description" /></label>
-            <FieldLang
-              name="description"
-              className="form-control"
-              component={textareaField}  
-              placeholder="landingPage.contactUS.placeholderDescription"                                         
-              type="text"  
-              validate={[isRequired(<LabelLang id="landingPage.contactUS.requiredDescription" />)]}              
-            />               
-          </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-primary"><LabelLang id="landingPage.contactUS.contactButton" /></button>
-            {isSubmiting && <img alt="is login" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />}
-          </div>
-        </ContactForm>
-      </div>      
+        </div>
+      </div>
     );
   }
 }
