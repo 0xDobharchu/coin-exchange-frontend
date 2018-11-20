@@ -73,15 +73,16 @@ const routes = [
     exact: true,
   },
   {
-    path: '/me',
+    path: URL.ME,
     component: Me,
     exact: true,
     auth: true,
   },
   {
-    path: '/wallet',
+    path: URL.WALLET,
     component: Wallet,
     exact: true,
+    auth: true
   },
   {
     path: URL.HANDSHAKE_ME_PROFILE,

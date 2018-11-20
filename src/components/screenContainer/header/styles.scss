@@ -8,7 +8,7 @@
   .logo {
     width: 75px;
   }
-  
+
   .items {
     display: flex;
     .menu-item {
@@ -22,24 +22,36 @@
       align-items: center;
     }
   }
-  
+
   .button {
     width: 117px;
-  }
-
-  .button-sign-up {
-    background: #39DDE3;
-    color: #FFFFFF;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: 0.22px;
-    margin-left: 15px;
-  }
-  .button-sign-in {
     color: #FFFFFF;
     font-size: 16px;
     font-weight: normal;
-    letter-spacing: 0;  
+    letter-spacing: 0;
     background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    margin-left: 15px;
+  }
+  .active {
+    background: #39DDE3;
+    font-weight: 600;
+    letter-spacing: 0.22px;
+  }
+  .icon {
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border-radius: 50%;
+    display: inline-block;
+    margin: auto;
+    position: relative;
+    vertical-align: middle;
+  }
+  .welcome {
+    color: #fff;
+    font-size: 16px;
+    margin-right: 10px;
   }
 }
