@@ -260,9 +260,12 @@ class Wallet extends React.Component {
 
     // todo call api get wallet data ...    
     this.props.userWallet().then((listWallet) => {
-      alert(listWallet.length);
+      // alert(listWallet.length);
       console.log('listWallet', listWallet);
-      this.splitWalletData(listWallet);
+      if (listWallet !== false){
+        this.splitWalletData(listWallet);
+      }      
+      
     }).finally(() => {
       
     });
