@@ -62,7 +62,14 @@ module.exports = merge(commonConfig, {
         test: /\.scss$/,
         use: [
           ...cssLoader,
-          { loader: 'sass-loader' },
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [
+                path.resolve(__dirname, 'src/assets/styles')
+              ]
+            }
+          },
         ],
       },
     ],
