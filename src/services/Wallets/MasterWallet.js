@@ -35,7 +35,6 @@ import {UnicornGO} from '@/services/Wallets/Collectibles/UnicornGO';
 import {WarToken} from '@/services/Wallets/Collectibles/WarToken';
 import Helper, {StringHelper} from '@/services/helper';
 import axios from 'axios';
-import {Ripple} from '@/services/Wallets/Ripple.js';
 const bip39 = require('bip39');
 
 export class MasterWallet {
