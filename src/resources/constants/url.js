@@ -86,6 +86,12 @@ export const API_URL = {
   },
   LANDING: {
     FAQ: 'content/faq/',
+  },
+  COIN: {
+    // GET http://staging.coinbowl.com/api/exchange/quote/?amount=&currency=&fiat_currency=&check=[1,0]&user_check=[1,0]&direction=[buy,sell]
+    GET_QUOTE: '/exchange/quote',
+    // `GET http://staging.coinbowl.com/api/exchange/quote-reverse/?fiat_amount=&currency=&fiat_currency=&check=[1,0]&user_check=[1,0]&direction=[buy,sell]&order_type=[cod,bank]`
+    GET_QUOTE_REVERSE: '/exchange/quote-reverse',
   }
 };
 

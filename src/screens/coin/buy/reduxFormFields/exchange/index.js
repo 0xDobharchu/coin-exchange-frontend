@@ -2,7 +2,7 @@
 import React from 'react';
 import Exchange from '../../components/exchange';
 
-const field = ({ input, meta }) => {
+const field = ({ input, meta, currency, fiatCurrency, orderType, direction }) => {
   const {
     onChange
   } = input;
@@ -10,7 +10,13 @@ const field = ({ input, meta }) => {
   const shouldShowError = !!(touched && error);
   return (
     <div>
-      <Exchange onChange={onChange} />
+      <Exchange
+        onChange={onChange}
+        currency={currency}
+        fiatCurrency={fiatCurrency}
+        orderType={orderType}
+        direction={direction}
+      />
       { shouldShowError && <span>{error}</span>}
     </div>
   );

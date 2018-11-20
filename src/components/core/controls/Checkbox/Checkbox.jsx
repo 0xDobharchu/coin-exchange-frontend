@@ -10,7 +10,7 @@ class Checkbox extends React.PureComponent {
     const { label, ...props } = this.props;
 
     return (
-      <label className='checkboxWarper'>
+      <label className='checkbox-warper'>
         <span>{label}</span>
         <input
           type="checkbox"
