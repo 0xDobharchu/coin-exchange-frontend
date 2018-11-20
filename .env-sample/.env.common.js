@@ -11,7 +11,7 @@ module.exports = {
         messagingSenderId: '',
     },
     dropConsole: true,
-    GOOGLE_CAPTCH_SITE_KEY: ''
-    ZOPIM_CHAT_ACCOUNT_KEY: '',    
+    GOOGLE_CAPTCH_SITE_KEY: '',
+    ZOPIM_CHAT_ACCOUNT_KEY: '',
     isProduction: false,
 };
