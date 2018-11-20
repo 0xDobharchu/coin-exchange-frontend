@@ -6,7 +6,9 @@ let instance = null;
 class BrowserDetect {
   constructor() {
     if (!instance) {
-      this.browserDetect = new MobileDetect(window.navigator.userAgent);
+      if (__CLIENT__) {
+        this.browserDetect = new MobileDetect(window.navigator.userAgent);
+      }
       instance = this;
     }
     return instance;
