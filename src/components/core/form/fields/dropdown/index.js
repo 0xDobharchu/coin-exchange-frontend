@@ -2,9 +2,10 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import {LabelLang} from 'src/lang/components';
+import cx from 'classnames';
 
 const inputField = ({
-  input, meta, toggle, labelText, labelClassName, containerClassName, list
+  input, meta, toggle, labelText, labelClassName, containerClassName, list ,className
 }) => {
   const {
     onChange, onBlur, onFocus, value
@@ -17,7 +18,7 @@ const inputField = ({
   return (
     <div className={containerClassName ? containerClassName : ''}>
       {labelText && (<label className={labelClassName ||  ''}>{ <LabelLang id={labelText} /> }</label>)}
-      <Dropdown value={selectedItem.value} className="dropdown-warper">
+      <Dropdown value={selectedItem.value} className={cx('dropdown-warper', className || '')}>
         <Dropdown.Toggle variant="basic" onFocus={() => onFocus()} onBlur={() => onBlur()}>
           {selectedItem?.label || _toggle}
         </Dropdown.Toggle>

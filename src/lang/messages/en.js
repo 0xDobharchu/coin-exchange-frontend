@@ -808,4 +808,13 @@ export default {
       transaction: 'Your transaction will appear on blockchain in about 30 seconds.',
     },
   },
+  review: {
+    title: 'Review',
+    label: {
+      description: 'How is your experience with Coinbowl?',
+      submitButtonTitle: 'Submit',
+      loadMore: 'Load more',
+      comments: '{numReview} comments',
+    },
+  },
 };
