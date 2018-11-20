@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaQrcode } from 'react-icons/fa';
 import Input from 'src/components/core/controls/input';
+import { showQrCode } from 'src/components/BarcodeScanner';
 import styles from './styles.scss';
 
 const WalletSelector = ({ value, onChange, onFocus, onBlur }) => (
@@ -14,7 +15,15 @@ const WalletSelector = ({ value, onChange, onFocus, onBlur }) => (
       onBlur={onBlur}
       onFocus={onFocus}
     />
-    <FaQrcode className={styles.icon} size={20} />
+    <FaQrcode
+      className={styles.icon}
+      size={20}
+      onClick={() => {
+        showQrCode({
+          onData: console.log
+        });
+      }}
+    />
   </div>
 );
 
