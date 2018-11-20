@@ -31,10 +31,10 @@ export const register = user => (dispatch) => {
   }, dispatch);
   return makeRegister().then(() => {
     return makeLogin(user.username, user.password, dispatch)().then((loginRes) => {
-      localStorage.setItem(USER.ACCESS_TOKEN, loginRes.access);
+      (__CLIENT__) && localStorage.setItem(USER.ACCESS_TOKEN, loginRes.access);
       const masterWallet = MasterWallet.createMasterWallets(user.password);
       return makeSaveWallet(masterWallet, dispatch)().then(()=>{
-        localStorage.removeItem(USER.ACCESS_TOKEN);
+        (__CLIENT__) && localStorage.removeItem(USER.ACCESS_TOKEN);
         return USER.REGISTER_SUCCESS;
       });
     });

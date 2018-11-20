@@ -6,12 +6,12 @@ import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
-import './ReviewList.scss';
 import { getReview } from 'src/screens/coin/action';
 import { Row } from 'react-bootstrap';
 import loadingSVG from 'src/assets/icons/coinPage/user_icon.svg';
 import { debounce } from 'lodash';
-
+import styles from './styles.scss';
+import LabelLang from '@/lang/components/LabelLang';
 
 class ReviewList extends React.Component {
   constructor(props) {
@@ -47,8 +47,8 @@ class ReviewList extends React.Component {
       qs.page = page;
     }
 
-    this.props.getReviewBuyCoin({
-      qs
+    this.props.getReview({
+      params: qs
     }).then(this.onSuccess);
   }
 
@@ -78,24 +78,23 @@ class ReviewList extends React.Component {
     console.log('render ReviewList', this.props.reviewList);
     const { isFinished } = this.state;
     const { reviewList, numReview } = this.props;
-    const { messages } = this.props.intl;
     return (
-      <div className="review-list-container">
-        <span className="review-list-count-comment">{numReview} {messages.review.label.comments}</span>
-        <div className="review-list">
+      <div className={styles.reviewListContainer}>
+        <span className={styles.reviewListCountComment}><LabelLang id="review.label.comments" values={{numReview}} /></span>
+        <div className={styles.reviewList}>
           {
             reviewList && reviewList.map(item => (
-              <Row key={item?.id} className="review">
+              <Row key={item?.id} className={styles.review}>
                 <div><img src={loadingSVG} alt="loading" width="30" /></div>
-                <div className="review-content">
-                  <div className="name">{item?.name}</div>
-                  <div className="content">{item?.review}</div>
+                <div className={styles.reviewContent}>
+                  <div className={styles.name}>{item?.name}</div>
+                  <div className={styles.content}>{item?.review}</div>
                 </div>
               </Row>
             ))
           }
         </div>
-        { !isFinished && <button type="button" onClick={this.autoLoadMore}>{messages.review.label.loadMore}</button>
+        { !isFinished && <button type="button" onClick={this.autoLoadMore}><LabelLang id="review.label.loadMore" /></button>
         }
       </div>
     );
@@ -103,12 +102,12 @@ class ReviewList extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  reviewList: state.exchange.reviewList,
-  numReview: state.exchange.numReview,
+  reviewList: state.screenCoinReducer.reviewList,
+  numReview: state.screenCoinReducer.numReview,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getReviewBuyCoin: bindActionCreators(getReview, dispatch),
+  getReview: bindActionCreators(getReview, dispatch),
 });
 
 export default withRouter(injectIntl(connect(mapStateToProps, mapDispatchToProps)(ReviewList)));

@@ -60,8 +60,8 @@ class ChangeLanguage extends React.PureComponent {
       <div className={cx(styles.changeLanguageContainer, className)}>
         <ChooseLanguageForm>
           <Field
+            className={styles.changeLanguage}
             name="language"
-            className="form-control"
             component={dropdownField}
             list={LANGUAGES}
             onChange={this.changeCountry}
