@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import logo from 'src/assets/images/logo.svg';
 import cx from 'classnames';
 import { URL } from 'src/resources/constants/url';
-import { MdKeyboardArrowDown } from 'react-icons/md';
+// import { MdKeyboardArrowDown } from 'react-icons/md';
 import styles from './styles.scss';
 import ChangeLanguage from '@/components/ChangeLanguage';
 
@@ -11,7 +11,7 @@ const menus = {
   about_us: {
     name: 'About Us',
     link: URL.ABOUT_US,
-    icon: <MdKeyboardArrowDown />
+    // icon: <MdKeyboardArrowDown />
   },
   contact_us: {
     name: 'Contact Us',
