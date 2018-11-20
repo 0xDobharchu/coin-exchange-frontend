@@ -1,6 +1,6 @@
-import { APP } from 'src/constants';
+// import { APP } from 'src/constants';
 import APP_TYPE from './type';
-import local from '@/services/localStore';
+// import local from '@/services/localStore';
 
 const {
   HEADER_TITLE_SET,
@@ -91,9 +91,11 @@ export default (state = initState, action) => {
         ...action.payload
       };
     case SET_LANGUAGE: {
-      if (!action.autoDetect) {
-        local.save(APP.LOCALE, action.payload);
-      }
+      // if (!action.autoDetect) {
+      //   if(__CLIENT__) {
+      //     local.save(APP.LOCALE, action.payload);
+      //   }
+      // }
       return {
         ...state,
         locale: action.payload,
