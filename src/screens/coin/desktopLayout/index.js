@@ -15,8 +15,7 @@ class CoinDesktop extends Component {
   }
 
   getReviewCoin = () => {
-    const { getReviewBound } = this.props;
-    getReviewBound();
+    this.props.getReview();
   }
 
   render() {
@@ -32,7 +31,7 @@ class CoinDesktop extends Component {
             </div>
             <div className={styles.rightContainer}>
               <Contact />
-              { numReview > 0 && <Review /> }
+              { numReview >= 0 && <Review /> }
             </div>
           </div>
         </div>
@@ -46,11 +45,11 @@ CoinDesktop.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  numReview: state?.coinReducer?.numReview || 0,
+  numReview: state.screenCoinReducer.numReview || 0,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getReviewBound: bindActionCreators(getReview, dispatch),
+  getReview: bindActionCreators(getReview, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoinDesktop);
