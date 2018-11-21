@@ -1,24 +1,56 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
+import { updatePhoneNumberAction, submitPhoneCodeAction } from 'src/screens/auth/redux/action';
 import { MyMessage } from 'src/lang/components';
 import valid from 'src/services/validate';
 import PhoneForm from './PhoneForm';
 
+const getStatusColor = (level, status) => {
+  if (level === 'level_3') return 'success';
+  const statusObj = [
+    { label: 'pending', value: 'warning' },
+    { label: 'approved', value: 'success' },
+  ].find(e => e.label === status) || null;
+  return statusObj ? statusObj.value : 'danger';
+};
+const getLevelStatus = (level, status) => {
+  if (level === 'level_3') return 'VERIFIED';
+  if (level === 'level_2') {
+    if (status == 'approved') return 'VERIFIED';
+    else return status.toUpperCase();
+  }
+  return '';
+};
+
 // eslint-disable-next-line
-const PhoneBlock = ({ style, showAlert, phone }) => {
+const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, updatePhoneNumberAction, submitPhoneCodeAction }) => {
   const handleVerifyEmail = (values) => {
-    console.log('veerify phone', values);
-    const { phone: emailForm } = values;
-    if (emailForm) {
-      if (valid.email(emailForm)) {
-        console.log('email is invalid');
+    console.log('veerify phone_number', values);
+    const { phone: phoneNumberValue, code } = values;
+    if (phoneNumberValue) {
+      if (valid.phone(phoneNumberValue)) {
+        console.log('phone is invalid');
         showAlert({
-          message: <MyMessage id="me.profile.verify.alert.notValid.client.email" />,
+          message: 'Invalid Phone',
           timeOut: 3000,
           type: 'danger'
         });
+        return;
       }
+    }
+    if (!code) {
+      updatePhoneNumberAction(phoneNumberValue).catch(showAlert({
+        message: 'Verify code was sent successful to your phone',
+        timeOut: 3000,
+        type: 'success',
+      }));
+    } else {
+      submitPhoneCodeAction(code).then(showAlert({
+        message: 'Congratulation! Your level is upto level 2',
+        timeOut: 3000,
+        type: 'success'
+      }));
     }
   };
 
@@ -29,7 +61,7 @@ const PhoneBlock = ({ style, showAlert, phone }) => {
           <MyMessage id="me.profile.verify.step2" />
         </p>
         <div className={style.extend}>
-          <span className="badge badge-success">{phone ? 'Verified' : ''}</span>
+          <span className={`badge badge-${getStatusColor(level, levelStatus)}`}>{getLevelStatus(level, levelStatus)}</span>
         </div>
       </div>
       <div className={style.content}>
@@ -41,7 +73,9 @@ const PhoneBlock = ({ style, showAlert, phone }) => {
 };
 
 const mapState = state => ({
-  phone: state.auth.profile?.phone || null,
+  phone_number: state.auth.profile?.phone_number || null,
+  level: state.auth.profile.verification_level,
+  levelStatus: state.auth.profile.verification_status,
 });
-const mapDispatch = { showAlert };
+const mapDispatch = { showAlert, updatePhoneNumberAction, submitPhoneCodeAction };
 export default connect(mapState, mapDispatch)(PhoneBlock);

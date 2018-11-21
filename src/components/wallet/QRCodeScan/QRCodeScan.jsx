@@ -8,7 +8,7 @@ import Button from '@/components/core/controls/Button';
 
 import Modal from '@/components/core/controls/Modal';
 
-import QrReader from 'react-qr-reader';
+// import QrReader from 'react-qr-reader';
 
 import { hideScanQRCode } from '@/screens/app/redux/action';
 
@@ -54,7 +54,7 @@ class QRCodeScan extends React.Component {
   onFinish = (data) => {
     try {
       // reset input select file
-      this.refs.qrReaderScan.els.input.value = '';
+      // this.refs.qrReaderScan.els.input.value = '';
     } catch(e) {
       console.warn(e);
     }
@@ -101,7 +101,7 @@ openQrcode = (props) => {
   }
 }
 openImageDialog = () => {
-  this.refs.qrReaderScan.openImageDialog();
+  // this.refs.qrReaderScan.openImageDialog();
 }
 
 render() {
@@ -113,7 +113,7 @@ render() {
   return (
         <Modal onClose={() => this.oncloseQrCode()} title={messages['wallet.action.transfer.label.scan_qrcode']} onRef={modal => this.modalScanQrCodeMainRef = modal} customBackIcon={BackChevronSVGWhite} modalHeaderStyle={{color: "#fff", background: "#546FF7"}} modalBodyStyle={{"padding": 0}} >
             {!isLoaded && <div style={{ textAlign: 'center', marginTop: '10px' }}>{messages['wallet.action.transfer.label.init_scanner']}</div>}
-            {this.state.isShow || this.state.legacyMode ?
+            {/* {this.state.isShow || this.state.legacyMode ?
               <QrReader
                 ref="qrReaderScan"
                 delay={this.state.delay}
@@ -124,7 +124,7 @@ render() {
                 showViewFinder={false}
                 onLoad={() => this.setState({isLoaded: true})}
               />
-              : ''}
+              : ''} */}
         </Modal>
     )
   }

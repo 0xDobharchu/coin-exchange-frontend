@@ -14,7 +14,7 @@ import {MasterWallet} from "@/services/Wallets/MasterWallet";
 import { bindActionCreators } from "redux";
 import {getFiatCurrency} from '@/reducers/exchange/action';
 import { showAlert, showLoading, hideLoading } from '@/screens/app/redux/action';
-import QrReader from 'react-qr-reader';
+// import QrReader from 'react-qr-reader';
 import { StringHelper } from '@/services/helper';
 import './TransferToken.scss';
 import '../TransferCoin/TransferCoin.scss';
@@ -294,7 +294,7 @@ class TransferToken extends React.Component {
   }
 
   openImageDialog = () => {
-    this.refs.qrReader1.openImageDialog();
+    // this.refs.qrReader1.openImageDialog();
   }
 
   openListCoin=()=>{
@@ -464,7 +464,7 @@ class TransferToken extends React.Component {
 
         {/* QR code dialog */}
         <Modal onClose={() => this.oncloseQrCode()} title={messages['wallet.action.transfer.label.scan_qrcode']} onRef={modal => this.modalScanQrCodeRef = modal}>
-          {this.state.qrCodeOpen || this.state.legacyMode ?
+          {/* {this.state.qrCodeOpen || this.state.legacyMode ?
             <QrReader
               ref="qrReader1"
               delay={this.state.delay}
@@ -474,7 +474,7 @@ class TransferToken extends React.Component {
               legacyMode={this.state.legacyMode}
               showViewFinder={false}
             />
-            : ''}
+            : ''} */}
         </Modal>
 
         <SendWalletForm className="sendwallet-wrapper" onSubmit={this.sendCoin} validate={this.invalidateTransferCoins}>

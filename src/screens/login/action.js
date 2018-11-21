@@ -1,6 +1,7 @@
 import { makeRequest } from 'src/redux/action';
 import { API_URL } from 'src/resources/constants/url';
 import { USER } from 'src/resources/constants/user';
+import authentication from 'src/utils/authentication';
 import { LOGIN } from './type';
 
 const makeGetProfile = (dispatch) => makeRequest({
@@ -21,11 +22,11 @@ export const login = (username, password) => (dispatch) => {
   }, dispatch);
   return makeLogin().then((res) => {
     if (res.refresh && res.access && __CLIENT__) {
-      localStorage.setItem(USER.ACCESS_TOKEN, res.access);
-      localStorage.setItem(USER.REFRESH_TOKEN, res.refresh);
+      authentication.setAccessToken(res.access);
+      authentication.setRefreshToken(res.refresh);
       return makeGetProfile(dispatch)().then((profile) => {
         const user = {name: profile.name, email: profile.email};
-        localStorage.setItem(USER.CURRENT_PROFILE, JSON.stringify(user));
+        authentication.setCurrentUser(user);
         return USER.LOGIN_SUCCESS;
       });
     } else {

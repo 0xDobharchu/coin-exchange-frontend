@@ -7,7 +7,8 @@ export default {
     name: '<p style="color: #00adb5;">Test En html</p>',
     navigation: {
       me: 'Me',
-      ninjaCoin: 'Coin'
+      ninjaCoin: 'Coin',
+      wallet: 'Wallet'
     }
   },
   me: {
@@ -381,6 +382,7 @@ export default {
     }
   },
   wallet: {
+    title: 'Your Accounts',
     top_banner: {
       message: 'Shuriken Airdrop (limited)',
       button: 'Click here',

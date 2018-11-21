@@ -8,7 +8,7 @@
   height: $footer-height;
   width: 100%;
   // max-width: $app-width;
-  background: #FFFFFF;
+  background: $primary-extra-bold;
   z-index: 2;
   box-shadow: 0 -2px 13px 0 rgba(221,235,242,0.50);
   .main {
@@ -30,16 +30,19 @@
         text-decoration: none;
       }
       span {
+        margin-top: 5px;
         text-align: center;
+        color: white;
       }
       &.selected {
         a {
           //color: rgba(248, 248, 248, 0.95);
           span {
-            background-color: #1E4EFF;
-            border-radius: 9px;
-            color: #ffffff;
-            padding: 2px;
+            background-color: white;
+            border-radius: 4px;
+            color: $primary-extra-bold;
+            // padding: 2px;
+            padding: 0 5px;
           }
         }
       }

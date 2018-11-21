@@ -76,6 +76,7 @@ export const API_URL = {
   },
   USER: {
     USER_SIGN_IN: '/token/', // POST /user/token
+    USER_TOKEN_REFRESH: '/token/refresh/', // POST /user/token
     USER_SIGN_UP: '/user/sign-up/', // POST /user/sign-up
     USER_WALLET: '/user/wallet/', // POST,GET /user/wallet
     USER_PROFILE: '/user/profile/', // GET /user/profile

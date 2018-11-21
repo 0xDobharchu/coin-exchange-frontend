@@ -8,7 +8,8 @@ const isProd = process.env.NODE_ENV === 'production';
 
 export default function configureStore() {
   // eslint-disable-next-line no-underscore-dangle
-  const composeEnhancers = isProd ? compose : window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  let __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ = __CLIENT__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+  const composeEnhancers = isProd ? compose : __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const middlewares = [
     reduxThunk,
     ...(isProd ? [] : [logger]),

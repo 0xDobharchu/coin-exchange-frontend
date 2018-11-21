@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  .col1 {
+    padding: 5px;
+    img {
+      width: 30px;
+    }
+  }
+  .col2 {
+    display: flex;
+    flex-direction: column;
+    .col2_1 {
+      color: #0D0031;
+      font-size: 16px;
+      font-weight: 400;
+    }
+    .col2_2 {
+      color: #ABAAAD;
+      font-size: 16px;
+      font-weight: 100;
+    }
+  }
+  .col3 {
+    margin-left: 30px;
+    button {
+      font-size: 14px;
+      color: #0D0031;
+      font-weight: 400;
+      background: #FFFFFF;
+      border: 1px solid #E7E6EB;
+      padding: 10px 34px;
+    }
+  }
+}
