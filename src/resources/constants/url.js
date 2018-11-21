@@ -83,7 +83,8 @@ export const API_URL = {
   },
   SYSTEM: {
     COUNTRY : '/system/country-default-configs/', // GET /system/country-default-configs/
-    GET_COUNTRY_CURRENCY: '/system/country-currencies/' // GET /system/country-currencies/?country=
+    GET_COUNTRY_CURRENCY: '/system/country-currencies/', // GET /system/country-currencies/?country=
+    GET_BANK_INFO: '/system/banks/' // GET system/banks/?currency=&country=
   },
   LANDING: {
     FAQ: 'content/faq/',
