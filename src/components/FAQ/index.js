@@ -1,6 +1,6 @@
 import React from 'react';
 import LabelLang from 'src/lang/components/LabelLang';
-import Collapse from 'src/components/Collapse';
+import Collapse from 'src/components/collapse';
 import styles from './styles.scss';
 
 class Faq extends React.PureComponent {

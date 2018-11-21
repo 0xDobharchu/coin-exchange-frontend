@@ -1,6 +1,11 @@
+@import 'var';
+
 .container {
   background-color: #efefef;
   padding-top: 31px;
+  a {
+    color: $primary-extra-bold;
+  }
   .scrollbar {
     height: calc(100vh - 77px - 31px - 10px);
     overflow: scroll;
