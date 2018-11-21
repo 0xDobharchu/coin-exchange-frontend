@@ -1,26 +1,31 @@
 import React from 'react';
-import ChangePicture from './ChangePicture';
+import { Row, Col } from 'react-bootstrap';
 import ChangePassword from './ChangePassword';
-import ChangeNickName from './ChangeNickName';
-import ChangeEmail from './ChangeEmail';
+import ChangeNameForm from './Form/ChangeNameForm';
+import PersonalDetailForm from './Form/PersonalDetailForm';
 import style from './style.scss';
 
 const AccountInfo = () => (
   <div className={style.container}>
-    <label className={style.title}>User profile</label>
+    <label className={style.title}>User Profile</label>
     <div className={style.lineTitle} />
     <div className={style.block1}>
-      <div className={style.col}><ChangePicture /></div>
-      <div className={style.col}><ChangePassword /></div>
+      <ChangePassword />
     </div>
     <div className={style.lineTitle} />
     <div className={style.block1}>
-      <ChangeNickName />
+      <ChangeNameForm onSubmit={values => alert(JSON.stringify(values))} />
     </div>
-    <div className={style.block1}>
-      <ChangeEmail />
-    </div>
+    <label className={style.title}>Personal Details</label>
     <div className={style.lineTitle} />
+    <Row className={style.personalDetail}>
+      <Col md={4} className={style.leftSide}>
+        <label className={style.fontLeft}>Your personal information is never shown to other users</label>
+      </Col>
+      <Col md={8}>
+        <PersonalDetailForm onSubmit={values => alert(JSON.stringify(values))} />
+      </Col>
+    </Row>
   </div>
 );
 
