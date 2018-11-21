@@ -4,7 +4,7 @@ import Exchange from '../../components/exchange';
 
 const field = ({ input, meta, currency, fiatCurrency, orderType, direction }) => {
   const {
-    onChange
+    onChange, onFocus, onBlur
   } = input;
   const { error, touched } = meta;
   const shouldShowError = !!(touched && error);
@@ -12,14 +12,18 @@ const field = ({ input, meta, currency, fiatCurrency, orderType, direction }) =>
     <div>
       <Exchange
         onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
         currency={currency}
         fiatCurrency={fiatCurrency}
         orderType={orderType}
         direction={direction}
+        markRequired={shouldShowError}
       />
-      { shouldShowError && <span>{error}</span>}
+      { shouldShowError && <span className="text-danger">{error}</span>}
     </div>
   );
 };
 
 export default field;
+export exchangeValidator from './validator';

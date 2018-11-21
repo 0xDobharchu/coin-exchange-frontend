@@ -80,8 +80,10 @@ class Exchange extends Component {
         user_check: 0,
         direction,
       });
+      const fiatAmount = this.getFiatAmount(exchangeData);
       this.setState({
-        exchangeData
+        exchangeData,
+        fiatAmount
       }, this.dataCallbackHandler);
       this.setExchangeStatus(false);
     } catch(e) {
@@ -105,7 +107,8 @@ class Exchange extends Component {
         order_type: orderType
       });
       this.setState({
-        exchangeData
+        exchangeData,
+        amount: exchangeData?.amount || 0
       }, this.dataCallbackHandler);
       this.setExchangeStatus(false);
     } catch(e) {
@@ -123,24 +126,26 @@ class Exchange extends Component {
     } 
   }
 
-  getFiatAmount = () => {
+  getFiatAmount = (exchangeData = this.state.exchangeData) => {
     const { orderType } = this.props;
-    const { exchangeData } = this.state;
     if (orderType === ORDER_TYPE.cod)
       return exchangeData.fiatLocalAmountCod || 0;
     return exchangeData.fiatLocalAmount || 0;
   }
 
   render() {
-    const { amount } = this.state;
-    const fiatAmount = this.getFiatAmount();
+    const { amount, fiatAmount } = this.state;
+    const { markRequired, onFocus, onBlur } = this.props;
     console.log(this.state);
     return (
       <div className={styles.container}>
         <Input
+          onFocus={() => onFocus()}
           label="Amount to buy"
           placeholder="0.0"
           value={amount}
+          onBlur={() => onBlur()}
+          className={markRequired && !amount ? 'border-danger' : ''}
           onChange={this.onChange.bind(this, 'amount')}
         />
         <FaArrowsAltH className={styles.arrowIcon} />
@@ -148,6 +153,9 @@ class Exchange extends Component {
           label="How much do you want?"
           placeholder="0.0"
           value={fiatAmount}
+          onFocus={() => onFocus()}
+          onBlur={() => onBlur()}
+          className={markRequired && !fiatAmount ? 'border-danger' : ''}
           onChange={this.onChange.bind(this, 'fiatAmount')}
         />
       </div>
@@ -162,6 +170,9 @@ Exchange.defaultProps = {
   fiatCurrency: FIAT_CURRENCY.USD,
   direction: EXCHANGE_DIRECTION.buy,
   orderType: ORDER_TYPE.bank,
+  markRequired: false,
+  onBlur: null,
+  onFocus: null
 };
 
 Exchange.propTypes = {
@@ -171,6 +182,9 @@ Exchange.propTypes = {
   orderType: PropTypes.oneOf(Object.values(ORDER_TYPE)),
   getQuote: PropTypes.func.isRequired,
   getQuoteReverse: PropTypes.func.isRequired,
+  markRequired: PropTypes.bool,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
 };
 
 export default connect(null, mapDispatch)(Exchange);

@@ -1,30 +1,104 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FaQrcode } from 'react-icons/fa';
-import Input from 'src/components/core/controls/input';
+import { InputGroup, DropdownButton, Dropdown, FormControl } from 'react-bootstrap';
 import { showQrCode } from 'src/components/BarcodeScanner';
+import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
+import cx from 'classnames';
 import styles from './styles.scss';
 
-const WalletSelector = ({ value, onChange, onFocus, onBlur }) => (
-  <div className={styles.container}>
-    <Input
-      label="Your wallet address"
-      placeholder='Scan QR code or copy wallet address'
-      className={styles.input}
-      value={value}
-      onChange={onChange}
-      onBlur={onBlur}
-      onFocus={onFocus}
-    />
-    <FaQrcode
-      className={styles.icon}
-      size={20}
-      onClick={() => {
-        showQrCode({
-          onData: console.log
-        });
-      }}
-    />
-  </div>
-);
+class WalletSelector extends Component {
+  constructor() {
+    super();
+    this.state = {
+      address: '',
+      currencyListRendered: null,
+      currency: CRYPTO_CURRENCY.ETH,
+    };
+  }
 
+  componentDidMount() {
+    this.setState({
+      currencyListRendered: this.renderCurrencyList()
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { currency, address } = this.state;
+    const { onChange } = this.props;
+    if (prevState?.currency !== currency || prevState.address !== address) {
+      if (typeof onChange === 'function') {
+        onChange({ address, currency });
+      }
+    }
+  }
+
+  onChangeAddress = (address) => {
+    this.setState({ address });
+  }
+
+  onSelectCurrency = (currency) => {
+    this.setState({ currency });
+  }
+
+  renderCurrencyList = () => {
+    return Object.values(CRYPTO_CURRENCY).map(c =>(
+      <Dropdown.Item key={c} onClick={() => this.onSelectCurrency(c)}>{c}</Dropdown.Item>
+    ));
+  }
+
+  render() {
+    const { onFocus, onBlur, markRequired } = this.props;
+    const { address, currencyListRendered, currency } = this.state;
+    const className = `${styles.container} ${markRequired ? 'border-danger' : ''}`;
+    return (
+      <div className={className}>
+        <InputGroup>
+          <FormControl
+            placeholder='Scan QR code or copy wallet address'
+            className={styles.input}
+            value={address}
+            onChange={(e) => this.onChangeAddress(e?.target?.value)}
+            onBlur={() => onBlur()}
+            onFocus={() => onFocus()}
+          />
+          <InputGroup.Prepend>
+            <FaQrcode
+              className={cx(styles.icon, 'common-clickable')}
+              size={20}
+              onClick={() => {
+                showQrCode({
+                  onData: this.onChangeAddress
+                });
+              }}
+            />
+            <DropdownButton
+              className={styles.dropdown}
+              // as={InputGroup.Prepend}
+              title={currency || 'Currency'}
+            >
+              {currencyListRendered}
+            </DropdownButton>
+          </InputGroup.Prepend>
+          
+        </InputGroup>
+        
+      </div>
+    );
+  }
+}
+
+WalletSelector.defaultProps = {
+  onChange: null,
+  onBlur: null,
+  onFocus: null,
+  markRequired: false
+};
+
+WalletSelector.propTypes = {
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
+  markRequired: PropTypes.bool,
+};
 export default WalletSelector;

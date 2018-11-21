@@ -1,17 +1,18 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import { Field, formValueSelector } from 'redux-form';
+import { Field, formValueSelector, change, touch, isValid } from 'redux-form';
 import { connect } from 'react-redux';
 import createForm from 'src/components/core/form/createForm';
 import { isRequired } from 'src/components/core/form/validator';
-// import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import { PAYMENT_METHOD } from 'src/screens/coin/constant';
 import ConfirmButton from 'src/components/confirmButton';
-import walletSelectorField from './reduxFormFields/walletSelector';
-import exchangeField from './reduxFormFields/exchange';
+import inputField from 'src/components/core/form/fields/input';
+import walletSelectorField, { walletValidator } from './reduxFormFields/walletSelector';
+import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
 import paymentMethodField from './reduxFormFields/paymentMethod';
-import { genAddress, makeOrder } from './redux/action';
+import { makeOrder } from './redux/action';
 import styles from './styles.scss';
 
 const buyFormName = 'BuyForm';
@@ -50,15 +51,44 @@ class BuyCryptoCoin extends React.Component {
     });
   }
 
-  render() {
+  renderCoD = () => {
     const { paymentMethod } = this.props;
+    return (
+      <div className="cod-form-container">
+        <Field
+          type="text"
+          name="address"
+          placeholder="Address"
+          component={inputField}
+          validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
+        />
+        <Field
+          type="text"
+          name="phone"
+          placeholder="Phone"
+          component={inputField}
+          validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
+        />
+        <Field
+          type="text"
+          placeholder="As soon as possible"
+          name="noteAndTime"
+          component={inputField}
+          validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
+        />
+      </div>
+    );
+  }
+
+  render() {
+    const { paymentMethod, isValid } = this.props;
     return (
       <div className={styles.container}>
         <BuyForm onSubmit={console.log} validate={console.log}>
           <Field
             name="wallet"
             component={walletSelectorField}
-            validate={[isRequired()]}
+            validate={walletValidator}
           />
           <Field
             name="exchange"
@@ -67,14 +97,15 @@ class BuyCryptoCoin extends React.Component {
             direction='buy'
             fiatCurrency='PHP'
             currency='ETH'
-            // validate={[isRequired()]}
+            validate={exchangeValidator}
           />
           <Field
             name="paymentMethod"
             component={paymentMethodField}
-            // validate={[isRequired()]}
           />
+          {this.renderCoD()}
           <ConfirmButton
+            disabled={!isValid}
             onConfirm={this.makeOrder}
           />
         </BuyForm>
@@ -87,14 +118,14 @@ const mapStateToProps = (state) => ({
   paymentMethod: formSelector(state, 'paymentMethod'),
   exchange: formSelector(state, 'exchange'),
   wallet: formSelector(state, 'wallet'),
+  isValid: isValid(buyFormName)(state)
 });
 
-// const mapDispatchToProps = dispatch => ({
-//   rfChange: bindActionCreators(change, dispatch),
-//   rfTouch: bindActionCreators(touch, dispatch),
-//   genAddress,
-//   makeOrder: bindActionCreators(makeOrder, dispatch),
-// });
+const mapDispatchToProps = dispatch => ({
+  rfChange: bindActionCreators(change, dispatch),
+  rfTouch: bindActionCreators(touch, dispatch),
+  makeOrder: bindActionCreators(makeOrder, dispatch),
+});
 
 BuyCryptoCoin.defaultProps = {
 };
@@ -102,4 +133,4 @@ BuyCryptoCoin.defaultProps = {
 BuyCryptoCoin.propTypes = {
 };
 
-export default injectIntl(connect(mapStateToProps, { genAddress, makeOrder })(BuyCryptoCoin));
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(BuyCryptoCoin));
