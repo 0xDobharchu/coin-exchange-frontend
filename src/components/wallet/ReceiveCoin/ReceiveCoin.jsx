@@ -7,14 +7,14 @@ import {fieldDropdown, fieldInput} from '@/components/core/form/customField'
 import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
 import Button from '@/components/core/controls/Button';
-import { API_URL } from "@/constants";
+import { API_URL } from 'src/resources/constants/url';
 import { makeRequest } from 'src/redux/action';
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
 
-import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action';
+import { showAlert } from 'src/screens/app/redux/action';
 import { StringHelper } from '@/services/helper';
 import createForm from '@/components/core/form/createForm';
-import './ReceiveCoin.scss';
+import style from './ReceiveCoin.scss';
 import ExpandArrowSVG from '@/assets/images/wallet/icons/expand-arrow-green.svg';
 import iconSwitch from '@/assets/images/wallet/icons/icon-switch.png';
 
@@ -80,7 +80,7 @@ class ReceiveCoin extends React.Component {
 
   showAlert(msg, type = 'success', timeOut = 3000, icon = '') {
     this.props.showAlert({
-      message: <div className="textCenter">{icon}{msg}</div>,
+      message: <div className={style.textCenter}>{icon}{msg}</div>,
       timeOut,
       type,
       callBack: () => {},
@@ -104,16 +104,17 @@ class ReceiveCoin extends React.Component {
     return new Promise((resolve, reject) => {
       let {wallet, currency} = this.props, result = 0;
 
-      if(wallet && currency){
+      if(wallet && currency){        
+
         this.props.getFiatCurrency({
-          PATH_URL: API_URL.EXCHANGE.GET_FIAT_CURRENCY,
-          qs: {fiat_currency: currency ? currency : 'USD', currency: cryptoCurrency ? cryptoCurrency : wallet.name},
-          successFn: (res) => {
-            let data = res.data;
-            result = currency == 'USD' ? data.price : data.fiat_amount;
+          url: API_URL.EXCHANGE.GET_FIAT_CURRENCY,          
+          params: {amount: 1, fiat_currency: currency ? currency : 'USD', currency: cryptoCurrency ? cryptoCurrency : wallet.name, direction: 'buy'},
+          onSuccess: (res) => {
+            let data = res;
+            result = currency == 'USD' ? data.fiat_amount : data.fiat_amount;
             resolve(result);
           },
-          errorFn: (err) => {
+          onError: (err) => {
             resolve(0);
           },
         });
@@ -320,24 +321,24 @@ class ReceiveCoin extends React.Component {
     let placeholder = ((this.state.inputSendAmountValue == 0 || this.state.inputSendAmountValue.toString() == '') ? "0.0" : this.state.inputSendAmountValue.toString() ) + " " + symbol
 
     return (
-      <div className="receive-coins">
+      <div className={style['receive-coins']}>
           {/* <div className="bodyTitle"><span>{messages['wallet.action.receive.message']} { this.state.walletSelected ? this.state.walletSelected.name : ''} </span></div> */}
-          <div className={['bodyBackup bodyShareAddress']}>
+          <div className={style['bodyBackup'] + ' ' + style.bodyShareAddress}>
 
           {/* <div className="bodyTitle">
             <span>{messages['wallet.action.receive.title2']}</span>
           </div> */}
 
-          <div className="box-addresses">
+          <div className={style["box-addresses"]}>
 
-              <div className="box-address">
-                  <div className="addressDivPopup">{ this.state.walletSelected ? this.state.walletSelected.address : ''}&nbsp;
-                  <img className="expand-arrow" src={ExpandArrowSVG} alt="expand" />
+              <div className={style["box-address"]}>
+                  <div className={style["addressDivPopup"]}>{ this.state.walletSelected ? this.state.walletSelected.address : ''}&nbsp;
+                  <img className={style["expand-arrow"]} src={ExpandArrowSVG} alt="expand" />
                   </div>
               </div>
 
-              <div className="box-hide-wallet">
-                <ShowAddressWalletForm className="receivewallet-wrapper">
+              <div className={style["box-hide-wallet"]}>
+                <ShowAddressWalletForm className={style["receivewallet-wrapper"]}>
                 { this.state.walletSelected ?
 
                   <Field
@@ -358,24 +359,24 @@ class ReceiveCoin extends React.Component {
 
             </div>
 
-            <div className="box-qr-code">
+            <div className={style["box-qr-code"]}>
                 <QRCode size={230} value={qrCodeValue} onClick={() => { Clipboard.copy(qrCodeValue); this.showToast(messages['wallet.action.receive.success.share']);}} />
             </div>
 
 
-            <div className="box-link">
-              <a className="link-copy-address" onClick={() => { Clipboard.copy(this.state.walletSelected.address); this.showToast(messages['wallet.action.receive.success.share']);}}>{messages['wallet.action.receive.link.copy_address']}</a>
-              <a className="link-download" ref={(ref) => this.downloadRef = ref} onClick={()=> {this.download(qrCodeValue);}}>
+            <div className={style["box-link"]}>
+              <a className={style["link-copy-address"]} onClick={() => { Clipboard.copy(this.state.walletSelected.address); this.showToast(messages['wallet.action.receive.success.share']);}}>{messages['wallet.action.receive.link.copy_address']}</a>
+              <a className={style["link-download"]} ref={(ref) => this.downloadRef = ref} onClick={()=> {this.download(qrCodeValue);}}>
                 {messages['wallet.action.receive.link.download_qrcode']}
               </a>
             </div>
             
             {/* Don't support for Collectibles */}
             { !this.state.walletSelected.isCollectibles ?
-            <ReceiveWalletForm className="receivewallet-wrapper">
-              <div className="div-amount">
+            <ReceiveWalletForm className={style["receivewallet-wrapper"]}>
+              <div className={style["div-amount"]}>
                { showDivAmount ?
-                <div onClick={() => {this.switchValue(showDivAmount)}} className={"prepend-button"}>
+                <div onClick={() => {this.switchValue(showDivAmount)}} className={style["prepend-button"]}>
                   <img src={iconSwitch}/>
                   {/* ⋮  */}
                 </div>
@@ -386,7 +387,7 @@ class ReceiveCoin extends React.Component {
                   name="amountCoinTemp"
                   placeholder={placeholder}
                   type="text"
-                  className={["form-control", "amountCoinTemp"]}
+                  className={["form-control", style.amountCoinTemp]}
                   component={fieldInput}
                   autoComplete="off"
                 />
@@ -396,7 +397,7 @@ class ReceiveCoin extends React.Component {
                   name="amountCoin"
                   placeholder={"0.0"}
                   type="text"
-                  className={["form-control", "amountCoin"]}
+                  className={["form-control", style["amountCoin"]]}
                   component={fieldInput}
                   value={this.state.inputSendAmountValue}
                   onChange={evt => this.updateAddressAmountValue(evt)}
@@ -409,7 +410,7 @@ class ReceiveCoin extends React.Component {
             : ""}
 
             { !showDivAmount ? "" :
-                <div className="switch-value">
+                <div className={style["switch-value"]}>
                     ≈ {this.state.switchValue}&nbsp;
                     <b>{!this.state.isCurrency ? currency
                     : (this.state.walletSelected ? StringHelper.format("{0}", this.state.walletSelected.name) : '') } </b>
@@ -443,9 +444,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   rfChange: bindActionCreators(change, dispatch),
-  showAlert: bindActionCreators(showAlert, dispatch),
-  showLoading: bindActionCreators(showLoading, dispatch),
-  hideLoading: bindActionCreators(hideLoading, dispatch),
+  showAlert: bindActionCreators(showAlert, dispatch),  
   getFiatCurrency: bindActionCreators(makeRequest, dispatch),
   clearFields: bindActionCreators(clearFields, dispatch),
 });
