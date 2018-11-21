@@ -222,6 +222,18 @@ div.filepicker {
   border-style: solid;
   border-color: white transparent transparent #920035;
 }
+
+@media screen and (max-width: 768px){
+  .nav-link {
+    border-top-right-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+  }
+}
+
+.nav-link.active {
+  color: #FFFFFF !important;
+  background-color: $primary-extra-bold !important;
+}
   @import '../../../node_modules/dropzone/dist/min/dropzone.min.css';
 
 }
