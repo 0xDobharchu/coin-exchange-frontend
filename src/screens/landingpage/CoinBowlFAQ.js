@@ -1,5 +1,5 @@
 import React from 'react';
-import ProjectDetail from 'src/components/ProjectDetail';
+import ProjectDetail from 'src/components/projectDetail';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getFaqContent } from './redux/action';
