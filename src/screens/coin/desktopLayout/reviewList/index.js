@@ -10,8 +10,8 @@ import { getReview } from 'src/screens/coin/action';
 import { Row } from 'react-bootstrap';
 import loadingSVG from 'src/assets/icons/coinPage/user_icon.svg';
 import { debounce } from 'lodash';
+import LabelLang from 'src/lang/components/LabelLang';
 import styles from './styles.scss';
-import LabelLang from '@/lang/components/LabelLang';
 
 class ReviewList extends React.Component {
   constructor(props) {

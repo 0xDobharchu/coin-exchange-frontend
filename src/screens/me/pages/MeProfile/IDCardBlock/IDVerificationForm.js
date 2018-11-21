@@ -5,7 +5,7 @@ import { reduxForm, Field } from 'redux-form';
 import { Row, Button } from 'react-bootstrap';
 import { MyMessage, FieldLang } from 'src/lang/components';
 import dropdownField from 'src/components/core/form/fields/dropdown';
-import FileUploader from 'src/components/FileUploader';
+import FileUploader from 'src/components/fileUploader';
 import { DOC_TYPES, getReachingLevel } from '../util';
 
 const DropDownField = () => (
