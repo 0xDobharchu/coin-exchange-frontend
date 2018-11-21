@@ -37,6 +37,8 @@ COPY ./ /app/
 
 RUN rm -rf /app/node_modules
 
+RUN yarn build
+
 EXPOSE 8000 8000
 
 ENTRYPOINT ["sh", "/app/entrypoint.sh"]
