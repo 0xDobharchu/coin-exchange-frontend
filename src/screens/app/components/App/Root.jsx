@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import qs from 'querystring';
-import { initApp } from 'src/screens/app/redux/action';
+import { initApp, getCountryCurrency, getSupportCountry } from 'src/screens/app/redux/action';
 // import I18n from '@/components/App/I18n';
 import IntlCustomProvider from 'src/lang';
 // import Handle from './Handle';
@@ -18,19 +18,22 @@ class Root extends React.Component {
     initApp: PropTypes.func.isRequired,
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.ipInfo?.country !== this.props.ipInfo?.country) {
+      this.props.ipInfo?.country && this.props.getCountryCurrency(this.props.ipInfo?.country);
+    }
+  }
+
   componentDidMount() {
     const querystring = window.location.search.replace('?', '');
     const querystringParsed = qs.parse(querystring);
     const { language, ref } = querystringParsed;
     // eslint-disable-next-line
     this.props.initApp(language, ref);
+    this.props.getSupportCountry();
   }
 
   render() {
-    // eslint-disable-next-line
-    // if (this.props.app.rootLoading) return null;
-    // eslint-disable-next-line
-    console.log('lfkajsdlfkjaslfkjasdlfkjasldfkjalsdkfj', this.props);
     return (
       <IntlCustomProvider>
         <Layout {...this.props}>
@@ -44,5 +47,6 @@ class Root extends React.Component {
 
 export default connect(state => ({
   app: state.app,
+  ipInfo: state.app.ipInfo,
   router: state.router,
-}), { initApp })(Root);
+}), { initApp, getCountryCurrency, getSupportCountry })(Root);
