@@ -7,10 +7,9 @@ import Register from 'src/screens/register';
 import forgetPassword from 'src/screens/forgetPassword';
 import Coin from 'src/screens/coin';
 import Localization from 'src/screens/localization';
-import Me from 'src/screens/me';
+import Me from 'src/screens/me/pages/Me';
 import Wallet from 'src/screens/wallet';
 import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
-import MeProfile from 'src/screens/me/pages/MeProfile';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
 import privateRoute from './privateRoute';
@@ -76,18 +75,14 @@ const routes = [
   {
     path: URL.ME,
     component: Me,
-    exact: true,
+    // exact: true,
     auth: true,
   },
   {
     path: '/wallet',
     component: Wallet,
     exact: true,
-  },
-  {
-    path: URL.HANDSHAKE_ME_PROFILE,
-    component: MeProfile,
-    exact: true,
+    auth: true
   }
 ];
 

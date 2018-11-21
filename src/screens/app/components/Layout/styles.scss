@@ -2,4 +2,6 @@
 
 .content {
   background-color: $primary-extra-bold;
+  display: flex;
+  flex-direction: column;
 }

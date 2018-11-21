@@ -6,15 +6,44 @@ const mockState = {
     phone: '',
     idVerificationLevel: 0,
     verified: 1,
+    name: '',
+    language: 'en',
+    country: '',
+    currency: '',
+    phone_number: '',
+    id_type: '',
+    id_number: '',
+    back_image: '',
+    front_image: '',
+    selfie_image: '',
+    verification_level: '',
+    verification_status: '',
+    wallet: ''
   }
 };
 
 export default (state = mockState, { type, payload }) => {
   switch (type) {
+    case 'GET_PROFILE':
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          ...payload
+        }
+      };
     case 'UPDATE_AUTH_STATE':
       return {
         ...state,
         ...payload
+      };
+    case 'UPDATE_PROFILE_INFO':
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          ...payload
+        }
       };
     default:
       return state;

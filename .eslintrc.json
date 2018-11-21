@@ -45,6 +45,7 @@
     "jsx-a11y/label-has-for": [ 0, { "components": [ "Label" ], "required": {"every": [ "nesting", "id" ]},"allowChildren": false}],
     "jsx-a11y/label-has-associated-control": [ 0, {"labelComponents": ["CustomInputLabel"],"labelAttributes": ["label"],"controlComponents": ["CustomInput"],"depth": 3}],
     "object-curly-newline": 0,
-    "class-methods-use-this": 0
+    "class-methods-use-this": 0,
+    "function-paren-newline": 0
   }
 }
