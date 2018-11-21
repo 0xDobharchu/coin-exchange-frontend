@@ -381,6 +381,7 @@ export default {
     }
   },
   wallet: {
+    title: 'Your Accounts',
     top_banner: {
       message: 'Shuriken Airdrop (limited)',
       button: 'Click here',

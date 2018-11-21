@@ -16,7 +16,7 @@ import {MasterWallet} from "@/services/Wallets/MasterWallet";
 import { bindActionCreators } from "redux";
 import { makeRequest } from 'src/redux/action';
 import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action';
-import QrReader from 'react-qr-reader';
+// import QrReader from 'react-qr-reader';
 import { StringHelper } from '@/services/helper';
 import './TransferCoin.scss';
 import { ICON } from '@/components/wallet/images';
@@ -28,8 +28,6 @@ import AddressBook from "../AddressBook";
 import iconAddContact from '@/assets/images/wallet/icons/icon-add-user.svg';
 import customBackIcon from '@/assets/images/wallet/icons/back-chevron-white.svg';
 
-
-const isIOs = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
 const amountValid = value => (value && isNaN(value) ? 'Invalid amount' : undefined);
 
@@ -154,7 +152,9 @@ class Transfer extends React.Component {
     let result = false;
     if(wallet){
       let key = `${wallet.name}_${tab}_${wallet.address}`;
-      let data = window.sessionStorage.getItem(key);
+      let data = '';
+      if (__CLIENT__)
+        data = window.sessionStorage.getItem(key);
 
       try{
         if(data){
@@ -171,7 +171,8 @@ class Transfer extends React.Component {
     let result = false;
     if(wallet && data){
       let key = `${wallet.name}_${tab}_${wallet.address}`;
-      window.sessionStorage.setItem(key, JSON.stringify(data));
+      if (__CLIENT__)
+        window.sessionStorage.setItem(key, JSON.stringify(data));
     }
   }
 
@@ -464,7 +465,7 @@ openQrcode = () => {
   }
 }
 openImageDialog = () => {
-  this.refs.qrReader1.openImageDialog();
+  // this.refs.qrReader1.openImageDialog();
 }
 
 selectWallet = async (walletSelected) => {
@@ -573,7 +574,7 @@ render() {
 
         {/* QR code dialog */}
         <Modal onClose={() => this.oncloseQrCode()} title={messages['wallet.action.transfer.label.scan_qrcode']} onRef={modal => this.modalScanQrCodeRef = modal} customBackIcon={customBackIcon} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle}>
-          {this.state.qrCodeOpen || this.state.legacyMode ?
+          {/* {this.state.qrCodeOpen || this.state.legacyMode ?
             <QrReader
               ref="qrReader1"
               delay={this.state.delay}
@@ -583,7 +584,7 @@ render() {
               legacyMode={this.state.legacyMode}
               showViewFinder={false}
             />
-            : ''}
+            : ''} */}
         </Modal>
 
         <Modal onClose={()=>{this.onCloseAddressBook();}} title={messages['wallet.action.setting.label.select_a_contact']} onRef={modal => this.modalAddressBookRef = modal} customBackIcon={customBackIcon} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle} customRightIcon={iconAddContact} customRightIconClick={()=>{this.openAddNewContact()}}>

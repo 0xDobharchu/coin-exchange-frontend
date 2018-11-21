@@ -214,18 +214,23 @@ class SettingWallet extends React.Component {
   }
 
   openVk=()=>{
+    if (__CLIENT__)
     window.open('https://vk.com/ninjadotorg', '_blank');
   }
   openTelegram=()=>{
+    if (__CLIENT__)
     window.open('https://t.me/ninja_org?ref=ninja-wallet', '_blank');
   }
   openFacebook=()=>{
+    if (__CLIENT__)
     window.open('https://www.facebook.com/ninjadotorg/?ref=ninja-wallet', '_blank');
   }
   openTwitter=()=>{
+    if (__CLIENT__)
     window.open('https://twitter.com/ninja_org?ref=ninja-wallet', '_blank');
   }
   openSupport=()=>{
+    if (__CLIENT__)
     $zopim.livechat.window.show();
   }
 

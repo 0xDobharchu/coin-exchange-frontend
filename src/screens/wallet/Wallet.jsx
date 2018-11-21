@@ -40,6 +40,8 @@ import { showLoading, hideLoading, showAlert, setHeaderRight } from '@/screens/a
 import local from '@/services/localStore';
 import {APP} from '@/constants';
 
+import { userWallet } from './action';
+
 // import AddToken from '@/components/wallet/AddToken/AddToken';
 // import AddCollectible from '@/components/wallet/AddCollectible/AddCollectible';
 
@@ -74,6 +76,7 @@ import { Ethereum } from '@/services/Wallets/Ethereum.js';
 
 import cx from 'classnames'
 
+if (__CLIENT__)
 window.Clipboard = (function (window, document, navigator) {
   let textArea,
     copy; function isOS() { return navigator.userAgent.match(/ipad|iphone/i); } function createTextArea(text) { textArea = document.createElement('textArea'); textArea.value = text; document.body.appendChild(textArea); } function selectText() {
@@ -255,22 +258,32 @@ class Wallet extends React.Component {
     
     this.getSetting();
 
-    // todo call api get wallet data ...
-    let listWallet = [];
-    var i = 0;
-    for (const k1 in MasterWallet.ListDefaultCoin) {
-      i ++;      
-      for (const k2 in MasterWallet.ListDefaultCoin[k1].Network) {
-        const wallet = new MasterWallet.ListDefaultCoin[k1]();
-          // set mnemonic, if not set then auto gen.          
-          wallet.mnemonic = "mnemonic" + i.toString();
-          wallet.network = MasterWallet.ListDefaultCoin[k1].Network[k2];
-          wallet.address = "address" + i.toString();
-          listWallet.push(wallet);
-      }
-    }
+    // todo call api get wallet data ...    
+    this.props.userWallet().then((listWallet) => {
+      // alert(listWallet.length);
+      console.log('listWallet', listWallet);
+      if (listWallet !== false){
+        this.splitWalletData(listWallet);
+      }      
+      
+    }).finally(() => {
+      
+    });
 
-    this.splitWalletData(listWallet);
+    // var i = 0;
+    // for (const k1 in MasterWallet.ListDefaultCoin) {
+    //   i ++;      
+    //   for (const k2 in MasterWallet.ListDefaultCoin[k1].Network) {
+    //     const wallet = new MasterWallet.ListDefaultCoin[k1]();
+    //       // set mnemonic, if not set then auto gen.          
+    //       wallet.mnemonic = "mnemonic" + i.toString();
+    //       wallet.network = MasterWallet.ListDefaultCoin[k1].Network[k2];
+    //       wallet.address = "address" + i.toString();
+    //       listWallet.push(wallet);
+    //   }
+    // }
+
+    // this.splitWalletData(listWallet);
     //await this.getListBalace(listWallet);
 
   }
@@ -1042,7 +1055,8 @@ class Wallet extends React.Component {
           {/* 1. Header Wallet ============================================== */}
           <div id="header-wallet">
               <div className={style.headerWallet}>
-                  <img className={style.logoWallet} src={logoWallet} />
+                  {/* <img className={style.logoWallet} src={logoWallet} /> */}
+                  <div className={style.titleWallet}>{messages['wallet.title']}</div>
                   <div onClick={this.onIconRightHeaderClick} className={style.headerRight}><img src={iconMoreSettings} /></div>
               </div>
           </div>
@@ -1131,6 +1145,7 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = ({
+  userWallet,
   setHeaderRight,
   showAlert,
   showLoading,
