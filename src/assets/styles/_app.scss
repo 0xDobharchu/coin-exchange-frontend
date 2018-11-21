@@ -3,6 +3,7 @@
 @import './_var.scss';
 @import './_animate.scss';
 @import './_fonts.scss';
+@import './lib.scss';
 /* App global styles */
 :global {
   html, body, div#root-app {
@@ -235,6 +236,5 @@ div.filepicker {
   background-color: $primary-extra-bold !important;
 }
   @import '../../../node_modules/dropzone/dist/min/dropzone.min.css';
-
 }
 

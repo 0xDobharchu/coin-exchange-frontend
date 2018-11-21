@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tab, Row, Nav, Col } from 'react-bootstrap';
 import AccountInfo from '../../../AccountInfo';
+import Setting from '../../../Setting';
 import MeProfile from '../../../MeProfile';
 import style from './style.scss';
 
@@ -67,7 +68,7 @@ class SideBarNavigation extends React.PureComponent {
                   <AccountInfo />
                 </Tab.Pane>
                 <Tab.Pane eventKey={CHILD_ROUTES[1]} className={style.scrollbar}>
-                  MySetting
+                  <Setting />
                 </Tab.Pane>
                 <Tab.Pane eventKey={CHILD_ROUTES[2]} className={style.scrollbar}>
                   <MeProfile location={location} />
