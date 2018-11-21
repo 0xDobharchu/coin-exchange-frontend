@@ -17,7 +17,7 @@ const currentUser = {
     return localStorage.getItem(USER.REFRESH_TOKEN) || null;
   },
   getCurrentUser() {
-    if(!__CLIENT__) return null;
+    if(!__CLIENT__) return {};
 
     return JSON.parse(localStorage.getItem(USER.CURRENT_PROFILE)) || {};
   },
@@ -47,6 +47,7 @@ const currentUser = {
     if(__CLIENT__){
       return JSON.parse(localStorage.getItem(APP.IP_INFO)) || {};
     }
+    return {};
   }
 };
 export default currentUser;

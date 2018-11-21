@@ -5,7 +5,7 @@ import cx from 'classnames';
 import { URL } from 'src/resources/constants/url';
 import currentUser from 'src/utils/authentication';
 import ChangeLanguage from 'src/components/changeLanguage';
-import UserLogin from 'src/components/UserLogin';
+import UserLogin from 'src/components/userLogin';
 import styles from './styles.scss';
 
 const menus = {

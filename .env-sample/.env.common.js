@@ -14,4 +14,5 @@ module.exports = {
     GOOGLE_CAPTCH_SITE_KEY: '',
     ZOPIM_CHAT_ACCOUNT_KEY: '',
     isProduction: false,
+    logger: true,
 };
