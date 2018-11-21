@@ -15,6 +15,7 @@ import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
 import privateRoute from './privateRoute';
 
+
 /**
  * {
     path: '/some-path',
@@ -79,10 +80,9 @@ const routes = [
     auth: true,
   },
   {
-    path: URL.WALLET,
+    path: '/wallet',
     component: Wallet,
     exact: true,
-    auth: true
   },
   {
     path: URL.HANDSHAKE_ME_PROFILE,
