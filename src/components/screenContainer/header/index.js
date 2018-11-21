@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import logo from 'src/assets/images/logo.svg';
 import cx from 'classnames';
 import { URL } from 'src/resources/constants/url';
-import {  MdPerson } from 'react-icons/md';
 import currentUser from 'src/utils/authentication';
-import ChangeLanguage from 'src/components/ChangeLanguage';
+import ChangeLanguage from 'src/components/changeLanguage';
+import UserLogin from 'src/components/UserLogin';
 import styles from './styles.scss';
 
 const menus = {
@@ -46,6 +46,7 @@ const buttons = {
 };
 
 const Header = () => {
+
   return (
     <header className={styles.headerContainer}>
       <Link to={URL.HOME}>
@@ -65,7 +66,7 @@ const Header = () => {
       </div>
       <ChangeLanguage />
       {currentUser.isLogin() ? (
-        <div className={styles.welcome}><span className={styles.icon}><MdPerson color="#3f2184" size="28px" /></span> {currentUser.getCurrentUser().name} </div>
+        <UserLogin />
       ): (
         <div className={styles.buttons}>
           {

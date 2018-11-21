@@ -85,7 +85,7 @@ class Login extends React.Component {
                   />
                   <div className={cx('form-control mb-3', style.customCheckbox)}>
                     <div className="row">
-                      <div className={cx('col-7', style['remember-me'])}>
+                      <div className={cx('col-12 col-md-7', style['remember-me'])}>
                         <FieldLang
                           name="keepSignin"
                           id="keepSignin"
@@ -95,7 +95,7 @@ class Login extends React.Component {
                         />
                         <label htmlFor="keepSignin"><LabelLang id="user.login.keepSignin" /></label>
                       </div>
-                      <div className="col-5 text-right">
+                      <div className="col-5 col-md-5 text-right">
                         <button className={cx('btn btn-primary pull-right', style.buttonLogin, this.state.loggingIn ? 'disabled': '')} type="submit">Sign in</button>
                       </div>
                     </div>
