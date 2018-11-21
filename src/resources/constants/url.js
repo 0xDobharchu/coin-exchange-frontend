@@ -82,7 +82,8 @@ export const API_URL = {
     USER_PROFILE: '/user/profile/', // GET /user/profile
   },
   SYSTEM: {
-    COUNTRY : '/system/country-default-configs/' // GET /system/country-default-configs/
+    COUNTRY : '/system/country-default-configs/', // GET /system/country-default-configs/
+    GET_COUNTRY_CURRENCY: '/system/country-currencies/' // GET /system/country-currencies/?country=
   },
   LANDING: {
     FAQ: 'content/faq/',
@@ -95,8 +96,8 @@ export const API_URL = {
     // POST /exchange/orders/
     MAKE_ORDER: '/exchange/orders/',
     // POST /exchange/addresses/?currency=
-    GEN_ADDRESS: '/exchange/addresses/'
-  }
+    GEN_ADDRESS: '/exchange/addresses/',
+  },
 };
 
 export const LANDING_PAGE_TYPE = {
