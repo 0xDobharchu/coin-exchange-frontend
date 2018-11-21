@@ -50,7 +50,7 @@ import style from './Wallet.scss';
 import CoinTemp from '@/screens/wallet/CoinTemp';
 import BackupWallet from '@/components/wallet/BackupWallet/BackupWallet';
 import RestoreWallet from '@/components/wallet/RestoreWallet/RestoreWallet';
-import SettingWallet from '@/components/wallet/SettingWallet/SettingWallet';
+// import SettingWallet from '@/components/wallet/SettingWallet/SettingWallet';
 
 // new layout:
 import logoWallet from '@/assets/images/wallet/images/logo-wallet.svg';
@@ -526,13 +526,13 @@ class Wallet extends React.Component {
     this.setState({restoreWalletContent: ""});
   }
 
-  showWalletSettings(){
-    this.setState({
-      modalSetting: (<SettingWallet onBackupWalletAccountClick={this.showBackupWalletAccount} onRestoreWalletAccountClick={this.showRestoreWalletAccount} customBackIcon={BackChevronSVGWhite} modalBodyStyle={this.modalBodyStyle} modalHeaderStyle={this.modalHeaderStyle} />)
-    }, ()=> {
-      this.modalSettingRef.open();
-    });
-  }
+  // showWalletSettings(){
+  //   this.setState({
+  //     modalSetting: (<SettingWallet onBackupWalletAccountClick={this.showBackupWalletAccount} onRestoreWalletAccountClick={this.showRestoreWalletAccount} customBackIcon={BackChevronSVGWhite} modalBodyStyle={this.modalBodyStyle} modalHeaderStyle={this.modalHeaderStyle} />)
+  //   }, ()=> {
+  //     this.modalSettingRef.open();
+  //   });
+  // }
 
   // add custom token:
   addedCustomToken = () =>{
@@ -870,9 +870,9 @@ class Wallet extends React.Component {
           </ModalDialog>
 
            {/* Modal for Setting wallets : */}
-           <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={{"padding": 0}} title={messages['wallet.action.setting.header']} onRef={modal => this.modalSettingRef = modal} onClose={this.closeSetting}>
+           {/* <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={{"padding": 0}} title={messages['wallet.action.setting.header']} onRef={modal => this.modalSettingRef = modal} onClose={this.closeSetting}>
             {modalSetting}
-          </Modal>
+          </Modal> */}
 
           {/* ModalDialog for transfer coin */}
           <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages['wallet.action.transfer.header']} onRef={modal => this.modalSendRef = modal}  onClose={this.closeTransfer}>
@@ -963,7 +963,7 @@ class Wallet extends React.Component {
               <div className={style.headerWallet}>
                   {/* <img className={style.logoWallet} src={logoWallet} /> */}
                   <div className={style.titleWallet}>{messages['wallet.title']}</div>
-                  <div onClick={this.onIconRightHeaderClick} className={style.headerRight}><img src={iconMoreSettings} /></div>
+                  {/* <div onClick={this.onIconRightHeaderClick} className={style.headerRight}><img src={iconMoreSettings} /></div> */}
               </div>
           </div>
 
