@@ -3,7 +3,7 @@ import { API_URL } from 'src/resources/constants/url';
 import { USER } from 'src/resources/constants/user';
 import { MasterWallet } from 'src/services/Wallets/MasterWallet';
 import authentication from 'src/utils/authentication';
-import { REGISTER } from './type';
+import { REGISTER, COUNTRY } from './type';
 import {LOGIN} from '../login/type';
 
 const makeLogin = (username, password, dispatch) => makeRequest({
@@ -22,6 +22,14 @@ const makeSaveWallet = (masterWallet, dispatch) => makeRequest({
   method: 'PUT',
   data: {wallet: JSON.stringify(masterWallet)}
 }, dispatch);
+
+export const getCountries = (dispatch) => {
+  return makeRequest({
+    type: COUNTRY,
+    url: API_URL.SYSTEM.COUNTRY,
+    method: 'get',
+  }, dispatch);
+};
 
 export const register = user => (dispatch) => {
   const makeRegister = makeRequest({
