@@ -571,6 +571,7 @@ class Wallet extends React.Component {
       modalReceiveCoin:
       (
         <ReceiveCoin
+        listWallet={this.state.listMainWalletBalance}
           wallet={wallet}
           currency={this.state.alternateCurrency}
           onFinish={() => { this.successReceive() }}
