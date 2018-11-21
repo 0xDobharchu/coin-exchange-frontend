@@ -28,7 +28,8 @@ class Passcode extends React.PureComponent {
 
   vibrate(speed){
     try{
-      window.navigator.vibrate(speed); 
+      if (__CLIENT__)
+        window.navigator.vibrate(speed); 
     }
     catch(e){}
   }

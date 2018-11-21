@@ -17,6 +17,7 @@ const EmailForm = ({ handleSubmit, onSubmit }) => (
           component="input"
           type="text"
           placeholder="me.profile.text.email.desc3"
+          disabled="true"
           style={{ width: '100%' }}
         />
       </div>

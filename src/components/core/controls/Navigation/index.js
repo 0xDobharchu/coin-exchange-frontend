@@ -5,6 +5,7 @@ import cn from 'classnames';
 
 import { URL } from 'src/constants';
 import meIcon from 'src/assets/images/navigation/ic_me.svg';
+import walletIcon from 'src/assets/images/navigation/ic_wallet.svg';
 import creditIcon from 'src/assets/images/navigation/ic_credit.svg';
 // import creditIcon from 'src/assets/icons/coin/bch.svg';
 import styles from './styles.scss';
@@ -37,6 +38,12 @@ class Navigation extends React.Component {
             <Link to={URL.INDEX}>
               <img alt="creditIcon" src={creditIcon} />
               <MyMessage id="app.navigation.ninjaCoin" />
+            </Link>
+          </div>
+          <div className={cn(styles.item, this.checkSelected([URL.WALLET]))}>
+            <Link to={URL.WALLET}>
+              <img alt="walletIcon" src={walletIcon} />
+              <MyMessage id="app.navigation.wallet" />
             </Link>
           </div>
           <div className={cn(styles.item, this.checkSelected([URL.HANDSHAKE_ME_INDEX]))}>

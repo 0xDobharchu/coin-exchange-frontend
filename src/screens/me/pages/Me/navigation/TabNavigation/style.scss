@@ -1,0 +1,16 @@
+.container {
+  nav {
+    // border: 1px solid red;
+    a {
+      display: flex;
+      flex-grow: 1;
+      // border: 1px solid red;
+      justify-content: center;
+    }
+  }
+  .scrollbar {
+    height: calc(100vh - 100px);
+    overflow: scroll;
+    // background: #FFFFFF;
+  }
+}
