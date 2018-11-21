@@ -81,6 +81,9 @@ export const API_URL = {
     USER_WALLET: '/user/wallet/', // POST,GET /user/wallet
     USER_PROFILE: '/user/profile/', // GET /user/profile
   },
+  SYSTEM: {
+    COUNTRY : '/system/country-default-configs/' // GET /system/country-default-configs/
+  },
   LANDING: {
     FAQ: 'content/faq/',
   }
