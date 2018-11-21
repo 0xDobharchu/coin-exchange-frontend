@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getReview } from 'src/screens/coin/action';
+//import authentication from 'src/utils/authentication';
 import Contact from './contact';
 import Header from './header';
 import PricePanel from './pricePanel';
@@ -15,8 +16,12 @@ class CoinDesktop extends Component {
   }
 
   getReviewCoin = () => {
-    this.props.getReview();
-  }
+    const params = {
+      country: 'HK', //authentication.getIPInfor().country,
+      direction: 'buy'
+    };
+    this.props.getReview({params});
+  };
 
   render() {
     const { numReview, children } = this.props;

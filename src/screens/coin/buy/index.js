@@ -14,7 +14,7 @@ import { /* API_URL, */ URL } from 'src/resources/constants/url';
 import { CRYPTO_CURRENCY, CRYPTO_CURRENCY_NAME, MIN_AMOUNT } from 'src/resources/constants/crypto';
 import { FIAT_CURRENCY_NAME, FIAT_CURRENCY } from 'src/resources/constants/fiat';
 import COUNTRY_LIST from 'src/resources/constants/countries';
-import EXCHANGE_ACTION from 'src/resources/constants/exchange';
+import {EXCHANGE_ACTION} from 'src/resources/constants/exchange';
 import { bindActionCreators } from 'redux';
 import { debounce } from 'lodash';
 import iconBitcoin from 'src/assets/icons/coin/btc.svg';
