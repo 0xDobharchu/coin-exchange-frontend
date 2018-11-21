@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from 'src/components/core/controls/Checkbox';
 import { PAYMENT_METHOD } from 'src/screens/coin/constant';
+import TooltipInfo from 'src/components/tooltipInfo';
 import styles from './styles.scss';
 
 const methods = [
@@ -11,7 +12,8 @@ const methods = [
   },
   {
     name: 'Cash on Delivery',
-    value: PAYMENT_METHOD.COD
+    value: PAYMENT_METHOD.COD,
+    info: 'State your time and place for meeting up and we will exchange in person.'
   }
 ];
 
@@ -39,13 +41,15 @@ class Exchange extends Component {
       <div className={styles.container}>
         {
           methods.map(method => (
-            <Checkbox
-              key={method.value}
-              label={method.name}
-              value={method.value}
-              onChange={this.onChange}
-              checked={selected === method.value}
-            />
+            <div key={method.value}>
+              <Checkbox
+                label={method.name}
+                value={method.value}
+                onChange={this.onChange}
+                checked={selected === method.value}
+              />
+              {method?.info && <TooltipInfo message={method?.info} />}
+            </div>
           ))
         }
       </div>

@@ -10,10 +10,11 @@ const field = ({ input, meta }) => {
   const shouldShowError = !!(touched && error);
   return (
     <div>
-      <WalletSelector value={value} onChange={onChange} onBlur={onBlur} onFocus={onFocus} />
-      { shouldShowError && <span>{error}</span>}
+      <WalletSelector markRequired={shouldShowError} value={value} onChange={onChange} onBlur={onBlur} onFocus={onFocus} />
+      { shouldShowError && <span className="text-danger">{error}</span>}
     </div>
   );
 };
 
 export default field;
+export walletValidator from './validator';
