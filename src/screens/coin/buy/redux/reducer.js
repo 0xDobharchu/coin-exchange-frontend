@@ -1,11 +1,11 @@
-import { GET_REVIEW } from './type';
+// import { GET_REVIEW } from './type';
 
 const initState = {
 };
 
 export default (state = initState, { type, payload }) => {
   switch (type) {
-    case `${GET_REVIEW}_SUCCESS`:
+    case 'SUCCESS':
       return {
         ...state,
         numReview: payload,

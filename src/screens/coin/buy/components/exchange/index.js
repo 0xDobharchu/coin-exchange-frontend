@@ -6,22 +6,13 @@ import { FaArrowsAltH } from 'react-icons/fa';
 import Input from 'src/components/core/controls/input';
 import { connect } from 'react-redux';
 import { debounce } from 'lodash';
+import { EXCHANGE_DIRECTION, ORDER_TYPE } from 'src/screens/coin/constant';
 import { getQuote, getQuoteReverse } from './action';
 import styles from './styles.scss';
 
 const EXCHANGE_TYPE = {
   amount: 'QUOTE',
   fiatAmount: 'QUOTE_REVERSE'
-};
-
-const EXCHANGE_DIRECTION = {
-  buy: 'buy',
-  sell: 'sell'
-};
-
-const ORDER_TYPE = {
-  cod: 'cod',
-  bank: 'bank'
 };
 
 class Exchange extends Component {
@@ -31,10 +22,17 @@ class Exchange extends Component {
       amount: 0,
       fiatAmount: 0,
       isExchanging: false,
+      exchangeData: {}
     };
 
     this.getQuoteHandler = debounce(::this.getQuoteHandler, 1000);
     this.getQuoteReverseHandler = debounce(::this.getQuoteReverseHandler, 1000);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps?.orderType !== this.props.orderType) {
+      this.dataCallbackHandler();
+    }
   }
 
   onChange = (field, e) => {
@@ -57,7 +55,8 @@ class Exchange extends Component {
 
   dataCallbackHandler = () => {
     const { onChange, currency, fiatCurrency } = this.props;
-    const { amount, fiatAmount } = this.state;
+    const { amount } = this.state;
+    const fiatAmount = this.getFiatAmount();
     if (typeof onChange === 'function') {
       onChange({
         amount,
@@ -73,7 +72,7 @@ class Exchange extends Component {
       console.warn('User check!');
       const { amount } = this.state;
       const { currency, fiatCurrency, direction, getQuote } = this.props;
-      const info = await getQuote({
+      const exchangeData = await getQuote({
         amount,
         currency,
         fiat_currency: fiatCurrency,
@@ -82,7 +81,7 @@ class Exchange extends Component {
         direction,
       });
       this.setState({
-        fiatAmount: info.fiatAmount
+        exchangeData
       }, this.dataCallbackHandler);
       this.setExchangeStatus(false);
     } catch(e) {
@@ -96,7 +95,7 @@ class Exchange extends Component {
       console.warn('User check!');
       const { fiatAmount } = this.state;
       const { currency, fiatCurrency, direction, orderType, getQuoteReverse } = this.props;
-      const info = await getQuoteReverse({
+      const exchangeData = await getQuoteReverse({
         fiat_amount: fiatAmount,
         currency,
         fiat_currency: fiatCurrency,
@@ -106,7 +105,7 @@ class Exchange extends Component {
         order_type: orderType
       });
       this.setState({
-        amount: info.amount
+        exchangeData
       }, this.dataCallbackHandler);
       this.setExchangeStatus(false);
     } catch(e) {
@@ -124,8 +123,17 @@ class Exchange extends Component {
     } 
   }
 
+  getFiatAmount = () => {
+    const { orderType } = this.props;
+    const { exchangeData } = this.state;
+    if (orderType === ORDER_TYPE.cod)
+      return exchangeData.fiatLocalAmountCod || 0;
+    return exchangeData.fiatLocalAmount || 0;
+  }
+
   render() {
-    const { amount, fiatAmount } = this.state;
+    const { amount } = this.state;
+    const fiatAmount = this.getFiatAmount();
     console.log(this.state);
     return (
       <div className={styles.container}>

@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from 'src/components/core/controls/Checkbox';
+import { PAYMENT_METHOD } from 'src/screens/coin/constant';
 import styles from './styles.scss';
-
-export const PAYMENT_METHOD = {
-  TRANSFER: 'TRANSFER',
-  COD: 'COD'
-};
 
 const methods = [
   {
