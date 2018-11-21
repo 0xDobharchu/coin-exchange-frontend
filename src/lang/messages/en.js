@@ -323,6 +323,7 @@ export default {
     },
   ],
   user: {
+    logout: 'Sign out',
     login: {
       title: 'Sign in to Coinbowl',
       username: 'Your email',
