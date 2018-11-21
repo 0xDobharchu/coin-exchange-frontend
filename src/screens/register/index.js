@@ -7,21 +7,22 @@ import createForm from 'src/components/core/form/createForm';
 import { formValueSelector, change } from 'redux-form';
 import { FieldLang } from 'src/lang/components';
 import inputField from 'src/components/core/form/fields/input';
-import { isEmail, isPassword, isConfirmPassword, isRequired, mustChecked } from 'src/components/core/form/validator';
+import { isEmail, isPassword, isRequired, mustChecked } from 'src/components/core/form/validator';
 import { USER } from 'src/resources/constants/user';
 import { URL } from 'src/resources/constants/url';
 import LabelLang from 'src/lang/components/LabelLang';
 import dropdownField from 'src/components/core/form/fields/dropdown';
 import checkBoxField from 'src/components/core/form/fields/checkbox';
 import cx from 'classnames';
-import { register } from './action';
+import authentication from 'src/utils/authentication';
+import { register, getCountries } from './action';
 import style from './style.scss';
 
 const RegisterForm = createForm({
   propsReduxForm: {
     form: 'RegisterForm',
     initialValues: {
-      input: '',
+      country: authentication.getIPInfor().country,
     },
   },
 });
@@ -34,18 +35,31 @@ class RegisterPage extends React.Component {
 
     this.state = {
       registering: false,
+      defaultCountry: '',
+      countryList: []
     };
     this._reCaptchaRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.verifyCallback = this.verifyCallback.bind(this);
   }
+  componentDidMount() {
+    const { getCountriesBound } = this.props;
+    getCountriesBound().then((res) => {
+      const countries = res.map((item) => ({
+        label: item.country_name,
+        value: item.country
+      }));
+
+      this.setState({countryList: countries});
+    });
+  }
 
   handleSubmit() {
     this.setState({ registering: true });
     const {
-      firstName, lastName, username, password, confirmPassword, country, recaptchaValue, agreement
+      firstName, lastName, username, password, country, recaptchaValue, agreement
     } = this.props;
-    if (firstName && lastName && username && password && confirmPassword && country && recaptchaValue && agreement) {
+    if (firstName && lastName && username && password && country && recaptchaValue && agreement) {
       this.props.registerBound({
         first_name: firstName,
         last_name: lastName,
@@ -65,12 +79,11 @@ class RegisterPage extends React.Component {
   }
 
   verifyCallback(recaptchaToken) {
-    console.log(recaptchaToken, '<= your recaptcha token');
     this.props.reCapchatBound('RegisterForm', 'recaptchaValue', recaptchaToken);
   }
 
   render() {
-    const { registering } = this.state;
+    const { registering, countryList, defaultCountry} = this.state;
     return (
       <div className={cx('container', style['register-warper'])}>
         <div className="row">
@@ -119,32 +132,13 @@ class RegisterPage extends React.Component {
                   />
                   <FieldLang
                     containerClassName="form-group"
-                    name="confirmPassword"
-                    className="form-control"
-                    component={inputField}
-                    validate={[(value, values) => isConfirmPassword(values.password)(value)]}
-                    type="password"
-                    placeholder="user.register.placeholderConfirmPassword"
-                  />
-                  <FieldLang
-                    containerClassName="form-group"
                     name="country"
                     className="form-control"
                     component={dropdownField}
                     validate={isRequired(<LabelLang id="user.register.requiredCountry" />)}
                     toggle={<LabelLang id="user.register.placeholderCountry" />}
-                    list={[
-                      {
-                        key: 'PH',
-                        label: 'Philippines',
-                        value: 'PH'
-                      },
-                      {
-                        key: 'IN',
-                        label: 'Indonesia',
-                        value: 'IN'
-                      }
-                    ]}
+                    value={defaultCountry}
+                    list={countryList}
                   />
                   <div className="form-group">
                     <ReCAPTCHA
@@ -195,7 +189,6 @@ const mapStateToProps = state => ({
   lastName: selectorForm(state, 'lastName'),
   username: selectorForm(state, 'username'),
   password: selectorForm(state, 'password'),
-  confirmPassword: selectorForm(state, 'confirmPassword'),
   country: selectorForm(state, 'country'),
   recaptchaValue: selectorForm(state, 'recaptchaValue'),
   agreement: selectorForm(state, 'agreement'),
@@ -203,6 +196,7 @@ const mapStateToProps = state => ({
 
 const mapDispatch = dispatch => ({
   registerBound: bindActionCreators(register, dispatch),
+  getCountriesBound: bindActionCreators(getCountries, dispatch),
   reCapchatBound: bindActionCreators(change, dispatch),
 });
 

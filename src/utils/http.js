@@ -37,7 +37,6 @@ instance.interceptors.response.use(
   (response) => {
     try {
       const { data } = response;
-      console.info('Response', response);
       return data;
     } catch (e) {
       return null;

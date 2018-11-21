@@ -1,4 +1,5 @@
 import {USER} from 'src/resources/constants/user';
+import {APP} from '../constants';
 
 const currentUser = {
   isLogin() {
@@ -40,6 +41,11 @@ const currentUser = {
       localStorage.removeItem(USER.ACCESS_TOKEN);
       localStorage.removeItem(USER.REFRESH_TOKEN);
       localStorage.removeItem(USER.CURRENT_PROFILE);
+    }
+  },
+  getIPInfor() {
+    if(__CLIENT__){
+      return JSON.parse(localStorage.getItem(APP.IP_INFO)) || {};
     }
   }
 };
