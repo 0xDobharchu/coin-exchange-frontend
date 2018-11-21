@@ -122,9 +122,10 @@ const continueAfterInitApp = (language, ref, dispatch, data) => {
 
 export const initApp = (language, ref) => (dispatch) => {
   try {
+    console.log('lfaksjdflakjsdflka=============', APP_ENV.ipfindKey);
     $http({
       url: 'https://ipfind.co/me',
-      qs: { auth: process.env.ipfindKey },
+      qs: { auth: APP_ENV.ipfindKey },
       headers: { 'Content-Type': 'text/plain' },
     }).then((res) => {
       const { data } = res;
