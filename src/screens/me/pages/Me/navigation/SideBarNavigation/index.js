@@ -25,7 +25,7 @@ class SideBarNavigation extends React.PureComponent {
       case '/me/profile': return CHILD_ROUTES[0];
       case '/me/setting': return CHILD_ROUTES[1];
       case '/me/accountLevel': return CHILD_ROUTES[2];
-      default: return path;
+      default: return CHILD_ROUTES[0];
     }
   }
   handleRedirect = (key) => {
