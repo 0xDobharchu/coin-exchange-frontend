@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { PAYMENT_METHOD } from 'src/screens/coin/constant';
 import ConfirmButton from 'src/components/confirmButton';
 import inputField from 'src/components/core/form/fields/input';
+import { showAlert } from 'src/screens/app/redux/action';
+import BankTransferInfo from './components/bankTransferInfo';
 import walletSelectorField, { walletValidator } from './reduxFormFields/walletSelector';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
 import paymentMethodField from './reduxFormFields/paymentMethod';
@@ -20,7 +22,6 @@ const BuyForm = createForm({
   propsReduxForm: {
     form: buyFormName,
     initialValues: {
-      wallet: '0x4754a30140148d4d8a561cb6d373199cc928d429',
       paymentMethod: PAYMENT_METHOD.TRANSFER
     },
   },
@@ -32,6 +33,7 @@ class BuyCryptoCoin extends React.Component {
     super(props);
 
     this.state = {
+      orderInfo: null,
     };
   }
 
@@ -39,15 +41,37 @@ class BuyCryptoCoin extends React.Component {
   }
 
   makeOrder = () => {
-    const { makeOrder, wallet, exchange, paymentMethod } = this.props;
-    makeOrder({
-      amount: exchange?.amount,
+    const { makeOrder, wallet, exchange, paymentMethod, userAddress, userPhone, userNote } = this.props;
+    const payload = {
+      amount: String(exchange?.amount),
       currency: exchange?.currency,
-      fiat_local_amount: exchange?.fiatAmount,
+      fiat_local_amount: String(exchange?.fiatAmount),
       fiat_local_currency: exchange?.fiatCurrency,
       order_type: paymentMethod,
       direction: 'buy',
-      address: wallet,
+      address: wallet?.address,
+    };
+    if (paymentMethod === PAYMENT_METHOD.COD) {
+      payload.user_info = { userAddress, userPhone, userNote };
+    }
+    makeOrder(payload)
+      .then(this.orderSuccessHandler)
+      .catch(this.orderFailedHandler);
+  }
+
+  orderSuccessHandler = (orderInfo) => {
+    this.setState({ orderInfo });
+    this.props.showAlert({
+      message: 'Successful',
+      timeOut: 1000,
+    });
+  }
+
+  orderFailedHandler = () => {
+    this.props.showAlert({
+      message: 'Error',
+      type: 'danger',
+      timeOut: 1000,
     });
   }
 
@@ -81,7 +105,8 @@ class BuyCryptoCoin extends React.Component {
   }
 
   render() {
-    const { paymentMethod, isValid } = this.props;
+    const { paymentMethod, isValid,supportedCurrency } = this.props;
+    const { orderInfo } = this.state;
     return (
       <div className={styles.container}>
         <BuyForm onSubmit={console.log} validate={console.log}>
@@ -95,7 +120,7 @@ class BuyCryptoCoin extends React.Component {
             component={exchangeField}
             orderType={paymentMethod}
             direction='buy'
-            fiatCurrency='PHP'
+            fiatCurrency={supportedCurrency[0]}
             currency='ETH'
             validate={exchangeValidator}
           />
@@ -104,6 +129,7 @@ class BuyCryptoCoin extends React.Component {
             component={paymentMethodField}
           />
           {this.renderCoD()}
+          { orderInfo && <BankTransferInfo orderInfo={orderInfo} />}
           <ConfirmButton
             disabled={!isValid}
             onConfirm={this.makeOrder}
@@ -118,13 +144,18 @@ const mapStateToProps = (state) => ({
   paymentMethod: formSelector(state, 'paymentMethod'),
   exchange: formSelector(state, 'exchange'),
   wallet: formSelector(state, 'wallet'),
-  isValid: isValid(buyFormName)(state)
+  userAddress: formSelector(state, 'address'),
+  userPhone: formSelector(state, 'phone'),
+  userNote: formSelector(state, 'noteAndTime'),
+  isValid: isValid(buyFormName)(state),
+  supportedCurrency: state?.app?.supportedCurrency || [],
 });
 
 const mapDispatchToProps = dispatch => ({
   rfChange: bindActionCreators(change, dispatch),
   rfTouch: bindActionCreators(touch, dispatch),
   makeOrder: bindActionCreators(makeOrder, dispatch),
+  showAlert: bindActionCreators(showAlert, dispatch),
 });
 
 BuyCryptoCoin.defaultProps = {

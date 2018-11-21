@@ -9,6 +9,19 @@ class SystemConfig {
       phoneCountryCode: data.phone_country_code
     };
   }
+  
+  static bankInfoRes(data = {}) {
+    return {
+      id: data.id,
+      country: data.country,
+      currency: data.currency,
+      accountName: data.account_name,
+      accountNumber: data.account_number,
+      bankName: data.bank_name,
+      bankId: data.bank_id,
+      active: data.active
+    };
+  }
 }
 
 export default SystemConfig;

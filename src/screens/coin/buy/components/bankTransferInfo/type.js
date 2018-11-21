@@ -1,0 +1,3 @@
+const TAG = 'SCREENS/COIN/BUY/BANK_TRANSFER_INFO';
+export const GET_BANK_INFO = `${TAG}/GET_BANK_INFO`;
+
