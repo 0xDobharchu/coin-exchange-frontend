@@ -88,10 +88,14 @@ export const API_URL = {
     FAQ: 'content/faq/',
   },
   COIN: {
-    // GET http://staging.coinbowl.com/api/exchange/quote/?amount=&currency=&fiat_currency=&check=[1,0]&user_check=[1,0]&direction=[buy,sell]
-    GET_QUOTE: '/exchange/quote',
-    // `GET http://staging.coinbowl.com/api/exchange/quote-reverse/?fiat_amount=&currency=&fiat_currency=&check=[1,0]&user_check=[1,0]&direction=[buy,sell]&order_type=[cod,bank]`
-    GET_QUOTE_REVERSE: '/exchange/quote-reverse',
+    // GET /exchange/quote/?amount=&currency=&fiat_currency=&check=[1,0]&user_check=[1,0]&direction=[buy,sell]
+    GET_QUOTE: '/exchange/quote/',
+    // `GET /exchange/quote-reverse/?fiat_amount=&currency=&fiat_currency=&check=[1,0]&user_check=[1,0]&direction=[buy,sell]&order_type=[cod,bank]`
+    GET_QUOTE_REVERSE: '/exchange/quote-reverse/',
+    // POST /exchange/orders/
+    MAKE_ORDER: '/exchange/orders/',
+    // POST /exchange/addresses/?currency=
+    GEN_ADDRESS: '/exchange/addresses/'
   }
 };
 

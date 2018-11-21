@@ -37,10 +37,12 @@ class BarcodeScanner extends PureComponent {
   }
 
   onScan = (data) => {
+    if (!data) return;
     const { config: { onData } } = this.state;
     if (typeof onData === 'function') {
       onData(data);
-    } 
+    }
+    this.close();
   }
 
   onError = (e) => {
@@ -48,7 +50,7 @@ class BarcodeScanner extends PureComponent {
     const { config: { onError } } = this.state;
     if (typeof onError === 'function') {
       onError(e);
-    } 
+    }
   }
 
   show = () => {
