@@ -13,4 +13,16 @@ const ChangeEmail = () => (
   </div>
 );
 
+export const ChangeEmailField = ({ input }) => (
+  <div className={style.container}>
+    <div className={style.col2}>
+      <div className={style.col2_1}>Email</div>
+      {/* <div className={style.col2_2}>This name will be shown in your preview</div> */}
+    </div>
+    <div className={style.col3}>
+      <input {...input} type="text" />
+    </div>
+  </div>
+);
+
 export default ChangeEmail;

@@ -1,16 +1,14 @@
 import React from 'react';
+import { Input, Button } from '@/components/custom';
+import {  Row, Col }from 'react-bootstrap';
 import style from './style.scss';
 
 const ChangePassword = () => (
-  <div className={style.container}>
-    <div className={style.col2}>
-      <div className={style.col2_1}>Change password</div>
-      <div className={style.col2_2}>Max file size is 20mb</div>
-    </div>
-    <div className={style.col3}>
-      <button type="button">Change password</button>
-    </div>
-  </div>
+  <Row className={style.container}>
+    <Col md={4}><Input type="password" placeholder="Old password" /></Col>
+    <Col md={4}><Input type="password" placeholder="New password" /></Col>
+    <Col md={4}><Button value="Change password" /></Col>
+  </Row>
 );
 
 export default ChangePassword;
