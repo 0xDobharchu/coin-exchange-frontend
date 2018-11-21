@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FaQrcode } from 'react-icons/fa';
 import { InputGroup, DropdownButton, Dropdown, FormControl } from 'react-bootstrap';
-import { showQrCode } from 'src/components/BarcodeScanner';
+import { showQrCode } from 'src/components/barcodeScanner';
 import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
 import cx from 'classnames';
 import styles from './styles.scss';
