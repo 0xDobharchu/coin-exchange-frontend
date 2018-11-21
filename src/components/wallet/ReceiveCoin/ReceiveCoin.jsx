@@ -270,12 +270,7 @@ class ReceiveCoin extends React.Component {
 
   onItemSelectedWallet = (item) =>{
     let wallet = MasterWallet.convertObject(item);
-
-    // if(wallet.name != this.state.walletSelected.name){
-    //   this.resetForm();
-    //   this.setState({rate: 0});
-    // }
-
+    
     this.setState({ walletSelected: wallet}, async () => {
       if(wallet.name != this.state.currency)
         await this.setRate(wallet.name);
@@ -308,13 +303,7 @@ class ReceiveCoin extends React.Component {
 
     const qrCodeValue = this.genQRCodeValue();
 
-    let showDivAmount = this.state.walletSelected && this.state.rate;
-
-    // let value = (this.state.inputSendAmountValue != '' ? `,${this.state.inputSendAmountValue}` : '');
-    // if (this.state.isCurrency){
-    //   value = (this.state.switchValue != '' ? `,${this.state.switchValue}` : '');
-    // }
-    // let qrCodeValue = (this.state.walletSelected ? this.state.walletSelected.address : '') + value;
+    let showDivAmount = this.state.walletSelected && this.state.rate;    
 
     let symbol = this.state.isCurrency ? currency : (this.state.walletSelected ? StringHelper.format("{0}", this.state.walletSelected.name) : '');
 
