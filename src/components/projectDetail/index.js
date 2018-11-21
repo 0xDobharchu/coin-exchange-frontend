@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
 // import { Field, formValueSelector } from 'redux-form';
-import LandingWrapper from 'src/components/LandingWrapper';
+import LandingWrapper from 'src/components/landingWrapper';
 // import Collapse from 'src/components/Collapse';
 // import createForm from 'src/components/core/form/createForm';
 // import { fieldInput } from 'src/components/core/form/customField';

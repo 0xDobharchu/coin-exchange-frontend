@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import { reduxForm } from 'redux-form';
 import { Row, Button } from 'react-bootstrap';
 import { MyMessage } from 'src/lang/components';
-import FileUploader from 'src/components/FileUploader';
+import FileUploader from 'src/components/fileUploader';
 import { getReachingLevel } from '../util';
 
 // eslint-disable-next-line
