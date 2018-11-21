@@ -222,10 +222,14 @@ div.filepicker {
   border-style: solid;
   border-color: white transparent transparent #920035;
 }
-.nav-link {
-  border-top-right-radius: 0px !important;
-  border-top-left-radius: 0px !important;
+
+@media screen and (max-width: 768px){
+  .nav-link {
+    border-top-right-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+  }
 }
+
 .nav-link.active {
   color: #FFFFFF !important;
   background-color: $primary-extra-bold !important;
