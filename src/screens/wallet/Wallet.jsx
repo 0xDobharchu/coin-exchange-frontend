@@ -35,7 +35,6 @@ import WalletProtect from './WalletProtect';
 import WalletHistory from './WalletHistory';
 import TransferCoin from '@/components/wallet/TransferCoin';
 import ReceiveCoin from '@/components/wallet/ReceiveCoin';
-import ReactBottomsheet from './ReactBottomsheet/ReactBottomsheet';
 import { showLoading, hideLoading, showAlert, setHeaderRight } from '@/screens/app/redux/action';
 import local from '@/services/localStore';
 import {APP} from '@/constants';
@@ -325,11 +324,6 @@ class Wallet extends React.Component {
     await MasterWallet.UpdateLocalStore(listWallet);
   }
 
-  toggleBottomSheet() {
-    const obj = (this.state.bottomSheet) ? { bottomSheet: false } : { bottomSheet: true };
-    this.setState(obj);
-  }
-
   copyToClipboard =(text) => {
     const textField = document.createElement('textarea');
     textField.innerText = text;
@@ -337,83 +331,6 @@ class Wallet extends React.Component {
     textField.select();
     document.execCommand('copy');
     textField.remove();
-  }
-
-  // create list menu of wallet item when click Show more ...
-  creatSheetMenuItem(wallet){
-    const { messages } = this.props.intl;
-    let obj = [];
-
-    if (!wallet.isCollectibles){
-      obj.push({
-        title: messages['wallet.action.transfer.title'],
-        handler: () => {
-          this.toggleBottomSheet();
-          this.showTransfer(wallet);
-        }
-      })
-    }
-    obj.push({
-      title: messages['wallet.action.receive.title'],
-      handler: () => {
-        this.toggleBottomSheet();
-        this.showReceive(wallet);
-      }
-    })
-
-    if (!wallet.protected) {
-      obj.push({
-        title: messages['wallet.action.protect.title'],
-        handler: () => {
-          this.setState({ walletSelected: wallet,
-          modalSecure: <WalletProtect onCopy={this.onCopyProtected}
-            step={1}
-            wallet={this.state.walletSelected}
-            callbackSuccess={() => { this.successWalletProtect(this.state.walletSelected); }}
-            />
-          }, ()=> {
-            this.toggleBottomSheet();
-            this.modalProtectRef.open();
-          });
-        },
-      });
-    }
-
-    if (wallet.name != "XRP" && !wallet.isToken)
-      obj.push({
-        title: messages['wallet.action.history.title'],
-        handler: async () => {
-          this.toggleBottomSheet();
-          this.onWalletItemClick(wallet);
-        }
-      });
-    obj.push({
-      title: messages['wallet.action.copy.title'],
-      handler: () => {
-        Clipboard.copy(wallet.address);
-        this.toggleBottomSheet();
-        this.showToast(messages['wallet.action.copy.message']);
-      },
-    });
-
-
-    let canSetDefault = !wallet.isToken
-    if (canSetDefault && !wallet.default) {
-      obj.push({
-        title: StringHelper.format(messages['wallet.action.default.title'], wallet.name) + (wallet.default ? "✓ " : ""),        
-        handler: () => {
-          wallet.default = !wallet.default;
-          this.toggleBottomSheet();
-          // reset all wallet default:
-          let lstWalletTemp = this.getAllWallet();
-          if (wallet.default) lstWalletTemp.forEach(wal => {if (wal != wallet && wal.name == wallet.name){wal.default = false;}})
-          // Update wallet master from local store:
-          MasterWallet.UpdateLocalStore(lstWalletTemp);
-        }
-      })
-    }
-
-    return obj;
   }
 
   // Remove wallet function:
@@ -688,12 +605,7 @@ class Wallet extends React.Component {
   onIconRightHeaderClick = () => {
     // now show settings
     this.showWalletSettings();
-  }
-
-  onMoreClick = (wallet) => {
-    this.setState({ listMenu: this.creatSheetMenuItem(wallet) });
-    this.toggleBottomSheet();
-  }
+  }  
 
   onWarningClick = (wallet) => {
     // if (!wallet.protected) {
@@ -795,26 +707,26 @@ class Wallet extends React.Component {
     let setting = local.get(APP.SETTING);
     setting = setting ? setting.wallet : false;
 
-    return this.state.listMainWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onMoreClick={() => this.onMoreClick(wallet)} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
+    return this.state.listMainWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
   }
 
   get listTokenWalletBalance() {
     let setting = local.get(APP.SETTING);
     setting = setting ? setting.wallet : false;
 
-    return this.state.listTokenWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onMoreClick={() => this.onMoreClick(wallet)} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
+    return this.state.listTokenWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
   }
   get listCollectibleWalletBalance() {
     let setting = local.get(APP.SETTING);
     setting = setting ? setting.wallet : false;
 
-    return this.state.listCollectibleWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onMoreClick={() => this.onMoreClick(wallet)} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
+    return this.state.listCollectibleWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet}onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
   }
 
   get listTestWalletBalance() {
     let setting = local.get(APP.SETTING);
     setting = setting ? setting.wallet : false;
-    return this.state.listTestWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onMoreClick={() => this.onMoreClick(wallet)} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
+    return this.state.listTestWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
   }
  
   get getListCoinTempForCreate() {
@@ -945,15 +857,8 @@ class Wallet extends React.Component {
         {/* add collectible modal */}
         {/* <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  onClose={() => this.setState({formAddCollectibleIsActive: false})} title="Add Collectible" onRef={modal => this.modalAddNewCollectibleRef = modal}>
             <AddCollectible formAddCollectibleIsActive={formAddCollectibleIsActive} onFinish={() => {this.addedCollectible()}}/>
-        </Modal> */}
-
-          {/* Tooltim menu Bottom */ }
-          <ReactBottomsheet
-            visible={this.state.bottomSheet}
-            appendCancelBtn={true}
-            onClose={this.toggleBottomSheet.bind(this)}
-            list={this.state.listMenu}
-          />
+        </Modal> */}          
+          
 
           {/* ModalDialog for confirm remove wallet */}
           <ModalDialog title={messages['wallet.action.remove.header']} onRef={modal => this.modalRemoveRef = modal}>
@@ -1076,7 +981,7 @@ class Wallet extends React.Component {
             <Row className={style.list}>
               {/* {this.listMainWalletBalance} */}
               { this.state.listMainWalletBalance.length > 0 ?
-                <SortableComponent onSortableSuccess={items => this.onSortableCoinSuccess(items)} onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)}  isSortable={this.state.listSortable.coin} items={this.state.listMainWalletBalance} />
+                <SortableComponent onSortableSuccess={items => this.onSortableCoinSuccess(items)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)}  isSortable={this.state.listSortable.coin} items={this.state.listMainWalletBalance} />
               : ''}
             </Row>
           </Row>
@@ -1094,7 +999,7 @@ class Wallet extends React.Component {
             <Row className={style.list}>
               {/* {this.listTokenWalletBalance} */}
               { this.state.listTokenWalletBalance.length > 0 ?
-                  <SortableComponent onSortableSuccess={items => this.onSortableTokenSuccess(items)} onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} isSortable={this.state.listSortable.token}  items={this.state.listTokenWalletBalance}/>
+                  <SortableComponent onSortableSuccess={items => this.onSortableTokenSuccess(items)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} isSortable={this.state.listSortable.token}  items={this.state.listTokenWalletBalance}/>
               : ''}
             </Row>
           </Row>
@@ -1113,7 +1018,7 @@ class Wallet extends React.Component {
             <Row className={style.list}>
               {/* {this.listCollectibleWalletBalance} */}
               { this.state.listCollectibleWalletBalance.length > 0 ?
-                  <SortableComponent onSortableSuccess={items => this.onSortableCollectibleSuccess(items)} onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} isSortable={this.state.listSortable.collectitble}  items={this.state.listCollectibleWalletBalance}/>
+                  <SortableComponent onSortableSuccess={items => this.onSortableCollectibleSuccess(items)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} isSortable={this.state.listSortable.collectitble}  items={this.state.listCollectibleWalletBalance}/>
               : ''}
             </Row>
           </Row>
@@ -1128,7 +1033,7 @@ class Wallet extends React.Component {
               <Row className={style.list}>
                 {/* {this.listTestWalletBalance} */}
                 { this.state.listTestWalletBalance.length > 0 ?
-                    <SortableComponent onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} items={this.state.listTestWalletBalance}/>
+                    <SortableComponent onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} items={this.state.listTestWalletBalance}/>
                 : ''}
               </Row>
               }

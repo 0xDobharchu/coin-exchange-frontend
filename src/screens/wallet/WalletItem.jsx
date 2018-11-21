@@ -12,7 +12,6 @@ import iconChecked from '@/assets/images/wallet/icons/checked-green.svg';
 import iconQRCode from '@/assets/images/wallet/icons/icon-qrcode-black.svg';
 import bgCollectibles from '@/assets/images/wallet/images/tokenerc721-mainnet.svg'
 
-import dontIcon from '@/assets/images/wallet/icons/3-dot-icon-black.svg';
 import needBackup from '@/assets/images/wallet/icons/need-backup.svg';
 
 
@@ -46,7 +45,7 @@ class WalletItem extends React.Component {
   }
 
   render(){
-      const {wallet, onMoreClick, onAddressClick, isSortable, onItemClick} =  this.props;
+      const {wallet, onAddressClick, isSortable, onItemClick} =  this.props;
       const { messages } = this.props.intl;      
       let logo = require("@/assets/images/wallet/icons/coins/" + wallet.icon);
       try{ logo = require("@/assets/images/wallet/icons/coins/" + wallet.getCoinLogo());} catch (e){};
@@ -71,7 +70,7 @@ class WalletItem extends React.Component {
                 <span className={style.address +  " hidden-xss-down"} onClick={onAddressClick}>
                     {this.showCryptoAddress}
                 </span>
-                <span className={style.more} onClick={onMoreClick}><img src={dontIcon}/></span>
+                {/* <span className={style.more} onClick={onMoreClick}><img src={dontIcon}/></span> */}
 
               </span>
             : ""}            
@@ -82,8 +81,7 @@ class WalletItem extends React.Component {
 
 WalletItem.propTypes = {
   settingWallet: PropTypes.any,
-  wallet: PropTypes.object,
-  onMoreClick: PropTypes.func,
+  wallet: PropTypes.object,  
   onWarningClick: PropTypes.func,
   onAddressClick: PropTypes.func,
   isSortable: PropTypes.any,
