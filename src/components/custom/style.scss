@@ -1,10 +1,12 @@
+@import 'var';
+
 .button {
   min-width: 125px;
   width: 100%;
   font-size: 14px;
-  color: #0D0031;
+  color: #FFFFFF;
   font-weight: 400;
-  background: #FFFFFF;
+  background: $primary-extra-bold;
   border: 1px solid #E7E6EB;
   padding: 10px 34px;
 }
