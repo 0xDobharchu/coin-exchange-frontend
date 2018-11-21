@@ -78,6 +78,7 @@ class ReviewList extends React.Component {
     console.log('render ReviewList', this.props.reviewList);
     const { isFinished } = this.state;
     const { reviewList, numReview } = this.props;
+    console.log(12312312312312, numReview);
     return (
       <div className={styles.reviewListContainer}>
         <span className={styles.reviewListCountComment}><LabelLang id="review.label.comments" values={{numReview}} /></span>
