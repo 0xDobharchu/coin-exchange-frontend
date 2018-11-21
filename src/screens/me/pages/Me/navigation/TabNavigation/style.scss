@@ -1,10 +1,16 @@
+@import 'var';
+
 .container {
   .nav-link {
     padding: 0;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
   }
   nav {
     // border: 1px solid red;
     a {
+      color: $primary-extra-bold;
+      border: 1px solid $primary-extra-bold !important;
       display: flex;
       flex-grow: 1;
       // border: 1px solid red;
