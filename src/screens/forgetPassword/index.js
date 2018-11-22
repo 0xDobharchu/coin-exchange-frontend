@@ -72,7 +72,7 @@ class Contact extends React.Component {
                     />
                   </div>
                   <div className="form-group">
-                    <button type="submit" className={cx('btn btn-primary btn-block', style.buttonforgetPassword, isSubmiting ? ' disabled': '' )}><LabelLang id="user.forgetPassword.submitButton" /></button>
+                    <button type="submit" className={cx('btn btn-primary btn-block', style.buttonForgetPassword, isSubmiting ? ' disabled': '' )}><LabelLang id="user.forgetPassword.submitButton" /></button>
                   </div>
                 </ForgetPassForm>
               </div>
