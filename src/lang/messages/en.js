@@ -336,6 +336,23 @@ export default {
       notValidUsername: 'Invalid email address',
       requiredUsername: 'Please enter your email'
     },
+    forgetPassword: {
+      title: 'Forgot your password?',
+      description: 'Enter your email address to reset your password. You may need to check your spam folder or unblock no-reply@coinbowl.com.',
+      username: 'Your email',
+      requiredUsername: 'Username is required',
+      notValidUsername: 'Invalid email address',
+      submitButton: 'Submit',
+      resetPasswordIntro: 'If a Coinbowl account exists for {email}, an e-mail will be sent with further instructions.',
+      newPasswordTitle: 'Enter a new password for your {email} account.',
+      password: 'New password',
+      requiredPassword: 'Password is required',
+      notValidPassword: 'Password must be 8 characters or more',
+      confirmPassword: 'Retype new password',
+      notValidConfirmPassword: 'Confirm password not match',
+      newPasswordIntro: 'Password of Coinbowl account for {email} has been changed',
+      notRecoverPass: 'I can’t recover my account using this page'
+    },
     register: {
       title: 'Create your account',
       firstName: 'First name',

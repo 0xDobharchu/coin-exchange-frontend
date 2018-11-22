@@ -5,6 +5,7 @@ import About from 'src/screens/about';
 import Login from 'src/screens/login';
 import Register from 'src/screens/register';
 import forgetPassword from 'src/screens/forgetPassword';
+import forgetPasswordFinish from 'src/screens/forgetPassword/finish';
 import Coin from 'src/screens/coin';
 import Localization from 'src/screens/localization';
 import Me from 'src/screens/me/pages/Me';
@@ -65,6 +66,11 @@ const routes = [
   {
     path: URL.USER_FORGET_PASSWORD,
     component: forgetPassword,
+    exact: true,
+  },
+  {
+    path: URL.USER_FORGET_PASSWORD_FINISH,
+    component: forgetPasswordFinish,
     exact: true,
   },
   {
