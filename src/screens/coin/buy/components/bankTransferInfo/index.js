@@ -2,9 +2,7 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { API_URL } from 'src/resources/constants/url';
 import { connect } from 'react-redux';
-// import { uploadReceipAtmCashTransfer, getCashCenterBankInfo } from '@/reducers/exchange/action';
 import { showAlert } from 'src/screens/app/redux/action';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FaRegCopy, FaCloudUploadAlt } from 'react-icons/fa';
@@ -14,9 +12,8 @@ import ClockCount from 'src/components/clockCount';
 import TooltipInfo from 'src/components/tooltipInfo';
 import FileUploader from 'src/components/fileUploader';
 import cx from 'classnames';
-import { getBankInfo } from './action';
+import { getBankInfo, addReceiptOrder } from './action';
 import styles from './styles.scss';
-
 
 const DATA_TEMPLATE = {
   'CUSTOMER AMOUNT': {
@@ -60,7 +57,6 @@ class BankTransferInfo extends PureComponent {
     this.onUpload = :: this.onUpload;
     this.onUploaded = :: this.onUploaded;
     this.onDone = :: this.onDone;
-    this.saveReceipt = :: this.saveReceipt;
     this.copied = :: this.copied;
     this.getBankInfo = :: this.getBankInfo;
     this.onExpired = :: this.onExpired;
@@ -83,13 +79,26 @@ class BankTransferInfo extends PureComponent {
   }
 
   onUploaded(imgUploadedUrl) {
-    this.setState({ uploaded: true, imgUploadedUrl }, this.saveReceipt);
+    this.setState({ uploaded: true, imgUploadedUrl });
   }
 
   onDone() {
-    if (typeof this.props.onDone === 'function') {
-      typeof this.props.onDone();
+    const { addReceiptOrder, showAlert, onDone, orderInfo = {} } = this.props;
+    const { imgUploadedUrl } = this.state;
+    if (typeof onDone === 'function') {
+      onDone();
     }
+    addReceiptOrder({
+      receiptId: orderInfo?.id,
+      receiptImgUrl: imgUploadedUrl
+    }).then(() => {
+      showAlert({
+        message: 'Successful!',
+        timeOut: 3000,
+        isShowClose: true,
+        type: 'success',
+      });
+    });
   }
 
   onExpired() {
@@ -97,16 +106,16 @@ class BankTransferInfo extends PureComponent {
   }
 
   getBankInfo() {
-    const { bankInfo } = this.props;
+    const { bankInfo, getBankInfo, userCountry, orderInfo } = this.props;
     if (bankInfo !== null && bankInfo !== {}) {
       this.setState({ data: this.updateBankInfoFromData(bankInfo) });
       return;
     }
     try {
       this.showLoading(true);
-      this.props.getBankInfo({
-        country: 'HK',
-        currency: 'HKD'
+      getBankInfo({
+        country: userCountry,
+        currency: orderInfo?.fiatLocalCurrency,
       }).then(info => {
         this.setState({ data: this.updateBankInfoFromData(info) });
         this.showLoading(false);
@@ -126,41 +135,6 @@ class BankTransferInfo extends PureComponent {
     return newData;
   }
 
-  saveReceipt() {
-    this.showLoading(true);
-    const { orderInfo, saveReceiptHandle } = this.props;
-    const { imgUploadedUrl } = this.state;
-    const data = {
-      receipt_url: imgUploadedUrl,
-    };
-
-    // override save receipt func
-    if (typeof saveReceiptHandle === 'function') {
-      saveReceiptHandle({
-        data,
-        successFn: () => {
-          this.showLoading(false);
-        },
-        errorFn: () => {
-          this.showLoading(false);
-        },
-      });
-      return;
-    }
-
-    this.props.uploadReceipAtmCashTransfer({
-      PATH_URL: `${API_URL.EXCHANGE.SEND_ATM_CASH_TRANSFER}/${orderInfo?.id}`,
-      METHOD: 'PUT',
-      data,
-      successFn: () => {
-        this.showLoading(false);
-      },
-      errorFn: () => {
-        this.showLoading(false);
-      },
-    });
-  }
-
   showLoading(isLoading = false) {
     this.setState({
       isLoading,
@@ -168,7 +142,8 @@ class BankTransferInfo extends PureComponent {
   }
 
   copied() {
-    this.props.showAlert({
+    const { showAlert } = this.props;
+    showAlert({
       message: 'Copied',
       timeOut: 3000,
       isShowClose: true,
@@ -246,11 +221,10 @@ class BankTransferInfo extends PureComponent {
             </Card.Body>
           </Card>
         </Row>
-        <Row>
+        <Row className={styles.uploadContainer}>
           { showUploader &&
             (
               <FileUploader
-                className="uploader-zone"
                 onSuccess={this.onUploaded}
               />
             )
@@ -258,14 +232,14 @@ class BankTransferInfo extends PureComponent {
           {
             (uploaded || status === STATUS.TRANSFERRING) ?
               (
-                <button type="submit" className="btn btn-upload-receipt" onClick={this.onDone}>
-                  Done
+                <button type="submit" className={styles.doneBtn} onClick={this.onDone}>
+                  Save
                 </button>
               ) :
               (
-                <button type="submit" className="btn btn-upload-receipt" onClick={this.onUpload}>
-                  <FaCloudUploadAlt />
-                  Upload
+                <button type="submit" className={styles.uploadBtn} onClick={this.onUpload}>
+                  <FaCloudUploadAlt className={styles.uploadIcon} />
+                  Upload Your Receipt
                 </button>
               )
           }
@@ -276,30 +250,24 @@ class BankTransferInfo extends PureComponent {
 }
 
 BankTransferInfo.defaultProps = {
-  /* eslint react/default-props-match-prop-types:0 */
   orderInfo: {},
   bankInfo: null,
-  saveReceiptUrl: null,
-  saveReceiptHandle: () => null,
   getBankInfo: null
 };
 
 BankTransferInfo.propTypes = {
-  /* eslint react/no-unused-prop-types:0 */
   orderInfo: PropTypes.object,
-  // uploadReceipAtmCashTransfer: PropTypes.func.isRequired,
   onDone: PropTypes.func.isRequired,
   showAlert: PropTypes.func.isRequired,
-  ipInfo: PropTypes.object.isRequired,
   bankInfo: PropTypes.object,
-  saveReceiptHandle: PropTypes.func,
   getBankInfo: PropTypes.func,
 };
 
 const mapState = (state) => {
   return {
     ipInfo: state.app?.ipInfo,
+    userCountry: state.app?.userCountry,
   };
 };
 
-export default connect(mapState, { showAlert, getBankInfo })(BankTransferInfo);
+export default connect(mapState, { showAlert, getBankInfo, addReceiptOrder })(BankTransferInfo);

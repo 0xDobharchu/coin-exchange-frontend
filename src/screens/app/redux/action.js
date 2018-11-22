@@ -168,6 +168,7 @@ export const getCountryCurrency = (countryCode) => (dispatch, getState) => {
   const req = makeRequest({
     url: `${API_URL.SYSTEM.GET_COUNTRY_CURRENCY}?country=${country}`,
     type: APP_ACTION.GET_COUNTRY_CURRENCY,
+    more: { country },
     withAuth: false,
   }, dispatch);
   return req();
