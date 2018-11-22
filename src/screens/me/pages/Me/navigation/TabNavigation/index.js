@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 import AccountInfo from '../../../AccountInfo';
+import Setting from '../../../Setting';
 import MeProfile from '../../../MeProfile';
 import style from './style.scss';
 
@@ -37,7 +38,7 @@ class TabNavigation extends React.PureComponent {
             <AccountInfo />
           </Tab>
           <Tab eventKey={CHILD_ROUTES[1]} title="My Setting" className={style.scrollbar}>
-            My Setting
+            <Setting />
           </Tab>
           <Tab eventKey={CHILD_ROUTES[2]} title="Account Level" className={style.scrollbar}>
             <MeProfile location={location} />

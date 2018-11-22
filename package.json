@@ -53,6 +53,7 @@
     "prop-types": "^15.6.2",
     "qrcode.react": "^0.8.0",
     "query-string": "^6.2.0",
+    "rc-switch": "^1.8.0",
     "react": "^16.6.3",
     "react-bootstrap": "^1.0.0-beta.2",
     "react-copy-to-clipboard": "^5.0.1",
