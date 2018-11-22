@@ -58,7 +58,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className={cx('container', style['login-warper'])}>
+      <div className={cx('container', style.loginWarper)}>
         <div className="row">
           <div className="col-sm-10 col-md-9 col-lg-7 mx-auto">
             <h5 className={cx(style.loginTitle, 'text-center')}><LabelLang id="user.login.title" /></h5>
@@ -85,7 +85,7 @@ class Login extends React.Component {
                   />
                   <div className={cx('form-control mb-3', style.customCheckbox)}>
                     <div className="row">
-                      <div className={cx('col-12 col-md-7', style['remember-me'])}>
+                      <div className={cx('col-12 col-md-7', style.rememberMe)}>
                         <FieldLang
                           name="keepSignin"
                           id="keepSignin"

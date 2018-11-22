@@ -12,7 +12,7 @@ const PersonalDetailForm = ({ handleSubmit, onSubmit }) => (
     <label>Legal name</label>
     <Row>
       <Col md={6}>
-        <Field name="first_name" component={InputField} placeholder="First Name1" />
+        <Field name="first_name" component={InputField} placeholder="First Name" />
       </Col>
       <Col md={6}>
         <Field name="last_name" component={InputField} placeholder="Last Name" />
@@ -20,14 +20,15 @@ const PersonalDetailForm = ({ handleSubmit, onSubmit }) => (
     </Row>
     <label>Country</label>
     <Field name="country" component={InputField} placeholder="Enter Your Country" />
-    <Button className={style.button} value="Save" onClick={()=> alert('Success')} />
+    <Button className={style.button} value="Save" onClick={handleSubmit(onSubmit)} />
   </form>
 );
 
 const mapState = state => ({
   initialValues: {
-    first_name: state.auth.profile.name,
-    last_name: state.auth.profile.email
+    first_name: state.auth.profile.first_name,
+    last_name: state.auth.profile.last_name,
+    country: state.auth.profile.country,
   }
 });
 
