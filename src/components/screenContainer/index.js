@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import detectWindow from 'src/screens/coin/styles.scss';
+import detectWindow from 'src/screens/app/components/Layout/styles.scss';
 import Header from './header';
 // import Footer from './footer';
 import styles from './styles.scss';

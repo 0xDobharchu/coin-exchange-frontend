@@ -1,24 +1,12 @@
 import React from 'react';
 import { Tab, Row, Nav, Col } from 'react-bootstrap';
 import AccountInfo from '../../../AccountInfo';
+import Setting from '../../../Setting';
 import MeProfile from '../../../MeProfile';
 import style from './style.scss';
 
 const CHILD_ROUTES = ['profile', 'setting', 'accountLevel'];
 
-const AvatarBlock = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '50px' }}>
-    <div style={{ padding: '10px' }}>
-      <img style={{ borderRadius: '50%' }} alt="profile_img" src='https://storage.googleapis.com/coin-exchange-staging/front.jpeg' />
-    </div>
-    <div style={{ wordBreak: 'break-all', fontSize: '24px', color: '#1F1F1F', fontWeight: 400 }}>
-      KhoaTran
-    </div>
-    <div style={{ wordBreak: 'break-all', color: '#A5A5AD', fontWeight: 400 }}>
-      vankhoa@autonomous.nyc
-    </div>
-  </div>
-);
 class SideBarNavigation extends React.PureComponent {
   getActiveKey = path => {
     switch(path) {
@@ -48,7 +36,6 @@ class SideBarNavigation extends React.PureComponent {
         <Tab.Container activeKey={activeKey} id="controlled-tab-example" onSelect={this.handleRedirect}>
           <Row>
             <Col sm={3}>
-              <AvatarBlock />
               <Nav variant="pills" className="flex-column">
                 <Nav.Item>
                   <Nav.Link eventKey={CHILD_ROUTES[0]}>My Profile</Nav.Link>
@@ -67,7 +54,7 @@ class SideBarNavigation extends React.PureComponent {
                   <AccountInfo />
                 </Tab.Pane>
                 <Tab.Pane eventKey={CHILD_ROUTES[1]} className={style.scrollbar}>
-                  MySetting
+                  <Setting />
                 </Tab.Pane>
                 <Tab.Pane eventKey={CHILD_ROUTES[2]} className={style.scrollbar}>
                   <MeProfile location={location} />
