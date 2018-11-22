@@ -11,7 +11,7 @@ const field = ({ input, meta, className = '' }) => {
   return (
     <div className={className}>
       <PaymentMethod onChange={onChange} defaultValue={value} />
-      { shouldShowError && <span className="text-danger">{error}</span>}
+      { shouldShowError && <small className="text-danger">{error}</small>}
     </div>
   );
 };

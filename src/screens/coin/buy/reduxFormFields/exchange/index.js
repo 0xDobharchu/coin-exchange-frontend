@@ -20,7 +20,7 @@ const field = ({ input, meta, currency, fiatCurrency, orderType, direction, clas
         direction={direction}
         markRequired={shouldShowError}
       />
-      { shouldShowError && <span className="text-danger">{error}</span>}
+      { shouldShowError && <small className="text-danger">{error}</small>}
     </div>
   );
 };

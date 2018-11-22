@@ -124,6 +124,7 @@ class Exchange extends Component {
   }
 
   getExchange = () => {
+    this.setExchangeStatus(true);
     const { exchangeType } = this.state;
     if (exchangeType === EXCHANGE_TYPE.amount) {
       this.getQuoteHandler();
@@ -141,7 +142,7 @@ class Exchange extends Component {
 
   render() {
     const { amount, fiatAmount, isExchanging } = this.state;
-    const { markRequired, onFocus, onBlur, currency } = this.props;
+    const { markRequired, onFocus, onBlur, currency, fiatCurrency } = this.props;
     return (
       <Container fluid className={styles.container}>
         <Row noGutters>
@@ -164,7 +165,7 @@ class Exchange extends Component {
           </Col>
           <Col sm={2}>
             <div className={cx(styles.exchangeIcon, 'd-none d-sm-block')}>
-              <FaArrowsAltH className={styles.arrowIcon} color={isExchanging && 'green'} />
+              <FaArrowsAltH className={styles.arrowIcon} color={isExchanging ? 'green' : ''} />
             </div>
           </Col>
           <Col sm={5}>
@@ -180,7 +181,7 @@ class Exchange extends Component {
                 onChange={this.onChange.bind(this, 'fiatAmount')}
               />
               <InputGroup.Prepend>
-                <span className={styles.prepend}>{currency}</span>
+                <span className={styles.prepend}>{fiatCurrency}</span>
               </InputGroup.Prepend>
             </InputGroup>
           </Col>

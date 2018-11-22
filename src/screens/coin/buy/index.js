@@ -1,7 +1,7 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import { Field, formValueSelector, change, touch } from 'redux-form';
+import { Field, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import createForm from 'src/components/core/form/createForm';
 import { isRequired } from 'src/components/core/form/validator';
@@ -47,6 +47,21 @@ class BuyCryptoCoin extends React.Component {
   componentDidMount() {
   }
 
+  isValidToSubmit = () => {
+    const { wallet: { address, currency }, exchange: { amount, fiatAmount }, paymentMethod } = this.props;
+    if (address && currency && amount && fiatAmount) {
+      if (paymentMethod === PAYMENT_METHOD.COD) {
+        const { userAddress, userPhone, userNote } = this.props;
+        if (userAddress && userPhone && userNote) {
+          return true;
+        }
+      } else {
+        return true;
+      }
+    }
+    return false;
+  }
+
   makeOrder = () => {
     const { makeOrder, wallet, exchange, paymentMethod, userAddress, userPhone, userNote } = this.props;
     const payload = {
@@ -68,14 +83,16 @@ class BuyCryptoCoin extends React.Component {
 
   orderSuccessHandler = (orderInfo) => {
     this.setState({ orderInfo });
-    this.props.showAlert({
+    const { showAlert } = this.props;
+    showAlert({
       message: 'Successful',
       timeOut: 1000,
     });
   }
 
   orderFailedHandler = () => {
-    this.props.showAlert({
+    const { showAlert } = this.props;
+    showAlert({
       message: 'Error',
       type: 'danger',
       timeOut: 1000,
@@ -117,6 +134,8 @@ class BuyCryptoCoin extends React.Component {
   render() {
     const { paymentMethod, supportedCurrency, exchange, wallet } = this.props;
     const { orderInfo } = this.state;
+    const isValid = this.isValidToSubmit();
+    console.log('isValid', isValid);
     return (
       <div className={styles.container}>
         <BuyForm onSubmit={console.log} validate={console.log}>
@@ -141,9 +160,10 @@ class BuyCryptoCoin extends React.Component {
             name="paymentMethod"
             component={paymentMethodField}
           />
-          {this.renderCoD()}
+          { paymentMethod === PAYMENT_METHOD.COD && this.renderCoD() }
           { orderInfo && <BankTransferInfo orderInfo={orderInfo} />}
           <ConfirmButton
+            disabled={!isValid}
             containerClassName='mt-5'
             buttonClassName={styles.submitBtn}
             label={(
@@ -170,16 +190,30 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  rfChange: bindActionCreators(change, dispatch),
-  rfTouch: bindActionCreators(touch, dispatch),
   makeOrder: bindActionCreators(makeOrder, dispatch),
   showAlert: bindActionCreators(showAlert, dispatch),
 });
 
 BuyCryptoCoin.defaultProps = {
+  wallet: {},
+  exchange: {},
+  paymentMethod: '',
+  userAddress: '',
+  userNote: '',
+  userPhone: '',
+  makeOrder: null,
+  showAlert: null,
 };
 
 BuyCryptoCoin.propTypes = {
+  exchange: PropTypes.object,
+  wallet: PropTypes.object,
+  paymentMethod: PropTypes.string,
+  userAddress: PropTypes.string,
+  userNote: PropTypes.string,
+  userPhone: PropTypes.string,
+  makeOrder: PropTypes.func,
+  showAlert: PropTypes.func,
 };
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(BuyCryptoCoin));
