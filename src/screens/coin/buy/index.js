@@ -135,7 +135,10 @@ class BuyCryptoCoin extends React.Component {
     const { paymentMethod, supportedCurrency, exchange, wallet } = this.props;
     const { orderInfo } = this.state;
     const isValid = this.isValidToSubmit();
-    console.log('isValid', isValid);
+    if (orderInfo) {
+      return <BankTransferInfo orderInfo={orderInfo} />;
+    }
+
     return (
       <div className={styles.container}>
         <BuyForm onSubmit={console.log} validate={console.log}>
@@ -161,7 +164,6 @@ class BuyCryptoCoin extends React.Component {
             component={paymentMethodField}
           />
           { paymentMethod === PAYMENT_METHOD.COD && this.renderCoD() }
-          { orderInfo && <BankTransferInfo orderInfo={orderInfo} />}
           <ConfirmButton
             disabled={!isValid}
             containerClassName='mt-5'
@@ -203,6 +205,7 @@ BuyCryptoCoin.defaultProps = {
   paymentMethod: null,
   makeOrder: null,
   showAlert: null,
+  supportedCurrency: []
 };
 
 BuyCryptoCoin.propTypes = {
@@ -214,6 +217,7 @@ BuyCryptoCoin.propTypes = {
   userPhone: PropTypes.string,
   makeOrder: PropTypes.func,
   showAlert: PropTypes.func,
+  supportedCurrency: PropTypes.array,
 };
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(BuyCryptoCoin));
