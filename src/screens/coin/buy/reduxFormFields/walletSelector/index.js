@@ -11,7 +11,7 @@ const field = ({ input, meta, className = '' }) => {
   return (
     <div className={className}>
       <WalletSelector markRequired={shouldShowError} value={value} onChange={onChange} onBlur={onBlur} onFocus={onFocus} />
-      { shouldShowError && <span className="text-danger">{error}</span>}
+      { shouldShowError && <small className="text-danger">{error}</small>}
     </div>
   );
 };
