@@ -197,10 +197,10 @@ const mapDispatchToProps = dispatch => ({
 BuyCryptoCoin.defaultProps = {
   wallet: {},
   exchange: {},
-  paymentMethod: '',
   userAddress: '',
   userNote: '',
   userPhone: '',
+  paymentMethod: null,
   makeOrder: null,
   showAlert: null,
 };
