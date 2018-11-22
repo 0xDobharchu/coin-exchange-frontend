@@ -1,9 +1,10 @@
-.register-warper {
+.forget-password-warper {
   margin-top: 20px;
+  color: white;
 }
-.register-title {
+.forget-password-title {
   padding: 10px 0 10px 0;
-  span{
+  > span{
     color: #FFFFFF;
     font-size: 26px;
     font-weight: bold;
@@ -11,22 +12,16 @@
     letter-spacing: 0;
   }
 }
-.register-card {
+.forget-password-card {
   border-radius: 6px 6px 6px 6px;
   box-shadow: 0 5px 29px -7px #000000;
 }
-.custom-checkbox {
-  border: none;
-  padding: 0;
-  label {
-    cursor: pointer;
-  }
-  .remember-me {
-    padding-top: 13px !important;
-  }
+.description {
+  color: white;
+  margin-bottom: 15px;
 }
 
-.button-register {
+.button-forget-password {
   background: #5522DD;
   border-radius: 6px 6px 6px 6px;
   box-shadow: 0 6px 13px 0 #D7D0F5;
