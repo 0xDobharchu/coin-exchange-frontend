@@ -3,9 +3,10 @@ import { Tabs, Tab } from 'react-bootstrap';
 import AccountInfo from '../../../AccountInfo';
 import Setting from '../../../Setting';
 import MeProfile from '../../../MeProfile';
+import History from '../../../History';
 import style from './style.scss';
 
-const CHILD_ROUTES = ['profile', 'setting', 'accountLevel'];
+const CHILD_ROUTES = ['profile', 'setting', 'accountLevel', 'history'];
 
 class TabNavigation extends React.PureComponent {
   getActiveKey = path => {
@@ -13,6 +14,7 @@ class TabNavigation extends React.PureComponent {
       case '/me/profile': return CHILD_ROUTES[0];
       case '/me/setting': return CHILD_ROUTES[1];
       case '/me/accountLevel': return CHILD_ROUTES[2];
+      case '/me/history': return CHILD_ROUTES[3];
       default: return CHILD_ROUTES[0];
     }
   }
@@ -42,6 +44,9 @@ class TabNavigation extends React.PureComponent {
           </Tab>
           <Tab eventKey={CHILD_ROUTES[2]} title="Account Level" className={style.scrollbar}>
             <MeProfile location={location} />
+          </Tab>
+          <Tab eventKey={CHILD_ROUTES[3]} title="History" className={style.scrollbar}>
+            <History location={location} />
           </Tab>
         </Tabs>
       </div>
