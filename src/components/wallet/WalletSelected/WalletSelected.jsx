@@ -5,9 +5,10 @@ import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
 import Modal from '@/components/core/controls/Modal';
 // import { showLoading, hideLoading } from '@/screens/app/redux/action';
-import { ICON } from '@/components/wallet/images';
+// import { ICON } from '@/components/wallet/images';
 import ListCoin from '@/components/wallet/ListCoin';
 import style from './WalletSelected.scss';
+import expandArrowSVG from '@/assets/images/icon/expand-arrow.svg';
 
 class WalletSelected extends React.Component {
   static propTypes = {
@@ -59,22 +60,21 @@ class WalletSelected extends React.Component {
 
   get showWallet(){
     const walletSelected = this.state.walletSelected;
-    let icon = '';
+    let coinIcon = '';
     try{
-      if(walletSelected)
-        icon = require("@/assets/images/wallet/icons/coin-square/" + walletSelected.name.toLowerCase() + '.svg');
+      if(walletSelected) coinIcon = require("@/assets/images/wallet/icons/coins/" + walletSelected.name.toLowerCase() + '.svg');
     } catch (ex){console.log(ex)};
     return (
       <div className={style["walletSelected"]} onClick={() => {this.openListCoin() }}>
         <div className="row">
-          <div className={'col-2 ' + style["icon"] + ' ' + style['col-padding']}><img src={icon} /></div>
-          <div className={'col-5' +  + ' ' + style['col-padding']}>
+          <div className={'col-2 ' + style["icon"] + ' ' + style['col-padding']}><img src={coinIcon} /></div>
+          <div className={'col-5' + ' ' + style['col-padding']}>
             <div className={style["name"]}>{walletSelected && walletSelected.title}</div>
             <div className={style["address"]}>{walletSelected && walletSelected.getShortAddress()}</div>
           </div>
           <div className={"col-5 " + style["lastCol"] + ' ' + style['col-padding']}>
             <div className={style["balance"]}>{walletSelected && walletSelected.balance + " " + walletSelected.name}</div>
-            <div className={style["arrow"]}>{ICON.ArrowDown()}</div>
+            <div className={style["arrow"]}><img src={expandArrowSVG} /></div>
           </div>
         </div>
       </div>);
