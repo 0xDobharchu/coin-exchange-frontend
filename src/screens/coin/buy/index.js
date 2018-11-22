@@ -115,7 +115,7 @@ class BuyCryptoCoin extends React.Component {
   }
 
   render() {
-    const { paymentMethod, supportedCurrency, exchange } = this.props;
+    const { paymentMethod, supportedCurrency, exchange, wallet } = this.props;
     const { orderInfo } = this.state;
     return (
       <div className={styles.container}>
@@ -133,7 +133,7 @@ class BuyCryptoCoin extends React.Component {
             orderType={paymentMethod}
             direction='buy'
             fiatCurrency={supportedCurrency[0]}
-            currency='ETH'
+            currency={wallet?.currency}
             validate={exchangeValidator}
           />
           <Field
