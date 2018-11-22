@@ -88,6 +88,23 @@ export const changePassword = async (data) => {
   }
 };
 
+export const getTransactions = async () => {
+  try {
+    const options = {
+      url : '/exchange/orders/?direction=buy',
+      method: 'GET'
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {Authorization: 'Bearer ' + currentUser.getToken() };
+    }
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR update phone number', err);
+    throw err;
+  }
+};
+
 export const sendToGetPhoneCode = async () => {
   try {
     const options = {
