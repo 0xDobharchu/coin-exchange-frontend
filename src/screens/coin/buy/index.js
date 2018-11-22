@@ -1,15 +1,18 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import { Field, formValueSelector, change, touch, isValid } from 'redux-form';
+import { Field, formValueSelector, change, touch } from 'redux-form';
 import { connect } from 'react-redux';
 import createForm from 'src/components/core/form/createForm';
 import { isRequired } from 'src/components/core/form/validator';
 import { bindActionCreators } from 'redux';
 import { PAYMENT_METHOD } from 'src/screens/coin/constant';
+import { DEFAULT_CURRENCY } from 'src/resources/constants/crypto';
 import ConfirmButton from 'src/components/confirmButton';
 import inputField from 'src/components/core/form/fields/input';
 import { showAlert } from 'src/screens/app/redux/action';
+import { FaLock } from 'react-icons/fa';
+import cx from 'classnames';
 import BankTransferInfo from './components/bankTransferInfo';
 import walletSelectorField, { walletValidator } from './reduxFormFields/walletSelector';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
@@ -22,7 +25,11 @@ const BuyForm = createForm({
   propsReduxForm: {
     form: buyFormName,
     initialValues: {
-      paymentMethod: PAYMENT_METHOD.TRANSFER
+      paymentMethod: PAYMENT_METHOD.TRANSFER,
+      wallet: {
+        address: '',
+        currency: DEFAULT_CURRENCY
+      }
     },
   },
 });
@@ -78,7 +85,7 @@ class BuyCryptoCoin extends React.Component {
   renderCoD = () => {
     const { paymentMethod } = this.props;
     return (
-      <div className={styles.codInfo}>
+      <div className={cx(styles.codInfo, 'mt-4')}>
         <Field
           type="text"
           name="address"
@@ -108,18 +115,20 @@ class BuyCryptoCoin extends React.Component {
   }
 
   render() {
-    const { paymentMethod, isValid,supportedCurrency } = this.props;
+    const { paymentMethod, supportedCurrency, exchange } = this.props;
     const { orderInfo } = this.state;
     return (
       <div className={styles.container}>
         <BuyForm onSubmit={console.log} validate={console.log}>
           <Field
             name="wallet"
+            className='mt-4'
             component={walletSelectorField}
             validate={walletValidator}
           />
           <Field
             name="exchange"
+            className='mt-4'
             component={exchangeField}
             orderType={paymentMethod}
             direction='buy'
@@ -128,13 +137,20 @@ class BuyCryptoCoin extends React.Component {
             validate={exchangeValidator}
           />
           <Field
+            className='mt-4'
             name="paymentMethod"
             component={paymentMethodField}
           />
           {this.renderCoD()}
           { orderInfo && <BankTransferInfo orderInfo={orderInfo} />}
           <ConfirmButton
-            disabled={!isValid}
+            containerClassName='mt-5'
+            buttonClassName={styles.submitBtn}
+            label={(
+              <span>
+                <FaLock /> Buy {exchange?.amount || 0} {exchange?.currency}
+              </span>
+            )}
             onConfirm={this.makeOrder}
           />
         </BuyForm>
@@ -150,7 +166,6 @@ const mapStateToProps = (state) => ({
   userAddress: formSelector(state, 'address'),
   userPhone: formSelector(state, 'phone'),
   userNote: formSelector(state, 'noteAndTime'),
-  isValid: isValid(buyFormName)(state),
   supportedCurrency: state?.app?.supportedCurrency || [],
 });
 

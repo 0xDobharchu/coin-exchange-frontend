@@ -2,14 +2,14 @@
 import React from 'react';
 import Exchange from '../../components/exchange';
 
-const field = ({ input, meta, currency, fiatCurrency, orderType, direction }) => {
+const field = ({ input, meta, currency, fiatCurrency, orderType, direction, className = '' }) => {
   const {
     onChange, onFocus, onBlur
   } = input;
   const { error, touched } = meta;
   const shouldShowError = !!(touched && error);
   return (
-    <div>
+    <div className={className}>
       <Exchange
         onChange={onChange}
         onFocus={onFocus}

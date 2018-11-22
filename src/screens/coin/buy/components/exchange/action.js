@@ -5,6 +5,7 @@ import { GET_QUOTE } from './type';
 
 export const getQuote = params => dispatch => {
   const req = makeRequest({
+    withAuth: false,
     type: GET_QUOTE,
     url: API_URL.COIN.GET_QUOTE,
     params
@@ -17,6 +18,7 @@ export const getQuote = params => dispatch => {
 
 export const getQuoteReverse = params => dispatch => {
   const req = makeRequest({
+    withAuth: false,
     type: GET_QUOTE,
     url: API_URL.COIN.GET_QUOTE_REVERSE,
     params
