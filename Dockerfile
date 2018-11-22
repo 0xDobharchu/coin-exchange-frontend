@@ -17,10 +17,6 @@ WORKDIR /app
 
 COPY ./ /app/
 
-RUN mkdir -p /app/.env
-
-RUN cp /app/.env-sample/.env.*.js /app/.env/
-
 RUN rm -rf /app/node_modules
 
 RUN rm yarn.lock
