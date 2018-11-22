@@ -19,6 +19,7 @@ export const URL = {
   USER_SIGN_IN: '/sign-in/',
   USER_SIGN_UP: '/sign-up/',
   USER_FORGET_PASSWORD: '/forget-password/',
+  USER_FORGET_PASSWORD_FINISH: '/forget-password/finish/',
   HOME: '/',
   ABOUT_US: '/about-us',
   TEAM: '/team',
@@ -80,6 +81,8 @@ export const API_URL = {
     USER_SIGN_UP: '/user/sign-up/', // POST /user/sign-up
     USER_WALLET: '/user/wallet/', // POST,GET /user/wallet
     USER_PROFILE: '/user/profile/', // GET /user/profile
+    USER_FORGET_PASSWORD: '/user/forgot-password/', // POST user/forgot-password/
+    USER_FORGET_PASSWORD_FINISH: '/user/forgot-password/reset/', // POST user/forgot-password/reset/
   },
   SYSTEM: {
     COUNTRY : '/system/country-default-configs/', // GET /system/country-default-configs/

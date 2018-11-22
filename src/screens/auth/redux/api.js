@@ -52,14 +52,12 @@ export const sendEmailVerifyCode = async (code) => {
   }
 };
 
-export const updatePhoneNumber = async (phone_number) => {
+export const updateProfile = async (data) => {
   try {
     const options = {
       url : '/user/profile/',
-      method: 'POST',
-      data: {
-        phone_number
-      }
+      method: 'PATCH',
+      data
     };
     if(currentUser.isLogin()) {
       options.headers = {Authorization: 'Bearer ' + currentUser.getToken() };
@@ -69,6 +67,24 @@ export const updatePhoneNumber = async (phone_number) => {
   } catch (err) {
     console.log('ERROR update phone number', err);
     return null;
+  }
+};
+
+export const changePassword = async (data) => {
+  try {
+    const options = {
+      url : '/user/change-password/',
+      method: 'POST',
+      data
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {Authorization: 'Bearer ' + currentUser.getToken() };
+    }
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR update phone number', err);
+    throw err;
   }
 };
 

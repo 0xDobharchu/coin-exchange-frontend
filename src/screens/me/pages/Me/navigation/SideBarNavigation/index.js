@@ -3,9 +3,10 @@ import { Tab, Row, Nav, Col } from 'react-bootstrap';
 import AccountInfo from '../../../AccountInfo';
 import Setting from '../../../Setting';
 import MeProfile from '../../../MeProfile';
+import History from '../../../History';
 import style from './style.scss';
 
-const CHILD_ROUTES = ['profile', 'setting', 'accountLevel'];
+const CHILD_ROUTES = ['profile', 'setting', 'accountLevel', 'history'];
 
 class SideBarNavigation extends React.PureComponent {
   getActiveKey = path => {
@@ -13,6 +14,7 @@ class SideBarNavigation extends React.PureComponent {
       case '/me/profile': return CHILD_ROUTES[0];
       case '/me/setting': return CHILD_ROUTES[1];
       case '/me/accountLevel': return CHILD_ROUTES[2];
+      case '/me/history': return CHILD_ROUTES[3];
       default: return CHILD_ROUTES[0];
     }
   }
@@ -46,6 +48,9 @@ class SideBarNavigation extends React.PureComponent {
                 <Nav.Item>
                   <Nav.Link eventKey={CHILD_ROUTES[2]}>Account Level</Nav.Link>
                 </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey={CHILD_ROUTES[3]}>History</Nav.Link>
+                </Nav.Item>
               </Nav>
             </Col>
             <Col sm={9}>
@@ -58,6 +63,9 @@ class SideBarNavigation extends React.PureComponent {
                 </Tab.Pane>
                 <Tab.Pane eventKey={CHILD_ROUTES[2]} className={style.scrollbar}>
                   <MeProfile location={location} />
+                </Tab.Pane>
+                <Tab.Pane eventKey={CHILD_ROUTES[3]} className={style.scrollbar}>
+                  <History />
                 </Tab.Pane>
               </Tab.Content>
             </Col>

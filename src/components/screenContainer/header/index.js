@@ -25,6 +25,10 @@ const menus = {
     name: 'Team',
     link: URL.TEAM
   },
+  me: {
+    name: 'Profile',
+    link: URL.ME
+  },
   wallet: {
     name: 'Wallet',
     link: URL.WALLET,

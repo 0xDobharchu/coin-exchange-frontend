@@ -1,0 +1,42 @@
+@import 'src/assets/styles/var';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  .title {
+    font-size: 20px;
+    font-weight: 600;
+    color: $primary-extra-bold;
+  }
+  .lineTitle {
+    height: 2px;
+    width: 100%;
+    background-color: #D8D8D8;
+  }
+  .block1 {
+    margin-top: 38.5px;
+    margin-bottom: 38.5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    .col {
+      // background: red;
+      min-width: 200px;
+      display: flex;
+      flex-direction: row;
+    }
+  }
+  .personalDetail {
+    padding: 5px;
+    margin-top: 30px;
+    .leftSide {
+      label {
+        word-break: break-word;
+        font-size: 14px;
+        font-weight: 100;
+        color: #ABAAAD;
+      }
+    }
+  }
+}
