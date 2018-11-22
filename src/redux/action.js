@@ -17,7 +17,7 @@ const makeAction = ({ type, data, dispatchType }) => {
 
 export const makeRequest = (config = {}, _dispatch) => {
   const {
-    type, url, method, data, onSuccess, onError, onFinal, params
+    type, url, method, data, onSuccess, onError, onFinal, params, withAuth = true
   } = config;
   const METHOD = method ? String(method).toLowerCase() : 'get';
   return async (d) => {
@@ -38,7 +38,7 @@ export const makeRequest = (config = {}, _dispatch) => {
         data,
         params
       };
-      if(currentUser.isLogin()) {
+      if(currentUser.isLogin() && withAuth) {
         options.headers = {Authorization: 'Bearer ' + currentUser.getToken() };
       }
       const res = await http(options);
