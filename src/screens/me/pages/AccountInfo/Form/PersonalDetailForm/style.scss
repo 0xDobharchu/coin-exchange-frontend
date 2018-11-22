@@ -1,0 +1,18 @@
+@import 'var';
+
+.container {
+  width: 100%;
+  div {
+    padding: 5px;
+  }
+  label {
+    color: #0D0031;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .button {
+    margin-top: 20px;
+    background: $primary-extra-bold;
+    color: #FFFFFF;
+  }
+}

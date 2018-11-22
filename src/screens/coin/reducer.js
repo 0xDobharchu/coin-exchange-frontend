@@ -6,12 +6,13 @@ const initState = {
   buyPrice: {},
 };
 
-export default (state = initState, { type, payload }) => {
+export default (state = initState, { type, data }) => {
   switch (type) {
     case `${GET_REVIEW}_SUCCESS`:
       return {
         ...state,
-        numReview: payload,
+        numReview: data.count,
+        reviewList:  data.results,
       };
     default:
       return state;

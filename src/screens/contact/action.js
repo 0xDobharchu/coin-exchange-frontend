@@ -1,5 +1,5 @@
 import { makeRequest } from 'src/redux/action';
-import ADD_CONTACT from './type';
+import {ADD_CONTACT} from './type';
 
 function addContact(name, phone, email, description) {
   return makeRequest({
@@ -12,6 +12,7 @@ function addContact(name, phone, email, description) {
   });
 }
 
-export const contactActions = {
+const contactActions = {
   addContact
 };
+export default contactActions;

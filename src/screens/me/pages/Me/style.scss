@@ -2,6 +2,10 @@
 @import 'src/assets/styles/_functions.scss';
 
 .me {
+  width: 100%;
+  height: 100%;
+  background-color: #efefef;
+  // padding: 0 110px;
   .updateProfile {
     display: flex;
     padding-bottom: rem-calc(11px);

@@ -1,11 +1,56 @@
-.desktop {
-  @media screen and (max-width: 768px){
-    display: none;
+@import 'var';
+.container {
+  .panel-left, .panel-right {
+    background-color: #ffffff;
+    width: inherit;
+    box-shadow: 0 5px 10px -7px #47464A;
+    border-radius: 6px;
+    height: 100%;
   }
-}
-
-.mobile {
-  @media screen and (min-width: 768px){
-    display: none;
+  .main {
+    padding: 30px;
+    background: $white;;
+    box-shadow: 0 5px 10px -7px #47464A;
+    border-radius: 6px;
+    .header {
+      height: $btn-height-medium;
+      display: flex;
+      justify-content: space-around;
+      border-radius: 6px 6px 6px 6px;
+      align-items: center;
+      overflow: hidden;
+      .tab-title {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: inherit;
+        color: $black-light;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        letter-spacing: 0;
+        width: 100%;
+        background-color: #F1F0F5;
+        &.header-active {
+          color: $white;
+          background-color: $ce-green;
+        }
+      }
+    }
+    .content {
+      min-height: 400px;
+      margin: 20px 0px;
+      .tab-content {
+        height: 100%;
+        &.active {
+          display: block;
+        }
+        &.hidden {
+          display: none;
+        }
+      }
+    }
   }
+  
 }

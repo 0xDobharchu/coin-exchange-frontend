@@ -82,9 +82,24 @@ export const API_URL = {
     USER_WALLET: '/user/wallet/', // POST,GET /user/wallet
     USER_PROFILE: '/user/profile/', // GET /user/profile
   },
+  SYSTEM: {
+    COUNTRY : '/system/country-default-configs/', // GET /system/country-default-configs/
+    GET_COUNTRY_CURRENCY: '/system/country-currencies/', // GET /system/country-currencies/?country=
+    GET_BANK_INFO: '/system/banks/' // GET system/banks/?currency=&country=
+  },
   LANDING: {
     FAQ: 'content/faq/',
-  }
+  },
+  COIN: {
+    // GET /exchange/quote/?amount=&currency=&fiat_currency=&check=[1,0]&user_check=[1,0]&direction=[buy,sell]
+    GET_QUOTE: '/exchange/quote/',
+    // `GET /exchange/quote-reverse/?fiat_amount=&currency=&fiat_currency=&check=[1,0]&user_check=[1,0]&direction=[buy,sell]&order_type=[cod,bank]`
+    GET_QUOTE_REVERSE: '/exchange/quote-reverse/',
+    // POST /exchange/orders/
+    MAKE_ORDER: '/exchange/orders/',
+    // POST /exchange/addresses/?currency=
+    GEN_ADDRESS: '/exchange/addresses/',
+  },
 };
 
 export const LANDING_PAGE_TYPE = {
