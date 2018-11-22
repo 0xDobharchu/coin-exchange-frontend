@@ -25,7 +25,7 @@
     font-weight: normal;
     letter-spacing: 0;
   }
-  button {
+  button, .btn-primary {
     height: 44px;
     background: $primary-medium;
     border-radius: 6px 6px 6px 6px;
@@ -36,6 +36,12 @@
     letter-spacing: 0;
     border: none;
   }
+
+  button:hover,.btn-primary:hover{
+    background-color: $primary-hover;
+    border-color: $primary-hover;
+  }
+  
   input, textarea {
     padding: 4px 15px;
     min-width: 187px;
