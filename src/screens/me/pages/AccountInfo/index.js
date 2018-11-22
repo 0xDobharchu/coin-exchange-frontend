@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
 import { MyMessage } from 'src/lang/components';
+import { changePassword } from 'src/screens/auth/redux/api';
 import { updateProfileAction } from 'src/screens/auth/redux/action';
 import { Row, Col } from 'react-bootstrap';
 import ChangePassword from './ChangePassword';
@@ -15,14 +16,14 @@ const AccountInfo = ({ updateProfileAction, showAlert }) => {
     message: <MyMessage id={id} />,
     type: 'success'
   });
-
+  const handleChangePassword = values => changePassword(values).then(showSuccess('Update password success'));
   const handleUpdateNickname = values => updateProfileAction(values).then(showSuccess('Update Profile Success'));
   return (
     <div className={style.container}>
       <label className={style.title}>User Profile</label>
       <div className={style.lineTitle} />
       <div className={style.block1}>
-        <ChangePassword />
+        <ChangePassword onSubmit={handleChangePassword} />
       </div>
       <div className={style.lineTitle} />
       <div className={style.block1}>
