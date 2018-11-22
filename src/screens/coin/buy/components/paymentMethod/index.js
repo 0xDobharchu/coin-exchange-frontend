@@ -41,7 +41,7 @@ class Exchange extends Component {
       <div className={styles.container}>
         {
           methods.map(method => (
-            <div key={method.value}>
+            <div key={method.value} className={styles.item}>
               <Checkbox
                 label={method.name}
                 value={method.value}
