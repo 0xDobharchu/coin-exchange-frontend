@@ -18,6 +18,8 @@ const {
   HIDE_SCAN_QRCODE,
   GET_SUPPORT_COUNTRY,
   GET_COUNTRY_CURRENCY,
+  SHOW_QRCODE_CONTENT,
+  HIDE_QRCODE_CONTENT
 } = APP_TYPE;
 
 const initState = {
@@ -85,6 +87,16 @@ export default (state = initState, action) => {
       return {
         ...state,
         passcodeData: action.payload,
+      };
+    case SHOW_QRCODE_CONTENT:
+      return {
+        ...state,
+        qRCodeContentData: action.payload,
+      };
+    case HIDE_QRCODE_CONTENT:
+      return {
+        ...state,
+        qRCodeContentData: action.payload,
       };
     case HEADER_TITLE_SET:
       return {

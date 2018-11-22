@@ -10,6 +10,17 @@ $blur_color: #868DAD;
   display: block !important;
 }
 .modal {
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  outline: 0;
+
   max-width: $app-width;
   margin: 0 auto;
   .modal-backdrop {
