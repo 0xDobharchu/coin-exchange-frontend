@@ -1,32 +1,6 @@
-@import 'var';
+@import './var';
 
-.button {
-  min-width: 125px;
-  width: 100%;
-  font-size: 14px;
-  color: #FFFFFF;
-  font-weight: 400;
-  background: $primary-extra-bold;
-  border: 1px solid #E7E6EB;
-  padding: 10px 34px;
-}
-.input {
-  width: 100%;
-  font-size: 14px;
-  color: #0D0031;
-  font-weight: 400;
-  background: #FFFFFF;
-  border: 1px solid #E7E6EB;
-}
-.fullWidth {
-  width: 100%;
-}
-.label {
-  color: #0D0031;
-  font-size: 16px;
-  font-weight: 400;
-}
-.customSwitch {
+:global {
   .rc-switch {
     position: relative;
     display: inline-block;
@@ -75,8 +49,8 @@
     outline: none;
   }
   .rc-switch-checked {
-    border: 1px solid #87d068;
-    background-color: #87d068;
+    border: 1px solid $primary-medium;
+    background-color: $primary-medium;
   }
   .rc-switch-checked .rc-switch-inner {
     left: 6px;
@@ -107,7 +81,7 @@
     white-space: normal;
     pointer-events: none;
     -webkit-user-select: text;
-       -moz-user-select: text;
+      -moz-user-select: text;
         -ms-user-select: text;
             user-select: text;
   }
@@ -129,5 +103,5 @@
     100% {
       transform: scale(1);
     }
-  }  
+  }
 }

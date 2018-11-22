@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getProfileAction }from 'src/screens/auth/redux/action';
 import { Container, Row } from 'react-bootstrap';
-import detectWindow from 'src/screens/coin/styles.scss';
+import detectWindow from 'src/screens/app/components/Layout/styles.scss';
 import style from './style.scss';
 import TabNavigation from './navigation/TabNavigation';
 import SideBarNavigation from './navigation/SideBarNavigation';
