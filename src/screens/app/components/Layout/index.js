@@ -4,6 +4,7 @@ import Alert from '@/components/core/presentation/Alert';
 import Navigation from '@/components/core/controls/Navigation';
 import styles from './styles.scss';
 import BrowserDetect from '@/services/browser-detect';
+import WalletPasscode from '@/components/Wallet/WalletPasscode';
 
 class Layout extends PureComponent {
   renderNavigation = (props) => {
@@ -28,6 +29,7 @@ class Layout extends PureComponent {
         </div>
         {this.renderNavigation(this.props)}
         <Alert />
+        <WalletPasscode />
       </React.Fragment>
     );
   }

@@ -263,7 +263,7 @@ class ReceiveCoin extends React.Component {
   }
 
   download = (value) => {
-    const canvas = document.querySelector('.box-qr-code > canvas');
+    const canvas = document.querySelector('.qrcode_data > canvas');
     this.downloadRef.href = canvas.toDataURL();
     this.downloadRef.download = this.state.walletSelected.getShortAddress() + "-" + value.toString() + "-" + this.state.walletSelected.name + ".png";
  }
@@ -348,7 +348,7 @@ class ReceiveCoin extends React.Component {
 
             </div>
 
-            <div className={style["box-qr-code"]}>
+            <div className={`${style["box-qr-code"]} qrcode_data`} title="click to copy the address">
                 <QRCode size={230} value={qrCodeValue} onClick={() => { Clipboard.copy(qrCodeValue); this.showToast(messages['wallet.action.receive.success.share']);}} />
             </div>
 

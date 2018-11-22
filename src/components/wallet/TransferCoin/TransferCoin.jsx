@@ -8,21 +8,25 @@ import ModalDialog from '@/components/core/controls/ModalDialog';
 import Modal from '@/components/core/controls/Modal';
 import createForm from '@/components/core/form/createForm';
 import { fieldInput } from '@/components/core/form/customField';
-import { API_URL } from "@/constants";
+import { API_URL } from 'src/resources/constants/url';
 import local from '@/services/localStore';
 import {APP} from '@/constants';
 import {required} from '@/components/core/form/validation';
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
 import { bindActionCreators } from "redux";
 import { makeRequest } from 'src/redux/action';
-import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action';
+import { showAlert } from '@/screens/app/redux/action';
 // import QrReader from 'react-qr-reader';
 import { StringHelper } from '@/services/helper';
-import './TransferCoin.scss';
+import style from './TransferCoin.scss';
 import { ICON } from '@/components/wallet/images';
 import BrowserDetect from '@/services/browser-detect';
 import WalletSelected from '@/components/wallet/WalletSelected';
+
 import Slider from 'react-rangeslider';
+
+import 'react-rangeslider/lib/index.css'
+
 
 import AddressBook from "../AddressBook";
 import iconAddContact from '@/assets/images/wallet/icons/icon-add-user.svg';
@@ -76,7 +80,7 @@ class Transfer extends React.Component {
 
   showAlert(msg, type = 'success', timeOut = 3000, icon = '') {
     this.props.showAlert({
-      message: <div className="textCenter">{icon}{msg}</div>,
+      message: <div className={style["textCenter"]}>{icon}{msg}</div>,
       timeOut,
       type,
       callBack: () => {},
@@ -97,12 +101,12 @@ class Transfer extends React.Component {
   }
 
   async componentDidMount() {
-    this.props.showLoading();
+    // this.props.showLoading();
     let legacyMode = (BrowserDetect.isChrome && BrowserDetect.isIphone); // show choose file or take photo
     this.setState({legacyMode: legacyMode});
 
     await this.getWalletDefault();
-    this.props.hideLoading();
+    // this.props.hideLoading();
 
     await this.setRate();
 
@@ -197,7 +201,7 @@ class Transfer extends React.Component {
       currency = this.getSetting();
     }
 
-    let rate = 0;
+    let rate = 0;    
     if((wallet || cryptoCurrency) && currency){
       rate = await this.getRate(currency ? currency : 'USD', cryptoCurrency ? cryptoCurrency : wallet.name);
     }
@@ -208,14 +212,14 @@ class Transfer extends React.Component {
     return new Promise((resolve, reject) => {
 
       this.props.getFiatCurrency({
-        PATH_URL: API_URL.EXCHANGE.GET_FIAT_CURRENCY,
-        qs: {fiat_currency: fiat_currency, currency: currency},
-        successFn: (res) => {
-          let data = res.data;
-          let result = fiat_currency == 'USD' ? data.price : data.fiat_amount;
+        url: API_URL.EXCHANGE.GET_FIAT_CURRENCY,          
+        params: {amount: 1, fiat_currency: fiat_currency, currency: currency, direction: 'buy'},        
+        onSuccess: (res) => {
+          let data = res;
+          let result = fiat_currency == 'USD' ? data.fiat_amount : data.fiat_amount;
           resolve(result);
         },
-        errorFn: (err) => {
+        onError: (err) => {
           console.error("Error", err);
           resolve(0);
         },
@@ -293,7 +297,7 @@ class Transfer extends React.Component {
 
           // get balance for first item + update to local store:
           walletDefault.balance = wallets[i].balance;
-          MasterWallet.UpdateBalanceItem(walletDefault);
+          // MasterWallet.UpdateBalanceItem(walletDefault);
         }
       }
 
@@ -366,7 +370,7 @@ class Transfer extends React.Component {
       result = eval(str);
     }
     catch(e){
-      console.log(e);
+      // console.log(e);
     }
 
     return result;
@@ -565,10 +569,10 @@ render() {
 
         {/* Dialog confirm transfer coin */}
         <ModalDialog title="Confirmation" onRef={modal => this.modalConfirmTranferRef = modal}>
-        <div className="bodyConfirm"><span>{messages['wallet.action.transfer.text.confirm_transfer']} {amount} {this.state.walletSelected ? this.state.walletSelected.name : ''}?</span></div>
-        <div className="bodyConfirm">
-            <Button className="left" cssType="danger" onClick={this.submitSendCoin} >{messages['wallet.action.transfer.button.confirm']}</Button>
-            <Button className="right" cssType="secondary" onClick={() => { this.modalConfirmTranferRef.close(); }}>Cancel</Button>
+        <div className={style["bodyConfirm"]}><span>{messages['wallet.action.transfer.text.confirm_transfer']} {amount} {this.state.walletSelected ? this.state.walletSelected.name : ''}?</span></div>
+        <div className={style["bodyConfirm"]}>
+            <Button className={style["left"]} cssType="danger" onClick={this.submitSendCoin} >{messages['wallet.action.transfer.button.confirm']}</Button>
+            <Button className={style["right"]} cssType="secondary" onClick={() => { this.modalConfirmTranferRef.close(); }}>Cancel</Button>
         </div>
         </ModalDialog>
 
@@ -585,41 +589,52 @@ render() {
               showViewFinder={false}
             />
             : ''} */}
+            <span>No support yet</span>
         </Modal>
 
         <Modal onClose={()=>{this.onCloseAddressBook();}} title={messages['wallet.action.setting.label.select_a_contact']} onRef={modal => this.modalAddressBookRef = modal} customBackIcon={customBackIcon} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle} customRightIcon={iconAddContact} customRightIconClick={()=>{this.openAddNewContact()}}>
               {this.state.addressBookContent}
         </Modal>
 
-        <SendWalletForm className={walletNotFound ? "d-none" : "sendwallet-wrapper"} onSubmit={this.sendCoin} validate={this.invalidateTransferCoins}>
+        <SendWalletForm className={walletNotFound ? style["d-none"] : style["sendwallet-wrapper"]} onSubmit={this.sendCoin} validate={this.invalidateTransferCoins}>
 
         {/* Box: */}
-        <div className="bgBox">
-          <p className="labelText block-hidden">{messages['wallet.action.transfer.label.to_address']}
-            <span onClick={()=> {this.onChooseFromContact();}} className="fromContact">{messages['wallet.action.transfer.label.from_contact']}</span>
+        <div className={style["bgBox"]}>
+          <p className={style["labelText"] + ' ' + style["block-hidden"]}>{messages['wallet.action.transfer.label.to_address']}
+            <span onClick={()=> {this.onChooseFromContact();}} className={style["fromContact"]}>{messages['wallet.action.transfer.label.from_contact']}</span>
           </p>
           
-          <div className="div-address-qr-code">
+          <div className={style["div-address-qr-code"]}>
             <Field
               name="to_address"
               type="text"
-              className="form-control input-address-qr-code"
+              className={`form-control ${style["input-address-qr-code"]}`}
               placeholder={messages['wallet.action.transfer.placeholder.to_address']}
               component={fieldInput}
               value={this.state.inputAddressAmountValue}
               onChange={evt => this.updateSendAddressValue(evt)}
               validate={[required]}
             />
-            <span onClick={() => { this.openQrcode() }} className="icon-qr-code-black">{ICON.QRCode()}</span>
+            <span onClick={() => { this.openQrcode() }} className={style["icon-qr-code-black"]}>{ICON.QRCode()}</span>
           </div>
-          <div className="row">
-            <div className="col-6"><p className="labelText">{messages['wallet.action.transfer.label.amount']}</p></div>
+          <div>
+            {/* <div className={style["col-6"]}>
+              <p className={style["labelText"]}>{messages['wallet.action.transfer.label.amount']}
+                { walletSelected && (walletSelected.name == 'ETH' || walletSelected.name == 'BTC') &&
+                <p className={style["maxAmount"]} onClick={() => this.calcMaxAmount()}>{messages['wallet.action.transfer.label.max_amount']}</p>
+                }
+              </p>
+            </div> */}
+
+          <p className={style["labelText"] + ' ' + style["block-hidden"]}>{messages['wallet.action.transfer.label.amount']}
             { walletSelected && (walletSelected.name == 'ETH' || walletSelected.name == 'BTC') &&
-              <div className="col-6"><p className="maxAmount" onClick={() => this.calcMaxAmount()}>{messages['wallet.action.transfer.label.max_amount']}</p></div>
+              <span onClick={()=> {this.calcMaxAmount();}} className={style["fromContact"]}>{messages['wallet.action.transfer.label.max_amount']}</span>
             }
+          </p>
+            
           </div>
-            <div className="div-amount">
-              <div className="prepend">{ this.state.walletSelected ? StringHelper.format("{0}", this.state.walletSelected.name) : ''}</div>
+            <div className={style["div-amount"]}>
+              <div className={style["prepend"]}>{ this.state.walletSelected ? StringHelper.format("{0}", this.state.walletSelected.name) : ''}</div>
               <Field
                 key="2"
                 name="amountCoin"
@@ -634,8 +649,8 @@ render() {
               />
             </div>
             { !showDivAmount ? "" :
-              <div className="div-amount">
-                <div className="prepend">{currency}</div>
+              <div className={style["div-amount"]}>
+                <div className={style["prepend"]}>{currency}</div>
                 <Field
                   key="1"
                   name="amountMoney"
@@ -652,8 +667,8 @@ render() {
 
             {this.state.listFeeObject &&
             <div>
-              <p className="labelText">{messages['wallet.action.transfer.label.feel_level']} {this.state.listFeeObject.listFee[this.state.volume].description}</p>
-              <div className="fee-level-box">
+              <p className={style["labelText"]}>{messages['wallet.action.transfer.label.feel_level']} {this.state.listFeeObject.listFee[this.state.volume].description}</p>
+              <div className={style["fee-level-box"]}>
                 <Slider
                   min={this.state.listFeeObject.min}
                   max={this.state.listFeeObject.max}
@@ -667,11 +682,11 @@ render() {
             }
 
             <div>
-              <p className="labelText">{messages['wallet.action.transfer.label.from_wallet']}</p>
+              <p className={style["labelText"]}>{messages['wallet.action.transfer.label.from_wallet']}</p>
               { walletSelected && <WalletSelected wallets={wallets} walletSelected={walletSelected} onSelect={wallet => { this.selectWallet(wallet); }}></WalletSelected> }
             </div>
 
-            <Button className="button-wallet-cpn" isLoading={this.state.isRestoreLoading}  type="submit" block={true}>{messages['wallet.action.transfer.button.transfer']}</Button>
+            <Button className={style["button-wallet-cpn"]} isLoading={this.state.isRestoreLoading}  type="submit" block={true}>{messages['wallet.action.transfer.button.transfer']}</Button>
           </div>
 
 
@@ -701,8 +716,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   rfChange: bindActionCreators(change, dispatch),
   showAlert: bindActionCreators(showAlert, dispatch),
-  showLoading: bindActionCreators(showLoading, dispatch),
-  hideLoading: bindActionCreators(hideLoading, dispatch),
   clearFields: bindActionCreators(clearFields, dispatch),
   getFiatCurrency: bindActionCreators(makeRequest, dispatch),
 });

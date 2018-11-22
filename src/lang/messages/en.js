@@ -9,7 +9,17 @@ export default {
       me: 'Me',
       ninjaCoin: 'Coin'
     }
-  },
+  },  
+  error: {
+    required: 'Required',  
+    requiredOne: 'You need to fill in one of these!',
+    greaterThan: 'Must be greater than {min}',
+    lessThan: 'Must be less than {max}',
+    greaterThanEqual: 'Must be equal or greater than {min}',    
+    lessThanEqual: 'Must be less than or equal {max}',  
+    mustBeANumber: 'Must be a number',
+    mustBeAPositiveInteger: 'Must be a integer number greater or equal 0',
+  },  
   me: {
     profile: {
       head_text: 'Our verification process typically takes just a few minutes. This may take slightly longer outside business hours. Your information will remain 100% private.',

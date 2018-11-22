@@ -3,6 +3,7 @@
 @import './_var.scss';
 @import './_animate.scss';
 @import './_fonts.scss';
+@import './slider.scss';
 /* App global styles */
 :global {
   html, body, div#root-app {
@@ -13,6 +14,7 @@
     font-weight: $extra-light;
     color: $black;
     background-color: $bg-gray;
+    overflow: hidden;
     @include full-screen;
   }
   img {

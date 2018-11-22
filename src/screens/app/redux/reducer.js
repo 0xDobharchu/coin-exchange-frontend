@@ -10,6 +10,8 @@ const {
   HEADER_DEFAULT,
   UPDATE_APP_STATE,
   SET_LANGUAGE,
+  HIDE_CONFIRM,
+  SHOW_CONFIRM,
 } = APP_TYPE;
 
 const initState = {
@@ -65,6 +67,16 @@ const initState = {
 
 export default (state = initState, action) => {
   switch (action.type) {
+    case SHOW_CONFIRM:
+      return {
+        ...state,
+        passcodeData: action.payload,
+      };
+    case HIDE_CONFIRM:
+      return {
+        ...state,
+        passcodeData: action.payload,
+      };
     case HEADER_TITLE_SET:
       return {
         ...state,
