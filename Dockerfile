@@ -1,16 +1,27 @@
-FROM dauden/node-base:latest
+FROM node:latest
 
 # File Author / Maintainer
 MAINTAINER Black Bean, tuananh@autonomous.nyc
 
+RUN apt-get update && apt-get install ruby-full -y \
+   && npm install -g grunt-cli \
+   && npm install -g bower \
+   && gem install compass \
+   && gem install sass
+
 ENV TEMPDIR /home/node/tmp
 
 RUN mkdir -p /app
+
 WORKDIR /app
 
 COPY ./ /app/
 
 RUN rm -rf /app/node_modules
+
+RUN rm yarn.lock
+
+RUN npm install yarn@latest
 
 RUN yarn build
 

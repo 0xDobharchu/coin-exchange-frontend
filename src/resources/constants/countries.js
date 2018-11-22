@@ -246,3 +246,5 @@ export default {
   ZR: 'ZR - Zaire',
   ZW: 'ZW - Zimbabwe'
 };
+
+export const DEFAULT_COUNTRY = 'HK';

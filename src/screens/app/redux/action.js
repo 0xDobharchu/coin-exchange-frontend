@@ -1,7 +1,11 @@
 import $http from 'src/services/api';
 import IpInfo from 'src/models/IpInfo';
 import { APP } from 'src/constants';
+import SystemConfigModel from 'src/models/system';
+import { API_URL } from 'src/resources/constants/url';
+import { DEFAULT_COUNTRY } from 'src/resources/constants/countries';
 import local from 'src/services/localStore';
+import makeRequest from 'src/redux/action';
 import APP_ACTION from './type';
 // import { signUp } from './api';
 
@@ -142,4 +146,36 @@ export const initApp = (language, ref) => (dispatch) => {
   } catch (e) {
     console.log(e);
   }
+};
+
+// QR Code
+export const openQrScanner = () => (dispatch) => {
+  dispatch({
+    type: APP_ACTION.SHOW_SCAN_QRCODE
+  });
+};
+
+export const closeQrScanner = () => (dispatch) => {
+  dispatch({
+    type: APP_ACTION.HIDE_SCAN_QRCODE
+  });
+};
+
+export const getCountryCurrency = (countryCode) => (dispatch, getState) => {
+  const supportedCountry = getState()?.app?.supportedCountry || [];
+  const country = supportedCountry.find(c => c.country === countryCode) ? countryCode : DEFAULT_COUNTRY;
+
+  const req = makeRequest({
+    url: `${API_URL.SYSTEM.GET_COUNTRY_CURRENCY}?country=${country}`,
+    type: APP_ACTION.GET_COUNTRY_CURRENCY
+  }, dispatch);
+  return req();
+};
+
+export const getSupportCountry = () => (dispatch) => {
+  const req = makeRequest({
+    url: API_URL.SYSTEM.COUNTRY,
+    type: APP_ACTION.GET_SUPPORT_COUNTRY,
+  }, dispatch);
+  return req().then(res => SystemConfigModel.supportCountryRes(res));
 };
