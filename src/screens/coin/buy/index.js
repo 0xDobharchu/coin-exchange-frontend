@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import { Field, formValueSelector } from 'redux-form';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import createForm from 'src/components/core/form/createForm';
 import { isRequired } from 'src/components/core/form/validator';
 import { bindActionCreators } from 'redux';
 import { PAYMENT_METHOD } from 'src/screens/coin/constant';
 import { DEFAULT_CURRENCY } from 'src/resources/constants/crypto';
+import { URL } from 'src/resources/constants/url';
 import ConfirmButton from 'src/components/confirmButton';
 import inputField from 'src/components/core/form/fields/input';
 import { showAlert } from 'src/screens/app/redux/action';
@@ -41,10 +43,8 @@ class BuyCryptoCoin extends React.Component {
 
     this.state = {
       orderInfo: null,
+      showBankTransferInfo: false,
     };
-  }
-
-  componentDidMount() {
   }
 
   isValidToSubmit = () => {
@@ -74,7 +74,7 @@ class BuyCryptoCoin extends React.Component {
       address: wallet?.address,
     };
     if (paymentMethod === PAYMENT_METHOD.COD) {
-      payload.user_info = { userAddress, userPhone, userNote };
+      payload.user_info = JSON.stringify({ userAddress, userPhone, userNote });
     }
     makeOrder(payload)
       .then(this.orderSuccessHandler)
@@ -83,11 +83,16 @@ class BuyCryptoCoin extends React.Component {
 
   orderSuccessHandler = (orderInfo) => {
     this.setState({ orderInfo });
-    const { showAlert } = this.props;
+    const { showAlert, paymentMethod, history } = this.props;
     showAlert({
       message: 'Successful',
       timeOut: 1000,
     });
+    if (paymentMethod === PAYMENT_METHOD.COD) {
+      history?.push(URL.ME);
+    } else {
+      this.setState({ showBankTransferInfo: true });
+    }
   }
 
   orderFailedHandler = () => {
@@ -97,6 +102,17 @@ class BuyCryptoCoin extends React.Component {
       type: 'danger',
       timeOut: 1000,
     });
+  }
+
+  resetState = () => {
+    this.setState({
+      showBankTransferInfo: false,
+      orderInfo: null
+    });
+  }
+
+  onBankTransferDone = () => {
+    this.resetState();
   }
 
   renderCoD = () => {
@@ -133,15 +149,14 @@ class BuyCryptoCoin extends React.Component {
 
   render() {
     const { paymentMethod, supportedCurrency, exchange, wallet } = this.props;
-    const { orderInfo } = this.state;
+    const { orderInfo, showBankTransferInfo } = this.state;
     const isValid = this.isValidToSubmit();
-    if (orderInfo) {
-      return <BankTransferInfo orderInfo={orderInfo} />;
+    if (orderInfo && showBankTransferInfo) {
+      return <BankTransferInfo orderInfo={orderInfo} onDone={this.onBankTransferDone} />;
     }
-
     return (
       <div className={styles.container}>
-        <BuyForm onSubmit={console.log} validate={console.log}>
+        <BuyForm>
           <Field
             name="wallet"
             className='mt-4'
@@ -220,4 +235,4 @@ BuyCryptoCoin.propTypes = {
   supportedCurrency: PropTypes.array,
 };
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(BuyCryptoCoin));
+export default withRouter(injectIntl(connect(mapStateToProps, mapDispatchToProps)(BuyCryptoCoin)));
