@@ -5,6 +5,7 @@ import { GET_BANK_INFO } from './type';
 
 export const getBankInfo = ({ country, currency }) => dispatch => {
   const req = makeRequest({
+    withAuth: false,
     type: GET_BANK_INFO,
     url: API_URL.SYSTEM.GET_BANK_INFO,
     params: { country, currency }
