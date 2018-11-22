@@ -8,7 +8,7 @@ import forgetPassword from 'src/screens/forgetPassword';
 import Coin from 'src/screens/coin';
 import Localization from 'src/screens/localization';
 import Me from 'src/screens/me/pages/Me';
-// import Wallet from 'src/screens/wallet';
+import Wallet from 'src/screens/wallet';
 import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
@@ -78,12 +78,12 @@ const routes = [
     // exact: true,
     auth: true,
   },
-  // {
-  //   path: '/wallet',
-  //   component: Wallet,
-  //   exact: true,
-  //   auth: true
-  // }
+  {
+    path: '/wallet',
+    component: Wallet,
+    exact: true,
+    auth: true
+  }
 ];
 
 export default routes;

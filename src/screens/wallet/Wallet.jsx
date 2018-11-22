@@ -63,12 +63,14 @@ import customRightIcon from '@/assets/images/wallet/icons/icon-options.svg';
 import floatButtonScanQRCode from '@/assets/images/wallet/icons/float-button-scan.svg';
 
 import WalletPreferences from '@/components/wallet/WalletPreferences';
-import { requestWalletPasscode, showScanQRCode, showQRCodeContent  } from '@/screens/app/redux/action';
+import { requestWalletPasscode, showQRCodeContent  } from '@/screens/app/redux/action';
 import QRCodeContent from '@/components/wallet/QRCodeContent';
 // import RemindPayment from '@/components/Payment/Remind';
 import { ICON } from '@/components/wallet/images';
 
 const QRCode = require('qrcode.react');
+
+import { showQrCode } from 'src/components/barcodeScanner';
 
 import { Ethereum } from '@/services/Wallets/Ethereum.js';
 
@@ -804,6 +806,13 @@ class Wallet extends React.Component {
     });
   }
   
+  onFloatButtonClick=()=>{
+    showQrCode(
+      {
+        onData: this.onQRCodeScaned
+      }
+    );
+  }
 
   render = () => {
     const { messages } = this.props.intl;
@@ -814,7 +823,7 @@ class Wallet extends React.Component {
       <div className={style.walletPage}>
 
         {/* float button qrcode */}
-        <img onClick={()=> {this.props.showScanQRCode({onFinish: (data) => {this.onQRCodeScaned(data);}});}} className={style.floatButtonScanQrcode} src={floatButtonScanQRCode} />
+        <img onClick={this.onFloatButtonClick} className={style.floatButtonScanQrcode} src={floatButtonScanQRCode} />
 
         {/* remind checkout */}
         {/* <RemindPayment /> */}
@@ -1041,8 +1050,7 @@ const mapDispatch = ({
   change,
   clearFields,
   hideHeader,
-  requestWalletPasscode,
-  showScanQRCode,
+  requestWalletPasscode,  
   showQRCodeContent
 });
 

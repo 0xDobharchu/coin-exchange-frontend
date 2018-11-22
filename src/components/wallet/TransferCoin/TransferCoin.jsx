@@ -16,16 +16,16 @@ import {MasterWallet} from "@/services/Wallets/MasterWallet";
 import { bindActionCreators } from "redux";
 import { makeRequest } from 'src/redux/action';
 import { showAlert } from '@/screens/app/redux/action';
-// import QrReader from 'react-qr-reader';
 import { StringHelper } from '@/services/helper';
 import style from './TransferCoin.scss';
 import { ICON } from '@/components/wallet/images';
-import BrowserDetect from '@/services/browser-detect';
 import WalletSelected from '@/components/wallet/WalletSelected';
 
 import Slider from 'react-rangeslider';
 
 import 'react-rangeslider/lib/index.css'
+
+import { showQrCode } from 'src/components/barcodeScanner';
 
 
 import AddressBook from "../AddressBook";
@@ -57,16 +57,11 @@ class Transfer extends React.Component {
       walletDefault: false,
       walletSelected: false,
       currency: this.props.currency,
-
-      // Qrcode
-      qrCodeOpen: false,
-      delay: 300,
-      legacyMode: false,
-
+      
       rate: 0,
       inputSendAmountValue: 0,
       inputSendMoneyValue: 0,
-      legacyMode: false,
+      
       walletNotFound: '',
       volume: 0,
       listFeeObject: false,
@@ -100,10 +95,7 @@ class Transfer extends React.Component {
     this.setState({inputSendAmountValue: 0, inputSendMoneyValue: 0, currency: currency ? currency : 'USD'});
   }
 
-  async componentDidMount() {
-    // this.props.showLoading();
-    let legacyMode = (BrowserDetect.isChrome && BrowserDetect.isIphone); // show choose file or take photo
-    this.setState({legacyMode: legacyMode});
+  async componentDidMount() {        
 
     await this.getWalletDefault();
     // this.props.hideLoading();
@@ -367,10 +359,12 @@ class Transfer extends React.Component {
     const { messages } = this.props.intl;
     let result = str
     try{
-      result = eval(str);
+      //result = eval(str);
+      result = messages [str]
     }
     catch(e){
-      // console.log(e);
+      alert(str);
+      console.log(e.message);
     }
 
     return result;
@@ -445,14 +439,8 @@ handleScan=(data) =>{
       else{
         this.showAlert("Address not found");
       }
-    }
-
-    this.modalScanQrCodeRef.close();
+    }    
   }
-}
-
-handleError(err) {
-  consolelog('error wc', err);
 }
 
 oncloseQrCode=() => {
@@ -460,16 +448,9 @@ oncloseQrCode=() => {
 }
 
 openQrcode = () => {
-  if (!this.state.legacyMode){
-    this.setState({ qrCodeOpen: true });
-    this.modalScanQrCodeRef.open();
-  }
-  else{
-    this.openImageDialog();
-  }
-}
-openImageDialog = () => {
-  // this.refs.qrReader1.openImageDialog();
+  showQrCode({
+    onData: this.handleScan,
+  });
 }
 
 selectWallet = async (walletSelected) => {
@@ -574,23 +555,7 @@ render() {
             <Button className={style["left"]} cssType="danger" onClick={this.submitSendCoin} >{messages['wallet.action.transfer.button.confirm']}</Button>
             <Button className={style["right"]} cssType="secondary" onClick={() => { this.modalConfirmTranferRef.close(); }}>Cancel</Button>
         </div>
-        </ModalDialog>
-
-        {/* QR code dialog */}
-        <Modal onClose={() => this.oncloseQrCode()} title={messages['wallet.action.transfer.label.scan_qrcode']} onRef={modal => this.modalScanQrCodeRef = modal} customBackIcon={customBackIcon} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle}>
-          {/* {this.state.qrCodeOpen || this.state.legacyMode ?
-            <QrReader
-              ref="qrReader1"
-              delay={this.state.delay}
-              onScan={(data) => { this.handleScan(data); }}
-              onError={this.handleError}
-              style={{ width: '100%', height: '100%' }}
-              legacyMode={this.state.legacyMode}
-              showViewFinder={false}
-            />
-            : ''} */}
-            <span>No support yet</span>
-        </Modal>
+        </ModalDialog>        
 
         <Modal onClose={()=>{this.onCloseAddressBook();}} title={messages['wallet.action.setting.label.select_a_contact']} onRef={modal => this.modalAddressBookRef = modal} customBackIcon={customBackIcon} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle} customRightIcon={iconAddContact} customRightIconClick={()=>{this.openAddNewContact()}}>
               {this.state.addressBookContent}
@@ -617,14 +582,7 @@ render() {
             />
             <span onClick={() => { this.openQrcode() }} className={style["icon-qr-code-black"]}>{ICON.QRCode()}</span>
           </div>
-          <div>
-            {/* <div className={style["col-6"]}>
-              <p className={style["labelText"]}>{messages['wallet.action.transfer.label.amount']}
-                { walletSelected && (walletSelected.name == 'ETH' || walletSelected.name == 'BTC') &&
-                <p className={style["maxAmount"]} onClick={() => this.calcMaxAmount()}>{messages['wallet.action.transfer.label.max_amount']}</p>
-                }
-              </p>
-            </div> */}
+          <div>            
 
           <p className={style["labelText"] + ' ' + style["block-hidden"]}>{messages['wallet.action.transfer.label.amount']}
             { walletSelected && (walletSelected.name == 'ETH' || walletSelected.name == 'BTC') &&
