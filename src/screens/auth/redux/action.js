@@ -1,5 +1,5 @@
 import { 
-  fetchProfile, sendEmailVerifyCode, updatePhoneNumber, sendToGetPhoneCode, submitVerifyPhoneCode, submitIdCard, submitSelfie
+  fetchProfile, sendEmailVerifyCode, updateProfile, sendToGetPhoneCode, submitVerifyPhoneCode, submitIdCard, submitSelfie
 } from './api';
 
 export const getProfileAction = () => (dispatch) => new Promise((resolve, reject) => {
@@ -20,9 +20,18 @@ export const sendEmailVerifyCodeAction = (code) => (dispatch) => new Promise((re
 
 export const updatePhoneNumberAction = (phone_number) => (dispatch) => new Promise((resolve, reject) => {
   // dispatch({ type: 'UPDATE_PROFILE_INFO', payload: { phone_number }});
-  updatePhoneNumber(phone_number).then(r => {
+  updateProfile({ phone_number }).then(r => {
     if (!r) return;
     dispatch({ type: 'UPDATE_PROFILE_INFO', payload: { phone_number, verification_level: 'level_2', verification_status: 'pending' }});
+    sendToGetPhoneCode().then(r => r).catch(err=>err);
+    resolve(true);
+  }).catch(err => reject(err));
+});
+export const updateProfileAction = (data) => (dispatch) => new Promise((resolve, reject) => {
+  // dispatch({ type: 'UPDATE_PROFILE_INFO', payload: { phone_number }});
+  updateProfile(data).then(payload => {
+    if (!payload) return;
+    dispatch({ type: 'UPDATE_PROFILE_INFO', payload });
     sendToGetPhoneCode().then(r => r).catch(err=>err);
     resolve(true);
   }).catch(err => reject(err));

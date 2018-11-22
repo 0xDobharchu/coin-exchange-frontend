@@ -52,14 +52,12 @@ export const sendEmailVerifyCode = async (code) => {
   }
 };
 
-export const updatePhoneNumber = async (phone_number) => {
+export const updateProfile = async (data) => {
   try {
     const options = {
       url : '/user/profile/',
-      method: 'POST',
-      data: {
-        phone_number
-      }
+      method: 'PATCH',
+      data
     };
     if(currentUser.isLogin()) {
       options.headers = {Authorization: 'Bearer ' + currentUser.getToken() };
