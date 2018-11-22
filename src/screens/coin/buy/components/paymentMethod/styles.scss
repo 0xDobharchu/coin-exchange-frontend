@@ -2,15 +2,13 @@
   display: flex;
   position: relative;
   align-items: center;
-  .inputWrapper {
+  .item {
+    margin-right: 30px;
     display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  .arrowIcon {
-    bottom: -13px;
-    position: relative;
-    min-width: 50px;
-    max-width: 50px;
+    align-items: center;
+    :global(.checkbox-warper) {
+      margin-bottom: 0px;
+      margin-right: 10px;
+    }
   }
 }
