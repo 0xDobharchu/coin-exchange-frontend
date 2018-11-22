@@ -1,10 +1,26 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { getCountries } from 'src/screens/register/action';
 import { Field, reduxForm } from 'redux-form';
 import { Row, Col }from 'react-bootstrap';
+import dropdownField from 'src/components/core/form/fields/dropdown';
 import { InputField, Button } from 'src/components/custom';
 import style from './style.scss';
+
+const mocksCountry = [
+  { label: 'Hong Kong', value: 'HK'},
+  { label: 'Indonesia', value: 'ID'},
+  { label: 'Combodia', value: 'KH'},
+  { label: 'Philippiens', value: 'PH'},
+];
+const DropDownField = () => (
+  <Field
+    name="country"
+    component={dropdownField}
+    list={mocksCountry}
+  />
+);
 
 // eslint-disable-next-line
 const PersonalDetailForm = ({ handleSubmit, onSubmit }) => (
@@ -19,7 +35,7 @@ const PersonalDetailForm = ({ handleSubmit, onSubmit }) => (
       </Col>
     </Row>
     <label>Country</label>
-    <Field name="country" component={InputField} placeholder="Enter Your Country" />
+    <DropDownField />
     <Button className={style.button} value="Save" onClick={handleSubmit(onSubmit)} />
   </form>
 );
@@ -32,9 +48,10 @@ const mapState = state => ({
   }
 });
 
+const mapDispatch = { getCountries };
 
 export default compose(
-  connect(mapState),
+  connect(mapState, mapDispatch),
   reduxForm({
     form: 'PersonalDetailForm',
   })
