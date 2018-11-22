@@ -22,6 +22,7 @@
     "APP_ENV": true
   },
   "rules": {
+    "react/jsx-no-bind": 0,
     "react/no-array-index-key": 0,
     "react/display-name": 0,
     "react/jsx-one-expression-per-line": 0,

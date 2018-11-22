@@ -24,7 +24,7 @@
     letter-spacing: 0;
   }
   button {
-    height: 44px;
+    height: $btn-height-medium;
     background: $primary-medium;
     border-radius: 6px 6px 6px 6px;
     color: $white;
@@ -33,11 +33,12 @@
     text-align: center;
     letter-spacing: 0;
     border: none;
+    cursor: pointer;
   }
   input, textarea {
     padding: 4px 15px;
     min-width: 187px;
-    height: 50px;
+    height: $input-height;
     background: $white;
     border: 1px solid #DCDCDE;
     border-radius: 4px 4px 4px 4px;

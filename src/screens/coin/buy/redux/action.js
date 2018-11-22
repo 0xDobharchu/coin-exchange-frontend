@@ -1,19 +1,20 @@
 import { makeRequest } from 'src/redux/action';
-// import { API_URL } from 'src/resources/constants/url';
-import { GET_REVIEW, GET_BUY_PRICE, GET_SELL_PRICE } from './type';
+import CoinModel from 'src/models/coin';
+import { API_URL } from 'src/resources/constants/url';
+import { MAKE_ORDER, GEN_ADDRESS } from './type';
 
-export const getReview = params => makeRequest({
-  type: GET_REVIEW,
-  url: '',
-  params
-});
+export const makeOrder = (data) => dispatch => {
+  const req = makeRequest({
+    type: MAKE_ORDER,
+    url: API_URL.COIN.MAKE_ORDER,
+    data,
+    method: 'POST'
+  }, dispatch);
+  return req().then(res => CoinModel.coinOrderRes(res));
+};
 
-export const coinGetSellPrice = () => makeRequest({
-  type: GET_SELL_PRICE,
-  url: '',
-});
-
-export const coinGetBuyPrice = () => makeRequest({
-  type: GET_BUY_PRICE,
-  url: '',
+export const genAddress = (currency) => makeRequest({
+  type: GEN_ADDRESS,
+  url: `${API_URL.COIN.GEN_ADDRESS}?currency=${currency}`,
+  method: 'post',
 });
