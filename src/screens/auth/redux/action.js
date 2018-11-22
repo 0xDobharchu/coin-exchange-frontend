@@ -32,7 +32,7 @@ export const updateProfileAction = (data) => (dispatch) => new Promise((resolve,
   updateProfile(data).then(payload => {
     if (!payload) return;
     dispatch({ type: 'UPDATE_PROFILE_INFO', payload });
-    sendToGetPhoneCode().then(r => r).catch(err=>err);
+    // sendToGetPhoneCode().then(r => r).catch(err=>err);
     resolve(true);
   }).catch(err => reject(err));
 });
