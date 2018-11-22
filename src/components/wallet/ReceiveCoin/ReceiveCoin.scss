@@ -67,6 +67,7 @@
     width: 250px;
     height: 250px;
     padding: 10px;
+    cursor: pointer;
   }
 
   .button-download{
@@ -83,6 +84,7 @@
     // border-color: #007bff;
     background-color: #0BDD91 !important;
     font-size: 1rem;
+    cursor: pointer;
   }
 
   .box-link{
@@ -97,6 +99,7 @@
     }
     .link-download{
       // float: left;
+      cursor: pointer;
     }
     .link-copy-address{
       // float: right;

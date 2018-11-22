@@ -14,6 +14,13 @@ export const updateModal = payload => ({ type: APP_ACTION.UPDATE_MODAL, payload 
 export const showAlert = config => ({ type: APP_ACTION.UPDATE_APP_STATE, payload: { configAlert: { isShow: true, ...config } } });
 export const hideAlert = config => ({ type: APP_ACTION.UPDATE_APP_STATE, payload: { configAlert: { isShow: false, ...config } } });
 
+// confirm passcode:
+export const newPasscode = config => ({ type: APP_ACTION.SHOW_CONFIRM, payload: { isShow: true, type: 1, ...config } });
+export const requestWalletPasscode = config => ({ type: APP_ACTION.SHOW_CONFIRM, payload: { isShow: true, type: 2, ...config } });
+export const updatePasscode = config => ({ type: APP_ACTION.HIDE_CONFIRM, payload: { isShow: true, type: 3, ...config } });
+export const hidePasscode = config => ({ type: APP_ACTION.HIDE_CONFIRM, payload: { isShow: false, type: 4, ...config } });
+
+
 // Header
 export const setHeaderTitle = title => ({ type: APP_ACTION.HEADER_TITLE_SET, payload: title });
 export const setHeaderCanBack = () => ({ type: APP_ACTION.HEADER_BACK_SET });

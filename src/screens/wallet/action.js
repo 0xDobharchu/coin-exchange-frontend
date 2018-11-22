@@ -5,8 +5,7 @@ import { MasterWallet } from '@/services/Wallets/MasterWallet';
 
 export const userWallet = () => (dispatch) => {
   const getWallet = makeRequest({
-    type: GET_WALLET,
-    
+    type: GET_WALLET,    
     url: API_URL.USER.USER_WALLET,
   }, dispatch);
   return getWallet().then((res) => {    

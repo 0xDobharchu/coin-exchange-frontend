@@ -1,0 +1,51 @@
+.walletSelected {
+    border: solid 1px #EAEAEC;
+    border-radius: 5px;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    margin-top: 1rem;
+    -webkit-box-shadow: -1px 2px 10px 1px rgba(0,0,0,0.1);
+    -moz-box-shadow: -1px 2px 10px 1px rgba(0,0,0,0.1);
+    box-shadow: -1px 2px 10px 1px rgba(0,0,0,0.1);
+  }
+  
+.lastCol{
+    text-align:right;
+    padding-right: 1rem !important;
+    overflow-y: hidden;
+}
+    .balance{
+      font-size: 1rem;
+      font-weight:400;
+    }
+    .arrow{
+      position: absolute;
+      right: 1rem;
+      padding-right: 1rem;
+    }
+  
+    .col-2, .col-5, .col-6, .col-4{
+        padding: 0 0.5rem;
+        line-height: 1.9;
+      }
+      .name{
+        color:Gray;
+        font-size: 1rem;
+      }
+      
+      .address{
+        font-size: 1rem;
+        font-weight:300;
+        color:black;
+      }
+
+      .icon{
+        padding-right: 0 !important;
+        padding-top: 0.5rem !important;
+      
+        img {
+          height: 42px;
+          border:solid 1px white;
+          border-radius: 50%;
+          background: white;
+        }
+      }

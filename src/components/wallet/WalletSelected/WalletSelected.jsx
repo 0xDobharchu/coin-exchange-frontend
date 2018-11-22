@@ -4,10 +4,10 @@ import {injectIntl} from 'react-intl';
 import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
 import Modal from '@/components/core/controls/Modal';
-import { showLoading, hideLoading } from '@/screens/app/redux/action';
+// import { showLoading, hideLoading } from '@/screens/app/redux/action';
 import { ICON } from '@/components/wallet/images';
 import ListCoin from '@/components/wallet/ListCoin';
-import './WalletSelected.scss';
+import style from './WalletSelected.scss';
 
 class WalletSelected extends React.Component {
   static propTypes = {
@@ -65,16 +65,16 @@ class WalletSelected extends React.Component {
         icon = require("@/assets/images/wallet/icons/coin-square/" + walletSelected.name.toLowerCase() + '.svg');
     } catch (ex){console.log(ex)};
     return (
-      <div className="walletSelected" onClick={() => {this.openListCoin() }}>
+      <div className={style["walletSelected"]} onClick={() => {this.openListCoin() }}>
         <div className="row">
-          <div className="col-2 icon"><img src={icon} /></div>
-          <div className="col-5">
-            <div className="name">{walletSelected && walletSelected.title}</div>
-            <div className="address">{walletSelected && walletSelected.getShortAddress()}</div>
+          <div className={'col-2 ' + style["icon"] + ' ' + style['col-padding']}><img src={icon} /></div>
+          <div className={'col-5' +  + ' ' + style['col-padding']}>
+            <div className={style["name"]}>{walletSelected && walletSelected.title}</div>
+            <div className={style["address"]}>{walletSelected && walletSelected.getShortAddress()}</div>
           </div>
-          <div className="col-5 lastCol">
-            <div className="balance">{walletSelected && walletSelected.balance + " " + walletSelected.name}</div>
-            <div className="arrow">{ICON.ArrowDown()}</div>
+          <div className={"col-5 " + style["lastCol"] + ' ' + style['col-padding']}>
+            <div className={style["balance"]}>{walletSelected && walletSelected.balance + " " + walletSelected.name}</div>
+            <div className={style["arrow"]}>{ICON.ArrowDown()}</div>
           </div>
         </div>
       </div>);
@@ -104,8 +104,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showLoading: bindActionCreators(showLoading, dispatch),
-  hideLoading: bindActionCreators(hideLoading, dispatch),
+  // showLoading: bindActionCreators(showLoading, dispatch),
+  // hideLoading: bindActionCreators(hideLoading, dispatch),
 });
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(WalletSelected));

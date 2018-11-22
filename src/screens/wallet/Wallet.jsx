@@ -35,7 +35,7 @@ import WalletProtect from './WalletProtect';
 import WalletHistory from './WalletHistory';
 import TransferCoin from '@/components/wallet/TransferCoin';
 import ReceiveCoin from '@/components/wallet/ReceiveCoin';
-import { showLoading, hideLoading, showAlert, setHeaderRight } from '@/screens/app/redux/action';
+import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action';
 import local from '@/services/localStore';
 import {APP} from '@/constants';
 
@@ -50,7 +50,6 @@ import style from './Wallet.scss';
 import CoinTemp from '@/screens/wallet/CoinTemp';
 import BackupWallet from '@/components/wallet/BackupWallet/BackupWallet';
 import RestoreWallet from '@/components/wallet/RestoreWallet/RestoreWallet';
-// import SettingWallet from '@/components/wallet/SettingWallet/SettingWallet';
 
 // new layout:
 import logoWallet from '@/assets/images/wallet/images/logo-wallet.svg';
@@ -73,7 +72,8 @@ const QRCode = require('qrcode.react');
 
 import { Ethereum } from '@/services/Wallets/Ethereum.js';
 
-import cx from 'classnames'
+import cx from 'classnames';
+import WalletPasscode from '@/components/Wallet/WalletPasscode';
 
 if (__CLIENT__)
 window.Clipboard = (function (window, document, navigator) {
@@ -156,9 +156,7 @@ class Wallet extends React.Component {
       // sortable:
       listSortable: {coin: false, token: false, collectitble: false},
     };
-
-    this.props.setHeaderRight(this.headerRight());
-    // this.listener = _.throttle(this.scrollListener, 200).bind(this);
+    
   }
 
   showAlert(msg, type = 'success', timeOut = 3000, icon = '') {
@@ -177,10 +175,7 @@ class Wallet extends React.Component {
   }
   showSuccess(mst) {
     this.showAlert(mst, 'success', 4000, ICON.SuccessChecked());
-  }
-  headerRight() {
-    return (<HeaderMore onHeaderMoreClick={this.onIconRightHeaderClick} />);
-  }
+  }  
 
   splitWalletData(listWallet) {
     let listMainWallet = [];
@@ -447,12 +442,13 @@ class Wallet extends React.Component {
             modalTransferCoin:
               (
                 <TransferCoin
+                  listWallet={this.state.listMainWalletBalance}
                   wallet={wallet}
                   onFinish={(result) => { this.successTransfer(result) }}
                   currency={this.state.alternateCurrency}
                 />
               ),
-            }, ()=>{
+            }, ()=>{              
             this.modalSendRef.open();
           });
       }
@@ -526,14 +522,6 @@ class Wallet extends React.Component {
     this.setState({restoreWalletContent: ""});
   }
 
-  // showWalletSettings(){
-  //   this.setState({
-  //     modalSetting: (<SettingWallet onBackupWalletAccountClick={this.showBackupWalletAccount} onRestoreWalletAccountClick={this.showRestoreWalletAccount} customBackIcon={BackChevronSVGWhite} modalBodyStyle={this.modalBodyStyle} modalHeaderStyle={this.modalHeaderStyle} />)
-  //   }, ()=> {
-  //     this.modalSettingRef.open();
-  //   });
-  // }
-
   // add custom token:
   addedCustomToken = () =>{
     let masterWallet = MasterWallet.getMasterWallet();
@@ -600,11 +588,6 @@ class Wallet extends React.Component {
 
   handleToggleNewCC = () => {
     this.setState({ isNewCCOpen: !this.state.isNewCCOpen });
-  }
-
-  onIconRightHeaderClick = () => {
-    // now show settings
-    this.showWalletSettings();
   }  
 
   onWarningClick = (wallet) => {
@@ -1051,8 +1034,7 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = ({
-  userWallet,
-  setHeaderRight,
+  userWallet,  
   showAlert,
   showLoading,
   hideLoading,
