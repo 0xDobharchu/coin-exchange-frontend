@@ -78,12 +78,13 @@ class BuyCryptoCoin extends React.Component {
   renderCoD = () => {
     const { paymentMethod } = this.props;
     return (
-      <div className="cod-form-container">
+      <div className={styles.codInfo}>
         <Field
           type="text"
           name="address"
           placeholder="Address"
           component={inputField}
+          className={styles.codItem}
           validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
         />
         <Field
@@ -91,6 +92,7 @@ class BuyCryptoCoin extends React.Component {
           name="phone"
           placeholder="Phone"
           component={inputField}
+          className={styles.codItem}
           validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
         />
         <Field
@@ -98,6 +100,7 @@ class BuyCryptoCoin extends React.Component {
           placeholder="As soon as possible"
           name="noteAndTime"
           component={inputField}
+          className={styles.codItem}
           validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
         />
       </div>

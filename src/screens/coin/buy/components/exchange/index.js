@@ -145,6 +145,7 @@ class Exchange extends Component {
           placeholder="0.0"
           value={amount}
           onBlur={() => onBlur()}
+          containerClassname={styles.inputWrapper}
           className={markRequired && !amount ? 'border-danger' : ''}
           onChange={this.onChange.bind(this, 'amount')}
         />
@@ -155,6 +156,7 @@ class Exchange extends Component {
           value={fiatAmount}
           onFocus={() => onFocus()}
           onBlur={() => onBlur()}
+          containerClassname={styles.inputWrapper}
           className={markRequired && !fiatAmount ? 'border-danger' : ''}
           onChange={this.onChange.bind(this, 'fiatAmount')}
         />
