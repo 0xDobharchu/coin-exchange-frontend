@@ -84,7 +84,7 @@ export const changePassword = async (data) => {
     return res;
   } catch (err) {
     console.log('ERROR update phone number', err);
-    return null;
+    throw err;
   }
 };
 

@@ -12,11 +12,13 @@ import style from './style.scss';
 
 // eslint-disable-next-line
 const AccountInfo = ({ updateProfileAction, showAlert }) => {
-  const showSuccess = id => showAlert({
+  const showMessage = (id, type) => showAlert({
     message: <MyMessage id={id} />,
-    type: 'success'
+    type
   });
-  const handleChangePassword = values => changePassword(values).then(showSuccess('Update password success'));
+  const showSuccess = id => showMessage(id, 'success');
+  const showError = id => showMessage(id, 'danger');
+  const handleChangePassword = values => changePassword(values).then(showSuccess('Update password success')).catch(showError('Update Password Failed'));
   const handleUpdateNickname = values => updateProfileAction(values).then(showSuccess('Update Profile Success'));
   return (
     <div className={style.container}>
