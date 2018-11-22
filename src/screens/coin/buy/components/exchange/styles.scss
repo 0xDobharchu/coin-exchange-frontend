@@ -1,18 +1,27 @@
 .container {
-  display: flex;
-  position: relative;
-  align-items: center;
-  width: inherit;
+  padding: 0px;
   justify-content: space-between;
   .inputWrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
+    button {
+      padding-right: 40px;
+    }
   }
   .arrowIcon {
-    bottom: -13px;
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%);
+    bottom: 25px;
+  }
+  .prepend {
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+  }
+  .exchange-icon {
     position: relative;
-    min-width: 50px;
-    max-width: 50px;
+    height: 100%;
   }
 }

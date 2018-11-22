@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { InputGroup, Container, Row, Col } from 'react-bootstrap';
 import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
 import { FIAT_CURRENCY } from 'src/resources/constants/fiat';
 import { FaArrowsAltH } from 'react-icons/fa';
 import Input from 'src/components/core/controls/input';
+import cx from 'classnames';
 import { connect } from 'react-redux';
 import { debounce } from 'lodash';
 import { EXCHANGE_DIRECTION, ORDER_TYPE } from 'src/screens/coin/constant';
@@ -30,8 +32,12 @@ class Exchange extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps?.orderType !== this.props.orderType) {
+    const { orderType, currency } = this.props;
+    if (prevProps?.orderType !== orderType) {
       this.dataCallbackHandler();
+    }
+    if (prevProps?.currency !== currency) {
+      this.getExchange();
     }
   }
 
@@ -134,33 +140,52 @@ class Exchange extends Component {
   }
 
   render() {
-    const { amount, fiatAmount } = this.state;
-    const { markRequired, onFocus, onBlur } = this.props;
-    console.log(this.state);
+    const { amount, fiatAmount, isExchanging } = this.state;
+    const { markRequired, onFocus, onBlur, currency } = this.props;
     return (
-      <div className={styles.container}>
-        <Input
-          onFocus={() => onFocus()}
-          label="Amount to buy"
-          placeholder="0.0"
-          value={amount}
-          onBlur={() => onBlur()}
-          containerClassname={styles.inputWrapper}
-          className={markRequired && !amount ? 'border-danger' : ''}
-          onChange={this.onChange.bind(this, 'amount')}
-        />
-        <FaArrowsAltH className={styles.arrowIcon} />
-        <Input
-          label="How much do you want?"
-          placeholder="0.0"
-          value={fiatAmount}
-          onFocus={() => onFocus()}
-          onBlur={() => onBlur()}
-          containerClassname={styles.inputWrapper}
-          className={markRequired && !fiatAmount ? 'border-danger' : ''}
-          onChange={this.onChange.bind(this, 'fiatAmount')}
-        />
-      </div>
+      <Container fluid className={styles.container}>
+        <Row noGutters>
+          <Col sm={5}>
+            <InputGroup>
+              <Input
+                onFocus={() => onFocus()}
+                label="Amount to buy"
+                placeholder="0.0"
+                value={amount}
+                onBlur={() => onBlur()}
+                containerClassname={styles.inputWrapper}
+                className={markRequired && !amount ? 'border-danger' : ''}
+                onChange={this.onChange.bind(this, 'amount')}
+              />
+              <InputGroup.Prepend>
+                <span className={styles.prepend}>{currency}</span>
+              </InputGroup.Prepend>
+            </InputGroup>
+          </Col>
+          <Col sm={2}>
+            <div className={cx(styles.exchangeIcon, 'd-none d-sm-block')}>
+              <FaArrowsAltH className={styles.arrowIcon} color={isExchanging && 'green'} />
+            </div>
+          </Col>
+          <Col sm={5}>
+            <InputGroup>
+              <Input
+                label="How much do you want?"
+                placeholder="0.0"
+                value={fiatAmount}
+                onFocus={() => onFocus()}
+                onBlur={() => onBlur()}
+                containerClassname={styles.inputWrapper}
+                className={markRequired && !fiatAmount ? 'border-danger' : ''}
+                onChange={this.onChange.bind(this, 'fiatAmount')}
+              />
+              <InputGroup.Prepend>
+                <span className={styles.prepend}>{currency}</span>
+              </InputGroup.Prepend>
+            </InputGroup>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
