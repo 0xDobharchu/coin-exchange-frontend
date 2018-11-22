@@ -17,7 +17,9 @@ WORKDIR /app
 
 COPY ./ /app/
 
-RUN cp -r /app/.env-sample /app/.env
+RUN mkdir -p /app/.env
+
+RUN cp /app/.env-sample/.env.*.js /app/.env/
 
 RUN rm -rf /app/node_modules
 
