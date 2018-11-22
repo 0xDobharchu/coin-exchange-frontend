@@ -1,6 +1,6 @@
 .headerContainer {
   padding: 15px;
-  max-height: 88px;
+  max-height: 77px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -38,20 +38,5 @@
     background: #39DDE3;
     font-weight: 600;
     letter-spacing: 0.22px;
-  }
-  .icon {
-    width: 30px;
-    height: 30px;
-    background: #fff;
-    border-radius: 50%;
-    display: inline-block;
-    margin: auto;
-    position: relative;
-    vertical-align: middle;
-  }
-  .welcome {
-    color: #fff;
-    font-size: 16px;
-    margin-right: 10px;
   }
 }

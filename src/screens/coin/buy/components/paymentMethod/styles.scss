@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  position: relative;
+  align-items: center;
+  .item {
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+    :global(.checkbox-warper) {
+      margin-bottom: 0px;
+      margin-right: 10px;
+    }
+  }
+}

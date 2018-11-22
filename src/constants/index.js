@@ -46,4 +46,5 @@ export const URL = {
   HANDSHAKE_ME_INDEX: '/me',
   HANDSHAKE_ME_PROFILE: '/me/profile',
   HANDSHAKE_ME_VERIRY_EMAIL: '/me/verify/email',
+  WALLET: '/wallet',
 };

@@ -9,7 +9,7 @@ import LabelLang from 'src/lang/components/LabelLang';
 import { FieldLang } from 'src/lang/components';
 import { isEmail, isRequired } from 'src/components/core/form/validator';
 import cx from 'classnames';
-import { contactActions } from './action';
+import contactActions  from './action';
 import style from './style.scss';
 
 const ContactForm = createForm({
@@ -36,19 +36,19 @@ class Contact extends React.Component {
     this.setState({ isSubmiting: true });
     const { fullname, phone, email, description } = this.props;
     console.log(fullname, email, phone, description);
-    if (fullname && email && phone && description) {      
+    if (fullname && email && phone && description) {
       const message = 'Thank you! Your message has been sent. You should receive a response from one of our representatives within 12-24 hours.';
       this.props.addContact(fullname,  phone, email, description).then((data) => {
         console.log('data addContact', data);
         this.setState({ isSubmiting: false });
-        alert(message);        
+        alert(message);
         this.props.history.push('/');
       }, (err) => {
         alert('OH! something went wrong!');
         this.setState({ isSubmiting: false });
         console.log('submitAddContact', err);
       });
-    }    
+    }
   }
 
   render() {
@@ -71,8 +71,8 @@ class Contact extends React.Component {
                       validate={isRequired(<LabelLang id="landingPage.contactUS.requiredYourName" />)}
                       type="text"
                       placeholder="landingPage.contactUS.placeholderYourName"
-                    />                                          
-                  </div>            
+                    />
+                  </div>
                   <div className="form-group">
                     {/* <label htmlFor="email"><LabelLang id="landingPage.contactUS.email" /></label> */}
                     <FieldLang
@@ -82,32 +82,32 @@ class Contact extends React.Component {
                       validate={[isRequired(<LabelLang id="landingPage.contactUS.requiredEmail" />), isEmail(<LabelLang id="landingPage.contactUS.notValidEmail" />)]}
                       type="email"
                       placeholder="Enter your email"
-                    />            
+                    />
                   </div>
                   <div className="form-group">
                     {/* <label htmlFor="phone"><LabelLang id="landingPage.contactUS.phone" /></label> */}
                     <FieldLang
                       name="phone"
                       className="form-control"
-                      component={inputField}    
-                      placeholder="landingPage.contactUS.placeholderPhone"                           
-                      type="phone"                
-                    /> 
+                      component={inputField}
+                      placeholder="landingPage.contactUS.placeholderPhone"
+                      type="phone"
+                    />
                   </div>
                   <div className="form-group">
                     {/* <label htmlFor="description"><LabelLang id="landingPage.contactUS.description" /></label> */}
                     <FieldLang
                       name="description"
                       className="form-control"
-                      component={textareaField}  
-                      placeholder="landingPage.contactUS.placeholderDescription"                                         
-                      type="text"  
-                      validate={[isRequired(<LabelLang id="landingPage.contactUS.requiredDescription" />)]}              
-                    />               
+                      component={textareaField}
+                      placeholder="landingPage.contactUS.placeholderDescription"
+                      type="text"
+                      validate={[isRequired(<LabelLang id="landingPage.contactUS.requiredDescription" />)]}
+                    />
                   </div>
                   <div className="form-group">
                     <button type="submit" className={cx('btn btn-primary btn-block', style.buttonContact)}><LabelLang id="landingPage.contactUS.contactButton" /></button>
-                    
+
                     {isSubmiting && <img alt="is login" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />}
                   </div>
                 </ContactForm>

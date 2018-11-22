@@ -1,5 +1,7 @@
 // import { APP } from 'src/constants';
+import SystemConfigModel from 'src/models/system';
 import APP_TYPE from './type';
+
 // import local from '@/services/localStore';
 
 const {
@@ -12,6 +14,10 @@ const {
   SET_LANGUAGE,
   HIDE_CONFIRM,
   SHOW_CONFIRM,
+  SHOW_SCAN_QRCODE,
+  HIDE_SCAN_QRCODE,
+  GET_SUPPORT_COUNTRY,
+  GET_COUNTRY_CURRENCY,
 } = APP_TYPE;
 
 const initState = {
@@ -62,7 +68,10 @@ const initState = {
     body: null,
     title: null,
     centered: false,
-  }
+  },
+  openQrScanner: false,
+  supportedCountry: [],
+  supportedCurrency: [],
 };
 
 export default (state = initState, action) => {
@@ -113,6 +122,26 @@ export default (state = initState, action) => {
         locale: action.payload,
       };
     }
+    case SHOW_SCAN_QRCODE: 
+      return {
+        ...state,
+        openQrScanner: true
+      };
+    case HIDE_SCAN_QRCODE: 
+      return {
+        ...state,
+        openQrScanner: false
+      };
+    case `${GET_SUPPORT_COUNTRY}_SUCCESS`:
+      return {
+        ...state,
+        supportedCountry: action?.data?.map((d) => SystemConfigModel.supportCountryRes(d)) || []
+      };
+    case `${GET_COUNTRY_CURRENCY}_SUCCESS`:
+      return {
+        ...state,
+        supportedCurrency: action?.data?.map(c => c?.currency) || []
+      };
     default:
       return state;
   }
