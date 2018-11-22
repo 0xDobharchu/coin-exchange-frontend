@@ -1,5 +1,5 @@
 import React from 'react';
-import cn from 'classnames';
+// import cn from 'classnames';
 import { Row, Col } from 'react-bootstrap';
 import Switch from 'rc-switch';
 import GeneralSettingForm from './Form/GeneralSettingForm';
@@ -20,8 +20,7 @@ const Setting = () => (
         <Switch />
         <label className={style.fontLeft}>Your personal information is never shown to other users</label>
       </Col>
-      <Col md={8} className={style.rightSide}>
-        {/* <PersonalDetailForm onSubmit={values => alert(JSON.stringify(values))} /> */}
+      {/* <Col md={8} className={style.rightSide}>
         <label>Require verification code to send</label>
         <div className={cn(style.radioItem, style.isgood)}>
           <div><input type="radio" name="verify_type" value="1" /></div>
@@ -35,7 +34,7 @@ const Setting = () => (
           <div><input type="radio" name="verify_type" value="1" /></div>
           <label>Any amount - <span>Most secured</span></label>
         </div>
-      </Col>
+      </Col> */}
     </Row>
     <label className={style.title}>Activity</label>
     <div className={style.lineTitle} />
