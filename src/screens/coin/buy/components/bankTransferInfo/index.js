@@ -11,7 +11,7 @@ import { FaRegCopy, FaCloudUploadAlt } from 'react-icons/fa';
 import { formatMoneyByLocale } from 'src/utils/format/curency';
 import ClockCount from 'src/components/clockCount';
 import TooltipInfo from 'src/components/tooltipInfo';
-import FileUploader from 'src/components/FileUploader';
+import FileUploader from 'src/components/fileUploader';
 import { getBankInfo } from './action';
 import './styles.scss';
 
