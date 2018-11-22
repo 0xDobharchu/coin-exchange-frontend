@@ -1,4 +1,15 @@
 .container {
   max-width: 1024px;
   background-color: white;
+  .cod-info {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    > div {
+      padding: 10px 0px;
+      .cod-item {
+        width: 100%;
+      }
+    }
+  }
 }

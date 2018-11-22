@@ -4,9 +4,9 @@ import cx from 'classnames';
 import styles from './styles.scss';
 
 const Input = (props) => {
-  const { label, labelClassname,  ...inputProps } = props;
+  const { label, labelClassname, containerClassname,  ...inputProps } = props;
   return (
-    <label className={styles.container}>
+    <label className={cx(styles.container, containerClassname)}>
       <span className={cx(styles.label, labelClassname)}>{label}</span>
       <input
         {...inputProps}
@@ -17,10 +17,14 @@ const Input = (props) => {
 
 Input.propTypes = {
   type: PropTypes.string,
+  containerClassname: PropTypes.string,
+  labelClassname: PropTypes.string,
 };
 
 Input.defaultProps = {
-  type: 'text'
+  type: 'text',
+  containerClassname: '',
+  labelClassname: ''
 };
 
 export default Input;
