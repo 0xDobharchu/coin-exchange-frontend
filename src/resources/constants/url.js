@@ -101,6 +101,10 @@ export const API_URL = {
     MAKE_ORDER: '/exchange/orders/',
     // POST /exchange/addresses/?currency=
     GEN_ADDRESS: '/exchange/addresses/',
+    // PUT /exchange/orders/{order_id}/receipt/
+    ADD_RECEIPT_ORDER: '/exchange/orders/{order_id}/receipt/',
+    // GET /exchange/deposited-address/?address=&currency=
+    CHECK_ADDRESS: '/exchange/deposited-address/',
   },
 };
 
