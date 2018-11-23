@@ -1,0 +1,20 @@
+.container {
+  max-width: 1024px;
+  background-color: white;
+  .cod-info {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    > div {
+      .bank-item {
+        width: 100%;
+      }
+    }
+  }
+  .row-item {
+    margin: 10px 0px;
+  }
+  .submit-btn {
+    width: 100%;
+  }
+}
