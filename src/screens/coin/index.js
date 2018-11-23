@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 import { Container, Col, Row } from 'react-bootstrap';
 import ReviewList from 'src/components/reviewList';
+import { FaPlayCircle } from 'react-icons/fa';
 import BuyCoin from './buy';
 import SellCoin from './sell';
 import styles from './styles.scss';
@@ -56,6 +57,10 @@ class Coin extends Component {
     const { activeTab } = this.state;
     return (
       <Container className={styles.container}>
+        <Row className={styles.intro}>
+          <h1>Buy & Sell Crypto at best prices</h1>
+          <h3>See how it works <FaPlayCircle className={styles.icon} /></h3>
+        </Row>
         <Row>
           <Col lg={3}>
             <div className={cx(styles.panel, styles.panelLeft)}>
