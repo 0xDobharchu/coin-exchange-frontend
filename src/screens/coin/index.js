@@ -4,6 +4,7 @@ import { Container, Col, Row } from 'react-bootstrap';
 import BuyCoin from './buy';
 import SellCoin from './sell';
 import styles from './styles.scss';
+import PricePanel from '@/screens/coin/desktopLayout/pricePanel';
 
 const TABS = {
   BUY: {
@@ -56,7 +57,9 @@ class Coin extends Component {
       <Container className={styles.container}>
         <Row>
           <Col lg={3}>
-            <div className={styles.panelLeft} />
+            <div className={styles.panelLeft}>
+              <PricePanel />
+            </div>
           </Col>
           <Col lg={6}>
             <div className={styles.main}>
