@@ -15,15 +15,13 @@ import {required} from '@/components/core/form/validation';
 import {MasterWallet} from "@/services/Wallets/MasterWallet";
 import { bindActionCreators } from "redux";
 import { makeRequest } from 'src/redux/action';
-import { showAlert } from '@/screens/app/redux/action';
+import { showAlert, showRequirePassword } from '@/screens/app/redux/action';
 import { StringHelper } from '@/services/helper';
 import style from './TransferCoin.scss';
 import { ICON } from '@/components/wallet/images';
 import WalletSelected from '@/components/wallet/WalletSelected';
 
 import Slider from 'react-rangeslider';
-
-import 'react-rangeslider/lib/index.css'
 
 import { showQrCode } from 'src/components/barcodeScanner';
 
@@ -321,7 +319,7 @@ class Transfer extends React.Component {
     }
   }
 
-  sendCoin = () => {
+  openSendCoin = () => {
       this.modalConfirmTranferRef.open();
   }
 
@@ -407,18 +405,41 @@ class Transfer extends React.Component {
     });
   }
 
+
 submitSendCoin=()=>{
-  this.setState({isRestoreLoading: true});
+
   this.modalConfirmTranferRef.close();
+
+  // todo: decryp wallet:  
+  if (this.state.userPassword === ''){
+    this.props.showRequirePassword({
+      onFinish: (userPassword) => {
+        this.setState({userPassword}, ()=> {
+          this.sendCoinNow();
+        });
+      }
+    });
+  }
+  else{
+    this.sendCoinNow();
+  }  
+}
+
+sendCoinNow=()=>{
+  
+  this.setState({isRestoreLoading: true});  
   let fee = this.state.listFeeObject ? this.state.listFeeObject.listFee[this.state.volume].value : 0;
   let option = {"fee": fee};
 
-  // todo: decryp wallet:
-
-  let password = "12345678";
-  const walletSend = this.state.walletSelected.descryp(password);
-
+  const walletSend = this.state.walletSelected.descryp(this.state.userPassword);
   console.log('walletSend', walletSend);  
+
+  if (!walletSend){
+    this.showError(this.getMessage('requirePassword.passNotMatch'));
+    this.submitSendCoin();
+    this.setState({isRestoreLoading: false, userPassword: ''});
+
+  }  
 
   walletSend.transfer(this.state.inputAddressAmountValue, this.state.inputSendAmountValue, option).then(success => {
 
@@ -437,6 +458,8 @@ submitSendCoin=()=>{
       }
   });
 }
+
+sendCoin
 
 // For Qrcode:
 handleScan=(data) =>{
@@ -569,22 +592,7 @@ render() {
   try {amount= parseFloat(amount).toFixed(8)}catch (e){}
 
   return (
-    <div>
-
-        {/* <Modal show={this.state.isShowPassword} onHide={this.hideRequirePassword}>
-          <Modal.Header closeButton>
-            <Modal.Title>Wallet Security</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div>
-              <p>Please enter your password to Unlock wallet</p>
-            </div>            
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary">Cancel</Button>
-            <Button variant="primary">Unlock</Button>
-          </Modal.Footer>
-        </Modal> */}
+    <div>      
 
         {/* Dialog confirm transfer coin */}
         <ModalDialog title="Confirmation" onRef={modal => this.modalConfirmTranferRef = modal}>
@@ -599,7 +607,7 @@ render() {
               {this.state.addressBookContent}
         </Modal>
 
-        <SendWalletForm className={walletNotFound ? style["d-none"] : style["sendwallet-wrapper"]} onSubmit={this.sendCoin} validate={this.invalidateTransferCoins}>
+        <SendWalletForm className={walletNotFound ? style["d-none"] : style["sendwallet-wrapper"]} onSubmit={this.openSendCoin} validate={this.invalidateTransferCoins}>
 
         {/* Box: */}
         <div className={style["bgBox"]}>
@@ -715,6 +723,8 @@ const mapDispatchToProps = (dispatch) => ({
   clearFields: bindActionCreators(clearFields, dispatch),
   getFiatCurrency: bindActionCreators(makeRequest, dispatch),
   userWallet: bindActionCreators(userWallet, dispatch),  
+  showRequirePassword: bindActionCreators(showRequirePassword, dispatch),  
+  
 });
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Transfer));
