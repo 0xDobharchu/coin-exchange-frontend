@@ -820,6 +820,12 @@ export default {
       transaction: 'Your transaction will appear on blockchain in about 30 seconds.',
     },
   },
+  requirePassword: {
+    passNotMatch: 'Password do not match, please try again.',
+    title: 'Wallet Security',
+    description: 'Please enter your password to Unlock wallet',
+    btnUnlockText: 'Unlock',
+  },
   review: {
     title: 'Review',
     label: {

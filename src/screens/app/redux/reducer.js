@@ -19,7 +19,9 @@ const {
   GET_SUPPORT_COUNTRY,
   GET_COUNTRY_CURRENCY,
   SHOW_QRCODE_CONTENT,
-  HIDE_QRCODE_CONTENT
+  HIDE_QRCODE_CONTENT,
+  SHOW_REQUIRE_PASSWORD,
+  HIDE_REQUIRE_PASSWORD
 } = APP_TYPE;
 
 const initState = {
@@ -97,6 +99,16 @@ export default (state = initState, action) => {
       return {
         ...state,
         qRCodeContentData: action.payload,
+      };
+    case SHOW_REQUIRE_PASSWORD:
+      return {
+        ...state,
+        passwordData: action.payload,
+      };
+    case HIDE_REQUIRE_PASSWORD:
+      return {
+        ...state,
+        passwordData: action.payload,
       };
     case HEADER_TITLE_SET:
       return {

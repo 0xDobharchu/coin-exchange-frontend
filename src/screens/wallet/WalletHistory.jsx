@@ -14,8 +14,6 @@ import cx from 'classnames'
 import Modal from '@/components/core/controls/Modal';
 import {Tabs} from 'rmc-tabs';
 
-import 'rmc-tabs/assets/index.css';
-
 import imgNoTrans from '@/assets/images/wallet/images/no-transaction.svg';
 import iconLoadding from '@/assets/images/icon/loading.gif';
 import needBackupWhite from '@/assets/images/wallet/icons/icon-need-backup-white.svg';
@@ -83,6 +81,10 @@ class WalletHistory extends React.Component {
         this.setState({transactions:transactions, callUpdate: callUpdate});
       }
     }
+  }
+
+  componentWillUnmount(){
+    
   }
 
   async componentDidMount(){
@@ -195,29 +197,29 @@ class WalletHistory extends React.Component {
           return "";
         }
 
-        let cssLabel = "label-self", cssValue = "value-self", icon = iconSelf, label = messages['wallet.action.history.label.self'];
+        let cssLabel = "label-self", cssValue = style["value-self"], icon = iconSelf, label = messages['wallet.action.history.label.self'];
         if(tran.is_sent == 1) {
           cssLabel = "label-sent";
-          cssValue = "value-sent";
+          cssValue = style["value-sent"];
           label = messages['wallet.action.history.label.sent'];
           icon = iconSent;
         }
         else if (tran.is_sent == 2) {
           cssLabel = "label-received";
-          cssValue = "value-received";
+          cssValue = style["value-received"];
           label = messages['wallet.action.history.label.received'];
           icon = iconReceived;
         }
         else if (tran.is_sent == 3) {
           cssLabel = "label-create";
-          cssValue = "value-create";
+          cssValue = style["value-create"];
           label = messages['wallet.action.history.label.create'];
           icon = iconCreate;
         }
 
         res.is_sent = tran.is_sent;
 
-        return <div key={tran.transaction_no} className="row" onClick={() =>{this.detailTransaction(res)}}>
+        return <div key={tran.transaction_no} className={style.row} onClick={() =>{this.detailTransaction(res)}}>
             <div className={style.col3}>
               <div className={style.time}>{tran.transaction_relative_time}</div>
               <div className={cssValue}>{tran.is_sent == 1 ? "-" : ""}{Number(tran.value)} {tran.coin_name}</div>
@@ -268,18 +270,18 @@ class WalletHistory extends React.Component {
         }
         else if (tran.is_sent == 2) {
           cssLabel = "label-received";
-          cssValue = "value-received";
+          cssValue = style["value-received"];
           label = messages['wallet.action.history.label.received'];
           icon = iconReceived;
         }
         else if (tran.is_sent == 3) {
           cssLabel = "label-create";
-          cssValue = "value-create";
+          cssValue = style["value-create"];
           label = messages['wallet.action.history.label.create'];
           icon = iconCreate;
         }
 
-        return <div key={tran.transaction_no} className="row" onClick={() =>{this.detailTransaction(res)}}>
+        return <div key={tran.transaction_no} className={style.row} onClick={() =>{this.detailTransaction(res)}}>
             <div className={style.col3}>
               <div className={style.time}>{tran.transaction_relative_time}</div>
               <div className={cssValue}>{tran.is_sent == 1 ? "-" : ""}{Number(tran.value)} ETH</div>
