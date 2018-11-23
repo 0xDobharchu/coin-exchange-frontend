@@ -8,12 +8,18 @@ export const getReview = (data) => makeRequest({
   params: data.params
 });
 
-export const coinGetSellPrice = () => makeRequest({
+export const coinGetSellPrice = (data) => makeRequest({
   type: GET_SELL_PRICE,
-  url: '',
+  url: `${API_URL.COIN.GET_QUOTE}`,
+  params: data.params,
+  withAuth: false,
+  more: {name: data.params.currency}
 });
 
-export const coinGetBuyPrice = () => makeRequest({
+export const coinGetBuyPrice = (data) => makeRequest({
   type: GET_BUY_PRICE,
-  url: '',
+  url: `${API_URL.COIN.GET_QUOTE}`,
+  params: data.params,
+  withAuth: false,
+  more: {name: data.params.currency}
 });
