@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 import { Container, Col, Row } from 'react-bootstrap';
 import BuyCoin from './buy';
+import SellCoin from './sell';
 import styles from './styles.scss';
 
 const TABS = {
@@ -11,7 +12,7 @@ const TABS = {
   },
   SELL: {
     title: 'SELL COIN',
-    component: <span>SELL COIN</span>
+    component: <SellCoin />
   }
 };
 
@@ -19,7 +20,7 @@ class Coin extends Component {
   constructor() {
     super();
     this.state = {
-      activeTab: Object.keys(TABS)[0],
+      activeTab: Object.keys(TABS)[1],
     };
   }
 

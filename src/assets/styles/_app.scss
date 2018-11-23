@@ -35,10 +35,14 @@
     letter-spacing: 0;
     border: none;
     cursor: pointer;
+    &:disabled {
+      color: $black-light;
+      background-color: #F1F0F5;
+      cursor: not-allowed;
+    }
   }
   input, textarea {
     padding: 4px 15px;
-    min-width: 187px;
     height: $input-height;
     background: $white;
     border: 1px solid #DCDCDE;
