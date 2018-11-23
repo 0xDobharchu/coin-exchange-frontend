@@ -49,7 +49,6 @@ export const register = user => (dispatch) => {
     });
   }, (err) => {
     console.log(err);
-    alert(err);
-    return USER.LOGIN_FAILURE;
+    return err;
   });
 };
