@@ -1,6 +1,13 @@
 @import 'var';
+@import 'responsive';
+
 .container {
-  .panel-left, .panel-right {
+  > div:global(.row > div) {
+    @include respond(lg) {
+      margin: 30px 0px;
+    }
+  }
+  .panel {
     background-color: #ffffff;
     width: inherit;
     box-shadow: 0 5px 10px -7px #47464A;

@@ -58,7 +58,7 @@ class Coin extends Component {
       <Container className={styles.container}>
         <Row>
           <Col lg={3}>
-            <div className={styles.panelLeft}>
+            <div className={cx(styles.panel, styles.panelLeft)}>
               <PricePanel />
             </div>
           </Col>
@@ -73,7 +73,7 @@ class Coin extends Component {
             </div>
           </Col>
           <Col lg={3}>
-            <div className={styles.panelRight}>
+            <div className={cx(styles.panel, styles.panelRight)}>
               <ReviewList direction={activeTab} />
             </div>
           </Col>
