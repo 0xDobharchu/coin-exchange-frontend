@@ -1,5 +1,4 @@
 import { URL } from 'src/resources/constants/url';
-import Home from 'src/screens/home';
 import Contact from 'src/screens/contact';
 import About from 'src/screens/about';
 import Login from 'src/screens/login';
@@ -29,12 +28,6 @@ import privateRoute from './privateRoute';
 const routes = [
   {
     path: URL.HOME,
-    component: Home,
-    componentProps: { title: 'Oh yeah!' },
-    exact: true,
-  },
-  {
-    path: URL.COIN,
     component: Coin,
     exact: true,
   },
