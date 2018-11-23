@@ -4,16 +4,17 @@ import ethIcon from 'src/assets/icons/coin/eth.svg';
 import { injectIntl } from 'react-intl';
 import CryptoPrice from './cryptoPrice';
 import styles from './styles.scss';
+import { CRYPTO_CURRENCY, CRYPTO_CURRENCY_FULLNAME } from '@/resources/constants/crypto';
 
 const CRYPTOS = [
   {
-    id: 'BTC',
-    name: 'Bitcoin',
+    id: CRYPTO_CURRENCY.BTC,
+    name: CRYPTO_CURRENCY_FULLNAME[CRYPTO_CURRENCY.BTC],
     logo: btcIcon,
   },
   {
-    id: 'ETH',
-    name: 'Ethereum',
+    id: CRYPTO_CURRENCY.ETH,
+    name: CRYPTO_CURRENCY_FULLNAME[CRYPTO_CURRENCY.ETH],
     logo: ethIcon,
   },
 ];
@@ -25,7 +26,6 @@ class PricePanel extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <span className={styles.label}>Price</span>
         {this.renderList()}
       </div>
     );
