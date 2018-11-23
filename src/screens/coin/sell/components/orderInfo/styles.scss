@@ -8,16 +8,13 @@
       width: 100%;
       margin: 10px 0px 20px 0px;
       text-align: center;
+      display: block;
       .text {
 
       }
     }
     .infos {
       margin: 0px 0px 20px 0px;
-      .copy-icon {
-        margin: 0px 15px;
-        cursor: pointer;
-      }
       .info-title {
         font-weight: bold;
       }
@@ -32,34 +29,50 @@
         }
       }
     }
-    .note {
+    .note-container {
       display: flex;
       flex-direction: column;
-      .note-title {
+      .main-note {
+        text-align: center;
         text-transform: uppercase;
         font-weight: bold;
         color: red;
+        display: block;
       }
-      .note-content {
+      .sub-note {
+        display: block;
         padding: 5px 15px;
         font-style: italic;
       }
     }
   }
-  .upload-container {
+  .wallet {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     margin: 20px 0px;
-    :global(.dropzone) {
+    .address {
+      padding: 10px;
       width: 100%;
+      margin-bottom: 10px;
+      border: dotted 1px green;
+      border-radius: 6px;
+      .icon-copy {
+        margin: 0px 5px;
+        &:hover {
+          color: red;
+        }
+      }
     }
-    .upload-btn {
-      width: 100%;
+    .qr-code {
+      
     }
-    .done-btn {
-      width: 100%;
-      background-color: $ce-green-medium;
-    }
-    .upload-icon {
-      margin: 0px 5px;
-    }
+  }
+  .done-btn {
+    margin: 20px 0px;
+    width: 100%;
   }
 }
