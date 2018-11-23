@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
 import { Container, Col, Row } from 'react-bootstrap';
+import ReviewList from 'src/components/reviewList';
+import CreateReview from 'src/components/createReview';
 import BuyCoin from './buy';
 import SellCoin from './sell';
 import styles from './styles.scss';
@@ -51,8 +53,8 @@ class Coin extends Component {
       </div>
     ));
   }
-
   render() {
+    const { activeTab } = this.state;
     return (
       <Container className={styles.container}>
         <Row>
@@ -72,7 +74,10 @@ class Coin extends Component {
             </div>
           </Col>
           <Col lg={3}>
-            <div className={styles.panelRight} />
+            <div className={styles.panelRight}>
+              <ReviewList direction={activeTab} />
+              <CreateReview order="47" />
+            </div>
           </Col>
         </Row>
       </Container>
