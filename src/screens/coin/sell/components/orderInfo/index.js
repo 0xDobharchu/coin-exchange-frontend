@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
+import { EXCHANGE_DIRECTION } from 'src/screens/coin/constant';
 import QrCode from 'qrcode.react';
 import { formatMoneyByLocale } from 'src/utils/format/curency';
 import { Container, Row, Col, Card } from 'react-bootstrap';
@@ -30,7 +31,7 @@ class OrderInfo extends Component {
       fiat_currency: fiatCurrency,
       check: 0,
       user_check: 0,
-      direction: 'sell',
+      direction: EXCHANGE_DIRECTION.sell,
     }).then(info => {
       this.setState({
         orderInfo: {

@@ -23,7 +23,7 @@ class Coin extends Component {
   constructor() {
     super();
     this.state = {
-      activeTab: Object.keys(TABS)[1],
+      activeTab: Object.keys(TABS)[0],
     };
   }
 
