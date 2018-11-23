@@ -11,6 +11,7 @@ import cx from 'classnames';
 import queryString from 'query-string';
 import {Link} from 'react-router-dom';
 import {URL} from 'src/resources/constants/url';
+import { showAlert } from 'src/screens/app/redux/action';
 import resetPassActions  from '../action';
 import style from '../style.scss';
 
@@ -42,10 +43,17 @@ class ForgetPassFinish extends React.Component {
     if (token && password && confirmPassword) {
       const message = `Password of Coinbowl account for ${email} has been changed`;
       this.props.resetPassFinish(token, password).then(() => {
-        alert(message);
+        this.props.showAlert({
+          message: message,
+          timeOut: 2000,
+        });
         this.props.history.push(URL.USER_SIGN_IN);
       }, (err) => {
-        alert('OH! something went wrong!');
+        this.props.showAlert({
+          message: 'OH! something went wrong!',
+          type: 'danger',
+          timeOut: 1000,
+        });
         console.log('submitAddContact', err);
       }).finally(() => {
         this.setState({ isSubmiting: false });
@@ -109,6 +117,7 @@ const mapStateToProps = state => ({
 
 const mapDispatch = dispatch => ({
   resetPassFinish: bindActionCreators(resetPassActions.resetPassFinish, dispatch),
+  showAlert: bindActionCreators(showAlert, dispatch),
 });
 
 const connectedContactPage = connect(mapStateToProps, mapDispatch)(ForgetPassFinish);

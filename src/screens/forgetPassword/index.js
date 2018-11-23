@@ -8,6 +8,7 @@ import LabelLang from 'src/lang/components/LabelLang';
 import { FieldLang } from 'src/lang/components';
 import { isEmail, isRequired } from 'src/components/core/form/validator';
 import cx from 'classnames';
+import { showAlert } from 'src/screens/app/redux/action';
 import resetPassActions  from './action';
 import style from './style.scss';
 
@@ -39,9 +40,16 @@ class Contact extends React.Component {
       this.props.resetPass(email).then(() => {
         this.setState({ isSubmiting: false });
         const mess = `If a Coinbowl account exists for ${email}, an e-mail will be sent with further instructions.`;
-        alert(mess);
+        this.props.showAlert({
+          message: mess,
+          timeOut: 5000,
+        });
       }, (err) => {
-        alert('OH! something went wrong!');
+        this.props.showAlert({
+          message: 'OH! something went wrong!',
+          type: 'danger',
+          timeOut: 1000,
+        });
         this.setState({ isSubmiting: false });
         console.log('submitResetPass', err);
       });
@@ -90,6 +98,7 @@ const mapStateToProps = state => ({
 
 const mapDispatch = dispatch => ({
   resetPass: bindActionCreators(resetPassActions.resetPass, dispatch),
+  showAlert: bindActionCreators(showAlert, dispatch),
 });
 
 const connectedContactPage = connect(mapStateToProps, mapDispatch)(Contact);

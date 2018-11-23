@@ -1,0 +1,45 @@
+.review-list-container {
+  padding-top: 15px;
+  .review-list-count-comment {
+    color: #000000;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0;
+  }
+  .review-list-count-icon {
+    height: 24px;
+    width: 24px;
+    background: #979797;
+    border-radius: 50%;
+    margin-right: 5px;
+    display: inline-block;
+    line-height: 24px;
+    text-align: center;
+    margin-left: 15px;
+  }
+  .review-list {
+    padding: 15px;
+    max-height: 400px;
+    overflow-y: auto;
+    .review {
+      padding: 10px 20px;
+      .name {
+        color: #2C0A8A;
+        font-size: 16px;
+        font-weight: bold;
+        height: 16px;
+        letter-spacing: 0;
+      }
+      .content {
+        color: #000000;
+        font-size: 16px;
+        font-weight: normal;
+        text-align: left;
+        letter-spacing: 0;
+        line-height: 23px;
+        width: 100%;
+        margin-top: 5px;
+      }
+    }
+  }
+}
