@@ -8,7 +8,7 @@ import { formatMoneyByLocale } from 'src/utils/format/curency';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import ClockCount from 'src/components/clockCount';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { getQuote } from 'src/screens/coin/sell/components/exchange/action';
+import { getQuote } from 'src/screens/coin/components/exchange/action';
 import cx from 'classnames';
 import { FaRegCopy } from 'react-icons/fa';
 import styles from './styles.scss';
