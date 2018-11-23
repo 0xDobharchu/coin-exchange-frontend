@@ -23,8 +23,10 @@ import iconSearch from '@/assets/images/wallet/icons/ic_search.svg';
 import iconEdit from '@/assets/images/wallet/icons/icon-edit.svg';
 
 
-import {Contact} from '@/services/Wallets/Contact/Contact'
-import {ContactAddress} from '@/services/Wallets/Contact/ContactAddress'
+import {Contact} from '@/services/Wallets/Contact/Contact';
+import {ContactAddress} from '@/services/Wallets/Contact/ContactAddress';
+
+import { showQrCode } from 'src/components/barcodeScanner';
 
 function validateEmail(email) {  
   const re = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
@@ -343,7 +345,7 @@ class AddressBook extends React.Component {
                   {this.state.newContact.addresses.map((item, i) => {  
                   return (             
                     <div key={`address-${i}`} className="qrcode-box">
-                      <span onClick={()=> {this.props.showScanQRCode({onFinish: (data) => {this.onQRCodeScaned(data, i);}});}}  className="icon-qr-code-black">{ICON.QRCode()}</span>                  
+                      <span onClick={()=> {showQrCode({onData: (data) => {this.onQRCodeScaned(data, i);}});}}  className="icon-qr-code-black">{ICON.QRCode()}</span>                  
                       <Input placeholder={`${item.name} ${messages['wallet.action.setting.label.contact_address']}`} maxLength="100" value={item.address} onChange={(evt) => {this.onContactAddressChange(evt, i)}} />
                       { i == 0 ? <div className={"add-new-address-label " + (this.state.newContact.addresses.length > 1 ? 'add-new-address-many' : '')}><span onClick={()=>{this.onAddNewAddressClick();}}>{messages['wallet.action.setting.label.add_new_address']}</span></div>
                         : <div className={"remove-address-label " + (i == this.state.newContact.addresses.length-1 ? 'remove-last-child': '')}><span onClick={()=>{this.onRemoveNewAddressClick(i);}}>{messages['wallet.action.setting.label.remove_new_address']}</span></div>
