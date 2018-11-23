@@ -18,11 +18,3 @@ export const genAddress = (currency) => makeRequest({
   url: `${API_URL.COIN.GEN_ADDRESS}?currency=${currency}`,
   method: 'post',
 });
-
-export const checkAddress = ({address, currency}) => dispatch => {
-  const req = makeRequest({
-    type: GEN_ADDRESS,
-    url: `${API_URL.COIN.CHECK_ADDRESS}?currency=${currency}&address=${address}`,
-  }, dispatch);
-  return req().then(res => CoinModel.checkGeneratedAddressRes(res));
-};

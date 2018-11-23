@@ -42,13 +42,13 @@
     }
   }
   .buy {
-    span {
+    :nth-child(2) {
       color: #57BB24;
     }
   }
 
   .sell {
-    span {
+    :nth-child(2) {
       color: #F4181C;
     }
   }
