@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 import { Container, Col, Row } from 'react-bootstrap';
 import ReviewList from 'src/components/reviewList';
-import CreateReview from 'src/components/createReview';
 import BuyCoin from './buy';
 import SellCoin from './sell';
 import styles from './styles.scss';
-import PricePanel from '@/screens/coin/desktopLayout/pricePanel';
+import PricePanel from '@/screens/coin/components/pricePanel';
 
 const TABS = {
   BUY: {
@@ -76,7 +75,6 @@ class Coin extends Component {
           <Col lg={3}>
             <div className={styles.panelRight}>
               <ReviewList direction={activeTab} />
-              <CreateReview order="47" />
             </div>
           </Col>
         </Row>
