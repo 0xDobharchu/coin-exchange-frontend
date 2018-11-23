@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { InputGroup, Container, Row, Col } from 'react-bootstrap';
+import { InputGroup, Container, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
 import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
 import { FIAT_CURRENCY } from 'src/resources/constants/fiat';
 import { FaArrowsAltH } from 'react-icons/fa';
 import Input from 'src/components/core/controls/input';
 import cx from 'classnames';
 import { connect } from 'react-redux';
-import { debounce } from 'lodash';
+import { debounce, xor as arrayXor } from 'lodash';
 import { EXCHANGE_DIRECTION, ORDER_TYPE } from 'src/screens/coin/constant';
 import { getQuote, getQuoteReverse } from './action';
 import styles from './styles.scss';
@@ -24,22 +24,62 @@ class Exchange extends Component {
       amount: 0,
       fiatAmount: 0,
       isExchanging: false,
-      exchangeData: {}
+      exchangeData: {},
+      currency: null,
+      fiatCurrency: null,
+      currencyListRendered: null,
+      fiatCurrencyListRendered: null
     };
 
     this.getQuoteHandler = debounce(::this.getQuoteHandler, 1000);
     this.getQuoteReverseHandler = debounce(::this.getQuoteReverseHandler, 1000);
   }
 
-  componentDidUpdate(prevProps) {
-    const { orderType, currency } = this.props;
+  componentDidMount() {
+    const { defaultCurrency, defaultFiatCurrency } = this.props;
+    this.setState({
+      currency: defaultCurrency,
+      fiatCurrency: defaultFiatCurrency,
+      currencyListRendered: this.renderCurrencyList(),
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { orderType, supportedCurrency, defaultCurrency, options: { canChangeCurrency } } = this.props;
+    const { currency, fiatCurrency } = this.state;
     if (prevProps?.orderType !== orderType) {
       this.dataCallbackHandler();
     }
-    if (prevProps?.currency !== currency) {
+    if (prevState?.currency !== currency || prevState?.fiatCurrency !== fiatCurrency) {
       this.getExchange();
     }
+    if (arrayXor(prevProps?.supportedCurrency, supportedCurrency)?.length !== 0) {
+      this.renderFiatCurrencyList();
+    }
+    if (prevProps?.defaultCurrency !== defaultCurrency && !canChangeCurrency) {
+      this.onSelectCurrency(defaultCurrency);
+    }
   }
+
+  renderCurrencyList = () => {
+    return Object.values(CRYPTO_CURRENCY).map(c =>(
+      <Dropdown.Item key={c} onClick={() => this.onSelectCurrency(c)}>{c}</Dropdown.Item>
+    ));
+  }
+
+  renderFiatCurrencyList = () => {
+    const { supportedCurrency } = this.props;
+    const rendered = supportedCurrency.map(c =>(
+      <Dropdown.Item key={c} onClick={() => this.onSelectFiatCurrency(c)}>{c}</Dropdown.Item>
+    ));
+    this.setState({
+      fiatCurrencyListRendered: rendered
+    });
+  }
+
+  onSelectCurrency = (currency) => this.setState({ currency });
+
+  onSelectFiatCurrency = (fiatCurrency) => this.setState({ fiatCurrency });
 
   onChange = (field, e) => {
     const value = e?.target?.value;
@@ -60,7 +100,8 @@ class Exchange extends Component {
   };
 
   dataCallbackHandler = () => {
-    const { onChange, currency, fiatCurrency } = this.props;
+    const { onChange } = this.props;
+    const { currency, fiatCurrency } = this.state;
     const { amount } = this.state;
     const fiatAmount = this.getFiatAmount();
     if (typeof onChange === 'function') {
@@ -77,7 +118,10 @@ class Exchange extends Component {
     try {
       console.warn('User check!');
       const { amount } = this.state;
-      const { currency, fiatCurrency, direction, getQuote } = this.props;
+      const { direction, getQuote } = this.props;
+      const { currency, fiatCurrency } = this.state;
+      if (!amount) return;
+      this.setExchangeStatus(true);
       const exchangeData = await getQuote({
         amount,
         currency,
@@ -102,7 +146,10 @@ class Exchange extends Component {
     try {
       console.warn('User check!');
       const { fiatAmount } = this.state;
-      const { currency, fiatCurrency, direction, orderType, getQuoteReverse } = this.props;
+      const { direction, orderType, getQuoteReverse } = this.props;
+      const { currency, fiatCurrency } = this.state;
+      if (!fiatAmount) return;
+      this.setExchangeStatus(true);
       const exchangeData = await getQuoteReverse({
         fiat_amount: fiatAmount,
         currency,
@@ -124,7 +171,6 @@ class Exchange extends Component {
   }
 
   getExchange = () => {
-    this.setExchangeStatus(true);
     const { exchangeType } = this.state;
     if (exchangeType === EXCHANGE_TYPE.amount) {
       this.getQuoteHandler();
@@ -142,7 +188,8 @@ class Exchange extends Component {
 
   render() {
     const { amount, fiatAmount, isExchanging } = this.state;
-    const { markRequired, onFocus, onBlur, currency, fiatCurrency } = this.props;
+    const { markRequired, onFocus, onBlur, options } = this.props;
+    const { currency, fiatCurrency, currencyListRendered, fiatCurrencyListRendered } = this.state;
     return (
       <Container fluid className={styles.container}>
         <Row noGutters>
@@ -158,8 +205,14 @@ class Exchange extends Component {
                 className={markRequired && !amount ? 'border-danger' : ''}
                 onChange={this.onChange.bind(this, 'amount')}
               />
-              <InputGroup.Prepend>
-                <span className={styles.prepend}>{currency}</span>
+              <InputGroup.Prepend className={styles.prepend}>
+                <DropdownButton
+                  disabled={!options?.canChangeCurrency}
+                  className={styles.dropdown}
+                  title={currency || 'Currency'}
+                >
+                  {currencyListRendered}
+                </DropdownButton>
               </InputGroup.Prepend>
             </InputGroup>
           </Col>
@@ -180,8 +233,14 @@ class Exchange extends Component {
                 className={markRequired && !fiatAmount ? 'border-danger' : ''}
                 onChange={this.onChange.bind(this, 'fiatAmount')}
               />
-              <InputGroup.Prepend>
-                <span className={styles.prepend}>{fiatCurrency}</span>
+              <InputGroup.Prepend className={styles.prepend}>
+                <DropdownButton
+                  disabled={!options?.canChangeFiatCurrency}
+                  className={styles.dropdown}
+                  title={fiatCurrency || 'Currency'}
+                >
+                  {fiatCurrencyListRendered}
+                </DropdownButton>
               </InputGroup.Prepend>
             </InputGroup>
           </Col>
@@ -194,18 +253,22 @@ class Exchange extends Component {
 const mapDispatch = { getQuote, getQuoteReverse };
 
 Exchange.defaultProps = {
-  currency: CRYPTO_CURRENCY.ETH,
-  fiatCurrency: FIAT_CURRENCY.USD,
+  defaultCurrency: CRYPTO_CURRENCY.ETH,
+  defaultFiatCurrency: FIAT_CURRENCY.USD,
   direction: EXCHANGE_DIRECTION.buy,
   orderType: ORDER_TYPE.bank,
   markRequired: false,
   onBlur: null,
-  onFocus: null
+  onFocus: null,
+  options: {
+    canChangeCurrency: true,
+    canChangeFiatCurrency: true,
+  }
 };
 
 Exchange.propTypes = {
-  currency: PropTypes.oneOf(Object.values(CRYPTO_CURRENCY)),
-  fiatCurrency: PropTypes.oneOf(Object.values(FIAT_CURRENCY)),
+  defaultCurrency: PropTypes.oneOf(Object.values(CRYPTO_CURRENCY)),
+  defaultFiatCurrency: PropTypes.oneOf(Object.values(FIAT_CURRENCY)),
   direction: PropTypes.oneOf(Object.values(EXCHANGE_DIRECTION)),
   orderType: PropTypes.oneOf(Object.values(ORDER_TYPE)),
   getQuote: PropTypes.func.isRequired,
@@ -213,6 +276,14 @@ Exchange.propTypes = {
   markRequired: PropTypes.bool,
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
+  options: PropTypes.shape({
+    canChangeCurrency: PropTypes.bool,
+    canChangeFiatCurrency: PropTypes.bool,
+  })
 };
 
-export default connect(null, mapDispatch)(Exchange);
+const mapState = state => ({
+  supportedCurrency: state?.app?.supportedCurrency || [FIAT_CURRENCY.USD],
+});
+
+export default connect(mapState, mapDispatch)(Exchange);

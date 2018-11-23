@@ -1,27 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import { Field, formValueSelector } from 'redux-form';
+import { Field, formValueSelector, destroy } from 'redux-form';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import createForm from 'src/components/core/form/createForm';
 import { isRequired } from 'src/components/core/form/validator';
 import { bindActionCreators } from 'redux';
-import { PAYMENT_METHOD } from 'src/screens/coin/constant';
+import { PAYMENT_METHOD, EXCHANGE_DIRECTION } from 'src/screens/coin/constant';
+import cx from 'classnames';
 // import { DEFAULT_CURRENCY } from 'src/resources/constants/crypto';
 import { URL } from 'src/resources/constants/url';
 import ConfirmButton from 'src/components/confirmButton';
 import inputField from 'src/components/core/form/fields/input';
 import { showAlert } from 'src/screens/app/redux/action';
 import { FaLock } from 'react-icons/fa';
-import cx from 'classnames';
+import OrderInfo from './components/orderInfo';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
-import { makeOrder, genAddress, checkAddress } from './redux/action';
+import { makeOrder, genAddress } from './redux/action';
 import styles from './styles.scss';
 
 const sellFormName = 'SellForm';
-const BuyForm = createForm({
+const SellForm = createForm({
   propsReduxForm: {
+    destroyOnUnmount: false,
     form: sellFormName,
     initialValues: {
     },
@@ -36,6 +38,11 @@ class SellCryptoCoin extends React.Component {
     this.state = {
       walletAddress: null,
     };
+  }
+
+  componentWillUnmount() {
+    const { rfDestroy } = this.props;
+    rfDestroy(sellFormName);
   }
 
   isValidToSubmit = () => {
@@ -82,7 +89,7 @@ class SellCryptoCoin extends React.Component {
       fiat_local_amount: String(exchange?.fiatAmount),
       fiat_local_currency: exchange?.fiatCurrency,
       order_type: paymentMethod,
-      direction: 'sell',
+      direction: EXCHANGE_DIRECTION.sell,
       address: walletAddress,
       user_info: JSON.stringify({ bankName, bankAccountName, bankAccountNumber, bankUserPhoneNumber })
     };
@@ -162,15 +169,30 @@ class SellCryptoCoin extends React.Component {
     const { paymentMethod, supportedCurrency, exchange, currency } = this.props;
     const { walletAddress } = this.state;
     const isValid = this.isValidToSubmit();
+    if (walletAddress) {
+      const exchangeInfo = { 
+        amount: exchange?.amount,
+        currency: exchange?.currency,
+        fiatAmount: exchange?.fiatAmount,
+        fiatCurrency: exchange?.fiatCurrency,
+      };
+      return (
+        <OrderInfo
+          generatedAddress={walletAddress}
+          orderInfo={exchangeInfo}
+          onMakeOrder={this.makeOrder}
+        />
+      );
+    }
     return (
       <div className={styles.container}>
-        <BuyForm>
+        <SellForm>
           <Field
             name="exchange"
             className='mt-4'
             component={exchangeField}
             orderType={paymentMethod}
-            direction='buy'
+            direction={EXCHANGE_DIRECTION.sell}
             fiatCurrency={supportedCurrency[0]}
             currency={currency}
             validate={exchangeValidator}
@@ -187,18 +209,7 @@ class SellCryptoCoin extends React.Component {
             )}
             onConfirm={() => this.genAddress(currency)}
           />
-        </BuyForm>
-        { walletAddress && <span>{walletAddress}</span>}
-        <ConfirmButton
-          containerClassName='mt-5'
-          buttonClassName={styles.submitBtn}
-          label={(
-            <span>
-              Make order
-            </span>
-          )}
-          onConfirm={this.prepareToOrder}
-        />
+        </SellForm>
       </div>
     );
   }
@@ -220,7 +231,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
   makeOrder: bindActionCreators(makeOrder, dispatch),
   genAddress: bindActionCreators(genAddress, dispatch),
-  checkAddress: bindActionCreators(checkAddress, dispatch),
+  rfDestroy: bindActionCreators(destroy, dispatch),
   showAlert: bindActionCreators(showAlert, dispatch),
 });
 
