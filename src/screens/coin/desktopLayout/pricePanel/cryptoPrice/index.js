@@ -23,8 +23,10 @@ class CryptoPrice extends Component {
     return state;
   }
 
-  componentDidMount() {
-    this.getPrice();
+  componentDidUpdate(prevProps) {
+    if (prevProps.currencyByLocal !== this.props.currencyByLocal) {
+      this.getPrice();
+    }
   }
 
   shouldComponentUpdate(prevProps, prevState) {
@@ -37,7 +39,7 @@ class CryptoPrice extends Component {
   getPrice = () => {
     const { crypto } = this.state;
     const { currencyByLocal } = this.props;
-    if (!crypto?.id) return;
+    if (!crypto?.id || !currencyByLocal) return;
     this.props.coinGetBuyPrice({params: {
       currency: crypto?.id,
       amount: 1,
@@ -98,8 +100,8 @@ const mapDispatch = {
 };
 
 const mapState = (state, props) => ({
-  country: state.app.ipInfo.country || 'HK',
-  currencyByLocal: state.app.ipInfo.currency || 'HKD',
+  country: state.app?.userCountry,
+  currencyByLocal: state.app?.supportedCurrency[0],
   sellPrice: state.screenCoinReducer.sellPrice[props?.crypto?.id],
   buyPrice: state.screenCoinReducer.buyPrice[props?.crypto?.id],
 });

@@ -17,7 +17,7 @@ function resetPassFinish(token, password) {
   return makeRequest({
     type: RESET_PASSWORD_FINISH,
     url: API_URL.USER.USER_FORGET_PASSWORD_FINISH,
-    method: 'PUT',
+    method: 'POST',
     data: {
       token,
       password

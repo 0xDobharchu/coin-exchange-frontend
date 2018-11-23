@@ -49,7 +49,7 @@ export const API_URL = {
     // Store
     OFFER_STORES: 'exchange/offer-stores',
     SHAKES: 'shakes',
-    REVIEWS: 'exchange/reviews',
+    REVIEWS: 'exchange/reviews/',
     GET_DASHBOARD_INFO: 'exchange/user/transaction-counts',
     DEPOSIT_CREDIT_ATM: 'exchange/credit/deposit',
     CREDIT_ATM: 'exchange/credit',
@@ -82,7 +82,7 @@ export const API_URL = {
     USER_WALLET: '/user/wallet/', // POST,GET /user/wallet
     USER_PROFILE: '/user/profile/', // GET /user/profile
     USER_FORGET_PASSWORD: '/user/forgot-password/', // POST user/forgot-password/
-    USER_FORGET_PASSWORD_FINISH: '/user/forgot-password/reset/', // POST user/forgot-password/reset/
+    USER_FORGET_PASSWORD_FINISH: '/user/reset-password/', // POST user/forgot-password/reset/
   },
   SYSTEM: {
     COUNTRY : '/system/country-default-configs/', // GET /system/country-default-configs/
