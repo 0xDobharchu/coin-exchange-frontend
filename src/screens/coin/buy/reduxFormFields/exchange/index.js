@@ -1,6 +1,6 @@
 /* eslint react/prop-types:0 */
 import React from 'react';
-import Exchange from '../../components/exchange';
+import Exchange from 'src/screens/coin/components/exchange';
 
 const field = ({ input, meta, currency, fiatCurrency, orderType, direction, className = '' }) => {
   const {

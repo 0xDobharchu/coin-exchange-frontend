@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import createForm from 'src/components/core/form/createForm';
 import { isRequired } from 'src/components/core/form/validator';
 import { bindActionCreators } from 'redux';
-import { PAYMENT_METHOD } from 'src/screens/coin/constant';
+import { PAYMENT_METHOD, EXCHANGE_DIRECTION } from 'src/screens/coin/constant';
 import cx from 'classnames';
 // import { DEFAULT_CURRENCY } from 'src/resources/constants/crypto';
 import { URL } from 'src/resources/constants/url';
@@ -89,7 +89,7 @@ class SellCryptoCoin extends React.Component {
       fiat_local_amount: String(exchange?.fiatAmount),
       fiat_local_currency: exchange?.fiatCurrency,
       order_type: paymentMethod,
-      direction: 'sell',
+      direction: EXCHANGE_DIRECTION.sell,
       address: walletAddress,
       user_info: JSON.stringify({ bankName, bankAccountName, bankAccountNumber, bankUserPhoneNumber })
     };
@@ -192,7 +192,7 @@ class SellCryptoCoin extends React.Component {
             className='mt-4'
             component={exchangeField}
             orderType={paymentMethod}
-            direction='buy'
+            direction={EXCHANGE_DIRECTION.sell}
             fiatCurrency={supportedCurrency[0]}
             currency={currency}
             validate={exchangeValidator}
