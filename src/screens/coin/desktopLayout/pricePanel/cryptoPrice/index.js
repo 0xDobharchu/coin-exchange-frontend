@@ -23,8 +23,10 @@ class CryptoPrice extends Component {
     return state;
   }
 
-  componentDidMount() {
-    this.getPrice();
+  componentDidUpdate(prevProps) {
+    if (prevProps.currencyByLocal !== this.props.currencyByLocal) {
+      this.getPrice();
+    }
   }
 
   shouldComponentUpdate(prevProps, prevState) {
@@ -37,7 +39,7 @@ class CryptoPrice extends Component {
   getPrice = () => {
     const { crypto } = this.state;
     const { currencyByLocal } = this.props;
-    if (!crypto?.id) return;
+    if (!crypto?.id || !currencyByLocal) return;
     this.props.coinGetBuyPrice({params: {
       currency: crypto?.id,
       amount: 1,
