@@ -4,6 +4,7 @@ import Alert from '@/components/core/presentation/Alert';
 import Navigation from '@/components/core/controls/Navigation';
 import styles from './styles.scss';
 import WalletPasscode from '@/components/Wallet/WalletPasscode';
+import RequirePassword from '@/components/Wallet/RequirePassword';
 
 class Layout extends PureComponent {
 
@@ -20,6 +21,7 @@ class Layout extends PureComponent {
         </div>
         <Alert />
         <WalletPasscode />
+        <RequirePassword />
       </React.Fragment>
     );
   }

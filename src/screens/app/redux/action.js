@@ -27,6 +27,10 @@ export const hidePasscode = config => ({ type: APP_ACTION.HIDE_CONFIRM, payload:
 export const showQRCodeContent = config => ({ type: APP_ACTION.SHOW_QRCODE_CONTENT, payload: { isShow: true, ...config } });
 export const hideQRCodeContent = config => ({ type: APP_ACTION.HIDE_QRCODE_CONTENT, payload: { isShow: false, ...config } });
 
+// show require password
+export const showRequirePassword = config => ({ type: APP_ACTION.SHOW_REQUIRE_PASSWORD, payload: { isShow: true, ...config } });
+export const hideRequirePassword = config => ({ type: APP_ACTION.HIDE_REQUIRE_PASSWORD, payload: { isShow: false, ...config } });
+
 
 
 // Header

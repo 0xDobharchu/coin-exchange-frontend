@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import {injectIntl} from 'react-intl';
 import {connect} from "react-redux";
-import { showLoading, hideLoading, showAlert, showScanQRCode, showQRCodeContent } from '@/screens/app/redux/action';
+import { showLoading, hideLoading, showAlert, showQRCodeContent } from '@/screens/app/redux/action';
 import QRCodeContent from '@/components/wallet/QRCodeContent';
 import '../WalletPreferences/WalletPreferences.scss';
 
@@ -400,8 +400,7 @@ const mapStateToProps = (state) => ({
 const mapDispatch = ({    
   showAlert,
   showLoading,
-  hideLoading,
-  showScanQRCode,
+  hideLoading,  
   showQRCodeContent,
 });
 

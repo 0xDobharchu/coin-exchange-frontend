@@ -63,7 +63,7 @@ import customRightIcon from '@/assets/images/wallet/icons/icon-options.svg';
 import floatButtonScanQRCode from '@/assets/images/wallet/icons/float-button-scan.svg';
 
 import WalletPreferences from '@/components/wallet/WalletPreferences';
-import { requestWalletPasscode, showQRCodeContent  } from '@/screens/app/redux/action';
+import { requestWalletPasscode, showQRCodeContent, showRequirePasword  } from '@/screens/app/redux/action';
 import QRCodeContent from '@/components/wallet/QRCodeContent';
 // import RemindPayment from '@/components/Payment/Remind';
 import { ICON } from '@/components/wallet/images';
@@ -75,7 +75,7 @@ import { showQrCode } from 'src/components/barcodeScanner';
 import { Ethereum } from '@/services/Wallets/Ethereum.js';
 
 import cx from 'classnames';
-import WalletPasscode from '@/components/Wallet/WalletPasscode';
+
 
 if (__CLIENT__)
 window.Clipboard = (function (window, document, navigator) {
@@ -857,6 +857,7 @@ class Wallet extends React.Component {
 
         {/* qrcode result detected modal popup*/}
         <QRCodeContent onTransferClick={(data)=> {this.showTransferFromQRCode(data);}} />
+        
         
         {/* add new token modal */}
         {/* <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  onClose={() => this.setState({formAddTokenIsActive: false})} title="Add Custom Token" onRef={modal => this.modalAddNewTokenRef = modal}>
