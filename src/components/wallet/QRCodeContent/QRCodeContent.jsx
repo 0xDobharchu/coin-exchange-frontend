@@ -227,9 +227,9 @@ render() {
   {/* QR code dialog content */}
   return (                   
         <Modal show={this.state.isShow} onHide={this.oncloseQrData}>
-        <Modal.Header closeButton>
-          <Modal.Title>{this.state.title}</Modal.Title>
-        </Modal.Header>
+          <Modal.Header closeButton>
+            <Modal.Title>{this.state.title}</Modal.Title>
+          </Modal.Header>
           <Modal.Body>
             {
               this.state.content

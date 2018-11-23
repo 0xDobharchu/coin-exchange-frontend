@@ -172,6 +172,8 @@
     border-width: 2px;
     border-style: solid;
     border-radius: 10px;
+    border-width: 0;
+    border-bottom-width: 2px;
   }
 
 .addressDivPopup{
@@ -874,9 +876,9 @@
     .feed {
       margin-bottom: 7px;
       padding: 0.625rem 0.3125rem 0.625rem 0.9375rem;
-      min-height: 120px;
+      // min-height: 120px;
       position: relative;
-      border-radius: 6px;
+      border-radius: 10px;
       background-size: cover;
     }
     .name{

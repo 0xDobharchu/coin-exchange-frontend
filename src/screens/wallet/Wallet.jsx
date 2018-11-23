@@ -39,7 +39,7 @@ import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action'
 import local from '@/services/localStore';
 import {APP} from '@/constants';
 
-import { userWallet } from './action';
+import { userWallet, makeSaveWallet } from './action';
 
 // import AddToken from '@/components/wallet/AddToken/AddToken';
 // import AddCollectible from '@/components/wallet/AddCollectible/AddCollectible';
@@ -444,7 +444,7 @@ class Wallet extends React.Component {
             modalTransferCoin:
               (
                 <TransferCoin
-                  listWallet={this.state.listMainWalletBalance}
+                  listWallet={this.getAllWallet()}
                   wallet={wallet}
                   onFinish={(result) => { this.successTransfer(result) }}
                   currency={this.state.alternateCurrency}
@@ -486,7 +486,7 @@ class Wallet extends React.Component {
       modalReceiveCoin:
       (
         <ReceiveCoin
-        listWallet={this.state.listMainWalletBalance}
+        listWallet={this.getAllWallet()}
           wallet={wallet}
           currency={this.state.alternateCurrency}
           onFinish={() => { this.successReceive() }}
@@ -561,9 +561,12 @@ class Wallet extends React.Component {
     const listCoinTemp = this.state.listCoinTempToCreate;
 
     const phrase = this.state.input12PhraseValue.trim();
+    
+    // todo: popup request password:
+    let password = '12345678';
+    const newWallet = MasterWallet.createNewWallet(listCoinTemp, phrase, password);
 
-    const masterWallet = MasterWallet.createNewsallets(listCoinTemp, phrase);
-    if (masterWallet == false) {
+    if (newWallet == false) {
       this.setState({ isRestoreLoading: false, erroValueBackup: true });
 
       if (phrase != '') {
@@ -573,12 +576,26 @@ class Wallet extends React.Component {
         this.showError(messages['wallet.action.create.error.random']);
       }
     } else {
-      if (phrase != '') {// need get balance
-        this.getListBalace(masterWallet);
+
+       // call api to update:    
+      const lstWalletTemp = this.getAllWallet();
+
+      const listNewWallet = lstWalletTemp.concat(newWallet);
+
+      this.props.makeSaveWallet(listNewWallet).then((result) => {      
+        console.log('result', result);              
+
+      }).finally(() => {
+        
+      });
+
+      if (phrase != '') {
+        // need get balance
+        this.getListBalace(listNewWallet);
       }
 
       this.setState({ input12PhraseValue: "" });
-      this.splitWalletData(masterWallet);
+      this.splitWalletData(listNewWallet);
       this.modalCreateWalletRef.close();
     }
   }
@@ -979,7 +996,7 @@ class Wallet extends React.Component {
           </Row>
 
           {/* 2.2 List Tokens */}
-          <Row className={style.walletBox}>            
+          {/* <Row className={style.walletBox}>            
             <Row className={style.list}>
               {!this.state.listSortable.token ?
                 <Header icon2={this.state.listTokenWalletBalance.length > 1 ? iconAlignJust : null} onIcon2Click={this.updateSortableForToken} icon={iconAddPlus} title={messages['wallet.action.create.label.header_tokens']} hasLink={true} linkTitle={messages['wallet.action.create.button.header_tokens']} onLinkClick={this.showModalAddToken} />
@@ -989,15 +1006,15 @@ class Wallet extends React.Component {
             </Row>
             
             <Row className={style.list}>
-              {/* {this.listTokenWalletBalance} */}
+              {this.listTokenWalletBalance}
               { this.state.listTokenWalletBalance.length > 0 ?
                   <SortableComponent onSortableSuccess={items => this.onSortableTokenSuccess(items)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} isSortable={this.state.listSortable.token}  items={this.state.listTokenWalletBalance}/>
               : ''}
             </Row>
-          </Row>
+          </Row> */}
 
           {/* 2.3 Collectible */}
-          <Row className={style.walletBox}>            
+          {/* <Row className={style.walletBox}>            
             <Row className={style.list}>
 
                {!this.state.listSortable.collectitble ?
@@ -1008,12 +1025,12 @@ class Wallet extends React.Component {
             </Row>
                         
             <Row className={style.list}>
-              {/* {this.listCollectibleWalletBalance} */}
+              {this.listCollectibleWalletBalance}
               { this.state.listCollectibleWalletBalance.length > 0 ?
                   <SortableComponent onSortableSuccess={items => this.onSortableCollectibleSuccess(items)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} isSortable={this.state.listSortable.collectitble}  items={this.state.listCollectibleWalletBalance}/>
               : ''}
             </Row>
-          </Row>
+          </Row> */}
 
           <Row className={style.walletBox}>
               {!process.env.isProduction ?
@@ -1044,6 +1061,7 @@ const mapState = (state) => ({
 
 const mapDispatch = ({
   userWallet,  
+  makeSaveWallet,
   showAlert,
   showLoading,
   hideLoading,
