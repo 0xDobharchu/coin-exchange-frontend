@@ -33,6 +33,20 @@ export class Wallet {
     this.privateKey = Wallet.encrypt(this.privateKey, password);
     this.secret = Wallet.encrypt(this.secret, password);
   }
+
+  descryp(password){
+    
+    let newWallet = Object.assign( Object.create( Object.getPrototypeOf(this)), this)
+    
+    newWallet.privateKey = Wallet.decrypte(this.privateKey, password);
+    if (newWallet.privateKey === false){
+      return false;
+    }
+    newWallet.mnemonic = Wallet.decrypte(this.mnemonic, password);
+    newWallet.secret = Wallet.decrypte(this.secret, password);
+    return newWallet;
+  }
+
   static hashPassword(password) {
     const hash = crypto.createHash('sha256');
     hash.update(password);
@@ -48,11 +62,17 @@ export class Wallet {
   }
 
   static decrypte(encrypted, password) {
-    const hash = Wallet.hashPassword(password);
-    const decipher = crypto.createDecipher('aes192', hash);
-    let decrypted = decipher.update(encrypted, 'hex', 'utf8');
-    decrypted += decipher.final('utf8');
-    return decrypted;
+    console.log("decrypte", encrypted, password);
+    try {
+      const hash = Wallet.hashPassword(password);
+      const decipher = crypto.createDecipher('aes192', hash);
+      let decrypted = decipher.update(encrypted, 'hex', 'utf8');
+      decrypted += decipher.final('utf8');
+      return decrypted;
+    } catch (e){
+        console.log('decrypt', e);
+        return false;
+    }
   }
 
   getShortAddress() {

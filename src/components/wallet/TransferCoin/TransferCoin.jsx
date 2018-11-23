@@ -32,6 +32,8 @@ import AddressBook from "../AddressBook";
 import iconAddContact from '@/assets/images/wallet/icons/icon-add-user.svg';
 import customBackIcon from '@/assets/images/wallet/icons/back-chevron-white.svg';
 
+import { userWallet } from '@/screens/wallet/action';
+
 
 const amountValid = value => (value && isNaN(value) ? 'Invalid amount' : undefined);
 
@@ -66,7 +68,10 @@ class Transfer extends React.Component {
       volume: 0,
       listFeeObject: false,
 
-      addressBookContent: ""
+      addressBookContent: "",
+
+      userPassword: '',
+      isShowPassword: true,
     },
     this.modalHeaderStyle = {color: "#fff", background: "#546FF7"};
     this.modalBodyStyle = {padding: 0};
@@ -95,8 +100,8 @@ class Transfer extends React.Component {
     this.setState({inputSendAmountValue: 0, inputSendMoneyValue: 0, currency: currency ? currency : 'USD'});
   }
 
-  async componentDidMount() {        
-
+  async componentDidMount() {    
+ 
     await this.getWalletDefault();
     // this.props.hideLoading();
 
@@ -219,23 +224,27 @@ class Transfer extends React.Component {
     });
   }
 
-  getWalletDefault = () =>{
+  async getWalletDefault (){
+
     const { coinName, listWallet, wallet } = this.props;
 
     let wallets = listWallet;
     let walletDefault = null;
-    if (!wallets){
-      if (coinName){
-        wallets = MasterWallet.getWallets(coinName);
-      }
-      else{
-        wallets = MasterWallet.getMasterWallet();
-      }
+    if (!wallets){      
+      wallets = await this.props.userWallet(); 
+      console.log("wallets", wallets);
     }
 
     if (coinName){
-      walletDefault = MasterWallet.getWalletDefault(coinName);
+      wallets = MasterWallet.filterWalletByName(wallets, coinName);
+    }  
+
+    if (coinName){
+      walletDefault = MasterWallet.getWalletDefault(wallets, coinName);
     }
+
+    console.log('wallets affer filter: ', wallets);
+    console.log('coiname: ', coinName);
 
     // set name + text for list:
     let listWalletCoin = [];
@@ -262,6 +271,8 @@ class Transfer extends React.Component {
     if (wallet){
       walletDefault = wallet;
     }
+
+    console.log('walletDefault', walletDefault);
 
     if (walletDefault){
       walletDefault.text = walletDefault.getShortAddress() + " (" + walletDefault.name + "-" + walletDefault.getNetworkName() + ")";
@@ -401,7 +412,15 @@ submitSendCoin=()=>{
   this.modalConfirmTranferRef.close();
   let fee = this.state.listFeeObject ? this.state.listFeeObject.listFee[this.state.volume].value : 0;
   let option = {"fee": fee};
-  this.state.walletSelected.transfer(this.state.inputAddressAmountValue, this.state.inputSendAmountValue, option).then(success => {
+
+  // todo: decryp wallet:
+
+  let password = "12345678";
+  const walletSend = this.state.walletSelected.descryp(password);
+
+  console.log('walletSend', walletSend);  
+
+  walletSend.transfer(this.state.inputAddressAmountValue, this.state.inputSendAmountValue, option).then(success => {
 
       this.setState({isRestoreLoading: false});
       if (success.hasOwnProperty('status')){
@@ -535,6 +554,10 @@ onSelectAddressBook=(address)=>{
   this.modalAddressBookRef.close();
 }
 
+hideRequirePassword =()=>{
+  this.setState({isShowPassword: false});
+}
+
 render() {
   let { currency } = this.props;
   if(!currency) currency = "USD";
@@ -547,6 +570,21 @@ render() {
 
   return (
     <div>
+
+        {/* <Modal show={this.state.isShowPassword} onHide={this.hideRequirePassword}>
+          <Modal.Header closeButton>
+            <Modal.Title>Wallet Security</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div>
+              <p>Please enter your password to Unlock wallet</p>
+            </div>            
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary">Cancel</Button>
+            <Button variant="primary">Unlock</Button>
+          </Modal.Footer>
+        </Modal> */}
 
         {/* Dialog confirm transfer coin */}
         <ModalDialog title="Confirmation" onRef={modal => this.modalConfirmTranferRef = modal}>
@@ -676,6 +714,7 @@ const mapDispatchToProps = (dispatch) => ({
   showAlert: bindActionCreators(showAlert, dispatch),
   clearFields: bindActionCreators(clearFields, dispatch),
   getFiatCurrency: bindActionCreators(makeRequest, dispatch),
+  userWallet: bindActionCreators(userWallet, dispatch),  
 });
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Transfer));

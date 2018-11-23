@@ -15,7 +15,7 @@
     font-weight: $extra-light;
     color: $black;
     background-color: $bg-gray;
-    overflow: hidden;
+    // overflow: hidden;
     @include full-screen;
   }
   img {

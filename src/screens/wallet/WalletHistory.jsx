@@ -225,7 +225,7 @@ class WalletHistory extends React.Component {
               {tran.is_error ? <div className={style.unconfirmation}>{messages['wallet.action.history.label.failed']}</div> : ""}
             </div>
             <div className={style.col1}><img className={style.iconDollar} src={icon} /></div>
-            <div className={cx(style.col2, style.history-address)}>
+            <div className={cx(style.col2, style["history-address"])}>
               <div className={cssLabel}>
                 {label}
               </div>
