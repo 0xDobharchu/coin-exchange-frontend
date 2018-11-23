@@ -14,10 +14,14 @@ const field = ({ input, meta, currency, fiatCurrency, orderType, direction, clas
         onChange={onChange}
         onFocus={onFocus}
         onBlur={onBlur}
-        currency={currency}
-        fiatCurrency={fiatCurrency}
+        defaultCurrency={currency}
+        defaultFiatCurrency={fiatCurrency}
         orderType={orderType}
         direction={direction}
+        options={{
+          canChangeCurrency: false,
+          canChangeFiatCurrency: true,
+        }}
         markRequired={shouldShowError}
       />
       { shouldShowError && <small className="text-danger">{error}</small>}
