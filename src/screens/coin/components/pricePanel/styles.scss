@@ -1,4 +1,16 @@
+@import 'var';
+@import 'functions';
+
 .container {
+  @media screen and (max-width: 380px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  @media screen and (min-width: 380px) and (max-width: get-breakpoint(lg)) {
+    display: flex;
+    justify-content: space-around;
+  }
   .label {
     font-weight: bold;
     font-size: 18px;
