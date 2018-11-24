@@ -95,7 +95,7 @@ class Transfer extends React.Component {
   }
   componentWillReceiveProps() {
     const {currency} = this.props;
-    this.setState({inputSendAmountValue: 0, inputSendMoneyValue: 0, currency: currency ? currency : 'USD'});
+    // this.setState({inputSendAmountValue: 0, inputSendMoneyValue: 0, currency: currency ? currency : 'USD'});
   }
 
   async componentDidMount() {    
@@ -298,6 +298,7 @@ class Transfer extends React.Component {
 
           // get balance for first item + update to local store:
           walletDefault.balance = wallets[i].balance;
+          //todo: need update balance
           // MasterWallet.UpdateBalanceItem(walletDefault);
         }
       }
@@ -353,7 +354,7 @@ class Transfer extends React.Component {
       else{
         money = money.toLocaleString();
       }
-    }
+    }    
 
     this.setState({
       inputSendAmountValue: amount,
@@ -361,6 +362,7 @@ class Transfer extends React.Component {
     }, ()=>{
       this.props.rfChange(nameFormSendWallet, 'amountCoin', amount);
       this.props.rfChange(nameFormSendWallet, 'amountMoney', money);
+      console.log("inputSendAmountValue-->", this.state.inputSendAmountValue);      
     });
   }
 
@@ -414,7 +416,7 @@ submitSendCoin=()=>{
   if (this.state.userPassword === ''){
     this.props.showRequirePassword({
       onFinish: (userPassword) => {
-        this.setState({userPassword}, ()=> {
+        this.setState({userPassword: userPassword}, ()=> {
           this.sendCoinNow();
         });
       }
@@ -434,13 +436,15 @@ sendCoinNow=()=>{
   const walletSend = this.state.walletSelected.descryp(this.state.userPassword);
   console.log('walletSend', walletSend);  
 
-  if (!walletSend){
-    this.showError(this.getMessage('requirePassword.passNotMatch'));
-    this.submitSendCoin();
-    this.setState({isRestoreLoading: false, userPassword: ''});
-
+  if (walletSend === false){
+    this.showError(this.getMessage('requirePassword.passNotMatch'));    
+    this.setState({isRestoreLoading: false, userPassword: '', isShowPassword: false}, ()=>{      
+      this.submitSendCoin();
+    });
+    return;
   }  
-
+  this.setState({isRestoreLoading: true});
+  
   walletSend.transfer(this.state.inputAddressAmountValue, this.state.inputSendAmountValue, option).then(success => {
 
       this.setState({isRestoreLoading: false});
@@ -448,7 +452,7 @@ sendCoinNow=()=>{
         if (success.status == 1){
           this.showSuccess(this.getMessage(success.message));
           this.onFinish(success.data);
-          MasterWallet.NotifyUserTransfer(this.state.walletSelected.address, this.state.inputAddressAmountValue);
+          // MasterWallet.NotifyUserTransfer(this.state.walletSelected.address, this.state.inputAddressAmountValue);
           // start cron get balance auto ...
           // todo hanlde it ...
         }
@@ -458,8 +462,6 @@ sendCoinNow=()=>{
       }
   });
 }
-
-sendCoin
 
 // For Qrcode:
 handleScan=(data) =>{
@@ -607,7 +609,7 @@ render() {
               {this.state.addressBookContent}
         </Modal>
 
-        <SendWalletForm className={walletNotFound ? style["d-none"] : style["sendwallet-wrapper"]} onSubmit={this.openSendCoin} validate={this.invalidateTransferCoins}>
+        <SendWalletForm className={walletNotFound ? style["d-none"] : style["sendwallet-wrapper"]} onSubmit={this.submitSendCoin} validate={this.invalidateTransferCoins}>
 
         {/* Box: */}
         <div className={style["bgBox"]}>

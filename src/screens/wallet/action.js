@@ -32,6 +32,8 @@ export const userWallet = () => (dispatch) => {
 
 export const makeSaveWallet = masterWallet => (dispatch) => {
 
+  if (!masterWallet || masterWallet.length == 0) return false;
+
   const setWallet = makeRequest({
     type: WALLET,
     url: API_URL.USER.USER_WALLET,

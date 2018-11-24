@@ -245,12 +245,12 @@ class Wallet extends React.Component {
   }
 
   componentWillUnmount() {
-    try{document.querySelector(".app").style.backgroundColor = '#ffffff';} catch (e){};    
+    // try{document.querySelector(".app").style.backgroundColor = '#ffffff';} catch (e){};    
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     
-    try{document.querySelector(".app").style.backgroundColor = '#f4f4fb';} catch (e){};
+    // try{document.querySelector(".app").style.backgroundColor = '#f4f4fb';} catch (e){};
     
     this.getSetting();
 
@@ -260,27 +260,15 @@ class Wallet extends React.Component {
       console.log('listWallet', listWallet);
       if (listWallet !== false){
         this.splitWalletData(listWallet);
-      }      
+        this.getListBalace(listWallet);
+      }
+      else {
+        this.showAlert("Can not get your wallet now ...");
+      }
       
     }).finally(() => {
       
     });
-
-    // var i = 0;
-    // for (const k1 in MasterWallet.ListDefaultCoin) {
-    //   i ++;      
-    //   for (const k2 in MasterWallet.ListDefaultCoin[k1].Network) {
-    //     const wallet = new MasterWallet.ListDefaultCoin[k1]();
-    //       // set mnemonic, if not set then auto gen.          
-    //       wallet.mnemonic = "mnemonic" + i.toString();
-    //       wallet.network = MasterWallet.ListDefaultCoin[k1].Network[k2];
-    //       wallet.address = "address" + i.toString();
-    //       listWallet.push(wallet);
-    //   }
-    // }
-
-    // this.splitWalletData(listWallet);
-    //await this.getListBalace(listWallet);
 
   }
       
@@ -318,7 +306,8 @@ class Wallet extends React.Component {
 
     await this.splitWalletData(listWallet);
 
-    await MasterWallet.UpdateLocalStore(listWallet);
+    // await MasterWallet.UpdateLocalStore(listWallet);
+    this.saveWallet(listWallet);
   }
 
   copyToClipboard =(text) => {
@@ -347,8 +336,9 @@ class Wallet extends React.Component {
       // Remove item:
       if (index > -1) {
         lstWalletTemp.splice(index, 1);
-        // Update wallet master from local store:
-        MasterWallet.UpdateLocalStore(lstWalletTemp, true);
+        // Update wallet master server:
+        // MasterWallet.UpdateLocalStore(lstWalletTemp, true);
+        this.saveWallet(lstWalletTemp);        
         this.splitWalletData(lstWalletTemp);
       }
     }
@@ -555,6 +545,15 @@ class Wallet extends React.Component {
     this.setState({ erroValueBackup: false, listCoinTempToCreate: listCoinTemp, countCheckCoinToCreate });
   }
 
+  saveWallet(wallets){    
+    this.props.makeSaveWallet(wallets).then((result) => {      
+      console.log('saved wallet');
+
+    }).finally(() => {
+      
+    });
+  }
+
   createNewWallets = () => {
     const { messages } = this.props.intl;
     this.setState({ isRestoreLoading: true, erroValueBackup: false });
@@ -582,12 +581,7 @@ class Wallet extends React.Component {
 
       const listNewWallet = lstWalletTemp.concat(newWallet);
 
-      this.props.makeSaveWallet(listNewWallet).then((result) => {      
-        console.log('result', result);              
-
-      }).finally(() => {
-        
-      });
+      this.saveWallet(listNewWallet);
 
       if (phrase != '') {
         // need get balance
@@ -673,8 +667,9 @@ class Wallet extends React.Component {
   }
   onUpdateWalletName = (wallet) => {
     this.setState({walletSelected: wallet});
-    //update local store.
-    MasterWallet.UpdateLocalStore(this.getAllWallet());
+    //update data wallet.
+    // MasterWallet.UpdateLocalStore(this.getAllWallet());
+    this.saveWallet(this.getAllWallet());            
     this.onWalletItemClick(wallet);
   }
 
@@ -691,17 +686,20 @@ class Wallet extends React.Component {
   }
   onSortableCoinSuccess = (items)=>{
     this.setState({listMainWalletBalance: items}, ()=> {
-      MasterWallet.UpdateLocalStore(this.getAllWallet());
+      // MasterWallet.UpdateLocalStore(this.getAllWallet());
+      this.saveWallet(this.getAllWallet());
     });
   }
   onSortableTokenSuccess = (items)=>{
     this.setState({listTokenWalletBalance: items}, ()=> {
-      MasterWallet.UpdateLocalStore(this.getAllWallet());
+      // MasterWallet.UpdateLocalStore(this.getAllWallet());
+      this.saveWallet(this.getAllWallet());
     });
   }
   onSortableCollectibleSuccess = (items)=>{
     this.setState({listCollectibleWalletBalance: items}, ()=> {
-      MasterWallet.UpdateLocalStore(this.getAllWallet());
+      // MasterWallet.UpdateLocalStore(this.getAllWallet());
+      this.saveWallet(this.getAllWallet());
     });
   }
 
@@ -796,8 +794,11 @@ class Wallet extends React.Component {
     const { messages } = this.props.intl;
     const lstWalletTemp = this.getAllWallet();
     lstWalletTemp.forEach((wal) => { if (wallet.mnemonic == wal.mnemonic) { wal.protected = true; } });
+    
     // Update wallet master from local store:
-    MasterWallet.UpdateLocalStore(lstWalletTemp);
+    // MasterWallet.UpdateLocalStore(lstWalletTemp);
+    this.saveWallet(lstWalletTemp);
+    
     this.modalProtectRef.close();
     this.splitWalletData(lstWalletTemp);
     this.showSuccess(messages['wallet.action.protect.success']);
