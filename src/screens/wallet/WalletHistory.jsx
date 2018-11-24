@@ -306,10 +306,10 @@ class WalletHistory extends React.Component {
   }
 
   showLoading(status) {
-    this.props.showLoading({ message: '' });
+    // this.props.showLoading({ message: '' });
   }
   hideLoading() {
-    this.props.hideLoading();
+    // this.props.hideLoading();
   }
 
   async detailTransaction(data){

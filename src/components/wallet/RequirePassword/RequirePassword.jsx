@@ -38,6 +38,9 @@ class RequirePassword extends React.Component {
     let props = nextProps.app.passwordData || {}; 
     if (props.isShow)
       this.setState({isShowPassword: true, onFinish: props.onFinish})               
+    else{
+      this.setState({password: ''});
+    }
   }
    
   componentDidMount() {    
@@ -57,7 +60,7 @@ class RequirePassword extends React.Component {
   }   
 
   onClose=() => {   
-  this.setState({ isShowPassword: false}, () => {
+  this.setState({ isShowPassword: false, password: ''}, () => {
     this.props.hideRequirePassword();
   });    
 }
@@ -65,6 +68,11 @@ class RequirePassword extends React.Component {
 onPasswordChange=(e)=>{
   let password = e.target.value;
   this.setState({password})
+}
+_handleKeyPress=(e)=> {
+  if (e.key === 'Enter') {
+    this.onFinish();
+  }
 }
 
 render() {  
@@ -83,7 +91,7 @@ render() {
           <Modal.Body>
             <div>
               <p>{messages['requirePassword.description']}</p>
-              <Input value={this.state.password} placeholder="Your password..." onChange={(evt) => {this.onPasswordChange(evt)}} />
+              <Input onKeyPress={this._handleKeyPress} value={this.state.password} placeholder="Your password..." onChange={(evt) => {this.onPasswordChange(evt)}} />
               
               <Button disabled={this.state.password.trim().length < 8} className={"btn-block " + style.buttonUnlock} variant="primary" onClick={this.onFinish}>{messages['requirePassword.btnUnlockText']}</Button>
               
