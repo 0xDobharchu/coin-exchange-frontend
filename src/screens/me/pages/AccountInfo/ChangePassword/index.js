@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm }from 'redux-form';
-import { PasswordField, Button } from '@/components/custom';
+import { PasswordField, Button } from 'src/components/custom';
 import {  Row, Col }from 'react-bootstrap';
 import style from './style.scss';
 

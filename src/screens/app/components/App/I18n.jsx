@@ -12,7 +12,7 @@
 // import ru from 'react-intl/locale-data/ru';
 // import es from 'react-intl/locale-data/es';
 // import vi from 'react-intl/locale-data/vi';
-// import messages from '@/locals';
+// import messages from 'src/locals';
 
 // addLocaleData([...en, ...fr, ...zh, ...de, ...ja, ...ko, ...ru, ...es, ...vi]);
 

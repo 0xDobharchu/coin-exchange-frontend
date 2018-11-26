@@ -1,5 +1,5 @@
 
-import { Wallet } from '@/services/Wallets/Wallet';
+import { Wallet } from 'src/services/Wallets/Wallet';
 
 
 const bip39 = require('bip39');
