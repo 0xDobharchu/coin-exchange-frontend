@@ -19,9 +19,9 @@ const LANGUAGES =[
     value: 'en'
   },
   {
-    key: 'id',
-    label: '🇻🇳 Indonesia',
-    value: 'id'
+    key: 'zh-Hant-HK',
+    label: '🇭🇰 Hong Kong',
+    value: 'zh-Hant-HK'
   }
 ];
 
