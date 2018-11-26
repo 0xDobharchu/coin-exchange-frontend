@@ -224,9 +224,9 @@ class WalletTransaction extends React.Component {
                   </div>
                 : "")
               :
-                <div className={style.body} key={char}>
-                  <div className={style.key}>{char.replace(/_/g, " ")}</div>
-                  <div className={style.value}>{val}</div>
+                <div className={style['body']} key={char}>
+                  <div className={style['key']}>{char.replace(/_/g, " ")}</div>
+                  <div className={style['value']}>{val}</div>
                 </div>
             )
           })
