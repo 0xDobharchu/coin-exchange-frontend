@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import Alert from 'src/components/core/presentation/Alert';
 import Navigation from 'src/components/core/controls/Navigation';
-import WalletPasscode from 'src/components/Wallet/WalletPasscode';
-import RequirePassword from 'src/components/Wallet/RequirePassword';
 import styles from './styles.scss';
+import WalletPasscode from 'src/components/wallet/WalletPasscode/WalletPasscode';
+import RequirePassword from 'src/components/wallet/RequirePassword/RequirePassword';
 // import Loading from 'src/components/core/presentation/Loading';
 
 
