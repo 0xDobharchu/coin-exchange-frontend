@@ -9,10 +9,10 @@ import { injectIntl } from 'react-intl';
 import { Container, Row, Col } from 'react-bootstrap';
 
 // components
-import Button from '@/components/core/controls/Button';
-import { MasterWallet } from '@/services/Wallets/MasterWallet';
-import Input from '@/components/core/controls/input';
-import { StringHelper } from '@/services/helper';
+import Button from 'src/components/core/controls/Button';
+import { MasterWallet } from 'src/services/Wallets/MasterWallet';
+import Input from 'src/components/core/controls/input';
+import { StringHelper } from 'src/services/helper';
 
 import {
   fieldCleave,
@@ -21,58 +21,58 @@ import {
   fieldNumericInput,
   fieldPhoneInput,
   fieldRadioButton
-} from '@/components/core/form/customField';
+} from 'src/components/core/form/customField';
 import {change, Field, formValueSelector, clearFields} from 'redux-form';
-import ModalDialog from '@/components/core/controls/ModalDialog';
-import Modal from '@/components/core/controls/Modal';
-import Dropdown from '@/components/core/controls/Dropdown';
-import createForm from '@/components/core/form/createForm';
+import ModalDialog from 'src/components/core/controls/ModalDialog';
+import Modal from 'src/components/core/controls/Modal';
+import Dropdown from 'src/components/core/controls/Dropdown';
+import createForm from 'src/components/core/form/createForm';
 
 import Header from './Header';
 import HeaderMore from './HeaderMore';
 import WalletItem from './WalletItem';
 import WalletProtect from './WalletProtect';
 import WalletHistory from './WalletHistory';
-import TransferCoin from '@/components/wallet/TransferCoin';
-import ReceiveCoin from '@/components/wallet/ReceiveCoin';
-import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action';
-import local from '@/services/localStore';
-import {APP} from '@/constants';
+import TransferCoin from 'src/components/wallet/TransferCoin';
+import ReceiveCoin from 'src/components/wallet/ReceiveCoin';
+import { showLoading, hideLoading, showAlert } from 'src/screens/app/redux/action';
+import local from 'src/services/localStore';
+import {APP} from 'src/constants';
 
 import { userWallet, makeSaveWallet } from './action';
 
-// import AddToken from '@/components/wallet/AddToken/AddToken';
-// import AddCollectible from '@/components/wallet/AddCollectible/AddCollectible';
+// import AddToken from 'src/components/wallet/AddToken/AddToken';
+// import AddCollectible from 'src/components/wallet/AddCollectible/AddCollectible';
 
 // style
 import style from './Wallet.scss';
 
-import CoinTemp from '@/screens/wallet/CoinTemp';
-import BackupWallet from '@/components/wallet/BackupWallet/BackupWallet';
-import RestoreWallet from '@/components/wallet/RestoreWallet/RestoreWallet';
+import CoinTemp from 'src/screens/wallet/CoinTemp';
+import BackupWallet from 'src/components/wallet/BackupWallet/BackupWallet';
+import RestoreWallet from 'src/components/wallet/RestoreWallet/RestoreWallet';
 
 // new layout:
-import logoWallet from '@/assets/images/wallet/images/logo-wallet.svg';
-import iconMoreSettings from '@/assets/images/wallet/icons/icon-more-settings.svg';
+import logoWallet from 'src/assets/images/wallet/images/logo-wallet.svg';
+import iconMoreSettings from 'src/assets/images/wallet/icons/icon-more-settings.svg';
 import SortableComponent from "./SortableComponent";
-import iconAddPlus from '@/assets/images/wallet/icons/icon-add-plus.svg';
-import iconAlignJust from '@/assets/images/wallet/icons/icon-align-just.svg';
-import { hideHeader } from '@/screens/app/redux/action';
-import BackChevronSVGWhite from '@/assets/images/wallet/icons/back-chevron-white.svg';
-import customRightIcon from '@/assets/images/wallet/icons/icon-options.svg';
-import floatButtonScanQRCode from '@/assets/images/wallet/icons/float-button-scan.svg';
+import iconAddPlus from 'src/assets/images/wallet/icons/icon-add-plus.svg';
+import iconAlignJust from 'src/assets/images/wallet/icons/icon-align-just.svg';
+import { hideHeader } from 'src/screens/app/redux/action';
+import BackChevronSVGWhite from 'src/assets/images/wallet/icons/back-chevron-white.svg';
+import customRightIcon from 'src/assets/images/wallet/icons/icon-options.svg';
+import floatButtonScanQRCode from 'src/assets/images/wallet/icons/float-button-scan.svg';
 
-import WalletPreferences from '@/components/wallet/WalletPreferences';
-import { requestWalletPasscode, showQRCodeContent, showRequirePassword  } from '@/screens/app/redux/action';
-import QRCodeContent from '@/components/wallet/QRCodeContent';
-// import RemindPayment from '@/components/Payment/Remind';
-import { ICON } from '@/components/wallet/images';
+import WalletPreferences from 'src/components/wallet/WalletPreferences';
+import { requestWalletPasscode, showQRCodeContent, showRequirePassword  } from 'src/screens/app/redux/action';
+import QRCodeContent from 'src/components/wallet/QRCodeContent';
+// import RemindPayment from 'src/components/Payment/Remind';
+import { ICON } from 'src/components/wallet/images';
 
 const QRCode = require('qrcode.react');
 
 import { showQrCode } from 'src/components/barcodeScanner';
 
-import { Ethereum } from '@/services/Wallets/Ethereum.js';
+import { Ethereum } from 'src/services/Wallets/Ethereum.js';
 
 import cx from 'classnames';
 

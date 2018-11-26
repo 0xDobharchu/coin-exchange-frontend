@@ -4,14 +4,14 @@ import {injectIntl} from 'react-intl';
 import {Field, clearFields, change} from "redux-form";
 import {connect} from "react-redux";
 
-import Button from '@/components/core/controls/Button';
+import Button from 'src/components/core/controls/Button';
 
 import { Modal } from 'react-bootstrap';
 
 import  style from './QRCodeContent.scss';
-import { showAlert, hideQRCodeContent } from '@/screens/app/redux/action';
+import { showAlert, hideQRCodeContent } from 'src/screens/app/redux/action';
 
-import { MasterWallet } from '@/services/Wallets/MasterWallet';
+import { MasterWallet } from 'src/services/Wallets/MasterWallet';
 
 if (__CLIENT__)
   window.Clipboard = (function (window, document, navigator) {
@@ -167,8 +167,8 @@ class QRCodeContent extends React.Component {
     let address = dataAddress.address;
     const { messages } = this.props.intl;
     
-    let icon = require("@/assets/images/wallet/icons/coins/eth.svg");
-    try{ icon = require("@/assets/images/wallet/icons/coins/" + dataAddress.symbol.toLowerCase() + ".svg" );} catch (e){};
+    let icon = require("src/assets/images/wallet/icons/coins/eth.svg");
+    try{ icon = require("src/assets/images/wallet/icons/coins/" + dataAddress.symbol.toLowerCase() + ".svg" );} catch (e){};
 
     let content = (
       <div className={style["box-qrcode-content"]}>

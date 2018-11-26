@@ -1,7 +1,7 @@
 import { makeRequest } from 'src/redux/action';
 import { API_URL } from 'src/resources/constants/url';
 import { WALLET } from './type';
-import { MasterWallet } from '@/services/Wallets/MasterWallet';
+import { MasterWallet } from 'src/services/Wallets/MasterWallet';
 
 export const userWallet = () => (dispatch) => {
   

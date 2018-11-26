@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './WalletPreferences.scss';
-import Switch from '@/components/core/controls/Switch';
+import Switch from 'src/components/core/controls/Switch';
 import InputMobile from '../InputMobile';
-import Modal from '@/components/core/controls/Modal';
+import Modal from 'src/components/core/controls/Modal';
 import {injectIntl} from 'react-intl';
 import { ENGINE_METHOD_DIGESTS } from 'constants';
 

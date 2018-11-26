@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import createForm from '@/components/core/form/createForm';
+import createForm from 'src/components/core/form/createForm';
 import { formValueSelector } from 'redux-form';
 import textareaField from 'src/components/core/form/fields/textarea';
-import inputField from '@/components/core/form/fields/input';
+import inputField from 'src/components/core/form/fields/input';
 import LabelLang from 'src/lang/components/LabelLang';
 import { FieldLang } from 'src/lang/components';
 import { isEmail, isRequired } from 'src/components/core/form/validator';

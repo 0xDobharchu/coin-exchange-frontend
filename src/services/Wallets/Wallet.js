@@ -1,4 +1,4 @@
-import { StringHelper } from '@/services/helper';
+import { StringHelper } from 'src/services/helper';
 const crypto = require('crypto');
 
 export class Wallet {

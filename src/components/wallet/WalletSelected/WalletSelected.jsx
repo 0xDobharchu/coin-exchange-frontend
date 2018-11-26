@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import {injectIntl} from 'react-intl';
 import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
-import Modal from '@/components/core/controls/Modal';
-// import { showLoading, hideLoading } from '@/screens/app/redux/action';
-// import { ICON } from '@/components/wallet/images';
-import ListCoin from '@/components/wallet/ListCoin';
+import Modal from 'src/components/core/controls/Modal';
+// import { showLoading, hideLoading } from 'src/screens/app/redux/action';
+// import { ICON } from 'src/components/wallet/images';
+import ListCoin from 'src/components/wallet/ListCoin';
 import style from './WalletSelected.scss';
-import expandArrowSVG from '@/assets/images/icon/expand-arrow.svg';
+import expandArrowSVG from 'src/assets/images/icon/expand-arrow.svg';
 
 class WalletSelected extends React.Component {
   static propTypes = {
@@ -62,7 +62,7 @@ class WalletSelected extends React.Component {
     const walletSelected = this.state.walletSelected;
     let coinIcon = '';
     try{
-      if(walletSelected) coinIcon = require("@/assets/images/wallet/icons/coins/" + walletSelected.name.toLowerCase() + '.svg');
+      if(walletSelected) coinIcon = require("src/assets/images/wallet/icons/coins/" + walletSelected.name.toLowerCase() + '.svg');
     } catch (ex){console.log(ex)};
     return (
       <div className={style["walletSelected"]} onClick={() => {this.openListCoin() }}>

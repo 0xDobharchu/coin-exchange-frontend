@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {injectIntl} from 'react-intl';
 import {connect} from "react-redux";
-import { MasterWallet } from "@/services/Wallets/MasterWallet";
+import { MasterWallet } from "src/services/Wallets/MasterWallet";
 import { bindActionCreators } from "redux";
-import Button from '@/components/core/controls/Button';
-import ModalDialog from '@/components/core/controls/ModalDialog';
-// import { showLoading, hideLoading } from '@/screens/app/redux/action';
-import iconQRCodeBlack from '@/assets/images/wallet/icons/icon-qrcode-black.svg';
-import iconQRCodeWhite from '@/assets/images/wallet/icons/icon-qrcode-white.svg';
-import iconSelected from '@/assets/images/wallet/icons/check-circle-solid.svg';
+import Button from 'src/components/core/controls/Button';
+import ModalDialog from 'src/components/core/controls/ModalDialog';
+// import { showLoading, hideLoading } from 'src/screens/app/redux/action';
+import iconQRCodeBlack from 'src/assets/images/wallet/icons/icon-qrcode-black.svg';
+import iconQRCodeWhite from 'src/assets/images/wallet/icons/icon-qrcode-white.svg';
+import iconSelected from 'src/assets/images/wallet/icons/check-circle-solid.svg';
 import style from './ListCoin.scss';
 
 const QRCode = require('qrcode.react');
@@ -105,7 +105,7 @@ class ListCoin extends React.Component {
     if(wallets){
       return wallets.map(e => {
         let icon = '';
-        try{ icon = require("@/assets/images/wallet/icons/coins/" + e.name.toLowerCase() + '.svg')} catch (ex){console.log(ex)};
+        try{ icon = require("src/assets/images/wallet/icons/coins/" + e.name.toLowerCase() + '.svg')} catch (ex){console.log(ex)};
         let isLive = e.network === MasterWallet.ListCoin[e.className].Network.Mainnet;
         let isSelected = walletSelected && e.network == walletSelected.network && e.address == walletSelected.address && e.name == walletSelected.name;
 

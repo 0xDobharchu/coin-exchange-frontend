@@ -13,6 +13,7 @@ import { URL } from 'src/resources/constants/url';
 import ConfirmButton from 'src/components/confirmButton';
 import inputField from 'src/components/core/form/fields/input';
 import { showAlert } from 'src/screens/app/redux/action';
+import MyMessage from 'src/lang/components/MyMessage';
 import { FaLock } from 'react-icons/fa';
 import cx from 'classnames';
 import BankTransferInfo from './components/bankTransferInfo';
@@ -85,7 +86,7 @@ class BuyCryptoCoin extends React.Component {
     this.setState({ orderInfo });
     const { showAlert, paymentMethod, history } = this.props;
     showAlert({
-      message: 'Successful',
+      message: <MyMessage id="coin.buy.orderSuccessMsg" />,
       timeOut: 1000,
     });
     if (paymentMethod === PAYMENT_METHOD.COD) {
@@ -98,7 +99,7 @@ class BuyCryptoCoin extends React.Component {
   orderFailedHandler = () => {
     const { showAlert } = this.props;
     showAlert({
-      message: 'Error',
+      message: <MyMessage id="coin.buy.orderFailedMsg" />,
       type: 'danger',
       timeOut: 1000,
     });
@@ -116,13 +117,13 @@ class BuyCryptoCoin extends React.Component {
   }
 
   renderCoD = () => {
-    const { paymentMethod } = this.props;
+    const { paymentMethod, intl: { formatMessage } } = this.props;
     return (
       <div className={cx(styles.codInfo, 'mt-4')}>
         <Field
           type="text"
           name="address"
-          placeholder="Address"
+          placeholder={formatMessage({ id: 'coin.buy.userAddress' })}
           component={inputField}
           className={styles.codItem}
           validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
@@ -130,14 +131,14 @@ class BuyCryptoCoin extends React.Component {
         <Field
           type="text"
           name="phone"
-          placeholder="Phone"
+          placeholder={formatMessage({ id: 'coin.buy.userPhone' })}
           component={inputField}
           className={styles.codItem}
           validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
         />
         <Field
           type="text"
-          placeholder="As soon as possible"
+          placeholder={formatMessage({ id: 'coin.buy.userNote' })}
           name="noteAndTime"
           component={inputField}
           className={styles.codItem}

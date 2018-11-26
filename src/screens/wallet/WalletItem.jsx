@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {injectIntl} from 'react-intl';
 import { Col, Row } from 'react-bootstrap';
-import {Bitcoin} from '@/services/Wallets/Bitcoin.js';
-import {Ethereum} from '@/services/Wallets/Ethereum.js';
+import {Bitcoin} from 'src/services/Wallets/Bitcoin.js';
+import {Ethereum} from 'src/services/Wallets/Ethereum.js';
 
-import iconSafe from '@/assets/images/wallet/icons/icon-safe.svg';
-import iconWarning from '@/assets/images/wallet/icons/icon-warning.svg';
+import iconSafe from 'src/assets/images/wallet/icons/icon-safe.svg';
+import iconWarning from 'src/assets/images/wallet/icons/icon-warning.svg';
 
-import iconChecked from '@/assets/images/wallet/icons/checked-green.svg';
-import iconQRCode from '@/assets/images/wallet/icons/icon-qrcode-black.svg';
-import bgCollectibles from '@/assets/images/wallet/images/tokenerc721-mainnet.svg'
+import iconChecked from 'src/assets/images/wallet/icons/checked-green.svg';
+import iconQRCode from 'src/assets/images/wallet/icons/icon-qrcode-black.svg';
+import bgCollectibles from 'src/assets/images/wallet/images/tokenerc721-mainnet.svg'
 
-import needBackup from '@/assets/images/wallet/icons/need-backup.svg';
+import needBackup from 'src/assets/images/wallet/icons/need-backup.svg';
 
 
 import style from './Wallet.scss';
@@ -47,8 +47,8 @@ class WalletItem extends React.Component {
   render(){
       const {wallet, onAddressClick, isSortable, onItemClick} =  this.props;
       const { messages } = this.props.intl;      
-      let logo = require("@/assets/images/wallet/icons/coins/" + wallet.icon);
-      try{ logo = require("@/assets/images/wallet/icons/coins/" + wallet.getCoinLogo());} catch (e){};
+      let logo = require("src/assets/images/wallet/icons/coins/" + wallet.icon);
+      try{ logo = require("src/assets/images/wallet/icons/coins/" + wallet.getCoinLogo());} catch (e){};
 
       return  (
 

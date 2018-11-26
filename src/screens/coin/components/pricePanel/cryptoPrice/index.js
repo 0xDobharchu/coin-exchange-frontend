@@ -7,6 +7,9 @@ import { injectIntl } from 'react-intl';
 import styles from './styles.scss';
 import { ORDER_TYPE } from '../../../constant';
 import CryptoGraph from '@/screens/coin/components/pricePanel/cryptoGraph';
+import MyMessage from '@/lang/components/MyMessage';
+
+const getIntlKey = (name) => `coin.components.pricePanel.${name}`;
 
 class CryptoPrice extends Component {
   constructor() {
@@ -78,13 +81,13 @@ class CryptoPrice extends Component {
         </div>
         {buyPrice && (
           <div className={styles.buy}>
-            <span>Buy</span>
+            <span><MyMessage id={getIntlKey('buy')} /></span>
             <span>{buyPriceStr}</span>
           </div>
         )}
         {sellPrice && (
           <div className={styles.sell}>
-            <span>Sell</span>
+            <span><MyMessage id={getIntlKey('sell')} /></span>
             <span>{sellPriceStr}</span>
           </div>
         )}

@@ -1,8 +1,8 @@
 // import React from "react";
-// import COUNTRIES from "@/data/country-dial-codes.js";
+// import COUNTRIES from "src/data/country-dial-codes.js";
 // import "./styles.scss";
-// import iconArrowWhite from '@/assets/images/icon/Triangle_white.svg';
-// import iconArrowBlack from '@/assets/images/icon/Triangle_black.svg';
+// import iconArrowWhite from 'src/assets/images/icon/Triangle_white.svg';
+// import iconArrowBlack from 'src/assets/images/icon/Triangle_black.svg';
 
 // // const isVisible = elem => !!elem && !!( elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length )
 

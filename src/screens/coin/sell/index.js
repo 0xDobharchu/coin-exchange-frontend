@@ -9,17 +9,19 @@ import { isRequired } from 'src/components/core/form/validator';
 import { bindActionCreators } from 'redux';
 import { PAYMENT_METHOD, EXCHANGE_DIRECTION } from 'src/screens/coin/constant';
 import cx from 'classnames';
-// import { DEFAULT_CURRENCY } from 'src/resources/constants/crypto';
 import { URL } from 'src/resources/constants/url';
 import ConfirmButton from 'src/components/confirmButton';
 import inputField from 'src/components/core/form/fields/input';
 import { showAlert } from 'src/screens/app/redux/action';
+import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
+import MyMessage from 'src/lang/components/MyMessage';
 import { FaLock } from 'react-icons/fa';
 import OrderInfo from './components/orderInfo';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
 import { makeOrder, genAddress } from './redux/action';
 import styles from './styles.scss';
 
+const getIntlKey = (name) => `coin.sell.${name}`;
 const sellFormName = 'SellForm';
 const SellForm = createForm({
   propsReduxForm: {
@@ -58,7 +60,7 @@ class SellCryptoCoin extends React.Component {
     return genAddress(currency).then(walletAddress => {
       this.setState({ walletAddress });
       return walletAddress;
-    });
+    }).catch(reqErrorAlert);
   }
 
   prepareToOrder = async () => {
@@ -70,7 +72,7 @@ class SellCryptoCoin extends React.Component {
         this.makeOrder();
       } else {
         showAlert({
-          message: 'Error while preparing to order, pls try again',
+          message: <MyMessage id={getIntlKey('prepareOrderFailed')} />,
           type: 'danger',
           timeOut: 1000,
         });
@@ -101,7 +103,7 @@ class SellCryptoCoin extends React.Component {
   orderSuccessHandler = (/* orderInfo */) => {
     const { showAlert, history } = this.props;
     showAlert({
-      message: 'Successful',
+      message: <MyMessage id={getIntlKey('orderSuccessful')} />,
       timeOut: 1000,
     });
     history.push(URL.ME);
@@ -110,7 +112,7 @@ class SellCryptoCoin extends React.Component {
   orderFailedHandler = () => {
     const { showAlert } = this.props;
     showAlert({
-      message: 'Error while making new order, pls try again',
+      message: <MyMessage id={getIntlKey('orderFailed')} />,
       type: 'danger',
       timeOut: 1000,
     });
@@ -127,12 +129,13 @@ class SellCryptoCoin extends React.Component {
   }
 
   renderBankInfoInput = () => {
+    const { intl: { formatMessage } } = this.props;
     return (
       <div className={cx(styles.codInfo, 'mt-4')}>
         <Field
           type="text"
           name="bankName"
-          placeholder="Bank name"
+          placeholder={formatMessage({ id: getIntlKey('bankName')})}
           component={inputField}
           className={styles.bankItem}
           validate={isRequired()}
@@ -140,7 +143,7 @@ class SellCryptoCoin extends React.Component {
         <Field
           type="text"
           name="bankAccountNumber"
-          placeholder="Account number"
+          placeholder={formatMessage({ id: getIntlKey('accountNumber')})}
           component={inputField}
           className={styles.bankItem}
           validate={isRequired()}
@@ -148,7 +151,7 @@ class SellCryptoCoin extends React.Component {
         <Field
           type="text"
           name="bankAccountName"
-          placeholder="Account name"
+          placeholder={formatMessage({ id: getIntlKey('accountName')})}
           component={inputField}
           className={styles.bankItem}
           validate={isRequired()}
@@ -156,7 +159,7 @@ class SellCryptoCoin extends React.Component {
         <Field
           type="text"
           name="bankUserPhoneNumber"
-          placeholder="Phone number"
+          placeholder={formatMessage({ id: getIntlKey('phone')})}
           component={inputField}
           className={styles.bankItem}
           validate={isRequired()}
@@ -241,7 +244,11 @@ SellCryptoCoin.defaultProps = {
   paymentMethod: PAYMENT_METHOD.TRANSFER,
   makeOrder: null,
   showAlert: null,
-  supportedCurrency: []
+  supportedCurrency: [],
+  bankName: '',
+  bankAccountName: '',
+  bankAccountNumber: '',
+  bankUserPhoneNumber: ''
 };
 
 SellCryptoCoin.propTypes = {
@@ -251,6 +258,14 @@ SellCryptoCoin.propTypes = {
   makeOrder: PropTypes.func,
   showAlert: PropTypes.func,
   supportedCurrency: PropTypes.array,
+  rfDestroy: PropTypes.func.isRequired,
+  genAddress: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  bankName: PropTypes.string,
+  bankAccountName: PropTypes.string,
+  bankAccountNumber: PropTypes.string,
+  bankUserPhoneNumber: PropTypes.string
 };
 
 export default withRouter(injectIntl(connect(mapStateToProps, mapDispatchToProps)(SellCryptoCoin)));
