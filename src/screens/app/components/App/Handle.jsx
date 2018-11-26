@@ -6,14 +6,14 @@ import routes, { RenderRoutes } from 'src/routes';
 // import { withFirebase } from 'react-redux-firebase';
 // // contants
 // // actions
-// import { setFirebaseUser } from '@/screens/app/redux/action';
-// import { authUpdate } from '@/reducers/auth/action';
+// import { setFirebaseUser } from 'src/screens/app/redux/action';
+// import { authUpdate } from 'src/reducers/auth/action';
 // // components
-// import Loading from '@/components/core/presentation/Loading';
-// import Router from '@/components/Router/Router';
+// import Loading from 'src/components/core/presentation/Loading';
+// import Router from 'src/components/Router/Router';
 // // chat
 // import md5 from 'md5';
-// import { isEmpty } from '@/utils/is';
+// import { isEmpty } from 'src/utils/is';
 
 // class Handle extends React.Component {
 //   static propTypes = {

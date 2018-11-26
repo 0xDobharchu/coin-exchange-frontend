@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import iconSelf from '@/assets/images/wallet/icons/icon-self.svg';
-import iconSent from '@/assets/images/wallet/icons/icon-sent.svg';
-import iconCreate from '@/assets/images/wallet/icons/icon-create.svg';
-import iconReceived from '@/assets/images/wallet/icons/icon-received.svg';
+import iconSelf from 'src/assets/images/wallet/icons/icon-self.svg';
+import iconSent from 'src/assets/images/wallet/icons/icon-sent.svg';
+import iconCreate from 'src/assets/images/wallet/icons/icon-create.svg';
+import iconReceived from 'src/assets/images/wallet/icons/icon-received.svg';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import style from './Wallet.scss';
@@ -185,7 +185,7 @@ class WalletTransaction extends React.Component {
         </div>
         {
           detail.header.coin == "ETH" &&
-            <div className="url"><a target="_blank" href={""+wallet.getAPIUrlTransaction(detail.body.hash)}>{messages['wallet.action.history.label.detail_etherscan']}</a></div>
+            <div className={style.url}><a target="_blank" href={""+wallet.getAPIUrlTransaction(detail.body.hash)}>{messages['wallet.action.history.label.detail_etherscan']}</a></div>
         }
         {
           detail.header.coin == "BTC" &&
@@ -193,7 +193,7 @@ class WalletTransaction extends React.Component {
         }
         <div className={style.confirmation}>
           {
-            detail.header.status ? <div className={css_status.toLowerCase()}>{messages['wallet.action.history.label.status']} {detail.header.status}</div> : ""
+            detail.header.status ? <div className={style[css_status.toLowerCase()]}>{messages['wallet.action.history.label.status']} {detail.header.status}</div> : ""
           }
           {
             detail.header.confirmations || detail.header.confirmations == 0 ? <div>{detail.header.confirmations} {messages['wallet.action.history.label.confirmations']}</div>
@@ -208,15 +208,15 @@ class WalletTransaction extends React.Component {
             return (
               char == "internal_transactions" ?
                 (val.length > 0 ?
-                  <div className={style.body} key={char}>
-                    <div className={style.key}>{char.replace(/_/g, " ")}</div>
-                    <div className={style.value}>
+                  <div className={style['body']} key={char}>
+                    <div className={style['key']}>{char.replace(/_/g, " ")}</div>
+                    <div className={style['value']}>
                     {
                       val.map(e => {
                         return <div key={Math.random()} className={style.valueIt}>
-                          <span className={textSecondary}>{messages['wallet.action.history.label.transfer']}</span> {e.amount} ETH
+                          <span className={style.textSecondary}>{messages['wallet.action.history.label.transfer']}</span> {e.amount} ETH
                           <span className={style.textSecondary}> {messages['wallet.action.history.label.from']}</span> {e.from}
-                          <span className={style.text-secondary}> {messages['wallet.action.history.label.to']}</span> {e.to}
+                          <span className={style.textSecondary}> {messages['wallet.action.history.label.to']}</span> {e.to}
                         </div>
                       })
                     }
@@ -224,9 +224,9 @@ class WalletTransaction extends React.Component {
                   </div>
                 : "")
               :
-                <div className={style.body} key={char}>
-                  <div className={style.key}>{char.replace(/_/g, " ")}</div>
-                  <div className={style.value}>{val}</div>
+                <div className={style['body']} key={char}>
+                  <div className={style['key']}>{char.replace(/_/g, " ")}</div>
+                  <div className={style['value']}>{val}</div>
                 </div>
             )
           })

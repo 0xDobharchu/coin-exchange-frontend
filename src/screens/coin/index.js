@@ -3,10 +3,10 @@ import cx from 'classnames';
 import { Container, Col, Row } from 'react-bootstrap';
 import ReviewList from 'src/components/reviewList';
 import { FaPlayCircle } from 'react-icons/fa';
+import PricePanel from 'src/screens/coin/components/pricePanel';
 import BuyCoin from './buy';
 import SellCoin from './sell';
 import styles from './styles.scss';
-import PricePanel from '@/screens/coin/components/pricePanel';
 
 const TABS = {
   BUY: {

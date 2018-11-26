@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isEqual from '@/utils/isEqual';
+import isEqual from 'src/utils/isEqual';
 // component
 // style
 import cn from 'classnames';
-import ExpandArrowSVG from '@/assets/images/icon/expand-arrow.svg';
-import SEARCH_ICON_SVG from '@/assets/images/icon/ic_search.svg';
+import ExpandArrowSVG from 'src/assets/images/icon/expand-arrow.svg';
+import SEARCH_ICON_SVG from 'src/assets/images/icon/ic_search.svg';
 import style from './Dropdown.scss';
 
 class Dropdown extends React.PureComponent {
@@ -112,7 +112,7 @@ class Dropdown extends React.PureComponent {
             <img src={ExpandArrowSVG} alt="expand arrow" />
           </div>
         </button>
-        <ul className={`${style.dropdown_custom_menu} ${isShow ? 'show' : 'hide'}`}>
+        <ul className={`${style.dropdown_custom_menu} ${isShow ? style.show : style.hide}`}>
           {
             hasSearch && (
               <li className={`${style.dropdown_custom_item} ${style.search_block}`}>
