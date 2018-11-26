@@ -14,6 +14,7 @@ import { URL } from 'src/resources/constants/url';
 import ConfirmButton from 'src/components/confirmButton';
 import inputField from 'src/components/core/form/fields/input';
 import { showAlert } from 'src/screens/app/redux/action';
+import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
 import { FaLock } from 'react-icons/fa';
 import OrderInfo from './components/orderInfo';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
@@ -58,7 +59,7 @@ class SellCryptoCoin extends React.Component {
     return genAddress(currency).then(walletAddress => {
       this.setState({ walletAddress });
       return walletAddress;
-    });
+    }).catch(reqErrorAlert);
   }
 
   prepareToOrder = async () => {
