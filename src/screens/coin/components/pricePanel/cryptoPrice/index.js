@@ -6,6 +6,7 @@ import { formatMoneyByLocale } from 'src/utils/format/curency';
 import { injectIntl } from 'react-intl';
 import styles from './styles.scss';
 import { ORDER_TYPE } from '../../../constant';
+import CryptoGraph from '@/screens/coin/components/pricePanel/cryptoGraph';
 
 class CryptoPrice extends Component {
   constructor() {
@@ -73,6 +74,7 @@ class CryptoPrice extends Component {
             <img src={logo} alt="" />
             <span>{name}</span>
           </div>
+          <div><CryptoGraph crypto={crypto} /></div>
         </div>
         {buyPrice && (
           <div className={styles.buy}>
