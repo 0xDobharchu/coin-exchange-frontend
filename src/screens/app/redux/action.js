@@ -31,7 +31,9 @@ export const hideQRCodeContent = config => ({ type: APP_ACTION.HIDE_QRCODE_CONTE
 export const showRequirePassword = config => ({ type: APP_ACTION.SHOW_REQUIRE_PASSWORD, payload: { isShow: true, ...config } });
 export const hideRequirePassword = config => ({ type: APP_ACTION.HIDE_REQUIRE_PASSWORD, payload: { isShow: false, ...config } });
 
-
+// Loading
+export const showLoading = config => ({ type: APP_ACTION.LOADING, payload: { ...config } });
+export const hideLoading = () => ({ type: APP_ACTION.LOADED });
 
 // Header
 export const setHeaderTitle = title => ({ type: APP_ACTION.HEADER_TITLE_SET, payload: title });
