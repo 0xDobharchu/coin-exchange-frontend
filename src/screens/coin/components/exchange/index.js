@@ -188,7 +188,7 @@ class Exchange extends Component {
 
   render() {
     const { amount, fiatAmount, isExchanging } = this.state;
-    const { markRequired, onFocus, onBlur, options } = this.props;
+    const { markRequired, onFocus, onBlur, options, direction } = this.props;
     const { currency, fiatCurrency, currencyListRendered, fiatCurrencyListRendered } = this.state;
     return (
       <Container fluid className={styles.container}>
@@ -197,7 +197,7 @@ class Exchange extends Component {
             <InputGroup>
               <Input
                 onFocus={() => onFocus()}
-                label="Amount to buy"
+                label={`Amount to ${direction}`}
                 placeholder="0.0"
                 value={amount}
                 onBlur={() => onBlur()}
