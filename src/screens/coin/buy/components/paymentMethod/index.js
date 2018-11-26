@@ -4,17 +4,20 @@ import Checkbox from 'src/components/core/controls/Checkbox';
 import { Container, Row, Col } from 'react-bootstrap';
 import { PAYMENT_METHOD } from 'src/screens/coin/constant';
 import TooltipInfo from 'src/components/tooltipInfo';
+import MyMessage from 'src/lang/components/MyMessage';
 import styles from './styles.scss';
+
+const getIntlKey = (name) => `coin.components.paymentMethod.${name}`;
 
 const methods = [
   {
-    name: 'Wire transfer',
+    name: getIntlKey('wireTransferName'),
     value: PAYMENT_METHOD.TRANSFER
   },
   {
-    name: 'Cash on Delivery',
+    name: getIntlKey('codName'),
     value: PAYMENT_METHOD.COD,
-    info: 'State your time and place for meeting up and we will exchange in person.'
+    info: getIntlKey('codInfo'),
   }
 ];
 
@@ -46,12 +49,12 @@ class Exchange extends Component {
               <Col sm={12} md={6} key={method.value}>
                 <div className={styles.item}>
                   <Checkbox
-                    label={method.name}
+                    label={<MyMessage id={method.name} />}
                     value={method.value}
                     onChange={this.onChange}
                     checked={selected === method.value}
                   />
-                  {method?.info && <TooltipInfo message={method?.info} />}
+                  {method?.info && <TooltipInfo message={<MyMessage id={method.info} />} />}
                 </div>
               </Col>
             ))

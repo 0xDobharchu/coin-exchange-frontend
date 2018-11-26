@@ -4,17 +4,18 @@ import { Container, Col, Row } from 'react-bootstrap';
 import ReviewList from 'src/components/reviewList';
 import { FaPlayCircle } from 'react-icons/fa';
 import PricePanel from 'src/screens/coin/components/pricePanel';
+import MyMessage from 'src/lang/components/MyMessage';
 import BuyCoin from './buy';
 import SellCoin from './sell';
 import styles from './styles.scss';
 
 const TABS = {
   BUY: {
-    title: 'BUY COIN',
+    title: <MyMessage id='coin.buyTabTitle' />,
     component: <BuyCoin />
   },
   SELL: {
-    title: 'SELL COIN',
+    title: <MyMessage id='coin.sellTabTitle' />,
     component: <SellCoin />
   }
 };
@@ -58,8 +59,8 @@ class Coin extends Component {
     return (
       <Container className={styles.container}>
         <Row className={styles.intro}>
-          <h1>Buy & Sell Crypto at best prices</h1>
-          <h3>See how it works <FaPlayCircle className={styles.icon} /></h3>
+          <h1><MyMessage id='coin.introText' /></h1>
+          <h3><MyMessage id='coin.subIntroText' /><FaPlayCircle className={styles.icon} /></h3>
         </Row>
         <Row>
           <Col lg={3}>
