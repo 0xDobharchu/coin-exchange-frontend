@@ -215,8 +215,8 @@ class WalletTransaction extends React.Component {
                       val.map(e => {
                         return <div key={Math.random()} className={style.valueIt}>
                           <span className={style.textSecondary}>{messages['wallet.action.history.label.transfer']}</span> {e.amount} ETH
-                          <span className={style.textSecondary}> {messages['wallet.action.history.label.from']}</span> {e.from}
-                          <span className={style.text-secondary}> {messages['wallet.action.history.label.to']}</span> {e.to}
+                          <span className={style.textSecondary]}> {messages['wallet.action.history.label.from']}</span> {e.from}
+                          <span className={style.textSecondary}> {messages['wallet.action.history.label.to']}</span> {e.to}
                         </div>
                       })
                     }
