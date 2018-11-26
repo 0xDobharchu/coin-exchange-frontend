@@ -1,4 +1,5 @@
-import { GET_REVIEW } from './type';
+import { GET_REVIEW, GET_SELL_PRICE, GET_BUY_PRICE } from './type';
+import Coin from '@/models/coin';
 
 const initState = {
   numReview: 0,
@@ -6,14 +7,38 @@ const initState = {
   buyPrice: {},
 };
 
-export default (state = initState, { type, data }) => {
-  switch (type) {
+export default (state = initState, action) => {
+  switch (action.type) {
     case `${GET_REVIEW}_SUCCESS`:
       return {
         ...state,
-        numReview: data.count,
-        reviewList:  data.results,
+        numReview: action.payload.data.count,
+        reviewList:  action.payload.data.results,
       };
+    case `${GET_BUY_PRICE}_SUCCESS`:
+      if (action?.data) {
+        const coinInfo = Coin.coinQuote(action?.data);
+        return {
+          ...state,
+          buyPrice: {
+            ...state.buyPrice,
+            [action?.more?.name]: coinInfo,
+          },
+        };
+      }
+      break;
+    case `${GET_SELL_PRICE}_SUCCESS`:
+      if (action?.data) {
+        const coinInfo = Coin.coinQuote(action?.data);
+        return {
+          ...state,
+          sellPrice: {
+            ...state.sellPrice,
+            [action?.more?.name]: coinInfo,
+          },
+        };
+      }
+      break;
     default:
       return state;
   }

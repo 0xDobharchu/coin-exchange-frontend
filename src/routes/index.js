@@ -1,10 +1,10 @@
 import { URL } from 'src/resources/constants/url';
-import Home from 'src/screens/home';
 import Contact from 'src/screens/contact';
 import About from 'src/screens/about';
 import Login from 'src/screens/login';
 import Register from 'src/screens/register';
 import forgetPassword from 'src/screens/forgetPassword';
+import forgetPasswordFinish from 'src/screens/forgetPassword/finish';
 import Coin from 'src/screens/coin';
 import Localization from 'src/screens/localization';
 import Me from 'src/screens/me/pages/Me';
@@ -28,12 +28,6 @@ import privateRoute from './privateRoute';
 const routes = [
   {
     path: URL.HOME,
-    component: Home,
-    componentProps: { title: 'Oh yeah!' },
-    exact: true,
-  },
-  {
-    path: URL.COIN,
     component: Coin,
     exact: true,
   },
@@ -65,6 +59,11 @@ const routes = [
   {
     path: URL.USER_FORGET_PASSWORD,
     component: forgetPassword,
+    exact: true,
+  },
+  {
+    path: URL.USER_FORGET_PASSWORD_FINISH,
+    component: forgetPasswordFinish,
     exact: true,
   },
   {

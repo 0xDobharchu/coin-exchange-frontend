@@ -1,6 +1,42 @@
 @import 'var';
+@import 'responsive';
+
 .container {
-  .panel-left, .panel-right {
+  > div:global(.row > div) {
+    @include respond(lg) {
+      margin: 30px 0px;
+    }
+  }
+  .intro {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 50px 0px;
+    h1 {
+      @include respond(sm) {
+        font-size: 30px;
+      }
+      font-size: 48px;
+      color: white;
+      text-align: center;
+    }
+    h3 {
+      font-size: 24px;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon {
+      margin: 10px;
+      font-size: 24px;
+      color: #49EDF2;
+      text-align: center;
+      position: relative;
+      bottom: -2px;
+    }
+  }
+  .panel {
     background-color: #ffffff;
     width: inherit;
     box-shadow: 0 5px 10px -7px #47464A;

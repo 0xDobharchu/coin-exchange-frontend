@@ -1,0 +1,23 @@
+.review-warper {
+  margin-top: 20px;
+}
+.review-title {
+  padding: 10px 0 10px 0;
+  > span{
+    font-size: 26px;
+    font-weight: bold;
+    height: 26px;
+    letter-spacing: 0;
+  }
+}
+.review-card {
+  border-radius: 6px 6px 6px 6px;
+  box-shadow: 0 5px 29px -7px #000000;
+}
+
+.button-review {
+  background: #5522DD;
+  border-radius: 6px 6px 6px 6px;
+  box-shadow: 0 6px 13px 0 #D7D0F5;
+  height: 50px;
+}

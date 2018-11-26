@@ -1,5 +1,6 @@
 import { 
-  fetchProfile, sendEmailVerifyCode, updateProfile, sendToGetPhoneCode, submitVerifyPhoneCode, submitIdCard, submitSelfie
+  fetchProfile, sendEmailVerifyCode, updateProfile, sendToGetPhoneCode, submitVerifyPhoneCode, submitIdCard, submitSelfie,
+  getTransactions
 } from './api';
 
 export const getProfileAction = () => (dispatch) => new Promise((resolve, reject) => {
@@ -32,7 +33,7 @@ export const updateProfileAction = (data) => (dispatch) => new Promise((resolve,
   updateProfile(data).then(payload => {
     if (!payload) return;
     dispatch({ type: 'UPDATE_PROFILE_INFO', payload });
-    sendToGetPhoneCode().then(r => r).catch(err=>err);
+    // sendToGetPhoneCode().then(r => r).catch(err=>err);
     resolve(true);
   }).catch(err => reject(err));
 });
@@ -62,3 +63,14 @@ export const submitVerifyLevel4Action = (data) => (dispatch) => {
   }).catch(err =>err);
 };
 
+export const getTransactionsAction = () => (dispatch) => new Promise((resolve, reject) => {
+  getTransactions().then(r => {
+    if (!r) return;
+    const payload = {
+      count: r.count,
+      transactions: r.results
+    };
+    dispatch({ type: 'GET_TRANSACTIONS', payload });
+    resolve(true);
+  }).catch(err => reject(err));
+});

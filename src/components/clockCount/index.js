@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { debounce } from 'lodash';
+import cx from 'classnames';
+import styles from './styles.scss';
 
 const MAX_TIME = 30 * 60; // in seconds
 
@@ -85,7 +87,7 @@ class ClockCount extends PureComponent {
     const { expired, time } = this.state;
     const { expiredText, className } = this.props;
     return (
-      <span className={`time ${className}`}>{expired ? expiredText : time}</span>
+      <span className={cx(styles.time, className)}>{expired ? expiredText : time}</span>
     );
   }
 }
