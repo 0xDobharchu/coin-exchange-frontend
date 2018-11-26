@@ -2,36 +2,36 @@ import axios from 'axios';
 import React from 'react';
 import {injectIntl} from 'react-intl';
 import {connect} from "react-redux";
-import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action';
+import { showLoading, hideLoading, showAlert } from 'src/screens/app/redux/action';
 import PropTypes from 'prop-types';
-import local from '@/services/localStore';
-import { APP } from '@/constants';
+import local from 'src/services/localStore';
+import { APP } from 'src/constants';
 
-import { setLanguage } from '@/screens/app/redux/action';
+import { setLanguage } from 'src/screens/app/redux/action';
 
 import './SettingWallet.scss';
-import Dropdown from '@/components/core/controls/Dropdown';
+import Dropdown from 'src/components/core/controls/Dropdown';
 
 import '../WalletPreferences/WalletPreferences.scss';
 
-import Switch from '@/components/core/controls/Switch';
-import { newPasscode, requestWalletPasscode, updatePasscode } from '@/screens/app/redux/action';
+import Switch from 'src/components/core/controls/Switch';
+import { newPasscode, requestWalletPasscode, updatePasscode } from 'src/screens/app/redux/action';
 
-import iconLock from '@/assets/images/wallet/icons/icon-lock.svg';
-import iconCurrentcy from '@/assets/images/wallet/icons/icon-currency.svg';
-import iconNotifications from '@/assets/images/wallet/icons/icon-notifications.svg';
-import iconTwitter from '@/assets/images/wallet/icons/icon-twitter.svg';
-import iconFacebook from '@/assets/images/wallet/icons/icon-facebook.svg';
-import iconVk from '@/assets/images/wallet/icons/icon-vk.svg';
-import iconTelegram from '@/assets/images/wallet/icons/icon-telegram.svg';
-import iconBackupWallet from '@/assets/images/wallet/icons/icon-backup.svg';
-import iconRestoreWallet from '@/assets/images/wallet/icons/icon-restore.svg';
-import iconSupport from '@/assets/images/wallet/icons/icon-support.svg';
-import iconContact from '@/assets/images/wallet/icons/icon-address-book.svg';
+import iconLock from 'src/assets/images/wallet/icons/icon-lock.svg';
+import iconCurrentcy from 'src/assets/images/wallet/icons/icon-currency.svg';
+import iconNotifications from 'src/assets/images/wallet/icons/icon-notifications.svg';
+import iconTwitter from 'src/assets/images/wallet/icons/icon-twitter.svg';
+import iconFacebook from 'src/assets/images/wallet/icons/icon-facebook.svg';
+import iconVk from 'src/assets/images/wallet/icons/icon-vk.svg';
+import iconTelegram from 'src/assets/images/wallet/icons/icon-telegram.svg';
+import iconBackupWallet from 'src/assets/images/wallet/icons/icon-backup.svg';
+import iconRestoreWallet from 'src/assets/images/wallet/icons/icon-restore.svg';
+import iconSupport from 'src/assets/images/wallet/icons/icon-support.svg';
+import iconContact from 'src/assets/images/wallet/icons/icon-address-book.svg';
 
-import Modal from '@/components/core/controls/Modal';
+import Modal from 'src/components/core/controls/Modal';
 import AddressBook from "../AddressBook";
-import iconAddContact from '@/assets/images/wallet/icons/icon-add-user.svg';
+import iconAddContact from 'src/assets/images/wallet/icons/icon-add-user.svg';
 
 class SettingWallet extends React.Component {
   constructor(props) {

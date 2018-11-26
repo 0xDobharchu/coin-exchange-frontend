@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import {injectIntl} from 'react-intl';
 import {Field, clearFields, change} from "redux-form";
 import {connect} from "react-redux";
-import Button from '@/components/core/controls/Button';
-import ModalDialog from '@/components/core/controls/ModalDialog';
-import Modal from '@/components/core/controls/Modal';
-import createForm from '@/components/core/form/createForm';
-import { fieldInput } from '@/components/core/form/customField';
+import Button from 'src/components/core/controls/Button';
+import ModalDialog from 'src/components/core/controls/ModalDialog';
+import Modal from 'src/components/core/controls/Modal';
+import createForm from 'src/components/core/form/createForm';
+import { fieldInput } from 'src/components/core/form/customField';
 import { API_URL } from 'src/resources/constants/url';
-import local from '@/services/localStore';
-import {APP} from '@/constants';
-import {required} from '@/components/core/form/validation';
-import {MasterWallet} from "@/services/Wallets/MasterWallet";
+import local from 'src/services/localStore';
+import {APP} from 'src/constants';
+import {required} from 'src/components/core/form/validation';
+import {MasterWallet} from "src/services/Wallets/MasterWallet";
 import { bindActionCreators } from "redux";
 import { makeRequest } from 'src/redux/action';
-import { showAlert, showRequirePassword } from '@/screens/app/redux/action';
-import { StringHelper } from '@/services/helper';
+import { showAlert, showRequirePassword } from 'src/screens/app/redux/action';
+import { StringHelper } from 'src/services/helper';
 import style from './TransferCoin.scss';
-import { ICON } from '@/components/wallet/images';
-import WalletSelected from '@/components/wallet/WalletSelected';
+import { ICON } from 'src/components/wallet/images';
+import WalletSelected from 'src/components/wallet/WalletSelected';
 
 import Slider from 'react-rangeslider';
 
@@ -27,10 +27,10 @@ import { showQrCode } from 'src/components/barcodeScanner';
 
 
 import AddressBook from "../AddressBook";
-import iconAddContact from '@/assets/images/wallet/icons/icon-add-user.svg';
-import customBackIcon from '@/assets/images/wallet/icons/back-chevron-white.svg';
+import iconAddContact from 'src/assets/images/wallet/icons/icon-add-user.svg';
+import customBackIcon from 'src/assets/images/wallet/icons/back-chevron-white.svg';
 
-import { userWallet } from '@/screens/wallet/action';
+import { userWallet } from 'src/screens/wallet/action';
 
 
 const amountValid = value => (value && isNaN(value) ? 'Invalid amount' : undefined);

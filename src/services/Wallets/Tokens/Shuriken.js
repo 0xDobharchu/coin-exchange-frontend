@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { Wallet } from '@/services/Wallets/Wallet.js';
-import configs from '@/configs';
-import { StringHelper } from '@/services/helper';
-import { TokenERC20 } from '@/services/Wallets/Tokens/TokenERC20.js';
+import { Wallet } from 'src/services/Wallets/Wallet.js';
+import configs from 'src/configs';
+import { StringHelper } from 'src/services/helper';
+import { TokenERC20 } from 'src/services/Wallets/Tokens/TokenERC20.js';
 
 const Web3 = require('web3');
 const EthereumTx = require('ethereumjs-tx');
@@ -11,7 +11,7 @@ const ethUtil = require('ethereumjs-util');
 const bip39 = require('bip39');
 
 const BN = Web3.utils.BN;
-const compiled = require('@/contracts/Wallet/Shuriken.json');
+const compiled = require('src/contracts/Wallet/Shuriken.json');
 
 const erc20Abi = compiled.abi;
 

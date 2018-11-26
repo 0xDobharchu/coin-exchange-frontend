@@ -1,8 +1,8 @@
 import axios from 'axios';
 import satoshi from 'satoshi-bitcoin';
-import { StringHelper } from '@/services/helper';
-import { Bitcoin } from '@/services/Wallets/Bitcoin';
-// import { NB_BLOCKS } from '@/constants';
+import { StringHelper } from 'src/services/helper';
+import { Bitcoin } from 'src/services/Wallets/Bitcoin';
+// import { NB_BLOCKS } from 'src/constants';
 export const NB_BLOCKS = 20;
 
 const bitcore = require('bitcore-lib-cash');

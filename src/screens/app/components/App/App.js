@@ -6,7 +6,7 @@ import React from 'react';
 // app
 import Root from './Root';
 // store
-// import store from '@/stores';
+// import store from 'src/stores';
 // import history from 'src/services/history';
 
 // class App extends React.Component {

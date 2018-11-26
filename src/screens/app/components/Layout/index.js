@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 import cx from 'classnames';
-import Alert from '@/components/core/presentation/Alert';
-import Navigation from '@/components/core/controls/Navigation';
+import Alert from 'src/components/core/presentation/Alert';
+import Navigation from 'src/components/core/controls/Navigation';
+import WalletPasscode from 'src/components/Wallet/WalletPasscode';
+import RequirePassword from 'src/components/Wallet/RequirePassword';
 import styles from './styles.scss';
-import WalletPasscode from '@/components/Wallet/WalletPasscode';
-import RequirePassword from '@/components/Wallet/RequirePassword';
-// import Loading from '@/components/core/presentation/Loading';
+// import Loading from 'src/components/core/presentation/Loading';
 
 
 class Layout extends PureComponent {
