@@ -2,10 +2,10 @@ import { makeRequest } from 'src/redux/action';
 import { API_URL } from 'src/resources/constants/url';
 import { USER } from 'src/resources/constants/user';
 import authentication from 'src/utils/authentication';
-import { LOGIN } from './type';
+import { LOGIN, GET_PROFILE } from './type';
 
 const makeGetProfile = (dispatch) => makeRequest({
-  type: LOGIN,
+  type: GET_PROFILE,
   url: API_URL.USER.USER_PROFILE,
   method: 'GET'
 }, dispatch);
@@ -20,20 +20,25 @@ export const login = (username, password) => (dispatch) => {
       password
     }
   }, dispatch);
+
   return makeLogin().then((res) => {
     if (res.refresh && res.access && __CLIENT__) {
       authentication.setAccessToken(res.access);
       authentication.setRefreshToken(res.refresh);
       return makeGetProfile(dispatch)().then((profile) => {
+
         const user = {name: profile.name, email: profile.email};
         authentication.setCurrentUser(user);
-        return USER.LOGIN_SUCCESS;
+        return {
+          status: USER.LOGIN_SUCCESS,
+          message: (profile.verification_level === 'level_1' && profile.verification_status === 'pending')
+        };
       });
     } else {
-      return USER.LOGIN_FAILURE;
+      return {status: USER.LOGIN_FAILURE};
     }
   }, (err) => {
     console.log(err);
-    return USER.LOGIN_FAILURE;
+    return {status: USER.LOGIN_FAILURE};
   });
 };
