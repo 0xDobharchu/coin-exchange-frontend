@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import ReCAPTCHA from 'react-google-recaptcha';
 import createForm from 'src/components/core/form/createForm';
 import { formValueSelector, change } from 'redux-form';
-import { FieldLang } from 'src/lang/components';
+import {FieldLang, MyMessage} from 'src/lang/components';
 import inputField from 'src/components/core/form/fields/input';
 import { isEmail, isPassword, isRequired, mustChecked } from 'src/components/core/form/validator';
 import { USER } from 'src/resources/constants/user';
@@ -14,7 +14,7 @@ import LabelLang from 'src/lang/components/LabelLang';
 import dropdownField from 'src/components/core/form/fields/dropdown';
 import checkBoxField from 'src/components/core/form/fields/checkbox';
 import cx from 'classnames';
-import authentication from 'src/utils/authentication';
+import { showAlert } from 'src/screens/app/redux/action';
 import { register, getCountries } from './action';
 import style from './style.scss';
 
@@ -22,7 +22,7 @@ const RegisterForm = createForm({
   propsReduxForm: {
     form: 'RegisterForm',
     initialValues: {
-      country: authentication.getIPInfor().country,
+
     },
   },
 });
@@ -42,6 +42,13 @@ class RegisterPage extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.verifyCallback = this.verifyCallback.bind(this);
   }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.userCountry !== this.props.userCountry) {
+      this.props.countryBound('RegisterForm', 'country', this.props.userCountry);
+    }
+  }
+
   componentDidMount() {
     const { getCountriesBound } = this.props;
     getCountriesBound().then((res) => {
@@ -69,9 +76,29 @@ class RegisterPage extends React.Component {
         recaptchaValue
       }).then((res) => {
         if (res === USER.REGISTER_SUCCESS) {
-          console.log('Register successfull');
+          console.log('Register successfully');
+          this.props.showAlert({
+            message: <MyMessage id='user.register.registerSuccessfully' />,
+            timeOut: 1000,
+          });
           this.props.history.push(URL.USER_SIGN_IN);
+        } else {
+          if(res.data.message) {
+            this.props.showAlert({
+              message: <MyMessage id={res.data.message} />,
+              type: 'danger',
+              timeOut: 2000,
+            });
+          }
+          else {
+            this.props.showAlert({
+              message: <MyMessage id={`user.register.${res.err.code}`} />,
+              type: 'danger',
+              timeOut: 2000,
+            });
+          }
         }
+
       }).finally(() => {
         this.setState({ registering: false });
       });
@@ -192,12 +219,15 @@ const mapStateToProps = state => ({
   country: selectorForm(state, 'country'),
   recaptchaValue: selectorForm(state, 'recaptchaValue'),
   agreement: selectorForm(state, 'agreement'),
+  userCountry: state.app?.userCountry,
 });
 
 const mapDispatch = dispatch => ({
   registerBound: bindActionCreators(register, dispatch),
   getCountriesBound: bindActionCreators(getCountries, dispatch),
   reCapchatBound: bindActionCreators(change, dispatch),
+  countryBound: bindActionCreators(change, dispatch),
+  showAlert: bindActionCreators(showAlert, dispatch),
 });
 
 const connectedRegisterPage = connect(mapStateToProps, mapDispatch)(RegisterPage);

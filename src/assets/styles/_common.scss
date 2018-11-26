@@ -18,6 +18,12 @@ $scopeName: 'common';
 
   .#{$scopeName}-clickable {
     cursor: pointer;
+    &:hover {
+      box-shadow: 0 -2px 13px 0 rgba(221,235,242,0.50);
+      background-color:rgba(0, 0, 0, 0.02);
+      position: relative;
+      top: 1px;
+    }
   }
   .#{$scopeName}-btn-large {
     min-width: 227px;

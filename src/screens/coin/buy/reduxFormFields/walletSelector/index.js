@@ -2,16 +2,16 @@
 import React from 'react';
 import WalletSelector from '../../components/walletSelector';
 
-const field = ({ input, meta }) => {
+const field = ({ input, meta, className = '' }) => {
   const {
     onChange, onBlur, onFocus, value
   } = input;
   const { error, touched } = meta;
   const shouldShowError = !!(touched && error);
   return (
-    <div>
+    <div className={className}>
       <WalletSelector markRequired={shouldShowError} value={value} onChange={onChange} onBlur={onBlur} onFocus={onFocus} />
-      { shouldShowError && <span className="text-danger">{error}</span>}
+      { shouldShowError && <small className="text-danger">{error}</small>}
     </div>
   );
 };
