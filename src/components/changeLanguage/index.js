@@ -19,9 +19,9 @@ const LANGUAGES =[
     value: 'en'
   },
   {
-    key: 'vi',
-    label: '🇻🇳 Tiếng Việt',
-    value: 'vi'
+    key: 'zh-Hant-HK',
+    label: '🇭🇰 Hong Kong',
+    value: 'zh-Hant-HK'
   }
 ];
 
