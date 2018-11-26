@@ -9,7 +9,7 @@ const messages = {
   // vi: convertLongKeyValues(vi)
   id: convertLongKeyValues(Object.assign({}, en, i18n.id)),
   ms: convertLongKeyValues(Object.assign({}, en, i18n.ms)),
-  zh: convertLongKeyValues(Object.assign({}, en, i18n.zh))
+  'zh-Hant-HK': convertLongKeyValues(Object.assign({}, en, i18n.zh))
 };
 
 export default messages;
