@@ -863,10 +863,6 @@ export default {
     },
     thanksMessage: 'Thank you! Your message has been sent.'
   },
-  pricePanel: {
-    buy: 'Buy',
-    sell: 'Sell',
-  },
   coin: {
     buyTabTitle: 'BUY COIN',
     sellTabTitle: 'SELL COIN',
@@ -928,6 +924,15 @@ export default {
         cardName: 'ORDER INFO',
         priceWillUpdateIn: 'Price will be updated after',
         orderBtn: 'Place order'
+      },
+      pricePanel: {
+        buy: 'Buy',
+        sell: 'Sell',
+      },
+      exchange: {
+        amountLabel: 'Amount to {direction}',
+        currency: 'Currency',
+        fiatAmountLabel: 'How much do you want?'
       }
     }
   },
