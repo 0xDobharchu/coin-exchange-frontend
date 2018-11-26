@@ -1,26 +1,30 @@
 /* eslint react/prop-types:0 */
 import React from 'react';
-import Exchange from '../../components/exchange';
+import Exchange from 'src/screens/coin/components/exchange';
 
-const field = ({ input, meta, currency, fiatCurrency, orderType, direction }) => {
+const field = ({ input, meta, currency, fiatCurrency, orderType, direction, className = '' }) => {
   const {
     onChange, onFocus, onBlur
   } = input;
   const { error, touched } = meta;
   const shouldShowError = !!(touched && error);
   return (
-    <div>
+    <div className={className}>
       <Exchange
         onChange={onChange}
         onFocus={onFocus}
         onBlur={onBlur}
-        currency={currency}
-        fiatCurrency={fiatCurrency}
+        defaultCurrency={currency}
+        defaultFiatCurrency={fiatCurrency}
         orderType={orderType}
         direction={direction}
+        options={{
+          canChangeCurrency: false,
+          canChangeFiatCurrency: true,
+        }}
         markRequired={shouldShowError}
       />
-      { shouldShowError && <span className="text-danger">{error}</span>}
+      { shouldShowError && <small className="text-danger">{error}</small>}
     </div>
   );
 };

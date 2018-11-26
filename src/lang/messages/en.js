@@ -9,6 +9,9 @@ export default {
       me: 'Me',
       ninjaCoin: 'Coin',
       wallet: 'Wallet'
+    },
+    common: {
+      error: 'OH! something went wrong!'
     }
   },  
   error: {
@@ -344,7 +347,25 @@ export default {
       forgetPassword: 'Forget password?',
       requiredPassword: 'Please enter your password',
       notValidUsername: 'Invalid email address',
-      requiredUsername: 'Please enter your email'
+      requiredUsername: 'Please enter your email',
+      loginFailure: 'Username and password not match.'
+    },
+    forgetPassword: {
+      title: 'Forgot your password?',
+      description: 'Enter your email address to reset your password. You may need to check your spam folder or unblock no-reply@coinbowl.com.',
+      username: 'Your email',
+      requiredUsername: 'Username is required',
+      notValidUsername: 'Invalid email address',
+      submitButton: 'Submit',
+      resetPasswordIntro: 'If a Coinbowl account exists for {email}, an e-mail will be sent with further instructions.',
+      newPasswordTitle: 'Enter a new password for your {email} account.',
+      password: 'New password',
+      requiredPassword: 'Password is required',
+      notValidPassword: 'Password must be 8 characters or more',
+      confirmPassword: 'Retype new password',
+      notValidConfirmPassword: 'Confirm password not match',
+      newPasswordIntro: 'Password of Coinbowl account for {email} has been changed',
+      notRecoverPass: 'I can’t recover my account using this page'
     },
     register: {
       title: 'Create your account',
@@ -372,6 +393,7 @@ export default {
       requiredAgreement: 'Please indicate that you have read and agree to the User Agreement and Privacy Policy',
       registerButton: 'Create account',
       loginButton: 'Already have an account?',
+      registerSuccessfully: 'Your account registered successfully',
     }
   },
   landingPage: {
@@ -830,9 +852,12 @@ export default {
     title: 'Review',
     label: {
       description: 'How is your experience with Coinbowl?',
+      required: 'Please enter your comments',
       submitButtonTitle: 'Submit',
       loadMore: 'Load more',
       comments: '{numReview} comments',
+      button: 'Submit',
     },
+    thanksMessage: 'Thank you! Your message has been sent.'
   },
 };

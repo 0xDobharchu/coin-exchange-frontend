@@ -6,10 +6,15 @@
     flex-direction: column;
     width: inherit;
     > div {
-      padding: 10px 0px;
       .cod-item {
         width: 100%;
       }
     }
+  }
+  .row-item {
+    margin: 10px 0px;
+  }
+  .submit-btn {
+    width: 100%;
   }
 }

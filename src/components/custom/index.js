@@ -17,6 +17,10 @@ export const InputField = ({ onClick, className, input, ...restProps }) => (
   <input {...input} className={className ? cn(style.input, className) : style.input} {...restProps} />
 );
 
+export const PasswordField = ({ onClick, className, input, ...restProps }) => (
+  <input {...input} type="password" className={className ? cn(style.input, className) : style.input} {...restProps} />
+);
+
 export const Label = ({ className, children, ...restProps }) => (
   <label className={className ? cn(style.label, className) : style.label} {...restProps}>{children}</label>
 );

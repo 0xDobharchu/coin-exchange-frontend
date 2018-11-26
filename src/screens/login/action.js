@@ -30,12 +30,10 @@ export const login = (username, password) => (dispatch) => {
         return USER.LOGIN_SUCCESS;
       });
     } else {
-      alert('OH! something went wrong!');
       return USER.LOGIN_FAILURE;
     }
   }, (err) => {
     console.log(err);
-    alert('Username password do not match');
     return USER.LOGIN_FAILURE;
   });
 };

@@ -19,6 +19,10 @@ const mockState = {
     verification_level: '',
     verification_status: '',
     wallet: ''
+  },
+  history: {
+    transactions: [],
+    count: 0
   }
 };
 
@@ -44,6 +48,11 @@ export default (state = mockState, { type, payload }) => {
           ...state.profile,
           ...payload
         }
+      };
+    case 'GET_TRANSACTIONS':
+      return {
+        ...state,
+        history: payload
       };
     default:
       return state;

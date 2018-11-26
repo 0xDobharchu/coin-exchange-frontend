@@ -16,9 +16,10 @@ export const URL = {
   FAQ_URL: '/faq',
   SELL_COIN_URL: '/sell-coin/',
 
-  USER_SIGN_IN: '/sign-in/',
-  USER_SIGN_UP: '/sign-up/',
-  USER_FORGET_PASSWORD: '/forget-password/',
+  USER_SIGN_IN: '/sign-in',
+  USER_SIGN_UP: '/sign-up',
+  USER_FORGET_PASSWORD: '/forget-password',
+  USER_FORGET_PASSWORD_FINISH: '/forget-finish',
   HOME: '/',
   ABOUT_US: '/about-us',
   TEAM: '/team',
@@ -49,7 +50,7 @@ export const API_URL = {
     // Store
     OFFER_STORES: 'exchange/offer-stores',
     SHAKES: 'shakes',
-    REVIEWS: 'exchange/reviews',
+    REVIEWS: 'exchange/reviews/',
     GET_DASHBOARD_INFO: 'exchange/user/transaction-counts',
     DEPOSIT_CREDIT_ATM: 'exchange/credit/deposit',
     CREDIT_ATM: 'exchange/credit',
@@ -81,6 +82,8 @@ export const API_URL = {
     USER_SIGN_UP: '/user/sign-up/', // POST /user/sign-up
     USER_WALLET: '/user/wallet/', // POST,GET /user/wallet
     USER_PROFILE: '/user/profile/', // GET /user/profile
+    USER_FORGET_PASSWORD: '/user/forgot-password/', // POST user/forgot-password/
+    USER_FORGET_PASSWORD_FINISH: '/user/reset-password/', // POST user/forgot-password/reset/
   },
   SYSTEM: {
     COUNTRY : '/system/country-default-configs/', // GET /system/country-default-configs/
@@ -99,6 +102,10 @@ export const API_URL = {
     MAKE_ORDER: '/exchange/orders/',
     // POST /exchange/addresses/?currency=
     GEN_ADDRESS: '/exchange/addresses/',
+    // PUT /exchange/orders/{order_id}/receipt/
+    ADD_RECEIPT_ORDER: '/exchange/orders/{order_id}/receipt/',
+    // GET /exchange/deposited-address/?address=&currency=
+    CHECK_ADDRESS: '/exchange/deposited-address/',
   },
 };
 

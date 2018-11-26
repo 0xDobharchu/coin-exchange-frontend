@@ -38,6 +38,11 @@
     letter-spacing: 0;
     border: none;
     cursor: pointer;
+    &:disabled {
+      color: $black-light;
+      background-color: #F1F0F5;
+      cursor: not-allowed;
+    }
   }
 
   .btn-primary:hover{
@@ -47,7 +52,6 @@
   
   input, textarea {
     padding: 4px 15px;
-    min-width: 187px;
     height: $input-height;
     background: $white;
     border: 1px solid #DCDCDE;
@@ -238,6 +242,7 @@ div.filepicker {
   .nav-link {
     border-top-right-radius: 0px !important;
     border-top-left-radius: 0px !important;
+    padding: .5rem 0rem;
   }
 }
 

@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 class LabelLang extends PureComponent {
   render() {
     // eslint-disable-next-line
-    return (<FormattedMessage id={this.props.id} />);
+    return (<FormattedMessage {...this.props} />);
   }
 }
 

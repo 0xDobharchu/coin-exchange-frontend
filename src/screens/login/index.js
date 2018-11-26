@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import createForm from 'src/components/core/form/createForm';
 import { formValueSelector } from 'redux-form';
-import { FieldLang } from 'src/lang/components';
+import {FieldLang, MyMessage} from 'src/lang/components';
 import inputField from 'src/components/core/form/fields/input';
 import checkBoxField from 'src/components/core/form/fields/checkbox';
 import { isEmail, isPassword, isRequired } from 'src/components/core/form/validator';
@@ -12,6 +12,7 @@ import { USER } from 'src/resources/constants/user';
 import LabelLang from 'src/lang/components/LabelLang';
 import { URL } from 'src/resources/constants/url';
 import cx from 'classnames';
+import { showAlert } from 'src/screens/app/redux/action';
 import { login } from './action';
 import style from './style.scss';
 
@@ -43,12 +44,23 @@ class Login extends React.Component {
     if (username && password) {
       this.props.loginBound(username, password).then((res) => {
         if (res === USER.LOGIN_SUCCESS) {
-          console.log('Login successfull');
           let redirectTo = '/';
           if( this.props.location.state && this.props.location.state.from){
             redirectTo = this.props.location.state.from.pathname;
           }
           this.props.history.push(redirectTo);
+        } else if (res === USER.LOGIN_FAILURE) {
+          this.props.showAlert({
+            message: <MyMessage id='user.login.loginFailure' />,
+            type: 'danger',
+            timeOut: 2000,
+          });
+        } else {
+          this.props.showAlert({
+            message: <MyMessage id='app.common.error' />,
+            type: 'danger',
+            timeOut: 2000,
+          });
         }
       }).finally(() => {
         this.setState({ loggingIn: false });
@@ -58,7 +70,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className={cx('container', style['login-warper'])}>
+      <div className={cx('container', style.loginWarper)}>
         <div className="row">
           <div className="col-sm-10 col-md-9 col-lg-7 mx-auto">
             <h5 className={cx(style.loginTitle, 'text-center')}><LabelLang id="user.login.title" /></h5>
@@ -85,7 +97,7 @@ class Login extends React.Component {
                   />
                   <div className={cx('form-control mb-3', style.customCheckbox)}>
                     <div className="row">
-                      <div className={cx('col-12 col-md-7', style['remember-me'])}>
+                      <div className={cx('col-12 col-md-7', style.rememberMe)}>
                         <FieldLang
                           name="keepSignin"
                           id="keepSignin"
@@ -123,6 +135,7 @@ const mapStateToProps = state => ({
 
 const mapDispatch = dispatch => ({
   loginBound: bindActionCreators(login, dispatch),
+  showAlert: bindActionCreators(showAlert, dispatch),
 });
 
 const connectedLoginPage = connect(mapStateToProps, mapDispatch)(Login);

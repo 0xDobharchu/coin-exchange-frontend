@@ -76,6 +76,7 @@ const initState = {
   openQrScanner: false,
   supportedCountry: [],
   supportedCurrency: [],
+  userCountry: null,
 };
 
 export default (state = initState, action) => {
@@ -164,7 +165,8 @@ export default (state = initState, action) => {
     case `${GET_COUNTRY_CURRENCY}_SUCCESS`:
       return {
         ...state,
-        supportedCurrency: action?.data?.map(c => c?.currency) || []
+        supportedCurrency: action?.data?.map(c => c?.currency) || [],
+        userCountry: action?.more?.country
       };
     default:
       return state;

@@ -35,6 +35,12 @@ class Coin {
       userInfo: data.user_info || {}
     };
   }
+
+  static checkGeneratedAddressRes(data = {}) {
+    return {
+      hasTransaction: data.has_transaction,
+    };
+  }
 }
 
 export default Coin;

@@ -1,9 +1,7 @@
 .container {
-  display: flex;
-  position: relative;
-  align-items: center;
+  padding: 0px;
   .item {
-    margin-right: 30px;
+    margin: 5px 0px;
     display: flex;
     align-items: center;
     :global(.checkbox-warper) {

@@ -13,7 +13,6 @@ import dropdownField, { dropdownValidator } from 'src/components/core/form/field
 import { Field } from 'redux-form';
 import { mount, testGetDataAsyncWithDispatch, testGetDataAsyncShorthand } from './action';
 import style from './style.scss';
-import Review from '@/screens/coin/desktopLayout/reviewList';
 
 const Form = createForm({
   propsReduxForm: {
@@ -88,7 +87,6 @@ class Home extends Component {
               }
             ]}
           />
-          <Review />
         </Form>
       </Container>
     );
