@@ -67,7 +67,7 @@ class WalletProtect extends React.Component {
           <div className={style.passPhrase}>
             {/* fill pass phrase */}
             {arr_phrase.map((str) => {
-              return <div key={str} className={"btn " + style.cursor-initial + " bg-light"}>{str}</div>
+              return <div key={str} className={"btn " + style["cursor-initial"] + " bg-light"}>{str}</div>
             })}
           </div>
           <div onClick={onCopy} className={style.passPhraseLinkCopy}>{messages['wallet.action.protect.button.copy_clipboard']}</div>
