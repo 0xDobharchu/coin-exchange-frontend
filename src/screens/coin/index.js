@@ -5,6 +5,7 @@ import ReviewList from 'src/components/reviewList';
 import { FaPlayCircle } from 'react-icons/fa';
 import PricePanel from 'src/screens/coin/components/pricePanel';
 import MyMessage from 'src/lang/components/MyMessage';
+import UserVerifyStatus from 'src/components/userVerifyStatus';
 import BuyCoin from './buy';
 import SellCoin from './sell';
 import styles from './styles.scss';
@@ -70,6 +71,7 @@ class Coin extends Component {
           </Col>
           <Col lg={6}>
             <div className={styles.main}>
+              <UserVerifyStatus />
               <div className={styles.header}>
                 {this.renderTabHeader()}
               </div>

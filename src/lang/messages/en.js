@@ -930,5 +930,9 @@ export default {
         orderBtn: 'Place order'
       }
     }
+  },
+  userVerifyStatus: {
+    level1Pending: 'To start trading, please take a few minutes to verify your account. {verify}',
+    verifyBtn: 'Verify now'
   }
 };
