@@ -1,6 +1,7 @@
 /* eslint react/prop-types:0 */
 import React from 'react';
-import {LabelLang} from 'src/lang/components';
+import { LabelLang } from 'src/lang/components';
+import Input from 'src/components/core/controls/input';
 import cx from 'classnames';
 
 const inputField = ({ input, meta, containerClassName, labelClassName, labelText, ...props }) => {
@@ -13,7 +14,7 @@ const inputField = ({ input, meta, containerClassName, labelClassName, labelText
   return (
     <div className={containerClassName ? containerClassName : ''}>
       {labelText && (<label className={labelClassName ||  ''}>{ <LabelLang id={labelText} /> }</label>)}
-      <input
+      <Input
         {...props}
         value={value}
         onBlur={onBlur}

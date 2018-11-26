@@ -1,0 +1,65 @@
+@import 'responsive';
+@import 'var';
+
+.container {
+  .card {
+    width: 100%;
+    .order-timeout {
+      width: 100%;
+      margin: 10px 0px 20px 0px;
+      text-align: center;
+      .text {
+
+      }
+    }
+    .infos {
+      margin: 0px 0px 20px 0px;
+      .copy-icon {
+        margin: 0px 15px;
+        cursor: pointer;
+      }
+      .info-title {
+        font-weight: bold;
+      }
+      .info-value {
+        font-weight: 400;
+      }
+      .info-item {
+        margin: 5px 0px;
+        @include respond(sm) {
+          text-align: center;
+          margin: 10px 0px;
+        }
+      }
+    }
+    .note {
+      display: flex;
+      flex-direction: column;
+      .note-title {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: red;
+      }
+      .note-content {
+        padding: 5px 15px;
+        font-style: italic;
+      }
+    }
+  }
+  .upload-container {
+    margin: 20px 0px;
+    :global(.dropzone) {
+      width: 100%;
+    }
+    .upload-btn {
+      width: 100%;
+    }
+    .done-btn {
+      width: 100%;
+      background-color: $ce-green-medium;
+    }
+    .upload-icon {
+      margin: 0px 5px;
+    }
+  }
+}

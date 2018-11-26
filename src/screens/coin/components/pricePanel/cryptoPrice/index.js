@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { formatMoneyByLocale } from 'src/utils/format/curency';
 import { injectIntl } from 'react-intl';
 import styles from './styles.scss';
+import { ORDER_TYPE } from '../../../constant';
 
 class CryptoPrice extends Component {
   constructor() {
@@ -22,8 +23,10 @@ class CryptoPrice extends Component {
     return state;
   }
 
-  componentDidMount() {
-    this.getPrice();
+  componentDidUpdate(prevProps) {
+    if (prevProps.currencyByLocal !== this.props.currencyByLocal) {
+      this.getPrice();
+    }
   }
 
   shouldComponentUpdate(prevProps, prevState) {
@@ -35,25 +38,22 @@ class CryptoPrice extends Component {
 
   getPrice = () => {
     const { crypto } = this.state;
-    if (!crypto?.id) return;
-    this.props.coinGetBuyPrice({
+    const { currencyByLocal } = this.props;
+    if (!crypto?.id || !currencyByLocal) return;
+    this.props.coinGetBuyPrice({params: {
       currency: crypto?.id,
       amount: 1,
-      fiat_currency: 'VND',
-      type: 'bank',
+      fiat_currency: currencyByLocal,
+      type: ORDER_TYPE.bank,
       level: 1,
-      user_check: 1,
-      check: 1
-    });
-    this.props.coinGetSellPrice({
+    }});
+    this.props.coinGetSellPrice({params: {
       currency: crypto?.id,
       amount: 1,
-      fiat_currency: 'VND',
-      type: 'bank',
+      fiat_currency: currencyByLocal,
+      type: ORDER_TYPE.bank,
       level: 1,
-      user_check: 1,
-      check: 1
-    });
+    }});
   }
 
   render() {
@@ -68,9 +68,11 @@ class CryptoPrice extends Component {
 
     return (
       <div className={styles.container}>
-        <div className={styles.label}>
-          <img src={logo} alt="" />
-          <span>{name}</span>
+        <div className={styles.coinInfo}>
+          <div className={styles.label}>
+            <img src={logo} alt="" />
+            <span>{name}</span>
+          </div>
         </div>
         {buyPrice && (
           <div className={styles.buy}>
@@ -95,9 +97,10 @@ const mapDispatch = {
 };
 
 const mapState = (state, props) => ({
-  country: 'VN',
-  sellPrice: state.coin?.sellPrice[props?.crypto?.id],
-  buyPrice: state.coin?.buyPrice[props?.crypto?.id],
+  country: state.app?.userCountry,
+  currencyByLocal: state.app?.supportedCurrency[0],
+  sellPrice: state.screenCoinReducer.sellPrice[props?.crypto?.id],
+  buyPrice: state.screenCoinReducer.buyPrice[props?.crypto?.id],
 });
 
 CryptoPrice.defaultProps = {

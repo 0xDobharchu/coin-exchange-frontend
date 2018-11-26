@@ -59,7 +59,7 @@ instance.interceptors.response.use(
         const retryOriginalRequest = new Promise((resolve) => {
           addSubscriber(access_token => {
             originalRequest.headers.Authorization = 'Bearer ' + access_token;
-            resolve(axios(originalRequest));
+            resolve(instance(originalRequest));
           });
         });
         return retryOriginalRequest;
