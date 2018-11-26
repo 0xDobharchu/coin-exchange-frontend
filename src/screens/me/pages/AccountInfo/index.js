@@ -8,7 +8,7 @@ import { Row, Col } from 'react-bootstrap';
 import ChangePassword from './ChangePassword';
 import ChangeNameForm from './Form/ChangeNameForm';
 import PersonalDetailForm from './Form/PersonalDetailForm';
-import Referral from './Referral';
+import Referral from './Referral';
 import style from './style.scss';
 
 // eslint-disable-next-line
