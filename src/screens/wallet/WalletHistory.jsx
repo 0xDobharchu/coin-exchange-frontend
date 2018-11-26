@@ -1,24 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import iconExternalLink from '@/assets/images/wallet/icons/icon-external-link.svg';
-import iconSelf from '@/assets/images/wallet/icons/icon-self.svg';
-import iconSent from '@/assets/images/wallet/icons/icon-sent.svg';
-import iconCreate from '@/assets/images/wallet/icons/icon-create.svg';
-import iconReceived from '@/assets/images/wallet/icons/icon-received.svg';
+import iconExternalLink from 'src/assets/images/wallet/icons/icon-external-link.svg';
+import iconSelf from 'src/assets/images/wallet/icons/icon-self.svg';
+import iconSent from 'src/assets/images/wallet/icons/icon-sent.svg';
+import iconCreate from 'src/assets/images/wallet/icons/icon-create.svg';
+import iconReceived from 'src/assets/images/wallet/icons/icon-received.svg';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import style from './Wallet.scss';
 import WalletTransaction from './WalletTransaction';
-import { showLoading, hideLoading } from '@/screens/app/redux/action';
+import { showLoading, hideLoading } from 'src/screens/app/redux/action';
 import cx from 'classnames'
-import Modal from '@/components/core/controls/Modal';
+import Modal from 'src/components/core/controls/Modal';
 import {Tabs} from 'rmc-tabs';
 
-import 'rmc-tabs/assets/index.css';
-
-import imgNoTrans from '@/assets/images/wallet/images/no-transaction.svg';
-import iconLoadding from '@/assets/images/icon/loading.gif';
-import needBackupWhite from '@/assets/images/wallet/icons/icon-need-backup-white.svg';
+import imgNoTrans from 'src/assets/images/wallet/images/no-transaction.svg';
+import iconLoadding from 'src/assets/images/icon/loading.gif';
+import needBackupWhite from 'src/assets/images/wallet/icons/icon-need-backup-white.svg';
 
 const TAB = {
   Transaction: 0,
@@ -83,6 +81,10 @@ class WalletHistory extends React.Component {
         this.setState({transactions:transactions, callUpdate: callUpdate});
       }
     }
+  }
+
+  componentWillUnmount(){
+    
   }
 
   async componentDidMount(){
@@ -195,29 +197,29 @@ class WalletHistory extends React.Component {
           return "";
         }
 
-        let cssLabel = "label-self", cssValue = "value-self", icon = iconSelf, label = messages['wallet.action.history.label.self'];
+        let cssLabel = "label-self", cssValue = style["value-self"], icon = iconSelf, label = messages['wallet.action.history.label.self'];
         if(tran.is_sent == 1) {
           cssLabel = "label-sent";
-          cssValue = "value-sent";
+          cssValue = style["value-sent"];
           label = messages['wallet.action.history.label.sent'];
           icon = iconSent;
         }
         else if (tran.is_sent == 2) {
           cssLabel = "label-received";
-          cssValue = "value-received";
+          cssValue = style["value-received"];
           label = messages['wallet.action.history.label.received'];
           icon = iconReceived;
         }
         else if (tran.is_sent == 3) {
           cssLabel = "label-create";
-          cssValue = "value-create";
+          cssValue = style["value-create"];
           label = messages['wallet.action.history.label.create'];
           icon = iconCreate;
         }
 
         res.is_sent = tran.is_sent;
 
-        return <div key={tran.transaction_no} className="row" onClick={() =>{this.detailTransaction(res)}}>
+        return <div key={tran.transaction_no} className={style.row} onClick={() =>{this.detailTransaction(res)}}>
             <div className={style.col3}>
               <div className={style.time}>{tran.transaction_relative_time}</div>
               <div className={cssValue}>{tran.is_sent == 1 ? "-" : ""}{Number(tran.value)} {tran.coin_name}</div>
@@ -225,7 +227,7 @@ class WalletHistory extends React.Component {
               {tran.is_error ? <div className={style.unconfirmation}>{messages['wallet.action.history.label.failed']}</div> : ""}
             </div>
             <div className={style.col1}><img className={style.iconDollar} src={icon} /></div>
-            <div className={cx(style.col2, style.history-address)}>
+            <div className={cx(style.col2, style["history-address"])}>
               <div className={cssLabel}>
                 {label}
               </div>
@@ -268,18 +270,18 @@ class WalletHistory extends React.Component {
         }
         else if (tran.is_sent == 2) {
           cssLabel = "label-received";
-          cssValue = "value-received";
+          cssValue = style["value-received"];
           label = messages['wallet.action.history.label.received'];
           icon = iconReceived;
         }
         else if (tran.is_sent == 3) {
           cssLabel = "label-create";
-          cssValue = "value-create";
+          cssValue = style["value-create"];
           label = messages['wallet.action.history.label.create'];
           icon = iconCreate;
         }
 
-        return <div key={tran.transaction_no} className="row" onClick={() =>{this.detailTransaction(res)}}>
+        return <div key={tran.transaction_no} className={style.row} onClick={() =>{this.detailTransaction(res)}}>
             <div className={style.col3}>
               <div className={style.time}>{tran.transaction_relative_time}</div>
               <div className={cssValue}>{tran.is_sent == 1 ? "-" : ""}{Number(tran.value)} ETH</div>
@@ -304,10 +306,10 @@ class WalletHistory extends React.Component {
   }
 
   showLoading(status) {
-    this.props.showLoading({ message: '' });
+    // this.props.showLoading({ message: '' });
   }
   hideLoading() {
-    this.props.hideLoading();
+    // this.props.hideLoading();
   }
 
   async detailTransaction(data){
@@ -340,8 +342,8 @@ class WalletHistory extends React.Component {
     const wallet = this.props.wallet;
     const { messages } = this.props.intl;
     if (wallet){
-      var logo = require("@/assets/images/wallet/icons/coins/" + wallet.icon);
-      try { logo = require("@/assets/images/wallet/icons/coins/" + wallet.getCoinLogo());} catch (e){};
+      var logo = require("src/assets/images/wallet/icons/coins/" + wallet.icon);
+      try { logo = require("src/assets/images/wallet/icons/coins/" + wallet.getCoinLogo());} catch (e){};
     }
 
     return wallet ?

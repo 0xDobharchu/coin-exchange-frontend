@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { changeLang } from 'src/lang/action';
 import BestHandleLang from './BestHandleLang';
 import BadHandleLang from './BadHandleLang';
 import style from './style.scss';
-import { changeLang } from '@/lang/action';
 
 class Localization extends Component {
   constructor(props) {

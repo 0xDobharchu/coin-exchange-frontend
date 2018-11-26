@@ -5,18 +5,18 @@ import { injectIntl } from 'react-intl';
 // components
 import {
     fieldInput
-  } from '@/components/core/form/customField';
-import {required} from '@/components/core/form/validation';
+  } from 'src/components/core/form/customField';
+import {required} from 'src/components/core/form/validation';
 import {change, Field, formValueSelector, clearFields} from 'redux-form';
 import {bindActionCreators} from 'redux';
-import { showAlert } from '@/screens/app/redux/action';
-import { showLoading, hideLoading } from '@/screens/app/redux/action';
-import { referredInfo } from '@/reducers/auth/action';
-import iconSuccessChecked from '@/assets/images/wallet/icons/icon-checked-green.svg';
-import local from '@/services/localStore';
-import {APP} from '@/constants';
-import createForm from '@/components/core/form/createForm';
-import { StringHelper } from '@/services/helper';
+import { showAlert } from 'src/screens/app/redux/action';
+import { showLoading, hideLoading } from 'src/screens/app/redux/action';
+import { referredInfo } from 'src/reducers/auth/action';
+import iconSuccessChecked from 'src/assets/images/wallet/icons/icon-checked-green.svg';
+import local from 'src/services/localStore';
+import {APP} from 'src/constants';
+import createForm from 'src/components/core/form/createForm';
+import { StringHelper } from 'src/services/helper';
 import "./Refers.scss"
 
 const nameFormStep4 = 'referStep4';

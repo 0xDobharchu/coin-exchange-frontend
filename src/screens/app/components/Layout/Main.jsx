@@ -5,14 +5,14 @@ import { URL } from 'src/constants';
 import BrowserDetect from 'src/services/browser-detect';
 import { updateModal } from 'src/screens/app/redux/action';
 // components
-import HeaderBar from '@/modules/HeaderBar/HeaderBar';
-import MainHeader from '@/components/Header/MainHeader';
+import HeaderBar from 'src/modules/HeaderBar/HeaderBar';
+import MainHeader from 'src/components/Header/MainHeader';
 import Navigation from 'src/components/core/controls/Navigation';
-import Alert from '@/components/core/presentation/Alert';
-import Loading from '@/components/core/controls/Loading';
-import WalletPasscode from '@/components/Wallet/WalletPasscode';
+import Alert from 'src/components/core/presentation/Alert';
+import Loading from 'src/components/core/controls/Loading';
+import WalletPasscode from 'src/components/Wallet/WalletPasscode';
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
-import QRCodeScan from '@/components/Wallet/QRCodeScan/QRCodeScan';
+import QRCodeScan from 'src/components/Wallet/QRCodeScan/QRCodeScan';
 
 class MainLayout extends React.Component {
   static propTypes = {

@@ -44,13 +44,13 @@ export const maxValue = max => value =>
   ));
 export const minValueEqual = min => value =>
   (value && value < min ? (
-    <FormattedMessage id="error.greaterThan.equal" values={{ min }} />
+    <FormattedMessage id="error.greaterThanEqual" values={{ min }} />
   ) : (
     undefined
   ));
 export const maxValueEqual = max => value =>
   (value && value > max ? (
-    <FormattedMessage id="error.lessThan.equal" values={{ max }} />
+    <FormattedMessage id="error.lessThanEqual" values={{ max }} />
   ) : (
     undefined
   ));

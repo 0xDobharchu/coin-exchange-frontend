@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import style from './Wallet.scss';
 
-import Button from '@/components/core/controls/Button';
-import Checkbox from '@/components/core/controls/Checkbox/Checkbox';
-import Modal from '@/components/core/controls/Modal';
-import ModalDialog from '@/components/core/controls/ModalDialog';
+import Button from 'src/components/core/controls/Button';
+import Checkbox from 'src/components/core/controls/Checkbox/Checkbox';
+import Modal from 'src/components/core/controls/Modal';
+import ModalDialog from 'src/components/core/controls/ModalDialog';
 
 class WalletProtect extends React.Component {
   static propTypes = {
@@ -67,7 +67,7 @@ class WalletProtect extends React.Component {
           <div className={style.passPhrase}>
             {/* fill pass phrase */}
             {arr_phrase.map((str) => {
-              return <div key={str} className={"btn " + style.cursor-initial + " bg-light"}>{str}</div>
+              return <div key={str} className={"btn " + style["cursor-initial"] + " bg-light"}>{str}</div>
             })}
           </div>
           <div onClick={onCopy} className={style.passPhraseLinkCopy}>{messages['wallet.action.protect.button.copy_clipboard']}</div>
