@@ -41,7 +41,7 @@ export class BitcoinCash extends Bitcoin {
 
   checkAddressValid(toAddress) {
     if (!bitcore.Address.isValid(toAddress)) {
-      return 'messages.bitcoin_cash.error.invalid_address';
+      return 'bitcoin_cash.error.invalid_address';
     }
     return true;
   }
@@ -70,7 +70,7 @@ export class BitcoinCash extends Bitcoin {
   async transfer(toAddress, amountToSend, opt = {}) {
     try {
       if (!bitcore.Address.isValid(toAddress)) {
-        return { status: 0, message: 'messages.bitcoin.error.invalid_address2' };
+        return { status: 0, message: 'bitcoin.error.invalid_address2' };
       }
 
       const blocks = opt.blocks || NB_BLOCKS;
@@ -88,7 +88,7 @@ export class BitcoinCash extends Bitcoin {
         '\n amountToSend:', amountToSend);
 
       if (!balance || balance == 0 || balance <= amountToSend) {
-        return { status: 0, message: 'messages.bitcoin.error.insufficient' };
+        return { status: 0, message: 'bitcoin.error.insufficient' };
       }
 
       // each BTC can be split into 100,000,000 units. Each unit of bitcoin, or 0.00000001 bitcoin, is called a satoshi
@@ -119,13 +119,13 @@ export class BitcoinCash extends Bitcoin {
           const rawTx = transaction.serialize();
           const txHash = await this.sendRawTx(rawTx);
 
-          return { status: 1, message: 'messages.bitcoin.success.transaction', data: { hash: txHash.txid } };
+          return { status: 1, message: 'bitcoin.success.transaction', data: { hash: txHash.txid } };
         }
 
-        return { status: 0, message: 'messages.bitcoin.error.insufficient' };
+        return { status: 0, message: 'bitcoin.error.insufficient' };
       }
     } catch (error) {
-      return { status: 0, message: 'messages.bitcoin.error.insufficient' };
+      return { status: 0, message: 'bitcoin.error.insufficient' };
     }
   }
 

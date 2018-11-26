@@ -35,12 +35,11 @@ import WalletProtect from './WalletProtect';
 import WalletHistory from './WalletHistory';
 import TransferCoin from '@/components/wallet/TransferCoin';
 import ReceiveCoin from '@/components/wallet/ReceiveCoin';
-import ReactBottomsheet from './ReactBottomsheet/ReactBottomsheet';
-import { showLoading, hideLoading, showAlert, setHeaderRight } from '@/screens/app/redux/action';
+import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action';
 import local from '@/services/localStore';
 import {APP} from '@/constants';
 
-import { userWallet } from './action';
+import { userWallet, makeSaveWallet } from './action';
 
 // import AddToken from '@/components/wallet/AddToken/AddToken';
 // import AddCollectible from '@/components/wallet/AddCollectible/AddCollectible';
@@ -51,7 +50,6 @@ import style from './Wallet.scss';
 import CoinTemp from '@/screens/wallet/CoinTemp';
 import BackupWallet from '@/components/wallet/BackupWallet/BackupWallet';
 import RestoreWallet from '@/components/wallet/RestoreWallet/RestoreWallet';
-import SettingWallet from '@/components/wallet/SettingWallet/SettingWallet';
 
 // new layout:
 import logoWallet from '@/assets/images/wallet/images/logo-wallet.svg';
@@ -65,16 +63,19 @@ import customRightIcon from '@/assets/images/wallet/icons/icon-options.svg';
 import floatButtonScanQRCode from '@/assets/images/wallet/icons/float-button-scan.svg';
 
 import WalletPreferences from '@/components/wallet/WalletPreferences';
-import { requestWalletPasscode, showScanQRCode, showQRCodeContent  } from '@/screens/app/redux/action';
+import { requestWalletPasscode, showQRCodeContent, showRequirePassword  } from '@/screens/app/redux/action';
 import QRCodeContent from '@/components/wallet/QRCodeContent';
 // import RemindPayment from '@/components/Payment/Remind';
 import { ICON } from '@/components/wallet/images';
 
 const QRCode = require('qrcode.react');
 
+import { showQrCode } from 'src/components/barcodeScanner';
+
 import { Ethereum } from '@/services/Wallets/Ethereum.js';
 
-import cx from 'classnames'
+import cx from 'classnames';
+
 
 if (__CLIENT__)
 window.Clipboard = (function (window, document, navigator) {
@@ -152,14 +153,13 @@ class Wallet extends React.Component {
       modalRemindCheckout: '',
       backupWalletContent: "",
       exportPrivateContent: "",
-      restoreWalletContent: "",      
+      restoreWalletContent: "",  
+      userPassword: '',    
 
       // sortable:
       listSortable: {coin: false, token: false, collectitble: false},
     };
-
-    this.props.setHeaderRight(this.headerRight());
-    // this.listener = _.throttle(this.scrollListener, 200).bind(this);
+    
   }
 
   showAlert(msg, type = 'success', timeOut = 3000, icon = '') {
@@ -178,10 +178,7 @@ class Wallet extends React.Component {
   }
   showSuccess(mst) {
     this.showAlert(mst, 'success', 4000, ICON.SuccessChecked());
-  }
-  headerRight() {
-    return (<HeaderMore onHeaderMoreClick={this.onIconRightHeaderClick} />);
-  }
+  }  
 
   splitWalletData(listWallet) {
     let listMainWallet = [];
@@ -249,12 +246,12 @@ class Wallet extends React.Component {
   }
 
   componentWillUnmount() {
-    try{document.querySelector(".app").style.backgroundColor = '#ffffff';} catch (e){};    
+    // try{document.querySelector(".app").style.backgroundColor = '#ffffff';} catch (e){};    
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     
-    try{document.querySelector(".app").style.backgroundColor = '#f4f4fb';} catch (e){};
+    // try{document.querySelector(".app").style.backgroundColor = '#f4f4fb';} catch (e){};
     
     this.getSetting();
 
@@ -264,27 +261,15 @@ class Wallet extends React.Component {
       console.log('listWallet', listWallet);
       if (listWallet !== false){
         this.splitWalletData(listWallet);
-      }      
+        this.getListBalace(listWallet);
+      }
+      else {
+        this.showAlert("Can not get your wallet now ...");
+      }
       
     }).finally(() => {
       
     });
-
-    // var i = 0;
-    // for (const k1 in MasterWallet.ListDefaultCoin) {
-    //   i ++;      
-    //   for (const k2 in MasterWallet.ListDefaultCoin[k1].Network) {
-    //     const wallet = new MasterWallet.ListDefaultCoin[k1]();
-    //       // set mnemonic, if not set then auto gen.          
-    //       wallet.mnemonic = "mnemonic" + i.toString();
-    //       wallet.network = MasterWallet.ListDefaultCoin[k1].Network[k2];
-    //       wallet.address = "address" + i.toString();
-    //       listWallet.push(wallet);
-    //   }
-    // }
-
-    // this.splitWalletData(listWallet);
-    //await this.getListBalace(listWallet);
 
   }
       
@@ -322,12 +307,8 @@ class Wallet extends React.Component {
 
     await this.splitWalletData(listWallet);
 
-    await MasterWallet.UpdateLocalStore(listWallet);
-  }
-
-  toggleBottomSheet() {
-    const obj = (this.state.bottomSheet) ? { bottomSheet: false } : { bottomSheet: true };
-    this.setState(obj);
+    // await MasterWallet.UpdateLocalStore(listWallet);
+    this.saveWallet(listWallet);
   }
 
   copyToClipboard =(text) => {
@@ -337,83 +318,6 @@ class Wallet extends React.Component {
     textField.select();
     document.execCommand('copy');
     textField.remove();
-  }
-
-  // create list menu of wallet item when click Show more ...
-  creatSheetMenuItem(wallet){
-    const { messages } = this.props.intl;
-    let obj = [];
-
-    if (!wallet.isCollectibles){
-      obj.push({
-        title: messages['wallet.action.transfer.title'],
-        handler: () => {
-          this.toggleBottomSheet();
-          this.showTransfer(wallet);
-        }
-      })
-    }
-    obj.push({
-      title: messages['wallet.action.receive.title'],
-      handler: () => {
-        this.toggleBottomSheet();
-        this.showReceive(wallet);
-      }
-    })
-
-    if (!wallet.protected) {
-      obj.push({
-        title: messages['wallet.action.protect.title'],
-        handler: () => {
-          this.setState({ walletSelected: wallet,
-          modalSecure: <WalletProtect onCopy={this.onCopyProtected}
-            step={1}
-            wallet={this.state.walletSelected}
-            callbackSuccess={() => { this.successWalletProtect(this.state.walletSelected); }}
-            />
-          }, ()=> {
-            this.toggleBottomSheet();
-            this.modalProtectRef.open();
-          });
-        },
-      });
-    }
-
-    if (wallet.name != "XRP" && !wallet.isToken)
-      obj.push({
-        title: messages['wallet.action.history.title'],
-        handler: async () => {
-          this.toggleBottomSheet();
-          this.onWalletItemClick(wallet);
-        }
-      });
-    obj.push({
-      title: messages['wallet.action.copy.title'],
-      handler: () => {
-        Clipboard.copy(wallet.address);
-        this.toggleBottomSheet();
-        this.showToast(messages['wallet.action.copy.message']);
-      },
-    });
-
-
-    let canSetDefault = !wallet.isToken
-    if (canSetDefault && !wallet.default) {
-      obj.push({
-        title: StringHelper.format(messages['wallet.action.default.title'], wallet.name) + (wallet.default ? "✓ " : ""),        
-        handler: () => {
-          wallet.default = !wallet.default;
-          this.toggleBottomSheet();
-          // reset all wallet default:
-          let lstWalletTemp = this.getAllWallet();
-          if (wallet.default) lstWalletTemp.forEach(wal => {if (wal != wallet && wal.name == wallet.name){wal.default = false;}})
-          // Update wallet master from local store:
-          MasterWallet.UpdateLocalStore(lstWalletTemp);
-        }
-      })
-    }
-
-    return obj;
   }
 
   // Remove wallet function:
@@ -433,8 +337,9 @@ class Wallet extends React.Component {
       // Remove item:
       if (index > -1) {
         lstWalletTemp.splice(index, 1);
-        // Update wallet master from local store:
-        MasterWallet.UpdateLocalStore(lstWalletTemp, true);
+        // Update wallet master server:
+        // MasterWallet.UpdateLocalStore(lstWalletTemp, true);
+        this.saveWallet(lstWalletTemp);        
         this.splitWalletData(lstWalletTemp);
       }
     }
@@ -530,12 +435,13 @@ class Wallet extends React.Component {
             modalTransferCoin:
               (
                 <TransferCoin
+                  listWallet={this.getAllWallet()}
                   wallet={wallet}
                   onFinish={(result) => { this.successTransfer(result) }}
                   currency={this.state.alternateCurrency}
                 />
               ),
-            }, ()=>{
+            }, ()=>{              
             this.modalSendRef.open();
           });
       }
@@ -571,6 +477,7 @@ class Wallet extends React.Component {
       modalReceiveCoin:
       (
         <ReceiveCoin
+        listWallet={this.getAllWallet()}
           wallet={wallet}
           currency={this.state.alternateCurrency}
           onFinish={() => { this.successReceive() }}
@@ -608,14 +515,6 @@ class Wallet extends React.Component {
     this.setState({restoreWalletContent: ""});
   }
 
-  showWalletSettings(){
-    this.setState({
-      modalSetting: (<SettingWallet onBackupWalletAccountClick={this.showBackupWalletAccount} onRestoreWalletAccountClick={this.showRestoreWalletAccount} customBackIcon={BackChevronSVGWhite} modalBodyStyle={this.modalBodyStyle} modalHeaderStyle={this.modalHeaderStyle} />)
-    }, ()=> {
-      this.modalSettingRef.open();
-    });
-  }
-
   // add custom token:
   addedCustomToken = () =>{
     let masterWallet = MasterWallet.getMasterWallet();
@@ -647,15 +546,27 @@ class Wallet extends React.Component {
     this.setState({ erroValueBackup: false, listCoinTempToCreate: listCoinTemp, countCheckCoinToCreate });
   }
 
+  saveWallet(wallets){    
+    this.props.makeSaveWallet(wallets).then((result) => {      
+      console.log('saved wallet');
+
+    }).finally(() => {
+      
+    });
+  }
+
   createNewWallets = () => {
     const { messages } = this.props.intl;
     this.setState({ isRestoreLoading: true, erroValueBackup: false });
     const listCoinTemp = this.state.listCoinTempToCreate;
 
     const phrase = this.state.input12PhraseValue.trim();
+    
+    // todo: popup request password:
+    let password = '12345678';
+    const newWallet = MasterWallet.createNewWallet(listCoinTemp, phrase, password);
 
-    const masterWallet = MasterWallet.createNewsallets(listCoinTemp, phrase);
-    if (masterWallet == false) {
+    if (newWallet == false) {
       this.setState({ isRestoreLoading: false, erroValueBackup: true });
 
       if (phrase != '') {
@@ -665,12 +576,21 @@ class Wallet extends React.Component {
         this.showError(messages['wallet.action.create.error.random']);
       }
     } else {
-      if (phrase != '') {// need get balance
-        this.getListBalace(masterWallet);
+
+       // call api to update:    
+      const lstWalletTemp = this.getAllWallet();
+
+      const listNewWallet = lstWalletTemp.concat(newWallet);
+
+      this.saveWallet(listNewWallet);
+
+      if (phrase != '') {
+        // need get balance
+        this.getListBalace(listNewWallet);
       }
 
       this.setState({ input12PhraseValue: "" });
-      this.splitWalletData(masterWallet);
+      this.splitWalletData(listNewWallet);
       this.modalCreateWalletRef.close();
     }
   }
@@ -682,58 +602,97 @@ class Wallet extends React.Component {
 
   handleToggleNewCC = () => {
     this.setState({ isNewCCOpen: !this.state.isNewCCOpen });
-  }
+  }  
 
-  onIconRightHeaderClick = () => {
-    // now show settings
-    this.showWalletSettings();
-  }
+  onWarningClick=(wallet)=>{
 
-  onMoreClick = (wallet) => {
-    this.setState({ listMenu: this.creatSheetMenuItem(wallet) });
-    this.toggleBottomSheet();
-  }
-
-  onWarningClick = (wallet) => {
-    // if (!wallet.protected) {
-      this.props.requestWalletPasscode({
-        onSuccess: () => {
-          this.setState({ walletSelected: wallet,
-            modalSecure: <WalletProtect onCopy={this.onCopyProtected}
-              step={1}
-              wallet={wallet}
-              callbackSuccess={() => { this.successWalletProtect(wallet); }}
-              />
-            }, ()=> {
-              this.modalProtectRef.open();
-            }
-          );
+    // todo: decryp wallet:  
+    if (this.state.userPassword === ''){
+      this.props.showRequirePassword({
+        onFinish: (userPassword) => {
+          this.setState({userPassword: userPassword}, ()=> {
+            this.protectedWallet(wallet);
+          });
         }
-      })
+      });
+    }
+    else{
+      this.protectedWallet(wallet);
+    }  
+  }
+
+  protectedWallet = (wallet) => {
+    // if (!wallet.protected) {
+      const { messages } = this.props.intl;
+      const walletEncrypt = this.state.walletSelected.descryp(this.state.userPassword);
+      if (walletEncrypt === false){
+        this.showError(messages['requirePassword.passNotMatch']);
+        this.setState({isRestoreLoading: false, userPassword: ''}, ()=>{      
+          this.onWarningClick();
+        });
+        return;
+      }  
+      
+      this.setState({ walletSelected: wallet,
+        modalSecure: <WalletProtect onCopy={this.onCopyProtected}
+          step={1}
+          wallet={walletEncrypt}
+          callbackSuccess={() => { this.successWalletProtect(wallet); }}
+          />
+        }, ()=> {
+          this.modalProtectRef.open();
+        }
+      );
+       
 
     // } else {
 
     // }
   }
-  onExportPrivateKeyClick = (wallet) => {
+
+  // export wallet key ----------------------------------:
+  onExportPrivateKeyClick=(wallet)=>{
+
+    // todo: decryp wallet:  
+    if (this.state.userPassword === ''){
+      this.props.showRequirePassword({
+        onFinish: (userPassword) => {
+          this.setState({userPassword: userPassword}, ()=> {
+            this.exportPrivateKey(wallet);
+          });
+        }
+      });
+    }
+    else{
+      this.exportPrivateKey(wallet);
+    }  
+  }
+  exportPrivateKey = (wallet) => {
     const { messages } = this.props.intl;
 
-    this.props.requestWalletPasscode({
-      onSuccess: () => {
-        this.setState({
-          exportPrivateContent: (
-              <div className={style.exportPrivateKey}>
-                <div className={style.exTitle}>{messages['wallet.action.export_private_key.title']}</div>
-                <QRCode size={230} value={this.state.walletSelected.privateKey} onClick={() => { Clipboard.copy(this.state.walletSelected.privateKey); this.showToast(messages['wallet.action.copy.success']);}} />
-                <div className={style.exDesc}>{messages['wallet.action.export_private_key.desc']} </div>
-                <Button onClick={()=> {Clipboard.copy(this.state.walletSelected.privateKey); this.showToast(messages['wallet.action.copy.success']);}}>Copy</Button>
-              </div>
-          )
-        }, ()=>{
-          this.modalExportPrivateKeyRef.open();
-        })
-      }
+    const walletEncrypt = this.state.walletSelected.descryp(this.state.userPassword);    
+
+    if (walletEncrypt === false){
+      this.showError(messages['requirePassword.passNotMatch']);
+      this.setState({isRestoreLoading: false, userPassword: ''}, ()=>{      
+        this.onExportPrivateKeyClick();
+      });
+      return;
+    }  
+  
+    this.setState({
+      exportPrivateContent: (
+          <div className={style.exportPrivateKey}>
+            <div className={style.exTitle}>{messages['wallet.action.export_private_key.title']}</div>
+            <QRCode size={230} value={walletEncrypt.privateKey} onClick={() => { Clipboard.copy(this.state.walletSelected.privateKey); this.showToast(messages['wallet.action.copy.success']);}} />
+            <div className={style.exDesc}>{messages['wallet.action.export_private_key.desc']} </div>
+            <Button onClick={()=> {Clipboard.copy(walletEncrypt.privateKey); this.showToast(messages['wallet.action.copy.success']);}}>Copy</Button>
+          </div>
+      )
+    }, ()=>{
+      this.modalExportPrivateKeyRef.open();
     })
+    
   }
   onCloseExportPrivateKey =()=>{
     this.setState({exportPrivateContent: ''});
@@ -758,8 +717,9 @@ class Wallet extends React.Component {
   }
   onUpdateWalletName = (wallet) => {
     this.setState({walletSelected: wallet});
-    //update local store.
-    MasterWallet.UpdateLocalStore(this.getAllWallet());
+    //update data wallet.
+    // MasterWallet.UpdateLocalStore(this.getAllWallet());
+    this.saveWallet(this.getAllWallet());            
     this.onWalletItemClick(wallet);
   }
 
@@ -776,17 +736,20 @@ class Wallet extends React.Component {
   }
   onSortableCoinSuccess = (items)=>{
     this.setState({listMainWalletBalance: items}, ()=> {
-      MasterWallet.UpdateLocalStore(this.getAllWallet());
+      // MasterWallet.UpdateLocalStore(this.getAllWallet());
+      this.saveWallet(this.getAllWallet());
     });
   }
   onSortableTokenSuccess = (items)=>{
     this.setState({listTokenWalletBalance: items}, ()=> {
-      MasterWallet.UpdateLocalStore(this.getAllWallet());
+      // MasterWallet.UpdateLocalStore(this.getAllWallet());
+      this.saveWallet(this.getAllWallet());
     });
   }
   onSortableCollectibleSuccess = (items)=>{
     this.setState({listCollectibleWalletBalance: items}, ()=> {
-      MasterWallet.UpdateLocalStore(this.getAllWallet());
+      // MasterWallet.UpdateLocalStore(this.getAllWallet());
+      this.saveWallet(this.getAllWallet());
     });
   }
 
@@ -794,26 +757,26 @@ class Wallet extends React.Component {
     let setting = local.get(APP.SETTING);
     setting = setting ? setting.wallet : false;
 
-    return this.state.listMainWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onMoreClick={() => this.onMoreClick(wallet)} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
+    return this.state.listMainWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
   }
 
   get listTokenWalletBalance() {
     let setting = local.get(APP.SETTING);
     setting = setting ? setting.wallet : false;
 
-    return this.state.listTokenWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onMoreClick={() => this.onMoreClick(wallet)} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
+    return this.state.listTokenWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
   }
   get listCollectibleWalletBalance() {
     let setting = local.get(APP.SETTING);
     setting = setting ? setting.wallet : false;
 
-    return this.state.listCollectibleWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onMoreClick={() => this.onMoreClick(wallet)} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
+    return this.state.listCollectibleWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet}onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
   }
 
   get listTestWalletBalance() {
     let setting = local.get(APP.SETTING);
     setting = setting ? setting.wallet : false;
-    return this.state.listTestWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onMoreClick={() => this.onMoreClick(wallet)} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
+    return this.state.listTestWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
   }
  
   get getListCoinTempForCreate() {
@@ -881,8 +844,11 @@ class Wallet extends React.Component {
     const { messages } = this.props.intl;
     const lstWalletTemp = this.getAllWallet();
     lstWalletTemp.forEach((wal) => { if (wallet.mnemonic == wal.mnemonic) { wal.protected = true; } });
+    
     // Update wallet master from local store:
-    MasterWallet.UpdateLocalStore(lstWalletTemp);
+    // MasterWallet.UpdateLocalStore(lstWalletTemp);
+    this.saveWallet(lstWalletTemp);
+    
     this.modalProtectRef.close();
     this.splitWalletData(lstWalletTemp);
     this.showSuccess(messages['wallet.action.protect.success']);
@@ -908,6 +874,13 @@ class Wallet extends React.Component {
     });
   }
   
+  onFloatButtonClick=()=>{
+    showQrCode(
+      {
+        onData: this.onQRCodeScaned
+      }
+    );
+  }
 
   render = () => {
     const { messages } = this.props.intl;
@@ -918,7 +891,7 @@ class Wallet extends React.Component {
       <div className={style.walletPage}>
 
         {/* float button qrcode */}
-        <img onClick={()=> {this.props.showScanQRCode({onFinish: (data) => {this.onQRCodeScaned(data);}});}} className={style.floatButtonScanQrcode} src={floatButtonScanQRCode} />
+        <img onClick={this.onFloatButtonClick} className={style.floatButtonScanQrcode} src={floatButtonScanQRCode} />
 
         {/* remind checkout */}
         {/* <RemindPayment /> */}
@@ -936,6 +909,7 @@ class Wallet extends React.Component {
         {/* qrcode result detected modal popup*/}
         <QRCodeContent onTransferClick={(data)=> {this.showTransferFromQRCode(data);}} />
         
+        
         {/* add new token modal */}
         {/* <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  onClose={() => this.setState({formAddTokenIsActive: false})} title="Add Custom Token" onRef={modal => this.modalAddNewTokenRef = modal}>
             <AddToken formAddTokenIsActive={formAddTokenIsActive} onFinish={() => {this.addedCustomToken()}}/>
@@ -944,15 +918,8 @@ class Wallet extends React.Component {
         {/* add collectible modal */}
         {/* <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  onClose={() => this.setState({formAddCollectibleIsActive: false})} title="Add Collectible" onRef={modal => this.modalAddNewCollectibleRef = modal}>
             <AddCollectible formAddCollectibleIsActive={formAddCollectibleIsActive} onFinish={() => {this.addedCollectible()}}/>
-        </Modal> */}
-
-          {/* Tooltim menu Bottom */ }
-          <ReactBottomsheet
-            visible={this.state.bottomSheet}
-            appendCancelBtn={true}
-            onClose={this.toggleBottomSheet.bind(this)}
-            list={this.state.listMenu}
-          />
+        </Modal> */}          
+          
 
           {/* ModalDialog for confirm remove wallet */}
           <ModalDialog title={messages['wallet.action.remove.header']} onRef={modal => this.modalRemoveRef = modal}>
@@ -964,9 +931,9 @@ class Wallet extends React.Component {
           </ModalDialog>
 
            {/* Modal for Setting wallets : */}
-           <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={{"padding": 0}} title={messages['wallet.action.setting.header']} onRef={modal => this.modalSettingRef = modal} onClose={this.closeSetting}>
+           {/* <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={{"padding": 0}} title={messages['wallet.action.setting.header']} onRef={modal => this.modalSettingRef = modal} onClose={this.closeSetting}>
             {modalSetting}
-          </Modal>
+          </Modal> */}
 
           {/* ModalDialog for transfer coin */}
           <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages['wallet.action.transfer.header']} onRef={modal => this.modalSendRef = modal}  onClose={this.closeTransfer}>
@@ -1057,7 +1024,7 @@ class Wallet extends React.Component {
               <div className={style.headerWallet}>
                   {/* <img className={style.logoWallet} src={logoWallet} /> */}
                   <div className={style.titleWallet}>{messages['wallet.title']}</div>
-                  <div onClick={this.onIconRightHeaderClick} className={style.headerRight}><img src={iconMoreSettings} /></div>
+                  {/* <div onClick={this.onIconRightHeaderClick} className={style.headerRight}><img src={iconMoreSettings} /></div> */}
               </div>
           </div>
 
@@ -1075,13 +1042,13 @@ class Wallet extends React.Component {
             <Row className={style.list}>
               {/* {this.listMainWalletBalance} */}
               { this.state.listMainWalletBalance.length > 0 ?
-                <SortableComponent onSortableSuccess={items => this.onSortableCoinSuccess(items)} onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)}  isSortable={this.state.listSortable.coin} items={this.state.listMainWalletBalance} />
+                <SortableComponent onSortableSuccess={items => this.onSortableCoinSuccess(items)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)}  isSortable={this.state.listSortable.coin} items={this.state.listMainWalletBalance} />
               : ''}
             </Row>
           </Row>
 
           {/* 2.2 List Tokens */}
-          <Row className={style.walletBox}>            
+          {/* <Row className={style.walletBox}>            
             <Row className={style.list}>
               {!this.state.listSortable.token ?
                 <Header icon2={this.state.listTokenWalletBalance.length > 1 ? iconAlignJust : null} onIcon2Click={this.updateSortableForToken} icon={iconAddPlus} title={messages['wallet.action.create.label.header_tokens']} hasLink={true} linkTitle={messages['wallet.action.create.button.header_tokens']} onLinkClick={this.showModalAddToken} />
@@ -1091,15 +1058,15 @@ class Wallet extends React.Component {
             </Row>
             
             <Row className={style.list}>
-              {/* {this.listTokenWalletBalance} */}
+              {this.listTokenWalletBalance}
               { this.state.listTokenWalletBalance.length > 0 ?
-                  <SortableComponent onSortableSuccess={items => this.onSortableTokenSuccess(items)} onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} isSortable={this.state.listSortable.token}  items={this.state.listTokenWalletBalance}/>
+                  <SortableComponent onSortableSuccess={items => this.onSortableTokenSuccess(items)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} isSortable={this.state.listSortable.token}  items={this.state.listTokenWalletBalance}/>
               : ''}
             </Row>
-          </Row>
+          </Row> */}
 
           {/* 2.3 Collectible */}
-          <Row className={style.walletBox}>            
+          {/* <Row className={style.walletBox}>            
             <Row className={style.list}>
 
                {!this.state.listSortable.collectitble ?
@@ -1110,12 +1077,12 @@ class Wallet extends React.Component {
             </Row>
                         
             <Row className={style.list}>
-              {/* {this.listCollectibleWalletBalance} */}
+              {this.listCollectibleWalletBalance}
               { this.state.listCollectibleWalletBalance.length > 0 ?
-                  <SortableComponent onSortableSuccess={items => this.onSortableCollectibleSuccess(items)} onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} isSortable={this.state.listSortable.collectitble}  items={this.state.listCollectibleWalletBalance}/>
+                  <SortableComponent onSortableSuccess={items => this.onSortableCollectibleSuccess(items)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} isSortable={this.state.listSortable.collectitble}  items={this.state.listCollectibleWalletBalance}/>
               : ''}
             </Row>
-          </Row>
+          </Row> */}
 
           <Row className={style.walletBox}>
               {!process.env.isProduction ?
@@ -1127,7 +1094,7 @@ class Wallet extends React.Component {
               <Row className={style.list}>
                 {/* {this.listTestWalletBalance} */}
                 { this.state.listTestWalletBalance.length > 0 ?
-                    <SortableComponent onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} items={this.state.listTestWalletBalance}/>
+                    <SortableComponent onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} items={this.state.listTestWalletBalance}/>
                 : ''}
               </Row>
               }
@@ -1145,17 +1112,17 @@ const mapState = (state) => ({
 });
 
 const mapDispatch = ({
-  userWallet,
-  setHeaderRight,
+  userWallet,  
+  makeSaveWallet,
   showAlert,
   showLoading,
   hideLoading,
   change,
   clearFields,
   hideHeader,
-  requestWalletPasscode,
-  showScanQRCode,
-  showQRCodeContent
+  requestWalletPasscode,  
+  showQRCodeContent,
+  showRequirePassword,
 });
 
 

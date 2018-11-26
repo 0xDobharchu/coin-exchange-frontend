@@ -112,7 +112,7 @@ class Dropdown extends React.PureComponent {
             <img src={ExpandArrowSVG} alt="expand arrow" />
           </div>
         </button>
-        <ul className={`${style.dropdown_custom_menu} ${isShow ? 'show' : 'hide'}`}>
+        <ul className={`${style.dropdown_custom_menu} ${isShow ? style.show : style.hide}`}>
           {
             hasSearch && (
               <li className={`${style.dropdown_custom_item} ${style.search_block}`}>
