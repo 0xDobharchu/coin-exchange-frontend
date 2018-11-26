@@ -19,9 +19,9 @@ const LANGUAGES =[
     value: 'en'
   },
   {
-    key: 'vi',
-    label: '🇻🇳 Tiếng Việt',
-    value: 'vi'
+    key: 'id',
+    label: '🇻🇳 Indonesia',
+    value: 'id'
   }
 ];
 
