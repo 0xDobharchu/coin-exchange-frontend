@@ -2272,7 +2272,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.3, classnames@^2.2.6:
+classnames@^2.2.1, classnames@^2.2.3, classnames@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
 
@@ -4866,9 +4866,9 @@ handle-thing@^1.2.5:
   version "1.2.5"
   resolved "http://registry.npmjs.org/handle-thing/-/handle-thing-1.2.5.tgz#fd7aad726bf1a5fd16dfc29b2f7a6601d27139c4"
 
-"handshake-i18n@github:ninjadotorg/handshake-i18n":
-  version "0.0.1542698284"
-  resolved "https://codeload.github.com/ninjadotorg/handshake-i18n/tar.gz/6903b081f9bba55d188a71741c304884945b114e"
+"handshake-i18n@github:ninjadotorg/coin-exchange-i18n":
+  version "0.0.1541740938"
+  resolved "https://codeload.github.com/ninjadotorg/coin-exchange-i18n/tar.gz/2b76f1b2ed328b60849d8e2ccb6794ee1cc25415"
   dependencies:
     "@babel/core" "^7.1.2"
     "@babel/node" "^7.0.0"
@@ -8315,7 +8315,7 @@ prop-types-extra@^1.1.0:
     react-is "^16.3.2"
     warning "^3.0.0"
 
-prop-types@^15.5.0, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@^15.5.0, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -8513,6 +8513,14 @@ rc-gesture@~0.0.18:
   resolved "https://registry.yarnpkg.com/rc-gesture/-/rc-gesture-0.0.22.tgz#fbcbdd5b46387a978b3ede48b42748e8ff77dddd"
   dependencies:
     babel-runtime "6.x"
+
+rc-switch@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/rc-switch/-/rc-switch-1.8.0.tgz#cff32fd04c406d8c0c0397e69bc36350a333e236"
+  dependencies:
+    babel-runtime "^6.23.0"
+    classnames "^2.2.1"
+    prop-types "^15.5.6"
 
 rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
   version "1.2.8"
