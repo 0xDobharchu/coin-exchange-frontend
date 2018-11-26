@@ -3,9 +3,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './Input.scss';
+import './InputMobile.scss';
 
-class Input extends React.PureComponent {
+class InputMobile extends React.PureComponent {
 
   static propTypes = {
     name: PropTypes.string,
@@ -67,4 +67,4 @@ class Input extends React.PureComponent {
   }
 }
 
-export default Input;
+export default InputMobile;

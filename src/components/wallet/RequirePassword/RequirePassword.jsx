@@ -4,7 +4,7 @@ import {injectIntl} from 'react-intl';
 
 import {connect} from "react-redux";
 
-import Input from '../Input'
+import InputMobile from '../InputMobile'
 
 import Button from '@/components/core/controls/Button';
 
@@ -91,7 +91,7 @@ render() {
           <Modal.Body>
             <div>
               <p>{messages['requirePassword.description']}</p>
-              <Input onKeyPress={this._handleKeyPress} value={this.state.password} placeholder="Your password..." onChange={(evt) => {this.onPasswordChange(evt)}} />
+              <InputMobile onKeyPress={this._handleKeyPress} value={this.state.password} placeholder="Your password..." onChange={(evt) => {this.onPasswordChange(evt)}} />
               
               <Button disabled={this.state.password.trim().length < 8} className={"btn-block " + style.buttonUnlock} variant="primary" onClick={this.onFinish}>{messages['requirePassword.btnUnlockText']}</Button>
               

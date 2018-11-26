@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './WalletPreferences.scss';
 import Switch from '@/components/core/controls/Switch';
-import Input from '../Input';
+import InputMobile from '../InputMobile';
 import Modal from '@/components/core/controls/Modal';
 import {injectIntl} from 'react-intl';
 import { ENGINE_METHOD_DIGESTS } from 'constants';
@@ -46,7 +46,7 @@ class WalletPreferences extends React.Component {
     this.setState({walletNameContent: (
         <div className="update-name">
           <label>{this.messages['wallet.action.preferecens.update_name.label']}</label>
-          <Input required placeholder={this.messages['wallet.action.preferecens.update_name.title']} maxLength="40" value={this.state.walletName} onChange={(evt) => {this.handleWalletNameChange(evt)}} />
+          <InputMobile required placeholder={this.messages['wallet.action.preferecens.update_name.title']} maxLength="40" value={this.state.walletName} onChange={(evt) => {this.handleWalletNameChange(evt)}} />
           <button block type="button" onClick={()=> {this.handleUpdateNameOnClick();}} disabled={!this.state.walletName} className="button wallet-new-button btn-block">{this.messages['wallet.action.preferecens.update_name.button.save']}</button>
         </div>
       )

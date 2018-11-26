@@ -16,7 +16,7 @@ import Modal from '@/components/core/controls/Modal';
 
 import { MasterWallet } from '@/services/Wallets/MasterWallet';
 
-import Input from '../Input';
+import InputMobile from '../InputMobile';
 
 import iconSearch from '@/assets/images/wallet/icons/ic_search.svg';
 
@@ -337,16 +337,16 @@ class AddressBook extends React.Component {
             <Modal title={ this.state.isUpdate === false ?  messages['wallet.action.setting.label.contact_empty_button'] : messages['wallet.action.setting.label.update_title_text']} onRef={modal => this.modaAddNewContactRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle}>
               <div className="add-new-contact">
                   <div>                    
-                    <Input placeholder={messages['wallet.action.setting.label.contact_name']} maxLength="40" value={this.state.newContact.name} onChange={(evt) => {this.onContactNameChange(evt)}} />
+                    <InputMobile placeholder={messages['wallet.action.setting.label.contact_name']} maxLength="40" value={this.state.newContact.name} onChange={(evt) => {this.onContactNameChange(evt)}} />
                   </div>
                   <div>                  
-                    <Input placeholder={messages['wallet.action.setting.label.contact_email']} maxLength="40" value={this.state.newContact.email} onChange={(evt) => {this.onContactEmailChange(evt)}} />
+                    <InputMobile placeholder={messages['wallet.action.setting.label.contact_email']} maxLength="40" value={this.state.newContact.email} onChange={(evt) => {this.onContactEmailChange(evt)}} />
                   </div>
                   {this.state.newContact.addresses.map((item, i) => {  
                   return (             
                     <div key={`address-${i}`} className="qrcode-box">
                       <span onClick={()=> {showQrCode({onData: (data) => {this.onQRCodeScaned(data, i);}});}}  className="icon-qr-code-black">{ICON.QRCode()}</span>                  
-                      <Input placeholder={`${item.name} ${messages['wallet.action.setting.label.contact_address']}`} maxLength="100" value={item.address} onChange={(evt) => {this.onContactAddressChange(evt, i)}} />
+                      <InputMobile placeholder={`${item.name} ${messages['wallet.action.setting.label.contact_address']}`} maxLength="100" value={item.address} onChange={(evt) => {this.onContactAddressChange(evt, i)}} />
                       { i == 0 ? <div className={"add-new-address-label " + (this.state.newContact.addresses.length > 1 ? 'add-new-address-many' : '')}><span onClick={()=>{this.onAddNewAddressClick();}}>{messages['wallet.action.setting.label.add_new_address']}</span></div>
                         : <div className={"remove-address-label " + (i == this.state.newContact.addresses.length-1 ? 'remove-last-child': '')}><span onClick={()=>{this.onRemoveNewAddressClick(i);}}>{messages['wallet.action.setting.label.remove_new_address']}</span></div>
                       }
