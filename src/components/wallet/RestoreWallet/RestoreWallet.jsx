@@ -2,11 +2,11 @@ import React from 'react';
 import {injectIntl} from 'react-intl';
 import { clearFields } from "redux-form";
 import {connect} from "react-redux";
-import Button from '@/components/core/controls/Button';
-import {MasterWallet} from "@/services/Wallets/MasterWallet";
-import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action';
+import Button from 'src/components/core/controls/Button';
+import {MasterWallet} from "src/services/Wallets/MasterWallet";
+import { showLoading, hideLoading, showAlert } from 'src/screens/app/redux/action';
 import { bindActionCreators } from "redux";
-import { ICON } from '@/components/wallet/images';
+import { ICON } from 'src/components/wallet/images';
 import './RestoreWallet.scss';
 
 if (__CLIENT__)

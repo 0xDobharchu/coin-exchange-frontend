@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import qs from 'querystring';
 import { initApp, getCountryCurrency, getSupportCountry } from 'src/screens/app/redux/action';
-// import I18n from '@/components/App/I18n';
+// import I18n from 'src/components/App/I18n';
 import IntlCustomProvider from 'src/lang';
 // import Handle from './Handle';
 // styles
-// import '@/styles/main';
-// import '@/styles/custom-icons/styles.css';
+// import 'src/styles/main';
+// import 'src/styles/custom-icons/styles.css';
 import Layout from 'src/screens/app/components/Layout';
 import BarcodeScanner from 'src/components/barcodeScanner';
 

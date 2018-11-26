@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import {injectIntl} from 'react-intl';
 import {Field, clearFields, change} from "redux-form";
 import {connect} from "react-redux";
-import Button from '@/components/core/controls/Button';
-import ModalDialog from '@/components/core/controls/ModalDialog';
-import Modal from '@/components/core/controls/Modal';
-import createForm from '@/components/core/form/createForm'
-import {fieldDropdown, fieldInput} from '@/components/core/form/customField';
-import { ICON } from '@/styles/images';
-import {required} from '@/components/core/form/validation'
-import {MasterWallet} from "@/services/Wallets/MasterWallet";
+import Button from 'src/components/core/controls/Button';
+import ModalDialog from 'src/components/core/controls/ModalDialog';
+import Modal from 'src/components/core/controls/Modal';
+import createForm from 'src/components/core/form/createForm'
+import {fieldDropdown, fieldInput} from 'src/components/core/form/customField';
+import { ICON } from 'src/styles/images';
+import {required} from 'src/components/core/form/validation'
+import {MasterWallet} from "src/services/Wallets/MasterWallet";
 import { bindActionCreators } from "redux";
-import {getFiatCurrency} from '@/reducers/exchange/action';
-import { showAlert, showLoading, hideLoading } from '@/screens/app/redux/action';
+import {getFiatCurrency} from 'src/reducers/exchange/action';
+import { showAlert, showLoading, hideLoading } from 'src/screens/app/redux/action';
 // import QrReader from 'react-qr-reader';
-import { StringHelper } from '@/services/helper';
+import { StringHelper } from 'src/services/helper';
 import './TransferToken.scss';
 import '../TransferCoin/TransferCoin.scss';
-import BrowserDetect from '@/services/browser-detect';
-import ListCoin from '@/components/wallet/ListCoin';
+import BrowserDetect from 'src/services/browser-detect';
+import ListCoin from 'src/components/wallet/ListCoin';
 
 const amountValid = value => (value && isNaN(value) ? 'Invalid amount' : undefined);
 const gasValid = value => (value && isNaN(value) ? 'Invalid gas limit' : undefined);
@@ -325,7 +325,7 @@ class TransferToken extends React.Component {
     let icon = '';
     try{
       if(walletSelected)
-        icon = require("@/assets/images/wallet/icons/wallet/coins/" + walletSelected.name.toLowerCase() + '.svg');
+        icon = require("src/assets/images/wallet/icons/wallet/coins/" + walletSelected.name.toLowerCase() + '.svg');
     } catch (ex){console.log(ex)};
 
     return (

@@ -1,5 +1,5 @@
 
-import { BitcoinCash } from '@/services/Wallets/BitcoinCash';
+import { BitcoinCash } from 'src/services/Wallets/BitcoinCash';
 
 const bitcore = require('bitcore-lib-cash');
 

@@ -2,7 +2,7 @@
 import SystemConfigModel from 'src/models/system';
 import APP_TYPE from './type';
 
-// import local from '@/services/localStore';
+// import local from 'src/services/localStore';
 
 const {
   HEADER_TITLE_SET,
