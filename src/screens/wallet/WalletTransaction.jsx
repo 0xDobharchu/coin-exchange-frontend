@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import iconSelf from '@/assets/images/wallet/icons/icon-self.svg';
-import iconSent from '@/assets/images/wallet/icons/icon-sent.svg';
-import iconCreate from '@/assets/images/wallet/icons/icon-create.svg';
-import iconReceived from '@/assets/images/wallet/icons/icon-received.svg';
+import iconSelf from 'src/assets/images/wallet/icons/icon-self.svg';
+import iconSent from 'src/assets/images/wallet/icons/icon-sent.svg';
+import iconCreate from 'src/assets/images/wallet/icons/icon-create.svg';
+import iconReceived from 'src/assets/images/wallet/icons/icon-received.svg';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import style from './Wallet.scss';

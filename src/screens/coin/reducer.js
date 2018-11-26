@@ -1,5 +1,5 @@
+import Coin from 'src/models/coin';
 import { GET_REVIEW, GET_SELL_PRICE, GET_BUY_PRICE } from './type';
-import Coin from '@/models/coin';
 
 const initState = {
   numReview: 0,

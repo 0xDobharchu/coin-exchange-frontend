@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './Wallet.scss';
-import iconHeaderMode from '@/assets/images/wallet/icons/icon-more-wallet.svg';
+import iconHeaderMode from 'src/assets/images/wallet/icons/icon-more-wallet.svg';
 
 
 class HeaderMore extends React.Component {
