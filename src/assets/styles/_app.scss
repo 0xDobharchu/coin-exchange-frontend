@@ -4,6 +4,8 @@
 @import './_animate.scss';
 @import './_fonts.scss';
 @import './lib.scss';
+@import './slider.scss';
+@import './tabs.scss';
 /* App global styles */
 :global {
   html, body, div#root-app {
@@ -14,6 +16,7 @@
     font-weight: $extra-light;
     color: $black;
     background-color: $bg-gray;
+    // overflow: hidden;
     @include full-screen;
   }
   img {
@@ -24,7 +27,7 @@
     font-weight: normal;
     letter-spacing: 0;
   }
-  button {
+  button, .btn-primary {
     height: $btn-height-medium;
     background: $primary-medium;
     border-radius: 6px 6px 6px 6px;
@@ -40,7 +43,12 @@
       background-color: #F1F0F5;
       cursor: not-allowed;
     }
+
+  .btn-primary:hover{
+    background-color: $primary-hover;
+    border-color: $primary-hover;
   }
+  
   input, textarea {
     padding: 4px 15px;
     height: $input-height;
