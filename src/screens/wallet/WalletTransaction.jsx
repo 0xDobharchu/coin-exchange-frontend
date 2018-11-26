@@ -208,9 +208,9 @@ class WalletTransaction extends React.Component {
             return (
               char == "internal_transactions" ?
                 (val.length > 0 ?
-                  <div className={style.body} key={char}>
-                    <div className={style.key}>{char.replace(/_/g, " ")}</div>
-                    <div className={style.value}>
+                  <div className={style['body']} key={char}>
+                    <div className={style['key']}>{char.replace(/_/g, " ")}</div>
+                    <div className={style['value']}>
                     {
                       val.map(e => {
                         return <div key={Math.random()} className={style.valueIt}>
