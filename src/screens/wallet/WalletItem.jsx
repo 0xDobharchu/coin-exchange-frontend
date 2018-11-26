@@ -2,18 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {injectIntl} from 'react-intl';
 import { Col, Row } from 'react-bootstrap';
-import {Bitcoin} from '@/services/Wallets/Bitcoin.js';
-import {Ethereum} from '@/services/Wallets/Ethereum.js';
+import {Bitcoin} from 'src/services/Wallets/Bitcoin.js';
+import {Ethereum} from 'src/services/Wallets/Ethereum.js';
 
-import iconSafe from '@/assets/images/wallet/icons/icon-safe.svg';
-import iconWarning from '@/assets/images/wallet/icons/icon-warning.svg';
+import iconSafe from 'src/assets/images/wallet/icons/icon-safe.svg';
+import iconWarning from 'src/assets/images/wallet/icons/icon-warning.svg';
 
-import iconChecked from '@/assets/images/wallet/icons/checked-green.svg';
-import iconQRCode from '@/assets/images/wallet/icons/icon-qrcode-black.svg';
-import bgCollectibles from '@/assets/images/wallet/images/tokenerc721-mainnet.svg'
+import iconChecked from 'src/assets/images/wallet/icons/checked-green.svg';
+import iconQRCode from 'src/assets/images/wallet/icons/icon-qrcode-black.svg';
+import bgCollectibles from 'src/assets/images/wallet/images/tokenerc721-mainnet.svg'
 
-import dontIcon from '@/assets/images/wallet/icons/3-dot-icon-black.svg';
-import needBackup from '@/assets/images/wallet/icons/need-backup.svg';
+import needBackup from 'src/assets/images/wallet/icons/need-backup.svg';
 
 
 import style from './Wallet.scss';
@@ -46,10 +45,10 @@ class WalletItem extends React.Component {
   }
 
   render(){
-      const {wallet, onMoreClick, onAddressClick, isSortable, onItemClick} =  this.props;
+      const {wallet, onAddressClick, isSortable, onItemClick} =  this.props;
       const { messages } = this.props.intl;      
-      let logo = require("@/assets/images/wallet/icons/coins/" + wallet.icon);
-      try{ logo = require("@/assets/images/wallet/icons/coins/" + wallet.getCoinLogo());} catch (e){};
+      let logo = require("src/assets/images/wallet/icons/coins/" + wallet.icon);
+      try{ logo = require("src/assets/images/wallet/icons/coins/" + wallet.getCoinLogo());} catch (e){};
 
       return  (
 
@@ -71,7 +70,7 @@ class WalletItem extends React.Component {
                 <span className={style.address +  " hidden-xss-down"} onClick={onAddressClick}>
                     {this.showCryptoAddress}
                 </span>
-                <span className={style.more} onClick={onMoreClick}><img src={dontIcon}/></span>
+                {/* <span className={style.more} onClick={onMoreClick}><img src={dontIcon}/></span> */}
 
               </span>
             : ""}            
@@ -82,8 +81,7 @@ class WalletItem extends React.Component {
 
 WalletItem.propTypes = {
   settingWallet: PropTypes.any,
-  wallet: PropTypes.object,
-  onMoreClick: PropTypes.func,
+  wallet: PropTypes.object,  
   onWarningClick: PropTypes.func,
   onAddressClick: PropTypes.func,
   isSortable: PropTypes.any,

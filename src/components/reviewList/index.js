@@ -37,7 +37,8 @@ class ReviewList extends React.Component {
 
     const params = {
       country: this.props.userCountry,
-      direction: this.props.direction.toLowerCase()
+      direction: this.props.direction.toLowerCase(),
+      time:  new Date().getTime()
     };
 
     if (page) {

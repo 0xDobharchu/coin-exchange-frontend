@@ -2363,6 +2363,34 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
+coinexchangei18n@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/coinexchangei18n/-/coinexchangei18n-1.0.0.tgz#40756598eda12c9e908badb98bce3cc1b0b38052"
+  dependencies:
+    "@babel/core" "^7.1.2"
+    "@babel/node" "^7.0.0"
+    "@babel/plugin-syntax-dynamic-import" "^7.0.0"
+    "@babel/plugin-syntax-jsx" "^7.0.0"
+    "@babel/plugin-transform-react-jsx" "^7.0.0"
+    "@babel/plugin-transform-react-jsx-compat" "^7.0.0"
+    "@babel/plugin-transform-react-jsx-self" "^7.0.0"
+    "@babel/plugin-transform-runtime" "^7.1.0"
+    "@babel/preset-env" "^7.1.0"
+    "@babel/preset-react" "^7.0.0"
+    "@babel/runtime" "^7.1.2"
+    babel-plugin-dynamic-import-node "^2.2.0"
+    babel-plugin-module-resolver "^3.1.1"
+    dotenv "^6.0.0"
+    fast-csv "^2.4.1"
+    lodash "^4.17.10"
+    prop-types "^15.6.2"
+    react "^16.5.2"
+    react-intl "^2.7.1"
+    react-router-dom "^4.3.1"
+    request "^2.87.0"
+    rimraf "^2.6.2"
+    unzip "^0.1.11"
+
 coinstring@^2.0.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/coinstring/-/coinstring-2.3.0.tgz#cdb63363a961502404a25afb82c2e26d5ff627a4"
@@ -9109,7 +9137,7 @@ reselect@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/reselect/-/reselect-3.0.1.tgz#efdaa98ea7451324d092b2b2163a6a1d7a9a2147"
 
-resize-observer-polyfill@^1.4.2:
+resize-observer-polyfill@^1.4.2, resize-observer-polyfill@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.0.tgz#660ff1d9712a2382baa2cad450a4716209f9ca69"
 

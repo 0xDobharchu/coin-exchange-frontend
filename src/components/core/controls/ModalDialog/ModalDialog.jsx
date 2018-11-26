@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // style
-import './ModalDialog.scss';
+import style from './ModalDialog.scss';
 
 class ModalDialog extends React.Component {
   constructor(props) {
@@ -27,16 +27,16 @@ class ModalDialog extends React.Component {
   }
 
   open() {
-    this.modalRef && this.modalRef.classList.add('modal-custom-show');
-    this.contentRef && this.contentRef.classList.add('zoomIn');
+    this.modalRef && this.modalRef.classList.add(style['modal-custom-show']);
+    this.contentRef && this.contentRef.classList.add(style['zoomIn']);
     this.currentOffset = window.scrollY;
-    document.body.classList.add('hide-scroll');
+    document.body.classList.add(style['hide-scroll']);
     const freezeStyle = 'height: 100%; position: fixed; width: 100%';
     document.body.setAttribute('style', freezeStyle);
   }
 
   close() {
-    this.modalRef && this.modalRef.classList.remove('modal-custom-show');
+    this.modalRef && this.modalRef.classList.remove(style['modal-custom-show']);
     this.contentRef && this.contentRef.classList.remove('zoomIn');
     document.body.classList.remove('hide-scroll');
     document.body.removeAttribute('style');
@@ -47,19 +47,19 @@ class ModalDialog extends React.Component {
   render() {
     const { title, children, className, close } = this.props;
     return (
-      <div className={`modal modal-dialog-custom ${className || ''}`} ref={modal => this.modalRef = modal}>
-        <div className="modal-backdrop show" />
-        <div className="position" role="presentation" onClick={this.onClosePanel}>
-          <div className="modal-dialog-content animated" role="presentation" onClick={e => e.stopPropagation()} ref={content => this.contentRef = content}>
+      <div className={`${style['modal']} ${style['modal-dialog-custom']} ${className || ''}`} ref={modal => this.modalRef = modal}>
+        <div className={`${style['modal-backdrop']} ${style['show']}`} />
+        <div className={style['position']} role="presentation" onClick={this.onClosePanel}>
+          <div className={`${style['modal-dialog-content']} ${style['animated']}`} role="presentation" onClick={e => e.stopPropagation()} ref={content => this.contentRef = content}>
             {close && (
-            <div className="close" role="presentation" onClick={this.onClosePanel}>
-              <span className="closeIcon">×</span>
+            <div className={style['close']} role="presentation" onClick={this.onClosePanel}>
+              <span className={style['closeIcon']}>×</span>
             </div>)}
             {title && (
-            <div className="modal-custom-header">
-              <p className="modal-custom-title">{title}</p>
+            <div className={style['modal-custom-header']}>
+              <p className={style['modal-custom-title']}>{title}</p>
             </div>)}
-            <div className="modal-custom-body">
+            <div className={style['modal-custom-body']}>
               {children}
             </div>
           </div>
