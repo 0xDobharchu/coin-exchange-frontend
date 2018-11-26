@@ -4,13 +4,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setLanguage } from '@/screens/app/redux/action';
+import { setLanguage } from 'src/screens/app/redux/action';
 import cx from 'classnames';
 import { change, Field } from 'redux-form';
+import { changeLang } from 'src/lang/action';
+import dropdownField from 'src/components/core/form/fields/dropdown';
+import createForm from 'src/components/core/form/createForm';
 import styles from './styles.scss';
-import { changeLang } from '@/lang/action';
-import dropdownField from '@/components/core/form/fields/dropdown';
-import createForm from '@/components/core/form/createForm';
 
 const LANGUAGES =[
   {
@@ -19,9 +19,9 @@ const LANGUAGES =[
     value: 'en'
   },
   {
-    key: 'id',
-    label: '🇻🇳 Indonesia',
-    value: 'id'
+    key: 'zh-Hant-HK',
+    label: '🇭🇰 Hong Kong',
+    value: 'zh-Hant-HK'
   }
 ];
 

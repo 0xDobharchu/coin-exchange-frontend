@@ -2,29 +2,29 @@ import axios from 'axios';
 import React from 'react';
 import {injectIntl} from 'react-intl';
 import {connect} from "react-redux";
-import { showLoading, hideLoading, showAlert, showQRCodeContent } from '@/screens/app/redux/action';
-import QRCodeContent from '@/components/wallet/QRCodeContent';
+import { showLoading, hideLoading, showAlert, showQRCodeContent } from 'src/screens/app/redux/action';
+import QRCodeContent from 'src/components/wallet/QRCodeContent';
 import '../WalletPreferences/WalletPreferences.scss';
 
 import './AddressBook.scss';
 
-import iconAvatar from '@/assets/images/wallet/icons/avatar.svg';
+import iconAvatar from 'src/assets/images/wallet/icons/avatar.svg';
 
-import { ICON } from '@/components/wallet/images';
+import { ICON } from 'src/components/wallet/images';
 
-import Modal from '@/components/core/controls/Modal';
+import Modal from 'src/components/core/controls/Modal';
 
-import { MasterWallet } from '@/services/Wallets/MasterWallet';
+import { MasterWallet } from 'src/services/Wallets/MasterWallet';
 
 import InputMobile from '../InputMobile';
 
-import iconSearch from '@/assets/images/wallet/icons/ic_search.svg';
+import iconSearch from 'src/assets/images/wallet/icons/ic_search.svg';
 
-import iconEdit from '@/assets/images/wallet/icons/icon-edit.svg';
+import iconEdit from 'src/assets/images/wallet/icons/icon-edit.svg';
 
 
-import {Contact} from '@/services/Wallets/Contact/Contact';
-import {ContactAddress} from '@/services/Wallets/Contact/ContactAddress';
+import {Contact} from 'src/services/Wallets/Contact/Contact';
+import {ContactAddress} from 'src/services/Wallets/Contact/ContactAddress';
 
 import { showQrCode } from 'src/components/barcodeScanner';
 

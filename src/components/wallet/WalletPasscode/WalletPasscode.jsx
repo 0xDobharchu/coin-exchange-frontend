@@ -5,14 +5,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {injectIntl} from 'react-intl';
-import Modal from '@/components/core/controls/Modal';
+import Modal from 'src/components/core/controls/Modal';
 import './WalletPasscode.scss';
 
 import Passcode from '../Passcode';
-import { hidePasscode } from '@/screens/app/redux/action';
+import { hidePasscode } from 'src/screens/app/redux/action';
 
-import localStore from '@/services/localStore';
-import {APP} from '@/constants';
+import localStore from 'src/services/localStore';
+import {APP} from 'src/constants';
 
 class WalletPasscode extends React.PureComponent {
   static propTypes = {

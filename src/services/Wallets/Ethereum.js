@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { Wallet } from '@/services/Wallets/Wallet';
-import configs from '@/configs';
-import { StringHelper } from '@/services/helper';
+import { Wallet } from 'src/services/Wallets/Wallet';
+import configs from 'src/configs';
+import { StringHelper } from 'src/services/helper';
 import Tx from 'ethereumjs-tx';
 import { set, getJSON } from 'js-cookie';
 

@@ -6,12 +6,12 @@ import {connect} from "react-redux";
 
 import InputMobile from '../InputMobile'
 
-import Button from '@/components/core/controls/Button';
+import Button from 'src/components/core/controls/Button';
 
 import { Modal } from 'react-bootstrap';
 
 import  style from './RequirePassword.scss';
-import { hideRequirePassword } from '@/screens/app/redux/action';
+import { hideRequirePassword } from 'src/screens/app/redux/action';
 
 
 class RequirePassword extends React.Component {

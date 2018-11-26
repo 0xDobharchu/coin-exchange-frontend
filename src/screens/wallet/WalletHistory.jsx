@@ -1,22 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import iconExternalLink from '@/assets/images/wallet/icons/icon-external-link.svg';
-import iconSelf from '@/assets/images/wallet/icons/icon-self.svg';
-import iconSent from '@/assets/images/wallet/icons/icon-sent.svg';
-import iconCreate from '@/assets/images/wallet/icons/icon-create.svg';
-import iconReceived from '@/assets/images/wallet/icons/icon-received.svg';
+import iconExternalLink from 'src/assets/images/wallet/icons/icon-external-link.svg';
+import iconSelf from 'src/assets/images/wallet/icons/icon-self.svg';
+import iconSent from 'src/assets/images/wallet/icons/icon-sent.svg';
+import iconCreate from 'src/assets/images/wallet/icons/icon-create.svg';
+import iconReceived from 'src/assets/images/wallet/icons/icon-received.svg';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import style from './Wallet.scss';
 import WalletTransaction from './WalletTransaction';
-import { showLoading, hideLoading } from '@/screens/app/redux/action';
+import { showLoading, hideLoading } from 'src/screens/app/redux/action';
 import cx from 'classnames'
-import Modal from '@/components/core/controls/Modal';
+import Modal from 'src/components/core/controls/Modal';
 import {Tabs} from 'rmc-tabs';
 
-import imgNoTrans from '@/assets/images/wallet/images/no-transaction.svg';
-import iconLoadding from '@/assets/images/icon/loading.gif';
-import needBackupWhite from '@/assets/images/wallet/icons/icon-need-backup-white.svg';
+import imgNoTrans from 'src/assets/images/wallet/images/no-transaction.svg';
+import iconLoadding from 'src/assets/images/icon/loading.gif';
+import needBackupWhite from 'src/assets/images/wallet/icons/icon-need-backup-white.svg';
 
 const TAB = {
   Transaction: 0,
@@ -342,8 +342,8 @@ class WalletHistory extends React.Component {
     const wallet = this.props.wallet;
     const { messages } = this.props.intl;
     if (wallet){
-      var logo = require("@/assets/images/wallet/icons/coins/" + wallet.icon);
-      try { logo = require("@/assets/images/wallet/icons/coins/" + wallet.getCoinLogo());} catch (e){};
+      var logo = require("src/assets/images/wallet/icons/coins/" + wallet.icon);
+      try { logo = require("src/assets/images/wallet/icons/coins/" + wallet.getCoinLogo());} catch (e){};
     }
 
     return wallet ?

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // component
-import Image from '@/components/core/presentation/Image';
+import Image from 'src/components/core/presentation/Image';
 // style
+import BackChevronSVG from 'src/assets/images/icon/back-chevron.svg';
 import style from './Modal.scss';
-import BackChevronSVG from '@/assets/images/icon/back-chevron.svg';
 
 class Modal extends React.Component {
   constructor(props) {

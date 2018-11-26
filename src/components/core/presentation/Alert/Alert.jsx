@@ -1,6 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import LabelLang from 'src/lang/components/LabelLang';
 // actions
 import { hideAlert } from 'src/screens/app/redux/action';
 // style
@@ -66,7 +67,7 @@ class Alert extends React.PureComponent {
 
   render() {
     const {
-      isShow, type, message, isShowClose,
+      isShow, type, message, values, isShowClose,
     } = this.state;
     const tyleClassName = this.getTypeClass(type);
     if (!isShow) return null;
@@ -79,7 +80,7 @@ class Alert extends React.PureComponent {
             </button>
           )
         }
-        {message}
+        <LabelLang id={message} values={values} />
       </div>
     );
   }

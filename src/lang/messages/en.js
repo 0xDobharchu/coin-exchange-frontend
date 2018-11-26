@@ -11,19 +11,21 @@ export default {
       wallet: 'Wallet'
     },
     common: {
-      error: 'OH! something went wrong!'
+      error: 'OH! something went wrong!',
+      required: 'Required',
+      copied: 'Copied'
     }
-  },  
+  },
   error: {
-    required: 'Required',  
+    required: 'Required',
     requiredOne: 'You need to fill in one of these!',
     greaterThan: 'Must be greater than {min}',
     lessThan: 'Must be less than {max}',
-    greaterThanEqual: 'Must be equal or greater than {min}',    
-    lessThanEqual: 'Must be less than or equal {max}',  
+    greaterThanEqual: 'Must be equal or greater than {min}',
+    lessThanEqual: 'Must be less than or equal {max}',
     mustBeANumber: 'Must be a number',
     mustBeAPositiveInteger: 'Must be a integer number greater or equal 0',
-  },  
+  },
   me: {
     profile: {
       head_text: 'Our verification process typically takes just a few minutes. This may take slightly longer outside business hours. Your information will remain 100% private.',
@@ -348,7 +350,8 @@ export default {
       requiredPassword: 'Please enter your password',
       notValidUsername: 'Invalid email address',
       requiredUsername: 'Please enter your email',
-      loginFailure: 'Username and password not match.'
+      loginFailure: 'Username and password not match.',
+      warningVerify: 'To start trading, please take a few minutes to verify your account. {action}'
     },
     forgetPassword: {
       title: 'Forgot your password?',
@@ -393,7 +396,7 @@ export default {
       requiredAgreement: 'Please indicate that you have read and agree to the User Agreement and Privacy Policy',
       registerButton: 'Create account',
       loginButton: 'Already have an account?',
-      registerSuccessfully: 'Your account registered successfully',
+      registerSuccessfully: 'You have registered successfully. Don’t forget to verify your email later.',
     }
   },
   landingPage: {
@@ -860,4 +863,81 @@ export default {
     },
     thanksMessage: 'Thank you! Your message has been sent.'
   },
+  coin: {
+    buyTabTitle: 'BUY COIN',
+    sellTabTitle: 'SELL COIN',
+    introText: 'Buy & Sell Crypto at best prices',
+    subIntroText: 'See how it works',
+    buy: {
+      orderSuccessMsg: 'Your order was created successfully!',
+      orderFailedMsg: 'Create order failed, please try again!',
+      userAddress: 'Address',
+      userPhone: 'Phone',
+      userNote: 'As soon as possible'
+    },
+    sell: {
+      prepareOrderFailed: 'Error while preparing to order, pls try again',
+      orderSuccessful: 'Your order was created successfully',
+      orderFailed: 'Error while making new order, pls try again',
+      bankName: 'Bank name',
+      accountNumber: 'Account number',
+      accountName: 'Account name',
+      phone: 'Phone number'
+    },
+    components: {
+      bankTransferInfo: {
+        noteTitle: 'IMPORTANT',
+        noteDesc: 'You must send the exact amount & reference code as instructed and upload the payment proof below so we can proceed sending coins to you.',
+        uploadBtn: 'Upload Your Receipt',
+        saveBtn: 'Save',
+        customerAmount: 'CUSTOMER AMOUNT',
+        yourAmount: 'YOUR AMOUNT',
+        accountName: 'ACCOUNT NAME',
+        accountNumber: 'ACCOUNT NUMBER',
+        bankName: 'BANK NAME',
+        bankId: 'BANK ID',
+        refCode: 'REFERENCE CODE',
+        nameCard: 'BANK TRANSFER INFO',
+        willExpiredIn: 'Will expired in',
+        expiredText: 'Expired'
+      },
+      paymentMethod: {
+        wireTransferName: 'Wire transfer',
+        codName: 'Cash on Delivery',
+        codInfo: 'State your time and place for meeting up and we will exchange in person.'
+      },
+      walletSelector: {
+        qrScannerText: 'Scan QR code or copy wallet address',
+        currency: 'Currency'
+      },
+      sellOrderInfo: {
+        transferCoinFirst: 'You have to transfer coin to this address first',
+        Receiving: 'Receiving',
+        Selling: 'Selling',
+        mainNote: 'NOTE: YOU HAVE TO CLICK "FINISH" TO COMPLETE THE TRANSACTION',
+        subNote: '(Transaction may be lost if you forget to complete this step)',
+        listNote: {
+          note1: 'Please transfer the exact number to the above address',
+          note2: 'The price of the crypto fluctuates constantly; therefore, we only keep this price for 5 minutes',
+          note3: 'We will transfer the fiat to you as soon as there is 1 confirmation on the network.'
+        },
+        cardName: 'ORDER INFO',
+        priceWillUpdateIn: 'Price will be updated after',
+        orderBtn: 'Place order'
+      },
+      pricePanel: {
+        buy: 'Buy',
+        sell: 'Sell',
+      },
+      exchange: {
+        amountLabel: 'Amount to {direction}',
+        currency: 'Currency',
+        fiatAmountLabel: 'How much do you want?'
+      }
+    }
+  },
+  userVerifyStatus: {
+    level1Pending: 'To start trading, please take a few minutes to verify your account. {verify}',
+    verifyBtn: 'Verify now'
+  }
 };
