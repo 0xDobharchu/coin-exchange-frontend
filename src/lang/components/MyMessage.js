@@ -7,7 +7,9 @@ class MyFormatMessage extends PureComponent {
     // eslint-disable-next-line
     return (
       <FormattedMessage {...this.props}>
-        {(text) => text}
+        {(...params) => {
+          return params?.map((param, index) => <React.Fragment key={index}>{param}</React.Fragment>) || null;
+        }}
       </FormattedMessage>
     );
   }
