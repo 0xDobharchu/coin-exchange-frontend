@@ -4,7 +4,7 @@ import { convertLongKeyValues } from '../lib';
 
 const messages = {
   en: convertLongKeyValues(en),
-  'zh-Hant-HK': Object.assign({}, en, i18n.zh_hk),
+  'zh-Hant-HK': Object.assign({}, en, i18n.zh),
 };
 
 export default messages;
