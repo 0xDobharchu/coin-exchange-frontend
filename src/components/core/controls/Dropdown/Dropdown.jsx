@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isEqual from '@/utils/isEqual';
+import isEqual from 'src/utils/isEqual';
 // component
 // style
 import cn from 'classnames';
-import ExpandArrowSVG from '@/assets/images/icon/expand-arrow.svg';
-import SEARCH_ICON_SVG from '@/assets/images/icon/ic_search.svg';
+import ExpandArrowSVG from 'src/assets/images/icon/expand-arrow.svg';
+import SEARCH_ICON_SVG from 'src/assets/images/icon/ic_search.svg';
 import style from './Dropdown.scss';
 
 class Dropdown extends React.PureComponent {

@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 
 import {injectIntl} from 'react-intl';
 import {Field, change, clearFields} from "redux-form";
-import {fieldDropdown, fieldInput} from '@/components/core/form/customField'
+import {fieldDropdown, fieldInput} from 'src/components/core/form/customField'
 import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
-import Button from '@/components/core/controls/Button';
+import Button from 'src/components/core/controls/Button';
 import { API_URL } from 'src/resources/constants/url';
 import { makeRequest } from 'src/redux/action';
-import {MasterWallet} from "@/services/Wallets/MasterWallet";
+import {MasterWallet} from "src/services/Wallets/MasterWallet";
 
 import { showAlert } from 'src/screens/app/redux/action';
-import { StringHelper } from '@/services/helper';
-import createForm from '@/components/core/form/createForm';
+import { StringHelper } from 'src/services/helper';
+import createForm from 'src/components/core/form/createForm';
 import style from './ReceiveCoin.scss';
-import ExpandArrowSVG from '@/assets/images/wallet/icons/expand-arrow-green.svg';
-import iconSwitch from '@/assets/images/wallet/icons/icon-switch.png';
+import ExpandArrowSVG from 'src/assets/images/wallet/icons/expand-arrow-green.svg';
+import iconSwitch from 'src/assets/images/wallet/icons/icon-switch.png';
 
 const QRCode = require('qrcode.react');
 
