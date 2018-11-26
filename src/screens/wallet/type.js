@@ -1,2 +1,2 @@
 const TAG = 'SCREENS/WALLET';
-export const GET_WALLET = `${TAG}/GET_WALLET`;
+export const WALLET = `${TAG}/WALLET`;

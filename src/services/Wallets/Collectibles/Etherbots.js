@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { Wallet } from '@/services/Wallets/Wallet.js';
-import { StringHelper } from '@/services/helper';
-import { Ethereum } from '@/services/Wallets/Ethereum.js';
-import { TokenERC721 } from '@/services/Wallets/Collectibles/TokenERC721';
+import { Wallet } from 'src/services/Wallets/Wallet.js';
+import { StringHelper } from 'src/services/helper';
+import { Ethereum } from 'src/services/Wallets/Ethereum.js';
+import { TokenERC721 } from 'src/services/Wallets/Collectibles/TokenERC721';
 
 const Web3 = require('web3');
 
@@ -11,7 +11,7 @@ const BigNumber = require('bignumber.js');
 
 const EthereumTx = require('ethereumjs-tx');
 
-const abi = require('@/contracts/Wallet/Etherbots.json');
+const abi = require('src/contracts/Wallet/Etherbots.json');
 
 export class Etherbots extends TokenERC721 {
   constructor() {

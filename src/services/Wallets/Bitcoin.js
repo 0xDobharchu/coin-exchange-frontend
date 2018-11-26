@@ -1,8 +1,8 @@
 import axios from 'axios';
 import satoshi from 'satoshi-bitcoin';
-import { StringHelper } from '@/services/helper';
-import { Wallet } from '@/services/Wallets/Wallet';
-// import { NB_BLOCKS } from '@/constants';
+import { StringHelper } from 'src/services/helper';
+import { Wallet } from 'src/services/Wallets/Wallet';
+// import { NB_BLOCKS } from 'src/constants';
 export const NB_BLOCKS = 20;
 import { set, getJSON } from 'js-cookie';
 
@@ -84,7 +84,7 @@ export class Bitcoin extends Wallet {
   checkAddressValid(toAddress) {
     this.getName();
     if (!bitcore.Address.isValid(toAddress)) {
-      return 'messages.bitcoin.error.invalid_address';
+      return 'bitcoin.error.invalid_address';
     }
     return true;
   }
@@ -93,7 +93,7 @@ export class Bitcoin extends Wallet {
   async transfer(toAddress, amountToSend, opt = {}) {
     try {
       if (!bitcore.Address.isValid(toAddress)) {
-        return { status: 0, message: 'messages.bitcoin.error.invalid_address2' };
+        return { status: 0, message: 'bitcoin.error.invalid_address2' };
       }
 
       const blocks = opt.blocks || NB_BLOCKS;
@@ -113,7 +113,7 @@ export class Bitcoin extends Wallet {
         '\n amountToSend:', amountToSend);
 
       if (!balance || balance === 0 || balance <= amountToSend) {
-        return { status: 0, message: 'messages.bitcoin.error.insufficient' };
+        return { status: 0, message: 'bitcoin.error.insufficient' };
       }
 
       // each BTC can be split into 100,000,000 units. Each unit of bitcoin, or 0.00000001 bitcoin, is called a satoshi
@@ -141,16 +141,16 @@ export class Bitcoin extends Wallet {
           const rawTx = transaction.serialize();
           const txHash = await this.sendRawTx(rawTx);
 
-          return { status: 1, message: 'messages.bitcoin.success.transaction', data: { hash: txHash.txid } };
+          return { status: 1, message: 'bitcoin.success.transaction', data: { hash: txHash.txid } };
         }
 
-        return { status: 0, message: 'messages.bitcoin.error.insufficient' };
+        return { status: 0, message: 'bitcoin.error.insufficient' };
       }
     } catch (error) {
       console.log('error', error);
-      return { status: 0, message: 'messages.bitcoin.error.insufficient' };
+      return { status: 0, message: 'bitcoin.error.insufficient' };
     }
-    return { status: 0, message: 'messages.bitcoin.error.insufficient' };
+    return { status: 0, message: 'bitcoin.error.insufficient' };
   }
 
   async retrieveUtxos() {

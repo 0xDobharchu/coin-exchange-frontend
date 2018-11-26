@@ -31,19 +31,20 @@ export const URL = {
 
 export const API_URL = {
   EXCHANGE: {
-    GET_FIAT_CURRENCY: 'exchange/info/crypto-price',
-    GET_CRYPTO_PRICE: 'exchange/info/instant-buy/price', // {path: '/info/instant-buy/price', method: 'get'},
-    CREATE_CC_ORDER: 'exchange/instant-buys', // {path: '/instant-buys', method: 'post'},
-    GET_USER_CC_LIMIT: 'exchange/user/profile/cc-limit', // {path: '/user/profile/cc-limit', method: 'get'},
-    GET_CC_LIMITS: 'exchange/info/cc-limits', // {path: '/info/cc-limits', method: 'get'},
-    GET_USER_PROFILE: 'exchange/user/profile', // {path: '/user/profile', method: 'get'},
-    GET_OFFER_PRICE: 'exchange/info/crypto-quote', // {path: '/info/instant-buy/price', method: 'get'},
-    GET_LIST_OFFER_PRICE: 'exchange/info/crypto-quotes', // {path: '/info/instant-buy/price', method: 'get'},
-    GET_LIST_OFFER_PRICE_CASH_ATM: 'exchange/cash/quotes', // {path: '/info/instant-buy/price', method: 'get'},
-    GET_USER_TRANSACTION: 'exchange/user/transactions', // {path: '/user/transactions', method: 'get'},
-    OFFERS: 'exchange/offers',
-    SHAKE: 'shake',
-    WITHDRAW: 'withdraw',
+    // GET_FIAT_CURRENCY: '/exchange/info/crypto-price',
+    GET_FIAT_CURRENCY: 'exchange/quote',
+    GET_CRYPTO_PRICE: '/exchange/info/instant-buy/price', // {path: '/info/instant-buy/price', method: 'get'},
+    CREATE_CC_ORDER: '/exchange/instant-buys', // {path: '/instant-buys', method: 'post'},
+    GET_USER_CC_LIMIT: '/exchange/user/profile/cc-limit', // {path: '/user/profile/cc-limit', method: 'get'},
+    GET_CC_LIMITS: '/exchange/info/cc-limits', // {path: '/info/cc-limits', method: 'get'},
+    GET_USER_PROFILE: '/exchange/user/profile', // {path: '/user/profile', method: 'get'},
+    GET_OFFER_PRICE: '/exchange/info/crypto-quote', // {path: '/info/instant-buy/price', method: 'get'},
+    GET_LIST_OFFER_PRICE: '/exchange/info/crypto-quotes', // {path: '/info/instant-buy/price', method: 'get'},
+    GET_LIST_OFFER_PRICE_CASH_ATM: '/exchange/cash/quotes', // {path: '/info/instant-buy/price', method: 'get'},
+    GET_USER_TRANSACTION: '/exchange/user/transactions', // {path: '/user/transactions', method: 'get'},
+    OFFERS: '/exchange/offers',
+    SHAKE: '/shake',
+    WITHDRAW: '/withdraw',
     IP_DOMAIN: 'https://ipfind.co/me',
 
     // Store
@@ -87,9 +88,11 @@ export const API_URL = {
   SYSTEM: {
     COUNTRY : '/system/country-default-configs/', // GET /system/country-default-configs/
     GET_COUNTRY_CURRENCY: '/system/country-currencies/', // GET /system/country-currencies/?country=
-    GET_BANK_INFO: '/system/banks/' // GET system/banks/?currency=&country=
+    GET_BANK_INFO: '/system/banks/', // GET system/banks/?currency=&country=    
+    SUBMIT_CONTACT: '/system/contacts/', 
   },
   LANDING: {
+    ABOUT: '/content/about-us/en/', 
     FAQ: 'content/faq/',
   },
   COIN: {
