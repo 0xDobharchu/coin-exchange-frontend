@@ -41,6 +41,7 @@ export default (state = mockState, { type, payload }) => {
         ...state,
         ...payload
       };
+    case 'SCREENS/LOGIN/PROFILE_SUCCESS':
     case 'UPDATE_PROFILE_INFO':
       return {
         ...state,

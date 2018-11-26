@@ -2,7 +2,7 @@
 import SystemConfigModel from 'src/models/system';
 import APP_TYPE from './type';
 
-// import local from '@/services/localStore';
+// import local from 'src/services/localStore';
 
 const {
   HEADER_TITLE_SET,
@@ -12,10 +12,16 @@ const {
   HEADER_DEFAULT,
   UPDATE_APP_STATE,
   SET_LANGUAGE,
+  HIDE_CONFIRM,
+  SHOW_CONFIRM,
   SHOW_SCAN_QRCODE,
   HIDE_SCAN_QRCODE,
   GET_SUPPORT_COUNTRY,
   GET_COUNTRY_CURRENCY,
+  SHOW_QRCODE_CONTENT,
+  HIDE_QRCODE_CONTENT,
+  SHOW_REQUIRE_PASSWORD,
+  HIDE_REQUIRE_PASSWORD
 } = APP_TYPE;
 
 const initState = {
@@ -75,6 +81,36 @@ const initState = {
 
 export default (state = initState, action) => {
   switch (action.type) {
+    case SHOW_CONFIRM:
+      return {
+        ...state,
+        passcodeData: action.payload,
+      };
+    case HIDE_CONFIRM:
+      return {
+        ...state,
+        passcodeData: action.payload,
+      };
+    case SHOW_QRCODE_CONTENT:
+      return {
+        ...state,
+        qRCodeContentData: action.payload,
+      };
+    case HIDE_QRCODE_CONTENT:
+      return {
+        ...state,
+        qRCodeContentData: action.payload,
+      };
+    case SHOW_REQUIRE_PASSWORD:
+      return {
+        ...state,
+        passwordData: action.payload,
+      };
+    case HIDE_REQUIRE_PASSWORD:
+      return {
+        ...state,
+        passwordData: action.payload,
+      };
     case HEADER_TITLE_SET:
       return {
         ...state,

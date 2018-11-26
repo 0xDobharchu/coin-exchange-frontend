@@ -8,6 +8,7 @@ import { Row, Col } from 'react-bootstrap';
 import ChangePassword from './ChangePassword';
 import ChangeNameForm from './Form/ChangeNameForm';
 import PersonalDetailForm from './Form/PersonalDetailForm';
+import Referral from './Referral';
 import style from './style.scss';
 
 // eslint-disable-next-line
@@ -41,6 +42,10 @@ const AccountInfo = ({ updateProfileAction, showAlert }) => {
           <PersonalDetailForm onSubmit={handleUpdateNickname} />
         </Col>
       </Row>
+      <label className={style.title}>Referral</label>
+      <div className={style.lineTitle} />
+      <label>Your referral link: <a href="http://coinbown.com/referral">here</a></label>
+      <Referral />
     </div>
   );
 };

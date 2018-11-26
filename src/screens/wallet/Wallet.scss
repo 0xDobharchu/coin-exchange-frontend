@@ -58,7 +58,7 @@
   cursor: pointer;
   text-transform: uppercase;
   float: left;
-  margin-right: 15px;
+  // margin-right: 15px;
   img{
     width: 20px;
     opacity: .7;
@@ -158,7 +158,7 @@
     color: #fff;
     margin: auto;
     font-weight: 600;
-    font-size: 14px;    
+    font-size: 18px;    
     letter-spacing: 0;    
   }
 
@@ -172,6 +172,8 @@
     border-width: 2px;
     border-style: solid;
     border-radius: 10px;
+    border-width: 0;
+    border-bottom-width: 2px;
   }
 
 .addressDivPopup{
@@ -384,6 +386,7 @@
   .msg3 span{
     font-size: 16px;
     line-height: 25px;
+    top: 5px;
   }
 
   .cursor-initial{cursor: initial !important;}
@@ -436,12 +439,13 @@
   padding: 20px 10px !important;
 }
 .button-wallet{
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  left: 0;
-  border-radius: 0;
-  padding: 0.9625rem 0;
+  // position: fixed;
+  // bottom: 0;
+  // width: 100%;
+  // left: 0;
+  // border-radius: 0;
+  // padding: 0.9625rem 0;
+  margin-top: 20px;
 }
 
 .div-address-qr-code{
@@ -481,16 +485,7 @@
   font-weight: 300;
 
   .history-content{
-    margin-top: 15px;
-    .rmc-tabs-tab-bar-tab{
-      font-size: 16px;
-      color: Gray;
-      margin-bottom: 10px;
-    }
-
-    .rmc-tabs-tab-bar-tab-active{
-      color:#108ee9;
-    }
+    margin-top: 15px;    
   }
 
   ul.history-tab {
@@ -541,7 +536,7 @@
       100% { transform: rotate(360deg); }
   }
   .icon-loading-history{
-    width: 50px;
+    width: 100%;
   }
   .wallet-detail{
     text-align: center;
@@ -874,9 +869,9 @@
     .feed {
       margin-bottom: 7px;
       padding: 0.625rem 0.3125rem 0.625rem 0.9375rem;
-      min-height: 120px;
+      // min-height: 120px;
       position: relative;
-      border-radius: 6px;
+      border-radius: 10px;
       background-size: cover;
     }
     .name{

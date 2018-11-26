@@ -1,8 +1,8 @@
 
 
-// import { Ethereum } from '@/services/Wallets/Ethereum.js';
+// import { Ethereum } from 'src/services/Wallets/Ethereum.js';
 
-const Ethereum = require('@/services/Wallets/Ethereum.js');
+const Ethereum = require('src/services/Wallets/Ethereum.js');
 
 const eth = new Ethereum();
 eth.network = 'https://rinkeby.infura.io/';

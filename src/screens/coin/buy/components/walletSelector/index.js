@@ -68,7 +68,7 @@ class WalletSelector extends Component {
               size={20}
               onClick={() => {
                 showQrCode({
-                  onData: this.onChangeAddress
+                  onData: this.onChangeAddress,
                 });
               }}
             />

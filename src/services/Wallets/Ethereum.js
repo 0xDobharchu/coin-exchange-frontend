@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { Wallet } from '@/services/Wallets/Wallet';
-import configs from '@/configs';
-import { StringHelper } from '@/services/helper';
+import { Wallet } from 'src/services/Wallets/Wallet';
+import configs from 'src/configs';
+import { StringHelper } from 'src/services/helper';
 import Tx from 'ethereumjs-tx';
 import { set, getJSON } from 'js-cookie';
 
@@ -207,7 +207,7 @@ export class Ethereum extends Wallet {
     const web3 = this.getWeb3();
 
     if (!web3.utils.isAddress(toAddress)) {
-      return 'messages.ethereum.error.invalid_address';
+      return 'ethereum.error.invalid_address';
     }
     return true;
   }
@@ -224,15 +224,14 @@ export class Ethereum extends Wallet {
 
     const web3 = this.getWeb3();
     if (!web3.utils.isAddress(toAddress)) {
-      return { status: 0, message: 'messages.ethereum.error.invalid_address2' };
+      return { status: 0, message: 'ethereum.error.invalid_address2' };
     }
-
     try {
       let balance = await web3.eth.getBalance(this.address);
       balance = await web3.utils.fromWei(balance.toString());
 
       if (balance == 0 || balance <= amountToSend) {
-        return { status: 0, message: 'messages.ethereum.error.insufficient' };
+        return { status: 0, message: 'ethereum.error.insufficient' };
       }
 
       if (!fee) {
@@ -260,7 +259,7 @@ export class Ethereum extends Wallet {
         '\n amountToSend=', amountToSend);
 
       if (totalAmountFee > Number(balance)) {
-        return { status: 0, message: 'messages.ethereum.error.insufficient_gas' };
+        return { status: 0, message: 'ethereum.error.insufficient_gas' };
       }
 
       return this.getNonce(this.address).then((_nonce) => {
@@ -290,7 +289,7 @@ export class Ethereum extends Wallet {
               console.log('hash->', hash);
               resolve({
                 status: 1,
-                message: 'messages.ethereum.success.transaction',
+                message: 'ethereum.success.transaction',
                 data: { hash }
               });
             })
@@ -302,11 +301,11 @@ export class Ethereum extends Wallet {
       })
         .catch((error) => {
           console.log('error', error);
-          return { status: 0, message: 'messages.ethereum.error.insufficient' };
+          return { status: 0, message: 'ethereum.error.insufficient' };
         });
     } catch (error) {
       console.log('error', error);
-      return { status: 0, message: 'messages.ethereum.error.insufficient' };
+      return { status: 0, message: 'ethereum.error.insufficient' };
     }
   }
 
