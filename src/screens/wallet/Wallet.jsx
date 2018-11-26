@@ -63,7 +63,7 @@ import customRightIcon from '@/assets/images/wallet/icons/icon-options.svg';
 import floatButtonScanQRCode from '@/assets/images/wallet/icons/float-button-scan.svg';
 
 import WalletPreferences from '@/components/wallet/WalletPreferences';
-import { requestWalletPasscode, showQRCodeContent, showRequirePasword  } from '@/screens/app/redux/action';
+import { requestWalletPasscode, showQRCodeContent, showRequirePassword  } from '@/screens/app/redux/action';
 import QRCodeContent from '@/components/wallet/QRCodeContent';
 // import RemindPayment from '@/components/Payment/Remind';
 import { ICON } from '@/components/wallet/images';
@@ -153,7 +153,8 @@ class Wallet extends React.Component {
       modalRemindCheckout: '',
       backupWalletContent: "",
       exportPrivateContent: "",
-      restoreWalletContent: "",      
+      restoreWalletContent: "",  
+      userPassword: '',    
 
       // sortable:
       listSortable: {coin: false, token: false, collectitble: false},
@@ -603,46 +604,95 @@ class Wallet extends React.Component {
     this.setState({ isNewCCOpen: !this.state.isNewCCOpen });
   }  
 
-  onWarningClick = (wallet) => {
-    // if (!wallet.protected) {
-      this.props.requestWalletPasscode({
-        onSuccess: () => {
-          this.setState({ walletSelected: wallet,
-            modalSecure: <WalletProtect onCopy={this.onCopyProtected}
-              step={1}
-              wallet={wallet}
-              callbackSuccess={() => { this.successWalletProtect(wallet); }}
-              />
-            }, ()=> {
-              this.modalProtectRef.open();
-            }
-          );
+  onWarningClick=(wallet)=>{
+
+    // todo: decryp wallet:  
+    if (this.state.userPassword === ''){
+      this.props.showRequirePassword({
+        onFinish: (userPassword) => {
+          this.setState({userPassword: userPassword}, ()=> {
+            this.protectedWallet(wallet);
+          });
         }
-      })
+      });
+    }
+    else{
+      this.protectedWallet(wallet);
+    }  
+  }
+
+  protectedWallet = (wallet) => {
+    // if (!wallet.protected) {
+      const { messages } = this.props.intl;
+      const walletEncrypt = this.state.walletSelected.descryp(this.state.userPassword);
+      if (walletEncrypt === false){
+        this.showError(messages['requirePassword.passNotMatch']);
+        this.setState({isRestoreLoading: false, userPassword: ''}, ()=>{      
+          this.onWarningClick();
+        });
+        return;
+      }  
+      
+      this.setState({ walletSelected: wallet,
+        modalSecure: <WalletProtect onCopy={this.onCopyProtected}
+          step={1}
+          wallet={walletEncrypt}
+          callbackSuccess={() => { this.successWalletProtect(wallet); }}
+          />
+        }, ()=> {
+          this.modalProtectRef.open();
+        }
+      );
+       
 
     // } else {
 
     // }
   }
-  onExportPrivateKeyClick = (wallet) => {
+
+  // export wallet key ----------------------------------:
+  onExportPrivateKeyClick=(wallet)=>{
+
+    // todo: decryp wallet:  
+    if (this.state.userPassword === ''){
+      this.props.showRequirePassword({
+        onFinish: (userPassword) => {
+          this.setState({userPassword: userPassword}, ()=> {
+            this.exportPrivateKey(wallet);
+          });
+        }
+      });
+    }
+    else{
+      this.exportPrivateKey(wallet);
+    }  
+  }
+  exportPrivateKey = (wallet) => {
     const { messages } = this.props.intl;
 
-    this.props.requestWalletPasscode({
-      onSuccess: () => {
-        this.setState({
-          exportPrivateContent: (
-              <div className={style.exportPrivateKey}>
-                <div className={style.exTitle}>{messages['wallet.action.export_private_key.title']}</div>
-                <QRCode size={230} value={this.state.walletSelected.privateKey} onClick={() => { Clipboard.copy(this.state.walletSelected.privateKey); this.showToast(messages['wallet.action.copy.success']);}} />
-                <div className={style.exDesc}>{messages['wallet.action.export_private_key.desc']} </div>
-                <Button onClick={()=> {Clipboard.copy(this.state.walletSelected.privateKey); this.showToast(messages['wallet.action.copy.success']);}}>Copy</Button>
-              </div>
-          )
-        }, ()=>{
-          this.modalExportPrivateKeyRef.open();
-        })
-      }
+    const walletEncrypt = this.state.walletSelected.descryp(this.state.userPassword);    
+
+    if (walletEncrypt === false){
+      this.showError(messages['requirePassword.passNotMatch']);
+      this.setState({isRestoreLoading: false, userPassword: ''}, ()=>{      
+        this.onExportPrivateKeyClick();
+      });
+      return;
+    }  
+  
+    this.setState({
+      exportPrivateContent: (
+          <div className={style.exportPrivateKey}>
+            <div className={style.exTitle}>{messages['wallet.action.export_private_key.title']}</div>
+            <QRCode size={230} value={walletEncrypt.privateKey} onClick={() => { Clipboard.copy(this.state.walletSelected.privateKey); this.showToast(messages['wallet.action.copy.success']);}} />
+            <div className={style.exDesc}>{messages['wallet.action.export_private_key.desc']} </div>
+            <Button onClick={()=> {Clipboard.copy(walletEncrypt.privateKey); this.showToast(messages['wallet.action.copy.success']);}}>Copy</Button>
+          </div>
+      )
+    }, ()=>{
+      this.modalExportPrivateKeyRef.open();
     })
+    
   }
   onCloseExportPrivateKey =()=>{
     this.setState({exportPrivateContent: ''});
@@ -1071,7 +1121,8 @@ const mapDispatch = ({
   clearFields,
   hideHeader,
   requestWalletPasscode,  
-  showQRCodeContent
+  showQRCodeContent,
+  showRequirePassword,
 });
 
 
