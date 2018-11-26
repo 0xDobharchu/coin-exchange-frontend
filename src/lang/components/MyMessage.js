@@ -5,7 +5,11 @@ import { FormattedMessage } from 'react-intl';
 class MyFormatMessage extends PureComponent {
   render() {
     // eslint-disable-next-line
-    return (<FormattedMessage {...this.props} />);
+    return (
+      <FormattedMessage {...this.props}>
+        {(text) => text}
+      </FormattedMessage>
+    );
   }
 }
 
