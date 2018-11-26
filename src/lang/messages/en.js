@@ -348,7 +348,8 @@ export default {
       requiredPassword: 'Please enter your password',
       notValidUsername: 'Invalid email address',
       requiredUsername: 'Please enter your email',
-      loginFailure: 'Username and password not match.'
+      loginFailure: 'Username and password not match.',
+      warningVerify: 'To start trading, please take a few minutes to verify your account. {action}'
     },
     forgetPassword: {
       title: 'Forgot your password?',
@@ -393,7 +394,7 @@ export default {
       requiredAgreement: 'Please indicate that you have read and agree to the User Agreement and Privacy Policy',
       registerButton: 'Create account',
       loginButton: 'Already have an account?',
-      registerSuccessfully: 'Your account registered successfully',
+      registerSuccessfully: 'You have registered successfully. Don’t forget to verify your email later.',
     }
   },
   landingPage: {
