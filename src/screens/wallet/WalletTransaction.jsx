@@ -177,7 +177,7 @@ class WalletTransaction extends React.Component {
 
     return detail ?
     (
-      <div className={style.transactionDetailWwrapper} >
+      <div className={style['transaction-detail-wrapper']} >
         <div className={style.col1}><img className={style.iconDollar} src={icon} /></div>
         <div className={style.col2}>
           {detail.header.value} {detail.header.coin}<br />
