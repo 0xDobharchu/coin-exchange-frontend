@@ -1,7 +1,5 @@
 import React from 'react';
-import LabelLang from 'src/lang/components/LabelLang';
 import Collapse from 'src/components/collapse';
-import styles from './styles.scss';
 
 class Faq extends React.PureComponent {
   componentDidMount() {
@@ -20,9 +18,6 @@ class Faq extends React.PureComponent {
         { faq && (
           <div className="row mt-5" id="faq" ref={(c) => { this.faq = c; }}>
             <div className="col">
-              <div className={styles.pdFaq}>
-                <LabelLang id="COIN_EXCHANGE_LP_FAQ_TITLE" />
-              </div>
               <div>
                 {faq.map((item) => {
                   const { question, answer, order } = item;
