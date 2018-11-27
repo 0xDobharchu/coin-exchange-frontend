@@ -4,6 +4,7 @@ import { coinGetSellPrice, coinGetBuyPrice } from 'src/screens/coin/action';
 import { connect } from 'react-redux';
 import { formatMoneyByLocale } from 'src/utils/format/curency';
 import { injectIntl } from 'react-intl';
+import { EXCHANGE_ACTION } from 'src/resources/constants/exchange';
 import styles from './styles.scss';
 import { ORDER_TYPE } from '../../../constant';
 import CryptoGraph from '@/screens/coin/components/pricePanel/cryptoGraph';
@@ -50,6 +51,7 @@ class CryptoPrice extends Component {
       fiat_currency: currencyByLocal,
       type: ORDER_TYPE.bank,
       level: 1,
+      direction: EXCHANGE_ACTION.BUY
     }});
     this.props.coinGetSellPrice({params: {
       currency: crypto?.id,
@@ -57,6 +59,7 @@ class CryptoPrice extends Component {
       fiat_currency: currencyByLocal,
       type: ORDER_TYPE.bank,
       level: 1,
+      direction: EXCHANGE_ACTION.SELL
     }});
   }
 
