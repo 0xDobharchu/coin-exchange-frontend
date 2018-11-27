@@ -18,7 +18,8 @@ const mockState = {
     selfie_image: '',
     verification_level: '',
     verification_status: '',
-    wallet: ''
+    wallet: '',
+    security_2fa: false,
   },
   history: {
     transactions: [],
