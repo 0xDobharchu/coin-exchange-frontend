@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { InputGroup, Container, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
+import CurrencyInput from 'src/components/currencyInput';
 import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
 import { FIAT_CURRENCY } from 'src/resources/constants/fiat';
 import { FaArrowsAltH } from 'react-icons/fa';
-import Input from 'src/components/core/controls/input';
 import cx from 'classnames';
 import { connect } from 'react-redux';
 import MyMessage from 'src/lang/components/MyMessage';
@@ -84,8 +84,7 @@ class Exchange extends Component {
 
   onSelectFiatCurrency = (fiatCurrency) => this.setState({ fiatCurrency });
 
-  onChange = (field, e) => {
-    const value = e?.target?.value;
+  onChange = (field, value) => {
     const state = {};
     if (field === 'amount') {
       state.fiatAmount = 0;
@@ -198,7 +197,7 @@ class Exchange extends Component {
         <Row noGutters>
           <Col sm={5}>
             <InputGroup>
-              <Input
+              <CurrencyInput
                 onFocus={() => onFocus()}
                 label={<MyMessage id={getIntlKey('amountLabel')} values={{ direction }} />}
                 placeholder="0.0"
@@ -207,6 +206,7 @@ class Exchange extends Component {
                 containerClassname={styles.inputWrapper}
                 className={markRequired && !amount ? 'border-danger' : ''}
                 onChange={this.onChange.bind(this, 'amount')}
+                currency={currency}
               />
               <InputGroup.Prepend className={styles.prepend}>
                 <DropdownButton
@@ -226,7 +226,7 @@ class Exchange extends Component {
           </Col>
           <Col sm={5}>
             <InputGroup>
-              <Input
+              <CurrencyInput
                 label={<MyMessage id={getIntlKey('fiatAmountLabel')} />}
                 placeholder="0.0"
                 value={fiatAmount}
@@ -235,6 +235,7 @@ class Exchange extends Component {
                 containerClassname={styles.inputWrapper}
                 className={markRequired && !fiatAmount ? 'border-danger' : ''}
                 onChange={this.onChange.bind(this, 'fiatAmount')}
+                currency={fiatCurrency}
               />
               <InputGroup.Prepend className={styles.prepend}>
                 <DropdownButton
