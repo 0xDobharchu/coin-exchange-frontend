@@ -11,7 +11,7 @@ const SelfieBlock = ({ style, level, levelStatus, showAlert, submitVerifyLevel4A
   const handleSubmitForm = values => {
     submitVerifyLevel4Action(values);
     showAlert({
-      message: 'Your request upto level 4 is sent',
+      message: 'me.accountLevel.alert.lv4',
       timeOut: 3000,
       type: 'success'
     });

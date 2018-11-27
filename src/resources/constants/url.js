@@ -16,6 +16,7 @@ export const URL = {
   FAQ_URL: '/faq',
   SELL_COIN_URL: '/sell-coin/',
 
+  AGREEMENT: '/agreement-privacy',
   USER_SIGN_IN: '/sign-in',
   USER_SIGN_UP: '/sign-up',
   USER_FORGET_PASSWORD: '/forget-password',
@@ -26,7 +27,7 @@ export const URL = {
   COIN: '/coin',
   CONTACT: '/contact-us',
   WALLET: '/wallet',
-  ME: '/me'
+  ME: '/me',
 };
 
 export const API_URL = {
@@ -90,10 +91,12 @@ export const API_URL = {
     GET_COUNTRY_CURRENCY: '/system/country-currencies/', // GET /system/country-currencies/?country=
     GET_BANK_INFO: '/system/banks/', // GET system/banks/?currency=&country=
     SUBMIT_CONTACT: '/system/contacts/',
+    GET_LANGUAGES: '/system/languages/',
   },
   LANDING: {
+    STATIC_PAGE: '/content/static-page/',
     ABOUT: '/content/about-us/en/',
-    FAQ: 'content/faq/',
+    FAQ: '/content/faq/',
   },
   COIN: {
     // GET /exchange/quote/?amount=&currency=&fiat_currency=&check=[1,0]&user_check=[1,0]&direction=[buy,sell]

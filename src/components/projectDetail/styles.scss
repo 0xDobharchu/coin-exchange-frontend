@@ -1,9 +1,10 @@
 @import 'src/assets/styles/style.scss';
 
 .project-detail {
-  font-family: azo-sans-web, sans-serif;
+  //font-family: azo-sans-web, sans-serif;
   font-weight: 400;
   background: white;
+  border-radius: 6px 6px 6px 6px;
   .emailField {
     position: relative;
     width: rem-calc(300px);

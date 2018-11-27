@@ -21,7 +21,8 @@ const {
   SHOW_QRCODE_CONTENT,
   HIDE_QRCODE_CONTENT,
   SHOW_REQUIRE_PASSWORD,
-  HIDE_REQUIRE_PASSWORD
+  HIDE_REQUIRE_PASSWORD,
+  GET_SUPPORT_LANGUAGES
 } = APP_TYPE;
 
 const initState = {
@@ -147,12 +148,12 @@ export default (state = initState, action) => {
         locale: action.payload,
       };
     }
-    case SHOW_SCAN_QRCODE: 
+    case SHOW_SCAN_QRCODE:
       return {
         ...state,
         openQrScanner: true
       };
-    case HIDE_SCAN_QRCODE: 
+    case HIDE_SCAN_QRCODE:
       return {
         ...state,
         openQrScanner: false
@@ -167,6 +168,11 @@ export default (state = initState, action) => {
         ...state,
         supportedCurrency: action?.data?.map(c => c?.currency) || [],
         userCountry: action?.more?.country
+      };
+    case `${GET_SUPPORT_LANGUAGES}_SUCCESS`:
+      return {
+        ...state,
+        supportedLanguages: action?.data || {}
       };
     default:
       return state;

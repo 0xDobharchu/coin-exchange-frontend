@@ -27,10 +27,9 @@ class IDCardBlock extends React.PureComponent {
   handleSubmitForm = values => {
     // eslint-disable-next-line
     const { showAlert, submitVerifyLevel3Action } = this.props;
-    console.log('values is', values);
     submitVerifyLevel3Action(values);
     showAlert({
-      message: 'Your request upto level 3 is sent',
+      message: 'me.accountLevel.alert.lv3',
       timeOut: 3000,
       type: 'success'
     });

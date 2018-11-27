@@ -2,7 +2,9 @@ import React from 'react';
 import ProjectDetail from 'src/components/projectDetail';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import MyMessage from 'src/lang/components/MyMessage';
 import { getFaqContent } from './redux/action';
+import styles from './styles.scss';
 
 class CoinBowlFAQ extends React.PureComponent {
   constructor(props) {
@@ -35,6 +37,9 @@ class CoinBowlFAQ extends React.PureComponent {
 
     return (
       <React.Fragment>
+        <h5 className={styles.pdFaq}>
+          <MyMessage id="COIN_EXCHANGE_LP_FAQ_TITLE" />
+        </h5>
         <ProjectDetail type="landing" name="coin" faqContent={faqContent} />
       </React.Fragment>
     );
