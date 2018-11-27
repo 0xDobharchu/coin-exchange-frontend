@@ -31,7 +31,6 @@ const PhoneForm = ({ handleSubmit, onSubmit, level, levelStatus }) => (
     </Row>
   </div>
 );
-
 const mapState = state => ({
   initialValues: {
     phone: state.auth.profile.phone_number,
