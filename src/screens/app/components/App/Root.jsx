@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import qs from 'querystring';
-import { initApp, getCountryCurrency, getSupportCountry } from 'src/screens/app/redux/action';
+import { initApp, getCountryCurrency, getSupportCountry, getSupportLanguages } from 'src/screens/app/redux/action';
 // import I18n from 'src/components/App/I18n';
 import IntlCustomProvider from 'src/lang';
 // import Handle from './Handle';
@@ -31,6 +31,7 @@ class Root extends React.Component {
     // eslint-disable-next-line
     this.props.initApp(language, ref);
     this.props.getSupportCountry();
+    this.props.getSupportLanguages();
   }
 
   render() {
@@ -49,4 +50,4 @@ export default connect(state => ({
   app: state.app,
   ipInfo: state.app.ipInfo,
   router: state.router,
-}), { initApp, getCountryCurrency, getSupportCountry })(Root);
+}), { initApp, getCountryCurrency, getSupportCountry, getSupportLanguages })(Root);
