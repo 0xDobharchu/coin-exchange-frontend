@@ -91,6 +91,7 @@ export const API_URL = {
     GET_COUNTRY_CURRENCY: '/system/country-currencies/', // GET /system/country-currencies/?country=
     GET_BANK_INFO: '/system/banks/', // GET system/banks/?currency=&country=
     SUBMIT_CONTACT: '/system/contacts/',
+    GET_LANGUAGES: '/system/languages/',
   },
   LANDING: {
     STATIC_PAGE: '/content/static-page/',
