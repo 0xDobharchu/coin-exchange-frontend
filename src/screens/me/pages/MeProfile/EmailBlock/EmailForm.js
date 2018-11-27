@@ -26,7 +26,6 @@ const EmailForm = ({ handleSubmit, onSubmit,level, levelStatus  }) => (
   </div>
 );
 
-
 const mapState = state => ({
   initialValues: {
     email: state.auth.profile.email
