@@ -27,6 +27,56 @@ export default {
     mustBeAPositiveInteger: 'Must be a integer number greater or equal 0',
   },
   me: {
+    accountInfo: {
+      email: 'Email',
+      nickname: 'Nickname',
+      nickname_note: 'This name will be shown in your preview',
+      oldPassword: 'Old Password',
+      newPassword: 'New Password',
+      changePassword: 'Change Password',
+      firstName: 'First Name',
+      lastName: 'Last Name',
+      legalName: 'Legal Name',
+      country: 'Country',
+      save: 'Save',
+      userProfile: 'User Profile',
+      personalDetails: 'Personal Details',
+      personalDetailsDesc: 'Your personal information is never shown to other users',
+      referralTitle: 'Refferal',
+      referralLink: 'Your Referral Link Here: @',
+      referral: {
+        name: 'Name',
+        status: 'Status',
+        date: 'Date'
+      },
+      alert: {
+        passwordSuccess: 'Update Password successfully1',
+        passwordFailed: 'Update Password Failed2',
+        success: 'Success',
+        failed: 'Failed',
+      }
+    },
+    setting: {
+
+    },
+    history: {
+      title: 'Transaction History',
+      date: 'Date',
+      type: 'Type',
+      amount: 'Amount',
+    },
+    accountLevel: {
+      backPhoto: 'Back Photo',
+      frontPhoto: 'Front Photo',
+      selfiePhoto: 'Your Selfie Photo',
+      alert: {
+        lv2: 'Congratulation! Your level is upto level 2',
+        lv3: 'Your request upto level 3 is sent',
+        lv4: 'Your request upto level 4 is sent',
+        invalidPhone: 'Invalid Phone',
+        sendPhoneCodeSuccess: 'Verify code was sent successful to your phone'
+      }
+    },
     profile: {
       head_text: 'Our verification process typically takes just a few minutes. This may take slightly longer outside business hours. Your information will remain 100% private.',
       username: {
