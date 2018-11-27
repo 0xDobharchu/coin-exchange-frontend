@@ -35,18 +35,27 @@ class AgreementPrivacy extends React.Component {
     const { userAgreementContent, privacyContent } = this.props;
     return (
       <div>
-        <h5 className={styles.pdFaq}>
-          <MyMessage id="static_page.userAgreement" />
-        </h5>
-        <div className={styles.contactWrap + ' ' + 'row justify-content-md-center'}>
-          <div dangerouslySetInnerHTML={{ __html: userAgreementContent }} />
+        {userAgreementContent && (
+        <div>
+          <h5 className={styles.pdFaq}>
+            <MyMessage id="static_page.userAgreement" />
+          </h5>
+          <div className="container">
+            <div className={styles.contactWrap} dangerouslySetInnerHTML={{ __html: userAgreementContent }} />
+          </div>
         </div>
-        <h5 className={styles.pdFaq}>
-          <MyMessage id="static_page.privacyPolicy" />
-        </h5>
-        <div className={styles.contactWrap + ' ' + 'row justify-content-md-center'}>
-          <div dangerouslySetInnerHTML={{ __html: privacyContent }} />
+        )}
+
+        {privacyContent && (
+        <div>
+          <h5 className={styles.pdFaq}>
+            <MyMessage id="static_page.privacyPolicy" />
+          </h5>
+          <div className="container">
+            <div className={styles.contactWrap} dangerouslySetInnerHTML={{ __html: privacyContent }} />
+          </div>
         </div>
+        )}
       </div>
     );
   }
