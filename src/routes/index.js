@@ -10,10 +10,10 @@ import Localization from 'src/screens/localization';
 import Me from 'src/screens/me/pages/Me';
 import Wallet from 'src/screens/wallet';
 import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
+import AgreementPrivacy from 'src/screens/agreementPrivacy';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
 import privateRoute from './privateRoute';
-
 
 /**
  * {
@@ -82,6 +82,11 @@ const routes = [
     component: Wallet,
     exact: true,
     auth: true
+  },
+  {
+    path: URL.AGREEMENT_PRIVACY,
+    component: AgreementPrivacy,
+    exact: true,
   }
 ];
 

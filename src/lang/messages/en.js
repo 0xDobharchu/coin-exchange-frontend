@@ -1,4 +1,3 @@
-
 export default {
   appTitle: 'Here is the title lang en',
   helloWorld: 'Hello World',
@@ -27,6 +26,56 @@ export default {
     mustBeAPositiveInteger: 'Must be a integer number greater or equal 0',
   },
   me: {
+    accountInfo: {
+      email: 'Email',
+      nickname: 'Nickname',
+      nickname_note: 'This name will be shown in your preview',
+      oldPassword: 'Old Password',
+      newPassword: 'New Password',
+      changePassword: 'Change Password',
+      firstName: 'First Name',
+      lastName: 'Last Name',
+      legalName: 'Legal Name',
+      country: 'Country',
+      save: 'Save',
+      userProfile: 'User Profile',
+      personalDetails: 'Personal Details',
+      personalDetailsDesc: 'Your personal information is never shown to other users',
+      referralTitle: 'Refferal',
+      referralLink: 'Your Referral Link Here: @',
+      referral: {
+        name: 'Name',
+        status: 'Status',
+        date: 'Date'
+      },
+      alert: {
+        passwordSuccess: 'Update Password successfully1',
+        passwordFailed: 'Update Password Failed2',
+        success: 'Success',
+        failed: 'Failed',
+      }
+    },
+    setting: {
+
+    },
+    history: {
+      title: 'Transaction History',
+      date: 'Date',
+      type: 'Type',
+      amount: 'Amount',
+    },
+    accountLevel: {
+      backPhoto: 'Back Photo',
+      frontPhoto: 'Front Photo',
+      selfiePhoto: 'Your Selfie Photo',
+      alert: {
+        lv2: 'Congratulation! Your level is upto level 2',
+        lv3: 'Your request upto level 3 is sent',
+        lv4: 'Your request upto level 4 is sent',
+        invalidPhone: 'Invalid Phone',
+        sendPhoneCodeSuccess: 'Verify code was sent successful to your phone'
+      }
+    },
     profile: {
       head_text: 'Our verification process typically takes just a few minutes. This may take slightly longer outside business hours. Your information will remain 100% private.',
       username: {
@@ -351,7 +400,8 @@ export default {
       notValidUsername: 'Invalid email address',
       requiredUsername: 'Please enter your email',
       loginFailure: 'Username and password not match.',
-      warningVerify: 'To start trading, please take a few minutes to verify your account. {action}'
+      warningVerify: 'To start trading, please take a few minutes to verify your account. {action}',
+      warningVerifyNow: 'Verify now'
     },
     forgetPassword: {
       title: 'Forgot your password?',
@@ -376,8 +426,11 @@ export default {
       requiredFirstName: 'First name is required',
       placeholderFirstName: 'Enter your first name',
       lastName: 'Last name',
-      requiredLastName: 'Last name is required',
       placeholderLastName: 'Enter your last name',
+      requiredLastName: 'Last name is required',
+      placeholderNickName:'Enter your nick name',
+      requiredNickName:'Nick name is required',
+      notValidNickName: 'Nickname must be greater than 3 and less than 30 characters',
       username: 'Your email',
       requiredUsername: 'Username is required',
       notValidUsername: 'Invalid email address',
@@ -392,11 +445,12 @@ export default {
       placeholderCountry: 'Please select your country',
       requiredCountry: 'Country is required',
       notValidReCaptcha: 'Please validate your reCAPTCHA.',
-      agreement: 'I certify that I am 18 years of age or older, and I agree to the User Agreement and Privacy Policy.',
+      agreement: 'I certify that I am 18 years of age or older, and I agree to the User {action}',
       requiredAgreement: 'Please indicate that you have read and agree to the User Agreement and Privacy Policy',
       registerButton: 'Create account',
       loginButton: 'Already have an account?',
       registerSuccessfully: 'You have registered successfully. Don’t forget to verify your email later.',
+      agreementAction: 'Agreement and Privacy Policy.'
     }
   },
   landingPage: {
@@ -939,5 +993,9 @@ export default {
   userVerifyStatus: {
     level1Pending: 'To start trading, please take a few minutes to verify your account. {verify}',
     verifyBtn: 'Verify now'
+  },
+  static_page: {
+    userAgreement: 'User Agreement',
+    privacyPolicy: 'Privacy Policy',
   }
 };

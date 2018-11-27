@@ -60,14 +60,14 @@ const IDVerificationForm = ({ initialValues, level, levelStatus, handleSubmit, o
         </div>
         <div className="col-6">
           <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
-            <MyMessage id="Back Photo" />
+            <MyMessage id="me.accountLevel.backPhoto" />
           </p>
           {!initialValues.back_image && <FileUploader onSuccess={handleBackSuccess} onRemove={backRemove} />}
           {initialValues.back_image && <img alt="back_image" src={initialValues.back_image} />}
         </div>
         <div className="col-6">
           <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
-            <MyMessage id="Front Photo" />
+            <MyMessage id="me.accountLevel.frontPhoto" />
           </p>
           {!initialValues.front_image && <FileUploader onSuccess={handleFrontSuccess} onRemove={frontRemove} />}
           {initialValues.front_image && <img alt="front_image" src={initialValues.front_image} />}
