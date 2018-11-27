@@ -84,7 +84,7 @@ render() {
           show={this.state.isShowPassword} 
           aria-labelledby="contained-modal-title-vcenter"
           centered
-          ={this.onClose}>
+          onHide={this.onClose}>
           <Modal.Header closeButton>
             <Modal.Title>{messages['requirePassword.title']}</Modal.Title>
           </Modal.Header>
