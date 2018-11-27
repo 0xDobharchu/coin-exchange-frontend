@@ -199,3 +199,12 @@ export const getSupportCountry = () => (dispatch) => {
   }, dispatch);
   return req().then(res => SystemConfigModel.supportCountryRes(res));
 };
+
+export const getSupportLanguages = () => (dispatch) => {
+  const req = makeRequest({
+    url: API_URL.SYSTEM.GET_LANGUAGES,
+    type: APP_ACTION.GET_SUPPORT_LANGUAGES,
+    withAuth: false,
+  }, dispatch);
+  return req();
+};
