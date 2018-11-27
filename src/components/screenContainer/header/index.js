@@ -9,6 +9,10 @@ import UserLogin from 'src/components/userLogin';
 import styles from './styles.scss';
 
 const menus = {
+  home: {
+    name: 'Home',
+    link: URL.HOME
+  },
   about_us: {
     name: 'About Us',
     link: URL.ABOUT_US,
@@ -20,14 +24,6 @@ const menus = {
   faq: {
     name: 'FAQ',
     link: URL.FAQ_URL
-  },
-  team: {
-    name: 'Team',
-    link: URL.TEAM
-  },
-  me: {
-    name: 'Profile',
-    link: URL.ME
   },
   wallet: {
     name: 'Wallet',
@@ -52,33 +48,35 @@ const buttons = {
 const Header = () => {
 
   return (
-    <header className={styles.headerContainer}>
-      <Link to={URL.HOME}>
-        <img className={styles.logo} src={logo} alt="coinbowl-logo" />
-      </Link>
-      <div className={styles.items}>
-        {
-        Object.entries(menus).map(([ key, menu ]) => (!menu.auth || menu.auth === currentUser.isLogin()) && (
-          <Link to={menu.link} key={key}>
-            <span className={styles.menuItem}>
-              {menu.name}
-              {menu.icon}
-            </span>
-          </Link>
-        ))
-      }
-      </div>
-      <ChangeLanguage />
-      {currentUser.isLogin() ? (
-        <UserLogin />
-      ): (
-        <div className={styles.buttons}>
+    <header className={styles.headerWarper}>
+      <div className={cx('container',styles.headerContainer)}>
+        <Link to={URL.HOME}>
+          <img className={styles.logo} src={logo} alt="coinbowl-logo" />
+        </Link>
+        <div className={styles.items}>
           {
-        Object.entries(buttons).map(([ key, button ]) => (
-          <Link to={button.link} key={key}><button type="button" className={cx(styles[button.className], styles.button)}>{button.name}</button></Link>
-        ))
-      }
-        </div>) }
+          Object.entries(menus).map(([ key, menu ]) => (!menu.auth || menu.auth === currentUser.isLogin()) && (
+            <Link to={menu.link} key={key}>
+              <span className={styles.menuItem}>
+                {menu.name}
+                {menu.icon}
+              </span>
+            </Link>
+          ))
+        }
+        </div>
+        <ChangeLanguage />
+        {currentUser.isLogin() ? (
+          <UserLogin />
+        ): (
+          <div className={styles.buttons}>
+            {
+            Object.entries(buttons).map(([ key, button ]) => (
+              <Link to={button.link} key={key}><button type="button" className={cx(styles[button.className], styles.button)}>{button.name}</button></Link>
+            ))
+          }
+          </div>) }
+      </div>
     </header>
   );};
 

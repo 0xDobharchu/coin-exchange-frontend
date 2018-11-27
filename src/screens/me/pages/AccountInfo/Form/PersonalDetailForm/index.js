@@ -1,6 +1,7 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { FieldLang, WrapperLang, MyMessage } from 'src/lang/components';
 import { getCountries } from 'src/screens/register/action';
 import { Field, reduxForm } from 'redux-form';
 import { Row, Col }from 'react-bootstrap';
@@ -25,18 +26,22 @@ const DropDownField = () => (
 // eslint-disable-next-line
 const PersonalDetailForm = ({ handleSubmit, onSubmit }) => (
   <form className={style.container}>
-    <label>Legal name</label>
+    <label><MyMessage id="me.accountInfo.legalName" /></label>
     <Row>
       <Col md={6}>
-        <Field name="first_name" component={InputField} placeholder="First Name" />
+        <FieldLang name="first_name" component={InputField} placeholder="me.accountInfo.firstName" />
       </Col>
       <Col md={6}>
-        <Field name="last_name" component={InputField} placeholder="Last Name" />
+        <FieldLang name="last_name" component={InputField} placeholder="me.accountInfo.lastName" />
       </Col>
     </Row>
-    <label>Country</label>
+    <label><MyMessage id="me.accountInfo.country" /></label>
     <DropDownField />
-    <Button className={style.button} value="Save" onClick={handleSubmit(onSubmit)} />
+    <WrapperLang>
+      {ts =>
+        <Button className={style.button} value={ts('me.accountInfo.save')} onClick={handleSubmit(onSubmit)} />
+      }
+    </WrapperLang>
   </form>
 );
 

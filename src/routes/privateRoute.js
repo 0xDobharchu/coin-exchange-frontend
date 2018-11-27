@@ -7,7 +7,12 @@ import { URL } from 'src/resources/constants/url';
  * Mock func
  */
 const checkAuth = () => {
-  return currentUser.isLogin();
+  //keep for server site
+  if(__CLIENT__){
+    return currentUser.isLogin();
+  } else {
+    return true;
+  }
 };
 
 const PrivateRoute = ({ component: Component, routes, path, noContainer, componentProps, ...rest }) => (
