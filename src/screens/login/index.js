@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import createForm from 'src/components/core/form/createForm';
 import { formValueSelector } from 'redux-form';
-import {FieldLang, MyMessage} from 'src/lang/components';
+import {FieldLang} from 'src/lang/components';
 import inputField from 'src/components/core/form/fields/input';
 import checkBoxField from 'src/components/core/form/fields/checkbox';
 import { isEmail, isPassword, isRequired } from 'src/components/core/form/validator';
@@ -46,7 +46,7 @@ class Login extends React.Component {
           }
           this.props.history.push(redirectTo);
           if(res.message === true) {
-            const action = <a href={URL.HANDSHAKE_ME_PROFILE}>Verify now</a>;
+            const action = <Link to={URL.ME}><LabelLang id="user.login.warningVerifyNow" /></Link>;
             this.props.showAlert({
               message: 'user.login.warningVerify',
               values: {action},
@@ -55,13 +55,13 @@ class Login extends React.Component {
           }
         } else if (res.status === USER.LOGIN_FAILURE) {
           this.props.showAlert({
-            message: <MyMessage id='user.login.loginFailure' />,
+            message: 'user.login.loginFailure',
             type: 'danger',
             timeOut: 2000,
           });
         } else {
           this.props.showAlert({
-            message: <MyMessage id='app.common.error' />,
+            message: 'app.common.error',
             type: 'danger',
             timeOut: 2000,
           });

@@ -1,4 +1,3 @@
-
 export default {
   appTitle: 'Here is the title lang en',
   helloWorld: 'Hello World',
@@ -401,7 +400,8 @@ export default {
       notValidUsername: 'Invalid email address',
       requiredUsername: 'Please enter your email',
       loginFailure: 'Username and password not match.',
-      warningVerify: 'To start trading, please take a few minutes to verify your account. {action}'
+      warningVerify: 'To start trading, please take a few minutes to verify your account. {action}',
+      warningVerifyNow: 'Verify now'
     },
     forgetPassword: {
       title: 'Forgot your password?',
@@ -426,8 +426,11 @@ export default {
       requiredFirstName: 'First name is required',
       placeholderFirstName: 'Enter your first name',
       lastName: 'Last name',
-      requiredLastName: 'Last name is required',
       placeholderLastName: 'Enter your last name',
+      requiredLastName: 'Last name is required',
+      placeholderNickName:'Enter your nick name',
+      requiredNickName:'Nick name is required',
+      notValidNickName: 'Nickname must be greater than 3 and less than 30 characters',
       username: 'Your email',
       requiredUsername: 'Username is required',
       notValidUsername: 'Invalid email address',
@@ -442,11 +445,12 @@ export default {
       placeholderCountry: 'Please select your country',
       requiredCountry: 'Country is required',
       notValidReCaptcha: 'Please validate your reCAPTCHA.',
-      agreement: 'I certify that I am 18 years of age or older, and I agree to the User Agreement and Privacy Policy.',
+      agreement: 'I certify that I am 18 years of age or older, and I agree to the User {action}',
       requiredAgreement: 'Please indicate that you have read and agree to the User Agreement and Privacy Policy',
       registerButton: 'Create account',
       loginButton: 'Already have an account?',
       registerSuccessfully: 'You have registered successfully. Don’t forget to verify your email later.',
+      agreementAction: 'Agreement and Privacy Policy.'
     }
   },
   landingPage: {

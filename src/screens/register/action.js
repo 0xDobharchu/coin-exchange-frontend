@@ -2,19 +2,18 @@ import { makeRequest } from 'src/redux/action';
 import { API_URL } from 'src/resources/constants/url';
 import { USER } from 'src/resources/constants/user';
 import { MasterWallet } from 'src/services/Wallets/MasterWallet';
-import authentication from 'src/utils/authentication';
 import { REGISTER, COUNTRY } from './type';
-import {LOGIN} from '../login/type';
+import {login} from '../login/action';
 
-const makeLogin = (username, password, dispatch) => makeRequest({
-  type: LOGIN,
-  url: API_URL.USER.USER_SIGN_IN,
-  method: 'POST',
-  data: {
-    username,
-    password
-  }
-}, dispatch);
+// const makeLogin = (username, password, dispatch) => makeRequest({
+//   type: LOGIN,
+//   url: API_URL.USER.USER_SIGN_IN,
+//   method: 'POST',
+//   data: {
+//     username,
+//     password
+//   }
+// }, dispatch);
 
 const makeSaveWallet = (masterWallet, dispatch) => makeRequest({
   type: REGISTER,
@@ -39,13 +38,15 @@ export const register = user => (dispatch) => {
     data: user
   }, dispatch);
   return makeRegister().then(() => {
-    return makeLogin(user.username, user.password, dispatch)().then((loginRes) => {
-      (__CLIENT__) && authentication.setAccessToken(loginRes.access);
-      const masterWallet = MasterWallet.createMasterWallets(user.password);
-      return makeSaveWallet(masterWallet, dispatch)().then(()=>{
-        (__CLIENT__) && authentication.removeAccessToken();
-        return USER.REGISTER_SUCCESS;
-      });
+    return login(user.username, user.password)(dispatch).then((loginRes) => {
+      if (loginRes.status === USER.LOGIN_SUCCESS) {
+        const masterWallet = MasterWallet.createMasterWallets(user.password);
+        return makeSaveWallet(masterWallet, dispatch)().then(() => {
+          return USER.REGISTER_SUCCESS;
+        });
+      } else {
+        return USER.REGISTER_FAILURE;
+      }
     });
   }, (err) => {
     console.log(err);
