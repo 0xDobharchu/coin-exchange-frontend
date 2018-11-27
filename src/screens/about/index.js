@@ -21,6 +21,7 @@ class About extends React.Component {
     const { getAbout } = this.props;
     getAbout({
       type: 'SCREENS/ABOUT',
+      withAuth: false,
       url: API_URL.LANDING.ABOUT,
       onSuccess: (data) => {
         this.setState({data: data.content});
