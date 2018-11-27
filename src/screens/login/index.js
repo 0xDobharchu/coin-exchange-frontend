@@ -19,9 +19,6 @@ import style from './style.scss';
 const LoginForm = createForm({
   propsReduxForm: {
     form: 'LoginForm',
-    initialValues: {
-      input: '',
-    },
   },
 });
 
@@ -34,7 +31,6 @@ class Login extends React.Component {
     this.state = {
       loggingIn: false
     };
-
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -43,13 +39,21 @@ class Login extends React.Component {
     const { username, password } = this.props;
     if (username && password) {
       this.props.loginBound(username, password).then((res) => {
-        if (res === USER.LOGIN_SUCCESS) {
+        if (res.status === USER.LOGIN_SUCCESS) {
           let redirectTo = '/';
           if( this.props.location.state && this.props.location.state.from){
             redirectTo = this.props.location.state.from.pathname;
           }
           this.props.history.push(redirectTo);
-        } else if (res === USER.LOGIN_FAILURE) {
+          if(res.message === true) {
+            const action = <a href={URL.HANDSHAKE_ME_PROFILE}>Verify now</a>;
+            this.props.showAlert({
+              message: 'user.login.warningVerify',
+              values: {action},
+              timeOut: 5000,
+            });
+          }
+        } else if (res.status === USER.LOGIN_FAILURE) {
           this.props.showAlert({
             message: <MyMessage id='user.login.loginFailure' />,
             type: 'danger',

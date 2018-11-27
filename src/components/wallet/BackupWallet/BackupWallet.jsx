@@ -2,13 +2,13 @@ import React from 'react';
 import {injectIntl} from 'react-intl';
 import {Field, formValueSelector, clearFields} from "redux-form";
 import {connect} from "react-redux";
-import Button from '@/components/core/controls/Button';
-import {MasterWallet} from "@/services/Wallets/MasterWallet";
-import { showLoading, hideLoading, showAlert } from '@/screens/app/redux/action';
+import Button from 'src/components/core/controls/Button';
+import {MasterWallet} from "src/services/Wallets/MasterWallet";
+import { showLoading, hideLoading, showAlert } from 'src/screens/app/redux/action';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from "redux";
-import local from '@/services/localStore';
-import {APP} from '@/constants';
+import local from 'src/services/localStore';
+import {APP} from 'src/constants';
 import './BackupWallet.scss';
 
 if (__CLIENT__)

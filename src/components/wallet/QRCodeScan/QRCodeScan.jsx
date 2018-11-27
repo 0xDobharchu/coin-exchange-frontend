@@ -4,18 +4,18 @@ import {injectIntl} from 'react-intl';
 import {Field, clearFields, change} from "redux-form";
 import {connect} from "react-redux";
 
-import Button from '@/components/core/controls/Button';
+import Button from 'src/components/core/controls/Button';
 
-import Modal from '@/components/core/controls/Modal';
+import Modal from 'src/components/core/controls/Modal';
 
 // import QrReader from 'react-qr-reader';
 
-import { hideScanQRCode } from '@/screens/app/redux/action';
+import { hideScanQRCode } from 'src/screens/app/redux/action';
 
 import './QRCodeScan.scss';
 
-import BrowserDetect from '@/services/browser-detect';
-import BackChevronSVGWhite from '@/assets/images/wallet/icons/back-chevron-white.svg';
+import BrowserDetect from 'src/services/browser-detect';
+import BackChevronSVGWhite from 'src/assets/images/wallet/icons/back-chevron-white.svg';
 
 class QRCodeScan extends React.Component {
 

@@ -9,6 +9,8 @@ import { ORDER_TYPE } from '../../../constant';
 import CryptoGraph from '@/screens/coin/components/pricePanel/cryptoGraph';
 import MyMessage from '@/lang/components/MyMessage';
 
+const getIntlKey = (name) => `coin.components.pricePanel.${name}`;
+
 class CryptoPrice extends Component {
   constructor() {
     super();
@@ -79,13 +81,13 @@ class CryptoPrice extends Component {
         </div>
         {buyPrice && (
           <div className={styles.buy}>
-            <span><MyMessage id="pricePanel.buy" /></span>
+            <span><MyMessage id={getIntlKey('buy')} /></span>
             <span>{buyPriceStr}</span>
           </div>
         )}
         {sellPrice && (
           <div className={styles.sell}>
-            <span><MyMessage id="pricePanel.sell" /></span>
+            <span><MyMessage id={getIntlKey('sell')} /></span>
             <span>{sellPriceStr}</span>
           </div>
         )}
