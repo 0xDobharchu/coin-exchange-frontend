@@ -13,6 +13,7 @@ import LabelLang from 'src/lang/components/LabelLang';
 import { URL } from 'src/resources/constants/url';
 import cx from 'classnames';
 import { showAlert } from 'src/screens/app/redux/action';
+import currentUser from 'src/utils/authentication';
 import { login } from './action';
 import style from './style.scss';
 
@@ -27,11 +28,26 @@ const selectorForm = formValueSelector('LoginForm');
 class Login extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       loggingIn: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.checkAuth();
+
+  }
+
+  redirectTo() {
+    let redirectTo =  URL.HOME;
+    if( this.props.location.state && this.props.location.state.from){
+      redirectTo = this.props.location.state.from.pathname;
+    }
+    this.props.history.push(redirectTo);
+  }
+
+  checkAuth() {
+    if(currentUser.isLogin()) {
+      this.redirectTo();
+    }
   }
 
   handleSubmit() {
@@ -40,11 +56,7 @@ class Login extends React.Component {
     if (username && password) {
       this.props.loginBound(username, password).then((res) => {
         if (res.status === USER.LOGIN_SUCCESS) {
-          let redirectTo = '/';
-          if( this.props.location.state && this.props.location.state.from){
-            redirectTo = this.props.location.state.from.pathname;
-          }
-          this.props.history.push(redirectTo);
+          this.redirectTo();
           if(res.message === true) {
             const action = <Link to={URL.ME}><LabelLang id="user.login.warningVerifyNow" /></Link>;
             this.props.showAlert({
