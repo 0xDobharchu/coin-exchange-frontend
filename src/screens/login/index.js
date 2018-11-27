@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import createForm from 'src/components/core/form/createForm';
 import { formValueSelector } from 'redux-form';
-import {FieldLang, MyMessage} from 'src/lang/components';
+import {FieldLang} from 'src/lang/components';
 import inputField from 'src/components/core/form/fields/input';
 import checkBoxField from 'src/components/core/form/fields/checkbox';
 import { isEmail, isPassword, isRequired } from 'src/components/core/form/validator';
@@ -13,6 +13,7 @@ import LabelLang from 'src/lang/components/LabelLang';
 import { URL } from 'src/resources/constants/url';
 import cx from 'classnames';
 import { showAlert } from 'src/screens/app/redux/action';
+import currentUser from 'src/utils/authentication';
 import { login } from './action';
 import style from './style.scss';
 
@@ -27,11 +28,26 @@ const selectorForm = formValueSelector('LoginForm');
 class Login extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       loggingIn: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.checkAuth();
+
+  }
+
+  redirectTo() {
+    let redirectTo =  URL.HOME;
+    if( this.props.location.state && this.props.location.state.from){
+      redirectTo = this.props.location.state.from.pathname;
+    }
+    this.props.history.push(redirectTo);
+  }
+
+  checkAuth() {
+    if(currentUser.isLogin()) {
+      this.redirectTo();
+    }
   }
 
   handleSubmit() {
@@ -40,13 +56,9 @@ class Login extends React.Component {
     if (username && password) {
       this.props.loginBound(username, password).then((res) => {
         if (res.status === USER.LOGIN_SUCCESS) {
-          let redirectTo = '/';
-          if( this.props.location.state && this.props.location.state.from){
-            redirectTo = this.props.location.state.from.pathname;
-          }
-          this.props.history.push(redirectTo);
+          this.redirectTo();
           if(res.message === true) {
-            const action = <a href={URL.HANDSHAKE_ME_PROFILE}>Verify now</a>;
+            const action = <Link to={URL.ME}><LabelLang id="user.login.warningVerifyNow" /></Link>;
             this.props.showAlert({
               message: 'user.login.warningVerify',
               values: {action},
@@ -55,13 +67,13 @@ class Login extends React.Component {
           }
         } else if (res.status === USER.LOGIN_FAILURE) {
           this.props.showAlert({
-            message: <MyMessage id='user.login.loginFailure' />,
+            message: 'user.login.loginFailure',
             type: 'danger',
             timeOut: 2000,
           });
         } else {
           this.props.showAlert({
-            message: <MyMessage id='app.common.error' />,
+            message: 'app.common.error',
             type: 'danger',
             timeOut: 2000,
           });

@@ -119,7 +119,7 @@ class BuyCryptoCoin extends React.Component {
   renderCoD = () => {
     const { paymentMethod, intl: { formatMessage } } = this.props;
     return (
-      <div className={cx(styles.codInfo, 'mt-4')}>
+      <div className={cx(styles.codInfo, 'mt-4', paymentMethod === PAYMENT_METHOD.COD ? styles.showCod : styles.hideCod)}>
         <Field
           type="text"
           name="address"
@@ -179,7 +179,7 @@ class BuyCryptoCoin extends React.Component {
             name="paymentMethod"
             component={paymentMethodField}
           />
-          { paymentMethod === PAYMENT_METHOD.COD && this.renderCoD() }
+          { this.renderCoD() }
           <ConfirmButton
             disabled={!isValid}
             containerClassName='mt-5'
