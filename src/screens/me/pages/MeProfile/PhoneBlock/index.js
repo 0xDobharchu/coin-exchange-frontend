@@ -26,13 +26,11 @@ const getLevelStatus = (level, status) => {
 // eslint-disable-next-line
 const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, updatePhoneNumberAction, submitPhoneCodeAction }) => {
   const handleVerifyEmail = (values) => {
-    console.log('veerify phone_number', values);
     const { phone: phoneNumberValue, code } = values;
     if (phoneNumberValue) {
       if (valid.phone(phoneNumberValue)) {
-        console.log('phone is invalid');
         showAlert({
-          message: 'Invalid Phone',
+          message: 'me.accountLevel.alert.invalidPhone',
           timeOut: 3000,
           type: 'danger'
         });
@@ -41,13 +39,13 @@ const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, update
     }
     if (!code) {
       updatePhoneNumberAction(phoneNumberValue).catch(showAlert({
-        message: 'Verify code was sent successful to your phone',
+        message: 'me.accountLevel.alert.sendPhoneCodeSuccess',
         timeOut: 3000,
         type: 'success',
       }));
     } else {
       submitPhoneCodeAction(code).then(showAlert({
-        message: 'Congratulation! Your level is upto level 2',
+        message: 'me.accountLevel.alert.lv2',
         timeOut: 3000,
         type: 'success'
       }));
