@@ -30,7 +30,7 @@ const ChooseLanguageForm = createForm({
   propsReduxForm: {
     form: chooseLanguageFormName,
     initialValues: {
-      input: '',
+      language: '',
     },
   },
 });
