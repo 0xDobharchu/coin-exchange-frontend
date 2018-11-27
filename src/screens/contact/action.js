@@ -7,6 +7,7 @@ function addContact(name, phone, email, description) {
     type: ADD_CONTACT,
     url: API_URL.SYSTEM.SUBMIT_CONTACT,
     method: 'POST',
+    withAuth: false,
     data: {
       name, phone, email, description
     }

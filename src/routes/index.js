@@ -78,7 +78,7 @@ const routes = [
     auth: true,
   },
   {
-    path: '/wallet',
+    path: '/wallet/:address',
     component: Wallet,
     exact: true,
     auth: true
