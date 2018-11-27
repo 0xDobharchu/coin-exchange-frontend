@@ -42,9 +42,9 @@ class IDCardBlock extends React.PureComponent {
         <div className={style.head}>
           <p className={style.label}>
             <MyMessage id="me.profile.verify.step3" />
-            <br />
-            <MyMessage id="me.profile.text.id_verification.desc1" />
           </p>
+          <br />
+          <p><MyMessage id="me.profile.text.id_verification.desc1" /></p>
           <div className={style.extend}>
             <span className={`badge badge-${getStatusColor(level, levelStatus)}`}>{getLevelStatus(level, levelStatus)}</span>
           </div>
