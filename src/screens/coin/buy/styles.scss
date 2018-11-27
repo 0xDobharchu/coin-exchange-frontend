@@ -5,10 +5,18 @@
     display: flex;
     flex-direction: column;
     width: inherit;
+    overflow: hidden;
+    transition: 0.5s max-height;
     > div {
       .cod-item {
         width: 100%;
       }
+    }
+    &.show-cod {
+      max-height: 300px;
+    }
+    &.hide-cod {
+      max-height: 0px;
     }
   }
   .row-item {
