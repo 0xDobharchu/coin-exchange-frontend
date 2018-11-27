@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // component
-import Image from '@/components/core/presentation/Image';
-import loadingSVG from '@/assets/images/icon/loading.gif';
+import Image from 'src/components/core/presentation/Image';
+import loadingSVG from 'src/assets/images/icon/loading.gif';
 // style
 import './Loading.scss';
 

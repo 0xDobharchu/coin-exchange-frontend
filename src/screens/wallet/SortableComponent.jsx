@@ -12,7 +12,7 @@ import {
 import WalletItem from './WalletItem';
 import style from './ListWalletItem.scss';
 
-import iconMove from '@/assets/images/wallet/icons/icon-move.svg';
+import iconMove from 'src/assets/images/wallet/icons/icon-move.svg';
 
 const DragHandle = SortableHandle(() => <img className={style.iconMove} src={iconMove} />); // This can be any component you want
 

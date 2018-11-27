@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { FaQrcode } from 'react-icons/fa';
 import { InputGroup, DropdownButton, Dropdown, FormControl } from 'react-bootstrap';
 import { showQrCode } from 'src/components/barcodeScanner';
+import { injectIntl } from 'react-intl';
 import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
 import cx from 'classnames';
 import styles from './styles.scss';
+
+const getIntlKey = (name) => `coin.components.walletSelector.${name}`;
 
 class WalletSelector extends Component {
   constructor() {
@@ -48,14 +51,14 @@ class WalletSelector extends Component {
   }
 
   render() {
-    const { onFocus, onBlur, markRequired } = this.props;
+    const { onFocus, onBlur, markRequired, intl: { formatMessage } } = this.props;
     const { address, currencyListRendered, currency } = this.state;
     const className = `${styles.container} ${markRequired ? 'border-danger' : ''}`;
     return (
       <div className={className}>
         <InputGroup>
           <FormControl
-            placeholder='Scan QR code or copy wallet address'
+            placeholder={formatMessage({ id: getIntlKey('qrScannerText') })}
             className={styles.input}
             value={address}
             onChange={(e) => this.onChangeAddress(e?.target?.value)}
@@ -75,7 +78,7 @@ class WalletSelector extends Component {
             <DropdownButton
               className={styles.dropdown}
               // as={InputGroup.Prepend}
-              title={currency || 'Currency'}
+              title={currency || formatMessage({ id: getIntlKey('currency') })}
             >
               {currencyListRendered}
             </DropdownButton>
@@ -101,4 +104,4 @@ WalletSelector.propTypes = {
   onFocus: PropTypes.func,
   markRequired: PropTypes.bool,
 };
-export default WalletSelector;
+export default injectIntl(WalletSelector);

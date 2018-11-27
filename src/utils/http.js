@@ -44,33 +44,35 @@ instance.interceptors.response.use(
   },
   (error) => {
     try {
-      const { config, response: { status, data, statusText } } = error;
-      const originalRequest = config;
-      if (status === 401) {
-        if (!isAlreadyFetchingAccessToken) {
-          isAlreadyFetchingAccessToken = true;
-          fetchAccessToken().then((data) => {
-            isAlreadyFetchingAccessToken = false;
-            onAccessTokenFetched(data.access);
-            authentication.setAccessToken(data.access);
-          });
-        }
+      if(error && error.response){
+        const { config, response: { status, data, statusText } } = error;
+        const originalRequest = config;
+        if (status === 401) {
+          if (!isAlreadyFetchingAccessToken) {
+            isAlreadyFetchingAccessToken = true;
+            fetchAccessToken().then((data) => {
+              isAlreadyFetchingAccessToken = false;
+              onAccessTokenFetched(data.access);
+              authentication.setAccessToken(data.access);
+            });
+          }
 
-        const retryOriginalRequest = new Promise((resolve) => {
-          addSubscriber(access_token => {
-            originalRequest.headers.Authorization = 'Bearer ' + access_token;
-            resolve(instance(originalRequest));
+          const retryOriginalRequest = new Promise((resolve) => {
+            addSubscriber(access_token => {
+              originalRequest.headers.Authorization = 'Bearer ' + access_token;
+              resolve(instance(originalRequest));
+            });
           });
+          return retryOriginalRequest;
+        }
+        console.warn('Response error', error);
+        return Promise.reject({
+          error: true,
+          status: status,
+          data: data,
+          statusText: statusText,
         });
-        return retryOriginalRequest;
       }
-      console.warn('Response error', error);
-      return Promise.reject({
-        error: true,
-        status: status,
-        data: data,
-        statusText: statusText,
-      });
     } catch (e) {
       return Promise.reject(e);
     }

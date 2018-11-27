@@ -1,8 +1,8 @@
 import React from 'react';
 import { Col } from 'react-bootstrap';
-import {Bitcoin} from '@/services/Wallets/Bitcoin.js' 
-import {Ethereum} from '@/services/Wallets/Ethereum.js' 
-import iconChecked from '@/assets/images/wallet/icons/icon-checked-wallet.svg';
+import {Bitcoin} from 'src/services/Wallets/Bitcoin.js' 
+import {Ethereum} from 'src/services/Wallets/Ethereum.js' 
+import iconChecked from 'src/assets/images/wallet/icons/icon-checked-wallet.svg';
 
 
 
@@ -18,7 +18,7 @@ class CoinTemp extends React.Component {
     
     render(){ 
         const {wallet, onClick} =  this.props;        
-        const bgImg = require("@/assets/images/wallet/images/" + wallet.getBackgroundImg());
+        const bgImg = require("src/assets/images/wallet/images/" + wallet.getBackgroundImg());
         const itemSelected = wallet.default ? `${style['feed']} ${style['feed-selected']}` : style["feed"];
         const checkIcon = wallet.default ? " ✔" : '';
         return  ( 

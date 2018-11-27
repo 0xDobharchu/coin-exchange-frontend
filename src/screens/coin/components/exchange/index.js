@@ -7,10 +7,13 @@ import { FaArrowsAltH } from 'react-icons/fa';
 import Input from 'src/components/core/controls/input';
 import cx from 'classnames';
 import { connect } from 'react-redux';
+import MyMessage from 'src/lang/components/MyMessage';
 import { debounce, xor as arrayXor } from 'lodash';
 import { EXCHANGE_DIRECTION, ORDER_TYPE } from 'src/screens/coin/constant';
 import { getQuote, getQuoteReverse } from './action';
 import styles from './styles.scss';
+
+const getIntlKey = (name) => `coin.components.exchange.${name}`;
 
 const EXCHANGE_TYPE = {
   amount: 'QUOTE',
@@ -188,7 +191,7 @@ class Exchange extends Component {
 
   render() {
     const { amount, fiatAmount, isExchanging } = this.state;
-    const { markRequired, onFocus, onBlur, options } = this.props;
+    const { markRequired, onFocus, onBlur, options, direction } = this.props;
     const { currency, fiatCurrency, currencyListRendered, fiatCurrencyListRendered } = this.state;
     return (
       <Container fluid className={styles.container}>
@@ -197,7 +200,7 @@ class Exchange extends Component {
             <InputGroup>
               <Input
                 onFocus={() => onFocus()}
-                label="Amount to buy"
+                label={<MyMessage id={getIntlKey('amountLabel')} values={{ direction }} />}
                 placeholder="0.0"
                 value={amount}
                 onBlur={() => onBlur()}
@@ -209,7 +212,7 @@ class Exchange extends Component {
                 <DropdownButton
                   disabled={!options?.canChangeCurrency}
                   className={styles.dropdown}
-                  title={currency || 'Currency'}
+                  title={currency || <MyMessage id={getIntlKey('currency')} />}
                 >
                   {currencyListRendered}
                 </DropdownButton>
@@ -224,7 +227,7 @@ class Exchange extends Component {
           <Col sm={5}>
             <InputGroup>
               <Input
-                label="How much do you want?"
+                label={<MyMessage id={getIntlKey('fiatAmountLabel')} />}
                 placeholder="0.0"
                 value={fiatAmount}
                 onFocus={() => onFocus()}
@@ -237,7 +240,7 @@ class Exchange extends Component {
                 <DropdownButton
                   disabled={!options?.canChangeFiatCurrency}
                   className={styles.dropdown}
-                  title={fiatCurrency || 'Currency'}
+                  title={fiatCurrency || <MyMessage id={getIntlKey('currency')} />}
                 >
                   {fiatCurrencyListRendered}
                 </DropdownButton>

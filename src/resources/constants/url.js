@@ -86,13 +86,13 @@ export const API_URL = {
     USER_FORGET_PASSWORD_FINISH: '/user/reset-password/', // POST user/forgot-password/reset/
   },
   SYSTEM: {
-    COUNTRY : '/system/country-default-configs/', // GET /system/country-default-configs/
+    COUNTRY : '/system/country-default-configs/?time=3423434', // GET /system/country-default-configs/
     GET_COUNTRY_CURRENCY: '/system/country-currencies/', // GET /system/country-currencies/?country=
-    GET_BANK_INFO: '/system/banks/', // GET system/banks/?currency=&country=    
-    SUBMIT_CONTACT: '/system/contacts/', 
+    GET_BANK_INFO: '/system/banks/', // GET system/banks/?currency=&country=
+    SUBMIT_CONTACT: '/system/contacts/',
   },
   LANDING: {
-    ABOUT: '/content/about-us/en/', 
+    ABOUT: '/content/about-us/en/',
     FAQ: 'content/faq/',
   },
   COIN: {
