@@ -393,7 +393,7 @@ export default {
       username: 'Your email',
       password: 'Password',
       loginButton: 'Sign in',
-      keepSignin: 'keep signin on user computer',
+      keepSignin: 'Keep me signed in',
       registerButton: 'Don\'t have an account?',
       forgetPassword: 'Forget password?',
       requiredPassword: 'Please enter your password',
