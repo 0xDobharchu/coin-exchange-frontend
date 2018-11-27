@@ -16,6 +16,7 @@ export const URL = {
   FAQ_URL: '/faq',
   SELL_COIN_URL: '/sell-coin/',
 
+  AGREEMENT: '/agreement',
   USER_SIGN_IN: '/sign-in',
   USER_SIGN_UP: '/sign-up',
   USER_FORGET_PASSWORD: '/forget-password',
