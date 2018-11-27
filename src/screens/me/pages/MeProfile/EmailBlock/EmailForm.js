@@ -8,7 +8,7 @@ import { MyMessage, FieldLang } from 'src/lang/components';
 import style from '../styles.scss';
 
 // eslint-disable-next-line
-const EmailForm = ({ handleSubmit, onSubmit }) => (
+const EmailForm = ({ handleSubmit, onSubmit,level, levelStatus  }) => (
   <div>
     <Row>
       <div className="col-10">
@@ -20,20 +20,19 @@ const EmailForm = ({ handleSubmit, onSubmit }) => (
           disabled="true"
           style={{ width: '100%' }}
         />
-      </div>
-      <div className="col-2" style={{ paddingLeft: 0 }}>
-        <button onClick={handleSubmit(onSubmit)} type="button" className={style.submit_btn}>
-          <MyMessage id="me.profile.text.email.button.send" />
-        </button>
-      </div>
+      </div>{level === 'level_1' && levelStatus === 'pending' && <div className="col-2" style={{ paddingLeft: 0 }}><button onClick={handleSubmit(onSubmit)} type="button" className={style.submit_btn}><MyMessage id="me.profile.text.email.button.send" /></button></div>
+        }
     </Row>
   </div>
 );
 
+
 const mapState = state => ({
   initialValues: {
     email: state.auth.profile.email
-  }
+  },
+  level: state.auth.profile.verification_level,
+  levelStatus: state.auth.profile.verification_status,
 });
 export default compose(
   connect(mapState),
