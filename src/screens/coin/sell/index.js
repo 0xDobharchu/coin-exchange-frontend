@@ -106,7 +106,7 @@ class SellCryptoCoin extends React.Component {
       message: <MyMessage id={getIntlKey('orderSuccessful')} />,
       timeOut: 1000,
     });
-    history.push(URL.ME);
+    history.push(URL.ME_HISTORY);
   }
 
   orderFailedHandler = () => {
