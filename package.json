@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "yarn",
     "client": "yarn && NODE_ENV='development' webpack-dev-server --progress --config webpack.client.js",
-    "build-client": "NODE_ENV='production' PUBLIC_PATH='public/' webpack --progress --config webpack.client.js",
+    "build-client": "NODE_ENV='production' PUBLIC_PATH='/public/' webpack --progress --config webpack.client.js",
     "server": "yarn && NODE_ENV='development' webpack --config webpack.server.js --watch && yarn server",
     "build-server": "NODE_ENV='production' PUBLIC_PATH='public/' webpack --progress --config webpack.server.js",
     "mon-server": "nodemon ./dist/server/server.js",
