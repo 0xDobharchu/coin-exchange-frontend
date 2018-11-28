@@ -30,7 +30,7 @@ import Header from './Header';
 import HeaderMore from './HeaderMore';
 import WalletItem from './WalletItem';
 import WalletProtect from './WalletProtect';
-import WalletHistory from './WalletHistory';
+import WalletHistory from 'src/components/wallet/WalletHistory';
 import TransferCoin from 'src/components/wallet/TransferCoin';
 import ReceiveCoin from 'src/components/wallet/ReceiveCoin';
 import { showLoading, hideLoading, showAlert } from 'src/screens/app/redux/action';
@@ -154,6 +154,8 @@ class Wallet extends React.Component {
         console.log('this.props', addressParram);
         this.setState({ addressParram });
         window.addEventListener("resize", this.updateDimensions);
+
+        this.updateDimensions();
 
         this.getSetting();
 
@@ -653,23 +655,31 @@ class Wallet extends React.Component {
         this.setState({ exportPrivateContent: '' });
     }
     onWalletItemClick = (wallet, callUpdate) => {
-        this.setState({
-            walletSelected: wallet,
-            modalHistory:
-                (
-                    <WalletHistory
-                        onTransferClick={() => this.showTransfer(wallet)}
-                        onReceiveClick={() => this.onAddressClick(wallet)}
-                        onWarningClick={() => this.onWarningClick(wallet)}
-                        wallet={wallet}
-                        customBackIcon={BackChevronSVGWhite}
-                        modalHeaderStyle={this.modalHeaderStyle}
-                        callUpdate={callUpdate}
-                    />
-                )
-        }, () => {
-            this.modalHistoryRef.open();
-        });
+
+        if (this.state.isDeskTop){
+            this.setState({walletSelected: wallet});
+        }
+        else{
+            this.setState({
+                walletSelected: wallet,
+                modalHistory:
+                    (
+                        <WalletHistory
+                            onTransferClick={() => this.showTransfer(wallet)}
+                            onReceiveClick={() => this.onAddressClick(wallet)}
+                            onWarningClick={() => this.onWarningClick(wallet)}
+                            wallet={wallet}
+                            customBackIcon={BackChevronSVGWhite}
+                            modalHeaderStyle={this.modalHeaderStyle}
+                            callUpdate={callUpdate}
+                        />
+                    )
+            }, () => {
+                this.modalHistoryRef.open();
+            });
+        }
+
+        
     }
     onUpdateWalletName = (wallet) => {
         this.setState({ walletSelected: wallet });
@@ -867,6 +877,29 @@ class Wallet extends React.Component {
         )
     }
 
+    renderDetail(){
+        let wallet = this.state.walletSelected;
+        if (wallet == null){
+            if (this.state.listMainWalletBalance.length > 0){
+                wallet = this.state.listMainWalletBalance[0];
+            }
+        }
+        if (wallet){
+            return (
+                <WalletHistory
+                    onTransferClick={() => this.showTransfer(wallet)}
+                    onReceiveClick={() => this.onAddressClick(wallet)}
+                    onWarningClick={() => this.onWarningClick(wallet)}
+                    wallet={wallet}
+                    customBackIcon={BackChevronSVGWhite}
+                    modalHeaderStyle={this.modalHeaderStyle}
+                    callUpdate={false}
+                />
+            )
+        }
+        return null;
+    }
+
     render() {
         return (
             <div className={styles.walletContainer}>
@@ -890,7 +923,7 @@ class Wallet extends React.Component {
                             </div>
                             <div className={styles.walletWrapRight}>
                                 <div className={styles.walletDetail}>
-                                    <div> walletSelected {this.state.walletSelected} </div>
+                                    {this.renderDetail()}
                                 </div>
                             </div>
                         </div>
