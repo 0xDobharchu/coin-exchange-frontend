@@ -50,8 +50,12 @@
     div {
       border-right: 1px solid $primary-extra-bold;
     }
-    div:nth-child(2) {
+    .isBuy {
       color: green;
+      font-weight: 600;
+    }
+    .isSell {
+      color: red;
       font-weight: 600;
     }
     div:last-child {

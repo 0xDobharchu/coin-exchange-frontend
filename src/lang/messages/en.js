@@ -61,6 +61,7 @@ export default {
     history: {
       title: 'Transaction History',
       date: 'Date',
+      refcode: 'Ref Code',
       type: 'Type',
       amount: 'Amount',
     },
