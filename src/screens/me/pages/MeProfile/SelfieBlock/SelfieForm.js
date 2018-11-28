@@ -17,7 +17,7 @@ const SelfieForm = ({ initialValues, level, levelStatus, handleSubmit, onSubmit,
       <Row>
         <div className="col-12">
           <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
-            <MyMessage id="Your Selfie Photo" />
+            <MyMessage id="me.accountLevel.selfiePhoto" />
           </p>
           {!initialValues.selfie_image && <FileUploader onSuccess={handleOnSuccess} onRemove={handleRemove} />}
           {initialValues.selfie_image && <img alt="selfie_image" src={initialValues.selfie_image} />}

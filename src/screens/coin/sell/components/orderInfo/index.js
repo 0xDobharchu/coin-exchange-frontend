@@ -11,8 +11,11 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { getQuote } from 'src/screens/coin/components/exchange/action';
 import cx from 'classnames';
 import { FaRegCopy } from 'react-icons/fa';
+import MyMessage from 'src/lang/components/MyMessage';
 import styles from './styles.scss';
 import { checkAddress } from './action';
+
+const getIntlKey = (name) => `coin.components.sellOrderInfo.${name}`;
 
 class OrderInfo extends Component {
   constructor(props) {
@@ -56,7 +59,7 @@ class OrderInfo extends Component {
         }
       } else {
         showAlert({
-          message: 'You have to transfer coin to this address first',
+          message: <MyMessage id={getIntlKey('transferCoinFirst')} />,
           type: 'danger',
           timeOut: 1000,
         });
@@ -73,7 +76,7 @@ class OrderInfo extends Component {
   copied = () => {
     const { showAlert } = this.props;
     showAlert({
-      message: 'Copied',
+      message: <MyMessage id='app.common.copied' />,
       timeOut: 3000,
       isShowClose: true,
       type: 'success',
@@ -98,18 +101,20 @@ class OrderInfo extends Component {
     const { orderInfo: { fiatAmount, fiatCurrency, amount, currency } } = this.state;
     const infos = [
       {
-        name: 'Receiving',
+        id: 1,
+        name: <MyMessage id={getIntlKey('Receiving')} />,
         value: `${formatMoneyByLocale(fiatAmount) || ''} ${fiatCurrency || ''}`,
       },
       {
-        name: 'Selling',
+        id: 2,
+        name: <MyMessage id={getIntlKey('Selling')} />,
         value: `${amount || ''} ${currency || ''}`,
       },
     ];
     return (
       <Container className={styles.infos}>
-        {infos.map(({ name, value }) => (
-          <Row key={name}>
+        {infos.map(({ id, name, value }) => (
+          <Row key={id}>
             <Col className={styles.infoTitle}>{name}</Col>
             <Col className={styles.infoValue}>{value}</Col>
           </Row>
@@ -120,23 +125,23 @@ class OrderInfo extends Component {
 
   renderNotes = () => {
     const notes = {
-      main_note: 'NOTE: YOU HAVE TO CLICK "FINISH" TO COMPLETE THE TRANSACTION',
-      sub_note: '(Transaction may be lost if you forget to complete this step)',
+      main_note: getIntlKey('mainNote'),
+      sub_note: getIntlKey('subNote'),
       list: [
-        'Please transfer the exact number to the above address',
-        'The price of the crypto fluctuates constantly; therefore, we only keep this price for 5 minutes',
-        'We will transfer the fiat to you as soon as there is 1 confirmation on the network.'
+        getIntlKey('listNote.note1'),
+        getIntlKey('listNote.note2'),
+        getIntlKey('listNote.note3')
       ]
     };
     return (
       <div className={styles.noteContainer}>
         <div>
-          <span className={styles.mainNote}>{notes.main_note}</span>
-          <span className={styles.subNote}>{notes.sub_note}</span>
+          <span className={styles.mainNote}><MyMessage id={notes.main_note} /></span>
+          <span className={styles.subNote}><MyMessage id={notes.sub_note} /></span>
         </div>
         <ul>
           {
-            notes.list?.map((note, index) => (<li key={index}><span>{note}</span></li>))
+            notes.list?.map((note, index) => (<li key={index}><span><MyMessage id={note} /></span></li>))
           }
         </ul>
       </div>
@@ -152,11 +157,11 @@ class OrderInfo extends Component {
       <Container className={styles.container}>
         <Row>
           <Card border="secondary" className={styles.card}>
-            <Card.Header>ORDER INFO</Card.Header>
+            <Card.Header><MyMessage id={getIntlKey('cardName')} /></Card.Header>
             <Card.Body>
               <Container>
                 <Row className={styles.orderTimeout}>
-                  <span>Price will be updated after </span>
+                  <span><MyMessage id={getIntlKey('priceWillUpdateIn')} /></span>
                   <ClockCount
                     className={styles.clock}
                     internalClockdown
@@ -179,7 +184,9 @@ class OrderInfo extends Component {
           </Card>
         </Row>
         <Row>
-          <button className={styles.doneBtn} type="button" onClick={this.prepareToOrder}>Place order</button>
+          <button className={styles.doneBtn} type="button" onClick={this.prepareToOrder}>
+            <MyMessage id={getIntlKey('orderBtn')} />
+          </button>
         </Row>
       </Container>
     );

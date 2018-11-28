@@ -5,9 +5,9 @@ import { bindActionCreators } from 'redux';
 import ReCAPTCHA from 'react-google-recaptcha';
 import createForm from 'src/components/core/form/createForm';
 import { formValueSelector, change } from 'redux-form';
-import {FieldLang, MyMessage} from 'src/lang/components';
+import {FieldLang} from 'src/lang/components';
 import inputField from 'src/components/core/form/fields/input';
-import { isEmail, isPassword, isRequired, mustChecked } from 'src/components/core/form/validator';
+import { isEmail, isPassword, isRequired, mustChecked ,isNickName } from 'src/components/core/form/validator';
 import { USER } from 'src/resources/constants/user';
 import { URL } from 'src/resources/constants/url';
 import LabelLang from 'src/lang/components/LabelLang';
@@ -15,6 +15,8 @@ import dropdownField from 'src/components/core/form/fields/dropdown';
 import checkBoxField from 'src/components/core/form/fields/checkbox';
 import cx from 'classnames';
 import { showAlert } from 'src/screens/app/redux/action';
+import queryString from 'query-string';
+import currentUser from 'src/utils/authentication';
 import { register, getCountries } from './action';
 import style from './style.scss';
 
@@ -22,7 +24,6 @@ const RegisterForm = createForm({
   propsReduxForm: {
     form: 'RegisterForm',
     initialValues: {
-
     },
   },
 });
@@ -33,14 +34,28 @@ class RegisterPage extends React.Component {
   constructor(props) {
     super(props);
 
+    const params = queryString.parse(this.props.location.search);
     this.state = {
       registering: false,
       defaultCountry: '',
-      countryList: []
+      countryList: [],
+      referral: params.referral || '',
     };
     this._reCaptchaRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.verifyCallback = this.verifyCallback.bind(this);
+    if(currentUser.isLogin()) {
+      this.redirectTo();
+    }
+  }
+
+
+  redirectTo() {
+    let redirectTo =  URL.HOME;
+    if( this.props.location.state && this.props.location.state.from){
+      redirectTo = this.props.location.state.from.pathname;
+    }
+    this.props.history.push(redirectTo);
   }
 
   componentDidUpdate(prevProps) {
@@ -64,35 +79,37 @@ class RegisterPage extends React.Component {
   handleSubmit() {
     this.setState({ registering: true });
     const {
-      firstName, lastName, username, password, country, recaptchaValue, agreement
+      name, username, password, country, recaptchaValue, agreement
     } = this.props;
-    if (firstName && lastName && username && password && country && recaptchaValue && agreement) {
+    const { referral } = this.state;
+
+    if (name && username && password && country && recaptchaValue && agreement) {
       this.props.registerBound({
-        first_name: firstName,
-        last_name: lastName,
+        name,
         username,
         password,
         country,
-        recaptchaValue
+        recaptchaValue,
+        referral
       }).then((res) => {
         if (res === USER.REGISTER_SUCCESS) {
           console.log('Register successfully');
           this.props.showAlert({
-            message: <MyMessage id='user.register.registerSuccessfully' />,
+            message: 'user.register.registerSuccessfully',
             timeOut: 5000,
           });
-          this.props.history.push(URL.USER_SIGN_IN);
+          this.props.history.push(URL.HOME);
         } else {
           if(res.data.message) {
             this.props.showAlert({
-              message: <MyMessage id={res.data.message} />,
+              message: res.data.message,
               type: 'danger',
               timeOut: 2000,
             });
           }
           else {
             this.props.showAlert({
-              message: <MyMessage id={`user.register.${res.err.code}`} />,
+              message: `user.register.${res.err.code}`,
               type: 'danger',
               timeOut: 2000,
             });
@@ -111,6 +128,7 @@ class RegisterPage extends React.Component {
 
   render() {
     const { registering, countryList, defaultCountry} = this.state;
+    const action = <Link target="_blank" to={URL.AGREEMENT}><LabelLang id='user.register.agreementAction' /></Link>;
     return (
       <div className={cx('container', style['register-warper'])}>
         <div className="row">
@@ -119,26 +137,15 @@ class RegisterPage extends React.Component {
             <div className={cx('card', style['register-card'])}>
               <div className="card-body">
                 <RegisterForm onSubmit={this.handleSubmit} className="form-register">
-                  <div className="form-row">
-                    <FieldLang
-                      name="firstName"
-                      containerClassName="form-group col-md-6 col-sm-6"
-                      component={inputField}
-                      validate={isRequired(<LabelLang id="user.register.requiredFirstName" />)}
-                      type="text"
-                      className="form-control"
-                      placeholder="user.register.placeholderFirstName"
-                    />
-                    <FieldLang
-                      name="lastName"
-                      containerClassName="form-group col-md-6 col-sm-6"
-                      component={inputField}
-                      validate={isRequired(<LabelLang id="user.register.requiredLastName" />)}
-                      type="text"
-                      className="form-control"
-                      placeholder="user.register.placeholderLastName"
-                    />
-                  </div>
+                  <FieldLang
+                    name="name"
+                    containerClassName="form-group"
+                    component={inputField}
+                    validate={[isRequired(<LabelLang id="user.register.requiredNickName" />), isNickName(<LabelLang id="user.register.notValidNickName" />)]}
+                    type="text"
+                    className="form-control"
+                    placeholder="user.register.placeholderNickName"
+                  />
                   <FieldLang
                     name="username"
                     containerClassName="form-group"
@@ -192,6 +199,7 @@ class RegisterPage extends React.Component {
                     validate={mustChecked(<LabelLang id="user.register.requiredAgreement" />, true)}
                     className="form-check-input"
                     labelText="user.register.agreement"
+                    labelTextValues={{action}}
                   />
                   <div className="form-group">
                     <button type="submit" className={cx('btn btn-primary btn-block', style.buttonRegister, registering ? 'disabled': '')}><LabelLang id="user.register.registerButton" /></button>
@@ -212,8 +220,7 @@ class RegisterPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  firstName: selectorForm(state, 'firstName'),
-  lastName: selectorForm(state, 'lastName'),
+  name: selectorForm(state, 'name'),
   username: selectorForm(state, 'username'),
   password: selectorForm(state, 'password'),
   country: selectorForm(state, 'country'),
