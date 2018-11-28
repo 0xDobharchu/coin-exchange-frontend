@@ -76,6 +76,7 @@ module.exports = merge(isDev ? devConfig : prodConfig, {
     publicPath: PUBLIC_PATH,
   },
   devServer: isDev ? {
+    host: '0.0.0.0',
     port: 1337,
     publicPath: PUBLIC_PATH,
     historyApiFallback: true,

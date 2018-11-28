@@ -65,12 +65,12 @@ class Coin extends Component {
           <h3><MyMessage id='coin.subIntroText' /><FaPlayCircle className={styles.icon} /></h3>
         </Row>
         <Row>
-          <Col lg={3}>
+          <Col lg={3} className='order-2 order-lg-1'>
             <div className={cx(styles.panel, styles.panelLeft)}>
               <PricePanel />
             </div>
           </Col>
-          <Col lg={6}>
+          <Col lg={6} className='order-1 order-lg-2'>
             <div className={styles.main}>
               <UserVerifyStatus />
               <div className={styles.header}>
@@ -81,7 +81,7 @@ class Coin extends Component {
               </div>
             </div>
           </Col>
-          <Col lg={3}>
+          <Col lg={3} className='order-3'>
             <div className={cx(styles.panel, styles.panelRight)}>
               <ReviewList direction={activeTab} />
             </div>

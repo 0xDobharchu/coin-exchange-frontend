@@ -1,21 +1,6 @@
 export const API_BASE = APP_ENV.BASE_API_URL;
 export const URL = {
-  INDEX: '/',
-  HANDSHAKE_ME: '/me/',
-  HANDSHAKE_ME_INDEX: '/me/',
-  HANDSHAKE_ME_PROFILE: '/me/profile/',
-  HANDSHAKE_ME_VERIRY_EMAIL: '/me/verify/email/',
-
-  HANDSHAKE_CREATE: '/create/',
-  HANDSHAKE_CREATE_INDEX: '/create/',
-
-  HANDSHAKE_EXCHANGE: '/exchange/',
-  HANDSHAKE_EXCHANGE_INDEX: '/exchange/',
-  BUY_COIN_URL: '/coin/',
-  CRYPTO_COIN_URL: '/coin/',
   FAQ_URL: '/faq',
-  SELL_COIN_URL: '/sell-coin/',
-
   AGREEMENT: '/agreement-privacy',
   USER_SIGN_IN: '/sign-in',
   USER_SIGN_UP: '/sign-up',
@@ -28,6 +13,10 @@ export const URL = {
   CONTACT: '/contact-us',
   WALLET: '/wallet',
   ME: '/me',
+  ME_PROFILE: '/me/profile',
+  ME_SETTING: '/me/setting',
+  ME_ACCOUNT_LEVEL: '/me/accountLevel',
+  ME_HISTORY: '/me/history'
 };
 
 export const API_URL = {
@@ -94,8 +83,7 @@ export const API_URL = {
     GET_LANGUAGES: '/system/languages/',
   },
   LANDING: {
-    STATIC_PAGE: '/content/static-page/',
-    ABOUT: '/content/about-us/en/',
+    STATIC_PAGE: '/content/static-page/',    
     FAQ: '/content/faq/',
   },
   COIN: {
