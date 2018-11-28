@@ -12,33 +12,6 @@ import dropdownField from 'src/components/core/form/fields/dropdown';
 import createForm from 'src/components/core/form/createForm';
 import styles from './styles.scss';
 
-// const LANGUAGES = {
-//   en: {
-//     key: 'en',
-//     label: 'English',
-//     value: 'en',
-//     flag: '🇺🇸',
-//   },
-//   hk: {
-//     key: 'zh-Hant-HK',
-//     label: 'Hong Kong',
-//     value: 'zh-Hant-HK',
-//     flag: '🇭🇰',
-//   },
-//   id: {
-//     key: 'id',
-//     label: 'Indonesia',
-//     value: 'id',
-//     flag: '🇮🇩'
-//   },
-//   km: {
-//     key: 'km',
-//     label: 'Cambodia',
-//     value: 'km',
-//     flag: '🇰🇭',
-//   }
-// };
-
 const chooseLanguageFormName = 'chooseLanguageFormName';
 const ChooseLanguageForm = createForm({
   propsReduxForm: {
@@ -53,35 +26,42 @@ class ChangeLanguage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      languages: [],
-      supportedLanguages: props.supportedLanguages
+      languages: []
     };
 
     // bind
     this.changeLanguage = ::this.changeLanguage;
+    this.getlanguages = this.getlanguages.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.supportedLanguages !== this.props.supportedLanguages) {
+      this.getlanguages();
+    }
   }
 
   componentDidMount() {
     const { locale } = this.props;
 
     this.props.change(chooseLanguageFormName, 'language', locale);
+    this.getlanguages();
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (JSON.stringify(nextProps.supportedLanguages) !== JSON.stringify(prevState.supportedLanguages)) {
-      const languages = Object.entries(nextProps.supportedLanguages).map(([key, val]) => {
-        // const lang = LANGUAGES[key];
-        return {
-          key: key,
-          label: `${val}`,
-          value: key
-        };
-      });
-
-      return { supportedLanguages: nextProps.supportedLanguages, languages };
+  getlanguages() {
+    if(!this.props.supportedLanguages){
+      return ;
     }
+    const languages = Object.entries(this.props.supportedLanguages).map(([key, val]) => {
+      // const lang = LANGUAGES[key];
+      return {
+        key: key,
+        label: `${val}`,
+        value: key
+      };
+    });
 
-    return null;
+    this.setState({languages} );
+
   }
 
   changeLanguage(e, newValue) {
@@ -91,8 +71,7 @@ class ChangeLanguage extends React.PureComponent {
   }
 
   render() {
-    const { className } = this.props;
-    const { locale } = this.props;
+    const { className, locale } = this.props;
     const { languages } = this.state;
     return (
       <div className={cx(styles.changeLanguageContainer, className)}>
