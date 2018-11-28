@@ -83,8 +83,7 @@ export const API_URL = {
     GET_LANGUAGES: '/system/languages/',
   },
   LANDING: {
-    STATIC_PAGE: '/content/static-page/',
-    ABOUT: '/content//',
+    STATIC_PAGE: '/content/static-page/',    
     FAQ: '/content/faq/',
   },
   COIN: {
