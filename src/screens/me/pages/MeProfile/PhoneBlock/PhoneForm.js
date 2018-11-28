@@ -27,6 +27,7 @@ const PhoneForm = ({ handleSubmit, onSubmit, level, levelStatus }) => (
           <MyMessage id="me.profile.text.email.button.send" />
         </button>
       </div>
+      
       {level === 'level_2' && levelStatus === 'pending' && <div className="col-12" style={{ marginTop: '20px' }}><FieldLang name="code" component="input" type="text" placeholder="me.profile.text.phone.desc3" /></div>}
     </Row>
   </div>

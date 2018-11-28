@@ -6,6 +6,7 @@ import { FaPlayCircle } from 'react-icons/fa';
 import PricePanel from 'src/screens/coin/components/pricePanel';
 import MyMessage from 'src/lang/components/MyMessage';
 import UserVerifyStatus from 'src/components/userVerifyStatus';
+import animations from 'src/assets/styles/animations';
 import BuyCoin from './buy';
 import SellCoin from './sell';
 import styles from './styles.scss';
@@ -50,7 +51,7 @@ class Coin extends Component {
   renderTabContent = () => {
     const { activeTab } = this.state;
     return Object.entries(TABS).map(([key, tab]) => (
-      <div key={key} className={cx(styles.tabContent, key === activeTab ? styles.active : styles.hidden)}>
+      <div key={key} className={cx(styles.tabContent, key === activeTab ? cx(styles.active, animations.fadeIn) : styles.hidden)}>
         {tab.component}
       </div>
     ));

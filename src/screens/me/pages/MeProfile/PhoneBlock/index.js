@@ -27,15 +27,13 @@ const getLevelStatus = (level, status) => {
 const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, updatePhoneNumberAction, submitPhoneCodeAction }) => {
   const handleVerifyEmail = (values) => {
     const { phone: phoneNumberValue, code } = values;
-    if (phoneNumberValue) {
-      if (valid.phone(phoneNumberValue)) {
-        showAlert({
-          message: 'me.accountLevel.alert.invalidPhone',
-          timeOut: 3000,
-          type: 'danger'
-        });
-        return;
-      }
+    if (!phoneNumberValue || valid.phone(phoneNumberValue)) {
+      showAlert({
+        message: 'me.accountLevel.alert.invalidPhone',
+        timeOut: 3000,
+        type: 'danger'
+      });
+      return;
     }
     if (!code) {
       updatePhoneNumberAction(phoneNumberValue).catch(showAlert({
