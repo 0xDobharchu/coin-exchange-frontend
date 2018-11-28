@@ -14,14 +14,11 @@ import style from './style.scss';
 // eslint-disable-next-line
 const AccountInfo = ({ name, updateProfileAction, showAlert }) => {
   const getReferralLink = () => window.location.origin + '/sign-up?referral=' + name;
-  const showMessage = (id, type) => showAlert({
-    message: id,
-    type
-  });
+  const showMessage = (message, type) => showAlert({ message, type });
   const showSuccess = id => showMessage(id, 'success');
   const showError = id => showMessage(id, 'danger');
-  const handleChangePassword = values => changePassword(values).then(showSuccess('me.accountInfo.alert.passwordSuccess')).catch(showError('me.accountInfo.alert.passwordFailed'));
-  const handleUpdateNickname = values => updateProfileAction(values).then(showSuccess('me.accountInfo.alert.success'));
+  const handleChangePassword = values => changePassword(values).then(() => showSuccess('me.accountInfo.alert.passwordSuccess')).catch(() => showError('me.accountInfo.alert.passwordFailed'));
+  const handleUpdateNickname = values => updateProfileAction(values).then(() => showSuccess('me.accountInfo.alert.success'));
   return (
     <div className={style.container}>
       <label className={style.title}><MyMessage id="me.accountInfo.userProfile" /></label>

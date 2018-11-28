@@ -74,7 +74,31 @@ const routes = [
   {
     path: URL.ME,
     component: Me,
-    // exact: true,
+    exact: true,
+    auth: true,
+  },
+  {
+    path: URL.ME_PROFILE,
+    component: Me,
+    exact: true,
+    auth: true,
+  },
+  {
+    path: URL.ME_SETTING,
+    component: Me,
+    exact: true,
+    auth: true,
+  },
+  {
+    path: URL.ME_ACCOUNT_LEVEL,
+    component: Me,
+    exact: true,
+    auth: true,
+  },
+  {
+    path: URL.ME_HISTORY,
+    component: Me,
+    exact: true,
     auth: true,
   },
   {
