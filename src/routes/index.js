@@ -84,7 +84,7 @@ const routes = [
     auth: true
   },
   {
-    path: URL.AGREEMENT_PRIVACY,
+    path: URL.AGREEMENT,
     component: AgreementPrivacy,
     exact: true,
   }
