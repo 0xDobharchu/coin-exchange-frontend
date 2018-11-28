@@ -78,10 +78,10 @@ const routes = [
     auth: true,
   },
   {
-    path: '/wallet/:address',
-    component: Wallet,
-    exact: true,
-    auth: true
+    path: '/wallet/:address?',
+    component: Wallet,    
+    exact: false,
+    strict: false,
   }
 ];
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // component
 import Image from 'src/components/core/presentation/Image';
 // style
-import BackChevronSVG from 'src/assets/images/icon/back-chevron.svg';
+import BackChevronSVG from 'src/assets/images/icon/back-chevron-gray.svg';
 import style from './Modal.scss';
 
 class Modal extends React.Component {
@@ -39,9 +39,11 @@ class Modal extends React.Component {
 
   render() {
     // eslint-disable-next-line
-    let customBackIcon = this.props.customBackIcon || BackChevronSVG;    
+    // let customBackIcon = this.props.customBackIcon || BackChevronSVG;    
+    let customBackIcon = BackChevronSVG;    
     // eslint-disable-next-line
-    let modalHeaderStyle = this.props.modalHeaderStyle || {};
+    // let modalHeaderStyle = this.props.modalHeaderStyle || {};
+    let modalHeaderStyle = {};
     // eslint-disable-next-line
     let modalBodyStyle = this.props.modalBodyStyle || {};
     // eslint-disable-next-line
