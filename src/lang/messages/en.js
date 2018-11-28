@@ -42,7 +42,7 @@ export default {
       personalDetails: 'Personal Details',
       personalDetailsDesc: 'Your personal information is never shown to other users',
       referralTitle: 'Refferal',
-      referralLink: 'Your Referral Link Here: @',
+      referralLink: 'Your Referral Link Here: ',
       referral: {
         name: 'Name',
         status: 'Status',
