@@ -28,6 +28,10 @@ export const URL = {
   CONTACT: '/contact-us',
   WALLET: '/wallet',
   ME: '/me',
+  ME_PROFILE: '/me/profile',
+  ME_SETTING: '/me/setting',
+  ME_ACCOUNT_LEVEL: '/me/accountLevel',
+  ME_HISTORY: '/me/history'
 };
 
 export const API_URL = {
