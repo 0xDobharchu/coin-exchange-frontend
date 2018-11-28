@@ -58,7 +58,7 @@ class ChangeLanguage extends React.PureComponent {
     };
 
     // bind
-    this.changeCountry = ::this.changeCountry;
+    this.changeLanguage = ::this.changeLanguage;
   }
 
   componentDidMount() {
@@ -70,10 +70,10 @@ class ChangeLanguage extends React.PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (JSON.stringify(nextProps.supportedLanguages) !== JSON.stringify(prevState.supportedLanguages)) {
       const languages = Object.entries(nextProps.supportedLanguages).map(([key, val]) => {
-        const lang = LANGUAGES[key];
+        // const lang = LANGUAGES[key];
         return {
           key: key,
-          label: `${lang.flag} ${val}`,
+          label: `${val}`,
           value: key
         };
       });
@@ -84,7 +84,8 @@ class ChangeLanguage extends React.PureComponent {
     return null;
   }
 
-  changeCountry(e, newValue) {
+  changeLanguage(e, newValue) {
+    console.log('changeLanguage', newValue);
     this.props.setLanguage(newValue, true);
     this.props.changeLang(newValue);
   }
@@ -101,7 +102,7 @@ class ChangeLanguage extends React.PureComponent {
             name="language"
             component={dropdownField}
             list={languages}
-            onChange={this.changeCountry}
+            onChange={this.changeLanguage}
             value={locale}
           />
         </ChooseLanguageForm>
