@@ -869,7 +869,9 @@ export default {
   },
   userVerifyStatus: {
     level1Pending: 'To start trading, please take a few minutes to verify your account. {verify}',
-    verifyBtn: 'Verify now'
+    verifyBtn: 'Verify now',
+    notLogin: 'Please sign in to start trading.{action}',
+    notLoginBtn: 'Sign In Now'
   },
   static_page: {
     userAgreement: 'User Agreement',
