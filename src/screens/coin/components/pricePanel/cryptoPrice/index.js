@@ -99,7 +99,7 @@ class CryptoPrice extends Component {
             <img src={logo} alt="" />
             <span>{name}</span>
           </div>
-          <div><CryptoGraph crypto={crypto} /></div>
+          <div className={styles.graph}><CryptoGraph crypto={crypto} /></div>
         </div>
         {buyPrice && (
           <div className={styles.buy}>
