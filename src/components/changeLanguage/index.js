@@ -12,32 +12,32 @@ import dropdownField from 'src/components/core/form/fields/dropdown';
 import createForm from 'src/components/core/form/createForm';
 import styles from './styles.scss';
 
-const LANGUAGES = {
-  en: {
-    key: 'en',
-    label: 'English',
-    value: 'en',
-    flag: '🇺🇸',
-  },
-  hk: {
-    key: 'zh-Hant-HK',
-    label: 'Hong Kong',
-    value: 'zh-Hant-HK',
-    flag: '🇭🇰',
-  },
-  id: {
-    key: 'id',
-    label: 'Indonesia',
-    value: 'id',
-    flag: '🇮🇩'
-  },
-  km: {
-    key: 'km',
-    label: 'Cambodia',
-    value: 'km',
-    flag: '🇰🇭',
-  }
-};
+// const LANGUAGES = {
+//   en: {
+//     key: 'en',
+//     label: 'English',
+//     value: 'en',
+//     flag: '🇺🇸',
+//   },
+//   hk: {
+//     key: 'zh-Hant-HK',
+//     label: 'Hong Kong',
+//     value: 'zh-Hant-HK',
+//     flag: '🇭🇰',
+//   },
+//   id: {
+//     key: 'id',
+//     label: 'Indonesia',
+//     value: 'id',
+//     flag: '🇮🇩'
+//   },
+//   km: {
+//     key: 'km',
+//     label: 'Cambodia',
+//     value: 'km',
+//     flag: '🇰🇭',
+//   }
+// };
 
 const chooseLanguageFormName = 'chooseLanguageFormName';
 const ChooseLanguageForm = createForm({
