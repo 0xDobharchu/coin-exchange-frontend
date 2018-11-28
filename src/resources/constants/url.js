@@ -84,7 +84,7 @@ export const API_URL = {
   },
   LANDING: {
     STATIC_PAGE: '/content/static-page/',
-    ABOUT: '/content/about-us/en/',
+    ABOUT: '/content//',
     FAQ: '/content/faq/',
   },
   COIN: {
