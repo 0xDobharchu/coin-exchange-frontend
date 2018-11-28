@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
-import { MyMessage } from 'src/lang/components';
 import { updateProfileAction } from 'src/screens/auth/redux/action';
 import GeneralSettingForm from './Form/GeneralSettingForm';
 import TwoFactor from './TwoFactor';
@@ -9,13 +8,10 @@ import style from './style.scss';
 
 // eslint-disable-next-line
 const Setting = ({ updateProfileAction, showAlert }) => {
-  const showMessage = (id, type) => showAlert({
-    message: <MyMessage id={id} />,
-    type
-  });
+  const showMessage = (message, type) => showAlert({ message, type });
   const showSuccess = id => showMessage(id, 'success');
   const showError = id => showMessage(id, 'danger');
-  const handleUpdateProfile = values => updateProfileAction(values).then(showSuccess('Update Success')).catch(() => showError('Update Failed'));
+  const handleUpdateProfile = values => updateProfileAction(values).then(() => showSuccess('me.accountInfo.alert.success')).catch(() => showError('me.accountInfo.alert.failed'));
 
   return (
     <div className={style.container}>

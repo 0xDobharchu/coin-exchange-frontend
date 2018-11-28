@@ -49,10 +49,13 @@ export default {
         date: 'Date'
       },
       alert: {
-        passwordSuccess: 'Update Password successfully1',
-        passwordFailed: 'Update Password Failed2',
+        passwordSuccess: 'Update Password Success',
+        passwordFailed: 'Update Password Failed',
         success: 'Success',
         failed: 'Failed',
+      },
+      validate: {
+        newPasswordRequired: 'New Password is required'
       }
     },
     setting: {
