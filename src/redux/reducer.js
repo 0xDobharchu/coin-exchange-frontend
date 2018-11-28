@@ -5,6 +5,7 @@ import homeReducer from 'src/screens/home/reducer';
 import reviewListReducer from 'src/components/reviewList/reducer';
 import landingReducer from 'src/screens/landingpage/redux/reducer';
 import screenCoinReducer from 'src/screens/coin/reducer';
+import loginReducer from 'src/screens/login/reducer';
 import langReducer from '../lang/reducer';
 
 // eslint-disable-next-line
@@ -18,6 +19,7 @@ const reducers = {
   reviewListReducer,
   landingReducer,
   screenCoinReducer,
+  loginReducer,
   form,
 };
 
