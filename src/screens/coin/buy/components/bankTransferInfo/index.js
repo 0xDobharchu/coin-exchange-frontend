@@ -11,28 +11,31 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import ClockCount from 'src/components/clockCount';
 import TooltipInfo from 'src/components/tooltipInfo';
 import FileUploader from 'src/components/fileUploader';
+import MyMessage from 'src/lang/components/MyMessage';
 import cx from 'classnames';
 import { getBankInfo, addReceiptOrder } from './action';
 import styles from './styles.scss';
 
+const getIntlKey = (name) => `coin.components.bankTransferInfo.${name}`;
+
 const DATA_TEMPLATE = {
   'CUSTOMER AMOUNT': {
-    intlKey: 'CUSTOMER AMOUNT',
+    intlKey: getIntlKey('customerAmount'),
     text: null,
     className: 'money',
     copyable: true,
   },
   'YOUR AMOUNT': {
-    intlKey: 'YOUR AMOUNT',
+    intlKey: getIntlKey('yourAmount'),
     text: null,
     className: 'money',
     copyable: true,
   },
-  'ACCOUNT NAME': { intlKey: 'ACCOUNT NAME', text: null, copyable: true },
-  'ACCOUNT NUMBER': { intlKey: 'ACCOUNT NUMBER', text: null, copyable: true },
-  'BANK NAME': { intlKey: 'BANK NAME', text: null, copyable: true },
-  'BANK ID': { intlKey: 'BANK ID', text: null, copyable: true },
-  'REFERENCE CODE': { intlKey: 'REFERENCE CODE', text: null, className: 'reference-code', copyable: true },
+  'ACCOUNT NAME': { intlKey: getIntlKey('accountName'), text: null, copyable: true },
+  'ACCOUNT NUMBER': { intlKey: getIntlKey('accountNumber'), text: null, copyable: true },
+  'BANK NAME': { intlKey: getIntlKey('bankName'), text: null, copyable: true },
+  'BANK ID': { intlKey: getIntlKey('bankId'), text: null, copyable: true },
+  'REFERENCE CODE': { intlKey: getIntlKey('refCode'), text: null, className: 'reference-code', copyable: true },
 };
 
 const STATUS = {
@@ -171,12 +174,12 @@ class BankTransferInfo extends PureComponent {
           return (
             <Row key={name} className={styles.infoItem}>
               <Col xs={12} sm={6}>
-                <span className={styles.infoTitle}>{value.intlKey}</span>
+                <span className={styles.infoTitle}><MyMessage id={value.intlKey} /></span>
               </Col>
               <Col xs={12} sm={6}>
                 <span className={cx(styles.infoValue, styles[value?.className])}>{value.text}</span>
                 {value.copyable && this.renderCopyIcon(value.text)}
-                {value.extraInfo && <TooltipInfo message={value.extraInfo.intlKey} />}
+                {value.extraInfo && <TooltipInfo message={<MyMessage id={value.extraInfo.intlKey} />} />}
               </Col>
             </Row>
           );
@@ -193,16 +196,16 @@ class BankTransferInfo extends PureComponent {
         { isLoading && <span>Loading...</span>}
         <Row>
           <Card border="secondary" className={styles.card}>
-            <Card.Header>BANK TRANSFER INFO</Card.Header>
+            <Card.Header><MyMessage id={getIntlKey('nameCard')} /></Card.Header>
             <Card.Body>
               <Container>
                 <Row>
                   <div className={styles.orderTimeout}>
                     <span className={styles.text}>
-                      {!expired && 'Will expired in '}
+                      {!expired && <MyMessage id={getIntlKey('willExpiredIn')} />}
                       <ClockCount
                         startAt={createdAt}
-                        expiredText="Expired"
+                        expiredText={<MyMessage id={getIntlKey('expiredText')} />}
                         onExpired={this.onExpired}
                       />
                     </span>
@@ -213,8 +216,8 @@ class BankTransferInfo extends PureComponent {
                 </Row>
                 <Row>
                   <div className={styles.note}>
-                    <span className={styles.noteTitle}>Important</span>
-                    <span className={styles.noteContent}>You must send the exact amount & reference code as instructed and upload the payment proof below so we can proceed sending coins to you.</span>
+                    <span className={styles.noteTitle}><MyMessage id={getIntlKey('noteTitle')} /></span>
+                    <span className={styles.noteContent}><MyMessage id={getIntlKey('noteDesc')} /></span>
                   </div>
                 </Row>
               </Container>
@@ -233,13 +236,13 @@ class BankTransferInfo extends PureComponent {
             (uploaded || status === STATUS.TRANSFERRING) ?
               (
                 <button type="submit" className={styles.doneBtn} onClick={this.onDone}>
-                  Save
+                  <MyMessage id={getIntlKey('saveBtn')} />
                 </button>
               ) :
               (
                 <button type="submit" className={styles.uploadBtn} onClick={this.onUpload}>
                   <FaCloudUploadAlt className={styles.uploadIcon} />
-                  Upload Your Receipt
+                  <MyMessage id={getIntlKey('uploadBtn')} />
                 </button>
               )
           }

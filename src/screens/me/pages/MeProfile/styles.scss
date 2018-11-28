@@ -23,8 +23,11 @@
       .label {
         width: 90%;
         margin: 0;
-        font-size: rem-calc(18px);
+        // font-size: rem-calc(18px);
         color: $text-black;
+        font-weight: 600;
+        font-size: 20px;
+        color: $primary-extra-bold;
         span {
           display: block;
           font-size: rem-calc(14px);
@@ -67,7 +70,7 @@
         font-size: 1rem;
       }
       .submit_btn {
-        //width: 100%;
+        width: 100%;
         margin-top: rem-calc(17px);
       }
       .phone_block {

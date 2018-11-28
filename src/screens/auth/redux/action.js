@@ -1,4 +1,4 @@
-import { 
+import {
   fetchProfile, sendEmailVerifyCode, updateProfile, sendToGetPhoneCode, submitVerifyPhoneCode, submitIdCard, submitSelfie,
   getTransactions
 } from './api';
@@ -24,7 +24,7 @@ export const updatePhoneNumberAction = (phone_number) => (dispatch) => new Promi
   updateProfile({ phone_number }).then(r => {
     if (!r) return;
     dispatch({ type: 'UPDATE_PROFILE_INFO', payload: { phone_number, verification_level: 'level_2', verification_status: 'pending' }});
-    sendToGetPhoneCode().then(r => r).catch(err=>err);
+    sendToGetPhoneCode({ phone_number }).then(r => r).catch(err=>err);
     resolve(true);
   }).catch(err => reject(err));
 });

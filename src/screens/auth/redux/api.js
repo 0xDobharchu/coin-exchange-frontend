@@ -105,11 +105,12 @@ export const getTransactions = async () => {
   }
 };
 
-export const sendToGetPhoneCode = async () => {
+export const sendToGetPhoneCode = async (data) => {
   try {
     const options = {
       url : '/user/verify-phone/',
       method: 'POST',
+      data
     };
     if(currentUser.isLogin()) {
       options.headers = {Authorization: 'Bearer ' + currentUser.getToken() };
@@ -140,12 +141,12 @@ export const submitVerifyPhoneCode = async (code) => {
 };
 
 /**
- * 
+ *
  * @param {*} data
  * id_number
  * id_type
  * front_image
- * back_image 
+ * back_image
  */
 export const submitIdCard = async (data) => {
   try {
@@ -183,4 +184,62 @@ export const submitSelfie = async (data) => {
   }
 };
 
+// /api/user/two-fa/
+export const getTwoFactorCode = async () => {
+  try {
+    const options = {
+      url : '/user/two-fa/',
+      method: 'POST',
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {Authorization: 'Bearer ' + currentUser.getToken() };
+    }
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR update phone number', err);
+    throw err;
+  }
+};
 
+// /api/user/two-fa/
+export const sendTwoFactorCode = async (code) => {
+  try {
+    const options = {
+      url : '/user/two-fa/',
+      method: 'PUT',
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {
+        Authorization: 'Bearer ' + currentUser.getToken(),
+        'TwoFa': code
+      };
+    }
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR update phone number', err);
+    throw err;
+  }
+};
+
+// /api/user/two-fa/
+export const disableTwoFactorCode = async (code) => {
+  try {
+    const options = {
+      url : '/user/two-fa/',
+      method: 'DELETE',
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {
+        Authorization: 'Bearer ' + currentUser.getToken(),
+        'TwoFa': code
+      };
+    }
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR update phone number', err);
+    throw err;
+  }
+};

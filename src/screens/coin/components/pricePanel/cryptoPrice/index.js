@@ -4,38 +4,60 @@ import { coinGetSellPrice, coinGetBuyPrice } from 'src/screens/coin/action';
 import { connect } from 'react-redux';
 import { formatMoneyByLocale } from 'src/utils/format/curency';
 import { injectIntl } from 'react-intl';
+import { EXCHANGE_ACTION } from 'src/resources/constants/exchange';
 import styles from './styles.scss';
 import { ORDER_TYPE } from '../../../constant';
 import CryptoGraph from '@/screens/coin/components/pricePanel/cryptoGraph';
 import MyMessage from '@/lang/components/MyMessage';
 
+const getIntlKey = (name) => `coin.components.pricePanel.${name}`;
+
 class CryptoPrice extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       crypto: null,
+      currencyByLocal: props.currencyByLocal
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const state = {};
-    if (nextProps.crypto?.id !== prevState.crypto?.id) {
-      state.crypto = nextProps.crypto;
+    if (JSON.stringify(nextProps.crypto) !== JSON.stringify(prevState.crypto)) {
+      return { crypto: nextProps.crypto };
     }
-    return state;
+
+    if (prevState.currencyByLocal !== nextProps.currencyByLocal) {
+
+      const { crypto } = prevState;
+      const { currencyByLocal } = nextProps;
+
+      if (crypto?.id && currencyByLocal) {
+        nextProps.coinGetBuyPrice({params: {
+          currency: crypto?.id,
+          amount: 1,
+          fiat_currency: currencyByLocal,
+          type: ORDER_TYPE.bank,
+          level: 1,
+          direction: EXCHANGE_ACTION.BUY
+        }});
+        nextProps.coinGetSellPrice({params: {
+          currency: crypto?.id,
+          amount: 1,
+          fiat_currency: currencyByLocal,
+          type: ORDER_TYPE.bank,
+          level: 1,
+          direction: EXCHANGE_ACTION.SELL
+        }});
+      }
+
+      return { currencyByLocal: nextProps.currencyByLocal };
+    }
+
+    return null;
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.currencyByLocal !== this.props.currencyByLocal) {
-      this.getPrice();
-    }
-  }
-
-  shouldComponentUpdate(prevProps, prevState) {
-    if (prevState.crypto?.id !== this.state.crypto?.id) {
-      this.getPrice();
-    }
-    return true;
+  componentDidMount() {
+    this.getPrice();
   }
 
   getPrice = () => {
@@ -48,6 +70,7 @@ class CryptoPrice extends Component {
       fiat_currency: currencyByLocal,
       type: ORDER_TYPE.bank,
       level: 1,
+      direction: EXCHANGE_ACTION.BUY
     }});
     this.props.coinGetSellPrice({params: {
       currency: crypto?.id,
@@ -55,6 +78,7 @@ class CryptoPrice extends Component {
       fiat_currency: currencyByLocal,
       type: ORDER_TYPE.bank,
       level: 1,
+      direction: EXCHANGE_ACTION.SELL
     }});
   }
 
@@ -75,17 +99,17 @@ class CryptoPrice extends Component {
             <img src={logo} alt="" />
             <span>{name}</span>
           </div>
-          <div><CryptoGraph crypto={crypto} /></div>
+          <div className={styles.graph}><CryptoGraph crypto={crypto} /></div>
         </div>
         {buyPrice && (
           <div className={styles.buy}>
-            <span><MyMessage id="pricePanel.buy" /></span>
+            <span><MyMessage id={getIntlKey('buy')} /></span>
             <span>{buyPriceStr}</span>
           </div>
         )}
         {sellPrice && (
           <div className={styles.sell}>
-            <span><MyMessage id="pricePanel.sell" /></span>
+            <span><MyMessage id={getIntlKey('sell')} /></span>
             <span>{sellPriceStr}</span>
           </div>
         )}

@@ -1,21 +1,7 @@
 export const API_BASE = APP_ENV.BASE_API_URL;
 export const URL = {
-  INDEX: '/',
-  HANDSHAKE_ME: '/me/',
-  HANDSHAKE_ME_INDEX: '/me/',
-  HANDSHAKE_ME_PROFILE: '/me/profile/',
-  HANDSHAKE_ME_VERIRY_EMAIL: '/me/verify/email/',
-
-  HANDSHAKE_CREATE: '/create/',
-  HANDSHAKE_CREATE_INDEX: '/create/',
-
-  HANDSHAKE_EXCHANGE: '/exchange/',
-  HANDSHAKE_EXCHANGE_INDEX: '/exchange/',
-  BUY_COIN_URL: '/coin/',
-  CRYPTO_COIN_URL: '/coin/',
   FAQ_URL: '/faq',
-  SELL_COIN_URL: '/sell-coin/',
-
+  AGREEMENT: '/agreement-privacy',
   USER_SIGN_IN: '/sign-in',
   USER_SIGN_UP: '/sign-up',
   USER_FORGET_PASSWORD: '/forget-password',
@@ -26,7 +12,11 @@ export const URL = {
   COIN: '/coin',
   CONTACT: '/contact-us',
   WALLET: '/wallet',
-  ME: '/me'
+  ME: '/me',
+  ME_PROFILE: '/me/profile',
+  ME_SETTING: '/me/setting',
+  ME_ACCOUNT_LEVEL: '/me/accountLevel',
+  ME_HISTORY: '/me/history'
 };
 
 export const API_URL = {
@@ -90,10 +80,11 @@ export const API_URL = {
     GET_COUNTRY_CURRENCY: '/system/country-currencies/', // GET /system/country-currencies/?country=
     GET_BANK_INFO: '/system/banks/', // GET system/banks/?currency=&country=
     SUBMIT_CONTACT: '/system/contacts/',
+    GET_LANGUAGES: '/system/languages/',
   },
   LANDING: {
-    ABOUT: '/content/about-us/en/',
-    FAQ: 'content/faq/',
+    STATIC_PAGE: '/content/static-page/',    
+    FAQ: '/content/faq/',
   },
   COIN: {
     // GET /exchange/quote/?amount=&currency=&fiat_currency=&check=[1,0]&user_check=[1,0]&direction=[buy,sell]
