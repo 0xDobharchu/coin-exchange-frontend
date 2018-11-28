@@ -1,9 +1,9 @@
 export default {
-  appTitle: 'Here is the title lang en',
-  helloWorld: 'Hello World',
   app: {
-    title: 'khoa {name}',
-    name: '<p style="color: #00adb5;">Test En html</p>',
+    title: 'Coinbowl：购买和出售大量比特币',
+    description: '大量购买和出售比特币和其他加密货币。 支持银行转账，现金和信用卡。 所有交易都有保险',
+    keywords: '区块链技术，以太坊，比特币，加密货币，加密，交换平台，用现金购买比特币，购买大量比特币',
+    name: 'Coinbowl',
     navigation: {
       me: 'Me',
       ninjaCoin: 'Coin',
@@ -49,10 +49,13 @@ export default {
         date: 'Date'
       },
       alert: {
-        passwordSuccess: 'Update Password successfully1',
-        passwordFailed: 'Update Password Failed2',
+        passwordSuccess: 'Update Password Success',
+        passwordFailed: 'Update Password Failed',
         success: 'Success',
         failed: 'Failed',
+      },
+      validate: {
+        newPasswordRequired: 'New Password is required'
       }
     },
     setting: {
@@ -869,7 +872,9 @@ export default {
   },
   userVerifyStatus: {
     level1Pending: 'To start trading, please take a few minutes to verify your account. {verify}',
-    verifyBtn: 'Verify now'
+    verifyBtn: 'Verify now',
+    notLogin: 'Please sign in to start trading.{action}',
+    notLoginBtn: 'Sign In Now'
   },
   static_page: {
     userAgreement: 'User Agreement',

@@ -13,6 +13,10 @@ export const URL = {
   CONTACT: '/contact-us',
   WALLET: '/wallet',
   ME: '/me',
+  ME_PROFILE: '/me/profile',
+  ME_SETTING: '/me/setting',
+  ME_ACCOUNT_LEVEL: '/me/accountLevel',
+  ME_HISTORY: '/me/history'
 };
 
 export const API_URL = {
@@ -79,8 +83,7 @@ export const API_URL = {
     GET_LANGUAGES: '/system/languages/',
   },
   LANDING: {
-    STATIC_PAGE: '/content/static-page/',
-    ABOUT: '/content/about-us/en/',
+    STATIC_PAGE: '/content/static-page/',    
     FAQ: '/content/faq/',
   },
   COIN: {

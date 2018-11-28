@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Loading from 'src/components/loading';
 import { MyMessage } from 'src/lang/components';
 import { getTransactionsAction } from 'src/screens/auth/redux/action';
 import { Row, Col } from 'react-bootstrap';
@@ -17,7 +18,7 @@ class Referral extends React.PureComponent {
   }
   render() {
     // eslint-disable-next-line
-    if (this.state.loading) return (<div>Loading...</div>);
+    if (this.state.loading) return (<Loading />);
     const { history: { transactions } } = this.props;
     return (
       <div className={style.container}>
