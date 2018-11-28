@@ -44,8 +44,9 @@ class Exchange extends Component {
     this.setState({
       currency: defaultCurrency,
       fiatCurrency: defaultFiatCurrency,
-      currencyListRendered: this.renderCurrencyList(),
     });
+    this.renderCurrencyList();
+    this.renderFiatCurrencyList();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -66,9 +67,12 @@ class Exchange extends Component {
   }
 
   renderCurrencyList = () => {
-    return Object.values(CRYPTO_CURRENCY).map(c =>(
+    const rendered = Object.values(CRYPTO_CURRENCY).map(c =>(
       <Dropdown.Item key={c} onClick={() => this.onSelectCurrency(c)}>{c}</Dropdown.Item>
     ));
+    this.setState({
+      currencyListRendered: rendered
+    });
   }
 
   renderFiatCurrencyList = () => {
@@ -182,6 +186,7 @@ class Exchange extends Component {
     } 
   }
 
+  // eslint-disable-next-line
   getFiatAmount = (exchangeData = this.state.exchangeData) => {
     const { orderType } = this.props;
     if (orderType === ORDER_TYPE.cod)
@@ -203,6 +208,7 @@ class Exchange extends Component {
                 label={<MyMessage id={getIntlKey('amountLabel')} values={{ direction }} />}
                 placeholder="0.0"
                 value={amount}
+                truncateLabel
                 onBlur={() => onBlur()}
                 containerClassname={styles.inputWrapper}
                 className={markRequired && !amount ? 'border-danger' : ''}
@@ -221,7 +227,7 @@ class Exchange extends Component {
             </InputGroup>
           </Col>
           <Col sm={2}>
-            <div className={cx(styles.exchangeIcon, 'd-none d-sm-block')}>
+            <div className={cx(styles.exchangeIcon)}>
               {
                 isExchanging ? <Loading color='green' className={styles.loadingIcon} /> : <FaArrowsAltH className={styles.arrowIcon} />
               }
@@ -233,6 +239,7 @@ class Exchange extends Component {
                 label={<MyMessage id={getIntlKey('fiatAmountLabel')} />}
                 placeholder="0.0"
                 value={fiatAmount}
+                truncateLabel
                 onFocus={() => onFocus()}
                 onBlur={() => onBlur()}
                 containerClassname={styles.inputWrapper}
@@ -267,6 +274,7 @@ Exchange.defaultProps = {
   markRequired: false,
   onBlur: null,
   onFocus: null,
+  onChange: null,
   options: {
     canChangeCurrency: true,
     canChangeFiatCurrency: true,
@@ -283,6 +291,8 @@ Exchange.propTypes = {
   markRequired: PropTypes.bool,
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
+  supportedCurrency: PropTypes.array.isRequired,
+  onChange: PropTypes.func,
   options: PropTypes.shape({
     canChangeCurrency: PropTypes.bool,
     canChangeFiatCurrency: PropTypes.bool,
