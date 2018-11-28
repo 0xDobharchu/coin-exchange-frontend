@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form';
 import { Row } from 'react-bootstrap';
 // import { FieldLang } from 'src/lang/components';
 import { MyMessage, FieldLang } from 'src/lang/components';
-import ReactPhoneInput from 'react-phone-input-2';
+// import ReactPhoneInput from 'react-phone-input-2';
 
 import style from '../styles.scss';
 
@@ -14,7 +14,7 @@ const PhoneForm = ({ handleSubmit, onSubmit, level, levelStatus ,phoneNumber}) =
   <div>
     <Row>
       <div className="col-10">
-        <ReactPhoneInput value={phoneNumber} defaultCountry='hk' onChange={handleOnChange} regions='asia' placeholder="me.profile.text.phone.desc3" inputStyle={{ width: '100%' }} disabled={level === 'level_2' || level === 'level_3' || level === 'level_4'} />
+        {/*<ReactPhoneInput value={phoneNumber} defaultCountry='hk' onChange={handleOnChange} regions='asia' placeholder="me.profile.text.phone.desc3" inputStyle={{ width: '100%' }} disabled={level === 'level_2' || level === 'level_3' || level === 'level_4'} />*/}
       </div>
       {level === 'level_2' && levelStatus === 'pending' && <div className="col-10" style={{ width: '100%' }}><FieldLang style={{ width: '100%' }} name="code" component="input" type="text" placeholder="me.profile.text.phone.desc3" /></div>}
       <div className="col-2" style={{ paddingLeft: 0 }}>
