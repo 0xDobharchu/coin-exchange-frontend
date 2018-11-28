@@ -13,7 +13,7 @@ import style from './style.scss';
 
 // eslint-disable-next-line
 const AccountInfo = ({ name, updateProfileAction, showAlert }) => {
-  const getReferralLink = () => window.location.origin + '?referral=' + name;
+  const getReferralLink = () => window.location.origin + '/sign-up?referral=' + name;
   const showMessage = (id, type) => showAlert({
     message: id,
     type
@@ -47,13 +47,13 @@ const AccountInfo = ({ name, updateProfileAction, showAlert }) => {
       <div className={style.lineTitle} />
       <div style={{ justifyContent: 'space-between', display: 'flex', flexDirection: 'row', marginTop: '30px' }}>
         <label><MyMessage id="me.accountInfo.referralLink" /> <a href={getReferralLink()}>{getReferralLink()}</a></label>
-        
+
         <a href="https://www.facebook.com/sharer/sharer.php?s=100&p[url]=http://staging.coinbowl.com&p[images][0]=&p[title]=Title%20Goes%20Here&p[summary]=Description%20goes%20here!" target="_blank" rel="noopener noreferrer" onClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); return false">
           <button style={{ width:'30px', height: '30px' }} type="button" className="btn btn-facebook btn-lg">
             <i className="fa fa-facebook fa-2" />F
           </button>
         </a>
-        
+
       </div>
       <Referral />
     </div>
