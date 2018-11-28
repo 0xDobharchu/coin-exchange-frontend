@@ -105,11 +105,12 @@ export const getTransactions = async () => {
   }
 };
 
-export const sendToGetPhoneCode = async () => {
+export const sendToGetPhoneCode = async (data) => {
   try {
     const options = {
       url : '/user/verify-phone/',
       method: 'POST',
+      data
     };
     if(currentUser.isLogin()) {
       options.headers = {Authorization: 'Bearer ' + currentUser.getToken() };
@@ -140,12 +141,12 @@ export const submitVerifyPhoneCode = async (code) => {
 };
 
 /**
- * 
+ *
  * @param {*} data
  * id_number
  * id_type
  * front_image
- * back_image 
+ * back_image
  */
 export const submitIdCard = async (data) => {
   try {
