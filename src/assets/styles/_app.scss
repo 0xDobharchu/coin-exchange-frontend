@@ -16,6 +16,7 @@
     font-weight: $extra-light;
     color: $black;
     background-color: $bg-gray;
+    min-width: 330px;
     // overflow: hidden;
     @include full-screen;
   }
