@@ -1,15 +1,12 @@
 import React from 'react';
-// import cn from 'classnames';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
 import { MyMessage } from 'src/lang/components';
 import { updateProfileAction } from 'src/screens/auth/redux/action';
-import { Row, Col } from 'react-bootstrap';
-import Switch from 'rc-switch';
 import GeneralSettingForm from './Form/GeneralSettingForm';
+import TwoFactor from './TwoFactor';
 import style from './style.scss';
 
-// const onChange = values => console.log('swithch to', values);
 // eslint-disable-next-line
 const Setting = ({ updateProfileAction, showAlert }) => {
   const showMessage = (id, type) => showAlert({
@@ -29,27 +26,7 @@ const Setting = ({ updateProfileAction, showAlert }) => {
       </div>
       <label className={style.title}>2-Factor Authentication</label>
       <div className={style.lineTitle} />
-      <Row className={style.personalDetail}>
-        <Col md={4} className={style.leftSide}>
-          <Switch />
-          <label className={style.fontLeft}>Your personal information is never shown to other users</label>
-        </Col>
-        {/* <Col md={8} className={style.rightSide}>
-          <label>Require verification code to send</label>
-          <div className={cn(style.radioItem, style.isgood)}>
-            <div><input type="radio" name="verify_type" value="1" /></div>
-            <label>Any amount - <span>Most secured</span></label>
-          </div>
-          <div className={style.radioItem}>
-            <div><input type="radio" name="verify_type" value="1" /></div>
-            <label>Over 2 BTC per day</label>
-          </div>
-          <div className={cn(style.radioItem, style.isbad)}>
-            <div><input type="radio" name="verify_type" value="1" /></div>
-            <label>Any amount - <span>Most secured</span></label>
-          </div>
-        </Col> */}
-      </Row>
+      <TwoFactor />
       <label className={style.title}>Activity</label>
       <div className={style.lineTitle} />
     </div>
