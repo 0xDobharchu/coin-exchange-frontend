@@ -19,8 +19,10 @@ class Root extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.ipInfo?.country !== this.props.ipInfo?.country) {
-      this.props.ipInfo?.country && this.props.getCountryCurrency(this.props.ipInfo?.country);
+    const { ipInfo: { country: countryFromIp }, profile: { country: userCountry }, getCountryCurrency } = this.props;
+    if (prevProps.ipInfo?.country !== countryFromIp || prevProps.profile.country !== userCountry) {
+      const _country = userCountry || countryFromIp;
+      _country && getCountryCurrency(_country);
     }
   }
 
@@ -28,17 +30,18 @@ class Root extends React.Component {
     const querystring = window.location.search.replace('?', '');
     const querystringParsed = qs.parse(querystring);
     const { language, ref } = querystringParsed;
-    // eslint-disable-next-line
-    this.props.initApp(language, ref);
-    this.props.getSupportCountry();
-    this.props.getSupportLanguages();
+    const { initApp, getSupportCountry, getSupportLanguages } = this.props;
+    initApp(language, ref);
+    getSupportCountry();
+    getSupportLanguages();
   }
 
   render() {
+    const { children, ...props } = this.props;
     return (
       <IntlCustomProvider>
-        <Layout {...this.props}>
-          {this.props.children}
+        <Layout {...props}>
+          {children}
           <BarcodeScanner />
         </Layout>
       </IntlCustomProvider>
@@ -48,6 +51,7 @@ class Root extends React.Component {
 
 export default connect(state => ({
   app: state.app,
-  ipInfo: state.app.ipInfo,
+  ipInfo: state.app.ipInfo || {},
   router: state.router,
+  profile: state?.auth?.profile || {}
 }), { initApp, getCountryCurrency, getSupportCountry, getSupportLanguages })(Root);
