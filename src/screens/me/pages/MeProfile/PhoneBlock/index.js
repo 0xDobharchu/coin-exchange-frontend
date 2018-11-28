@@ -25,8 +25,10 @@ const getLevelStatus = (level, status) => {
 
 // eslint-disable-next-line
 const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, updatePhoneNumberAction, submitPhoneCodeAction }) => {
-  const handleVerifyEmail = (values) => {
+  const handleVerifyPhone = (values) => {
+
     const { phone: phoneNumberValue, code } = values;
+    console.log(values);
     if (!phoneNumberValue || valid.phone(phoneNumberValue)) {
       showAlert({
         message: 'me.accountLevel.alert.invalidPhone',
@@ -63,7 +65,7 @@ const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, update
       <div className={style.content}>
         <p className={style.text}><MyMessage id="me.profile.text.id_verification.desc13" /></p>
       </div>
-      <PhoneForm onSubmit={handleVerifyEmail} />
+      <PhoneForm onSubmit={handleVerifyPhone} />
     </div>
   );
 };
