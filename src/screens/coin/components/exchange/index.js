@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import MyMessage from 'src/lang/components/MyMessage';
 import { debounce, xor as arrayXor } from 'lodash';
 import { EXCHANGE_DIRECTION, ORDER_TYPE } from 'src/screens/coin/constant';
+import Loading from 'src/components/loading';
 import { getQuote, getQuoteReverse } from './action';
 import styles from './styles.scss';
 
@@ -221,7 +222,9 @@ class Exchange extends Component {
           </Col>
           <Col sm={2}>
             <div className={cx(styles.exchangeIcon, 'd-none d-sm-block')}>
-              <FaArrowsAltH className={styles.arrowIcon} color={isExchanging ? 'green' : ''} />
+              {
+                isExchanging ? <Loading color='green' className={styles.loadingIcon} /> : <FaArrowsAltH className={styles.arrowIcon} />
+              }
             </div>
           </Col>
           <Col sm={5}>
