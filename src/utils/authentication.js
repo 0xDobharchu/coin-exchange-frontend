@@ -6,7 +6,7 @@ const currentUser = {
       const token = currentUser.getToken();
       return !!token;
     }
-
+    return false;
   },
   getToken() {
     if(__CLIENT__){
