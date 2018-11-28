@@ -11,6 +11,7 @@
       display: flex;
       padding: 10px 0px;
       flex-direction: column;
+      width: 40%;
       >img {
         width: 24px;
         height: 24px;
@@ -23,6 +24,9 @@
         margin-left: 20px;
         margin-top: 10px;
       }
+    }
+    .graph {
+      width: 60%;
     }
   }
   .sell, .buy {
