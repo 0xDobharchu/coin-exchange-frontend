@@ -90,7 +90,7 @@ class BuyCryptoCoin extends React.Component {
       timeOut: 1000,
     });
     if (paymentMethod === PAYMENT_METHOD.COD) {
-      history?.push(URL.ME);
+      history?.push(URL.ME_HISTORY);
     } else {
       this.setState({ showBankTransferInfo: true });
     }

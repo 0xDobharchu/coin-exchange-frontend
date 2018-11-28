@@ -122,7 +122,10 @@ class BankTransferInfo extends PureComponent {
       }).then(info => {
         this.setState({ data: this.updateBankInfoFromData(info) });
         this.showLoading(false);
-      }).catch(() => {this.showLoading(false); });
+      }).catch(() => {
+        this.showLoading(false);
+        alert('Get bank info failed!');
+      });
     } catch (e) {
       console.warn(e);
     }

@@ -25,7 +25,7 @@ class UserVerifyStatus extends Component {
               <MyMessage
                 id="userVerifyStatus.level1Pending"
                 values={{
-                  verify: <Link to={URL.ME}><span className={styles.btn}><MyMessage id="userVerifyStatus.verifyBtn" /></span></Link>,
+                  verify: <Link to={URL.ME_ACCOUNT_LEVEL}><span className={styles.btn}><MyMessage id="userVerifyStatus.verifyBtn" /></span></Link>,
                 }}
               />
             </span>
