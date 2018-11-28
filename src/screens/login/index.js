@@ -32,8 +32,10 @@ class Login extends React.Component {
       loggingIn: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.checkAuth();
 
+    if(currentUser.isLogin()) {
+      this.redirectTo();
+    }
   }
 
   redirectTo() {
@@ -44,18 +46,12 @@ class Login extends React.Component {
     this.props.history.push(redirectTo);
   }
 
-  checkAuth() {
-    if(currentUser.isLogin()) {
-      this.redirectTo();
-    }
-  }
-
   handleSubmit() {
     this.setState({ loggingIn: true });
     const { username, password } = this.props;
     if (username && password) {
       this.props.loginBound(username, password).then((res) => {
-        if (res.status === USER.LOGIN_SUCCESS) {
+        if (res.type === USER.LOGIN_SUCCESS) {
           this.redirectTo();
           if(res.message === true) {
             const action = <Link to={URL.ME}><LabelLang id="user.login.warningVerifyNow" /></Link>;
@@ -65,7 +61,7 @@ class Login extends React.Component {
               timeOut: 5000,
             });
           }
-        } else if (res.status === USER.LOGIN_FAILURE) {
+        } else if (res.type === USER.LOGIN_FAILURE) {
           this.props.showAlert({
             message: 'user.login.loginFailure',
             type: 'danger',
@@ -146,7 +142,8 @@ class Login extends React.Component {
 
 const mapStateToProps = state => ({
   username: selectorForm(state, 'username'),
-  password: selectorForm(state, 'password')
+  password: selectorForm(state, 'password'),
+  isAuthenticated: state.loginReducer.isAuthenticated
 });
 
 const mapDispatch = dispatch => ({
