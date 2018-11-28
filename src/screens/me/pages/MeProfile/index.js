@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getProfileAction, sendEmailVerifyCodeAction }from 'src/screens/auth/redux/action';
 import { Col, Container, Row } from 'react-bootstrap';
 import { MyMessage, WrapperLang } from 'src/lang/components';
+import Loading from 'src/components/loading';
 import queryString from 'query-string';
 import EmailBlock from './EmailBlock';
 import PhoneBlock from './PhoneBlock';
@@ -30,7 +31,7 @@ class MeProfile extends React.PureComponent {
   }
   render() {
     // eslint-disable-next-line
-    if (this.state.loading) return (<div>Loading...</div>);
+    if (this.state.loading) return (<Loading />);
     return (
       <Container className={style.profile}>
         <Row className={style.head_text}>

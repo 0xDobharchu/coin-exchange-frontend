@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { MyMessage } from 'src/lang/components';
+import Loading from 'src/components/loading';
 import { getTransactionsAction } from 'src/screens/auth/redux/action';
 import { Row, Col } from 'react-bootstrap';
 import { Button } from 'src/components/custom';
@@ -25,7 +26,7 @@ class History extends React.PureComponent {
   modelClode = () => this.setState({ isShow: false });
   render() {
     // eslint-disable-next-line
-    if (this.state.loading) return (<div>Loading...</div>);
+    if (this.state.loading) return (<Loading />);
     // eslint-disable-next-line
     const { history: { transactions } } = this.props;
     return (
