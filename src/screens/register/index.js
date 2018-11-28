@@ -15,6 +15,8 @@ import dropdownField from 'src/components/core/form/fields/dropdown';
 import checkBoxField from 'src/components/core/form/fields/checkbox';
 import cx from 'classnames';
 import { showAlert } from 'src/screens/app/redux/action';
+import queryString from 'query-string';
+import currentUser from 'src/utils/authentication';
 import { register, getCountries } from './action';
 import style from './style.scss';
 
@@ -22,7 +24,6 @@ const RegisterForm = createForm({
   propsReduxForm: {
     form: 'RegisterForm',
     initialValues: {
-
     },
   },
 });
@@ -33,14 +34,28 @@ class RegisterPage extends React.Component {
   constructor(props) {
     super(props);
 
+    const params = queryString.parse(this.props.location.search);
     this.state = {
       registering: false,
       defaultCountry: '',
-      countryList: []
+      countryList: [],
+      referral: params.referral || '',
     };
     this._reCaptchaRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.verifyCallback = this.verifyCallback.bind(this);
+    if(currentUser.isLogin()) {
+      this.redirectTo();
+    }
+  }
+
+
+  redirectTo() {
+    let redirectTo =  URL.HOME;
+    if( this.props.location.state && this.props.location.state.from){
+      redirectTo = this.props.location.state.from.pathname;
+    }
+    this.props.history.push(redirectTo);
   }
 
   componentDidUpdate(prevProps) {
@@ -66,13 +81,16 @@ class RegisterPage extends React.Component {
     const {
       name, username, password, country, recaptchaValue, agreement
     } = this.props;
+    const { referral } = this.state;
+
     if (name && username && password && country && recaptchaValue && agreement) {
       this.props.registerBound({
         name,
         username,
         password,
         country,
-        recaptchaValue
+        recaptchaValue,
+        referral
       }).then((res) => {
         if (res === USER.REGISTER_SUCCESS) {
           console.log('Register successfully');
