@@ -9,6 +9,13 @@ import { getColorByLevel, getStatusByLevel } from '../util';
 // eslint-disable-next-line
 const SelfieBlock = ({ style, level, levelStatus, showAlert, submitVerifyLevel4Action }) => {
   const handleSubmitForm = values => {
+    if (!values.selfie_image) {
+      showAlert({
+        message: 'me.accountLevel.alert.imageSelfieRequired',
+        timeOut: 3000,
+        type: 'danger'
+      });
+    }
     submitVerifyLevel4Action(values);
     showAlert({
       message: 'me.accountLevel.alert.lv4',
@@ -20,14 +27,14 @@ const SelfieBlock = ({ style, level, levelStatus, showAlert, submitVerifyLevel4A
     <div className={style.collapse_custom}>
       <div className={style.head}>
         <p className={style.label}>
-          <MyMessage id="me.profile.verify.step4" />
+          <MyMessage id="me.accountLevel.step4" />
         </p>
         <div className={style.extend}>
           <span className={`badge badge-${getColorByLevel(4, level, levelStatus)}`}>{getStatusByLevel(4, level, levelStatus)}</span>
         </div>
       </div>
       <div className={style.content}>
-        <p className={style.text}><MyMessage id="me.profile.text.id_verification.desc12" /></p>
+        <p className={style.text}><MyMessage id="me.accountLevel.wrm3" /></p>
       </div>
       <SelfieForm onSubmit={handleSubmitForm} />
     </div>);
