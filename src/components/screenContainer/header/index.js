@@ -5,28 +5,29 @@ import cx from 'classnames';
 import { URL } from 'src/resources/constants/url';
 import currentUser from 'src/utils/authentication';
 import ChangeLanguage from 'src/components/changeLanguage';
+import MyMessage from 'src/lang/components/MyMessage';
 import UserLogin from 'src/components/userLogin';
 import styles from './styles.scss';
 
 const menus = {
   home: {
-    name: 'Home',
+    name: <MyMessage id="headerBar.home" />,
     link: URL.HOME
   },
   about_us: {
-    name: 'About Us',
+    name: <MyMessage id="headerBar.aboutUs" />,
     link: URL.ABOUT_US,
   },
   contact_us: {
-    name: 'Contact Us',
+    name: <MyMessage id="headerBar.contactUs" />,
     link: URL.CONTACT,
   },
   faq: {
-    name: 'FAQ',
+    name: <MyMessage id="headerBar.faq" />,
     link: URL.FAQ_URL
   },
   wallet: {
-    name: 'Wallet',
+    name: <MyMessage id="headerBar.wallet" />,
     link: URL.WALLET,
     auth: true
   },
@@ -34,12 +35,12 @@ const menus = {
 
 const buttons = {
   sign_in: {
-    name: 'Sign In',
+    name: <MyMessage id="headerBar.signIn" />,
     link: URL.USER_SIGN_IN,
     className: ''
   },
   sign_up: {
-    name: 'Sign up',
+    name: <MyMessage id="headerBar.signUp" />,
     link: URL.USER_SIGN_UP,
     className: 'active'
   },
