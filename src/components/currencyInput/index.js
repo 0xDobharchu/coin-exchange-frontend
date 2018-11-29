@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Input from 'src/components/core/controls/input';
 import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
-import { FIAT_CURRENCY } from 'src/resources/constants/fiat';
+import { DEFAULT_FIAT_CURRENCY } from 'src/resources/constants/fiat';
 
 const CURRENCY_TYPE = {
   FIAT: 'FIAT',
@@ -142,7 +142,7 @@ class CurrencyInput extends Component {
 }
 
 CurrencyInput.defaultProps = {
-  currency: FIAT_CURRENCY.USD
+  currency: DEFAULT_FIAT_CURRENCY
 };
 
 CurrencyInput.propTypes = {

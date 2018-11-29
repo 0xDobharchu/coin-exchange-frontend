@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { InputGroup, Container, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
 import CurrencyInput from 'src/components/currencyInput';
 import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
-import { FIAT_CURRENCY } from 'src/resources/constants/fiat';
+import { DEFAULT_FIAT_CURRENCY, FIAT_CURRENCY } from 'src/resources/constants/fiat';
 import { FaArrowsAltH } from 'react-icons/fa';
 import cx from 'classnames';
 import { connect } from 'react-redux';
@@ -268,7 +268,7 @@ const mapDispatch = { getQuote, getQuoteReverse };
 
 Exchange.defaultProps = {
   defaultCurrency: CRYPTO_CURRENCY.ETH,
-  defaultFiatCurrency: FIAT_CURRENCY.USD,
+  defaultFiatCurrency: DEFAULT_FIAT_CURRENCY,
   direction: EXCHANGE_DIRECTION.buy,
   orderType: ORDER_TYPE.bank,
   markRequired: false,
@@ -300,7 +300,7 @@ Exchange.propTypes = {
 };
 
 const mapState = state => ({
-  supportedCurrency: state?.app?.supportedCurrency || [FIAT_CURRENCY.USD],
+  supportedCurrency: state?.app?.supportedCurrency || [DEFAULT_FIAT_CURRENCY],
 });
 
 export default connect(mapState, mapDispatch)(Exchange);
