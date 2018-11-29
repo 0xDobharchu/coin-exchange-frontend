@@ -1,3 +1,4 @@
+import { API_URL } from 'src/resources/constants/url';
 import http from 'src/utils/http';
 import currentUser from 'src/utils/authentication';
 
@@ -241,5 +242,43 @@ export const disableTwoFactorCode = async (code) => {
   } catch (err) {
     console.log('ERROR update phone number', err);
     throw err;
+  }
+};
+
+export const getCountries = async () => {
+  try {
+    const options = {
+      url : API_URL.SYSTEM.COUNTRY,
+      method: 'GET',
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {
+        Authorization: 'Bearer ' + currentUser.getToken()
+      };
+    }
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR get countries', err);
+    return [];
+  }
+};
+
+export const getLanguages = async () => {
+  try {
+    const options = {
+      url : API_URL.SYSTEM.GET_LANGUAGES,
+      method: 'GET',
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {
+        Authorization: 'Bearer ' + currentUser.getToken()
+      };
+    }
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR get languages', err);
+    return [];
   }
 };
