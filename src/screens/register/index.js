@@ -141,7 +141,7 @@ class RegisterPage extends React.Component {
                     name="name"
                     containerClassName="form-group"
                     component={inputField}
-                    validate={[isRequired(<LabelLang id="user.register.requiredNickName" />), isNickName(<LabelLang id="user.register.notValidNickName" />)]}
+                    validate={[isRequired('user.register.requiredNickName'), isNickName('user.register.notValidNickName')]}
                     type="text"
                     className="form-control"
                     placeholder="user.register.placeholderNickName"
@@ -150,7 +150,7 @@ class RegisterPage extends React.Component {
                     name="username"
                     containerClassName="form-group"
                     component={inputField}
-                    validate={[isRequired(<LabelLang id="user.register.requiredUsername" />), isEmail(<LabelLang id="user.register.notValidUsername" />)]}
+                    validate={[isRequired('user.register.requiredUsername'), isEmail('user.register.notValidUsername')]}
                     type="email"
                     className='form-control'
                     placeholder="user.register.username"
@@ -160,7 +160,7 @@ class RegisterPage extends React.Component {
                     name="password"
                     className="form-control"
                     component={inputField}
-                    validate={[isRequired(<LabelLang id="user.register.requiredPassword" />), isPassword(8)]}
+                    validate={[isRequired('user.register.requiredPassword'), isPassword(8)]}
                     type="password"
                     placeholder="user.register.password"
                   />
@@ -169,7 +169,7 @@ class RegisterPage extends React.Component {
                     name="country"
                     className="form-control"
                     component={dropdownField}
-                    validate={isRequired(<LabelLang id="user.register.requiredCountry" />)}
+                    validate={isRequired('user.register.requiredCountry')}
                     toggle={<LabelLang id="user.register.placeholderCountry" />}
                     value={defaultCountry}
                     list={countryList}
@@ -186,7 +186,7 @@ class RegisterPage extends React.Component {
                       name="recaptchaValue"
                       className="form-control"
                       component={inputField}
-                      validate={isRequired(<LabelLang id="user.register.notValidReCaptcha" />)}
+                      validate={isRequired('user.register.notValidReCaptcha')}
                       type="hidden"
                     />
                   </div>
@@ -196,7 +196,7 @@ class RegisterPage extends React.Component {
                     id="agreement"
                     component={checkBoxField}
                     type="checkbox"
-                    validate={mustChecked(<LabelLang id="user.register.requiredAgreement" />, true)}
+                    validate={mustChecked('user.register.requiredAgreement', true)}
                     className="form-check-input"
                     labelText="user.register.agreement"
                     labelTextValues={{action}}

@@ -22,7 +22,7 @@ const inputField = ({ input, meta, containerClassName, labelClassName, labelText
         onChange={onChange}
         className={cx(className, shouldShowError ? 'border-danger' : '')}
       />
-      { shouldShowError && <small className="text-danger">{error}</small>}
+      { shouldShowError && <small className="text-danger"> <LabelLang id={error} /> </small>}
     </div>
   );
 };

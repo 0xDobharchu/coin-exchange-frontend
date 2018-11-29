@@ -23,7 +23,7 @@ const inputField = ({ input, meta, labelText, labelTextValues, labelClassName, c
         />
         <span className="checkmark" />
       </label>
-      { shouldShowError && <small className="text-danger">{error}</small>}
+      { shouldShowError && <small className="text-danger"><LabelLang id={error} /></small>}
     </div>
   );
 };
