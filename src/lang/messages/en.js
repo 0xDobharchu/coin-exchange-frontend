@@ -15,6 +15,15 @@ export default {
       copied: 'Copied'
     }
   },
+  headerBar: {
+    home: 'Home',
+    contactUs: 'Contact Us',
+    aboutUs: 'About Us',
+    faq: 'FAQ',
+    wallet: 'Wallet',
+    signIn: 'Sign In',
+    signUp: 'Sign Up'
+  },
   error: {
     required: 'Required',
     requiredOne: 'You need to fill in one of these!',

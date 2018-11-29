@@ -78,7 +78,7 @@ class WalletSelector extends Component {
             onFocus={() => onFocus()}
             type="text"
             name='wallet'
-            autocomplete='off'
+            autoComplete='off'
             ref={this.addressInputRef}
           />
           <InputGroup.Prepend>
