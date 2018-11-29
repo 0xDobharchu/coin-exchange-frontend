@@ -680,7 +680,8 @@ export default {
       },
       walletSelector: {
         qrScannerText: 'Scan QR code or copy wallet address',
-        currency: 'Currency'
+        currency: 'Currency',
+        invalidAddressMsg: 'The address and type of crypto don\'t match. Please check',
       },
       sellOrderInfo: {
         transferCoinFirst: 'You have to transfer coin to this address first',
