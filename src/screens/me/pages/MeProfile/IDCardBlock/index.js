@@ -41,16 +41,16 @@ class IDCardBlock extends React.PureComponent {
       <div className={style.collapse_custom}>
         <div className={style.head}>
           <p className={style.label}>
-            <MyMessage id="me.profile.verify.step3" />
+            <MyMessage id="me.accountLevel.step3" />
           </p>
           <br />
-          <p><MyMessage id="me.profile.text.id_verification.desc1" /></p>
+          <p><MyMessage id="me.accountLevel.lv3desc" /></p>
           <div className={style.extend}>
             <span className={`badge badge-${getStatusColor(level, levelStatus)}`}>{getLevelStatus(level, levelStatus)}</span>
           </div>
         </div>
         <div className={style.content}>
-          <p className={style.text}><MyMessage id="me.profile.text.id_verification.desc12" /></p>
+          <p className={style.text}><MyMessage id="me.accountLevel.wrm3" /></p>
         </div>
         <IDVerificationForm onSubmit={this.handleSubmitForm} />
       </div>
