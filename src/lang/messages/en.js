@@ -691,7 +691,7 @@ export default {
         },
         cardName: 'ORDER INFO',
         priceWillUpdateIn: 'Price will be updated after',
-        orderBtn: 'Place order'
+        orderBtn: 'Finish'
       },
       pricePanel: {
         buy: 'Buy',
@@ -700,7 +700,6 @@ export default {
       exchange: {
         amountLabel: 'Amount to {direction}',
         currency: 'Currency',
-        fiatAmountLabel: 'How much do you want?'
       }
     }
   },
