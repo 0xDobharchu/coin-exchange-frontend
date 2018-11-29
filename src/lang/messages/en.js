@@ -148,7 +148,7 @@ export default {
       requiredLastName: 'Last name is required',
       placeholderNickName:'Enter your nick name',
       requiredNickName:'Nick name is required',
-      notValidNickName: 'Nickname must be greater than 3 and less than 30 characters',
+      notValidNickName: 'Nickname must be greater than 3 and less than 30 characters, Allowed characters are a-z, 0-9, _, - (dash), and .(dot).',
       username: 'Your email',
       requiredUsername: 'Username is required',
       notValidUsername: 'Invalid email address',
@@ -163,12 +163,12 @@ export default {
       placeholderCountry: 'Please select your country',
       requiredCountry: 'Country is required',
       notValidReCaptcha: 'Please validate your reCAPTCHA.',
-      agreement: 'I certify that I am 18 years of age or older, and I agree to the User {action}',
+      agreement: 'I certify that I am 18 years of age or older, and I agree to the {action}',
       requiredAgreement: 'Please indicate that you have read and agree to the User Agreement and Privacy Policy',
       registerButton: 'Create account',
       loginButton: 'Already have an account?',
       registerSuccessfully: 'You have registered successfully. Don’t forget to verify your email later.',
-      agreementAction: 'Agreement and Privacy Policy.'
+      agreementAction: 'User Agreement and Privacy Policy.'
     }
   },
   landingPage: {
@@ -178,6 +178,7 @@ export default {
       requiredYourName: 'Your name is required',
       placeholderYourName: 'Enter your name',
       email: 'Your email',
+      placeholderYourEmail: 'Enter your email',
       requiredEmail: 'Your email is required',
       notValidEmail: 'Invalid email address',
       phone: 'Your phone',
@@ -186,6 +187,7 @@ export default {
       placeholderDescription: 'Enter your message',
       requiredDescription: 'Your message is required',
       contactButton: 'Submit',
+      message: 'Thank you! Your message has been sent. You should receive a response from one of our representatives within 12-24 hours.'
 
     }
   },
@@ -680,7 +682,8 @@ export default {
       },
       walletSelector: {
         qrScannerText: 'Scan QR code or copy wallet address',
-        currency: 'Currency'
+        currency: 'Currency',
+        invalidAddressMsg: 'The address and type of crypto don\'t match. Please check',
       },
       sellOrderInfo: {
         transferCoinFirst: 'You have to transfer coin to this address first',

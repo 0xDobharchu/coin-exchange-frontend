@@ -14,7 +14,7 @@ import ConfirmButton from 'src/components/confirmButton';
 import inputField from 'src/components/core/form/fields/input';
 import { showAlert } from 'src/screens/app/redux/action';
 import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
-import MyMessage from 'src/lang/components/MyMessage';
+import LabelLang from 'src/lang/components/LabelLang';
 import { FaLock } from 'react-icons/fa';
 import OrderInfo from './components/orderInfo';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
@@ -72,7 +72,7 @@ class SellCryptoCoin extends React.Component {
         this.makeOrder();
       } else {
         showAlert({
-          message: <MyMessage id={getIntlKey('prepareOrderFailed')} />,
+          message: <LabelLang id={getIntlKey('prepareOrderFailed')} />,
           type: 'danger',
           timeOut: 1000,
         });
@@ -103,7 +103,7 @@ class SellCryptoCoin extends React.Component {
   orderSuccessHandler = (/* orderInfo */) => {
     const { showAlert, history } = this.props;
     showAlert({
-      message: <MyMessage id={getIntlKey('orderSuccessful')} />,
+      message: <LabelLang id={getIntlKey('orderSuccessful')} />,
       timeOut: 1000,
     });
     history.push(URL.ME_HISTORY);
@@ -112,7 +112,7 @@ class SellCryptoCoin extends React.Component {
   orderFailedHandler = () => {
     const { showAlert } = this.props;
     showAlert({
-      message: <MyMessage id={getIntlKey('orderFailed')} />,
+      message: <LabelLang id={getIntlKey('orderFailed')} />,
       type: 'danger',
       timeOut: 1000,
     });
@@ -173,7 +173,7 @@ class SellCryptoCoin extends React.Component {
     const { walletAddress } = this.state;
     const isValid = this.isValidToSubmit();
     if (walletAddress) {
-      const exchangeInfo = { 
+      const exchangeInfo = {
         amount: exchange?.amount,
         currency: exchange?.currency,
         fiatAmount: exchange?.fiatAmount,

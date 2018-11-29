@@ -2441,9 +2441,9 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
-coinexchangei18n@^1.0.0:
+"coinexchangei18n@github:ninjadotorg/coin-exchange-i18n":
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/coinexchangei18n/-/coinexchangei18n-1.0.0.tgz#40756598eda12c9e908badb98bce3cc1b0b38052"
+  resolved "https://codeload.github.com/ninjadotorg/coin-exchange-i18n/tar.gz/d829ab111642d691cf98809bddd28a59c2e1096b"
   dependencies:
     "@babel/core" "^7.1.2"
     "@babel/node" "^7.0.0"
@@ -4975,34 +4975,6 @@ gulplog@^1.0.0:
 handle-thing@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/handle-thing/-/handle-thing-1.2.5.tgz#fd7aad726bf1a5fd16dfc29b2f7a6601d27139c4"
-
-"handshake-i18n@github:ninjadotorg/coin-exchange-i18n":
-  version "1.0.0"
-  resolved "https://codeload.github.com/ninjadotorg/coin-exchange-i18n/tar.gz/14d2f31b9ab4ee10bb16c0dcacc2eaf246cd8d70"
-  dependencies:
-    "@babel/core" "^7.1.2"
-    "@babel/node" "^7.0.0"
-    "@babel/plugin-syntax-dynamic-import" "^7.0.0"
-    "@babel/plugin-syntax-jsx" "^7.0.0"
-    "@babel/plugin-transform-react-jsx" "^7.0.0"
-    "@babel/plugin-transform-react-jsx-compat" "^7.0.0"
-    "@babel/plugin-transform-react-jsx-self" "^7.0.0"
-    "@babel/plugin-transform-runtime" "^7.1.0"
-    "@babel/preset-env" "^7.1.0"
-    "@babel/preset-react" "^7.0.0"
-    "@babel/runtime" "^7.1.2"
-    babel-plugin-dynamic-import-node "^2.2.0"
-    babel-plugin-module-resolver "^3.1.1"
-    dotenv "^6.0.0"
-    fast-csv "^2.4.1"
-    lodash "^4.17.10"
-    prop-types "^15.6.2"
-    react "^16.5.2"
-    react-intl "^2.7.1"
-    react-router-dom "^4.3.1"
-    request "^2.87.0"
-    rimraf "^2.6.2"
-    unzip "^0.1.11"
 
 har-schema@^2.0.0:
   version "2.0.0"

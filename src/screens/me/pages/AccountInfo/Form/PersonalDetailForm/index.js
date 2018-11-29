@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { FieldLang, WrapperLang, MyMessage } from 'src/lang/components';
+import { FieldLang, WrapperLang, LabelLang } from 'src/lang/components';
 import { getCountries } from 'src/screens/auth/redux/api';
 import { Field, reduxForm } from 'redux-form';
 import { Row, Col }from 'react-bootstrap';
@@ -38,7 +38,7 @@ class DropDownCountriesField extends React.Component {
 // eslint-disable-next-line
 const PersonalDetailForm = ({ handleSubmit, onSubmit }) => (
   <form className={style.container}>
-    <label><MyMessage id="me.accountInfo.legalName" /></label>
+    <label><LabelLang id="me.accountInfo.legalName" /></label>
     <Row>
       <Col md={6}>
         <FieldLang name="first_name" component={InputField} placeholder="me.accountInfo.firstName" />
@@ -47,7 +47,7 @@ const PersonalDetailForm = ({ handleSubmit, onSubmit }) => (
         <FieldLang name="last_name" component={InputField} placeholder="me.accountInfo.lastName" />
       </Col>
     </Row>
-    <label><MyMessage id="me.accountInfo.country" /></label>
+    <label><LabelLang id="me.accountInfo.country" /></label>
     <DropDownCountriesField />
     <WrapperLang>
       {ts =>
