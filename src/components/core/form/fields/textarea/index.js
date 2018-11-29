@@ -18,7 +18,7 @@ const textareaField = ({ input, meta, containerClassName, labelClassName, labelT
         onFocus={onFocus}
         onChange={onChange}
       />
-      { shouldShowError && <small className="text-danger">{error}</small>}
+      { shouldShowError && <small className="text-danger"><LabelLang id={error} /></small>}
     </div>
   );
 };
