@@ -27,6 +27,15 @@ class IDCardBlock extends React.PureComponent {
   handleSubmitForm = values => {
     // eslint-disable-next-line
     const { showAlert, submitVerifyLevel3Action } = this.props;
+    const { back_image, front_image } = values;
+    if (!back_image || !front_image) {
+      showAlert({
+        message: 'me.accountLevel.alert.imageIdentifierRequired',
+        timeOut: 3000,
+        type: 'danger'
+      });
+      return;
+    }
     submitVerifyLevel3Action(values);
     showAlert({
       message: 'me.accountLevel.alert.lv3',
@@ -34,6 +43,7 @@ class IDCardBlock extends React.PureComponent {
       type: 'success'
     });
   }
+
   render() {
     // eslint-disable-next-line
     const { style, verified, level, levelStatus } = this.props;

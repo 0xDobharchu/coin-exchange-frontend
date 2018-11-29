@@ -96,7 +96,9 @@ export default {
         lv4: 'Your request upto level 4 is sent',
         invalidPhone: 'Invalid Phone',
         sendPhoneCodeSuccess: 'Verify code was sent successful to your phone',
-        sendEmailCodeSuccess: 'Verify code is sent success to your mail'
+        sendEmailCodeSuccess: 'Verify code is sent success to your mail',
+        imageIdentifierRequired: 'Back/Front Image is required',
+        imageSelfieRequired: 'Image Selifie is required'
       }
     }
   },
