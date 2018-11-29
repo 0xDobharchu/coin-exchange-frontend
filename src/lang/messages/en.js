@@ -15,6 +15,15 @@ export default {
       copied: 'Copied'
     }
   },
+  headerBar: {
+    home: 'Home',
+    contactUs: 'Contact Us',
+    aboutUs: 'About Us',
+    faq: 'FAQ',
+    wallet: 'Wallet',
+    signIn: 'Sign In',
+    signUp: 'Sign Up'
+  },
   error: {
     required: 'Required',
     requiredOne: 'You need to fill in one of these!',
@@ -148,7 +157,7 @@ export default {
       requiredLastName: 'Last name is required',
       placeholderNickName:'Enter your nick name',
       requiredNickName:'Nick name is required',
-      notValidNickName: 'Nickname must be greater than 3 and less than 30 characters',
+      notValidNickName: 'Nickname must be greater than 3 and less than 30 characters, Allowed characters are a-z, 0-9, _, - (dash), and .(dot).',
       username: 'Your email',
       requiredUsername: 'Username is required',
       notValidUsername: 'Invalid email address',

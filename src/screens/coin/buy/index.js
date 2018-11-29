@@ -13,8 +13,9 @@ import { URL } from 'src/resources/constants/url';
 import ConfirmButton from 'src/components/confirmButton';
 import inputField from 'src/components/core/form/fields/input';
 import { showAlert } from 'src/screens/app/redux/action';
-import MyMessage from 'src/lang/components/MyMessage';
+import LabelLang from 'src/lang/components/LabelLang';
 import { FaLock } from 'react-icons/fa';
+import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
 import cx from 'classnames';
 import BankTransferInfo from './components/bankTransferInfo';
 import walletSelectorField, { walletValidator } from './reduxFormFields/walletSelector';
@@ -86,7 +87,7 @@ class BuyCryptoCoin extends React.Component {
     this.setState({ orderInfo });
     const { showAlert, paymentMethod, history } = this.props;
     showAlert({
-      message: <MyMessage id="coin.buy.orderSuccessMsg" />,
+      message: <LabelLang id="coin.buy.orderSuccessMsg" />,
       timeOut: 1000,
     });
     if (paymentMethod === PAYMENT_METHOD.COD) {
@@ -96,13 +97,8 @@ class BuyCryptoCoin extends React.Component {
     }
   }
 
-  orderFailedHandler = () => {
-    const { showAlert } = this.props;
-    showAlert({
-      message: <MyMessage id="coin.buy.orderFailedMsg" />,
-      type: 'danger',
-      timeOut: 1000,
-    });
+  orderFailedHandler = (e) => {
+    reqErrorAlert(e, { message: <LabelLang id="coin.buy.orderFailedMsg" /> });
   }
 
   resetState = () => {

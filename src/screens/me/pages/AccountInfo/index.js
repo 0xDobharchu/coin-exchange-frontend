@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { MyMessage } from 'src/lang/components';
+import { LabelLang } from 'src/lang/components';
 import { showAlert } from 'src/screens/app/redux/action';
 import { changePassword } from 'src/screens/auth/redux/api';
 import { updateProfileAction } from 'src/screens/auth/redux/action';
@@ -29,7 +29,7 @@ const AccountInfo = ({ name, updateProfileAction, showAlert, intl }) => {
   
   return (
     <div className={style.container}>
-      <label className={style.title}><MyMessage id="me.accountInfo.userProfile" /></label>
+      <label className={style.title}><LabelLang id="me.accountInfo.userProfile" /></label>
       <div className={style.lineTitle} />
       <div className={style.block1}>
         <ChangePassword onSubmit={handleChangePassword} />
@@ -39,22 +39,22 @@ const AccountInfo = ({ name, updateProfileAction, showAlert, intl }) => {
         <EmailBlock />
         <ChangeNameForm onSubmit={handleUpdateNickname} />
       </div>
-      <label className={style.title}><MyMessage id="me.accountInfo.personalDetails" /></label>
+      <label className={style.title}><LabelLang id="me.accountInfo.personalDetails" /></label>
       <div className={style.lineTitle} />
       <Row className={style.personalDetail}>
         <Col md={4} className={style.leftSide}>
-          <label className={style.fontLeft}><MyMessage id="me.accountInfo.personalDetailsDesc" /></label>
+          <label className={style.fontLeft}><LabelLang id="me.accountInfo.personalDetailsDesc" /></label>
         </Col>
         <Col md={8}>
           <PersonalDetailForm onSubmit={handleUpdateNickname} />
         </Col>
       </Row>
-      <label className={style.title}><MyMessage id="me.accountInfo.referralTitle" /></label>
+      <label className={style.title}><LabelLang id="me.accountInfo.referralTitle" /></label>
       <div className={style.lineTitle} />
+
       <div style={{ marginTop: '10px' }}>
         <div><MyMessage id="me.accountInfo.referralLink" /> 
           {/* <input value={getReferralLink()} /> */}
-
           <div className="input-group" style={{marginTop: '10px'}}>
             <input onFocus={handleFocus} type="text" className={'form-control ' + style.inputReferalLink} value={getReferralLink()} readOnly aria-label="referral link" aria-describedby="referral-link" />
             <div className="input-group-append">              

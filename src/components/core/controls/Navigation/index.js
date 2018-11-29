@@ -1,5 +1,5 @@
 import React from 'react';
-import { MyMessage } from 'src/lang/components';
+import LabelLang from 'src/lang/components/LabelLang';
 import { Link, withRouter } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -37,19 +37,19 @@ class Navigation extends React.Component {
           <div className={cn(styles.item, this.checkSelected([URL.BUY_COIN_URL, URL.INDEX]))}>
             <Link to={URL.INDEX}>
               <img alt="creditIcon" src={creditIcon} />
-              <MyMessage id="app.navigation.ninjaCoin" />
+              <LabelLang id="app.navigation.ninjaCoin" />
             </Link>
           </div>
           <div className={cn(styles.item, this.checkSelected([URL.WALLET]))}>
             <Link to={URL.WALLET}>
               <img alt="walletIcon" src={walletIcon} />
-              <MyMessage id="app.navigation.wallet" />
+              <LabelLang id="app.navigation.wallet" />
             </Link>
           </div>
           <div className={cn(styles.item, this.checkSelected([URL.HANDSHAKE_ME_INDEX]))}>
             <Link to={URL.HANDSHAKE_ME_INDEX}>
               <img alt="meIcon" src={meIcon} />
-              <MyMessage id="app.navigation.me" />
+              <LabelLang id="app.navigation.me" />
             </Link>
           </div>
         </div>
