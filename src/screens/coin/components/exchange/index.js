@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { InputGroup, Container, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
 import CurrencyInput from 'src/components/currencyInput';
 import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
-import { FIAT_CURRENCY } from 'src/resources/constants/fiat';
+import { DEFAULT_FIAT_CURRENCY, FIAT_CURRENCY } from 'src/resources/constants/fiat';
 import { FaArrowsAltH } from 'react-icons/fa';
 import cx from 'classnames';
 import { connect } from 'react-redux';
-import MyMessage from 'src/lang/components/MyMessage';
+import LabelLang from 'src/lang/components/LabelLang';
 import { debounce, xor as arrayXor } from 'lodash';
 import { EXCHANGE_DIRECTION, ORDER_TYPE } from 'src/screens/coin/constant';
 import Loading from 'src/components/loading';
@@ -183,7 +183,7 @@ class Exchange extends Component {
       this.getQuoteHandler();
     } else if (exchangeType === EXCHANGE_TYPE.fiatAmount) {
       this.getQuoteReverseHandler();
-    } 
+    }
   }
 
   // eslint-disable-next-line
@@ -205,7 +205,7 @@ class Exchange extends Component {
             <InputGroup>
               <CurrencyInput
                 onFocus={() => onFocus()}
-                label={<MyMessage id={getIntlKey('amountLabel')} values={{ direction }} />}
+                label={<LabelLang id={getIntlKey('amountLabel')} values={{ direction }} />}
                 placeholder="0.0"
                 value={amount}
                 truncateLabel
@@ -219,7 +219,7 @@ class Exchange extends Component {
                 <DropdownButton
                   disabled={!options?.canChangeCurrency}
                   className={styles.dropdown}
-                  title={currency || <MyMessage id={getIntlKey('currency')} />}
+                  title={currency || <LabelLang id={getIntlKey('currency')} />}
                 >
                   {currencyListRendered}
                 </DropdownButton>
@@ -236,7 +236,7 @@ class Exchange extends Component {
           <Col sm={5}>
             <InputGroup>
               <CurrencyInput
-                label={<MyMessage id={getIntlKey('fiatAmountLabel')} />}
+                label='&nbsp;'
                 placeholder="0.0"
                 value={fiatAmount}
                 truncateLabel
@@ -251,7 +251,7 @@ class Exchange extends Component {
                 <DropdownButton
                   disabled={!options?.canChangeFiatCurrency}
                   className={styles.dropdown}
-                  title={fiatCurrency || <MyMessage id={getIntlKey('currency')} />}
+                  title={fiatCurrency || <LabelLang id={getIntlKey('currency')} />}
                 >
                   {fiatCurrencyListRendered}
                 </DropdownButton>
@@ -268,7 +268,7 @@ const mapDispatch = { getQuote, getQuoteReverse };
 
 Exchange.defaultProps = {
   defaultCurrency: CRYPTO_CURRENCY.ETH,
-  defaultFiatCurrency: FIAT_CURRENCY.USD,
+  defaultFiatCurrency: DEFAULT_FIAT_CURRENCY,
   direction: EXCHANGE_DIRECTION.buy,
   orderType: ORDER_TYPE.bank,
   markRequired: false,
@@ -300,7 +300,7 @@ Exchange.propTypes = {
 };
 
 const mapState = state => ({
-  supportedCurrency: state?.app?.supportedCurrency || [FIAT_CURRENCY.USD],
+  supportedCurrency: state?.app?.supportedCurrency || [DEFAULT_FIAT_CURRENCY],
 });
 
 export default connect(mapState, mapDispatch)(Exchange);
