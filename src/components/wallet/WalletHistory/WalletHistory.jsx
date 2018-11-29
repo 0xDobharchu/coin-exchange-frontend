@@ -39,7 +39,8 @@ class WalletHistory extends React.Component {
       wallet: this.props.wallet,
       pagenoTran: 1,
       pagenoIT: 1,
-      callUpdate: false
+      callUpdate: false,
+      isDeskTop: this.props.isDeskTop|| true,
     };
   }
 
@@ -338,38 +339,92 @@ class WalletHistory extends React.Component {
     );
   }
 
-  get load_balance() {
+  get renderHeaderMobile(){    
+      const wallet = this.props.wallet;
+      const { messages } = this.props.intl;
+      if (wallet) {
+        var logo = require("src/assets/images/wallet/icons/coins/" + wallet.icon);
+        try { logo = require("src/assets/images/wallet/icons/coins/" + wallet.getCoinLogo()); } catch (e) { };
+      }    
+
+      return wallet ?
+        (
+          <div className={style.clearFix}>
+            <div className={style.walletDetail}>
+              <div><img className={style.logoDetail} src={logo} /></div>
+              {!wallet.hideBalance ?
+                <div className={style.balance}>{wallet.balance} {wallet.name}</div>
+                : <div className={style.balance}>[{messages['wallet.action.history.label.balance_hidden']}]</div>}
+
+              <div className={style.boxButton}>
+                {!wallet.isCollectibles ? <div>
+                  <div className={style.bt1}><button onClick={this.props.onTransferClick}>{messages['wallet.action.history.label.send']}</button></div>
+                  <div className={style.bt2}><button onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</button></div>
+                </div>
+                  : <div className={style.bt}><button onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</button></div>
+                }
+              </div>
+
+
+              {!wallet.protected &&
+                <div className={style.boxWarning} onClick={this.props.onWarningClick}>
+                  {messages['wallet.action.protect.text.need_backup']} <img src={needBackupWhite} />
+                </div>
+              }
+            </div>
+
+          </div>
+        ) : "";
+    
+  }
+
+  get renderHeaderDesktop() {
     const wallet = this.props.wallet;
     const { messages } = this.props.intl;
     if (wallet) {
       var logo = require("src/assets/images/wallet/icons/coins/" + wallet.icon);
       try { logo = require("src/assets/images/wallet/icons/coins/" + wallet.getCoinLogo()); } catch (e) { };
-    }
+    }    
 
     return wallet ?
       (
         <div className={style.clearFix}>
-          <div className={style.walletDetail}>
-            <div><img className={style.logoDetail} src={logo} /></div>
-            {!wallet.hideBalance ?
-              <div className={style.balance}>{wallet.balance} {wallet.name}</div>
-              : <div className={style.balance}>[{messages['wallet.action.history.label.balance_hidden']}]</div>}
-
-            <div className={style.boxButton}>
-              {!wallet.isCollectibles ? <div>
-                <div className={style.bt1}><button onClick={this.props.onTransferClick}>{messages['wallet.action.history.label.send']}</button></div>
-                <div className={style.bt2}><button onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</button></div>
+          <div className={style.headerDesktop}>
+          <div className={style.rowHeader}>
+              <img className={style.logoDetail} src={logo} />          
+              <div className={style.boxName}>
+                <div className={style.rowHeader}>
+                  {wallet.title}
+                </div>
+                
+                {!wallet.hideBalance ?
+                  <div className={style.rowHeader + ' ' + style.balance}>{wallet.balance} {wallet.name}</div>
+                  : <div className={style.rowHeader + ' ' + style.balance}>[{messages['wallet.action.history.label.balance_hidden']}]</div>
+                }
+                  
+                  
               </div>
-                : <div className={style.bt}><button onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</button></div>
-              }
-            </div>
 
-
-            {!wallet.protected &&
-              <div className={style.boxWarning} onClick={this.props.onWarningClick}>
-                {messages['wallet.action.protect.text.need_backup']} <img src={needBackupWhite} />
+              <div className={style.boxButton}>                
+                    {!wallet.isCollectibles ? <div>
+                      <div className={style.bt1}><span onClick={this.props.onTransferClick}>{messages['wallet.action.history.label.send']}</span></div>
+                      <div className={style.bt2}><span onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</span></div>
+                      {//!wallet.protected &&
+                      <div className={style.bt3}><span onClick={this.props.onWarningClick}>{messages['wallet.action.protect.text.need_backup']}</span></div>
+                      }
+                    </div>
+                      :( <div>
+                      <div className={style.bt}><button onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</button></div>
+                      {//!wallet.protected &&
+                        <div className={style.bt3}><button onClick={this.props.onWarningClick}>{messages['wallet.action.protect.text.need_backup']}</button></div>
+                      }
+                      </div>
+                      )
+                    }                                                     
+                  
               </div>
-            }
+          </div>           
+
           </div>
 
         </div>
@@ -382,7 +437,7 @@ class WalletHistory extends React.Component {
     return (
       <div>
         <div className={style.historywalletWrapper}>
-          {this.load_balance}
+          {this.renderHeaderDesktop}
 
           {/* Not support render */}
           {wallet && wallet.isHistorySupport === false ?

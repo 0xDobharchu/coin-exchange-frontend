@@ -15,6 +15,7 @@ import bgCollectibles from 'src/assets/images/wallet/images/tokenerc721-mainnet.
 import needBackup from 'src/assets/images/wallet/icons/need-backup.svg';
 
 // import iconPreference from 'src/assets/images/wallet/icons/icon-preference-gray.svg';
+import dontIcon from '@/assets/images/wallet/icons/3-dot-icon-black.svg';
 
 import style from './ListWalletItem.scss';
 
@@ -72,7 +73,7 @@ class WalletItem extends React.Component {
                   <span className={style.address +  " hidden-xss-down"} onClick={onAddressClick}>
                       {this.showCryptoAddress}
                   </span>
-                  {/* <span className={style.more} onClick={onMoreClick}><img src={dontIcon}/></span> */}
+                  <span className={style.more} onClick={onMoreClick}><img src={dontIcon}/></span>
 
                 </span>
               : ""}            
@@ -96,5 +97,6 @@ WalletItem.propTypes = {
   onAddressClick: PropTypes.func,
   isSortable: PropTypes.any,
   onItemClick: PropTypes.func,
+  onMoreClick: PropTypes.func,
 };
 export default injectIntl(WalletItem);
