@@ -115,7 +115,7 @@ export default {
       requiredPassword: 'Please enter your password',
       notValidUsername: 'Invalid email address',
       requiredUsername: 'Please enter your email',
-      loginFailure: 'Username and password not match.',
+      loginFailure: 'Email and password not match.',
       warningVerify: 'To start trading, please take a few minutes to verify your account. {action}',
       warningVerifyNow: 'Verify now'
     },
@@ -123,7 +123,7 @@ export default {
       title: 'Forgot your password?',
       description: 'Enter your email address to reset your password. You may need to check your spam folder or unblock no-reply@coinbowl.com.',
       username: 'Your email',
-      requiredUsername: 'Username is required',
+      requiredUsername: 'Email is required',
       notValidUsername: 'Invalid email address',
       submitButton: 'Submit',
       resetPasswordIntro: 'If a Coinbowl account exists for {email}, an e-mail will be sent with further instructions.',
