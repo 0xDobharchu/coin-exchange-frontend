@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { reduxForm, Field } from 'redux-form';
 import { Row, Button } from 'react-bootstrap';
+import { InputField } from 'src/components/custom';
 import { MyMessage, FieldLang } from 'src/lang/components';
 import dropdownField from 'src/components/core/form/fields/dropdown';
 import FileUploader from 'src/components/fileUploader';
 import { DOC_TYPES, getReachingLevel } from '../util';
+
+const required = value => (value || typeof value === 'number' ? undefined : 'Required');
 
 const DropDownField = () => (
   <Field
@@ -32,11 +35,10 @@ const IDVerificationForm = ({ initialValues, level, levelStatus, handleSubmit, o
           </p>
           <FieldLang
             name="id_name"
-            component="input"
-            type="text"
+            component={InputField}
+            validate={[required]}
             placeholder="me.accountLevel.fullNameDesc"
             disabled={getReachingLevel(level, levelStatus) >= 3}
-            style={{ width: '100%' }}
           />
         </div>
         <div className="col-12">
@@ -51,11 +53,10 @@ const IDVerificationForm = ({ initialValues, level, levelStatus, handleSubmit, o
           </p>
           <FieldLang
             name="id_number"
-            component="input"
-            type="text"
+            component={InputField}
+            validate={[required]}
             placeholder="me.accountLevel.documentNumber"
             disabled={getReachingLevel(level, levelStatus) >= 3}
-            style={{ width: '100%' }}
           />
         </div>
         <div className="col-6">

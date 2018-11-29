@@ -9,6 +9,13 @@ import { getColorByLevel, getStatusByLevel } from '../util';
 // eslint-disable-next-line
 const SelfieBlock = ({ style, level, levelStatus, showAlert, submitVerifyLevel4Action }) => {
   const handleSubmitForm = values => {
+    if (!values.selfie_image) {
+      showAlert({
+        message: 'me.accountLevel.alert.imageSelfieRequired',
+        timeOut: 3000,
+        type: 'danger'
+      });
+    }
     submitVerifyLevel4Action(values);
     showAlert({
       message: 'me.accountLevel.alert.lv4',
