@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
 import { sendEmailVerify } from 'src/screens/auth/redux/api';
-import { MyMessage } from 'src/lang/components';
+import { LabelLang } from 'src/lang/components';
 import { getCurrentLevel } from '../../MeProfile/util';
 import style from './style.scss';
 
@@ -18,7 +18,7 @@ const EmailBlock = ({ email, level, levelStatus, showAlert }) => {
   return (
     <div className={style.container}>
       <div className={style.col2}>
-        <div className={style.col2_1}><MyMessage id="me.accountInfo.email" /></div>
+        <div className={style.col2_1}><LabelLang id="me.accountInfo.email" /></div>
         {getCurrentLevel(level, levelStatus) === 0 && <div className={style.col2_2}>Your email is not verified. <button type="button" onClick={handleOnVerify}>Verify now</button></div>}
       </div>
       <div className={style.col3}>

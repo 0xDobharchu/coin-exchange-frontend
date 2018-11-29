@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getPrivacyContent, getUserAgreementContent } from 'src/screens/landingpage/redux/action';
-import MyMessage from 'src/lang/components/MyMessage';
+import LabelLang from 'src/lang/components/LabelLang';
 import styles from './styles.scss';
 
 class AgreementPrivacy extends React.Component {
@@ -38,7 +38,7 @@ class AgreementPrivacy extends React.Component {
         {userAgreementContent && (
         <div>
           <h5 className={styles.pdFaq}>
-            <MyMessage id="static_page.userAgreement" />
+            <LabelLang id="static_page.userAgreement" />
           </h5>
           <div className="container">
             <div className={styles.contactWrap} dangerouslySetInnerHTML={{ __html: userAgreementContent }} />
@@ -49,7 +49,7 @@ class AgreementPrivacy extends React.Component {
         {privacyContent && (
         <div>
           <h5 className={styles.pdFaq}>
-            <MyMessage id="static_page.privacyPolicy" />
+            <LabelLang id="static_page.privacyPolicy" />
           </h5>
           <div className="container">
             <div className={styles.contactWrap} dangerouslySetInnerHTML={{ __html: privacyContent }} />
