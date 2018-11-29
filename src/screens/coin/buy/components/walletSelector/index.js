@@ -76,6 +76,9 @@ class WalletSelector extends Component {
             onChange={(e) => this.onChangeAddress(e?.target?.value)}
             onBlur={() => onBlur()}
             onFocus={() => onFocus()}
+            type="text"
+            name='wallet'
+            autocomplete='off'
             ref={this.addressInputRef}
           />
           <InputGroup.Prepend>
