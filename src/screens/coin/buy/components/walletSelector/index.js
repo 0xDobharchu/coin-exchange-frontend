@@ -5,6 +5,7 @@ import { InputGroup, DropdownButton, Dropdown, FormControl } from 'react-bootstr
 import { showQrCode } from 'src/components/barcodeScanner';
 import { injectIntl } from 'react-intl';
 import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
+import { MasterWallet } from 'src/services/Wallets/MasterWallet';
 import cx from 'classnames';
 import styles from './styles.scss';
 
@@ -14,10 +15,13 @@ class WalletSelector extends Component {
   constructor() {
     super();
     this.state = {
+      invalidAddress: false,
       address: '',
       currencyListRendered: null,
       currency: CRYPTO_CURRENCY.ETH,
     };
+
+    this.addressInputRef = React.createRef();
   }
 
   componentDidMount() {
@@ -27,21 +31,29 @@ class WalletSelector extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { currency, address } = this.state;
+    const { currency, address, invalidAddress } = this.state;
     const { onChange } = this.props;
     if (prevState?.currency !== currency || prevState.address !== address) {
       if (typeof onChange === 'function') {
-        onChange({ address, currency });
+        onChange({ address, currency, invalidAddress });
       }
     }
   }
 
   onChangeAddress = (address) => {
-    this.setState({ address });
+    const state = { address };
+    const detectCurrency = MasterWallet.getCoinSymbolFromAddress(address);
+    if (detectCurrency && detectCurrency?.symbol && CRYPTO_CURRENCY[detectCurrency?.symbol]) {
+      state.currency = detectCurrency.symbol;
+      state.invalidAddress = false;
+    } else {
+      state.invalidAddress = true;
+    }
+    this.setState({ ...state });
   }
 
   onSelectCurrency = (currency) => {
-    this.setState({ currency });
+    this.setState({ currency, address: '' });
   }
 
   renderCurrencyList = () => {
@@ -64,12 +76,14 @@ class WalletSelector extends Component {
             onChange={(e) => this.onChangeAddress(e?.target?.value)}
             onBlur={() => onBlur()}
             onFocus={() => onFocus()}
+            ref={this.addressInputRef}
           />
           <InputGroup.Prepend>
             <FaQrcode
               className={cx(styles.icon, 'common-clickable')}
               size={20}
               onClick={() => {
+                this.addressInputRef?.current?.focus();
                 showQrCode({
                   onData: this.onChangeAddress,
                 });
