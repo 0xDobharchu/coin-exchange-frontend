@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
 import { submitVerifyLevel3Action } from 'src/screens/auth/redux/action';
-import { MyMessage } from 'src/lang/components';
+import { LabelLang } from 'src/lang/components';
 import IDVerificationForm from './IDVerificationForm';
 
 const getStatusColor = (level, status) => {
@@ -51,16 +51,16 @@ class IDCardBlock extends React.PureComponent {
       <div className={style.collapse_custom}>
         <div className={style.head}>
           <p className={style.label}>
-            <MyMessage id="me.accountLevel.step3" />
+            <LabelLang id="me.accountLevel.step3" />
           </p>
           <br />
-          <p><MyMessage id="me.accountLevel.lv3desc" /></p>
+          <p><LabelLang id="me.accountLevel.lv3desc" /></p>
           <div className={style.extend}>
             <span className={`badge badge-${getStatusColor(level, levelStatus)}`}>{getLevelStatus(level, levelStatus)}</span>
           </div>
         </div>
         <div className={style.content}>
-          <p className={style.text}><MyMessage id="me.accountLevel.wrm3" /></p>
+          <p className={style.text}><LabelLang id="me.accountLevel.wrm3" /></p>
         </div>
         <IDVerificationForm onSubmit={this.handleSubmitForm} />
       </div>
