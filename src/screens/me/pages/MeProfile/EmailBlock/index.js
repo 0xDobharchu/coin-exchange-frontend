@@ -37,14 +37,14 @@ const EmailBlock = ({ style, showAlert, email, level, levelStatus }) => {
     <div className={style.collapse_custom}>
       <div className={style.head}>
         <p className={style.label}>
-          <MyMessage id="me.profile.verify.step1" />
+          <MyMessage id="me.accountLevel.step1" />
         </p>
         <div className={style.extend}>
           <span className={`badge badge-${getColorByLevel(1, level, levelStatus)}`}>{getStatusByLevel(1, level, levelStatus)}</span>
         </div>
       </div>
       <div className={style.content}>
-        <p className={style.text}><MyMessage id="me.profile.text.id_verification.desc12" /></p>
+        <p className={style.text}><MyMessage id="me.accountLevel.wrm1" /></p>
       </div>
       <EmailForm onSubmit={handleVerifyEmail} />
     </div>
