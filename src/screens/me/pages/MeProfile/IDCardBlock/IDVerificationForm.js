@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { reduxForm, Field } from 'redux-form';
 import { Row, Button } from 'react-bootstrap';
+import { InputField } from 'src/components/custom';
 import { MyMessage, FieldLang } from 'src/lang/components';
 import dropdownField from 'src/components/core/form/fields/dropdown';
 import FileUploader from 'src/components/fileUploader';
 import { DOC_TYPES, getReachingLevel } from '../util';
+
+const required = value => (value || typeof value === 'number' ? undefined : 'Required');
 
 const DropDownField = () => (
   <Field
@@ -28,34 +31,32 @@ const IDVerificationForm = ({ initialValues, level, levelStatus, handleSubmit, o
       <Row>
         <div className="col-12">
           <p className="text label">
-            <MyMessage id="me.profile.text.id_verification.desc2" />
+            <MyMessage id="me.accountLevel.fullName" />
           </p>
           <FieldLang
             name="id_name"
-            component="input"
-            type="text"
-            placeholder="me.profile.verify.alert.notValid.idVerification.invalidFullName"
+            component={InputField}
+            validate={[required]}
+            placeholder="me.accountLevel.fullNameDesc"
             disabled={getReachingLevel(level, levelStatus) >= 3}
-            style={{ width: '100%' }}
           />
         </div>
         <div className="col-12">
           <p className="text label">
-            <MyMessage id="me.profile.text.id_verification.desc4" />
+            <MyMessage id="me.accountLevel.documentType" />
           </p>
           <DropDownField />
         </div>
         <div className="col-12">
           <p className="text label">
-            <MyMessage id="me.profile.text.id_verification.desc3" />
+            <MyMessage id="me.accountLevel.documentNumber" />
           </p>
           <FieldLang
             name="id_number"
-            component="input"
-            type="text"
-            placeholder="me.profile.text.id_verification.desc3"
+            component={InputField}
+            validate={[required]}
+            placeholder="me.accountLevel.documentNumber"
             disabled={getReachingLevel(level, levelStatus) >= 3}
-            style={{ width: '100%' }}
           />
         </div>
         <div className="col-6">
@@ -75,7 +76,7 @@ const IDVerificationForm = ({ initialValues, level, levelStatus, handleSubmit, o
         {getReachingLevel(level, levelStatus) < 3 && (
         <div className="col-12">
           <Button onClick={handleSubmit(onSubmit)} variant="primary" size="lg" block>
-            <MyMessage id="me.profile.text.id_verification.button.submit" />
+            <MyMessage id="me.accountLevel.submit" />
           </Button>
         </div>)}
       </Row>

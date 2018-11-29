@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getProfileAction, sendEmailVerifyCodeAction }from 'src/screens/auth/redux/action';
 import { Col, Container, Row } from 'react-bootstrap';
-import { MyMessage, WrapperLang } from 'src/lang/components';
+import { MyMessage } from 'src/lang/components';
 import Loading from 'src/components/loading';
 import queryString from 'query-string';
 import EmailBlock from './EmailBlock';
@@ -35,7 +35,7 @@ class MeProfile extends React.PureComponent {
     return (
       <Container className={style.profile}>
         <Row className={style.head_text}>
-          <MyMessage id="me.profile.head_text" />
+          <MyMessage id="me.accountLevel.head_text" />
         </Row>
         <Row>
           <Col md={12}>
@@ -49,13 +49,6 @@ class MeProfile extends React.PureComponent {
           </Col>
           <Col md={12}>
             <SelfieBlock style={style} />
-          </Col>
-          <Col md={12}>
-            <WrapperLang>
-              {ts => 
-                (<div>{ts('me.profile.head_text')}</div>)
-              }
-            </WrapperLang>
           </Col>
         </Row>
         <Row style={{ height: '60px' }} />
