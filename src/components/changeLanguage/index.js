@@ -66,7 +66,6 @@ class ChangeLanguage extends React.PureComponent {
 
   changeLanguage(e, newValue) {
     console.log('changeLanguage', newValue);
-    this.props.setLanguage(newValue, true);
     this.props.changeLang(newValue);
   }
 
@@ -92,7 +91,6 @@ class ChangeLanguage extends React.PureComponent {
 
 ChangeLanguage.propTypes = {
   className: PropTypes.string,
-  setLanguage: PropTypes.func.isRequired,
   locale: PropTypes.string.isRequired,
 };
 
@@ -101,12 +99,11 @@ ChangeLanguage.defaultProps = {
 };
 
 const mapState = state => ({
-  locale: state?.app.locale || 'en',
+  locale: state.langReducer.lang || 'en',
   supportedLanguages: state.app.supportedLanguages
 });
 
 const mapDispatch = ({
-  setLanguage,
   changeLang,
   change,
 });
