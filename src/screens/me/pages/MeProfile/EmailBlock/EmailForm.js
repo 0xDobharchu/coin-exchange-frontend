@@ -16,11 +16,11 @@ const EmailForm = ({ handleSubmit, onSubmit,level, levelStatus  }) => (
           name="email"
           component="input"
           type="text"
-          placeholder="me.profile.text.email.desc3"
+          placeholder="me.accountLevel.emailDesc"
           disabled="true"
           style={{ width: '100%' }}
         />
-      </div>{level === 'level_1' && levelStatus === 'pending' && <div className="col-2" style={{ paddingLeft: 0 }}><button onClick={handleSubmit(onSubmit)} type="button" className={style.submit_btn}><MyMessage id="me.profile.text.email.button.send" /></button></div>
+      </div>{level === 'level_1' && levelStatus === 'pending' && <div className="col-2" style={{ paddingLeft: 0 }}><button onClick={handleSubmit(onSubmit)} type="button" className={style.submit_btn}><MyMessage id="me.accountLevel.emailButton" /></button></div>
         }
     </Row>
   </div>

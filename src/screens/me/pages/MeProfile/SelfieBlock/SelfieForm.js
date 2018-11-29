@@ -25,7 +25,7 @@ const SelfieForm = ({ initialValues, level, levelStatus, handleSubmit, onSubmit,
         {getReachingLevel(level, levelStatus) < 4 && (
         <div className="col-12">
           <Button onClick={handleSubmit(onSubmit)} variant="primary" size="lg" block>
-            <MyMessage id="me.profile.text.id_verification.button.submit" />
+            <MyMessage id="me.accountLevel.submit" />
           </Button>
         </div>)}
       </Row>

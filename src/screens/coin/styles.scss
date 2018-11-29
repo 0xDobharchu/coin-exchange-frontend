@@ -68,9 +68,13 @@
         letter-spacing: 0;
         width: 100%;
         background-color: #F1F0F5;
-        &.header-active {
+        &.header-active-buy {
           color: $white;
           background-color: $ce-green;
+        }
+        &.header-active-sell {
+          color: $white;
+          background-color: $ce-red;
         }
       }
     }
@@ -88,5 +92,5 @@
       }
     }
   }
-  
+
 }

@@ -20,14 +20,14 @@ const SelfieBlock = ({ style, level, levelStatus, showAlert, submitVerifyLevel4A
     <div className={style.collapse_custom}>
       <div className={style.head}>
         <p className={style.label}>
-          <MyMessage id="me.profile.verify.step4" />
+          <MyMessage id="me.accountLevel.step4" />
         </p>
         <div className={style.extend}>
           <span className={`badge badge-${getColorByLevel(4, level, levelStatus)}`}>{getStatusByLevel(4, level, levelStatus)}</span>
         </div>
       </div>
       <div className={style.content}>
-        <p className={style.text}><MyMessage id="me.profile.text.id_verification.desc12" /></p>
+        <p className={style.text}><MyMessage id="me.accountLevel.wrm3" /></p>
       </div>
       <SelfieForm onSubmit={handleSubmitForm} />
     </div>);
