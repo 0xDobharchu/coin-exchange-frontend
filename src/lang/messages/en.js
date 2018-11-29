@@ -163,12 +163,12 @@ export default {
       placeholderCountry: 'Please select your country',
       requiredCountry: 'Country is required',
       notValidReCaptcha: 'Please validate your reCAPTCHA.',
-      agreement: 'I certify that I am 18 years of age or older, and I agree to the User {action}',
+      agreement: 'I certify that I am 18 years of age or older, and I agree to the {action}',
       requiredAgreement: 'Please indicate that you have read and agree to the User Agreement and Privacy Policy',
       registerButton: 'Create account',
       loginButton: 'Already have an account?',
       registerSuccessfully: 'You have registered successfully. Don’t forget to verify your email later.',
-      agreementAction: 'Agreement and Privacy Policy.'
+      agreementAction: 'User Agreement and Privacy Policy.'
     }
   },
   landingPage: {
