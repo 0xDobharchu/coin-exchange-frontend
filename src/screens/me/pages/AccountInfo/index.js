@@ -6,6 +6,7 @@ import { changePassword } from 'src/screens/auth/redux/api';
 import { updateProfileAction } from 'src/screens/auth/redux/action';
 import { Row, Col } from 'react-bootstrap';
 import ChangePassword from './ChangePassword';
+import EmailBlock from './EmailBlock';
 import ChangeNameForm from './Form/ChangeNameForm';
 import PersonalDetailForm from './Form/PersonalDetailForm';
 import Referral from './Referral';
@@ -28,6 +29,7 @@ const AccountInfo = ({ name, updateProfileAction, showAlert }) => {
       </div>
       <div className={style.lineTitle} />
       <div className={style.block1}>
+        <EmailBlock />
         <ChangeNameForm onSubmit={handleUpdateNickname} />
       </div>
       <label className={style.title}><MyMessage id="me.accountInfo.personalDetails" /></label>
