@@ -134,6 +134,7 @@ class CurrencyInput extends Component {
         onChange={this.onChange}
         value={maskValue}
         type="tel"
+        name={`currency-${currency}`}
         min={0}
         {...inputProps}
       />
