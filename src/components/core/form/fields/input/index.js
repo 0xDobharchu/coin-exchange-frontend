@@ -4,23 +4,23 @@ import { LabelLang } from 'src/lang/components';
 import Input from 'src/components/core/controls/input';
 import cx from 'classnames';
 
-const inputField = ({ input, meta, containerClassName, labelClassName, labelText, ...props }) => {
+const inputField = ({ input, meta, containerClassName, labelClassName, labelText, inputName, className, ...props }) => {
   const {
-    onChange, onBlur, onFocus, value
+    onChange, onBlur, onFocus, value, name
   } = input;
   const { error, touched } = meta;
   const shouldShowError = !!(touched && error);
-
   return (
     <div className={containerClassName ? containerClassName : ''}>
       {labelText && (<label className={labelClassName ||  ''}>{ <LabelLang id={labelText} /> }</label>)}
       <Input
         {...props}
+        name={name || inputName}
         value={value}
         onBlur={onBlur}
         onFocus={onFocus}
         onChange={onChange}
-        className={cx(props.className, shouldShowError ? 'is-invalid' : '')}
+        className={cx(className, shouldShowError ? 'border-danger' : '')}
       />
       { shouldShowError && <small className="text-danger">{error}</small>}
     </div>
