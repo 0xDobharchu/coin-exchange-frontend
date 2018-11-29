@@ -4,7 +4,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setLanguage } from 'src/screens/app/redux/action';
 import cx from 'classnames';
 import { change, Field } from 'redux-form';
 import { changeLang } from 'src/lang/action';
