@@ -39,7 +39,7 @@ class Coin extends Component {
     return Object.entries(TABS).map(([key, tab]) => (
       <div
         key={key}
-        className={cx(styles.tabTitle, key === activeTab ? styles.headerActive : '')}
+        className={cx(styles.tabTitle, key === activeTab ? key === 'BUY' ? styles.headerActiveBuy : styles.headerActiveSell : '')}
         role='presentation'
         onClick={()=> this.onSelectTab(key)}
       >
