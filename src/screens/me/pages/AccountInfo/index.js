@@ -53,7 +53,7 @@ const AccountInfo = ({ name, updateProfileAction, showAlert, intl }) => {
       <div className={style.lineTitle} />
 
       <div style={{ marginTop: '10px' }}>
-        <div><MyMessage id="me.accountInfo.referralLink" /> 
+        <div>{intl['messages']['me.accountInfo.referralLink']}
           {/* <input value={getReferralLink()} /> */}
           <div className="input-group" style={{marginTop: '10px'}}>
             <input onFocus={handleFocus} type="text" className={'form-control ' + style.inputReferalLink} value={getReferralLink()} readOnly aria-label="referral link" aria-describedby="referral-link" />
