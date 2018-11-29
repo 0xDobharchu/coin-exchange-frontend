@@ -1,5 +1,5 @@
 import local from 'src/services/localStore';
-import { APP } from 'src/constants';
+import { APP } from 'src/resources/constants/app';
 
 const CHANGE_LANG = 'CHANGE_LANG';
 const initState = {
