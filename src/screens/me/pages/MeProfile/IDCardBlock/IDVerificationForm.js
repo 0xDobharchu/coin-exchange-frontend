@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import { reduxForm, Field } from 'redux-form';
 import { Row, Button } from 'react-bootstrap';
 import { InputField } from 'src/components/custom';
-import { MyMessage, FieldLang } from 'src/lang/components';
+import { LabelLang, FieldLang } from 'src/lang/components';
 import dropdownField from 'src/components/core/form/fields/dropdown';
 import FileUploader from 'src/components/fileUploader';
 import { DOC_TYPES, getReachingLevel } from '../util';
@@ -31,7 +31,7 @@ const IDVerificationForm = ({ initialValues, level, levelStatus, handleSubmit, o
       <Row>
         <div className="col-12">
           <p className="text label">
-            <MyMessage id="me.accountLevel.fullName" />
+            <LabelLang id="me.accountLevel.fullName" />
           </p>
           <FieldLang
             name="id_name"
@@ -43,13 +43,13 @@ const IDVerificationForm = ({ initialValues, level, levelStatus, handleSubmit, o
         </div>
         <div className="col-12">
           <p className="text label">
-            <MyMessage id="me.accountLevel.documentType" />
+            <LabelLang id="me.accountLevel.documentType" />
           </p>
           <DropDownField />
         </div>
         <div className="col-12">
           <p className="text label">
-            <MyMessage id="me.accountLevel.documentNumber" />
+            <LabelLang id="me.accountLevel.documentNumber" />
           </p>
           <FieldLang
             name="id_number"
@@ -61,14 +61,14 @@ const IDVerificationForm = ({ initialValues, level, levelStatus, handleSubmit, o
         </div>
         <div className="col-6">
           <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
-            <MyMessage id="me.accountLevel.backPhoto" />
+            <LabelLang id="me.accountLevel.backPhoto" />
           </p>
           {!initialValues.back_image && <FileUploader onSuccess={handleBackSuccess} onRemove={backRemove} />}
           {initialValues.back_image && <img alt="back_image" src={initialValues.back_image} />}
         </div>
         <div className="col-6">
           <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
-            <MyMessage id="me.accountLevel.frontPhoto" />
+            <LabelLang id="me.accountLevel.frontPhoto" />
           </p>
           {!initialValues.front_image && <FileUploader onSuccess={handleFrontSuccess} onRemove={frontRemove} />}
           {initialValues.front_image && <img alt="front_image" src={initialValues.front_image} />}
@@ -76,7 +76,7 @@ const IDVerificationForm = ({ initialValues, level, levelStatus, handleSubmit, o
         {getReachingLevel(level, levelStatus) < 3 && (
         <div className="col-12">
           <Button onClick={handleSubmit(onSubmit)} variant="primary" size="lg" block>
-            <MyMessage id="me.accountLevel.submit" />
+            <LabelLang id="me.accountLevel.submit" />
           </Button>
         </div>)}
       </Row>

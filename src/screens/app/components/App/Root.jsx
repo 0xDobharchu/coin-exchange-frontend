@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import qs from 'querystring';
 import { initApp, getCountryCurrency, getSupportCountry, getSupportLanguages } from 'src/screens/app/redux/action';
+import { getProfileAction } from 'src/screens/auth/redux/action';
+
 // import I18n from 'src/components/App/I18n';
 import IntlCustomProvider from 'src/lang';
 // import Handle from './Handle';
@@ -30,10 +32,11 @@ class Root extends React.Component {
     const querystring = window.location.search.replace('?', '');
     const querystringParsed = qs.parse(querystring);
     const { language, ref } = querystringParsed;
-    const { initApp, getSupportCountry, getSupportLanguages } = this.props;
+    const { initApp, getSupportCountry, getSupportLanguages, getProfileAction } = this.props;
     initApp(language, ref);
     getSupportCountry();
     getSupportLanguages();
+    getProfileAction();
   }
 
   render() {
@@ -54,4 +57,4 @@ export default connect(state => ({
   ipInfo: state.app.ipInfo || {},
   router: state.router,
   profile: state?.auth?.profile || {}
-}), { initApp, getCountryCurrency, getSupportCountry, getSupportLanguages })(Root);
+}), { initApp, getCountryCurrency, getSupportCountry, getSupportLanguages, getProfileAction })(Root);

@@ -76,6 +76,8 @@ instance.interceptors.response.use(
           error: true,
           status: status,
           data: data,
+          code: data?.code,
+          message: data?.message,
           statusText: statusText,
         });
       }

@@ -11,7 +11,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import ClockCount from 'src/components/clockCount';
 import TooltipInfo from 'src/components/tooltipInfo';
 import FileUploader from 'src/components/fileUploader';
-import MyMessage from 'src/lang/components/MyMessage';
+import LabelLang from 'src/lang/components/LabelLang';
 import cx from 'classnames';
 import { getBankInfo, addReceiptOrder } from './action';
 import styles from './styles.scss';
@@ -169,13 +169,13 @@ class BankTransferInfo extends PureComponent {
           return (
             <Row key={name} className={styles.infoItem}>
               <Col xs={12} sm={6}>
-                <span className={styles.infoTitle}><MyMessage id={value.intlKey} /></span>
+                <span className={styles.infoTitle}><LabelLang id={value.intlKey} /></span>
               </Col>
               <Col xs={12} sm={6}>
                 <CopyToClipboard text={value.text} onCopy={this.copied}>
                   <span className={cx(styles.infoValue, styles[value?.className])}>{value.text}</span>
                 </CopyToClipboard>
-                {value.extraInfo && <TooltipInfo message={<MyMessage id={value.extraInfo.intlKey} />} />}
+                {value.extraInfo && <TooltipInfo message={<LabelLang id={value.extraInfo.intlKey} />} />}
               </Col>
             </Row>
           );
@@ -192,16 +192,16 @@ class BankTransferInfo extends PureComponent {
         { isLoading && <span>Loading...</span>}
         <Row>
           <Card border="secondary" className={styles.card}>
-            <Card.Header><MyMessage id={getIntlKey('nameCard')} /></Card.Header>
+            <Card.Header><LabelLang id={getIntlKey('nameCard')} /></Card.Header>
             <Card.Body>
               <Container>
                 <Row>
                   <div className={styles.orderTimeout}>
                     <span className={styles.text}>
-                      {!expired && <MyMessage id={getIntlKey('willExpiredIn')} />}
+                      {!expired && <LabelLang id={getIntlKey('willExpiredIn')} />}
                       <ClockCount
                         startAt={createdAt}
-                        expiredText={<MyMessage id={getIntlKey('expiredText')} />}
+                        expiredText={<LabelLang id={getIntlKey('expiredText')} />}
                         onExpired={this.onExpired}
                       />
                     </span>
@@ -212,8 +212,8 @@ class BankTransferInfo extends PureComponent {
                 </Row>
                 <Row>
                   <div className={styles.note}>
-                    <span className={styles.noteTitle}><MyMessage id={getIntlKey('noteTitle')} /></span>
-                    <span className={styles.noteContent}><MyMessage id={getIntlKey('noteDesc')} /></span>
+                    <span className={styles.noteTitle}><LabelLang id={getIntlKey('noteTitle')} /></span>
+                    <span className={styles.noteContent}><LabelLang id={getIntlKey('noteDesc')} /></span>
                   </div>
                 </Row>
               </Container>
@@ -232,13 +232,13 @@ class BankTransferInfo extends PureComponent {
             (uploaded || status === STATUS.TRANSFERRING) ?
               (
                 <button type="submit" className={styles.doneBtn} onClick={this.onDone}>
-                  <MyMessage id={getIntlKey('saveBtn')} />
+                  <LabelLang id={getIntlKey('saveBtn')} />
                 </button>
               ) :
               (
                 <button type="submit" className={styles.uploadBtn} onClick={this.onUpload}>
                   <FaCloudUploadAlt className={styles.uploadIcon} />
-                  <MyMessage id={getIntlKey('uploadBtn')} />
+                  <LabelLang id={getIntlKey('uploadBtn')} />
                 </button>
               )
           }

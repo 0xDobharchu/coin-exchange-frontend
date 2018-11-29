@@ -11,7 +11,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { getQuote } from 'src/screens/coin/components/exchange/action';
 import cx from 'classnames';
 import { FaRegCopy } from 'react-icons/fa';
-import MyMessage from 'src/lang/components/MyMessage';
+import LabelLang from 'src/lang/components/LabelLang';
 import styles from './styles.scss';
 import { checkAddress } from './action';
 
@@ -47,7 +47,7 @@ class OrderInfo extends Component {
     });
   }
 
-  
+
   prepareToOrder = async () => {
     try {
       const { checkAddress, showAlert, generatedAddress, onMakeOrder } = this.props;
@@ -59,7 +59,7 @@ class OrderInfo extends Component {
         }
       } else {
         showAlert({
-          message: <MyMessage id={getIntlKey('transferCoinFirst')} />,
+          message: <LabelLang id={getIntlKey('transferCoinFirst')} />,
           type: 'danger',
           timeOut: 1000,
         });
@@ -76,7 +76,7 @@ class OrderInfo extends Component {
   copied = () => {
     const { showAlert } = this.props;
     showAlert({
-      message: <MyMessage id='app.common.copied' />,
+      message: <LabelLang id='app.common.copied' />,
       timeOut: 3000,
       isShowClose: true,
       type: 'success',
@@ -102,12 +102,12 @@ class OrderInfo extends Component {
     const infos = [
       {
         id: 1,
-        name: <MyMessage id={getIntlKey('Receiving')} />,
+        name: <LabelLang id={getIntlKey('Receiving')} />,
         value: `${formatMoneyByLocale(fiatAmount) || ''} ${fiatCurrency || ''}`,
       },
       {
         id: 2,
-        name: <MyMessage id={getIntlKey('Selling')} />,
+        name: <LabelLang id={getIntlKey('Selling')} />,
         value: `${amount || ''} ${currency || ''}`,
       },
     ];
@@ -136,12 +136,12 @@ class OrderInfo extends Component {
     return (
       <div className={styles.noteContainer}>
         <div>
-          <span className={styles.mainNote}><MyMessage id={notes.main_note} /></span>
-          <span className={styles.subNote}><MyMessage id={notes.sub_note} /></span>
+          <span className={styles.mainNote}><LabelLang id={notes.main_note} /></span>
+          <span className={styles.subNote}><LabelLang id={notes.sub_note} /></span>
         </div>
         <ul>
           {
-            notes.list?.map((note, index) => (<li key={index}><span><MyMessage id={note} /></span></li>))
+            notes.list?.map((note, index) => (<li key={index}><span><LabelLang id={note} /></span></li>))
           }
         </ul>
       </div>
@@ -157,11 +157,11 @@ class OrderInfo extends Component {
       <Container className={styles.container}>
         <Row>
           <Card border="secondary" className={styles.card}>
-            <Card.Header><MyMessage id={getIntlKey('cardName')} /></Card.Header>
+            <Card.Header><LabelLang id={getIntlKey('cardName')} /></Card.Header>
             <Card.Body>
               <Container>
                 <Row className={styles.orderTimeout}>
-                  <span><MyMessage id={getIntlKey('priceWillUpdateIn')} /></span>
+                  <span><LabelLang id={getIntlKey('priceWillUpdateIn')} /></span>
                   <ClockCount
                     className={styles.clock}
                     internalClockdown
@@ -185,7 +185,7 @@ class OrderInfo extends Component {
         </Row>
         <Row>
           <button className={styles.doneBtn} type="button" onClick={this.prepareToOrder}>
-            <MyMessage id={getIntlKey('orderBtn')} />
+            <LabelLang id={getIntlKey('orderBtn')} />
           </button>
         </Row>
       </Container>

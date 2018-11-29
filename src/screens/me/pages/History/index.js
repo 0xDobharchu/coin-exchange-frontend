@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { MyMessage } from 'src/lang/components';
+import { LabelLang } from 'src/lang/components';
 import Loading from 'src/components/loading';
 import { getTransactionsAction } from 'src/screens/auth/redux/action';
 import { Row, Col } from 'react-bootstrap';
@@ -31,14 +31,14 @@ class History extends React.PureComponent {
     const { history: { transactions } } = this.props;
     return (
       <div className={style.container}>
-        <label className={style.title}><MyMessage id="me.history.title" /></label>
+        <label className={style.title}><LabelLang id="me.history.title" /></label>
         <div className={style.lineTitle} />
         <div className={style.block1}>
           <Row className={style.table_header}>
-            <Col xs={3}><MyMessage id="me.history.date" /></Col>
-            <Col xs={3}><MyMessage id="me.history.refcode" /></Col>
-            <Col xs={3}><MyMessage id="me.history.type" /></Col>
-            <Col xs={3}><MyMessage id="me.history.amount" /></Col>
+            <Col xs={3}><LabelLang id="me.history.date" /></Col>
+            <Col xs={3}><LabelLang id="me.history.refcode" /></Col>
+            <Col xs={3}><LabelLang id="me.history.type" /></Col>
+            <Col xs={3}><LabelLang id="me.history.amount" /></Col>
           </Row>
           {transactions.map((e, i) => (
             <Row key={i} className={style.table_body}>
@@ -56,7 +56,7 @@ class History extends React.PureComponent {
       </div>
     );
   }
-}  
+}
 
 const mapState = state => ({
   history: state.auth.history
