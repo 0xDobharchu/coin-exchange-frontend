@@ -16,7 +16,7 @@ import needBackup from 'src/assets/images/wallet/icons/need-backup.svg';
 
 // import iconPreference from 'src/assets/images/wallet/icons/icon-preference-gray.svg';
 
-import style from './Wallet.scss';
+import style from './ListWalletItem.scss';
 
 
 

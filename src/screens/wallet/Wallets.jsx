@@ -28,7 +28,7 @@ import createForm from 'src/components/core/form/createForm';
 
 import Header from './Header';
 import HeaderMore from './HeaderMore';
-import WalletItem from './WalletItem';
+import WalletItem from 'src/components/wallet/WalletItem';
 import WalletProtect from './WalletProtect';
 import WalletHistory from 'src/components/wallet/WalletHistory';
 import TransferCoin from 'src/components/wallet/TransferCoin';
