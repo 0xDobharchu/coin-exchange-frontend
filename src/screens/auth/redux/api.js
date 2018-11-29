@@ -282,3 +282,22 @@ export const getLanguages = async () => {
     return [];
   }
 };
+
+export const getCurrenciesByCountry = async (country) => {
+  try {
+    const options = {
+      url : `${API_URL.SYSTEM.GET_COUNTRY_CURRENCY}?country=${country}`,
+      method: 'GET',
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {
+        Authorization: 'Bearer ' + currentUser.getToken()
+      };
+    }
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR get currencies', err);
+    return [];
+  }
+};
