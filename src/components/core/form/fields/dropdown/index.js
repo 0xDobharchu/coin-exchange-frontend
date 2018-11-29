@@ -43,7 +43,7 @@ const inputField = ({
           }
         </Dropdown.Menu>
       </Dropdown>
-      { shouldShowError && <small className="text-danger">{error}</small>}
+      { shouldShowError && <small className="text-danger"><LabelLang id={error} /></small>}
     </div>
   );
 };

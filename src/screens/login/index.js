@@ -93,7 +93,7 @@ class Login extends React.Component {
                     name="username"
                     containerClassName="form-group"
                     component={inputField}
-                    validate={[isRequired(<LabelLang id="user.login.requiredUsername" />), isEmail(<LabelLang id="user.login.notValidUsername" />)]}
+                    validate={[isRequired('user.login.requiredUsername'), isEmail('user.login.notValidUsername')]}
                     type="email"
                     className='form-control'
                     placeholder="user.login.username"
@@ -103,7 +103,7 @@ class Login extends React.Component {
                     name="password"
                     className="form-control"
                     component={inputField}
-                    validate={[isRequired(<LabelLang id="user.login.requiredPassword" />), isPassword(8)]}
+                    validate={[isRequired('user.login.requiredPassword'), isPassword(8)]}
                     type="password"
                     placeholder="user.login.password"
                   />
