@@ -2,26 +2,38 @@ import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { FieldLang, WrapperLang, LabelLang } from 'src/lang/components';
-import { getCountries } from 'src/screens/register/action';
+import { getCountries } from 'src/screens/auth/redux/api';
 import { Field, reduxForm } from 'redux-form';
 import { Row, Col }from 'react-bootstrap';
 import dropdownField from 'src/components/core/form/fields/dropdown';
 import { InputField, Button } from 'src/components/custom';
 import style from './style.scss';
 
-const mocksCountry = [
-  { label: 'Hong Kong', value: 'HK'},
-  { label: 'Indonesia', value: 'ID'},
-  { label: 'Combodia', value: 'KH'},
-  { label: 'Philippiens', value: 'PH'},
-];
-const DropDownField = () => (
-  <Field
-    name="country"
-    component={dropdownField}
-    list={mocksCountry}
-  />
-);
+class DropDownCountriesField extends React.Component {
+
+  state = {
+    countries: []
+  }
+
+  componentDidMount() {
+    getCountries().then(r => {
+      const countries = r.map(({ country: value, country_name: label }) => ({ label, value }));
+      this.setState({ countries });
+    }).catch(err =>err);
+  }
+
+  render() {
+    const { countries } = this.state;
+    return (
+      <Field
+        name="country"
+        component={dropdownField}
+        list={countries}
+      />
+    );
+  }
+}
+
 
 // eslint-disable-next-line
 const PersonalDetailForm = ({ handleSubmit, onSubmit }) => (
@@ -36,7 +48,7 @@ const PersonalDetailForm = ({ handleSubmit, onSubmit }) => (
       </Col>
     </Row>
     <label><LabelLang id="me.accountInfo.country" /></label>
-    <DropDownField />
+    <DropDownCountriesField />
     <WrapperLang>
       {ts =>
         <Button className={style.button} value={ts('me.accountInfo.save')} onClick={handleSubmit(onSubmit)} />
