@@ -166,7 +166,7 @@ class OrderInfo extends Component {
                     className={styles.clock}
                     internalClockdown
                     loop
-                    duration={5}
+                    duration={300}
                     onExpired={this.onCountdownExpired}
                   />
                 </Row>
