@@ -89,12 +89,14 @@ export default {
       frontPhoto: 'Front Photo',
       selfiePhoto: 'Your Selfie Photo',
       submit: 'Submit',
+      ok: 'OK',
       alert: {
         lv2: 'Congratulation! Your level is upto level 2',
         lv3: 'Your request upto level 3 is sent',
         lv4: 'Your request upto level 4 is sent',
         invalidPhone: 'Invalid Phone',
-        sendPhoneCodeSuccess: 'Verify code was sent successful to your phone'
+        sendPhoneCodeSuccess: 'Verify code was sent successful to your phone',
+        sendEmailCodeSuccess: 'Verify code is sent success to your mail'
       }
     }
   },
