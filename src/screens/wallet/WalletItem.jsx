@@ -15,6 +15,7 @@ import bgCollectibles from 'src/assets/images/wallet/images/tokenerc721-mainnet.
 import needBackup from 'src/assets/images/wallet/icons/need-backup.svg';
 
 // import iconPreference from 'src/assets/images/wallet/icons/icon-preference-gray.svg';
+// import dontIcon from '@/assets/images/wallet/icons/3-dot-icon-black.svg';
 
 import style from './Wallet.scss';
 
@@ -95,6 +96,7 @@ WalletItem.propTypes = {
   onWarningClick: PropTypes.func,
   onAddressClick: PropTypes.func,
   isSortable: PropTypes.any,
+  // onMoreClick: PropTypes.func,
   onItemClick: PropTypes.func,
 };
 export default injectIntl(WalletItem);

@@ -83,6 +83,73 @@
           margin-right: 5px;
         }
       }
+      .box-button{
+        overflow: hidden;
+        margin-top: 15px;
+        margin-bottom: 25px;
+        div{
+          overflow: hidden;
+        }
+        .bt1{
+          width: 50%;
+          float: left;
+        }
+        .bt2{
+          width: 50%;
+          float: right;
+        }
+        .bt{
+          width: 100%;
+          button{
+            width: 60%;
+          }
+        }
+        button{
+          border-radius: 4px;
+          width: 140px;
+          background: transparent;
+          border: #c1c1c1 1px solid;
+          color: #fff;
+          font-size: 16px;
+          line-height: 35px;
+          outline: none;
+        }
+      }
+    }
+    
+    .headerDesktop{      
+      overflow: hidden;
+      .logo-detail{
+        width: 60px;    
+        max-width: 60px; 
+        height: 60px;   
+        border-radius: 50%;
+        margin-top: 15px;
+      }
+      .boxName{        
+        padding-top: 20px;
+        margin-left: 20px;
+      }
+      .boxButton{
+        margin-left: 20px;
+        padding-top: 20px;
+        .bt1, .bt2, .bt3{
+          display: inline;
+          button{
+            width: 160px;
+            margin-right: 20px;
+          }
+        }
+      }
+      
+      .rowHeader{
+        margin: 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
     }
     .header-history-tx{
       font-size: 14px;
@@ -101,38 +168,7 @@
         color: Black;
       }
     }
-    .box-button{
-      overflow: hidden;
-      margin-top: 15px;
-      margin-bottom: 25px;
-      div{
-        overflow: hidden;
-      }
-      .bt1{
-        width: 50%;
-        float: left;
-      }
-      .bt2{
-        width: 50%;
-        float: right;
-      }
-      .bt{
-        width: 100%;
-        button{
-          width: 60%;
-        }
-      }
-      button{
-        border-radius: 4px;
-        width: 140px;
-        background: transparent;
-        border: #c1c1c1 1px solid;
-        color: #fff;
-        font-size: 16px;
-        line-height: 35px;
-        outline: none;
-      }
-    }
+    
 
     .row{
       flex-wrap: nowrap !important;
