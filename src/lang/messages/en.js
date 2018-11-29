@@ -89,12 +89,16 @@ export default {
       frontPhoto: 'Front Photo',
       selfiePhoto: 'Your Selfie Photo',
       submit: 'Submit',
+      ok: 'OK',
       alert: {
         lv2: 'Congratulation! Your level is upto level 2',
         lv3: 'Your request upto level 3 is sent',
         lv4: 'Your request upto level 4 is sent',
         invalidPhone: 'Invalid Phone',
-        sendPhoneCodeSuccess: 'Verify code was sent successful to your phone'
+        sendPhoneCodeSuccess: 'Verify code was sent successful to your phone',
+        sendEmailCodeSuccess: 'Verify code is sent success to your mail',
+        imageIdentifierRequired: 'Back/Front Image is required',
+        imageSelfieRequired: 'Image Selifie is required'
       }
     }
   },
@@ -113,7 +117,7 @@ export default {
       requiredPassword: 'Please enter your password',
       notValidUsername: 'Invalid email address',
       requiredUsername: 'Please enter your email',
-      loginFailure: 'Username and password not match.',
+      loginFailure: 'Email and password not match.',
       warningVerify: 'To start trading, please take a few minutes to verify your account. {action}',
       warningVerifyNow: 'Verify now'
     },
@@ -121,7 +125,7 @@ export default {
       title: 'Forgot your password?',
       description: 'Enter your email address to reset your password. You may need to check your spam folder or unblock no-reply@coinbowl.com.',
       username: 'Your email',
-      requiredUsername: 'Username is required',
+      requiredUsername: 'Email is required',
       notValidUsername: 'Invalid email address',
       submitButton: 'Submit',
       resetPasswordIntro: 'If a Coinbowl account exists for {email}, an e-mail will be sent with further instructions.',
