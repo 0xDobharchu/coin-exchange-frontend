@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getProfileAction, sendEmailVerifyCodeAction }from 'src/screens/auth/redux/action';
 import { Col, Container, Row } from 'react-bootstrap';
-import { MyMessage } from 'src/lang/components';
+import { LabelLang } from 'src/lang/components';
 import Loading from 'src/components/loading';
 import queryString from 'query-string';
 import EmailBlock from './EmailBlock';
@@ -35,7 +35,7 @@ class MeProfile extends React.PureComponent {
     return (
       <Container className={style.profile}>
         <Row className={style.head_text}>
-          <MyMessage id="me.accountLevel.head_text" />
+          <LabelLang id="me.accountLevel.head_text" />
         </Row>
         <Row>
           <Col md={12}>
@@ -61,5 +61,5 @@ const mapState = (state, ownProps) => ({
   profile: state.auth.profile,
   ...ownProps
 });
-const mapDispatch = { getProfileAction, sendEmailVerifyCodeAction }; 
+const mapDispatch = { getProfileAction, sendEmailVerifyCodeAction };
 export default connect(mapState, mapDispatch)(MeProfile);

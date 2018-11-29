@@ -4,8 +4,7 @@ import { bindActionCreators } from 'redux';
 import createForm from 'src/components/core/form/createForm';
 import { formValueSelector } from 'redux-form';
 import textareaField from 'src/components/core/form/fields/textarea';
-import LabelLang from 'src/lang/components/LabelLang';
-import {FieldLang, MyMessage} from 'src/lang/components';
+import {FieldLang, LabelLang} from 'src/lang/components';
 import { isRequired } from 'src/components/core/form/validator';
 import { showAlert } from 'src/screens/app/redux/action';
 import cx from 'classnames';
@@ -37,7 +36,7 @@ class Review extends React.Component {
     const { order, review } = this.props;
 
     if (order && review) {
-      const message = <MyMessage id='review.thanksMessage' />;
+      const message = <LabelLang id='review.thanksMessage' />;
       this.setState({ message: message });
       this.props.addReview(order, review).then(() => {
         this.props.showAlert({
@@ -46,7 +45,7 @@ class Review extends React.Component {
         });
       }, () => {
         this.props.showAlert({
-          message: <MyMessage id='app.common.error' />,
+          message: <LabelLang id='app.common.error' />,
           type: 'danger',
           timeOut: 2000,
         });

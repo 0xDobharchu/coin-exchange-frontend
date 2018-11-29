@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
 import { updatePhoneNumberAction, submitPhoneCodeAction } from 'src/screens/auth/redux/action';
-import { MyMessage } from 'src/lang/components';
+import { LabelLang } from 'src/lang/components';
 import valid from 'src/services/validate';
 import PhoneForm from './PhoneForm';
 
@@ -56,14 +56,14 @@ const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, update
     <div className={style.collapse_custom}>
       <div className={style.head}>
         <p className={style.label}>
-          <MyMessage id="me.accountLevel.step2" />
+          <LabelLang id="me.accountLevel.step2" />
         </p>
         <div className={style.extend}>
           <span className={`badge badge-${getStatusColor(level, levelStatus)}`}>{getLevelStatus(level, levelStatus)}</span>
         </div>
       </div>
       <div className={style.content}>
-        <p className={style.text}><MyMessage id="me.accountLevel.wrm2" /></p>
+        <p className={style.text}><LabelLang id="me.accountLevel.wrm2" /></p>
       </div>
       <PhoneForm onSubmit={handleVerifyPhone} />
     </div>

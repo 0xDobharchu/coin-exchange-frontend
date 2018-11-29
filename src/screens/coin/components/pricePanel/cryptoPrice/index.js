@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import { formatMoneyByLocale } from 'src/utils/format/curency';
 import { injectIntl } from 'react-intl';
 import { EXCHANGE_ACTION } from 'src/resources/constants/exchange';
+import CryptoGraph from 'src/screens/coin/components/pricePanel/cryptoGraph';
+import LabelLang from 'src/lang/components/LabelLang';
+import { ORDER_TYPE } from 'src/screens/coin/constant';
 import styles from './styles.scss';
-import { ORDER_TYPE } from '../../../constant';
-import CryptoGraph from '@/screens/coin/components/pricePanel/cryptoGraph';
-import MyMessage from '@/lang/components/MyMessage';
 
 const getIntlKey = (name) => `coin.components.pricePanel.${name}`;
 
@@ -103,13 +103,13 @@ class CryptoPrice extends Component {
         </div>
         {buyPrice && (
           <div className={styles.buy}>
-            <span><MyMessage id={getIntlKey('buy')} /></span>
+            <span><LabelLang id={getIntlKey('buy')} /></span>
             <span>{buyPriceStr}</span>
           </div>
         )}
         {sellPrice && (
           <div className={styles.sell}>
-            <span><MyMessage id={getIntlKey('sell')} /></span>
+            <span><LabelLang id={getIntlKey('sell')} /></span>
             <span>{sellPriceStr}</span>
           </div>
         )}

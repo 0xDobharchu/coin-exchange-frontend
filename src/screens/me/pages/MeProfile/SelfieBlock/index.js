@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
 import { submitVerifyLevel4Action } from 'src/screens/auth/redux/action';
-import { MyMessage } from 'src/lang/components';
+import { LabelLang } from 'src/lang/components';
 import SelfieForm from './SelfieForm';
 import { getColorByLevel, getStatusByLevel } from '../util';
 
@@ -27,14 +27,14 @@ const SelfieBlock = ({ style, level, levelStatus, showAlert, submitVerifyLevel4A
     <div className={style.collapse_custom}>
       <div className={style.head}>
         <p className={style.label}>
-          <MyMessage id="me.accountLevel.step4" />
+          <LabelLang id="me.accountLevel.step4" />
         </p>
         <div className={style.extend}>
           <span className={`badge badge-${getColorByLevel(4, level, levelStatus)}`}>{getStatusByLevel(4, level, levelStatus)}</span>
         </div>
       </div>
       <div className={style.content}>
-        <p className={style.text}><MyMessage id="me.accountLevel.wrm3" /></p>
+        <p className={style.text}><LabelLang id="me.accountLevel.wrm3" /></p>
       </div>
       <SelfieForm onSubmit={handleSubmitForm} />
     </div>);
