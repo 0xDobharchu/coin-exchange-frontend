@@ -48,7 +48,7 @@ class CoinBowlFAQ extends React.PureComponent {
 
 const mapState = state => ({
   faqContent: state.landingReducer.faqContent,
-  locale: state?.app.locale || 'en',
+  locale: state.langReducer.lang || 'en'
 });
 
 const mapDispatch = dispatch => ({
