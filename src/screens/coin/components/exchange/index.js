@@ -236,7 +236,7 @@ class Exchange extends Component {
           <Col sm={5}>
             <InputGroup>
               <CurrencyInput
-                label={<MyMessage id={getIntlKey('fiatAmountLabel')} />}
+                label='&nbsp;'
                 placeholder="0.0"
                 value={fiatAmount}
                 truncateLabel
