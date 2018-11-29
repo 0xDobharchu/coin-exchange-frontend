@@ -178,6 +178,7 @@ export default {
       requiredYourName: 'Your name is required',
       placeholderYourName: 'Enter your name',
       email: 'Your email',
+      placeholderYourEmail: 'Enter your email',
       requiredEmail: 'Your email is required',
       notValidEmail: 'Invalid email address',
       phone: 'Your phone',
@@ -186,6 +187,7 @@ export default {
       placeholderDescription: 'Enter your message',
       requiredDescription: 'Your message is required',
       contactButton: 'Submit',
+      message: 'Thank you! Your message has been sent. You should receive a response from one of our representatives within 12-24 hours.'
 
     }
   },
