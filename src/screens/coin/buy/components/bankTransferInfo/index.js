@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { FaRegCopy, FaCloudUploadAlt } from 'react-icons/fa';
+import { FaCloudUploadAlt } from 'react-icons/fa';
 import { formatMoneyByLocale } from 'src/utils/format/curency';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import ClockCount from 'src/components/clockCount';
@@ -158,14 +158,6 @@ class BankTransferInfo extends PureComponent {
     });
   }
 
-  renderCopyIcon(text) {
-    return (
-      <CopyToClipboard text={text} onCopy={this.copied}>
-        <FaRegCopy className={styles.copyIcon} color="green" />
-      </CopyToClipboard>
-    );
-  }
-
   renderInfo() {
     const { data } = this.state;
     return (
@@ -180,8 +172,9 @@ class BankTransferInfo extends PureComponent {
                 <span className={styles.infoTitle}><MyMessage id={value.intlKey} /></span>
               </Col>
               <Col xs={12} sm={6}>
-                <span className={cx(styles.infoValue, styles[value?.className])}>{value.text}</span>
-                {value.copyable && this.renderCopyIcon(value.text)}
+                <CopyToClipboard text={value.text} onCopy={this.copied}>
+                  <span className={cx(styles.infoValue, styles[value?.className])}>{value.text}</span>
+                </CopyToClipboard>
                 {value.extraInfo && <TooltipInfo message={<MyMessage id={value.extraInfo.intlKey} />} />}
               </Col>
             </Row>
