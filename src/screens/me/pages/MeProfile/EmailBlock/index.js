@@ -2,7 +2,7 @@ import React from 'react';
 import { sendEmailVerify } from 'src/screens/auth/redux/api';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
-import { MyMessage } from 'src/lang/components';
+import { LabelLang } from 'src/lang/components';
 // import valid from 'src/services/validate';
 import EmailForm from './EmailForm';
 import { getColorByLevel, getStatusByLevel } from '../util';
@@ -37,14 +37,14 @@ const EmailBlock = ({ style, showAlert, email, level, levelStatus }) => {
     <div className={style.collapse_custom}>
       <div className={style.head}>
         <p className={style.label}>
-          <MyMessage id="me.accountLevel.step1" />
+          <LabelLang id="me.accountLevel.step1" />
         </p>
         <div className={style.extend}>
           <span className={`badge badge-${getColorByLevel(1, level, levelStatus)}`}>{getStatusByLevel(1, level, levelStatus)}</span>
         </div>
       </div>
       <div className={style.content}>
-        <p className={style.text}><MyMessage id="me.accountLevel.wrm1" /></p>
+        <p className={style.text}><LabelLang id="me.accountLevel.wrm1" /></p>
       </div>
       <EmailForm onSubmit={handleVerifyEmail} />
     </div>

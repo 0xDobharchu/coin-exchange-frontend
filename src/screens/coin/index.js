@@ -4,7 +4,7 @@ import { Container, Col, Row } from 'react-bootstrap';
 import ReviewList from 'src/components/reviewList';
 import { FaPlayCircle } from 'react-icons/fa';
 import PricePanel from 'src/screens/coin/components/pricePanel';
-import MyMessage from 'src/lang/components/MyMessage';
+import LabelLang from 'src/lang/components/LabelLang';
 import UserVerifyStatus from 'src/components/userVerifyStatus';
 import animations from 'src/assets/styles/animations';
 import BuyCoin from './buy';
@@ -13,11 +13,11 @@ import styles from './styles.scss';
 
 const TABS = {
   BUY: {
-    title: <MyMessage id='coin.buyTabTitle' />,
+    title: <LabelLang id='coin.buyTabTitle' />,
     component: <BuyCoin />
   },
   SELL: {
-    title: <MyMessage id='coin.sellTabTitle' />,
+    title: <LabelLang id='coin.sellTabTitle' />,
     component: <SellCoin />
   }
 };
@@ -61,8 +61,8 @@ class Coin extends Component {
     return (
       <Container className={styles.container}>
         <Row className={styles.intro}>
-          <h1><MyMessage id='coin.introText' /></h1>
-          <h3><MyMessage id='coin.subIntroText' /><FaPlayCircle className={styles.icon} /></h3>
+          <h1><LabelLang id='coin.introText' /></h1>
+          <h3><LabelLang id='coin.subIntroText' /><FaPlayCircle className={styles.icon} /></h3>
         </Row>
         <Row>
           <Col lg={3} className='order-2 order-lg-1'>

@@ -148,7 +148,7 @@ export default {
       requiredLastName: 'Last name is required',
       placeholderNickName:'Enter your nick name',
       requiredNickName:'Nick name is required',
-      notValidNickName: 'Nickname must be greater than 3 and less than 30 characters',
+      notValidNickName: 'Nickname must be greater than 3 and less than 30 characters, Allowed characters are a-z, 0-9, _, - (dash), and .(dot).',
       username: 'Your email',
       requiredUsername: 'Username is required',
       notValidUsername: 'Invalid email address',
