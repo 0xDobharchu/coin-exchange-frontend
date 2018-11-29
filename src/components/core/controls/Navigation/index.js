@@ -1,5 +1,5 @@
 import React from 'react';
-import { LabelLang } from 'src/lang/components/LabelLang';
+import LabelLang from 'src/lang/components/LabelLang';
 import { Link, withRouter } from 'react-router-dom';
 import cn from 'classnames';
 
