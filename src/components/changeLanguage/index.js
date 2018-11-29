@@ -4,7 +4,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setLanguage } from 'src/screens/app/redux/action';
 import cx from 'classnames';
 import { change, Field } from 'redux-form';
 import { changeLang } from 'src/lang/action';
@@ -66,7 +65,6 @@ class ChangeLanguage extends React.PureComponent {
 
   changeLanguage(e, newValue) {
     console.log('changeLanguage', newValue);
-    this.props.setLanguage(newValue, true);
     this.props.changeLang(newValue);
   }
 
@@ -92,7 +90,6 @@ class ChangeLanguage extends React.PureComponent {
 
 ChangeLanguage.propTypes = {
   className: PropTypes.string,
-  setLanguage: PropTypes.func.isRequired,
   locale: PropTypes.string.isRequired,
 };
 
@@ -101,12 +98,11 @@ ChangeLanguage.defaultProps = {
 };
 
 const mapState = state => ({
-  locale: state?.app.locale || 'en',
+  locale: state.langReducer.lang || 'en',
   supportedLanguages: state.app.supportedLanguages
 });
 
 const mapDispatch = ({
-  setLanguage,
   changeLang,
   change,
 });

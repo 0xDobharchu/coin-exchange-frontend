@@ -64,7 +64,7 @@ class AgreementPrivacy extends React.Component {
 const mapState = state => ({
   userAgreementContent: state.landingReducer.userAgreementContent,
   privacyContent: state.landingReducer.privacyContent,
-  locale: state?.app.locale || 'en',
+  locale: state.langReducer.lang || 'en'
 });
 
 const mapDispatch = dispatch => ({
