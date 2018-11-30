@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
 import { updatePhoneNumberAction, submitPhoneCodeAction } from 'src/screens/auth/redux/action';
 import { LabelLang } from 'src/lang/components';
-import valid from 'src/services/validate';
+// import valid from 'src/services/validate';
 import PhoneForm from './PhoneForm';
 
 const getStatusColor = (level, status) => {
@@ -29,14 +29,14 @@ const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, update
 
     const { phone: phoneNumberValue, code } = values;
     console.log(values);
-    if (!phoneNumberValue || valid.phone(phoneNumberValue)) {
-      showAlert({
-        message: 'me.accountLevel.alert.invalidPhone',
-        timeOut: 3000,
-        type: 'danger'
-      });
-      return;
-    }
+    // if (!phoneNumberValue || valid.phone(phoneNumberValue)) {
+    //   showAlert({
+    //     message: 'me.accountLevel.alert.invalidPhone',
+    //     timeOut: 3000,
+    //     type: 'danger'
+    //   });
+    //   return;
+    // }
     if (!code) {
       updatePhoneNumberAction(phoneNumberValue).catch(showAlert({
         message: 'me.accountLevel.alert.sendPhoneCodeSuccess',
