@@ -13,12 +13,18 @@ export const Input = ({ onClick, className, ...restProps }) => (
   <input className={className ? cn(style.input, className) : style.input} {...restProps} />
 );
 
-export const InputField = ({ onClick, className, input, ...restProps }) => (
-  <input {...input} className={className ? cn(style.input, className) : style.input} {...restProps} />
+export const InputField = ({ onClick, className, input, meta: { touched, error }, ...restProps }) => (
+  <div>
+    <input {...input} className={className ? cn(style.input, className) : style.input} {...restProps} />
+    {!!(touched && error) && <small className="text-danger">{error}</small>}
+  </div>
 );
 
-export const PasswordField = ({ onClick, className, input, ...restProps }) => (
-  <input {...input} type="password" className={className ? cn(style.input, className) : style.input} {...restProps} />
+export const PasswordField = ({ onClick, className, input, meta: { touched, error },  ...restProps }) => (
+  <div>
+    <input {...input} type="password" className={className ? cn(style.input, className) : style.input} {...restProps} />
+    {!!(touched && error) && <small className="text-danger">{error}</small>}
+  </div>
 );
 
 export const Label = ({ className, children, ...restProps }) => (

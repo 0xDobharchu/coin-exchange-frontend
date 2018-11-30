@@ -8,7 +8,7 @@ const messages = {
   // vi: convertLongKeyValues(Object.assign({}, en, i18n.vi)),
   // vi: convertLongKeyValues(vi)
   id: convertLongKeyValues(Object.assign({}, en, i18n.id)),
-  ms: convertLongKeyValues(Object.assign({}, en, i18n.ms)),
+  km: convertLongKeyValues(Object.assign({}, en, i18n.km)),
   'zh-Hant-HK': convertLongKeyValues(Object.assign({}, en, i18n.zh))
 };
 

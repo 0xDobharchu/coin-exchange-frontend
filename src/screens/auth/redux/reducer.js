@@ -1,8 +1,8 @@
 
 const mockState = {
-  token: '3Spjg41uj3CTsH9ts77AaVnyfOAHOjtqRzC9ZIUyv_AU5nKO_PK5DIgJ8A==',
+  token: '',
   profile: {
-    email: 'vankhoa@autonomous.nyc',
+    email: '',
     phone: '',
     idVerificationLevel: 0,
     verified: 1,
@@ -18,7 +18,8 @@ const mockState = {
     selfie_image: '',
     verification_level: '',
     verification_status: '',
-    wallet: ''
+    wallet: '',
+    security_2fa: false,
   },
   history: {
     transactions: [],

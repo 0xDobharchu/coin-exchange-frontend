@@ -1,21 +1,27 @@
+@import './functions';
 @mixin respond($media) {
-  @if $media == sm {
-    @media (max-width: 576px) {
+  @if $media == xs {
+    @media (max-width: get-breakpoint(xs)) {
+      @content;
+    }
+  }
+  @else if $media == sm {
+    @media (max-width: get-breakpoint(sm)) {
       @content;
     }
   }
   @else if $media == md {
-    @media (max-width: 768px) {
+    @media (max-width: get-breakpoint(md)) {
       @content;
     }
   }
   @else if $media == lg {
-    @media (max-width: 992px) {
+    @media (max-width: get-breakpoint(lg)) {
       @content;
     }
   }
   @else if $media == xl {
-    @media (max-width: 1200px) {
+    @media (min-width: get-breakpoint(lg)) {
       @content;
     }
   }

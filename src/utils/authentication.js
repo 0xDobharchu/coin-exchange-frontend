@@ -1,10 +1,12 @@
 import {USER} from 'src/resources/constants/user';
-import {APP} from '../constants';
 
 const currentUser = {
   isLogin() {
-    const token = currentUser.getToken();
-    return !!token;
+    if(__CLIENT__) {
+      const token = currentUser.getToken();
+      return !!token;
+    }
+    return false;
   },
   getToken() {
     if(__CLIENT__){
@@ -43,11 +45,5 @@ const currentUser = {
       localStorage.removeItem(USER.CURRENT_PROFILE);
     }
   },
-  getIPInfor() {
-    if(__CLIENT__){
-      return JSON.parse(localStorage.getItem(APP.IP_INFO)) || {};
-    }
-    return {};
-  }
 };
 export default currentUser;

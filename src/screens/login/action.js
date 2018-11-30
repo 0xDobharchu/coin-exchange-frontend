@@ -30,15 +30,16 @@ export const login = (username, password) => (dispatch) => {
         const user = {name: profile.name, email: profile.email};
         authentication.setCurrentUser(user);
         return {
-          status: USER.LOGIN_SUCCESS,
+          type: USER.LOGIN_SUCCESS,
+          isAuthenticated: true,
           message: (profile.verification_level === 'level_1' && profile.verification_status === 'pending')
         };
       });
     } else {
-      return {status: USER.LOGIN_FAILURE};
+      return {type: USER.LOGIN_FAILURE};
     }
   }, (err) => {
     console.log(err);
-    return {status: USER.LOGIN_FAILURE};
+    return {type: USER.LOGIN_FAILURE};
   });
 };

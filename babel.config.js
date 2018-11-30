@@ -32,6 +32,7 @@ module.exports = {
       'regenerator': true
     }],
     '@babel/plugin-proposal-export-default-from',
-    '@babel/plugin-transform-react-jsx'
+    '@babel/plugin-transform-react-jsx',
+    'emotion'
   ]
 };

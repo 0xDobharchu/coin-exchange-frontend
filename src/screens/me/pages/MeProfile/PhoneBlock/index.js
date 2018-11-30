@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
 import { updatePhoneNumberAction, submitPhoneCodeAction } from 'src/screens/auth/redux/action';
-import { MyMessage } from 'src/lang/components';
-import valid from 'src/services/validate';
+import { LabelLang } from 'src/lang/components';
+// import valid from 'src/services/validate';
 import PhoneForm from './PhoneForm';
+import {getCurrentLevel} from '../util';
 
 const getStatusColor = (level, status) => {
   if (level === 'level_3') return 'success';
@@ -25,49 +26,48 @@ const getLevelStatus = (level, status) => {
 
 // eslint-disable-next-line
 const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, updatePhoneNumberAction, submitPhoneCodeAction }) => {
-  const handleVerifyEmail = (values) => {
-    console.log('veerify phone_number', values);
+  const handleVerifyPhone = (values) => {
+
     const { phone: phoneNumberValue, code } = values;
-    if (phoneNumberValue) {
-      if (valid.phone(phoneNumberValue)) {
-        console.log('phone is invalid');
-        showAlert({
-          message: 'Invalid Phone',
-          timeOut: 3000,
-          type: 'danger'
-        });
-        return;
-      }
-    }
+    console.log(values);
+    // if (!phoneNumberValue || valid.phone(phoneNumberValue)) {
+    //   showAlert({
+    //     message: 'me.accountLevel.alert.invalidPhone',
+    //     timeOut: 3000,
+    //     type: 'danger'
+    //   });
+    //   return;
+    // }
     if (!code) {
       updatePhoneNumberAction(phoneNumberValue).catch(showAlert({
-        message: 'Verify code was sent successful to your phone',
+        message: 'me.accountLevel.alert.sendPhoneCodeSuccess',
         timeOut: 3000,
         type: 'success',
       }));
     } else {
       submitPhoneCodeAction(code).then(showAlert({
-        message: 'Congratulation! Your level is upto level 2',
+        message: 'me.accountLevel.alert.lv2',
         timeOut: 3000,
         type: 'success'
       }));
     }
   };
+  const currentLevel = getCurrentLevel(level, levelStatus);
 
   return (
     <div className={style.collapse_custom}>
       <div className={style.head}>
         <p className={style.label}>
-          <MyMessage id="me.profile.verify.step2" />
+          <LabelLang id="me.accountLevel.step2" />
         </p>
         <div className={style.extend}>
           <span className={`badge badge-${getStatusColor(level, levelStatus)}`}>{getLevelStatus(level, levelStatus)}</span>
         </div>
       </div>
       <div className={style.content}>
-        <p className={style.text}><MyMessage id="me.profile.text.id_verification.desc13" /></p>
+        <p className={style.text}><LabelLang id="me.accountLevel.wrm2" /></p>
       </div>
-      <PhoneForm onSubmit={handleVerifyEmail} />
+      {1 <= currentLevel  && <PhoneForm onSubmit={handleVerifyPhone} />}
     </div>
   );
 };

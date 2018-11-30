@@ -48,6 +48,12 @@ instance.interceptors.response.use(
         const { config, response: { status, data, statusText } } = error;
         const originalRequest = config;
         if (status === 401) {
+          if(isAlreadyFetchingAccessToken) {
+            authentication.removeAccessToken();
+            if(__CLIENT__) {
+              window.location.reload();
+            }
+          }
           if (!isAlreadyFetchingAccessToken) {
             isAlreadyFetchingAccessToken = true;
             fetchAccessToken().then((data) => {
@@ -70,6 +76,8 @@ instance.interceptors.response.use(
           error: true,
           status: status,
           data: data,
+          code: data?.code,
+          message: data?.message,
           statusText: statusText,
         });
       }

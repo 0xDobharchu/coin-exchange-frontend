@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import currentUser from 'src/utils/authentication';
 import {MdPerson} from 'react-icons/md';
 import LabelLang from 'src/lang/components/LabelLang';
+import { URL } from 'src/resources/constants/url';
 import styles from './styles.scss';
 
 const Form = createForm({
@@ -35,12 +36,15 @@ class UserLogin extends React.PureComponent {
             list={[
               {
                 label: currentUser.getCurrentUser().name,
+                onClick:  () => {
+                  this.props.history.push(URL.ME);
+                }
               },
               {
                 label: <LabelLang id="user.logout" />,
                 onClick:  () => {
                   currentUser.removeAccessToken();
-                  this.props.history.push('/');
+                  this.props.history.push(URL.HOME);
                 }
               }
             ]}
