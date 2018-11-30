@@ -5,6 +5,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { LabelLang } from 'src/lang/components';
 import Loading from 'src/components/loading';
 import queryString from 'query-string';
+import { getCurrentLevel } from './util';
 import EmailBlock from './EmailBlock';
 import PhoneBlock from './PhoneBlock';
 import IDCardBlock from './IDCardBlock';
@@ -32,6 +33,8 @@ class MeProfile extends React.PureComponent {
   render() {
     // eslint-disable-next-line
     if (this.state.loading) return (<Loading />);
+    // eslint-disable-next-line
+    const currentLevel = getCurrentLevel(this.props.profile.verification_level, this.props.profile.verification_status);
     return (
       <Container className={style.profile}>
         <Row className={style.head_text}>
@@ -42,13 +45,13 @@ class MeProfile extends React.PureComponent {
             <EmailBlock style={style} />
           </Col>
           <Col md={12}>
-            <PhoneBlock style={style} />
+            {1 <= currentLevel  && <PhoneBlock style={style} />}
           </Col>
           <Col md={12}>
-            <IDCardBlock style={style} />
+            {2 <= currentLevel && <IDCardBlock style={style} />}
           </Col>
           <Col md={12}>
-            <SelfieBlock style={style} />
+            {3 <= currentLevel && <SelfieBlock style={style} />}
           </Col>
         </Row>
         <Row style={{ height: '60px' }} />
