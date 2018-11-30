@@ -10,7 +10,9 @@ import { FieldLang } from 'src/lang/components';
 import { isEmail, isRequired } from 'src/components/core/form/validator';
 import { URL } from 'src/resources/constants/url';
 import cx from 'classnames';
-import contactActions  from './action';
+// import ReactPhoneInput from 'react-phone-input-2';
+import { showAlert } from 'src/screens/app/redux/action';
+import contactActions from './action';
 import style from './style.scss';
 
 const ContactForm = createForm({
@@ -24,19 +26,22 @@ const selectorForm = formValueSelector('ContactForm');
 class Contact extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      phone: '',
+    };
   }
 
-  submitAddContact=() => {
-    let { fullname, phone, email, description } = this.props;
-    if (!phone) phone = '';
+  submitAddContact = () => {
+    let { fullname, email, description } = this.props;
+    let phone = this.state.phone;
 
     console.log(fullname, email, phone, description);
     if (fullname && email && description) {
-      this.props.addContact(fullname,  phone, email, description).then((data) => {
+      this.props.addContact(fullname, phone, email, description).then((data) => {
         console.log('data addContact', data);
         this.props.showAlert({
           message: 'landingPage.contactUS.message',
-          timeOut: 3000,
+          timeOut: 6000,
         });
         this.props.history.push(URL.HOME);
       }, (err) => {
@@ -48,6 +53,13 @@ class Contact extends React.Component {
         console.log('submitAddContact', err);
       });
     }
+  }
+
+  handleOnChange = (value) => {
+    console.log('phone', value);
+    this.setState({
+      phone: value
+    });
   }
 
   render() {
@@ -88,6 +100,7 @@ class Contact extends React.Component {
                       placeholder="landingPage.contactUS.placeholderPhone"
                       type="phone"
                     />
+                    {/*<ReactPhoneInput value={this.state.phone} onChange={this.handleOnChange} defaultCountry='hk' regions='asia' inputStyle={{ width: '100%' }} />*/}
                   </div>
                   <div className="form-group">
                     <FieldLang
@@ -121,6 +134,7 @@ const mapStateToProps = state => ({
 
 const mapDispatch = dispatch => ({
   addContact: bindActionCreators(contactActions.addContact, dispatch),
+  showAlert: bindActionCreators(showAlert, dispatch),
 });
 
 const connectedContactPage = connect(mapStateToProps, mapDispatch)(Contact);

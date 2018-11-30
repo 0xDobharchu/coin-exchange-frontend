@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import qs from 'querystring';
 import { initApp, getCountryCurrency, getSupportCountry, getSupportLanguages } from 'src/screens/app/redux/action';
 import { getProfileAction } from 'src/screens/auth/redux/action';
+import currentUser from 'src/utils/authentication';
 
 // import I18n from 'src/components/App/I18n';
 import IntlCustomProvider from 'src/lang';
@@ -36,7 +37,9 @@ class Root extends React.Component {
     initApp(language, ref);
     getSupportCountry();
     getSupportLanguages();
-    getProfileAction();
+    if(currentUser.isLogin()) {
+      getProfileAction();
+    }
   }
 
   render() {

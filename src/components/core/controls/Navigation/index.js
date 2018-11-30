@@ -3,11 +3,10 @@ import LabelLang from 'src/lang/components/LabelLang';
 import { Link, withRouter } from 'react-router-dom';
 import cn from 'classnames';
 
-import { URL } from 'src/constants';
+import { URL } from 'src/resources/constants/url';
 import meIcon from 'src/assets/images/navigation/ic_me.svg';
 import walletIcon from 'src/assets/images/navigation/ic_wallet.svg';
 import creditIcon from 'src/assets/images/navigation/ic_credit.svg';
-// import creditIcon from 'src/assets/icons/coin/bch.svg';
 import styles from './styles.scss';
 
 class Navigation extends React.Component {
@@ -34,10 +33,10 @@ class Navigation extends React.Component {
     return (
       <footer className={styles.footer}>
         <div className={styles.main}>
-          <div className={cn(styles.item, this.checkSelected([URL.BUY_COIN_URL, URL.INDEX]))}>
-            <Link to={URL.INDEX}>
+          <div className={cn(styles.item, this.checkSelected([URL.HOME]))}>
+            <Link to={URL.HOME}>
               <img alt="creditIcon" src={creditIcon} />
-              <LabelLang id="app.navigation.ninjaCoin" />
+              <LabelLang id="app.navigation.coin" />
             </Link>
           </div>
           <div className={cn(styles.item, this.checkSelected([URL.WALLET]))}>
@@ -46,8 +45,8 @@ class Navigation extends React.Component {
               <LabelLang id="app.navigation.wallet" />
             </Link>
           </div>
-          <div className={cn(styles.item, this.checkSelected([URL.HANDSHAKE_ME_INDEX]))}>
-            <Link to={URL.HANDSHAKE_ME_INDEX}>
+          <div className={cn(styles.item, this.checkSelected([URL.ME]))}>
+            <Link to={URL.ME}>
               <img alt="meIcon" src={meIcon} />
               <LabelLang id="app.navigation.me" />
             </Link>
