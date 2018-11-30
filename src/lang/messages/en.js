@@ -6,7 +6,7 @@ export default {
     name: 'Coinbowl',
     navigation: {
       me: 'Me',
-      ninjaCoin: 'Coin',
+      coin: 'Coin',
       wallet: 'Wallet'
     },
     common: {
@@ -93,6 +93,7 @@ export default {
       documentNumber: 'Document Number',
       documentNumberDesc: 'Document Number',
       emailDesc: 'Enter your email',
+      phoneCode: 'Enter your code',
       emailButton: 'SEND',
       backPhoto: 'Back Photo',
       frontPhoto: 'Front Photo',
@@ -104,8 +105,8 @@ export default {
         lv3: 'Your request upto level 3 is sent',
         lv4: 'Your request upto level 4 is sent',
         invalidPhone: 'Invalid Phone',
-        sendPhoneCodeSuccess: 'Verify code was sent successful to your phone',
-        sendEmailCodeSuccess: 'Verify code is sent success to your mail',
+        sendPhoneCodeSuccess: 'We sent the secret code to your phone.',
+        sendEmailCodeSuccess: 'We sent a verification code to your email',
         imageIdentifierRequired: 'Back/Front Image is required',
         imageSelfieRequired: 'Image Selifie is required'
       }

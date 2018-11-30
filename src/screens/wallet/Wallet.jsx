@@ -37,7 +37,7 @@ import TransferCoin from 'src/components/wallet/TransferCoin';
 import ReceiveCoin from 'src/components/wallet/ReceiveCoin';
 import { showLoading, hideLoading, showAlert } from 'src/screens/app/redux/action';
 import local from 'src/services/localStore';
-import {APP} from 'src/constants';
+import {APP} from 'src/resources/constants/app';
 
 import { userWallet, makeSaveWallet } from './action';
 
@@ -48,9 +48,6 @@ import { userWallet, makeSaveWallet } from './action';
 import style from './Wallet.scss';
 
 import CoinTemp from 'src/screens/wallet/CoinTemp';
-import BackupWallet from 'src/components/wallet/BackupWallet/BackupWallet';
-import RestoreWallet from 'src/components/wallet/RestoreWallet/RestoreWallet';
-
 // new layout:
 import logoWallet from 'src/assets/images/wallet/images/logo-wallet.svg';
 import iconMoreSettings from 'src/assets/images/wallet/icons/icon-more-settings.svg';
@@ -117,7 +114,7 @@ class Wallet extends React.Component {
       listMainWalletBalance: [],
       listTokenWalletBalance: [],
       listCollectibleWalletBalance: [],
-      listTestWalletBalance: [],      
+      listTestWalletBalance: [],
       bottomSheet: false,
       listMenu: [],
       walletSelected: null,
@@ -153,13 +150,13 @@ class Wallet extends React.Component {
       modalRemindCheckout: '',
       backupWalletContent: "",
       exportPrivateContent: "",
-      restoreWalletContent: "",  
-      userPassword: '',    
+      restoreWalletContent: "",
+      userPassword: '',
 
       // sortable:
       listSortable: {coin: false, token: false, collectitble: false},
     };
-    
+
   }
 
   showAlert(msg, type = 'success', timeOut = 3000, icon = '') {
@@ -178,11 +175,11 @@ class Wallet extends React.Component {
   }
   showSuccess(mst) {
     this.showAlert(mst, 'success', 4000, ICON.SuccessChecked());
-  }  
+  }
 
   splitWalletData(listWallet) {
     let listMainWallet = [];
-    let listTestWallet = [];    
+    let listTestWallet = [];
     let listTokenWallet = [];
     let listCollectibleWallet = [];
 
@@ -190,7 +187,7 @@ class Wallet extends React.Component {
 
       // is Mainnet (coin, token, collectible)
       if (wallet.network === MasterWallet.ListCoin[wallet.className].Network.Mainnet) {
-        
+
         if(wallet.isToken){
           wallet.default = false;
           if (wallet.isCollectibles){
@@ -203,7 +200,7 @@ class Wallet extends React.Component {
         else{
           listMainWallet.push(wallet);
         }
-        
+
       } else {
         // is Testnet
         listTestWallet.push(wallet);
@@ -246,16 +243,16 @@ class Wallet extends React.Component {
   }
 
   componentWillUnmount() {
-    // try{document.querySelector(".app").style.backgroundColor = '#ffffff';} catch (e){};    
+    // try{document.querySelector(".app").style.backgroundColor = '#ffffff';} catch (e){};
   }
 
   componentDidMount() {
-    
+
     // try{document.querySelector(".app").style.backgroundColor = '#f4f4fb';} catch (e){};
-    
+
     this.getSetting();
 
-    // todo call api get wallet data ...    
+    // todo call api get wallet data ...
     this.props.userWallet().then((listWallet) => {
       // alert(listWallet.length);
       console.log('listWallet', listWallet);
@@ -266,13 +263,13 @@ class Wallet extends React.Component {
       else {
         this.showAlert("Can not get your wallet now ...");
       }
-      
+
     }).finally(() => {
-      
+
     });
 
   }
-      
+
 
   async getSetting(){
     let setting = local.get(APP.SETTING), alternateCurrency = "USD";
@@ -339,7 +336,7 @@ class Wallet extends React.Component {
         lstWalletTemp.splice(index, 1);
         // Update wallet master server:
         // MasterWallet.UpdateLocalStore(lstWalletTemp, true);
-        this.saveWallet(lstWalletTemp);        
+        this.saveWallet(lstWalletTemp);
         this.splitWalletData(lstWalletTemp);
       }
     }
@@ -441,7 +438,7 @@ class Wallet extends React.Component {
                   currency={this.state.alternateCurrency}
                 />
               ),
-            }, ()=>{              
+            }, ()=>{
             this.modalSendRef.open();
           });
       }
@@ -488,33 +485,6 @@ class Wallet extends React.Component {
     });
   }
 
-  showBackupWalletAccount=()=>{
-
-    this.props.requestWalletPasscode({
-      onSuccess: () => {
-        this.setState({backupWalletContent: <BackupWallet />}, ()=>{
-          this.modalBackupRef.open();
-        })
-      }
-    });
-  }
-  closeBackupWalletAccount=()=>{
-    this.setState({backupWalletContent: ""});
-  }
-
-  showRestoreWalletAccount=()=>{
-    this.props.requestWalletPasscode({
-      onSuccess: () => {
-        this.setState({restoreWalletContent: <RestoreWallet />}, ()=>{
-          this.modalRestoreRef.open();
-        })
-      }
-    })
-  }
-  closeRestoreWalletAccount=()=>{
-    this.setState({restoreWalletContent: ""});
-  }
-
   // add custom token:
   addedCustomToken = () =>{
     let masterWallet = MasterWallet.getMasterWallet();
@@ -546,12 +516,12 @@ class Wallet extends React.Component {
     this.setState({ erroValueBackup: false, listCoinTempToCreate: listCoinTemp, countCheckCoinToCreate });
   }
 
-  saveWallet(wallets){    
-    this.props.makeSaveWallet(wallets).then((result) => {      
+  saveWallet(wallets){
+    this.props.makeSaveWallet(wallets).then((result) => {
       console.log('saved wallet');
 
     }).finally(() => {
-      
+
     });
   }
 
@@ -561,7 +531,7 @@ class Wallet extends React.Component {
     const listCoinTemp = this.state.listCoinTempToCreate;
 
     const phrase = this.state.input12PhraseValue.trim();
-    
+
     // todo: popup request password:
     let password = '12345678';
     const newWallet = MasterWallet.createNewWallet(listCoinTemp, phrase, password);
@@ -577,7 +547,7 @@ class Wallet extends React.Component {
       }
     } else {
 
-       // call api to update:    
+       // call api to update:
       const lstWalletTemp = this.getAllWallet();
 
       const listNewWallet = lstWalletTemp.concat(newWallet);
@@ -602,11 +572,11 @@ class Wallet extends React.Component {
 
   handleToggleNewCC = () => {
     this.setState({ isNewCCOpen: !this.state.isNewCCOpen });
-  }  
+  }
 
   onWarningClick=(wallet)=>{
 
-    // todo: decryp wallet:  
+    // todo: decryp wallet:
     if (this.state.userPassword === ''){
       this.props.showRequirePassword({
         onFinish: (userPassword) => {
@@ -618,7 +588,7 @@ class Wallet extends React.Component {
     }
     else{
       this.protectedWallet(wallet);
-    }  
+    }
   }
 
   protectedWallet = (wallet) => {
@@ -627,12 +597,12 @@ class Wallet extends React.Component {
       const walletEncrypt = this.state.walletSelected.descryp(this.state.userPassword);
       if (walletEncrypt === false){
         this.showError(messages['requirePassword.passNotMatch']);
-        this.setState({isRestoreLoading: false, userPassword: ''}, ()=>{      
+        this.setState({isRestoreLoading: false, userPassword: ''}, ()=>{
           this.onWarningClick();
         });
         return;
-      }  
-      
+      }
+
       this.setState({ walletSelected: wallet,
         modalSecure: <WalletProtect onCopy={this.onCopyProtected}
           step={1}
@@ -643,7 +613,7 @@ class Wallet extends React.Component {
           this.modalProtectRef.open();
         }
       );
-       
+
 
     // } else {
 
@@ -653,7 +623,7 @@ class Wallet extends React.Component {
   // export wallet key ----------------------------------:
   onExportPrivateKeyClick=(wallet)=>{
 
-    // todo: decryp wallet:  
+    // todo: decryp wallet:
     if (this.state.userPassword === ''){
       this.props.showRequirePassword({
         onFinish: (userPassword) => {
@@ -665,21 +635,21 @@ class Wallet extends React.Component {
     }
     else{
       this.exportPrivateKey(wallet);
-    }  
+    }
   }
   exportPrivateKey = (wallet) => {
     const { messages } = this.props.intl;
 
-    const walletEncrypt = this.state.walletSelected.descryp(this.state.userPassword);    
+    const walletEncrypt = this.state.walletSelected.descryp(this.state.userPassword);
 
     if (walletEncrypt === false){
       this.showError(messages['requirePassword.passNotMatch']);
-      this.setState({isRestoreLoading: false, userPassword: ''}, ()=>{      
+      this.setState({isRestoreLoading: false, userPassword: ''}, ()=>{
         this.onExportPrivateKeyClick();
       });
       return;
-    }  
-  
+    }
+
     this.setState({
       exportPrivateContent: (
           <div className={style.exportPrivateKey}>
@@ -692,7 +662,7 @@ class Wallet extends React.Component {
     }, ()=>{
       this.modalExportPrivateKeyRef.open();
     })
-    
+
   }
   onCloseExportPrivateKey =()=>{
     this.setState({exportPrivateContent: ''});
@@ -719,7 +689,7 @@ class Wallet extends React.Component {
     this.setState({walletSelected: wallet});
     //update data wallet.
     // MasterWallet.UpdateLocalStore(this.getAllWallet());
-    this.saveWallet(this.getAllWallet());            
+    this.saveWallet(this.getAllWallet());
     this.onWalletItemClick(wallet);
   }
 
@@ -778,7 +748,7 @@ class Wallet extends React.Component {
     setting = setting ? setting.wallet : false;
     return this.state.listTestWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
   }
- 
+
   get getListCoinTempForCreate() {
     return this.state.listCoinTempToCreate.map(walletTemp => <CoinTemp key={Math.random()} wallet={walletTemp} onClick={() => this.onSelectCoinClick(walletTemp)} />);
   }
@@ -844,11 +814,11 @@ class Wallet extends React.Component {
     const { messages } = this.props.intl;
     const lstWalletTemp = this.getAllWallet();
     lstWalletTemp.forEach((wal) => { if (wallet.mnemonic == wal.mnemonic) { wal.protected = true; } });
-    
+
     // Update wallet master from local store:
     // MasterWallet.UpdateLocalStore(lstWalletTemp);
     this.saveWallet(lstWalletTemp);
-    
+
     this.modalProtectRef.close();
     this.splitWalletData(lstWalletTemp);
     this.showSuccess(messages['wallet.action.protect.success']);
@@ -873,7 +843,7 @@ class Wallet extends React.Component {
       data: result
     });
   }
-  
+
   onFloatButtonClick=()=>{
     showQrCode(
       {
@@ -908,8 +878,8 @@ class Wallet extends React.Component {
 
         {/* qrcode result detected modal popup*/}
         <QRCodeContent onTransferClick={(data)=> {this.showTransferFromQRCode(data);}} />
-        
-        
+
+
         {/* add new token modal */}
         {/* <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  onClose={() => this.setState({formAddTokenIsActive: false})} title="Add Custom Token" onRef={modal => this.modalAddNewTokenRef = modal}>
             <AddToken formAddTokenIsActive={formAddTokenIsActive} onFinish={() => {this.addedCustomToken()}}/>
@@ -918,8 +888,8 @@ class Wallet extends React.Component {
         {/* add collectible modal */}
         {/* <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  onClose={() => this.setState({formAddCollectibleIsActive: false})} title="Add Collectible" onRef={modal => this.modalAddNewCollectibleRef = modal}>
             <AddCollectible formAddCollectibleIsActive={formAddCollectibleIsActive} onFinish={() => {this.addedCollectible()}}/>
-        </Modal> */}          
-          
+        </Modal> */}
+
 
           {/* ModalDialog for confirm remove wallet */}
           <ModalDialog title={messages['wallet.action.remove.header']} onRef={modal => this.modalRemoveRef = modal}>
@@ -946,16 +916,6 @@ class Wallet extends React.Component {
 
           <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages['wallet.action.protect.header']} onRef={modal => this.modalProtectRef = modal} onClose={this.closeSecure}>
             {modalSecure}
-          </Modal>
-
-          {/* Modal for Backup wallets : */}
-          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages['wallet.action.backup.header']} onRef={modal => this.modalBackupRef = modal} onClose={this.closeBackupWalletAccount}>
-            {backupWalletContent}
-          </Modal>
-
-          {/* Modal for Restore wallets : */}
-          <Modal customBackIcon={BackChevronSVGWhite} modalHeaderStyle={this.modalHeaderStyle}  title={messages['wallet.action.restore.header']} onRef={modal => this.modalRestoreRef = modal} onClose={this.closeRestoreWalletAccount}>
-            {restoreWalletContent}
           </Modal>
 
           {/* Modal for Export Private key : */}
@@ -1032,13 +992,13 @@ class Wallet extends React.Component {
           {/* 2. Render list wallet here ===================================== */}
 
           {/* 2.1 List Coin */}
-          <Row className={style.walletBox}>            
+          <Row className={style.walletBox}>
               <Row className={style.list}>
                 {!this.state.listSortable.coin ?
                 <Header icon2={this.state.listMainWalletBalance.length > 1 ? iconAlignJust : null} onIcon2Click={this.updateSortableForCoin} icon={iconAddPlus} title={messages['wallet.action.create.label.header_coins']} hasLink={true} linkTitle={messages['wallet.action.create.button.add_new']} onLinkClick={this.showModalAddCoin} />
                 :<Header title={messages['wallet.action.create.label.header_coins']} hasLink={true} linkTitle={messages['wallet.action.create.button.done']} onLinkClick={this.updateSortableForCoin} />
                }
-              </Row>            
+              </Row>
             <Row className={style.list}>
               {/* {this.listMainWalletBalance} */}
               { this.state.listMainWalletBalance.length > 0 ?
@@ -1048,7 +1008,7 @@ class Wallet extends React.Component {
           </Row>
 
           {/* 2.2 List Tokens */}
-          {/* <Row className={style.walletBox}>            
+          {/* <Row className={style.walletBox}>
             <Row className={style.list}>
               {!this.state.listSortable.token ?
                 <Header icon2={this.state.listTokenWalletBalance.length > 1 ? iconAlignJust : null} onIcon2Click={this.updateSortableForToken} icon={iconAddPlus} title={messages['wallet.action.create.label.header_tokens']} hasLink={true} linkTitle={messages['wallet.action.create.button.header_tokens']} onLinkClick={this.showModalAddToken} />
@@ -1056,7 +1016,7 @@ class Wallet extends React.Component {
               }
 
             </Row>
-            
+
             <Row className={style.list}>
               {this.listTokenWalletBalance}
               { this.state.listTokenWalletBalance.length > 0 ?
@@ -1066,7 +1026,7 @@ class Wallet extends React.Component {
           </Row> */}
 
           {/* 2.3 Collectible */}
-          {/* <Row className={style.walletBox}>            
+          {/* <Row className={style.walletBox}>
             <Row className={style.list}>
 
                {!this.state.listSortable.collectitble ?
@@ -1075,7 +1035,7 @@ class Wallet extends React.Component {
               }
 
             </Row>
-                        
+
             <Row className={style.list}>
               {this.listCollectibleWalletBalance}
               { this.state.listCollectibleWalletBalance.length > 0 ?
@@ -1086,8 +1046,8 @@ class Wallet extends React.Component {
 
           <Row className={style.walletBox}>
               {!process.env.isProduction ?
-              <Row className={style.list}>              
-                <Header title={messages['wallet.action.create.label.test_net']} hasLink linkTitle={messages['wallet.action.create.button.request_free_eth']} onLinkClick={this.getETHFree} />                              
+              <Row className={style.list}>
+                <Header title={messages['wallet.action.create.label.test_net']} hasLink linkTitle={messages['wallet.action.create.button.request_free_eth']} onLinkClick={this.getETHFree} />
               </Row>
               : ''}
               {!process.env.isProduction &&
@@ -1098,8 +1058,8 @@ class Wallet extends React.Component {
                 : ''}
               </Row>
               }
-            
-            </Row>          
+
+            </Row>
 
         </Container>
       </div>
@@ -1108,11 +1068,11 @@ class Wallet extends React.Component {
 }
 
 const mapState = (state) => ({
-  
+
 });
 
 const mapDispatch = ({
-  userWallet,  
+  userWallet,
   makeSaveWallet,
   showAlert,
   showLoading,
@@ -1120,7 +1080,7 @@ const mapDispatch = ({
   change,
   clearFields,
   hideHeader,
-  requestWalletPasscode,  
+  requestWalletPasscode,
   showQRCodeContent,
   showRequirePassword,
 });
