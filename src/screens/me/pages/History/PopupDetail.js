@@ -9,7 +9,7 @@ class PopupDetail extends React.Component {
 
   render() {
     const { onHide } = this.props;
-    const { data :{ created_at, direction, amount, currency, status, value, link } } = this.props;
+    const { data :{ created_at, direction, amount, currency, status, fiat_local_amount, fiat_local_currency, link } } = this.props;
     return (
       <Modal
         {...this.props}
@@ -42,7 +42,7 @@ class PopupDetail extends React.Component {
           </Row>
           <Row style={{ width: '100%' }}>
             <Col xs={3}>Value</Col>
-            <Col xs={9}>{value}</Col>
+            <Col xs={9}>{`${fiat_local_amount} ${fiat_local_currency}`}</Col>
           </Row>
           <Row style={{ width: '100%' }}>
             <Col xs={3}>Link</Col>
