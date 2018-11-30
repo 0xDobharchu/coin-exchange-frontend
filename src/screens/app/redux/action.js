@@ -89,7 +89,7 @@ export const initApp = (language, ref) => (dispatch) => {
   try {
     $http({
       url: 'https://ipfind.co/me',
-      qs: { auth: APP_ENV.ipfindKey },
+      params : { auth: APP_ENV.ipfindKey },
       headers: { 'Content-Type': 'text/plain' },
     }).then((res) => {
       const { data } = res;
