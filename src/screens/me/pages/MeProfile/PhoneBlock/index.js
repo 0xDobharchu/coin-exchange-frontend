@@ -5,6 +5,7 @@ import { updatePhoneNumberAction, submitPhoneCodeAction } from 'src/screens/auth
 import { LabelLang } from 'src/lang/components';
 // import valid from 'src/services/validate';
 import PhoneForm from './PhoneForm';
+import {getCurrentLevel} from '../util';
 
 const getStatusColor = (level, status) => {
   if (level === 'level_3') return 'success';
@@ -51,6 +52,7 @@ const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, update
       }));
     }
   };
+  const currentLevel = getCurrentLevel(level, levelStatus);
 
   return (
     <div className={style.collapse_custom}>
@@ -65,7 +67,7 @@ const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, update
       <div className={style.content}>
         <p className={style.text}><LabelLang id="me.accountLevel.wrm2" /></p>
       </div>
-      <PhoneForm onSubmit={handleVerifyPhone} />
+      {1 <= currentLevel  && <PhoneForm onSubmit={handleVerifyPhone} />}
     </div>
   );
 };
