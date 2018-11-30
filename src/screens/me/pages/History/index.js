@@ -4,7 +4,6 @@ import { LabelLang } from 'src/lang/components';
 import Loading from 'src/components/loading';
 import { getTransactionsAction } from 'src/screens/auth/redux/action';
 import { Row, Col } from 'react-bootstrap';
-import { Button } from 'src/components/custom';
 import PopupDetail from './PopupDetail';
 import style from './style.scss';
 
@@ -43,7 +42,9 @@ class History extends React.PureComponent {
           {transactions.map((e, i) => (
             <Row key={i} className={style.table_body}>
               <Col xs={3}>{new Date(e.created_at).toLocaleString()}</Col>
-              <Col xs={3}><Button value="Ref" onClick={this.handleOnSelect.bind(this, e)} /></Col>
+              <Col xs={3}>
+                <button type="button" onClick={this.handleOnSelect.bind(this, e)}>View Detail</button>
+              </Col>
               <Col xs={3}>{e.direction}</Col>
               <Col xs={3}>
                 <label>{`${Number(e.amount).toFixed(2)} ${e.currency}`}</label>
