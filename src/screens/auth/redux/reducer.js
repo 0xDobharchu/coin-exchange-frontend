@@ -24,7 +24,8 @@ const mockState = {
   history: {
     transactions: [],
     count: 0
-  }
+  },
+  referrals: []
 };
 
 export default (state = mockState, { type, payload }) => {
@@ -55,6 +56,11 @@ export default (state = mockState, { type, payload }) => {
       return {
         ...state,
         history: payload
+      };
+    case 'GET_REFERRALS':
+      return {
+        ...state,
+        referrals: []
       };
     default:
       return state;
