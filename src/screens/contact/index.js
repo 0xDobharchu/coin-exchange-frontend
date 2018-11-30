@@ -10,7 +10,7 @@ import { FieldLang } from 'src/lang/components';
 import { isEmail, isRequired } from 'src/components/core/form/validator';
 import { URL } from 'src/resources/constants/url';
 import cx from 'classnames';
-// import ReactPhoneInput from 'react-phone-input-2';
+import PhoneNumber from 'src/components/core/controls/phoneNumber';
 import { showAlert } from 'src/screens/app/redux/action';
 import contactActions from './action';
 import style from './style.scss';
@@ -62,7 +62,7 @@ class Contact extends React.Component {
     });
   }
 
-  render() {
+  render() {    
     return (
 
       <div className={cx('container', style['contact-warper'])}>
@@ -93,14 +93,14 @@ class Contact extends React.Component {
                     />
                   </div>
                   <div className="form-group">
-                    <FieldLang
+                    {/* <FieldLang
                       name="phone"
                       className="form-control"
                       component={inputField}
                       placeholder="landingPage.contactUS.placeholderPhone"
                       type="phone"
-                    />
-                    {/*<ReactPhoneInput value={this.state.phone} onChange={this.handleOnChange} defaultCountry='hk' regions='asia' inputStyle={{ width: '100%' }} />*/}
+                    /> */}
+                    <PhoneNumber value={this.state.phone} onChange={this.handleOnChange} defaultCountry='hk' regions='asia' inputStyle={{ width: '100%' }} />
                   </div>
                   <div className="form-group">
                     <FieldLang
