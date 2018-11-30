@@ -4,9 +4,9 @@ import { Link, withRouter } from 'react-router-dom';
 import cn from 'classnames';
 
 import { URL } from 'src/resources/constants/url';
-import meIcon from 'src/assets/images/navigation/ic_me.svg';
-import walletIcon from 'src/assets/images/navigation/ic_wallet.svg';
-import creditIcon from 'src/assets/images/navigation/ic_credit.svg';
+import {IoIosListBox} from 'react-icons/io';
+import {MdAccountBalanceWallet, MdAccountCircle} from 'react-icons/md';
+
 import styles from './styles.scss';
 
 class Navigation extends React.Component {
@@ -34,20 +34,20 @@ class Navigation extends React.Component {
       <footer className={styles.footer}>
         <div className={styles.main}>
           <div className={cn(styles.item, this.checkSelected([URL.HOME]))}>
-            <Link to={URL.HOME}>
-              <img alt="creditIcon" src={creditIcon} />
-              <LabelLang id="app.navigation.coin" />
+            <Link to={URL.HOME} className="text-center">
+              <IoIosListBox />
+              <LabelLang id="app.navigation.home" />
             </Link>
           </div>
           <div className={cn(styles.item, this.checkSelected([URL.WALLET]))}>
             <Link to={URL.WALLET}>
-              <img alt="walletIcon" src={walletIcon} />
+              <MdAccountBalanceWallet />
               <LabelLang id="app.navigation.wallet" />
             </Link>
           </div>
           <div className={cn(styles.item, this.checkSelected([URL.ME]))}>
             <Link to={URL.ME}>
-              <img alt="meIcon" src={meIcon} />
+              <MdAccountCircle />
               <LabelLang id="app.navigation.me" />
             </Link>
           </div>

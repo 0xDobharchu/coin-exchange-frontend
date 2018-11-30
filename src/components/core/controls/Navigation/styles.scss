@@ -7,8 +7,7 @@
   right: 0;
   height: $footer-height;
   width: 100%;
-  // max-width: $app-width;
-  background: $primary-extra-bold;
+  background: $white;
   z-index: 2;
   box-shadow: 0 -2px 13px 0 rgba(221,235,242,0.50);
   .main {
@@ -25,6 +24,12 @@
       a {
         display: flex;
         flex-direction: column;
+        color: #ABAAAD;
+        cursor: pointer;
+        svg {
+          font-size: 24px;
+          margin: auto;
+        }
       }
       a:hover {
         text-decoration: none;
@@ -36,14 +41,7 @@
       }
       &.selected {
         a {
-          //color: rgba(248, 248, 248, 0.95);
-          span {
-            background-color: white;
-            border-radius: 4px;
-            color: $primary-extra-bold;
-            // padding: 2px;
-            padding: 0 5px;
-          }
+          color: $primary-medium;
         }
       }
     }
