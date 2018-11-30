@@ -1,21 +1,37 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { getCurrenciesByCountry } from 'src/screens/auth/redux/api';
 import dropdownField from 'src/components/core/form/fields/dropdown';
 import { Field } from 'redux-form';
 import style from './style.scss';
 
-const mocksCountry = [
-  { label: 'IDR', value: 'IDR'},
-  { label: 'PHP', value: 'PHP'},
-  { label: 'USD', value: 'USD'},
-  { label: 'Philippiens', value: 'PH'},
-];
-const DropDownCurrencyField = () => (
-  <Field
-    name="currency"
-    component={dropdownField}
-    list={mocksCountry}
-  />
-);
+class DropDownCurrencyFieldComp extends React.Component {
+  state = {
+    currencies: []
+  }
+  componentDidMount() {
+    // eslint-disable-next-line
+    const { country } = this.props;
+    getCurrenciesByCountry(country).then(r => {
+      const currencies = r.map(({ currency }) => ({ label: currency, value: currency }));
+      this.setState({ currencies });
+    }).catch(err => err);
+  }
+  render() {
+    const { currencies } = this.state;
+    return (
+      <Field
+        name="currency"
+        component={dropdownField}
+        list={currencies}
+      />
+    );
+  }
+}
+const mapState = state => ({
+  country: state.auth.profile.country
+});
+const DropDownCurrencyField = connect(mapState)(DropDownCurrencyFieldComp);
 
 const LocalCurrency = () => (
   <div className={style.container}>
