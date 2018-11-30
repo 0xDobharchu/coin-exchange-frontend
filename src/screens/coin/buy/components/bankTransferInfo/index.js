@@ -11,10 +11,13 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import ClockCount from 'src/components/clockCount';
 import TooltipInfo from 'src/components/tooltipInfo';
 import FileUploader from 'src/components/fileUploader';
+import Loading from 'src/components/loading';
 import LabelLang from 'src/lang/components/LabelLang';
+import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
 import cx from 'classnames';
 import { getBankInfo, addReceiptOrder } from './action';
 import styles from './styles.scss';
+
 
 const getIntlKey = (name) => `coin.components.bankTransferInfo.${name}`;
 
@@ -96,11 +99,13 @@ class BankTransferInfo extends PureComponent {
       receiptImgUrl: imgUploadedUrl
     }).then(() => {
       showAlert({
-        message: 'Successful!',
+        message: getIntlKey('saveReceiptSuccessMsg'),
         timeOut: 3000,
         isShowClose: true,
         type: 'success',
       });
+    }).catch(e => {
+      reqErrorAlert(e, { message: <LabelLang id={getIntlKey('saveReceiptFailedMsg')} />});
     });
   }
 
@@ -121,10 +126,10 @@ class BankTransferInfo extends PureComponent {
         currency: orderInfo?.fiatLocalCurrency,
       }).then(info => {
         this.setState({ data: this.updateBankInfoFromData(info) });
+      }).catch((e) => {
+        reqErrorAlert(e, { message: <LabelLang id={getIntlKey('getBankInfoFailedMsg')} />});
+      }).finally(() => {
         this.showLoading(false);
-      }).catch(() => {
-        this.showLoading(false);
-        alert('Get bank info failed!');
       });
     } catch (e) {
       console.warn(e);
@@ -150,7 +155,7 @@ class BankTransferInfo extends PureComponent {
   copied() {
     const { showAlert } = this.props;
     showAlert({
-      message: 'Copied',
+      message: 'app.common.copied',
       timeOut: 3000,
       isShowClose: true,
       type: 'success',
@@ -159,9 +164,32 @@ class BankTransferInfo extends PureComponent {
   }
 
   renderInfo() {
-    const { data } = this.state;
+    const { data, isLoading } = this.state;
+    if (isLoading) {
+      return (
+        <Container><Loading color='green' className={styles.loadingIcon} /></Container>
+      );
+    }
     return (
       <Container className={styles.infos}>
+        {
+          !data['BANK ID']?.text && (
+            <Row>
+              <span className={styles.canNotGetBankInfo}>
+                <LabelLang
+                  id={getIntlKey('retryGetBankInfo')}
+                  values={{
+                    retry: (
+                      <span role='presentation' className={cx('common-clickable', styles.getBtn)} onClick={this.getBankInfo}>
+                        <LabelLang id={getIntlKey('retryBtn')} />
+                      </span>
+                    )
+                  }}
+                />
+              </span>
+            </Row>
+          )
+        }
         {Object.entries(data).map(([name, value]) => {
           if (!value.text) {
             return null;
@@ -185,11 +213,10 @@ class BankTransferInfo extends PureComponent {
   }
 
   render() {
-    const { showUploader, uploaded, expired, isLoading } = this.state;
+    const { showUploader, uploaded, expired } = this.state;
     const { orderInfo: { createdAt, status } } = this.props;
     return (
       <Container className={styles.container}>
-        { isLoading && <span>Loading...</span>}
         <Row>
           <Card border="secondary" className={styles.card}>
             <Card.Header><LabelLang id={getIntlKey('nameCard')} /></Card.Header>
