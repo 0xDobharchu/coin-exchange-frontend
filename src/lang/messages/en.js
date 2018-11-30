@@ -5,9 +5,10 @@ export default {
     keywords: '区块链技术，以太坊，比特币，加密货币，加密，交换平台，用现金购买比特币，购买大量比特币',
     name: 'Coinbowl',
     navigation: {
-      me: 'Me',
+      me: 'Profile',
       coin: 'Coin',
-      wallet: 'Wallet'
+      wallet: 'Wallet',
+      home: 'Home'
     },
     common: {
       error: 'OH! something went wrong!',
