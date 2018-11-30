@@ -13,8 +13,9 @@ import { URL } from 'src/resources/constants/url';
 import ConfirmButton from 'src/components/confirmButton';
 import inputField from 'src/components/core/form/fields/input';
 import { showAlert } from 'src/screens/app/redux/action';
-import MyMessage from 'src/lang/components/MyMessage';
+import LabelLang from 'src/lang/components/LabelLang';
 import { FaLock } from 'react-icons/fa';
+import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
 import cx from 'classnames';
 import BankTransferInfo from './components/bankTransferInfo';
 import walletSelectorField, { walletValidator } from './reduxFormFields/walletSelector';
@@ -86,23 +87,18 @@ class BuyCryptoCoin extends React.Component {
     this.setState({ orderInfo });
     const { showAlert, paymentMethod, history } = this.props;
     showAlert({
-      message: <MyMessage id="coin.buy.orderSuccessMsg" />,
+      message: <LabelLang id="coin.buy.orderSuccessMsg" />,
       timeOut: 1000,
     });
     if (paymentMethod === PAYMENT_METHOD.COD) {
-      history?.push(URL.ME);
+      history?.push(URL.ME_HISTORY);
     } else {
       this.setState({ showBankTransferInfo: true });
     }
   }
 
-  orderFailedHandler = () => {
-    const { showAlert } = this.props;
-    showAlert({
-      message: <MyMessage id="coin.buy.orderFailedMsg" />,
-      type: 'danger',
-      timeOut: 1000,
-    });
+  orderFailedHandler = (e) => {
+    reqErrorAlert(e, { message: <LabelLang id="coin.buy.orderFailedMsg" /> });
   }
 
   resetState = () => {
@@ -119,7 +115,7 @@ class BuyCryptoCoin extends React.Component {
   renderCoD = () => {
     const { paymentMethod, intl: { formatMessage } } = this.props;
     return (
-      <div className={cx(styles.codInfo, 'mt-4')}>
+      <div className={cx(styles.codInfo, 'mt-4', paymentMethod === PAYMENT_METHOD.COD ? styles.showCod : styles.hideCod)}>
         <Field
           type="text"
           name="address"
@@ -179,7 +175,7 @@ class BuyCryptoCoin extends React.Component {
             name="paymentMethod"
             component={paymentMethodField}
           />
-          { paymentMethod === PAYMENT_METHOD.COD && this.renderCoD() }
+          { this.renderCoD() }
           <ConfirmButton
             disabled={!isValid}
             containerClassName='mt-5'

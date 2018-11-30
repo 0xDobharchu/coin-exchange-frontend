@@ -51,11 +51,25 @@
       border-right: 1px solid $primary-extra-bold;
     }
     div:nth-child(2) {
+      button {
+        height: 25px;
+        font-size: 14px;
+        background: $primary-extra-bold;
+      }
+    }
+    .isBuy {
       color: green;
+      font-weight: 600;
+    }
+    .isSell {
+      color: red;
       font-weight: 600;
     }
     div:last-child {
       border-right: 0px solid $primary-extra-bold;
+      display: flex;
+      flex-direction: column;
+      // align-items: center;
     }
   }
 }

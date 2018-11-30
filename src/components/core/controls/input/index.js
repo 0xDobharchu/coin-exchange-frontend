@@ -4,11 +4,12 @@ import cx from 'classnames';
 import styles from './styles.scss';
 
 const Input = (props) => {
-  const { label, labelClassname, containerClassname,  ...inputProps } = props;
+  const { label, labelClassname, containerClassname, truncateLabel, name,  ...inputProps } = props;
   return (
     <label className={cx(styles.container, containerClassname)}>
-      <span className={cx(styles.label, labelClassname)}>{label}</span>
+      <span className={cx(styles.label, truncateLabel && 'text-truncate ', labelClassname)}>{label}</span>
       <input
+        name={name}
         {...inputProps}
       />
     </label>
@@ -19,6 +20,7 @@ Input.propTypes = {
   type: PropTypes.string,
   containerClassname: PropTypes.string,
   labelClassname: PropTypes.string,
+  name: PropTypes.string.isRequired,
 };
 
 Input.defaultProps = {

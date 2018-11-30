@@ -3,6 +3,15 @@
 .container {
   display: flex;
   flex-direction: column;
+  .inputReferalLink{
+    color: rgb(78, 92, 110);
+    cursor: pointer;
+    height: 49px;
+    outline: none;
+    :focus{
+      outline: none;
+    }
+  }
   .title {
     font-size: 20px;
     font-weight: 600;

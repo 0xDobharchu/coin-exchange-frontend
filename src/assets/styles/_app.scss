@@ -16,6 +16,7 @@
     font-weight: $extra-light;
     color: $black;
     background-color: $bg-gray;
+    min-width: 330px;
     // overflow: hidden;
     @include full-screen;
   }
@@ -62,6 +63,9 @@
       text-align: left;
       letter-spacing: 0;
     }
+  }
+  .react-tel-input input[type=tel], .react-tel-input input[type=text]{
+    height: 50px;
   }
   .dropdown-warper {
     width: 100%;

@@ -6,16 +6,17 @@
   "scripts": {
     "prestart": "yarn",
     "client": "yarn && NODE_ENV='development' webpack-dev-server --progress --config webpack.client.js",
-    "build-client": "NODE_ENV='production' PUBLIC_PATH='public/' webpack --progress --config webpack.client.js",
+    "build-client": "NODE_ENV='production' PUBLIC_PATH='/public/' webpack --progress --config webpack.client.js",
     "server": "yarn && NODE_ENV='development' webpack --config webpack.server.js --watch && yarn server",
     "build-server": "NODE_ENV='production' PUBLIC_PATH='public/' webpack --progress --config webpack.server.js",
     "mon-server": "nodemon ./dist/server/server.js",
     "build": "yarn && yarn build-client && yarn build-server",
     "start": "yarn pm2-stop && yarn pm2-start && yarn pm2-monitor",
     "pm2-monitor": "pm2 monit",
-    "pm2-start": "pm2 start process.yml",
-    "pm2-reload": "pm2 reload process.yml",
-    "pm2-stop": "pm2 stop process.yml",
+    "pm2-start": "pm2 start dist/server/server.js -i max --name coinbowl",
+    "pm2-reload": "pm2 reload coinbowl",
+    "pm2-stop": "pm2 stop coinbowl",
+    "pm2-del": "pm2 del coinbowl",
     "lint": "eslint --ext .js --ext .jsx src/",
     "precommit": "yarn lint",
     "build-sw": "workbox injectManifest workbox-config.js",
@@ -33,12 +34,11 @@
     "bootstrap": "^4.1.3",
     "classnames": "^2.2.6",
     "cleave.js": "^1.4.4",
-    "coinexchangei18n": "^1.0.0",
+    "coinexchangei18n": "github:ninjadotorg/coin-exchange-i18n",
     "crypto-js": "^3.1.9-1",
     "ethereumjs-tx": "^1.3.4",
     "ethereumjs-util": "^6.0.0",
     "express": "^4.16.4",
-    "handshake-i18n": "github:ninjadotorg/coin-exchange-i18n",
     "hdkey": "^0.8.0",
     "history": "^4.7.2",
     "intl": "^1.2.5",
@@ -73,7 +73,8 @@
     "react-responsive": "^6.0.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-sortable-hoc": "^0.8.3",    
+    "react-sortable-hoc": "^0.8.3",
+    "react-spinners": "^0.4.7",
     "reactstrap": "^6.5.0",
     "redux": "^4.0.1",
     "redux-devtools": "^3.4.1",
@@ -85,7 +86,9 @@
     "satoshi-bitcoin": "^1.0.4",
     "sprintf-js": "^1.1.1",
     "tls": "^0.0.1",
-    "web3": "^1.0.0-beta.36"
+    "web3": "^1.0.0-beta.36",
+    "react-phone-input-2":"^2.7.0"
+
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -140,6 +143,8 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
     "webpack-merge": "^4.1.4",
-    "workbox-webpack-plugin": "^3.6.3"
+    "workbox-webpack-plugin": "^3.6.3",
+    "react-phone-input-2":"^2.7.0"
+
   }
 }

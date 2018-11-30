@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getProfileAction, sendEmailVerifyCodeAction }from 'src/screens/auth/redux/action';
 import { Col, Container, Row } from 'react-bootstrap';
-import { MyMessage, WrapperLang } from 'src/lang/components';
+import { LabelLang } from 'src/lang/components';
+import Loading from 'src/components/loading';
 import queryString from 'query-string';
 import EmailBlock from './EmailBlock';
 import PhoneBlock from './PhoneBlock';
@@ -30,31 +31,25 @@ class MeProfile extends React.PureComponent {
   }
   render() {
     // eslint-disable-next-line
-    if (this.state.loading) return (<div>Loading...</div>);
+    if (this.state.loading) return (<Loading />);
+    // eslint-disable-next-line
     return (
       <Container className={style.profile}>
         <Row className={style.head_text}>
-          <MyMessage id="me.profile.head_text" />
+          <LabelLang id="me.accountLevel.head_text" />
         </Row>
         <Row>
           <Col md={12}>
             <EmailBlock style={style} />
           </Col>
           <Col md={12}>
-            <PhoneBlock style={style} />
+            {<PhoneBlock style={style} />}
           </Col>
           <Col md={12}>
-            <IDCardBlock style={style} />
+            {<IDCardBlock style={style} />}
           </Col>
           <Col md={12}>
-            <SelfieBlock style={style} />
-          </Col>
-          <Col md={12}>
-            <WrapperLang>
-              {ts => 
-                (<div>{ts('me.profile.head_text')}</div>)
-              }
-            </WrapperLang>
+            {<SelfieBlock style={style} />}
           </Col>
         </Row>
         <Row style={{ height: '60px' }} />
@@ -67,5 +62,5 @@ const mapState = (state, ownProps) => ({
   profile: state.auth.profile,
   ...ownProps
 });
-const mapDispatch = { getProfileAction, sendEmailVerifyCodeAction }; 
+const mapDispatch = { getProfileAction, sendEmailVerifyCodeAction };
 export default connect(mapState, mapDispatch)(MeProfile);

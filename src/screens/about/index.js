@@ -18,13 +18,13 @@ class About extends React.Component {
   }
 
   componentDidMount() {
-    const { getAbout } = this.props;
-    getAbout({
+    this.props.getAbout({
       type: 'SCREENS/ABOUT',
+      url: API_URL.LANDING.STATIC_PAGE,
+      params: { language: this.props.locale, page: 'about_us' },
       withAuth: false,
-      url: API_URL.LANDING.ABOUT,
       onSuccess: (data) => {
-        this.setState({data: data.content});
+        this.setState({ data: data.content });
       },
       onError: (err) => {
         console.log(err);
@@ -36,16 +36,20 @@ class About extends React.Component {
     return (
       <div className="container">
         <div className={style.contactWrap + ' ' + 'row justify-content-md-center'}>
-          <div dangerouslySetInnerHTML={{ __html: this.state.data }} />        
+          <div dangerouslySetInnerHTML={{ __html: this.state.data }} />
         </div>
       </div>
     );
   }
 }
 
+const mapState = state => ({
+  locale: state.langReducer.lang || 'en'
+});
+
 const mapDispatch = dispatch => ({
   getAbout: bindActionCreators(makeRequest, dispatch),
 });
 
-const connectedContactPage = connect(null, mapDispatch)(About);
+const connectedContactPage = connect(mapState, mapDispatch)(About);
 export default connectedContactPage;

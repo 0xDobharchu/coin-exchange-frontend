@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
 import { submitVerifyLevel3Action } from 'src/screens/auth/redux/action';
-import { MyMessage } from 'src/lang/components';
+import { LabelLang } from 'src/lang/components';
 import IDVerificationForm from './IDVerificationForm';
+import {getCurrentLevel} from '../util';
 
 const getStatusColor = (level, status) => {
   if (level === 'level_4') return 'success';
@@ -27,33 +28,42 @@ class IDCardBlock extends React.PureComponent {
   handleSubmitForm = values => {
     // eslint-disable-next-line
     const { showAlert, submitVerifyLevel3Action } = this.props;
-    console.log('values is', values);
+    const { back_image, front_image } = values;
+    if (!back_image || !front_image) {
+      showAlert({
+        message: 'me.accountLevel.alert.imageIdentifierRequired',
+        timeOut: 3000,
+        type: 'danger'
+      });
+      return;
+    }
     submitVerifyLevel3Action(values);
     showAlert({
-      message: 'Your request upto level 3 is sent',
+      message: 'me.accountLevel.alert.lv3',
       timeOut: 3000,
       type: 'success'
     });
   }
+
   render() {
     // eslint-disable-next-line
     const { style, verified, level, levelStatus } = this.props;
+    const currentLevel = getCurrentLevel(level, levelStatus);
+
     return (
       <div className={style.collapse_custom}>
         <div className={style.head}>
           <p className={style.label}>
-            <MyMessage id="me.profile.verify.step3" />
-            <br />
-            <MyMessage id="me.profile.text.id_verification.desc1" />
+            <LabelLang id="me.accountLevel.step3" />
           </p>
           <div className={style.extend}>
             <span className={`badge badge-${getStatusColor(level, levelStatus)}`}>{getLevelStatus(level, levelStatus)}</span>
           </div>
         </div>
         <div className={style.content}>
-          <p className={style.text}><MyMessage id="me.profile.text.id_verification.desc12" /></p>
+          <p className={style.text}><LabelLang id="me.accountLevel.wrm3" /></p>
         </div>
-        <IDVerificationForm onSubmit={this.handleSubmitForm} />
+        {2 <= currentLevel && <IDVerificationForm onSubmit={this.handleSubmitForm} />}
       </div>
     );
   }

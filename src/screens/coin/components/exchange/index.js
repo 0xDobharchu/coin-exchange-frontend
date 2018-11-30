@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { InputGroup, Container, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
+import CurrencyInput from 'src/components/currencyInput';
 import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
-import { FIAT_CURRENCY } from 'src/resources/constants/fiat';
+import { DEFAULT_FIAT_CURRENCY, FIAT_CURRENCY } from 'src/resources/constants/fiat';
 import { FaArrowsAltH } from 'react-icons/fa';
-import Input from 'src/components/core/controls/input';
 import cx from 'classnames';
 import { connect } from 'react-redux';
-import MyMessage from 'src/lang/components/MyMessage';
+import LabelLang from 'src/lang/components/LabelLang';
 import { debounce, xor as arrayXor } from 'lodash';
 import { EXCHANGE_DIRECTION, ORDER_TYPE } from 'src/screens/coin/constant';
+import Loading from 'src/components/loading';
 import { getQuote, getQuoteReverse } from './action';
 import styles from './styles.scss';
 
@@ -43,8 +44,9 @@ class Exchange extends Component {
     this.setState({
       currency: defaultCurrency,
       fiatCurrency: defaultFiatCurrency,
-      currencyListRendered: this.renderCurrencyList(),
     });
+    this.renderCurrencyList();
+    this.renderFiatCurrencyList();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -65,9 +67,12 @@ class Exchange extends Component {
   }
 
   renderCurrencyList = () => {
-    return Object.values(CRYPTO_CURRENCY).map(c =>(
+    const rendered = Object.values(CRYPTO_CURRENCY).map(c =>(
       <Dropdown.Item key={c} onClick={() => this.onSelectCurrency(c)}>{c}</Dropdown.Item>
     ));
+    this.setState({
+      currencyListRendered: rendered
+    });
   }
 
   renderFiatCurrencyList = () => {
@@ -84,8 +89,7 @@ class Exchange extends Component {
 
   onSelectFiatCurrency = (fiatCurrency) => this.setState({ fiatCurrency });
 
-  onChange = (field, e) => {
-    const value = e?.target?.value;
+  onChange = (field, value) => {
     const state = {};
     if (field === 'amount') {
       state.fiatAmount = 0;
@@ -179,9 +183,10 @@ class Exchange extends Component {
       this.getQuoteHandler();
     } else if (exchangeType === EXCHANGE_TYPE.fiatAmount) {
       this.getQuoteReverseHandler();
-    } 
+    }
   }
 
+  // eslint-disable-next-line
   getFiatAmount = (exchangeData = this.state.exchangeData) => {
     const { orderType } = this.props;
     if (orderType === ORDER_TYPE.cod)
@@ -198,21 +203,23 @@ class Exchange extends Component {
         <Row noGutters>
           <Col sm={5}>
             <InputGroup>
-              <Input
+              <CurrencyInput
                 onFocus={() => onFocus()}
-                label={<MyMessage id={getIntlKey('amountLabel')} values={{ direction }} />}
+                label={<LabelLang id={getIntlKey('amountLabel')} values={{ direction }} />}
                 placeholder="0.0"
                 value={amount}
+                truncateLabel
                 onBlur={() => onBlur()}
                 containerClassname={styles.inputWrapper}
                 className={markRequired && !amount ? 'border-danger' : ''}
                 onChange={this.onChange.bind(this, 'amount')}
+                currency={currency}
               />
               <InputGroup.Prepend className={styles.prepend}>
                 <DropdownButton
                   disabled={!options?.canChangeCurrency}
                   className={styles.dropdown}
-                  title={currency || <MyMessage id={getIntlKey('currency')} />}
+                  title={currency || <LabelLang id={getIntlKey('currency')} />}
                 >
                   {currencyListRendered}
                 </DropdownButton>
@@ -220,27 +227,31 @@ class Exchange extends Component {
             </InputGroup>
           </Col>
           <Col sm={2}>
-            <div className={cx(styles.exchangeIcon, 'd-none d-sm-block')}>
-              <FaArrowsAltH className={styles.arrowIcon} color={isExchanging ? 'green' : ''} />
+            <div className={cx(styles.exchangeIcon)}>
+              {
+                isExchanging ? <Loading color='green' className={styles.loadingIcon} /> : <FaArrowsAltH className={styles.arrowIcon} />
+              }
             </div>
           </Col>
           <Col sm={5}>
             <InputGroup>
-              <Input
-                label={<MyMessage id={getIntlKey('fiatAmountLabel')} />}
+              <CurrencyInput
+                label='&nbsp;'
                 placeholder="0.0"
                 value={fiatAmount}
+                truncateLabel
                 onFocus={() => onFocus()}
                 onBlur={() => onBlur()}
                 containerClassname={styles.inputWrapper}
                 className={markRequired && !fiatAmount ? 'border-danger' : ''}
                 onChange={this.onChange.bind(this, 'fiatAmount')}
+                currency={fiatCurrency}
               />
               <InputGroup.Prepend className={styles.prepend}>
                 <DropdownButton
                   disabled={!options?.canChangeFiatCurrency}
                   className={styles.dropdown}
-                  title={fiatCurrency || <MyMessage id={getIntlKey('currency')} />}
+                  title={fiatCurrency || <LabelLang id={getIntlKey('currency')} />}
                 >
                   {fiatCurrencyListRendered}
                 </DropdownButton>
@@ -257,12 +268,13 @@ const mapDispatch = { getQuote, getQuoteReverse };
 
 Exchange.defaultProps = {
   defaultCurrency: CRYPTO_CURRENCY.ETH,
-  defaultFiatCurrency: FIAT_CURRENCY.USD,
+  defaultFiatCurrency: DEFAULT_FIAT_CURRENCY,
   direction: EXCHANGE_DIRECTION.buy,
   orderType: ORDER_TYPE.bank,
   markRequired: false,
   onBlur: null,
   onFocus: null,
+  onChange: null,
   options: {
     canChangeCurrency: true,
     canChangeFiatCurrency: true,
@@ -279,6 +291,8 @@ Exchange.propTypes = {
   markRequired: PropTypes.bool,
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
+  supportedCurrency: PropTypes.array.isRequired,
+  onChange: PropTypes.func,
   options: PropTypes.shape({
     canChangeCurrency: PropTypes.bool,
     canChangeFiatCurrency: PropTypes.bool,
@@ -286,7 +300,7 @@ Exchange.propTypes = {
 };
 
 const mapState = state => ({
-  supportedCurrency: state?.app?.supportedCurrency || [FIAT_CURRENCY.USD],
+  supportedCurrency: state?.app?.supportedCurrency || [DEFAULT_FIAT_CURRENCY],
 });
 
 export default connect(mapState, mapDispatch)(Exchange);
