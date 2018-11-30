@@ -136,7 +136,7 @@ class RegisterPage extends React.Component {
             <h5 className={cx(style.registerTitle, 'text-center')}><LabelLang id="user.register.title" /></h5>
             <div className={cx('card', style['register-card'])}>
               <div className="card-body">
-                <RegisterForm onSubmit={this.handleSubmit} className="form-register">
+                <RegisterForm onSubmit={this.handleSubmit} className="form-register" method="post">
                   <FieldLang
                     name="name"
                     containerClassName="form-group"

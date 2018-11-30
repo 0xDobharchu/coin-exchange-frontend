@@ -88,7 +88,7 @@ class Login extends React.Component {
             <h5 className={cx(style.loginTitle, 'text-center')}><LabelLang id="user.login.title" /></h5>
             <div className={cx('card', style['login-card'])}>
               <div className="card-body">
-                <LoginForm onSubmit={this.handleSubmit} className="form-signin">
+                <LoginForm onSubmit={this.handleSubmit} className="form-signin" method="post">
                   <FieldLang
                     name="username"
                     containerClassName="form-group"
