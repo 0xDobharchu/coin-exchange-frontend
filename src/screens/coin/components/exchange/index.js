@@ -60,6 +60,7 @@ class Exchange extends Component {
     }
     if (arrayXor(prevProps?.supportedCurrency, supportedCurrency)?.length !== 0) {
       this.renderFiatCurrencyList();
+      this.onSelectFiatCurrency(supportedCurrency[0]);
     }
     if (prevProps?.defaultCurrency !== defaultCurrency && !canChangeCurrency) {
       this.onSelectCurrency(defaultCurrency);
@@ -300,7 +301,7 @@ Exchange.propTypes = {
 };
 
 const mapState = state => ({
-  supportedCurrency: state?.app?.supportedCurrency || [DEFAULT_FIAT_CURRENCY],
+  supportedCurrency: state?.app?.supportedCurrency?.length !== 0 ? state.app.supportedCurrency : [DEFAULT_FIAT_CURRENCY],
 });
 
 export default connect(mapState, mapDispatch)(Exchange);
