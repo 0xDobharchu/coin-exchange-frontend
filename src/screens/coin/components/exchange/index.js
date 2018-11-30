@@ -11,6 +11,8 @@ import LabelLang from 'src/lang/components/LabelLang';
 import { debounce, xor as arrayXor } from 'lodash';
 import { EXCHANGE_DIRECTION, ORDER_TYPE } from 'src/screens/coin/constant';
 import Loading from 'src/components/loading';
+import authUtil from 'src/utils/authentication';
+import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
 import { getQuote, getQuoteReverse } from './action';
 import styles from './styles.scss';
 
@@ -32,7 +34,8 @@ class Exchange extends Component {
       currency: null,
       fiatCurrency: null,
       currencyListRendered: null,
-      fiatCurrencyListRendered: null
+      fiatCurrencyListRendered: null,
+      isAuth: authUtil.isLogin(),
     };
 
     this.getQuoteHandler = debounce(::this.getQuoteHandler, 1000);
@@ -60,6 +63,7 @@ class Exchange extends Component {
     }
     if (arrayXor(prevProps?.supportedCurrency, supportedCurrency)?.length !== 0) {
       this.renderFiatCurrencyList();
+      this.onSelectFiatCurrency(supportedCurrency[0]);
     }
     if (prevProps?.defaultCurrency !== defaultCurrency && !canChangeCurrency) {
       this.onSelectCurrency(defaultCurrency);
@@ -123,10 +127,9 @@ class Exchange extends Component {
 
   getQuoteHandler = async () => {
     try {
-      console.warn('User check!');
       const { amount } = this.state;
       const { direction, getQuote } = this.props;
-      const { currency, fiatCurrency } = this.state;
+      const { currency, fiatCurrency, isAuth } = this.state;
       if (!amount) return;
       this.setExchangeStatus(true);
       const exchangeData = await getQuote({
@@ -134,7 +137,7 @@ class Exchange extends Component {
         currency,
         fiat_currency: fiatCurrency,
         check: 0,
-        user_check: 0,
+        user_check: isAuth ? 1 : 0,
         direction,
       });
       const fiatAmount = this.getFiatAmount(exchangeData);
@@ -145,16 +148,16 @@ class Exchange extends Component {
       this.setExchangeStatus(false);
     } catch(e) {
       console.warn(e);
+      reqErrorAlert(e);
       this.setExchangeStatus(false);
     }
   }
 
   getQuoteReverseHandler = async () => {
     try {
-      console.warn('User check!');
       const { fiatAmount } = this.state;
       const { direction, orderType, getQuoteReverse } = this.props;
-      const { currency, fiatCurrency } = this.state;
+      const { currency, fiatCurrency, isAuth } = this.state;
       if (!fiatAmount) return;
       this.setExchangeStatus(true);
       const exchangeData = await getQuoteReverse({
@@ -162,7 +165,7 @@ class Exchange extends Component {
         currency,
         fiat_currency: fiatCurrency,
         check: 0,
-        user_check: 0,
+        user_check: isAuth ? 1 : 0,
         direction,
         order_type: orderType
       });
@@ -173,6 +176,7 @@ class Exchange extends Component {
       this.setExchangeStatus(false);
     } catch(e) {
       console.warn(e);
+      reqErrorAlert(e);
       this.setExchangeStatus(false);
     }
   }
@@ -300,7 +304,7 @@ Exchange.propTypes = {
 };
 
 const mapState = state => ({
-  supportedCurrency: state?.app?.supportedCurrency || [DEFAULT_FIAT_CURRENCY],
+  supportedCurrency: state?.app?.supportedCurrency?.length !== 0 ? state.app.supportedCurrency : [DEFAULT_FIAT_CURRENCY],
 });
 
 export default connect(mapState, mapDispatch)(Exchange);

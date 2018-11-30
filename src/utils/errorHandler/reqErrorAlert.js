@@ -10,7 +10,7 @@ const store = configureStore();
 export default (e, { message: defaultMsg } = {}) => {
   return new Promise(resolve => {
     if (!e) return resolve();
-    const message = getServerErrMessage(e, defaultMsg);
+    const message = getServerErrMessage(e, defaultMsg)?.key;
     store.dispatch(showAlert({
       message,
       type: 'danger',
