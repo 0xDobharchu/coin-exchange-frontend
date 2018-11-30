@@ -24,8 +24,6 @@ import iconTwitter from 'src/assets/images/wallet/icons/icon-twitter.svg';
 import iconFacebook from 'src/assets/images/wallet/icons/icon-facebook.svg';
 import iconVk from 'src/assets/images/wallet/icons/icon-vk.svg';
 import iconTelegram from 'src/assets/images/wallet/icons/icon-telegram.svg';
-import iconBackupWallet from 'src/assets/images/wallet/icons/icon-backup.svg';
-import iconRestoreWallet from 'src/assets/images/wallet/icons/icon-restore.svg';
 import iconSupport from 'src/assets/images/wallet/icons/icon-support.svg';
 import iconContact from 'src/assets/images/wallet/icons/icon-address-book.svg';
 
@@ -234,14 +232,14 @@ class SettingWallet extends React.Component {
     $zopim.livechat.window.show();
   }
 
-  openAddressBook=()=>{    
+  openAddressBook=()=>{
       this.setState({addressBookContent: <AddressBook onRef={ref => (this.child = ref)}  modalHeaderStyle={this.props.modalHeaderStyle} modalBodyStyle={this.props.modalBodyStyle} customBackIcon={this.props.customBackIcon} />}, ()=>{
-        this.modalAddressBookRef.open();        
-      })    
-      
-  }  
+        this.modalAddressBookRef.open();
+      })
+
+  }
   onCloseAddressBook=()=>{
-    this.setState({addressBookContent: ""});        
+    this.setState({addressBookContent: ""});
   }
 
   openAddNewContact=()=>{
@@ -263,11 +261,11 @@ class SettingWallet extends React.Component {
                   {this.state.listCurrenciesContent}
               </div>
             </Modal>
-             
+
 
             <Modal onClose={()=>{this.onCloseAddressBook();}} title={messages['wallet.action.setting.label.address_book']} onRef={modal => this.modalAddressBookRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle} modalBodyStyle={this.props.modalBodyStyle} customRightIcon={iconAddContact} customRightIconClick={()=>{this.openAddNewContact()}}>
               {this.state.addressBookContent}
-            </Modal>                        
+            </Modal>
 
             <div className="item">
                 <img className="icon" src={iconLock} />
@@ -308,7 +306,7 @@ class SettingWallet extends React.Component {
 
                 </div>
             </div>
-            
+
             <div className="item" onClick={this.openSupport}>
                 <img className="icon" src={iconSupport} />
                 <div className="name">
@@ -322,27 +320,6 @@ class SettingWallet extends React.Component {
             <div className="item header">
               <label>{messages['wallet.action.setting.label.wallet_account']}</label>
             </div>
-
-            <div className="item" onClick={this.props.onBackupWalletAccountClick}>
-                <img className="icon" src={iconBackupWallet} />
-                <div className="name">
-                    <label>{messages['wallet.action.backup.title']}</label>
-                </div>
-                <div className="value">
-
-                </div>
-            </div>
-            <div className="item" onClick={this.props.onRestoreWalletAccountClick}>
-                <img className="icon" src={iconRestoreWallet} />
-                <div className="name">
-                    <label>{messages['wallet.action.restore.title']}</label>
-                </div>
-                <div className="value">
-
-                </div>
-            </div>
-
-
 
             <div className="item header">
               <label>{messages['wallet.action.setting.label.community']}</label>

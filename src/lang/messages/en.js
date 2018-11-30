@@ -6,7 +6,7 @@ export default {
     name: 'Coinbowl',
     navigation: {
       me: 'Me',
-      ninjaCoin: 'Coin',
+      coin: 'Coin',
       wallet: 'Wallet'
     },
     common: {
