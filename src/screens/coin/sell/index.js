@@ -16,6 +16,7 @@ import { showAlert } from 'src/screens/app/redux/action';
 import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
 import LabelLang from 'src/lang/components/LabelLang';
 import { FaLock } from 'react-icons/fa';
+import authUtil from 'src/utils/authentication';
 import OrderInfo from './components/orderInfo';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
 import { makeOrder, genAddress } from './redux/action';
@@ -39,6 +40,7 @@ class SellCryptoCoin extends React.Component {
 
     this.state = {
       walletAddress: null,
+      isAuth: authUtil.isLogin() || false,
     };
   }
 
@@ -48,6 +50,9 @@ class SellCryptoCoin extends React.Component {
   }
 
   isValidToSubmit = () => {
+    const { isAuth } = this.state;
+    if (!isAuth) return false;
+    
     const { currency, exchange: { amount, fiatAmount }, bankName, bankAccountName, bankAccountNumber, bankUserPhoneNumber } = this.props;
     if (currency && amount && fiatAmount && bankName && bankAccountName && bankAccountNumber && bankUserPhoneNumber) {
       return true;

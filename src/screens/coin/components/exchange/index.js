@@ -56,7 +56,7 @@ class Exchange extends Component {
     const { orderType, supportedCurrency, defaultCurrency, options: { canChangeCurrency } } = this.props;
     const { currency, fiatCurrency } = this.state;
     if (prevProps?.orderType !== orderType) {
-      this.dataCallbackHandler();
+      this.getExchange();
     }
     if (prevState?.currency !== currency || prevState?.fiatCurrency !== fiatCurrency) {
       this.getExchange();
@@ -112,8 +112,7 @@ class Exchange extends Component {
 
   dataCallbackHandler = () => {
     const { onChange } = this.props;
-    const { currency, fiatCurrency } = this.state;
-    const { amount } = this.state;
+    const { currency, fiatCurrency, amount } = this.state;
     const fiatAmount = this.getFiatAmount();
     if (typeof onChange === 'function') {
       onChange({
@@ -127,9 +126,8 @@ class Exchange extends Component {
 
   getQuoteHandler = async () => {
     try {
-      const { amount } = this.state;
-      const { direction, getQuote } = this.props;
-      const { currency, fiatCurrency, isAuth } = this.state;
+      const { direction, getQuote, orderType } = this.props;
+      const { currency, fiatCurrency, isAuth, amount } = this.state;
       if (!amount) return;
       this.setExchangeStatus(true);
       const exchangeData = await getQuote({
@@ -139,6 +137,7 @@ class Exchange extends Component {
         check: 0,
         user_check: isAuth ? 1 : 0,
         direction,
+        order_type: orderType
       });
       const fiatAmount = this.getFiatAmount(exchangeData);
       this.setState({
@@ -193,8 +192,10 @@ class Exchange extends Component {
   // eslint-disable-next-line
   getFiatAmount = (exchangeData = this.state.exchangeData) => {
     const { orderType } = this.props;
-    if (orderType === ORDER_TYPE.cod)
+    const { exchangeType } = this.state;
+    if (exchangeType === EXCHANGE_TYPE.amount && orderType === ORDER_TYPE.cod) {
       return exchangeData.fiatLocalAmountCod || 0;
+    }
     return exchangeData.fiatLocalAmount || 0;
   }
 
