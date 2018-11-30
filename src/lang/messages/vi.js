@@ -6,7 +6,7 @@ export default {
     name: '<p style="color: yellow;">Test VN html</p>',
     navigation: {
       me: 'Me',
-      ninjaCoin: 'Coin'
+      coin: 'Coin'
     }
   },
   me: {
