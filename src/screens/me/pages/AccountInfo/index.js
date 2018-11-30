@@ -57,7 +57,7 @@ const AccountInfo = ({ name, updateProfileAction, showAlert, intl }) => {
           {/* <input value={getReferralLink()} /> */}
           <div className="input-group" style={{marginTop: '10px'}}>
             <input onFocus={handleFocus} type="text" className={'form-control ' + style.inputReferalLink} value={getReferralLink()} readOnly aria-label="referral link" aria-describedby="referral-link" />
-            <div className="input-group-append">              
+            <div className="input-group-append" style={{marginLeft: '10px'}}>              
               <CopyToClipboard text={getReferralLink()} onCopy={()=>showSuccess('wallet.refers.success.copy_link')}>
                 <Button value="Copy" />
               </CopyToClipboard>

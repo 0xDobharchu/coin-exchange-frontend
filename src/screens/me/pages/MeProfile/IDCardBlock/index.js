@@ -53,8 +53,6 @@ class IDCardBlock extends React.PureComponent {
           <p className={style.label}>
             <LabelLang id="me.accountLevel.step3" />
           </p>
-          <br />
-          <p><LabelLang id="me.accountLevel.lv3desc" /></p>
           <div className={style.extend}>
             <span className={`badge badge-${getStatusColor(level, levelStatus)}`}>{getLevelStatus(level, levelStatus)}</span>
           </div>
