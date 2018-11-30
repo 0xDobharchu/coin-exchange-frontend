@@ -27,7 +27,7 @@ const mockState = {
   }
 };
 
-export default (state = mockState, { type, payload }) => {
+export default (state = mockState, { type, payload, data }) => {
   switch (type) {
     case 'GET_PROFILE':
       return {
@@ -48,7 +48,7 @@ export default (state = mockState, { type, payload }) => {
         ...state,
         profile: {
           ...state.profile,
-          ...payload
+          ...(payload || data)
         }
       };
     case 'GET_TRANSACTIONS':
