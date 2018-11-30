@@ -2,9 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title><%= htmlWebpackPlugin.options.env.title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title><%= htmlWebpackPlugin.options.title %></title>
+  <meta name="mobile-web-app-capable" content="yes">
+  <!-- SEO -->
+  <meta name="description" content="<%= htmlWebpackPlugin.options.env.description %>" data-react-helmet="true" />
+  <meta name="keywords" content="<%= htmlWebpackPlugin.options.env.keywords %>" data-react-helmet="true" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="<%= htmlWebpackPlugin.options.env.description %>" data-react-helmet="true" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="" />
+  <meta property="og:image" content="/images/og_image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:site_name" content="<%= htmlWebpackPlugin.options.env.title %>" data-react-helmet="true" />
+  <!--<meta property="fb:app_id" content="{{ htmlWebpackPlugin.options.env.social.facebookAppId }}" />-->
+  <!-- twitter  -->
+  <meta name="twitter:card" content="" />
+  <meta name="twitter:site" content="" />
+  <meta name="twitter:title" content="<%= htmlWebpackPlugin.options.env.title %>" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="" />
+  <!--/ SEO -->
+
   <link
     rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"
