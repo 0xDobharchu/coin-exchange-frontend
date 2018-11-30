@@ -58,7 +58,6 @@ class IDCardBlock extends React.PureComponent {
           </div>
         </div>
         <div className={style.content}>
-          <p><LabelLang id="me.accountLevel.lv3desc" /></p>
           <p className={style.text}><LabelLang id="me.accountLevel.wrm3" /></p>
         </div>
         <IDVerificationForm onSubmit={this.handleSubmitForm} />
