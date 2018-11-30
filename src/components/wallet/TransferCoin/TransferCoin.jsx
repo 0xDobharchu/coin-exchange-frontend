@@ -10,7 +10,7 @@ import createForm from 'src/components/core/form/createForm';
 import { fieldInput } from 'src/components/core/form/customField';
 import { API_URL } from 'src/resources/constants/url';
 import local from 'src/services/localStore';
-import {APP} from 'src/constants';
+import {APP} from 'src/resources/constants/app';
 import {required} from 'src/components/core/form/validation';
 import {MasterWallet} from "src/services/Wallets/MasterWallet";
 import { bindActionCreators } from "redux";
@@ -57,11 +57,11 @@ class Transfer extends React.Component {
       walletDefault: false,
       walletSelected: false,
       currency: this.props.currency,
-      
+
       rate: 0,
       inputSendAmountValue: 0,
       inputSendMoneyValue: 0,
-      
+
       walletNotFound: '',
       volume: 0,
       listFeeObject: false,
@@ -98,8 +98,8 @@ class Transfer extends React.Component {
     // this.setState({inputSendAmountValue: 0, inputSendMoneyValue: 0, currency: currency ? currency : 'USD'});
   }
 
-  async componentDidMount() {    
- 
+  async componentDidMount() {
+
     await this.getWalletDefault();
     // this.props.hideLoading();
 
@@ -196,7 +196,7 @@ class Transfer extends React.Component {
       currency = this.getSetting();
     }
 
-    let rate = 0;    
+    let rate = 0;
     if((wallet || cryptoCurrency) && currency){
       rate = await this.getRate(currency ? currency : 'USD', cryptoCurrency ? cryptoCurrency : wallet.name);
     }
@@ -207,8 +207,8 @@ class Transfer extends React.Component {
     return new Promise((resolve, reject) => {
 
       this.props.getFiatCurrency({
-        url: API_URL.EXCHANGE.GET_FIAT_CURRENCY,          
-        params: {amount: 1, fiat_currency: fiat_currency, currency: currency, direction: 'buy'},        
+        url: API_URL.EXCHANGE.GET_FIAT_CURRENCY,
+        params: {amount: 1, fiat_currency: fiat_currency, currency: currency, direction: 'buy'},
         onSuccess: (res) => {
           let data = res;
           let result = fiat_currency == 'USD' ? data.fiat_amount : data.fiat_amount;
@@ -228,14 +228,14 @@ class Transfer extends React.Component {
 
     let wallets = listWallet;
     let walletDefault = null;
-    if (!wallets){      
-      wallets = await this.props.userWallet(); 
+    if (!wallets){
+      wallets = await this.props.userWallet();
       console.log("wallets", wallets);
     }
 
     if (coinName){
       wallets = MasterWallet.filterWalletByName(wallets, coinName);
-    }  
+    }
 
     if (coinName){
       walletDefault = MasterWallet.getWalletDefault(wallets, coinName);
@@ -354,7 +354,7 @@ class Transfer extends React.Component {
       else{
         money = money.toLocaleString();
       }
-    }    
+    }
 
     this.setState({
       inputSendAmountValue: amount,
@@ -362,7 +362,7 @@ class Transfer extends React.Component {
     }, ()=>{
       this.props.rfChange(nameFormSendWallet, 'amountCoin', amount);
       this.props.rfChange(nameFormSendWallet, 'amountMoney', money);
-      console.log("inputSendAmountValue-->", this.state.inputSendAmountValue);      
+      console.log("inputSendAmountValue-->", this.state.inputSendAmountValue);
     });
   }
 
@@ -412,7 +412,7 @@ submitSendCoin=()=>{
 
   this.modalConfirmTranferRef.close();
 
-  // todo: decryp wallet:  
+  // todo: decryp wallet:
   if (this.state.userPassword === ''){
     this.props.showRequirePassword({
       onFinish: (userPassword) => {
@@ -424,27 +424,27 @@ submitSendCoin=()=>{
   }
   else{
     this.sendCoinNow();
-  }  
+  }
 }
 
 sendCoinNow=()=>{
-  
-  this.setState({isRestoreLoading: true});  
+
+  this.setState({isRestoreLoading: true});
   let fee = this.state.listFeeObject ? this.state.listFeeObject.listFee[this.state.volume].value : 0;
   let option = {"fee": fee};
 
   const walletSend = this.state.walletSelected.descryp(this.state.userPassword);
-  console.log('walletSend', walletSend);  
+  console.log('walletSend', walletSend);
 
   if (walletSend === false){
-    this.showError(this.getMessage('requirePassword.passNotMatch'));    
-    this.setState({isRestoreLoading: false, userPassword: '', isShowPassword: false}, ()=>{      
+    this.showError(this.getMessage('requirePassword.passNotMatch'));
+    this.setState({isRestoreLoading: false, userPassword: '', isShowPassword: false}, ()=>{
       this.submitSendCoin();
     });
     return;
-  }  
+  }
   this.setState({isRestoreLoading: true});
-  
+
   walletSend.transfer(this.state.inputAddressAmountValue, this.state.inputSendAmountValue, option).then(success => {
 
       this.setState({isRestoreLoading: false});
@@ -483,7 +483,7 @@ handleScan=(data) =>{
       else{
         this.showAlert("Address not found");
       }
-    }    
+    }
   }
 }
 
@@ -556,13 +556,13 @@ calcMaxAmount = () => {
 
 onChooseFromContact =()=>{
   this.setState({addressBookContent: <AddressBook needChoice={true} onSelected = {(item)=> {this.onSelectAddressBook(item);}} onRef={ref => (this.child = ref)}  modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle} customBackIcon={customBackIcon} />}, ()=>{
-    this.modalAddressBookRef.open();        
-  })    
-  
+    this.modalAddressBookRef.open();
+  })
+
 }
 
 onCloseAddressBook=()=>{
-this.setState({addressBookContent: ""});        
+this.setState({addressBookContent: ""});
 }
 
 openAddNewContact=()=>{
@@ -574,7 +574,7 @@ onSelectAddressBook=(address)=>{
   console.log(address);
   this.setState({
     inputAddressAmountValue: address
-  });  
+  });
   this.props.rfChange(nameFormSendWallet, 'to_address', address);
   this.modalAddressBookRef.close();
 }
@@ -594,7 +594,7 @@ render() {
   try {amount= parseFloat(amount).toFixed(8)}catch (e){}
 
   return (
-    <div>      
+    <div>
 
         {/* Dialog confirm transfer coin */}
         <ModalDialog title="Confirmation" onRef={modal => this.modalConfirmTranferRef = modal}>
@@ -603,7 +603,7 @@ render() {
             <Button className={style["left"]} cssType="danger" onClick={this.submitSendCoin} >{messages['wallet.action.transfer.button.confirm']}</Button>
             <Button className={style["right"]} cssType="secondary" onClick={() => { this.modalConfirmTranferRef.close(); }}>Cancel</Button>
         </div>
-        </ModalDialog>        
+        </ModalDialog>
 
         <Modal onClose={()=>{this.onCloseAddressBook();}} title={messages['wallet.action.setting.label.select_a_contact']} onRef={modal => this.modalAddressBookRef = modal} customBackIcon={customBackIcon} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle} customRightIcon={iconAddContact} customRightIconClick={()=>{this.openAddNewContact()}}>
               {this.state.addressBookContent}
@@ -616,7 +616,7 @@ render() {
           <p className={style["labelText"] + ' ' + style["block-hidden"]}>{messages['wallet.action.transfer.label.to_address']}
             <span onClick={()=> {this.onChooseFromContact();}} className={style["fromContact"]}>{messages['wallet.action.transfer.label.from_contact']}</span>
           </p>
-          
+
           <div className={style["div-address-qr-code"]}>
             <Field
               name="to_address"
@@ -630,14 +630,14 @@ render() {
             />
             <span onClick={() => { this.openQrcode() }} className={style["icon-qr-code-black"]}>{ICON.QRCode()}</span>
           </div>
-          <div>            
+          <div>
 
           <p className={style["labelText"] + ' ' + style["block-hidden"]}>{messages['wallet.action.transfer.label.amount']}
             { walletSelected && (walletSelected.name == 'ETH' || walletSelected.name == 'BTC') &&
               <span onClick={()=> {this.calcMaxAmount();}} className={style["fromContact"]}>{messages['wallet.action.transfer.label.max_amount']}</span>
             }
           </p>
-            
+
           </div>
             <div className={style["div-amount"]}>
               <div className={style["prepend"]}>{ this.state.walletSelected ? StringHelper.format("{0}", this.state.walletSelected.name) : ''}</div>
@@ -724,9 +724,9 @@ const mapDispatchToProps = (dispatch) => ({
   showAlert: bindActionCreators(showAlert, dispatch),
   clearFields: bindActionCreators(clearFields, dispatch),
   getFiatCurrency: bindActionCreators(makeRequest, dispatch),
-  userWallet: bindActionCreators(userWallet, dispatch),  
-  showRequirePassword: bindActionCreators(showRequirePassword, dispatch),  
-  
+  userWallet: bindActionCreators(userWallet, dispatch),
+  showRequirePassword: bindActionCreators(showRequirePassword, dispatch),
+
 });
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Transfer));
