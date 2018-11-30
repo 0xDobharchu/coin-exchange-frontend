@@ -8,7 +8,7 @@ import { LabelLang, FieldLang } from 'src/lang/components';
 // import ReactPhoneInput from 'react-phone-input-2';
 
 import style from '../styles.scss';
-import {getReachingLevel} from '../util';
+import { getReachingLevel, getCurrentLevel  } from '../util';
 
 // const renderFieldPhone = ({ input }) => (
 //   <ReactPhoneInput {...input} defaultCountry='hk' regions='asia' placeholder="me.profile.text.phone.desc3" inputStyle={{ width: '100%' }} />
@@ -30,9 +30,9 @@ const PhoneForm = ({ handleSubmit, onSubmit, level, levelStatus }) => {
           {<CountryPhone name='phone' defaultCountry='hk' regions='asia' inputStyle={{ width: '100%' }} disabled={getReachingLevel(level, levelStatus) > 2 || (getReachingLevel(level, levelStatus) === 2 && levelStatus === 'approved')} /> }
 
         </div>
-        {level === 'level_2' && levelStatus === 'pending' && <div className="col-10" style={{ width: '100%' }}><FieldLang style={{ width: '100%' }} name="code" component="input" type="text" placeholder="me.profile.text.phone.desc3" /></div>}
+        {level === 'level_2' && levelStatus === 'pending' && <div className="col-10" style={{ width: '100%', marginTop: '20px' }}><FieldLang style={{ width: '100%' }} name="code" component="input" type="text" placeholder="me.accountLevel.phoneCode" /></div>}
         <div className="col-2" style={{ paddingLeft: 0 }}>
-          <button onClick={handleSubmit(onSubmit)} type="button" className={style.submit_btn} disabled={getReachingLevel(level, levelStatus) > 2 || (getReachingLevel(level, levelStatus) === 2 && levelStatus === 'approved')}>
+          <button onClick={handleSubmit(onSubmit)} type="button" className={style.submit_btn} disabled={getCurrentLevel(level, levelStatus) >= 2}>
             <LabelLang id="me.accountLevel.ok" />
           </button>
         </div>
@@ -44,7 +44,6 @@ const PhoneForm = ({ handleSubmit, onSubmit, level, levelStatus }) => {
 const mapState = state => ({
   initialValues: {
     phone: state.auth.profile.phone_number || state.auth.profile.pending_phone_number,
-
   },
   level: state.auth.profile.verification_level,
   levelStatus: state.auth.profile.verification_status,
