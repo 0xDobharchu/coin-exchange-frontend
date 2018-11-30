@@ -10,7 +10,7 @@ import { FieldLang } from 'src/lang/components';
 import { isEmail, isRequired } from 'src/components/core/form/validator';
 import { URL } from 'src/resources/constants/url';
 import cx from 'classnames';
-import ReactPhoneInput from 'react-phone-input-2';
+// import ReactPhoneInput from 'react-phone-input-2';
 import { showAlert } from 'src/screens/app/redux/action';
 import contactActions from './action';
 import style from './style.scss';
@@ -26,14 +26,14 @@ const selectorForm = formValueSelector('ContactForm');
 class Contact extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      phone: '',
-    };
+    // this.state = {
+    //   phone: '',
+    // };
   }
 
   submitAddContact = () => {
-    let { fullname, email, description } = this.props;
-    let phone = this.state.phone;
+    let { fullname, email, phone, description } = this.props;
+    // let phone = this.state.phone;
 
     console.log(fullname, email, phone, description);
     if (fullname && email && description) {
@@ -58,11 +58,12 @@ class Contact extends React.Component {
   handleOnChange = (value) => {
     console.log('phone', value);
     this.setState({
-      phone: value
+      // phone: value
     });
   }
 
   render() {    
+    let CountryPhone = require('src/components/Phone/index').default;
     return (
 
       <div className={cx('container', style['contact-warper'])}>
@@ -100,7 +101,7 @@ class Contact extends React.Component {
                       placeholder="landingPage.contactUS.placeholderPhone"
                       type="phone"
                     /> */}
-                    <ReactPhoneInput value={this.state.phone} onChange={this.handleOnChange} defaultCountry='hk' regions='asia' inputStyle={{ width: '100%' }} />
+                    <CountryPhone name='phone' defaultCountry='hk' regions='asia' inputStyle={{ width: '100%' }} />
                   </div>
                   <div className="form-group">
                     <FieldLang
