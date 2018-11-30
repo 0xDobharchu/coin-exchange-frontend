@@ -64,6 +64,9 @@
       letter-spacing: 0;
     }
   }
+  .react-tel-input input[type=tel], .react-tel-input input[type=text]{
+    height: 50px;
+  }
   .dropdown-warper {
     width: 100%;
     padding: .375rem .75rem;
