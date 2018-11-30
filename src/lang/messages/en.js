@@ -34,6 +34,11 @@ export default {
     lessThanEqual: 'Must be less than or equal {max}',
     mustBeANumber: 'Must be a number',
     mustBeAPositiveInteger: 'Must be a integer number greater or equal 0',
+    serverCode: {
+      generalCode400: 'Something went wrong, please try again!',
+      coinUserOverLimit: 'Over Coin limit',
+      amountIsTooSmall: 'Amount is too small'
+    }
   },
   me: {
     accountInfo: {

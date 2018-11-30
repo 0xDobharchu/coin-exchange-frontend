@@ -25,7 +25,7 @@ class Root extends React.Component {
     const { ipInfo: { country: countryFromIp }, profile: { country: userCountry }, getCountryCurrency } = this.props;
     if (prevProps.ipInfo?.country !== countryFromIp || prevProps.profile.country !== userCountry) {
       const _country = userCountry || countryFromIp;
-      _country && getCountryCurrency(_country);
+      getCountryCurrency(_country);
     }
   }
 
@@ -33,10 +33,11 @@ class Root extends React.Component {
     const querystring = window.location.search.replace('?', '');
     const querystringParsed = qs.parse(querystring);
     const { language, ref } = querystringParsed;
-    const { initApp, getSupportCountry, getSupportLanguages, getProfileAction } = this.props;
+    const { initApp, getSupportCountry, getSupportLanguages, getProfileAction, getCountryCurrency, ipInfo: { country: countryFromIp } } = this.props;
     initApp(language, ref);
     getSupportCountry();
     getSupportLanguages();
+    getCountryCurrency(countryFromIp);
     if(currentUser.isLogin()) {
       getProfileAction();
     }
