@@ -4,6 +4,11 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackIncludePlugin = require('html-webpack-include-assets-plugin');
 const commonConfig = require('./webpack.common');
+const commonEnv = require('./.env/.env.common');
+
+const env = {
+  ...commonEnv,
+};
 
 const cssLoader = [
   'style-loader',
@@ -62,7 +67,7 @@ module.exports = merge(commonConfig, {
         use: [
           ...cssLoader,
           {
-            loader: 'sass-loader', 
+            loader: 'sass-loader',
             options: {
               sourceMap: true,
               includePaths: [
@@ -83,7 +88,7 @@ module.exports = merge(commonConfig, {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Coin Bowl',
+      env: env,
       template: path.resolve(__dirname, 'src/template/app.html'),
     }),
     new HtmlWebpackIncludePlugin({
