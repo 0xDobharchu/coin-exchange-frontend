@@ -4,7 +4,7 @@ import { showAlert } from 'src/screens/app/redux/action';
 import { submitVerifyLevel4Action } from 'src/screens/auth/redux/action';
 import { LabelLang } from 'src/lang/components';
 import SelfieForm from './SelfieForm';
-import { getColorByLevel, getStatusByLevel } from '../util';
+import {getColorByLevel, getCurrentLevel, getStatusByLevel} from '../util';
 
 // eslint-disable-next-line
 const SelfieBlock = ({ style, level, levelStatus, showAlert, submitVerifyLevel4Action }) => {
@@ -23,6 +23,8 @@ const SelfieBlock = ({ style, level, levelStatus, showAlert, submitVerifyLevel4A
       type: 'success'
     });
   };
+  const currentLevel = getCurrentLevel(level, levelStatus);
+
   return (
     <div className={style.collapse_custom}>
       <div className={style.head}>
@@ -36,7 +38,7 @@ const SelfieBlock = ({ style, level, levelStatus, showAlert, submitVerifyLevel4A
       <div className={style.content}>
         <p className={style.text}><LabelLang id="me.accountLevel.wrm3" /></p>
       </div>
-      <SelfieForm onSubmit={handleSubmitForm} />
+      {3 <= currentLevel && <SelfieForm onSubmit={handleSubmitForm} />}
     </div>);
 };
 
