@@ -4,6 +4,7 @@ import { showAlert } from 'src/screens/app/redux/action';
 import { submitVerifyLevel3Action } from 'src/screens/auth/redux/action';
 import { LabelLang } from 'src/lang/components';
 import IDVerificationForm from './IDVerificationForm';
+import {getCurrentLevel} from '../util';
 
 const getStatusColor = (level, status) => {
   if (level === 'level_4') return 'success';
@@ -47,6 +48,8 @@ class IDCardBlock extends React.PureComponent {
   render() {
     // eslint-disable-next-line
     const { style, verified, level, levelStatus } = this.props;
+    const currentLevel = getCurrentLevel(level, levelStatus);
+
     return (
       <div className={style.collapse_custom}>
         <div className={style.head}>
@@ -60,7 +63,7 @@ class IDCardBlock extends React.PureComponent {
         <div className={style.content}>
           <p className={style.text}><LabelLang id="me.accountLevel.wrm3" /></p>
         </div>
-        <IDVerificationForm onSubmit={this.handleSubmitForm} />
+        {2 <= currentLevel && <IDVerificationForm onSubmit={this.handleSubmitForm} />}
       </div>
     );
   }
