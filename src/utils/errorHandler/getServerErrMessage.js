@@ -14,17 +14,17 @@ const GENERAL_CODE_400 = `${KEY}.generalCode400`;
 
 /**
  * This function will return human readable message from server error code
- * @param {Object} error 
+ * @param {Object} error
  */
 const getServerErrMessage = (error = {}, defaultMsg) => {
-  const message = MAPPING[error?.code] && `${KEY}.${MAPPING[error?.code]}`;
+  const message = `${KEY}.${MAPPING[error?.code]}`;
   let intKey = message;
   let dom;
 
   if (!message && error?.status === 400) {
     intKey = GENERAL_CODE_400;
   }
-  
+
   dom = <LabelLang id={intKey} />;
   if (typeof defaultMsg === 'string') {
     dom = <span>{defaultMsg}</span>;
@@ -32,7 +32,7 @@ const getServerErrMessage = (error = {}, defaultMsg) => {
 
   if (typeof defaultMsg === 'object') {
     dom = defaultMsg;
-  } 
+  }
 
   return {
     dom: dom,
