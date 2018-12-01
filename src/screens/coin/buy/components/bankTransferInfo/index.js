@@ -66,6 +66,7 @@ class BankTransferInfo extends PureComponent {
     this.copied = :: this.copied;
     this.getBankInfo = :: this.getBankInfo;
     this.onExpired = :: this.onExpired;
+    this.onRemoveReceipt = ::this.onRemoveReceipt;
   }
 
   static getDerivedStateFromProps({ orderInfo }, prevState) {
@@ -86,6 +87,10 @@ class BankTransferInfo extends PureComponent {
 
   onUploaded(imgUploadedUrl) {
     this.setState({ uploaded: true, imgUploadedUrl });
+  }
+
+  onRemoveReceipt() {
+    this.setState({ uploaded: false, imgUploadedUrl: null });
   }
 
   onDone() {
@@ -214,7 +219,7 @@ class BankTransferInfo extends PureComponent {
 
   render() {
     const { showUploader, uploaded, expired } = this.state;
-    const { orderInfo: { createdAt, status } } = this.props;
+    const { orderInfo: { createdAt, status, duration } } = this.props;
     return (
       <Container className={styles.container}>
         <Row>
@@ -227,6 +232,7 @@ class BankTransferInfo extends PureComponent {
                     <span className={styles.text}>
                       {!expired && <LabelLang id={getIntlKey('willExpiredIn')} />}
                       <ClockCount
+                        duration={duration}
                         startAt={createdAt}
                         expiredText={<LabelLang id={getIntlKey('expiredText')} />}
                         onExpired={this.onExpired}
@@ -252,6 +258,7 @@ class BankTransferInfo extends PureComponent {
             (
               <FileUploader
                 onSuccess={this.onUploaded}
+                onRemove={this.onRemoveReceipt}
               />
             )
           }
