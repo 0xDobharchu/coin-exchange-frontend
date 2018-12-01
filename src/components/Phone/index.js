@@ -1,8 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { injectIntl } from 'react-intl';
-import { FieldLang } from 'src/lang/components/index';
+import { Field } from 'redux-form';
 import ReactPhoneInput from 'react-phone-input-2';
 
 class CountryPhone extends PureComponent {
@@ -10,14 +9,20 @@ class CountryPhone extends PureComponent {
     const {
       name
     } = this.props;
-    const renderFieldPhone = ({ input }) => (
-      <ReactPhoneInput {...input} {...this.props} />
-    );
 
-    return (<FieldLang name={name} component={renderFieldPhone} />);
+    const renderFieldPhone =  ({ input }) => {
+      const {
+        name,
+        value,
+        onBlur,
+      } = input;
+
+      return  <ReactPhoneInput name={name} value={value} onBlur={onBlur} {...this.props} />;
+    };
+    return (<Field name={name} component={renderFieldPhone} />);
   }
 
 
 }
 
-export default injectIntl(connect(null, null)(CountryPhone));
+export default connect(null, null)(CountryPhone);
