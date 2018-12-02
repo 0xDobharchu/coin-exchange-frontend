@@ -66,37 +66,8 @@ function handleRender(req, res) {
   }
 }
 
-function onError(error = {}) {
-  const { port, code, syscall } = error;
-  if (syscall !== 'listen') {
-    throw error;
-  }
-
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
-
-  // handle specific listen errors with friendly messages
-  switch (code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    case 'SIGINT': 
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-}
-
 app.use(handleRender);
 
 app.listen(PORT, () => {
   console.log(`App is running on port ${PORT}`);
-}).on('error', onError);
-
+});
