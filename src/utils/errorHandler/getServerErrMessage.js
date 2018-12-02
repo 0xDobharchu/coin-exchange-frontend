@@ -17,7 +17,7 @@ const GENERAL_CODE_400 = `${KEY}.generalCode400`;
  * @param {Object} error
  */
 const getServerErrMessage = (error = {}, defaultMsg) => {
-  const message = `${KEY}.${MAPPING[error?.code]}`;
+  const message = MAPPING[error?.code] && `${KEY}.${MAPPING[error?.code]}`;
   let intKey = message;
   let dom;
 
