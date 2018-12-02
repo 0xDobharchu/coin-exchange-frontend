@@ -10,7 +10,7 @@
     "server": "yarn && NODE_ENV='development' webpack --config webpack.server.js --watch && yarn server",
     "build-server": "NODE_ENV='production' PUBLIC_PATH='public/' node --max_old_space_size=8192 node_modules/.bin/webpack --progress --config webpack.server.js",
     "mon-server": "nodemon ./dist/server/server.js",
-    "build": "pm2 delete -s coinbowl || : && yarn cache clean && yarn && yarn build-client && yarn build-server",
+    "build": "yarn && yarn build-client && yarn build-server",
     "start": "yarn pm2-start && yarn pm2-monitor",
     "pm2-monitor": "pm2 monit",
     "pm2-start": "pm2 start dist/server/server.js -i max --name coinbowl",
