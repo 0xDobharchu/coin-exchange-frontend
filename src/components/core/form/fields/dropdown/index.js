@@ -5,12 +5,12 @@ import {LabelLang} from 'src/lang/components';
 import cx from 'classnames';
 
 const inputField = ({
-  input, meta, toggle, labelText, labelClassName, containerClassName, list ,className
+  input, meta, toggle, labelText, labelClassName, containerClassName, list ,className, handleOnChange
 }) => {
   const {
     onChange, onBlur, onFocus, value
   } = input;
-  const _toggle = toggle || 'Toggle';
+  const _toggle = toggle || '';
   const _list = list || [];
   const { error, touched } = meta;
   const shouldShowError = !!(touched && error);
@@ -30,6 +30,9 @@ const inputField = ({
                   key={item.id || index}
                   onClick={() => {
                     onChange(item?.value);
+                    if (typeof handleOnChange === 'function') {
+                      handleOnChange(item?.value);
+                    }
                     if (typeof item?.onClick === 'function') {
                       item?.onClick();
                     }
