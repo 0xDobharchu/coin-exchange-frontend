@@ -105,10 +105,7 @@ ClockCount.defaultProps = {
 ClockCount.propTypes = {
   className: PropTypes.string,
   startAt: PropTypes.string,
-  expiredText: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.node
-  ]),
+  expiredText: PropTypes.string,
   onExpired: PropTypes.func,
   duration: PropTypes.number,
   loop: PropTypes.bool,
