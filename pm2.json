@@ -1,0 +1,9 @@
+{
+  "name": "coinbowl",
+  "script": "dist/server/server.js",
+  "instances": 4,
+  "exec_mode"  : "cluster",
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
