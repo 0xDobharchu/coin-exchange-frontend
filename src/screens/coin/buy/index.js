@@ -17,6 +17,7 @@ import LabelLang from 'src/lang/components/LabelLang';
 import { FaLock } from 'react-icons/fa';
 import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
 import cx from 'classnames';
+import authUtil from 'src/utils/authentication';
 import BankTransferInfo from './components/bankTransferInfo';
 import walletSelectorField, { walletValidator } from './reduxFormFields/walletSelector';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
@@ -44,14 +45,17 @@ class BuyCryptoCoin extends React.Component {
     super(props);
 
     this.state = {
+      isAuth: authUtil.isLogin() || false,
       orderInfo: null,
       showBankTransferInfo: false,
     };
   }
 
   isValidToSubmit = () => {
-    const { wallet: { address, currency }, exchange: { amount, fiatAmount }, paymentMethod } = this.props;
-    if (address && currency && amount && fiatAmount) {
+    const { isAuth } = this.state;
+    if (!isAuth) return false;
+    const { wallet: { address, currency, invalidAddress }, exchange: { amount, fiatAmount }, paymentMethod } = this.props;
+    if (address && currency && !invalidAddress && amount && fiatAmount) {
       if (paymentMethod === PAYMENT_METHOD.COD) {
         const { userAddress, userPhone, userNote } = this.props;
         if (userAddress && userPhone && userNote) {
@@ -109,6 +113,8 @@ class BuyCryptoCoin extends React.Component {
   }
 
   onBankTransferDone = () => {
+    const { history } = this.props;
+    history.push(URL.ME_HISTORY);
     this.resetState();
   }
 

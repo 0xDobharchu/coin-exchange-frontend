@@ -34,6 +34,11 @@ export default {
     lessThanEqual: 'Must be less than or equal {max}',
     mustBeANumber: 'Must be a number',
     mustBeAPositiveInteger: 'Must be a integer number greater or equal 0',
+    serverCode: {
+      generalCode400: 'Something went wrong, please try again!',
+      coinUserOverLimit: 'Over Coin limit',
+      amountIsTooSmall: 'Amount is too small'
+    }
   },
   me: {
     accountInfo: {
@@ -686,7 +691,12 @@ export default {
         refCode: 'REFERENCE CODE',
         nameCard: 'BANK TRANSFER INFO',
         willExpiredIn: 'Will expired in',
-        expiredText: 'Expired'
+        expiredText: 'Expired',
+        saveReceiptSuccessMsg: 'Your receipt was uploaded successfully',
+        saveReceiptFailedMsg: 'Your receipt was not uploaded, please try again',
+        getBankInfoFailedMsg: 'Get bank info failed, please try again',
+        retryGetBankInfo: 'No bank info data {retry}',
+        retryBtn: 'Retry?'
       },
       paymentMethod: {
         wireTransferName: 'Wire transfer',
