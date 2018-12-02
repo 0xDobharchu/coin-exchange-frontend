@@ -47,6 +47,8 @@ export default {
       lastName: 'Last Name',
       legalName: 'Legal Name',
       country: 'Country',
+      currency: 'Local Currency',
+      language: 'Language',
       save: 'Save',
       userProfile: 'User Profile',
       personalDetails: 'Personal Details',
