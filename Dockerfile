@@ -30,6 +30,5 @@ EXPOSE 8000 8000
 
 ENTRYPOINT ["sh", "/app/entrypoint.sh"]
 
-#CMD ["yarn", "start"]
-CMD [ "pm2-runtime", "start", "pm2.json" ]
+CMD ["yarn", "start"]
 
