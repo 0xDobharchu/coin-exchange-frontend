@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install ruby-full -y \
    && npm install -g grunt-cli \
    && npm install -g bower \
    && gem install compass \
-   && gem install sass
+   && gem install sass \
+   && npm install pm2 -g
 
 ENV TEMPDIR /home/node/tmp
 
@@ -30,3 +31,4 @@ EXPOSE 8000 8000
 ENTRYPOINT ["sh", "/app/entrypoint.sh"]
 
 CMD ["yarn", "start"]
+
