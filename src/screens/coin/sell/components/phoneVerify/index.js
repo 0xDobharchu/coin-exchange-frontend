@@ -61,7 +61,19 @@ class PhoneVerify extends Component {
     const { updatePhoneNumberAction } = this.props;
     const { phone } = this.state;
     this.setState({ isWaitingCode: true, isLocking: true });
-    updatePhoneNumberAction(phone);
+    updatePhoneNumberAction(phone).then(() => {
+      const { showAlert } = this.props;
+      showAlert({
+        message: 'We sent a code to your phone successfully',
+        type: 'success'
+      });
+    }).catch(() => {
+      const { showAlert } = this.props;
+      showAlert({
+        message: 'Sent code failed, please try again',
+        type: 'danger'
+      });
+    });
   }
 
   onSubmitCode = () => {
@@ -89,6 +101,7 @@ class PhoneVerify extends Component {
       <ClockCount
         className={styles.prependPhone}
         duration={60}
+        startAt={new Date()}
         onExpired={() => {
           this.setState({ isLocking: false });
         }}
@@ -111,8 +124,8 @@ class PhoneVerify extends Component {
               disabled={!!verifiedPhone}
             />)
           }
-          { !isLocking && <button type='button' onClick={this.onSubmitPhone}>Submit</button> }
-          { isLocking && this.renderClock() }
+          { !verified && !isLocking && <button type='button' onClick={this.onSubmitPhone}>Submit</button> }
+          { isWaitingCode && isLocking && this.renderClock() }
           { verified && (
             <div className={styles.prependPhone}>
               <FaCheck color='green' />

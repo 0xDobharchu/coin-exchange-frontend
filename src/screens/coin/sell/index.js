@@ -44,6 +44,7 @@ class SellCryptoCoin extends React.Component {
     this.state = {
       walletAddress: null,
       isAuth: authUtil.isLogin() || false,
+      verifiedPhone: null,
     };
   }
 
@@ -91,8 +92,8 @@ class SellCryptoCoin extends React.Component {
   }
 
   makeOrder = () => {
-    const { makeOrder, exchange, bankName, bankAccountName, bankAccountNumber } = this.props;
-    const { walletAddress } = this.state;
+    const { makeOrder, exchange, bankName, bankAccountName, bankAccountNumber, paymentMethod } = this.props;
+    const { walletAddress, verifiedPhone } = this.state;
     const payload = {
       amount: String(exchange?.amount),
       currency: exchange?.currency,
@@ -100,8 +101,17 @@ class SellCryptoCoin extends React.Component {
       fiat_local_currency: exchange?.fiatCurrency,
       direction: EXCHANGE_DIRECTION.sell,
       address: walletAddress,
-      user_info: JSON.stringify({ bankName, bankAccountName, bankAccountNumber })
+      order_user_payment_type: paymentMethod
     };
+
+    if (paymentMethod === PAYMENT_METHOD.TRANSFER) {
+      payload.user_info = JSON.stringify({ bankName, bankAccountName, bankAccountNumber });
+    }
+
+    if (paymentMethod === PAYMENT_METHOD.TNG) {
+      payload.user_info = JSON.stringify({ bankUserPhoneNumber: verifiedPhone });
+    }
+
     makeOrder(payload)
       .then(this.orderSuccessHandler)
       .catch(this.orderFailedHandler);
@@ -135,10 +145,14 @@ class SellCryptoCoin extends React.Component {
     this.resetState();
   }
 
+  onTngVerified = (verifiedPhone) => {
+    this.setState({ verifiedPhone });
+  }
+
   renderPhoneBlock = () => {
     return (
       <div className={cx(styles.codInfo, 'mt-4')}>
-        <PhoneVerify />
+        <PhoneVerify onVerified={this.onTngVerified} />
       </div>
     );
   }
