@@ -17,8 +17,10 @@ import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
 import LabelLang from 'src/lang/components/LabelLang';
 import { FaLock } from 'react-icons/fa';
 import authUtil from 'src/utils/authentication';
+import PhoneVerify from './components/phoneVerify';
 import OrderInfo from './components/orderInfo';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
+import paymentMethodField from './reduxFormFields/paymentMethod';
 import { makeOrder, genAddress } from './redux/action';
 import styles from './styles.scss';
 
@@ -29,6 +31,7 @@ const SellForm = createForm({
     destroyOnUnmount: false,
     form: sellFormName,
     initialValues: {
+      paymentMethod: PAYMENT_METHOD.TRANSFER,
     },
   },
 });
@@ -41,6 +44,7 @@ class SellCryptoCoin extends React.Component {
     this.state = {
       walletAddress: null,
       isAuth: authUtil.isLogin() || false,
+      verifiedPhone: null,
     };
   }
 
@@ -53,8 +57,8 @@ class SellCryptoCoin extends React.Component {
     const { isAuth } = this.state;
     if (!isAuth) return false;
     
-    const { currency, exchange: { amount, fiatAmount }, bankName, bankAccountName, bankAccountNumber, bankUserPhoneNumber } = this.props;
-    if (currency && amount && fiatAmount && bankName && bankAccountName && bankAccountNumber && bankUserPhoneNumber) {
+    const { currency, exchange: { amount, fiatAmount }, bankName, bankAccountName, bankAccountNumber } = this.props;
+    if (currency && amount && fiatAmount && bankName && bankAccountName && bankAccountNumber) {
       return true;
     }
     return false;
@@ -88,18 +92,26 @@ class SellCryptoCoin extends React.Component {
   }
 
   makeOrder = () => {
-    const { makeOrder, exchange, paymentMethod, bankName, bankAccountName, bankAccountNumber, bankUserPhoneNumber } = this.props;
-    const { walletAddress } = this.state;
+    const { makeOrder, exchange, bankName, bankAccountName, bankAccountNumber, paymentMethod } = this.props;
+    const { walletAddress, verifiedPhone } = this.state;
     const payload = {
       amount: String(exchange?.amount),
       currency: exchange?.currency,
       fiat_local_amount: String(exchange?.fiatAmount),
       fiat_local_currency: exchange?.fiatCurrency,
-      order_type: paymentMethod,
       direction: EXCHANGE_DIRECTION.sell,
       address: walletAddress,
-      user_info: JSON.stringify({ bankName, bankAccountName, bankAccountNumber, bankUserPhoneNumber })
+      order_user_payment_type: paymentMethod
     };
+
+    if (paymentMethod === PAYMENT_METHOD.TRANSFER) {
+      payload.user_info = JSON.stringify({ bankName, bankAccountName, bankAccountNumber });
+    }
+
+    if (paymentMethod === PAYMENT_METHOD.TNG) {
+      payload.user_info = JSON.stringify({ bankUserPhoneNumber: verifiedPhone });
+    }
+
     makeOrder(payload)
       .then(this.orderSuccessHandler)
       .catch(this.orderFailedHandler);
@@ -133,6 +145,18 @@ class SellCryptoCoin extends React.Component {
     this.resetState();
   }
 
+  onTngVerified = (verifiedPhone) => {
+    this.setState({ verifiedPhone });
+  }
+
+  renderPhoneBlock = () => {
+    return (
+      <div className={cx(styles.codInfo, 'mt-4')}>
+        <PhoneVerify onVerified={this.onTngVerified} />
+      </div>
+    );
+  }
+
   renderBankInfoInput = () => {
     const { intl: { formatMessage } } = this.props;
     return (
@@ -161,21 +185,13 @@ class SellCryptoCoin extends React.Component {
           className={styles.bankItem}
           validate={isRequired()}
         />
-        <Field
-          type="text"
-          name="bankUserPhoneNumber"
-          placeholder={formatMessage({ id: getIntlKey('phone')})}
-          component={inputField}
-          className={styles.bankItem}
-          validate={isRequired()}
-        />
       </div>
     );
   }
 
   render() {
-    const { paymentMethod, supportedCurrency, exchange, currency } = this.props;
-    const { walletAddress } = this.state;
+    const { supportedCurrency, exchange, currency, paymentMethod } = this.props;
+    const { walletAddress, isAuth } = this.state;
     const isValid = this.isValidToSubmit();
     if (walletAddress) {
       const exchangeInfo = {
@@ -199,13 +215,18 @@ class SellCryptoCoin extends React.Component {
             name="exchange"
             className='mt-4'
             component={exchangeField}
-            orderType={paymentMethod}
             direction={EXCHANGE_DIRECTION.sell}
             fiatCurrency={supportedCurrency[0]}
             currency={currency}
             validate={exchangeValidator}
           />
-          { this.renderBankInfoInput() }
+          <Field
+            name="paymentMethod"
+            className='mt-4'
+            component={paymentMethodField}
+          />
+          { paymentMethod === PAYMENT_METHOD.TRANSFER && this.renderBankInfoInput() }
+          { paymentMethod === PAYMENT_METHOD.TNG && isAuth && this.renderPhoneBlock() }
           <ConfirmButton
             disabled={!isValid}
             containerClassName='mt-5'
@@ -232,7 +253,6 @@ const mapStateToProps = (state) => ({
   bankName: formSelector(state, 'bankName'),
   bankAccountNumber: formSelector(state, 'bankAccountNumber'),
   bankAccountName: formSelector(state, 'bankAccountName'),
-  bankUserPhoneNumber: formSelector(state, 'bankUserPhoneNumber'),
   supportedCurrency: state?.app?.supportedCurrency || [],
 });
 
@@ -253,7 +273,6 @@ SellCryptoCoin.defaultProps = {
   bankName: '',
   bankAccountName: '',
   bankAccountNumber: '',
-  bankUserPhoneNumber: ''
 };
 
 SellCryptoCoin.propTypes = {
@@ -270,7 +289,6 @@ SellCryptoCoin.propTypes = {
   bankName: PropTypes.string,
   bankAccountName: PropTypes.string,
   bankAccountNumber: PropTypes.string,
-  bankUserPhoneNumber: PropTypes.string
 };
 
 export default withRouter(injectIntl(connect(mapStateToProps, mapDispatchToProps)(SellCryptoCoin)));
