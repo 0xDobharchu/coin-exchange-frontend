@@ -4,11 +4,8 @@ FROM node:latest
 MAINTAINER Black Bean, tuananh@autonomous.nyc
 
 RUN apt-get update && apt-get install ruby-full -y \
-   && npm install -g grunt-cli \
-   && npm install -g bower \
    && gem install compass \
-   && gem install sass \
-   && npm install pm2 -g
+   && gem install sass
 
 ENV TEMPDIR /home/node/tmp
 
