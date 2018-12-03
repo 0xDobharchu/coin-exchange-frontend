@@ -10,7 +10,6 @@ import { FieldLang } from 'src/lang/components';
 import { isEmail, isRequired } from 'src/components/core/form/validator';
 import { URL } from 'src/resources/constants/url';
 import cx from 'classnames';
-import PhoneNumber from 'src/components/core/controls/phoneNumber';
 import { showAlert } from 'src/screens/app/redux/action';
 import contactActions from './action';
 import style from './style.scss';
@@ -25,19 +24,15 @@ const selectorForm = formValueSelector('ContactForm');
 
 class Contact extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = {
-      phone: '',
-    };
+    super(props);    
   }
 
   submitAddContact = () => {
-    let { fullname, email, description } = this.props;
-    let phone = this.state.phone;
+    let { fullname, email, phone_number, description } = this.props;    
 
-    console.log(fullname, email, phone, description);
+    console.log(fullname, email, phone_number, description);
     if (fullname && email && description) {
-      this.props.addContact(fullname, phone, email, description).then((data) => {
+      this.props.addContact(fullname, phone_number, email, description).then((data) => {
         console.log('data addContact', data);
         this.props.showAlert({
           message: 'landingPage.contactUS.message',
@@ -53,16 +48,10 @@ class Contact extends React.Component {
         console.log('submitAddContact', err);
       });
     }
-  }
+  }  
 
-  handleOnChange = (value) => {
-    console.log('phone', value);
-    this.setState({
-      phone: value
-    });
-  }
-
-  render() {    
+  render() {  
+    let CountryPhone = require('src/components/Phone/index').default;  
     return (
 
       <div className={cx('container', style['contact-warper'])}>
@@ -99,8 +88,8 @@ class Contact extends React.Component {
                       component={inputField}
                       placeholder="landingPage.contactUS.placeholderPhone"
                       type="phone"
-                    /> */}
-                    <PhoneNumber value={this.state.phone} onChange={this.handleOnChange} defaultCountry='hk' regions='asia' inputStyle={{ width: '100%' }} />
+                    /> */}                    
+                    <CountryPhone name='phone_number' defaultCountry='hk' regions='asia' inputStyle={{ width: '100%' }} />
                   </div>
                   <div className="form-group">
                     <FieldLang
@@ -128,7 +117,7 @@ class Contact extends React.Component {
 const mapStateToProps = state => ({
   fullname: selectorForm(state, 'fullname'),
   email: selectorForm(state, 'email'),
-  phone: selectorForm(state, 'phone'),
+  phone_number: selectorForm(state, 'phone_number'),
   description: selectorForm(state, 'description')
 });
 
