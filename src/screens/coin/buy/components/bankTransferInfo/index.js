@@ -255,12 +255,12 @@ class BankTransferInfo extends PureComponent {
         </Row>
         <Row className={styles.uploadContainer}>
           { showUploader &&
-            (
-              <FileUploader
-                onSuccess={this.onUploaded}
-                onRemove={this.onRemoveReceipt}
-              />
-            )
+          (
+            <FileUploader
+              onSuccess={this.onUploaded}
+              onRemove={this.onRemoveReceipt}
+            />
+          )
           }
           {
             (uploaded || status === STATUS.TRANSFERRING) ?
