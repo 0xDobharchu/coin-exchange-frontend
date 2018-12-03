@@ -4,9 +4,10 @@ import AccountInfo from '../../../AccountInfo';
 import Setting from '../../../Setting';
 import MeProfile from '../../../MeProfile';
 import History from '../../../History';
+import BankInfo from '../../../BankInfo';
 import style from './style.scss';
 
-const CHILD_ROUTES = ['profile', 'setting', 'accountLevel', 'history'];
+const CHILD_ROUTES = ['profile', 'setting', 'accountLevel', 'history', 'bankInfo'];
 
 class TabNavigation extends React.PureComponent {
   getActiveKey = path => {
@@ -15,6 +16,7 @@ class TabNavigation extends React.PureComponent {
       case '/me/setting': return CHILD_ROUTES[1];
       case '/me/accountLevel': return CHILD_ROUTES[2];
       case '/me/history': return CHILD_ROUTES[3];
+      case '/me/bankInfo': return CHILD_ROUTES[4];
       default: return CHILD_ROUTES[0];
     }
   }
@@ -47,6 +49,9 @@ class TabNavigation extends React.PureComponent {
           </Tab>
           <Tab eventKey={CHILD_ROUTES[3]} title="History" className={style.scrollbar}>
             <History location={location} />
+          </Tab>
+          <Tab eventKey={CHILD_ROUTES[4]} title="Bank Info" className={style.scrollbar}>
+            <BankInfo />
           </Tab>
         </Tabs>
       </div>
