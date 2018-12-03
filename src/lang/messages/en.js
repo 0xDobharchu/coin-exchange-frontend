@@ -84,7 +84,7 @@ export default {
       }
     },
     setting: {
-
+      title: 'General Settings'
     },
     history: {
       title: 'Transaction History',
@@ -92,6 +92,14 @@ export default {
       refcode: 'Ref Code',
       type: 'Type',
       amount: 'Amount',
+      viewDetail: 'View Detail',
+      status: 'Status',
+      value: 'Value',
+      link: 'Link',
+      action: 'Action',
+      cancel: 'Cancel',
+      close: 'Close',
+      detail: 'Detail'
     },
     accountLevel: {
       head_text: 'Our verification process typically takes just a few minutes. This may take slightly longer outside business hours. Your information will remain 100% private.',
