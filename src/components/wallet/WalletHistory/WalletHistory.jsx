@@ -18,6 +18,8 @@ import imgNoTrans from 'src/assets/images/wallet/images/no-transaction.svg';
 import iconLoadding from 'src/assets/images/icon/loading.svg.raw';
 import needBackupWhite from 'src/assets/images/wallet/icons/icon-need-backup-white.svg';
 import iconSend from 'src/assets/images/wallet/icons/icon-paper-plane.svg';
+import iconReceive from 'src/assets/images/wallet/icons/icon-get-money.svg';
+import iconPreference from 'src/assets/images/wallet/icons/icon-preference-gray.svg';
 
 const TAB = {
   Transaction: 0,
@@ -408,10 +410,10 @@ class WalletHistory extends React.Component {
 
               <div className={style.boxButton}>                
                     {!wallet.isCollectibles ? <div>
-                      <div className={style.bt1}><div><img src={iconSend} /><span onClick={this.props.onTransferClick}> {messages['wallet.action.history.label.send']}</span></div></div>
-                      <div className={style.bt2}><div><span onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</span></div></div>
-                      {//!wallet.protected &&
-                      <div className={style.bt3}><div><span onClick={this.props.onWarningClick}>{messages['wallet.action.protect.text.need_backup']}</span></div></div>
+                      <div className={style.bt1}><div><img className={style.iconSend} src={iconSend} /><span onClick={this.props.onTransferClick}> {messages['wallet.action.history.label.send']}</span></div></div>
+                      <div className={style.bt2}><div><img className={style.iconReceive} src={iconReceive} /><span onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</span></div></div>
+                      {
+                      <div className={style.bt3}><div><img className={style.iconPreference} src={iconPreference} /><span onClick={this.props.onWarningClick}>{messages['wallet.action.protect.text.need_backup']}</span></div></div>
                       }
                     </div>
                       :( <div>
@@ -438,13 +440,13 @@ class WalletHistory extends React.Component {
     return (
       <div>
         <div className={style.historywalletWrapper}>
-          {this.renderHeaderDesktop}
+          { this.props.isDeskTop ? this.renderHeaderDesktop : this.renderHeaderMobile}
 
           {/* Not support render */}
           {wallet && wallet.isHistorySupport === false ?
             this.getNoTransactionYet(messages['wallet.action.history.label.coming_soon'])
             :
-            <div className={style.historyCcontent}>
+            <div className={style.historyCcontent} style={{height: 'calc(77vh - 150px)'}}>
               {wallet && (wallet.name == "ETH" || wallet.isToken) && (this.state.internalTransactions && this.state.internalTransactions.length > 0) ?
                 <Tabs onChange={(tab, index) => this.setState({ tabActive: index })} tabs={[
                   { key: 't1', title: messages['wallet.action.history.label.transactions'] },

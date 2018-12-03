@@ -16,7 +16,7 @@
 }
 
 .fullHeightBox{
-  height: calc(100vh - 250px);
+  height: calc(100vh - 150px);
 }
 
 .container {
@@ -58,7 +58,7 @@
 }
 .walletWrapLeft{      
   position: relative;
-  padding-bottom: 58px;
+  // padding-bottom: 58px;
   flex: 0 0 360px;
   display: flex;
   flex-direction: row;      
@@ -94,7 +94,7 @@
 
   // for item: need use for move:
   .wallet-box{
-    box-shadow: 2px 2px 13px 0 rgba(1,1,0,.1);
+    // box-shadow: 2px 2px 13px 0 rgba(1,1,0,.1);
     // padding: 20px;
     background: #FFFFFF;
     // box-shadow: 0 15px 11px -8px #F1F1F1;

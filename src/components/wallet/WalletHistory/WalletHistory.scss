@@ -125,14 +125,15 @@
         height: 60px;   
         border-radius: 50%;
         margin-top: 15px;
+        display: none;
       }
       .boxName{        
         padding-top: 20px;
         margin-left: 20px;
+        display: none;
       }
-      .boxButton{
-        margin-left: 20px;
-        padding-top: 20px;
+      .boxButton{        
+        margin: auto;
         .bt1, .bt2, .bt3{
           display: inline;
           button{
@@ -154,11 +155,28 @@
             transition: background-color 0.4s ease-in-out;
             text-decoration: none;
             position: relative;
-            img{
-              width: 35px;
-              top: 13px;
+            margin-right: 50px;
+            cursor: pointer;
+            span{
+              display: none;
+            }
+            .iconSend{
+              width: 28px;
+              top: 15px;
               position: absolute;
-              left: 5px;
+              left: 11px;
+            }
+            .iconReceive{
+              left: 13px;
+              width: 35px;
+              position: absolute;
+              top: 10px;
+            }
+            .iconPreference{
+              left: 16px;
+              width: 28px;
+              position: absolute;
+              top: 15px;
             }
           }
         }
@@ -201,6 +219,7 @@
       margin: 0 10px;
       margin-left: 5px;
       overflow: hidden;
+      cursor: pointer;
     }
 
     .label-self{
