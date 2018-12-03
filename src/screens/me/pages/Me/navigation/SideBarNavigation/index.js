@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tab, Row, Nav, Col } from 'react-bootstrap';
+import { LabelLang } from 'src/lang/components';
 import AccountInfo from '../../../AccountInfo';
 import Setting from '../../../Setting';
 import MeProfile from '../../../MeProfile';
@@ -42,19 +43,19 @@ class SideBarNavigation extends React.PureComponent {
             <Col sm={3}>
               <Nav variant="pills" className="flex-column">
                 <Nav.Item>
-                  <Nav.Link eventKey={CHILD_ROUTES[0]}>My Profile</Nav.Link>
+                  <Nav.Link eventKey={CHILD_ROUTES[0]}><LabelLang id="me.navigation.accountInfo" /></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey={CHILD_ROUTES[1]}>My Setting</Nav.Link>
+                  <Nav.Link eventKey={CHILD_ROUTES[1]}><LabelLang id="me.navigation.setting" /></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey={CHILD_ROUTES[2]}>Account Level</Nav.Link>
+                  <Nav.Link eventKey={CHILD_ROUTES[2]}><LabelLang id="me.navigation.accountLevel" /></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey={CHILD_ROUTES[3]}>History</Nav.Link>
+                  <Nav.Link eventKey={CHILD_ROUTES[3]}><LabelLang id="me.navigation.history" /></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey={CHILD_ROUTES[4]}>Bank Info</Nav.Link>
+                  <Nav.Link eventKey={CHILD_ROUTES[4]}><LabelLang id="me.navigation.bankInfo" /></Nav.Link>
                 </Nav.Item>
               </Nav>
             </Col>

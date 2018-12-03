@@ -94,10 +94,10 @@ class RegisterPage extends React.Component {
       }).then((res) => {
         if (res === USER.REGISTER_SUCCESS) {
           console.log('Register successfully');
-          this.props.showAlert({
-            message: 'user.register.registerSuccessfully',
-            timeOut: 5000,
-          });
+          // this.props.showAlert({
+          //   message: 'user.register.registerSuccessfully',
+          //   timeOut: 5000,
+          // });
           this.props.history.push(URL.HOME);
         } else {
           if(res.data.message) {

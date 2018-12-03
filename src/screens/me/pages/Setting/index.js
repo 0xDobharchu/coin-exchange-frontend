@@ -1,4 +1,5 @@
 import React from 'react';
+import { LabelLang } from 'src/lang/components';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
 import { updateProfileAction } from 'src/screens/auth/redux/action';
@@ -15,7 +16,7 @@ const Setting = ({ updateProfileAction, showAlert }) => {
 
   return (
     <div className={style.container}>
-      <label className={style.title}>General Settings</label>
+      <label className={style.title}><LabelLang id="me.setting.title" /></label>
       <div className={style.lineTitle} />
       <div className={style.block1}>
         <GeneralSettingForm onSubmit={handleUpdateProfile} />
