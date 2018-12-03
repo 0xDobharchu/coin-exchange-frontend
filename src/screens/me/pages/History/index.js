@@ -43,7 +43,7 @@ class History extends React.PureComponent {
             <Row key={i} className={style.table_body}>
               <Col xs={3}>{new Date(e.created_at).toLocaleString()}</Col>
               <Col xs={3}>
-                <button type="button" onClick={this.handleOnSelect.bind(this, e)}>View Detail</button>
+                <button type="button" onClick={this.handleOnSelect.bind(this, e)}><LabelLang id="me.history.viewDetail" /></button>
               </Col>
               <Col xs={3}>{e.direction}</Col>
               <Col xs={3}>
