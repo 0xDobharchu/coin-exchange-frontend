@@ -191,7 +191,7 @@ class SellCryptoCoin extends React.Component {
 
   render() {
     const { supportedCurrency, exchange, currency, paymentMethod } = this.props;
-    const { walletAddress } = this.state;
+    const { walletAddress, isAuth } = this.state;
     const isValid = this.isValidToSubmit();
     if (walletAddress) {
       const exchangeInfo = {
@@ -226,7 +226,7 @@ class SellCryptoCoin extends React.Component {
             component={paymentMethodField}
           />
           { paymentMethod === PAYMENT_METHOD.TRANSFER && this.renderBankInfoInput() }
-          { paymentMethod === PAYMENT_METHOD.TNG && this.renderPhoneBlock() }
+          { paymentMethod === PAYMENT_METHOD.TNG && isAuth && this.renderPhoneBlock() }
           <ConfirmButton
             disabled={!isValid}
             containerClassName='mt-5'
