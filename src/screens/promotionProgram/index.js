@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getPromotionContent } from 'src/screens/landingpage/redux/action';
 import LabelLang from 'src/lang/components/LabelLang';
+import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
 import styles from './styles.scss';
 
 class PromotionProgram extends React.Component {
@@ -50,7 +51,7 @@ class PromotionProgram extends React.Component {
 
 const mapState = state => ({
   promotionContent: state.landingReducer.promotionContent,
-  locale: state.langReducer.lang || 'en'
+  locale: state.langReducer.lang || FAIL_DEFAULT_LANGUAGE
 });
 
 const mapDispatch = dispatch => ({
