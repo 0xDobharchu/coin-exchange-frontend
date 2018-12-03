@@ -16,7 +16,8 @@ export const URL = {
   ME_PROFILE: '/me/profile',
   ME_SETTING: '/me/setting',
   ME_ACCOUNT_LEVEL: '/me/accountLevel',
-  ME_HISTORY: '/me/history'
+  ME_HISTORY: '/me/history',
+  PROMOTION_PROGRAM: '/promotion-programs'
 };
 
 export const API_URL = {
@@ -83,7 +84,7 @@ export const API_URL = {
     GET_LANGUAGES: '/system/languages/',
   },
   LANDING: {
-    STATIC_PAGE: '/content/static-page/',    
+    STATIC_PAGE: '/content/static-page/',
     FAQ: '/content/faq/',
   },
   COIN: {
