@@ -15,7 +15,7 @@ import Modal from 'src/components/core/controls/Modal';
 import { Tabs } from 'rmc-tabs';
 
 import imgNoTrans from 'src/assets/images/wallet/images/no-transaction.svg';
-import iconLoadding from 'src/assets/images/icon/loading.gif';
+import iconLoadding from 'src/assets/images/icon/loading.svg.raw';
 import needBackupWhite from 'src/assets/images/wallet/icons/icon-need-backup-white.svg';
 
 const TAB = {
