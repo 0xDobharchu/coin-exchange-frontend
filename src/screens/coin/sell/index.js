@@ -19,6 +19,7 @@ import { FaLock } from 'react-icons/fa';
 import authUtil from 'src/utils/authentication';
 import OrderInfo from './components/orderInfo';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
+import paymentMethodField from './reduxFormFields/paymentMethod';
 import { makeOrder, genAddress } from './redux/action';
 import styles from './styles.scss';
 
@@ -29,6 +30,7 @@ const SellForm = createForm({
     destroyOnUnmount: false,
     form: sellFormName,
     initialValues: {
+      paymentMethod: PAYMENT_METHOD.TRANSFER,
     },
   },
 });
@@ -174,7 +176,7 @@ class SellCryptoCoin extends React.Component {
   }
 
   render() {
-    const { paymentMethod, supportedCurrency, exchange, currency } = this.props;
+    const { supportedCurrency, exchange, currency } = this.props;
     const { walletAddress } = this.state;
     const isValid = this.isValidToSubmit();
     if (walletAddress) {
@@ -199,11 +201,15 @@ class SellCryptoCoin extends React.Component {
             name="exchange"
             className='mt-4'
             component={exchangeField}
-            orderType={paymentMethod}
             direction={EXCHANGE_DIRECTION.sell}
             fiatCurrency={supportedCurrency[0]}
             currency={currency}
             validate={exchangeValidator}
+          />
+          <Field
+            name="paymentMethod"
+            className='mt-4'
+            component={paymentMethodField}
           />
           { this.renderBankInfoInput() }
           <ConfirmButton
