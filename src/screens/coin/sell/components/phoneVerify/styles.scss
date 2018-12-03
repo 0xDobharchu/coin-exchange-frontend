@@ -1,0 +1,33 @@
+@import 'var';
+
+.container {
+  .phone-group, .code-group {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    margin: 10px 0px;
+    div:global(.react-tel-input) > input, .code {
+      height: $input-height;
+      width: inherit;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+    button, .btn-code {
+      width: 150px;
+      height: $input-height;
+      border-radius: 0px 5px 5px 0px;
+      height: 50px;
+    }
+    .prepend-phone {
+      background-color: #C7C7D1;
+      width: 150px;
+      border-radius: 0px 5px 5px 0px;
+      height: $input-height;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
