@@ -116,6 +116,7 @@ export default {
         sendPhoneCodeSuccess: 'We sent the secret code to your phone.',
         sendEmailCodeSuccess: 'We sent a verification code to your email',
         imageIdentifierRequired: 'Back/Front Image is required',
+        imageIdentifierPassportRequired: 'Passport Photo is requied',
         imageSelfieRequired: 'Image Selifie is required'
       }
     }
@@ -742,5 +743,6 @@ export default {
   static_page: {
     userAgreement: 'User Agreement',
     privacyPolicy: 'Privacy Policy',
+    promotionPrograms: 'Promotion Programs',
   }
 };
