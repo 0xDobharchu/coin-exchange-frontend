@@ -36,7 +36,7 @@ const SelfieBlock = ({ style, level, levelStatus, showAlert, submitVerifyLevel4A
         </div>
       </div>
       <div className={style.content}>
-        <p className={style.text}><LabelLang id="me.accountLevel.wrm3" /></p>
+        <p className={style.text}><LabelLang id="me.accountLevel.wrm4" /></p>
       </div>
       {3 <= currentLevel && <SelfieForm onSubmit={handleSubmitForm} />}
     </div>);
