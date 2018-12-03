@@ -868,7 +868,8 @@ class Wallet extends React.Component {
         }
         if (wallet){
             return (
-                <WalletHistory
+                <WalletHistory 
+                    isDeskTop={this.state.isDeskTop}
                     onTransferClick={() => this.showTransfer(wallet)}
                     onReceiveClick={() => this.onAddressClick(wallet)}
                     onWarningClick={() => this.onWarningClick(wallet)}
