@@ -17,6 +17,7 @@ export const URL = {
   ME_SETTING: '/me/setting',
   ME_ACCOUNT_LEVEL: '/me/accountLevel',
   ME_HISTORY: '/me/history',
+  ME_BANK_INFO: '/me/bankInfo',
   PROMOTION_PROGRAM: '/promotion-programs'
 };
 

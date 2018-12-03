@@ -20,6 +20,7 @@ const mockState = {
     verification_status: '',
     wallet: '',
     security_2fa: false,
+    payment_info: null,
   },
   history: {
     transactions: [],
@@ -49,7 +50,8 @@ export default (state = mockState, { type, payload, data }) => {
         ...state,
         profile: {
           ...state.profile,
-          ...(payload || data)
+          ...(payload || data),
+          payment_info: payload && payload.payment_info ? JSON.parse(payload.payment_info) : null
         }
       };
     case 'GET_TRANSACTIONS':
