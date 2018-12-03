@@ -2,6 +2,7 @@ import React from 'react';
 import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
 
 class WrapperLang extends React.PureComponent {
   render() {
@@ -17,7 +18,7 @@ class WrapperLang extends React.PureComponent {
 }
 
 const mapState = state => ({
-  lang: state.langReducer.lang || 'en'
+  lang: state.langReducer.lang || FAIL_DEFAULT_LANGUAGE
 });
 
 export default compose(

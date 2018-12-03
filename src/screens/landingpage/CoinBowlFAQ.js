@@ -3,6 +3,7 @@ import ProjectDetail from 'src/components/projectDetail';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import LabelLang from 'src/lang/components/LabelLang';
+import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
 import { getFaqContent } from './redux/action';
 import styles from './styles.scss';
 
@@ -48,7 +49,7 @@ class CoinBowlFAQ extends React.PureComponent {
 
 const mapState = state => ({
   faqContent: state.landingReducer.faqContent,
-  locale: state.langReducer.lang || 'en'
+  locale: state.langReducer.lang || FAIL_DEFAULT_LANGUAGE
 });
 
 const mapDispatch = dispatch => ({
