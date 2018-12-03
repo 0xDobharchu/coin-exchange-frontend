@@ -745,5 +745,6 @@ export default {
     userAgreement: 'User Agreement',
     privacyPolicy: 'Privacy Policy',
     promotionPrograms: 'Promotion Programs',
+    aboutUs: 'About Us',
   }
 };
