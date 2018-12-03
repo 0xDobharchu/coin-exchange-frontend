@@ -97,6 +97,12 @@ const routes = [
     auth: true,
   },
   {
+    path: URL.ME_BANK_INFO,
+    component: Me,
+    exact: true,
+    auth: true,
+  },
+  {
     path: '/wallet',
     component: Wallet,
     exact: true,
