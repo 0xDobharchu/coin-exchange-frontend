@@ -18,6 +18,7 @@ export default {
   },
   headerBar: {
     home: 'Home',
+    promotionPrograms: 'Promotion Programs',
     contactUs: 'Contact Us',
     aboutUs: 'About Us',
     faq: 'FAQ',
