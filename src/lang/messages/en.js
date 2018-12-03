@@ -66,7 +66,7 @@ export default {
       userProfile: 'User Profile',
       personalDetails: 'Personal Details',
       personalDetailsDesc: 'Your personal information is never shown to other users',
-      referralTitle: 'Refferal',
+      referralTitle: 'Referral',
       referralLink: 'Your Referral Link Here: ',
       referral: {
         name: 'Name',
