@@ -120,6 +120,19 @@ export default {
         imageIdentifierPassportRequired: 'Passport Photo is requied',
         imageSelfieRequired: 'Image Selifie is required'
       }
+    },
+    bankInfo: {
+      title: 'Bank Info',
+      bankName: 'Bank Name',
+      bankAccountName: 'Bank Account Name',
+      bankAccountNumber: 'Bank Account Number',
+      bankNameHolder: 'Enter Bank Name',
+      bankAccountNameHolder: 'Enter Bank Account Name',
+      bankAccountNumberHolder: 'Enter Bank Account Number',
+      alert: {
+        success: 'Update Success',
+        failed: 'Update Failed',
+      }
     }
   },
   COIN_EXCHANGE_LP_FAQ_TITLE: 'Frequently asked questions',
@@ -745,5 +758,6 @@ export default {
     userAgreement: 'User Agreement',
     privacyPolicy: 'Privacy Policy',
     promotionPrograms: 'Promotion Programs',
+    aboutUs: 'About Us',
   }
 };

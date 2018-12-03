@@ -17,8 +17,6 @@ COPY ./ /app/
 
 RUN rm -rf /app/node_modules
 
-RUN rm yarn.lock
-
 RUN npm install yarn@latest
 
 RUN yarn build

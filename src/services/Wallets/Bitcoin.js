@@ -6,7 +6,7 @@ import { Wallet } from 'src/services/Wallets/Wallet';
 export const NB_BLOCKS = 20;
 import { set, getJSON } from 'js-cookie';
 
-const bitcore = {}; //require('bitcore-lib');
+const bitcore = require('bitcore-lib');
 const BigNumber = require('bignumber.js');
 const moment = require('moment');
 const Mnemonic = require('bitcore-mnemonic');
