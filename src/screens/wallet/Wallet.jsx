@@ -159,7 +159,7 @@ class Wallet extends React.Component {
 
   }
 
-  showAlert(msg, type = 'success', timeOut = 3000, icon = '') {
+  showAlert(msg, type = 'successonstants'', timeOut = 3000, icon = '') {
     this.props.showAlert({
       message: <div className={style.textCenter}>{icon}{msg}</div>,
       timeOut,

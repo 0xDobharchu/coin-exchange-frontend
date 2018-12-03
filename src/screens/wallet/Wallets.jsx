@@ -35,13 +35,11 @@ import TransferCoin from 'src/components/wallet/TransferCoin';
 import ReceiveCoin from 'src/components/wallet/ReceiveCoin';
 import { showLoading, hideLoading, showAlert } from 'src/screens/app/redux/action';
 import local from 'src/services/localStore';
-import { APP } from 'src/constants';
+import {APP} from 'src/resources/constants/app';
 
 import { userWallet, makeSaveWallet } from './action';
 
 import CoinTemp from 'src/screens/wallet/CoinTemp';
-import BackupWallet from 'src/components/wallet/BackupWallet/BackupWallet';
-import RestoreWallet from 'src/components/wallet/RestoreWallet/RestoreWallet';
 
 // new layout:
 import logoWallet from 'src/assets/images/wallet/images/logo-wallet.svg';
@@ -138,10 +136,8 @@ class Wallet extends React.Component {
             modalHistory: '',
             modalWalletPreferences: "",
             modalSecure: "",
-            modalRemindCheckout: '',
-            backupWalletContent: "",
-            exportPrivateContent: "",
-            restoreWalletContent: "",
+            modalRemindCheckout: '',            
+            exportPrivateContent: "",            
             userPassword: '',
 
             // sortable:
@@ -481,21 +477,7 @@ class Wallet extends React.Component {
             this.modalReceiveCoinRef.open();
         });
     }
-
-    showBackupWalletAccount = () => {
-
-        this.props.requestWalletPasscode({
-            onSuccess: () => {
-                this.setState({ backupWalletContent: <BackupWallet /> }, () => {
-                    this.modalBackupRef.open();
-                })
-            }
-        });
-    }
-    closeBackupWalletAccount = () => {
-        this.setState({ backupWalletContent: "" });
-    }
-
+    
     // on select type of wallet to create:
     onSelectCoinClick = (wallet) => {
         const listCoinTemp = this.state.listCoinTempToCreate;
