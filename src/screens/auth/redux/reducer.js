@@ -24,10 +24,11 @@ const mockState = {
   history: {
     transactions: [],
     count: 0
-  }
+  },
+  referrals: []
 };
 
-export default (state = mockState, { type, payload }) => {
+export default (state = mockState, { type, payload, data }) => {
   switch (type) {
     case 'GET_PROFILE':
       return {
@@ -48,13 +49,18 @@ export default (state = mockState, { type, payload }) => {
         ...state,
         profile: {
           ...state.profile,
-          ...payload
+          ...(payload || data)
         }
       };
     case 'GET_TRANSACTIONS':
       return {
         ...state,
         history: payload
+      };
+    case 'GET_REFERRALS':
+      return {
+        ...state,
+        referrals: []
       };
     default:
       return state;

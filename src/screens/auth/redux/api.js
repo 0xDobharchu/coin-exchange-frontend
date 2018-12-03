@@ -301,3 +301,22 @@ export const getCurrenciesByCountry = async (country) => {
     return [];
   }
 };
+
+export const getReferrals = async () => {
+  try {
+    const options = {
+      url : '/user/referrals/',
+      method: 'GET',
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {
+        Authorization: 'Bearer ' + currentUser.getToken()
+      };
+    }
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR get currencies', err);
+    return [];
+  }
+};

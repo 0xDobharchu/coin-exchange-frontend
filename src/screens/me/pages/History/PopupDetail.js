@@ -9,7 +9,7 @@ class PopupDetail extends React.Component {
 
   render() {
     const { onHide } = this.props;
-    const { data :{ created_at, direction, amount, currency, status, action, value, link } } = this.props;
+    const { data :{ created_at, direction, amount, currency, status, fiat_local_amount, fiat_local_currency, link } } = this.props;
     return (
       <Modal
         {...this.props}
@@ -41,17 +41,18 @@ class PopupDetail extends React.Component {
             <Col xs={9}>{status || 'None'}</Col>
           </Row>
           <Row style={{ width: '100%' }}>
-            <Col xs={3}>Action</Col>
-            <Col xs={9}>{action || 'None'}</Col>
-          </Row>
-          <Row style={{ width: '100%' }}>
             <Col xs={3}>Value</Col>
-            <Col xs={9}>{value}</Col>
+            <Col xs={9}>{`${fiat_local_amount} ${fiat_local_currency}`}</Col>
           </Row>
           <Row style={{ width: '100%' }}>
             <Col xs={3}>Link</Col>
             <Col xs={9}>{link || 'nolink'}</Col>
           </Row>
+          {status === 'pending' && (
+          <Row style={{ width: '100%' }}>
+            <Col xs={3}>Action</Col>
+            <Col xs={9}><button type="button">Cancel</button></Col>
+          </Row>)}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={onHide}>Close</Button>

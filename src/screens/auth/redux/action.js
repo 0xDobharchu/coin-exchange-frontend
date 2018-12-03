@@ -1,6 +1,6 @@
 import {
   fetchProfile, sendEmailVerifyCode, updateProfile, sendToGetPhoneCode, submitVerifyPhoneCode, submitIdCard, submitSelfie,
-  getTransactions
+  getTransactions, getReferrals
 } from './api';
 
 export const getProfileAction = () => (dispatch) => new Promise((resolve, reject) => {
@@ -71,6 +71,13 @@ export const getTransactionsAction = () => (dispatch) => new Promise((resolve, r
       transactions: r.results
     };
     dispatch({ type: 'GET_TRANSACTIONS', payload });
+    resolve(true);
+  }).catch(err => reject(err));
+});
+
+export const getReferralsAction = () => (dispatch) => new Promise((resolve, reject) => {
+  getReferrals().then(payload => {
+    dispatch({ type: 'GET_REFERRALS', payload });
     resolve(true);
   }).catch(err => reject(err));
 });

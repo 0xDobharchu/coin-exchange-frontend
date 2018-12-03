@@ -11,8 +11,25 @@
       .text {
       }
     }
+    .loading-icon {
+      text-align: center;
+      margin: 10px;
+    }
     .infos {
       margin: 0px 0px 20px 0px;
+      .can-not-get-bank-info {
+        display: block;
+        text-align: center;
+        margin: 10px 0px;
+        color: green;
+        width: 100%;
+        text-transform: uppercase;
+        .get-btn {
+          font-weight: bold;
+          color: orange;
+          margin: 0px 10px;
+        }
+      }
       .copy-icon {
         margin: 0px 15px;
         cursor: pointer;
