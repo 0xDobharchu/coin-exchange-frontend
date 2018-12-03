@@ -743,5 +743,6 @@ export default {
   static_page: {
     userAgreement: 'User Agreement',
     privacyPolicy: 'Privacy Policy',
+    promotionPrograms: 'Promotion Programs',
   }
 };

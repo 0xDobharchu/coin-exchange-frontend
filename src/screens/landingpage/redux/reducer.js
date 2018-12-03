@@ -24,6 +24,12 @@ export default (state = initState, { type, data }) => {
         privacyContent: data?.content,
       };
     }
+    case `${LANDINGPAGE_ACTION.GET_PROMOTION_CONTENT}_SUCCESS`: {
+      return {
+        ...state,
+        promotionContent: data?.content,
+      };
+    }
 
     default:
       return state;

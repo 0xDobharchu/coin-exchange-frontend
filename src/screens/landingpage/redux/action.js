@@ -22,3 +22,10 @@ export const getPrivacyContent = (data) => makeRequest({
   params: data.params,
   withAuth: false
 });
+
+export const getPromotionContent = (data) => makeRequest({
+  type: LANDINGPAGE_ACTION.GET_PROMOTION_CONTENT,
+  url: `${API_URL.LANDING.STATIC_PAGE}`,
+  params: data.params,
+  withAuth: false
+});
