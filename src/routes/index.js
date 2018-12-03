@@ -6,7 +6,6 @@ import Register from 'src/screens/register';
 import forgetPassword from 'src/screens/forgetPassword';
 import forgetPasswordFinish from 'src/screens/forgetPassword/finish';
 import Coin from 'src/screens/coin';
-import Localization from 'src/screens/localization';
 import Me from 'src/screens/me/pages/Me';
 import Wallet from 'src/screens/wallet';
 import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
@@ -65,11 +64,6 @@ const routes = [
   {
     path: URL.USER_FORGET_PASSWORD_FINISH,
     component: forgetPasswordFinish,
-    exact: true,
-  },
-  {
-    path: '/localization',
-    component: Localization,
     exact: true,
   },
   {
