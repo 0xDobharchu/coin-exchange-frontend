@@ -148,6 +148,8 @@ export default {
       alert: {
         success: 'Update Success',
         failed: 'Update Failed',
+        deleteSuccess: 'Delete Success',
+        deleteFailed: 'Delete Failed'
       }
     }
   },

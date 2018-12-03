@@ -7,23 +7,41 @@ import BankInfoForm from './form/BankInfoForm';
 import style from './style.scss';
 
 // eslint-disable-next-line
-const BankInfo = ({ updateProfileAction, showAlert }) => {
-  const showMessage = (message, type) => showAlert({ message, type });
-  const showSuccess = id => showMessage(id, 'success');
-  const showError = id => showMessage(id, 'danger');
-  const handleSubmit = values => {
-    updateProfileAction({ payment_info: JSON.stringify(values) }).then(() => showSuccess('me.bankInfo.alert.success')).catch(() => showError('me.bankInfo.alert.failed'));
-  };
-  const handleDelete = () => updateProfileAction({ payment_info: '' }).then(() => showSuccess('me.bankInfo.alert.success')).catch(() => showError('me.bankInfo.alert.failed'));
+class BankInfo extends React.Component {
 
-  return (
-    <div className={style.container}>
-      <label className={style.title}><LabelLang id="me.bankInfo.title" /></label>
-      <div className={style.lineTitle} />
-      <div className={style.block1}>
-        <BankInfoForm isEditMode={false} onSubmit={handleSubmit} onDelete={handleDelete} />
+  constructor(props) {
+    super(props);
+    this.bankInfoForm = React.createRef();
+  }
+  // eslint-disable-next-line
+  showMessage = (message, type) => this.props.showAlert({ message, type });
+  showSuccess = id => this.showMessage(id, 'success');
+  showError = id => this.showMessage(id, 'danger');
+  handleSubmit = values => {
+    //eslint-disable-next-line
+    this.props.updateProfileAction({ payment_info: JSON.stringify(values) }).then(() => {
+      this.bankInfoForm.current.getWrappedInstance().ref.getWrappedInstance().wrapped.switchViewMode();
+      this.showSuccess('me.bankInfo.alert.success'); 
+    }).catch(() => this.showError('me.bankInfo.alert.failed'));
+  };
+
+  // eslint-disable-next-line
+  handleDelete = () => this.props.updateProfileAction({ payment_info: '' }).then(() => {
+    this.bankInfoForm.current.getWrappedInstance().ref.getWrappedInstance().wrapped.toggleEdit();
+    this.showSuccess('me.bankInfo.alert.deleteSuccess'); 
+  }).catch(() => this.showError('me.bankInfo.alert.deleteFailed'));
+
+  render() {
+    return (
+      <div className={style.container}>
+        <label className={style.title}><LabelLang id="me.bankInfo.title" /></label>
+        <div className={style.lineTitle} />
+        <div className={style.block1}>
+          <BankInfoForm ref={this.bankInfoForm} isEditMode={false} onSubmit={this.handleSubmit} onDelete={this.handleDelete} />
+        </div>
       </div>
-    </div>);
-};
+    );
+  }
+}
 
 export default connect(null, { updateProfileAction, showAlert })(BankInfo);
