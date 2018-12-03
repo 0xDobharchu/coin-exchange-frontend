@@ -4,7 +4,7 @@ import { showAlert } from 'src/screens/app/redux/action';
 import { submitVerifyLevel3Action } from 'src/screens/auth/redux/action';
 import { LabelLang } from 'src/lang/components';
 import IDVerificationForm from './IDVerificationForm';
-import {getCurrentLevel} from '../util';
+import { DOC_TYPES, getCurrentLevel} from '../util';
 
 const getStatusColor = (level, status) => {
   if (level === 'level_4') return 'success';
@@ -28,14 +28,25 @@ class IDCardBlock extends React.PureComponent {
   handleSubmitForm = values => {
     // eslint-disable-next-line
     const { showAlert, submitVerifyLevel3Action } = this.props;
-    const { back_image, front_image } = values;
-    if (!back_image || !front_image) {
-      showAlert({
-        message: 'me.accountLevel.alert.imageIdentifierRequired',
-        timeOut: 3000,
-        type: 'danger'
-      });
-      return;
+    const { back_image, front_image, id_type } = values;
+    if (id_type === DOC_TYPES[0].value) {
+      if (!back_image) {
+        showAlert({
+          message: 'me.accountLevel.alert.imageIdentifierPassportRequired',
+          timeOut: 3000,
+          type: 'danger'
+        });
+        return;
+      }
+    } else {
+      if (!back_image || !front_image) {
+        showAlert({
+          message: 'me.accountLevel.alert.imageIdentifierRequired',
+          timeOut: 3000,
+          type: 'danger'
+        });
+        return;
+      }
     }
     submitVerifyLevel3Action(values);
     showAlert({
