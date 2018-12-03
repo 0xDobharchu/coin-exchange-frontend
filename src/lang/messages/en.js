@@ -42,6 +42,13 @@ export default {
     }
   },
   me: {
+    navigation: {
+      accountInfo: 'My Profile',
+      setting: 'My Setting',
+      accountLevel: 'Account Level',
+      history: 'History',
+      bankInfo: 'Bank Info'
+    },
     accountInfo: {
       email: 'Email',
       nickname: 'Nickname',
@@ -59,7 +66,7 @@ export default {
       userProfile: 'User Profile',
       personalDetails: 'Personal Details',
       personalDetailsDesc: 'Your personal information is never shown to other users',
-      referralTitle: 'Refferal',
+      referralTitle: 'Referral',
       referralLink: 'Your Referral Link Here: ',
       referral: {
         name: 'Name',
@@ -77,7 +84,7 @@ export default {
       }
     },
     setting: {
-
+      title: 'General Settings'
     },
     history: {
       title: 'Transaction History',
@@ -85,6 +92,14 @@ export default {
       refcode: 'Ref Code',
       type: 'Type',
       amount: 'Amount',
+      viewDetail: 'View Detail',
+      status: 'Status',
+      value: 'Value',
+      link: 'Link',
+      action: 'Action',
+      cancel: 'Cancel',
+      close: 'Close',
+      detail: 'Detail'
     },
     accountLevel: {
       head_text: 'Our verification process typically takes just a few minutes. This may take slightly longer outside business hours. Your information will remain 100% private.',
@@ -93,8 +108,9 @@ export default {
       step3: 'Level 3 : ID Card Verification',
       step4: 'Level 4 : Upload Photo Selfie',
       wrm1: 'Trade with a limit upto 500 USD a day.',
-      wrm2: 'Trade with the top limit of 5000 USD a day.',
-      wrm3: 'Trade with the top limit of 50000 USD a day.',
+      wrm2: 'Trade with the top limit of 2000 USD a day.',
+      wrm3: 'Trade with the top limit of 5000 USD a day.',
+      wrm4: 'Unlimited Amount.',
       lv3desc: 'To comply with relevant anti-money laundering (AML) and counter-terrorism financing (CTF) laws and regulations.',
       fullName: 'Full Name',
       fullNameDesc: 'Please enter your full name',
