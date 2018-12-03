@@ -9,6 +9,7 @@ import { change, Field } from 'redux-form';
 import { changeLang } from 'src/lang/action';
 import dropdownField from 'src/components/core/form/fields/dropdown';
 import createForm from 'src/components/core/form/createForm';
+import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
 import styles from './styles.scss';
 
 const chooseLanguageFormName = 'chooseLanguageFormName';
@@ -98,7 +99,7 @@ ChangeLanguage.defaultProps = {
 };
 
 const mapState = state => ({
-  locale: state.langReducer.lang || 'en',
+  locale: state.langReducer.lang || FAIL_DEFAULT_LANGUAGE,
   supportedLanguages: state.app.supportedLanguages
 });
 

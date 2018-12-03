@@ -1,3 +1,4 @@
+import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
 
 const mockState = {
   token: '',
@@ -7,7 +8,7 @@ const mockState = {
     idVerificationLevel: 0,
     verified: 1,
     name: '',
-    language: 'en',
+    language: FAIL_DEFAULT_LANGUAGE,
     country: '',
     currency: '',
     phone_number: '',
