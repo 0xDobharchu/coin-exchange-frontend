@@ -4,20 +4,20 @@ import { connect } from 'react-redux';
 // components
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import Button from '@/components/core/controls/Button';
+import Button from 'src/components/core/controls/Button';
 import {
     fieldInput
-  } from '@/components/core/form/customField';
-import { verifyEmail, submitEmail, checkJoinTelegram, checkFollowTwitter, completeProfile, authUpdate } from '@/reducers/auth/action';
-import {required} from '@/components/core/form/validation';
+  } from 'src/components/core/form/customField';
+import { verifyEmail, submitEmail, checkJoinTelegram, checkFollowTwitter, completeProfile, authUpdate } from 'src/reducers/auth/action';
+import {required} from 'src/components/core/form/validation';
 import {change, Field, clearFields} from 'redux-form';
 import {bindActionCreators} from 'redux';
-import createForm from '@/components/core/form/createForm';
-import { showAlert } from '@/reducers/app/action';
-import { showLoading, hideLoading } from '@/reducers/app/action';
-import iconSuccessChecked from '@/assets/images/wallet/icons/icon-checked-green.svg';
-import local from '@/services/localStore';
-import {APP} from '@/constants';
+import createForm from 'src/components/core/form/createForm';
+import { showAlert } from 'src/screens/app/redux/action';
+import { showLoading, hideLoading } from 'src/screens/app/redux/action';
+import iconSuccessChecked from 'src/assets/images/wallet/icons/icon-checked-green.svg';
+import local from 'src/services/localStore';
+import {APP} from 'src/constants';
 import "./Refers.scss";
 
   // 3 step Form

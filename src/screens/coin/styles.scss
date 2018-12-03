@@ -1,11 +1,96 @@
-.desktop {
-  @media screen and (max-width: 768px){
-    display: none;
-  }
-}
+@import 'var';
+@import 'responsive';
 
-.mobile {
-  @media screen and (min-width: 768px){
-    display: none;
+.container {
+  > div:global(.row > div) {
+    @include respond(lg) {
+      margin: 30px 0px;
+    }
   }
+  .intro {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 30px 0px;
+    h1 {
+      @include respond(sm) {
+        font-size: 30px;
+      }
+      font-size: 36px;
+      color: white;
+      text-align: center;
+    }
+    h3 {
+      font-size: 24px;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon {
+      margin: 10px;
+      font-size: 24px;
+      color: #49EDF2;
+      text-align: center;
+      position: relative;
+      bottom: -2px;
+    }
+  }
+  .panel {
+    background-color: #ffffff;
+    width: inherit;
+    box-shadow: 0 5px 10px -7px #47464A;
+    border-radius: 6px;
+    height: 100%;
+  }
+  .main {
+    padding: 30px;
+    background: $white;;
+    box-shadow: 0 5px 10px -7px #47464A;
+    border-radius: 6px;
+    .header {
+      height: $btn-height-medium;
+      display: flex;
+      justify-content: space-around;
+      border-radius: 6px 6px 6px 6px;
+      align-items: center;
+      overflow: hidden;
+      .tab-title {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: inherit;
+        color: $black-light;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        letter-spacing: 0;
+        width: 100%;
+        background-color: #F1F0F5;
+        &.header-active-buy {
+          color: $white;
+          background-color: $ce-green;
+        }
+        &.header-active-sell {
+          color: $white;
+          background-color: $ce-red;
+        }
+      }
+    }
+    .content {
+      min-height: 400px;
+      margin: 20px 0px;
+      .tab-content {
+        height: 100%;
+        &.active {
+          display: block;
+        }
+        &.hidden {
+          display: none;
+        }
+      }
+    }
+  }
+
 }

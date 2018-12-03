@@ -1,0 +1,59 @@
+.container {
+  span {
+    font-size: 16px;
+    color: #0A2240;
+    letter-spacing: 0;
+  }
+  .coin-info {
+    display: flex;
+    padding: 10px 0px;
+    .label {
+      display: flex;
+      padding: 10px 0px;
+      flex-direction: column;
+      width: 40%;
+      >img {
+        width: 24px;
+        height: 24px;
+        margin-left: 20px;
+      }
+      > span {
+        font-size: 16px;
+        color: #0A2240;
+        letter-spacing: 0;
+        margin-left: 20px;
+        margin-top: 10px;
+      }
+    }
+    .graph {
+      width: 60%;
+    }
+  }
+  .sell, .buy {
+    display: flex;
+    padding: 0px 0px;
+    align-items: center;
+    :nth-child(1) {
+      display: block;
+      width: 100px;
+    }
+    :nth-child(1) {
+      display: block;
+      padding: 10px 20px;
+    }
+    :nth-child(2) {
+      padding: 5px 20px;
+    }
+  }
+  .buy {
+    :nth-child(2) {
+      color: #57BB24;
+    }
+  }
+
+  .sell {
+    :nth-child(2) {
+      color: #F4181C;
+    }
+  }
+}

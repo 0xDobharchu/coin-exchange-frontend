@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import './Wallet.scss';
+import style from './Wallet.scss';
 
-import Button from '@/components/core/controls/Button';
-import Checkbox from '@/components/core/forms/Checkbox/Checkbox';
-import Modal from '@/components/core/controls/Modal';
-import ModalDialog from '@/components/core/controls/ModalDialog';
+import Button from 'src/components/core/controls/Button';
+import Checkbox from 'src/components/core/controls/Checkbox/Checkbox';
+import Modal from 'src/components/core/controls/Modal';
+import ModalDialog from 'src/components/core/controls/ModalDialog';
 
 class WalletProtect extends React.Component {
   static propTypes = {
@@ -35,19 +35,19 @@ class WalletProtect extends React.Component {
 
     return this.state.step == 1 ?
     (
-      <div className="protectwallet-wrapper" >
-          <div className="msg1">
-            {messages.wallet.action.protect.text.msg1}
+      <div className={style.protectwalletWrapper}>
+          <div className={style.msg1}>
+            {messages['wallet.action.protect.text.msg1']}
           </div>
-          <div className="msg2">
-            {messages.wallet.action.protect.text.step1_msg2}
+          <div className={style.msg2}>
+            {messages['wallet.action.protect.text.step1_msg2']}
           </div>
-          <div className="msg3">
-            <Checkbox name="checkBoxProtected" label={messages.wallet.action.protect.text.step1_label}
+          <div className={style.msg3}>
+            <Checkbox name="checkBoxProtected" label={messages['wallet.action.protect.text.step1_label']}
               defaultChecked={this.state.step1_confirm}
               onClick={() => { this.setState({step1_confirm: !this.state.step1_confirm}); }} />
           </div>
-          <Button className="button-wallet" block disabled={!this.state.step1_confirm} type="submit" onClick={this.doStep1}>Continue</Button>
+          <Button className={style.buttonWallet} block disabled={!this.state.step1_confirm} type="submit" onClick={this.doStep1}>Continue</Button>
         </div>
     )
     : "";
@@ -60,18 +60,18 @@ class WalletProtect extends React.Component {
     let arr_phrase  = wallet && wallet.mnemonic ? wallet.mnemonic.split(' ') : [];
     return this.state.step == 2 ?
     (
-      <div className="protectwallet-wrapper" >
-          <div className="msg1">
-            {messages.wallet.action.protect.text.step2_msg1}
+      <div className={style.protectwalletWrapper} >
+          <div className={style.msg1}>
+            {messages['wallet.action.protect.text.step2_msg1']}
           </div>
-          <div className="pass_phrase">
+          <div className={style.passPhrase}>
             {/* fill pass phrase */}
             {arr_phrase.map((str) => {
-              return <div key={str} className="btn cursor-initial bg-light">{str}</div>
+              return <div key={str} className={"btn " + style["cursor-initial"] + " bg-light"}>{str}</div>
             })}
           </div>
-          <div onClick={onCopy} className="pass-phrase-link-copy">{messages.wallet.action.protect.button.copy_clipboard}</div>
-          <Button className="button-wallet" block type="submit" onClick={this.doStep2}>{messages.wallet.action.protect.button.verify}</Button>
+          <div onClick={onCopy} className={style.passPhraseLinkCopy}>{messages['wallet.action.protect.button.copy_clipboard']}</div>
+          <Button className={style.buttonWallet} block type="submit" onClick={this.doStep2}>{messages['wallet.action.protect.button.verify']}</Button>
         </div>
     )
     : "";
@@ -82,22 +82,22 @@ class WalletProtect extends React.Component {
 
     return this.state.step == 3 ?
     (
-      <div className="protectwallet-wrapper" >
-          <div className="msg1">
-          {messages.wallet.action.protect.text.step3_msg1}
+      <div className={style.protectwalletWrapper} >
+          <div className={style.msg1}>
+          {messages['wallet.action.protect.text.step3_msg1']}
           </div>
-          <div className="confirm_pass_phrase">
+          <div className={style.confirmPassPhrase}>
             {this.state.arr_confirm.map((str) => {
               return <div key={str}  className="btn btn-light" onClick={() => this.pickPassPhrase(str, false)}>{str}</div>
             })}
           </div>
-          <div className="pass_phrase">
+          <div className={style.passPhrase}>
             {/* fill pass phrase */}
             {this.state.arr_random.map((str) => {
               return <div key={str}  className="btn btn-light" onClick={() => this.pickPassPhrase(str, true)}>{str}</div>
             })}
           </div>
-          <Button className="button-wallet" block type="submit" onClick={this.doStep3}>{messages.wallet.action.protect.button.verify}</Button>
+          <Button className={style.buttonWallet} block type="submit" onClick={this.doStep3}>{messages['wallet.action.protect.button.verify']}</Button>
         </div>
     )
     : "";
@@ -202,9 +202,9 @@ class WalletProtect extends React.Component {
         {this.showStep2}
         {this.showStep3}
         <ModalDialog title="Try again" onRef={modal => this.modalConfirmRef = modal}>
-          <div className="wrong-pass-phrase">{messages.wallet.action.protect.error.confirm}</div>
-          <div className="text-center p-3 ">
-            <button className="btn-block btn btn-secondary p-2" onClick={this.tryDoStep3}>{messages.wallet.action.protect.button.ok}</button>
+          <div className={style.wrongPassPhrase}>{messages['wallet.action.protect.error.confirm']}</div>
+          <div className={style.textCenter + " " + style.p3}>
+            <button className={"btn-block btn btn-secondary " + style.p2} onClick={this.tryDoStep3}>{messages['wallet.action.protect.button.ok']}</button>
           </div>
         </ModalDialog>
       </div>

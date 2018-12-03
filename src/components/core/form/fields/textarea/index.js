@@ -1,14 +1,16 @@
 /* eslint react/prop-types:0 */
 import React from 'react';
+import {LabelLang} from 'src/lang/components';
 
-const textareaField = ({ input, meta, ...props }) => {
+const textareaField = ({ input, meta, containerClassName, labelClassName, labelText, ...props }) => {
   const {
     onChange, onBlur, onFocus, value
   } = input;
   const { error, touched } = meta;
   const shouldShowError = !!(touched && error);
   return (
-    <div>
+    <div className={containerClassName ? containerClassName : ''}>
+      {labelText && (<label className={labelClassName ||  ''}>{ <LabelLang id={labelText} /> }</label>)}
       <textarea
         {...props}
         value={value}
@@ -16,7 +18,7 @@ const textareaField = ({ input, meta, ...props }) => {
         onFocus={onFocus}
         onChange={onChange}
       />
-      { shouldShowError && <span>{error}</span>}
+      { shouldShowError && <small className="text-danger"><LabelLang id={error} /></small>}
     </div>
   );
 };

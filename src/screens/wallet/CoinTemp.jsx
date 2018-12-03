@@ -1,13 +1,13 @@
 import React from 'react';
 import { Col } from 'react-bootstrap';
-import {Bitcoin} from '@/services/Wallets/Bitcoin.js' 
-import {Ethereum} from '@/services/Wallets/Ethereum.js' 
-import iconChecked from '@/assets/images/wallet/icons/icon-checked-wallet.svg';
+import {Bitcoin} from 'src/services/Wallets/Bitcoin.js' 
+import {Ethereum} from 'src/services/Wallets/Ethereum.js' 
+import iconChecked from 'src/assets/images/wallet/icons/icon-checked-wallet.svg';
 
 
 
 import PropTypes from 'prop-types';
-import './Wallet.scss';
+import style from './Wallet.scss';
 
 class CoinTemp extends React.Component {
 
@@ -18,15 +18,15 @@ class CoinTemp extends React.Component {
     
     render(){ 
         const {wallet, onClick} =  this.props;        
-        const bgImg = require("@/assets/images/wallet/images/" + wallet.getBackgroundImg());
-        const itemSelected = wallet.default ? "feed feed-selected" : "feed";
-
+        const bgImg = require("src/assets/images/wallet/images/" + wallet.getBackgroundImg());
+        const itemSelected = wallet.default ? `${style['feed']} ${style['feed-selected']}` : style["feed"];
+        const checkIcon = wallet.default ? " ✔" : '';
         return  ( 
-            <Col sm={6} md={6} xs={6} className="wallet-box-add-new">              
+            <Col sm={12} md={6} xs={12} className={style.walletBoxAddNew}>              
               <div onClick={onClick}  className={itemSelected} style={{backgroundImage: "url('"+bgImg+"')"}}>
-                <span className="name">{wallet.getNetworkName() + " (" + wallet.name + ")"}</span>                 
+                <span className={style.name}>{wallet.getNetworkName() + " (" + wallet.name + ")" + checkIcon}</span>                 
                 
-                {wallet.default ? <img className="iconChecked" src={iconChecked}/> : ''}
+                {/* {wallet.default ? <img className={style.iconChecked} src={iconChecked}/> : ''} */}
                 
               </div>        
             </Col>

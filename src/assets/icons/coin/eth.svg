@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-    <title>Group 17</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <linearGradient x1="84.7265625%" y1="77.8710938%" x2="17.1374256%" y2="1.67564921%" id="linearGradient-1">
-            <stop stop-color="#1D5BFA" offset="0%"></stop>
-            <stop stop-color="#1D90FA" offset="100%"></stop>
-        </linearGradient>
-    </defs>
-    <g id="HS---SHop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Group-17">
-            <rect id="Rectangle-3-Copy" stroke="#FFFFFF" stroke-width="3" fill="url(#linearGradient-1)" x="1.5" y="1.5" width="37" height="37" rx="10"></rect>
-            <g id="icons8-ethereum" transform="translate(12.000000, 7.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                <polygon id="Shape" points="0 12.5714286 8 0 16 12.5714286 8 17.1428571"></polygon>
-                <polygon id="Shape" points="8 0 16 12.5714286 8 17.1428571"></polygon>
-                <polygon id="Shape" points="0 14.2857143 8 18.8571429 16 14.2857143 8 25.1428571"></polygon>
-                <polygon id="Shape" points="8 18.8571429 16 14.2857143 8 25.1428571"></polygon>
-                <polygon id="Shape" points="0 12.5714286 8 9.14285714 16 12.5714286 8 17.1428571"></polygon>
-                <polygon id="Shape" points="8 9.14285714 16 12.5714286 8 17.1428571"></polygon>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="HOME" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home-Copy-5" transform="translate(-112.000000, -570.000000)">
+            <g id="Group-4" transform="translate(112.000000, 570.000000)">
+                <circle id="Oval" fill="#5522DD" cx="12" cy="12" r="12"></circle>
+                <g id="Ethereum_logo_2014" transform="translate(8.000000, 5.000000)" fill="#FFFFFF">
+                    <polygon id="Path" points="3.99878437 0 3.91144062 0.296875 3.91144062 8.9115 3.99878437 8.9986875 7.99759688 6.635"></polygon>
+                    <polygon id="Path" points="3.9988125 0 0 6.635 3.9988125 8.99871875 3.9988125 4.8174375"></polygon>
+                    <polygon id="Path" points="3.99878438 9.75583125 3.94956562 9.81583125 3.94956562 12.88455 3.99878438 13.0283313 7.99997187 7.39333125"></polygon>
+                    <polygon id="Path" points="3.9988125 13.0282875 3.9988125 9.7557875 0 7.3932875"></polygon>
+                    <polygon id="Path" points="3.99878438 8.99867813 7.99753438 6.63502188 3.99878438 4.81745938"></polygon>
+                    <polygon id="Path" points="2.8125e-05 6.635025 3.99877812 8.99868125 3.99877812 4.8174625"></polygon>
+                </g>
             </g>
         </g>
     </g>

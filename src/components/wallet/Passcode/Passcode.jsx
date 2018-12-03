@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import md5 from 'md5';
 import './Passcode.scss';
-import logoWallet from '@/assets/images/wallet/images/logo-wallet.svg';
+import logoWallet from 'src/assets/images/wallet/images/logo-wallet.svg';
 
 class Passcode extends React.PureComponent {
     
@@ -28,7 +28,8 @@ class Passcode extends React.PureComponent {
 
   vibrate(speed){
     try{
-      window.navigator.vibrate(speed); 
+      if (__CLIENT__)
+        window.navigator.vibrate(speed); 
     }
     catch(e){}
   }

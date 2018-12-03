@@ -1,46 +1,47 @@
 export const API_BASE = APP_ENV.BASE_API_URL;
 export const URL = {
-  INDEX: '/',
-  HANDSHAKE_ME: '/me',
-  HANDSHAKE_ME_INDEX: '/me',
-  HANDSHAKE_ME_PROFILE: '/me/profile',
-  HANDSHAKE_ME_VERIRY_EMAIL: '/me/verify/email',
-
-  HANDSHAKE_CREATE: '/create',
-  HANDSHAKE_CREATE_INDEX: '/create',
-
-  HANDSHAKE_EXCHANGE: '/exchange',
-  HANDSHAKE_EXCHANGE_INDEX: '/exchange',
-  BUY_COIN_URL: '/coin',
-  CRYPTO_COIN_URL: '/coin',
-  BUY_COIN_FAQ_URL: '/coin/faq',
-  SELL_COIN_URL: '/sell-coin',
-
-  USER_LOGIN: '/token/',
-  USER_SIGN_UP: '/user/sign-up',
+  FAQ_URL: '/faq',
+  AGREEMENT: '/agreement-privacy',
+  USER_SIGN_IN: '/sign-in',
+  USER_SIGN_UP: '/sign-up',
+  USER_FORGET_PASSWORD: '/forget-password',
+  USER_FORGET_PASSWORD_FINISH: '/forget-finish',
+  HOME: '/',
+  ABOUT_US: '/about-us',
+  TEAM: '/team',
+  COIN: '/coin',
+  CONTACT: '/contact-us',
+  WALLET: '/wallet',
+  ME: '/me',
+  ME_PROFILE: '/me/profile',
+  ME_SETTING: '/me/setting',
+  ME_ACCOUNT_LEVEL: '/me/accountLevel',
+  ME_HISTORY: '/me/history',
+  PROMOTION_PROGRAM: '/promotion-programs'
 };
 
 export const API_URL = {
   EXCHANGE: {
-    GET_FIAT_CURRENCY: 'exchange/info/crypto-price',
-    GET_CRYPTO_PRICE: 'exchange/info/instant-buy/price', // {path: '/info/instant-buy/price', method: 'get'},
-    CREATE_CC_ORDER: 'exchange/instant-buys', // {path: '/instant-buys', method: 'post'},
-    GET_USER_CC_LIMIT: 'exchange/user/profile/cc-limit', // {path: '/user/profile/cc-limit', method: 'get'},
-    GET_CC_LIMITS: 'exchange/info/cc-limits', // {path: '/info/cc-limits', method: 'get'},
-    GET_USER_PROFILE: 'exchange/user/profile', // {path: '/user/profile', method: 'get'},
-    GET_OFFER_PRICE: 'exchange/info/crypto-quote', // {path: '/info/instant-buy/price', method: 'get'},
-    GET_LIST_OFFER_PRICE: 'exchange/info/crypto-quotes', // {path: '/info/instant-buy/price', method: 'get'},
-    GET_LIST_OFFER_PRICE_CASH_ATM: 'exchange/cash/quotes', // {path: '/info/instant-buy/price', method: 'get'},
-    GET_USER_TRANSACTION: 'exchange/user/transactions', // {path: '/user/transactions', method: 'get'},
-    OFFERS: 'exchange/offers',
-    SHAKE: 'shake',
-    WITHDRAW: 'withdraw',
+    // GET_FIAT_CURRENCY: '/exchange/info/crypto-price',
+    GET_FIAT_CURRENCY: 'exchange/quote',
+    GET_CRYPTO_PRICE: '/exchange/info/instant-buy/price', // {path: '/info/instant-buy/price', method: 'get'},
+    CREATE_CC_ORDER: '/exchange/instant-buys', // {path: '/instant-buys', method: 'post'},
+    GET_USER_CC_LIMIT: '/exchange/user/profile/cc-limit', // {path: '/user/profile/cc-limit', method: 'get'},
+    GET_CC_LIMITS: '/exchange/info/cc-limits', // {path: '/info/cc-limits', method: 'get'},
+    GET_USER_PROFILE: '/exchange/user/profile', // {path: '/user/profile', method: 'get'},
+    GET_OFFER_PRICE: '/exchange/info/crypto-quote', // {path: '/info/instant-buy/price', method: 'get'},
+    GET_LIST_OFFER_PRICE: '/exchange/info/crypto-quotes', // {path: '/info/instant-buy/price', method: 'get'},
+    GET_LIST_OFFER_PRICE_CASH_ATM: '/exchange/cash/quotes', // {path: '/info/instant-buy/price', method: 'get'},
+    GET_USER_TRANSACTION: '/exchange/user/transactions', // {path: '/user/transactions', method: 'get'},
+    OFFERS: '/exchange/offers',
+    SHAKE: '/shake',
+    WITHDRAW: '/withdraw',
     IP_DOMAIN: 'https://ipfind.co/me',
 
     // Store
     OFFER_STORES: 'exchange/offer-stores',
     SHAKES: 'shakes',
-    REVIEWS: 'reviews',
+    REVIEWS: 'exchange/reviews/',
     GET_DASHBOARD_INFO: 'exchange/user/transaction-counts',
     DEPOSIT_CREDIT_ATM: 'exchange/credit/deposit',
     CREDIT_ATM: 'exchange/credit',
@@ -66,9 +67,40 @@ export const API_URL = {
     BASE: 'handshake/me',
     SET_OFFLINE_STATUS: 'exchange/user/profile/offline',
   },
+  USER: {
+    USER_SIGN_IN: '/token/', // POST /user/token
+    USER_TOKEN_REFRESH: '/token/refresh/', // POST /user/token
+    USER_SIGN_UP: '/user/sign-up/', // POST /user/sign-up
+    USER_WALLET: '/user/wallet/', // POST,GET /user/wallet
+    USER_PROFILE: '/user/profile/', // GET /user/profile
+    USER_FORGET_PASSWORD: '/user/forgot-password/', // POST user/forgot-password/
+    USER_FORGET_PASSWORD_FINISH: '/user/reset-password/', // POST user/forgot-password/reset/
+  },
+  SYSTEM: {
+    COUNTRY : '/system/country-default-configs/?time=3423434', // GET /system/country-default-configs/
+    GET_COUNTRY_CURRENCY: '/system/country-currencies/', // GET /system/country-currencies/?country=
+    GET_BANK_INFO: '/system/banks/', // GET system/banks/?currency=&country=
+    SUBMIT_CONTACT: '/system/contacts/',
+    GET_LANGUAGES: '/system/languages/',
+  },
   LANDING: {
-    FAQ: 'static/faq',
-  }
+    STATIC_PAGE: '/content/static-page/',
+    FAQ: '/content/faq/',
+  },
+  COIN: {
+    // GET /exchange/quote/?amount=&currency=&fiat_currency=&check=[1,0]&user_check=[1,0]&direction=[buy,sell]
+    GET_QUOTE: '/exchange/quote/',
+    // `GET /exchange/quote-reverse/?fiat_amount=&currency=&fiat_currency=&check=[1,0]&user_check=[1,0]&direction=[buy,sell]&order_type=[cod,bank]`
+    GET_QUOTE_REVERSE: '/exchange/quote-reverse/',
+    // POST /exchange/orders/
+    MAKE_ORDER: '/exchange/orders/',
+    // POST /exchange/addresses/?currency=
+    GEN_ADDRESS: '/exchange/addresses/',
+    // PUT /exchange/orders/{order_id}/receipt/
+    ADD_RECEIPT_ORDER: '/exchange/orders/{order_id}/receipt/',
+    // GET /exchange/deposited-address/?address=&currency=
+    CHECK_ADDRESS: '/exchange/deposited-address/',
+  },
 };
 
 export const LANDING_PAGE_TYPE = {

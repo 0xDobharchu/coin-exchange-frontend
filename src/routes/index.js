@@ -1,15 +1,16 @@
-import { URL } from 'src/constants';
-import Home from 'src/screens/home';
+import { URL } from 'src/resources/constants/url';
 import Contact from 'src/screens/contact';
 import About from 'src/screens/about';
 import Login from 'src/screens/login';
 import Register from 'src/screens/register';
+import forgetPassword from 'src/screens/forgetPassword';
+import forgetPasswordFinish from 'src/screens/forgetPassword/finish';
 import Coin from 'src/screens/coin';
-import Localization from 'src/screens/localization';
-import Me from 'src/screens/me';
-// import Wallet from 'src/screens/wallet';
+import Me from 'src/screens/me/pages/Me';
+import Wallet from 'src/screens/wallet';
 import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
-import MeProfile from 'src/screens/me/pages/MeProfile';
+import AgreementPrivacy from 'src/screens/agreementPrivacy';
+import PromotionProgram from 'src/screens/promotionProgram';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
 import privateRoute from './privateRoute';
@@ -20,70 +21,95 @@ import privateRoute from './privateRoute';
     component: YourComponent,
     componentProps: { name: 'Component Name' },
     auth: bool ==> need to auth to see this view
+    noContainer: bool ==> wrapper container with header & footer
     ...react-router props
   },
  */
 const routes = [
   {
-    path: '/',
-    component: Home,
-    componentProps: { title: 'Oh yeah!' },
-    exact: true,
-  },
-  {
-    path: '/coin',
+    path: URL.HOME,
     component: Coin,
     exact: true,
   },
   {
-    path: '/coin/faq',
+    path: URL.FAQ_URL,
     component: CoinBowlFAQ,
     exact: true,
   },
   {
-    path: '/contact',
+    path: URL.CONTACT,
     component: Contact,
     exact: true,
   },
   {
-    path: '/about',
+    path: URL.ABOUT_US,
     component: About,
     exact: true,
   },
   {
-    path: '/login',
+    path: URL.USER_SIGN_IN,
     component: Login,
     exact: true,
   },
   {
-    path: '/register',
+    path: URL.USER_SIGN_UP,
     component: Register,
     exact: true,
   },
   {
-    path: '/contact/a',
-    component: Home,
+    path: URL.USER_FORGET_PASSWORD,
+    component: forgetPassword,
     exact: true,
   },
   {
-    path: '/localization',
-    component: Localization,
+    path: URL.USER_FORGET_PASSWORD_FINISH,
+    component: forgetPasswordFinish,
     exact: true,
   },
   {
-    path: '/me',
+    path: URL.ME,
     component: Me,
     exact: true,
     auth: true,
   },
-  // {
-  //   path: '/wallet',
-  //   component: Wallet,
-  //   exact: true,
-  // },
   {
-    path: URL.HANDSHAKE_ME_PROFILE,
-    component: MeProfile,
+    path: URL.ME_PROFILE,
+    component: Me,
+    exact: true,
+    auth: true,
+  },
+  {
+    path: URL.ME_SETTING,
+    component: Me,
+    exact: true,
+    auth: true,
+  },
+  {
+    path: URL.ME_ACCOUNT_LEVEL,
+    component: Me,
+    exact: true,
+    auth: true,
+  },
+  {
+    path: URL.ME_HISTORY,
+    component: Me,
+    exact: true,
+    auth: true,
+  },
+  {
+    path: '/wallet',
+    component: Wallet,
+    exact: true,
+    auth: true
+  },
+  {
+    path: URL.AGREEMENT,
+    component: AgreementPrivacy,
+    exact: true,
+  },
+  {
+    path: URL.PROMOTION_PROGRAM,
+    component: PromotionProgram,
     exact: true,
   }
 ];

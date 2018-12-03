@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import styles from './styles.scss';
 
 class ConfirmButton extends PureComponent {
@@ -62,14 +63,14 @@ class ConfirmButton extends PureComponent {
     const { disabled, message, confirmText, cancelText, onFirstClick, containerClassName, buttonClassName, label } = this.props;
     return (
       <div className={`${styles.container} ${containerClassName}`}>
-        <button type="button" disabled={disabled && !onFirstClick} className={`btn btn-warning ${styles.confirmBtn} ${buttonClassName}`} onClick={this.onClick}>{label}</button>
-        <Modal show={showModal} onHide={this.handleClose}>
+        <button type="submit" disabled={disabled && !onFirstClick} className={`${styles.confirmBtn} ${buttonClassName}`} onClick={this.onClick}>{label}</button>
+        <Modal show={showModal} backdrop='static'>
           <Modal.Body>
             <div className={styles.content}>
-              <span className={styles.desc}>{message || 'messages.create.atm.confirm_button.desc'}</span>
-              <div className={styles.container}>
-                <button type="button" onClick={this.onConfirm} className={styles.ok}>{confirmText || 'messages.create.atm.confirm_button.confirm'}</button>
-                <button type="button" onClick={this.onCancel} className={styles.cancel}>{cancelText || 'messages.create.atm.confirm_button.cancel'}</button>
+              <span className={styles.desc}>{message}</span>
+              <div>
+                <button type="submit" onClick={this.onConfirm} className={cx(styles.button, styles.ok)}>{confirmText}</button>
+                <button type="button" onClick={this.onCancel} className={cx(styles.button, styles.cancel)}>{cancelText}</button>
               </div>
             </div>
           </Modal.Body>
@@ -80,15 +81,16 @@ class ConfirmButton extends PureComponent {
 }
 
 ConfirmButton.defaultProps = {
-  onCancel: () => {},
-  onConfirm: () => {},
+  onCancel: null,
+  onConfirm: null,
   validate: null,
   onFirstClick: null,
   containerClassName: '',
   buttonClassName: '',
-  message: null,
-  confirmText: null,
-  cancelText: null,
+  message: 'Please confirm',
+  confirmText: 'Yes',
+  cancelText: 'No',
+  label: 'Confirm',
   disabled: false,
 };
 
@@ -102,7 +104,7 @@ ConfirmButton.propTypes = {
   label: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.node,
-  ]).isRequired,
+  ]),
   message: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.node,

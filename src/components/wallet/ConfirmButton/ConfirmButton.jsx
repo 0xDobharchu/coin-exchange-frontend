@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Slider from 'react-rangeslider';
 import 'react-rangeslider/lib/index.css';
 import './ConfirmButton.scss';
-import iconETH from '@/assets/images/wallet/icons/coins/btc.svg';
+import iconETH from 'src/assets/images/wallet/icons/coins/btc.svg';
 
 function changeIconConfirmButton(icon){
   document.querySelector(".confirm-button .rangeslider__handle").style.backgroundImage = 'url("'+icon+'")';    

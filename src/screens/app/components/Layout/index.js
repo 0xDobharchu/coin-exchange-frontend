@@ -1,18 +1,31 @@
 import React, { PureComponent } from 'react';
-import Alert from '../../../../components/core/presentation/Alert';
-import Navigation from '../../../../components/core/controls/Navigation';
+import cx from 'classnames';
+import Alert from 'src/components/core/presentation/Alert';
+import Navigation from 'src/components/core/controls/Navigation';
+import WalletPasscode from 'src/components/wallet/WalletPasscode/WalletPasscode';
+import RequirePassword from 'src/components/wallet/RequirePassword/RequirePassword';
+import styles from './styles.scss';
+// import Loading from 'src/components/core/presentation/Loading';
+
 
 class Layout extends PureComponent {
+
   render() {
-    console.log('Layout', this.props);
+    // eslint-disable-next-line
+    const { children, location } = this.props;
     return (
-      <div className="app">
-        <div className="content">
-          {this.props.children}
+      <React.Fragment>
+        <div className={cx('common-fluid', styles.content)}>
+          {children}
         </div>
-        <Navigation />
+        <div className={styles.mobile}>
+          <Navigation location={location} />
+        </div>
+        {/* <Loading /> */}
         <Alert />
-      </div>
+        <WalletPasscode />
+        <RequirePassword />
+      </React.Fragment>
     );
   }
 }

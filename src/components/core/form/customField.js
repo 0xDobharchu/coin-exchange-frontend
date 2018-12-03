@@ -6,7 +6,7 @@ import {
 import Cleave from 'cleave.js/react';
 import { BigNumber } from 'bignumber.js';
 import cx from 'classnames';
-import './styles.scss';
+import style from './styles.scss';
 // import phoneCountryCodes from './country-calling-codes.min.json';
 import SelectCountryCode from './components/SelectCountryCode';
 
@@ -22,8 +22,8 @@ const customField = element => ({
   const { name, onChange, value } = input;
   let newClassName = '';
   if (touched) {
-    if (error) newClassName = 'has-error';
-    else if (warning) newClassName = 'has-warning';
+    if (error) newClassName = style['has-error'];
+    else if (warning) newClassName = style['has-warning'];
   }
 
   const allElements = [];
@@ -56,10 +56,11 @@ export const fieldDropdown = customField(({
       </DropdownToggle>
       {
         caret && (
-          <DropdownMenu>
+          <DropdownMenu className={style['custom-dropdown-item']}>
             {
               list.map(item => (
                 <DropdownItem
+                  className={style['custom-dropdown-item']}
                   key={item.id}
                   onClick={() => onChange(item)}
                 >

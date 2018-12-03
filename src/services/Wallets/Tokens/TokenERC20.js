@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { Wallet } from '@/services/Wallets/Wallet.js';
-import { StringHelper } from '@/services/helper';
-import { Ethereum } from '@/services/Wallets/Ethereum.js';
+import { Wallet } from 'src/services/Wallets/Wallet.js';
+import { StringHelper } from 'src/services/helper';
+import { Ethereum } from 'src/services/Wallets/Ethereum.js';
 
 const Web3 = require('web3');
 
@@ -10,7 +10,7 @@ const BigNumber = require('bignumber.js');
 
 const EthereumTx = require('ethereumjs-tx');
 
-const compiled = require('@/contracts/Wallet/Shuriken.json');
+const compiled = require('src/contracts/Wallet/Shuriken.json');
 
 const erc20Abi = compiled.abi;
 

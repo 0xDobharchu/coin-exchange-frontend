@@ -3,33 +3,35 @@ import PropTypes from 'prop-types';
 import {injectIntl} from 'react-intl';
 import {Field, clearFields, change} from "redux-form";
 import {connect} from "react-redux";
-import Button from '@/components/core/controls/Button';
-import ModalDialog from '@/components/core/controls/ModalDialog';
-import Modal from '@/components/core/controls/Modal';
-import createForm from '@/components/core/form/createForm';
-import { fieldInput } from '@/components/core/form/customField';
-import { API_URL } from "@/constants";
-import local from '@/services/localStore';
-import {APP} from '@/constants';
-import {required} from '@/components/core/form/validation';
-import {MasterWallet} from "@/services/Wallets/MasterWallet";
+import Button from 'src/components/core/controls/Button';
+import ModalDialog from 'src/components/core/controls/ModalDialog';
+import Modal from 'src/components/core/controls/Modal';
+import createForm from 'src/components/core/form/createForm';
+import { fieldInput } from 'src/components/core/form/customField';
+import { API_URL } from 'src/resources/constants/url';
+import local from 'src/services/localStore';
+import {APP} from 'src/resources/constants/app';
+import {required} from 'src/components/core/form/validation';
+import {MasterWallet} from "src/services/Wallets/MasterWallet";
 import { bindActionCreators } from "redux";
-import {getFiatCurrency} from '@/reducers/exchange/action';
-import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
-import QrReader from 'react-qr-reader';
-import { StringHelper } from '@/services/helper';
-import './TransferCoin.scss';
-import { ICON } from '@/components/wallet/images';
-import BrowserDetect from '@/services/browser-detect';
-import WalletSelected from '@/components/wallet/WalletSelected';
+import { makeRequest } from 'src/redux/action';
+import { showAlert, showRequirePassword } from 'src/screens/app/redux/action';
+import { StringHelper } from 'src/services/helper';
+import style from './TransferCoin.scss';
+import { ICON } from 'src/components/wallet/images';
+import WalletSelected from 'src/components/wallet/WalletSelected';
+
 import Slider from 'react-rangeslider';
 
+import { showQrCode } from 'src/components/barcodeScanner';
+
+
 import AddressBook from "../AddressBook";
-import iconAddContact from '@/assets/images/wallet/icons/icon-add-user.svg';
-import customBackIcon from '@/assets/images/wallet/icons/back-chevron-white.svg';
+import iconAddContact from 'src/assets/images/wallet/icons/icon-add-user.svg';
+import customBackIcon from 'src/assets/images/wallet/icons/back-chevron-white.svg';
 
+import { userWallet } from 'src/screens/wallet/action';
 
-const isIOs = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 
 const amountValid = value => (value && isNaN(value) ? 'Invalid amount' : undefined);
 
@@ -56,20 +58,18 @@ class Transfer extends React.Component {
       walletSelected: false,
       currency: this.props.currency,
 
-      // Qrcode
-      qrCodeOpen: false,
-      delay: 300,
-      legacyMode: false,
-
       rate: 0,
       inputSendAmountValue: 0,
       inputSendMoneyValue: 0,
-      legacyMode: false,
+
       walletNotFound: '',
       volume: 0,
       listFeeObject: false,
 
-      addressBookContent: ""
+      addressBookContent: "",
+
+      userPassword: '',
+      isShowPassword: true,
     },
     this.modalHeaderStyle = {color: "#fff", background: "#546FF7"};
     this.modalBodyStyle = {padding: 0};
@@ -78,7 +78,7 @@ class Transfer extends React.Component {
 
   showAlert(msg, type = 'success', timeOut = 3000, icon = '') {
     this.props.showAlert({
-      message: <div className="textCenter">{icon}{msg}</div>,
+      message: <div className={style["textCenter"]}>{icon}{msg}</div>,
       timeOut,
       type,
       callBack: () => {},
@@ -95,16 +95,13 @@ class Transfer extends React.Component {
   }
   componentWillReceiveProps() {
     const {currency} = this.props;
-    this.setState({inputSendAmountValue: 0, inputSendMoneyValue: 0, currency: currency ? currency : 'USD'});
+    // this.setState({inputSendAmountValue: 0, inputSendMoneyValue: 0, currency: currency ? currency : 'USD'});
   }
 
   async componentDidMount() {
-    this.props.showLoading();
-    let legacyMode = (BrowserDetect.isChrome && BrowserDetect.isIphone); // show choose file or take photo
-    this.setState({legacyMode: legacyMode});
 
     await this.getWalletDefault();
-    this.props.hideLoading();
+    // this.props.hideLoading();
 
     await this.setRate();
 
@@ -154,7 +151,9 @@ class Transfer extends React.Component {
     let result = false;
     if(wallet){
       let key = `${wallet.name}_${tab}_${wallet.address}`;
-      let data = window.sessionStorage.getItem(key);
+      let data = '';
+      if (__CLIENT__)
+        data = window.sessionStorage.getItem(key);
 
       try{
         if(data){
@@ -171,7 +170,8 @@ class Transfer extends React.Component {
     let result = false;
     if(wallet && data){
       let key = `${wallet.name}_${tab}_${wallet.address}`;
-      window.sessionStorage.setItem(key, JSON.stringify(data));
+      if (__CLIENT__)
+        window.sessionStorage.setItem(key, JSON.stringify(data));
     }
   }
 
@@ -207,14 +207,14 @@ class Transfer extends React.Component {
     return new Promise((resolve, reject) => {
 
       this.props.getFiatCurrency({
-        PATH_URL: API_URL.EXCHANGE.GET_FIAT_CURRENCY,
-        qs: {fiat_currency: fiat_currency, currency: currency},
-        successFn: (res) => {
-          let data = res.data;
-          let result = fiat_currency == 'USD' ? data.price : data.fiat_amount;
+        url: API_URL.EXCHANGE.GET_FIAT_CURRENCY,
+        params: {amount: 1, fiat_currency: fiat_currency, currency: currency, direction: 'buy'},
+        onSuccess: (res) => {
+          let data = res;
+          let result = fiat_currency == 'USD' ? data.fiat_amount : data.fiat_amount;
           resolve(result);
         },
-        errorFn: (err) => {
+        onError: (err) => {
           console.error("Error", err);
           resolve(0);
         },
@@ -222,23 +222,27 @@ class Transfer extends React.Component {
     });
   }
 
-  getWalletDefault = () =>{
+  async getWalletDefault (){
+
     const { coinName, listWallet, wallet } = this.props;
 
     let wallets = listWallet;
     let walletDefault = null;
     if (!wallets){
-      if (coinName){
-        wallets = MasterWallet.getWallets(coinName);
-      }
-      else{
-        wallets = MasterWallet.getMasterWallet();
-      }
+      wallets = await this.props.userWallet();
+      console.log("wallets", wallets);
     }
 
     if (coinName){
-      walletDefault = MasterWallet.getWalletDefault(coinName);
+      wallets = MasterWallet.filterWalletByName(wallets, coinName);
     }
+
+    if (coinName){
+      walletDefault = MasterWallet.getWalletDefault(wallets, coinName);
+    }
+
+    console.log('wallets affer filter: ', wallets);
+    console.log('coiname: ', coinName);
 
     // set name + text for list:
     let listWalletCoin = [];
@@ -266,6 +270,8 @@ class Transfer extends React.Component {
       walletDefault = wallet;
     }
 
+    console.log('walletDefault', walletDefault);
+
     if (walletDefault){
       walletDefault.text = walletDefault.getShortAddress() + " (" + walletDefault.name + "-" + walletDefault.getNetworkName() + ")";
       if (process.env.isLive){
@@ -292,7 +298,8 @@ class Transfer extends React.Component {
 
           // get balance for first item + update to local store:
           walletDefault.balance = wallets[i].balance;
-          MasterWallet.UpdateBalanceItem(walletDefault);
+          //todo: need update balance
+          // MasterWallet.UpdateBalanceItem(walletDefault);
         }
       }
 
@@ -304,7 +311,7 @@ class Transfer extends React.Component {
       if(coinName){
         this.setState({walletNotFound:
           <div className="walletNotFound">
-            {coinName} {messages.wallet.action.transfer.error.wallet_not_found}
+            {coinName} {messages['wallet.action.transfer.error.wallet_not_found']}
           </div>
         }, ()=> {
 
@@ -313,7 +320,7 @@ class Transfer extends React.Component {
     }
   }
 
-  sendCoin = () => {
+  openSendCoin = () => {
       this.modalConfirmTranferRef.open();
   }
 
@@ -329,7 +336,7 @@ class Transfer extends React.Component {
       // check amount:
 
       if (parseFloat(this.state.walletSelected.balance) <= parseFloat(value['amountCoin']))
-        errors.amountCoin = `${messages.wallet.action.transfer.error.not_enough_coin}`
+        errors.amountCoin = `${messages['wallet.action.transfer.error.not_enough_coin']}`
     }
     return errors
   }
@@ -355,6 +362,7 @@ class Transfer extends React.Component {
     }, ()=>{
       this.props.rfChange(nameFormSendWallet, 'amountCoin', amount);
       this.props.rfChange(nameFormSendWallet, 'amountMoney', money);
+      console.log("inputSendAmountValue-->", this.state.inputSendAmountValue);
     });
   }
 
@@ -362,10 +370,12 @@ class Transfer extends React.Component {
     const { messages } = this.props.intl;
     let result = str
     try{
-      result = eval(str);
+      //result = eval(str);
+      result = messages [str]
     }
     catch(e){
-      console.log(e);
+      alert(str);
+      console.log(e.message);
     }
 
     return result;
@@ -397,19 +407,52 @@ class Transfer extends React.Component {
     });
   }
 
+
 submitSendCoin=()=>{
-  this.setState({isRestoreLoading: true});
+
   this.modalConfirmTranferRef.close();
+
+  // todo: decryp wallet:
+  if (this.state.userPassword === ''){
+    this.props.showRequirePassword({
+      onFinish: (userPassword) => {
+        this.setState({userPassword: userPassword}, ()=> {
+          this.sendCoinNow();
+        });
+      }
+    });
+  }
+  else{
+    this.sendCoinNow();
+  }
+}
+
+sendCoinNow=()=>{
+
+  this.setState({isRestoreLoading: true});
   let fee = this.state.listFeeObject ? this.state.listFeeObject.listFee[this.state.volume].value : 0;
   let option = {"fee": fee};
-  this.state.walletSelected.transfer(this.state.inputAddressAmountValue, this.state.inputSendAmountValue, option).then(success => {
+
+  const walletSend = this.state.walletSelected.descryp(this.state.userPassword);
+  console.log('walletSend', walletSend);
+
+  if (walletSend === false){
+    this.showError(this.getMessage('requirePassword.passNotMatch'));
+    this.setState({isRestoreLoading: false, userPassword: '', isShowPassword: false}, ()=>{
+      this.submitSendCoin();
+    });
+    return;
+  }
+  this.setState({isRestoreLoading: true});
+
+  walletSend.transfer(this.state.inputAddressAmountValue, this.state.inputSendAmountValue, option).then(success => {
 
       this.setState({isRestoreLoading: false});
       if (success.hasOwnProperty('status')){
         if (success.status == 1){
           this.showSuccess(this.getMessage(success.message));
           this.onFinish(success.data);
-          MasterWallet.NotifyUserTransfer(this.state.walletSelected.address, this.state.inputAddressAmountValue);
+          // MasterWallet.NotifyUserTransfer(this.state.walletSelected.address, this.state.inputAddressAmountValue);
           // start cron get balance auto ...
           // todo hanlde it ...
         }
@@ -441,13 +484,7 @@ handleScan=(data) =>{
         this.showAlert("Address not found");
       }
     }
-
-    this.modalScanQrCodeRef.close();
   }
-}
-
-handleError(err) {
-  consolelog('error wc', err);
 }
 
 oncloseQrCode=() => {
@@ -455,16 +492,9 @@ oncloseQrCode=() => {
 }
 
 openQrcode = () => {
-  if (!this.state.legacyMode){
-    this.setState({ qrCodeOpen: true });
-    this.modalScanQrCodeRef.open();
-  }
-  else{
-    this.openImageDialog();
-  }
-}
-openImageDialog = () => {
-  this.refs.qrReader1.openImageDialog();
+  showQrCode({
+    onData: this.handleScan,
+  });
 }
 
 selectWallet = async (walletSelected) => {
@@ -515,7 +545,7 @@ calcMaxAmount = () => {
   }
 
   if(result < 0) {
-    this.showError(messages.wallet.action.transfer.error.max_amount);
+    this.showError(messages['wallet.action.transfer.error.max_amount']);
     result = 0;
   }
 
@@ -526,13 +556,13 @@ calcMaxAmount = () => {
 
 onChooseFromContact =()=>{
   this.setState({addressBookContent: <AddressBook needChoice={true} onSelected = {(item)=> {this.onSelectAddressBook(item);}} onRef={ref => (this.child = ref)}  modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle} customBackIcon={customBackIcon} />}, ()=>{
-    this.modalAddressBookRef.open();        
-  })    
-  
+    this.modalAddressBookRef.open();
+  })
+
 }
 
 onCloseAddressBook=()=>{
-this.setState({addressBookContent: ""});        
+this.setState({addressBookContent: ""});
 }
 
 openAddNewContact=()=>{
@@ -544,9 +574,13 @@ onSelectAddressBook=(address)=>{
   console.log(address);
   this.setState({
     inputAddressAmountValue: address
-  });  
+  });
   this.props.rfChange(nameFormSendWallet, 'to_address', address);
   this.modalAddressBookRef.close();
+}
+
+hideRequirePassword =()=>{
+  this.setState({isShowPassword: false});
 }
 
 render() {
@@ -564,61 +598,49 @@ render() {
 
         {/* Dialog confirm transfer coin */}
         <ModalDialog title="Confirmation" onRef={modal => this.modalConfirmTranferRef = modal}>
-        <div className="bodyConfirm"><span>{messages.wallet.action.transfer.text.confirm_transfer} {amount} {this.state.walletSelected ? this.state.walletSelected.name : ''}?</span></div>
-        <div className="bodyConfirm">
-            <Button className="left" cssType="danger" onClick={this.submitSendCoin} >{messages.wallet.action.transfer.button.confirm}</Button>
-            <Button className="right" cssType="secondary" onClick={() => { this.modalConfirmTranferRef.close(); }}>Cancel</Button>
+        <div className={style["bodyConfirm"]}><span>{messages['wallet.action.transfer.text.confirm_transfer']} {amount} {this.state.walletSelected ? this.state.walletSelected.name : ''}?</span></div>
+        <div className={style["bodyConfirm"]}>
+            <Button className={style["left"]} cssType="danger" onClick={this.submitSendCoin} >{messages['wallet.action.transfer.button.confirm']}</Button>
+            <Button className={style["right"]} cssType="secondary" onClick={() => { this.modalConfirmTranferRef.close(); }}>Cancel</Button>
         </div>
         </ModalDialog>
 
-        {/* QR code dialog */}
-        <Modal onClose={() => this.oncloseQrCode()} title={messages.wallet.action.transfer.label.scan_qrcode} onRef={modal => this.modalScanQrCodeRef = modal} customBackIcon={customBackIcon} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle}>
-          {this.state.qrCodeOpen || this.state.legacyMode ?
-            <QrReader
-              ref="qrReader1"
-              delay={this.state.delay}
-              onScan={(data) => { this.handleScan(data); }}
-              onError={this.handleError}
-              style={{ width: '100%', height: '100%' }}
-              legacyMode={this.state.legacyMode}
-              showViewFinder={false}
-            />
-            : ''}
-        </Modal>
-
-        <Modal onClose={()=>{this.onCloseAddressBook();}} title={messages.wallet.action.setting.label.select_a_contact} onRef={modal => this.modalAddressBookRef = modal} customBackIcon={customBackIcon} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle} customRightIcon={iconAddContact} customRightIconClick={()=>{this.openAddNewContact()}}>
+        <Modal onClose={()=>{this.onCloseAddressBook();}} title={messages['wallet.action.setting.label.select_a_contact']} onRef={modal => this.modalAddressBookRef = modal} customBackIcon={customBackIcon} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle} customRightIcon={iconAddContact} customRightIconClick={()=>{this.openAddNewContact()}}>
               {this.state.addressBookContent}
         </Modal>
 
-        <SendWalletForm className={walletNotFound ? "d-none" : "sendwallet-wrapper"} onSubmit={this.sendCoin} validate={this.invalidateTransferCoins}>
+        <SendWalletForm className={walletNotFound ? style["d-none"] : style["sendwallet-wrapper"]} onSubmit={this.submitSendCoin} validate={this.invalidateTransferCoins}>
 
         {/* Box: */}
-        <div className="bgBox">
-          <p className="labelText block-hidden">{messages.wallet.action.transfer.label.to_address}
-            <span onClick={()=> {this.onChooseFromContact();}} className="fromContact">{messages.wallet.action.transfer.label.from_contact}</span>
+        <div className={style["bgBox"]}>
+          <p className={style["labelText"] + ' ' + style["block-hidden"]}>{messages['wallet.action.transfer.label.to_address']}
+            <span onClick={()=> {this.onChooseFromContact();}} className={style["fromContact"]}>{messages['wallet.action.transfer.label.from_contact']}</span>
           </p>
-          
-          <div className="div-address-qr-code">
+
+          <div className={style["div-address-qr-code"]}>
             <Field
               name="to_address"
               type="text"
-              className="form-control input-address-qr-code"
-              placeholder={messages.wallet.action.transfer.placeholder.to_address}
+              className={`form-control ${style["input-address-qr-code"]}`}
+              placeholder={messages['wallet.action.transfer.placeholder.to_address']}
               component={fieldInput}
               value={this.state.inputAddressAmountValue}
               onChange={evt => this.updateSendAddressValue(evt)}
               validate={[required]}
             />
-            <span onClick={() => { this.openQrcode() }} className="icon-qr-code-black">{ICON.QRCode()}</span>
+            <span onClick={() => { this.openQrcode() }} className={style["icon-qr-code-black"]}>{ICON.QRCode()}</span>
           </div>
-          <div className="row">
-            <div className="col-6"><p className="labelText">{messages.wallet.action.transfer.label.amount}</p></div>
+          <div>
+
+          <p className={style["labelText"] + ' ' + style["block-hidden"]}>{messages['wallet.action.transfer.label.amount']}
             { walletSelected && (walletSelected.name == 'ETH' || walletSelected.name == 'BTC') &&
-              <div className="col-6"><p className="maxAmount" onClick={() => this.calcMaxAmount()}>{messages.wallet.action.transfer.label.max_amount}</p></div>
+              <span onClick={()=> {this.calcMaxAmount();}} className={style["fromContact"]}>{messages['wallet.action.transfer.label.max_amount']}</span>
             }
+          </p>
+
           </div>
-            <div className="div-amount">
-              <div className="prepend">{ this.state.walletSelected ? StringHelper.format("{0}", this.state.walletSelected.name) : ''}</div>
+            <div className={style["div-amount"]}>
+              <div className={style["prepend"]}>{ this.state.walletSelected ? StringHelper.format("{0}", this.state.walletSelected.name) : ''}</div>
               <Field
                 key="2"
                 name="amountCoin"
@@ -633,8 +655,8 @@ render() {
               />
             </div>
             { !showDivAmount ? "" :
-              <div className="div-amount">
-                <div className="prepend">{currency}</div>
+              <div className={style["div-amount"]}>
+                <div className={style["prepend"]}>{currency}</div>
                 <Field
                   key="1"
                   name="amountMoney"
@@ -651,8 +673,8 @@ render() {
 
             {this.state.listFeeObject &&
             <div>
-              <p className="labelText">{messages.wallet.action.transfer.label.feel_level} {this.state.listFeeObject.listFee[this.state.volume].description}</p>
-              <div className="fee-level-box">
+              <p className={style["labelText"]}>{messages['wallet.action.transfer.label.feel_level']} {this.state.listFeeObject.listFee[this.state.volume].description}</p>
+              <div className={style["fee-level-box"]}>
                 <Slider
                   min={this.state.listFeeObject.min}
                   max={this.state.listFeeObject.max}
@@ -666,11 +688,11 @@ render() {
             }
 
             <div>
-              <p className="labelText">{messages.wallet.action.transfer.label.from_wallet}</p>
+              <p className={style["labelText"]}>{messages['wallet.action.transfer.label.from_wallet']}</p>
               { walletSelected && <WalletSelected wallets={wallets} walletSelected={walletSelected} onSelect={wallet => { this.selectWallet(wallet); }}></WalletSelected> }
             </div>
 
-            <Button className="button-wallet-cpn" isLoading={this.state.isRestoreLoading}  type="submit" block={true}>{messages.wallet.action.transfer.button.transfer}</Button>
+            <Button className={style["button-wallet-cpn"]} isLoading={this.state.isRestoreLoading}  type="submit" block={true}>{messages['wallet.action.transfer.button.transfer']}</Button>
           </div>
 
 
@@ -700,10 +722,11 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   rfChange: bindActionCreators(change, dispatch),
   showAlert: bindActionCreators(showAlert, dispatch),
-  showLoading: bindActionCreators(showLoading, dispatch),
-  hideLoading: bindActionCreators(hideLoading, dispatch),
   clearFields: bindActionCreators(clearFields, dispatch),
-  getFiatCurrency: bindActionCreators(getFiatCurrency, dispatch),
+  getFiatCurrency: bindActionCreators(makeRequest, dispatch),
+  userWallet: bindActionCreators(userWallet, dispatch),
+  showRequirePassword: bindActionCreators(showRequirePassword, dispatch),
+
 });
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Transfer));

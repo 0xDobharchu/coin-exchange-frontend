@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // component
-import Image from '@/components/core/presentation/Image';
+import Image from 'src/components/core/presentation/Image';
 // style
+import BackChevronSVG from 'src/assets/images/icon/back-chevron.svg';
 import style from './Modal.scss';
-import BackChevronSVG from '@/assets/images/icon/back-chevron.svg';
 
 class Modal extends React.Component {
   constructor(props) {
@@ -27,12 +27,12 @@ class Modal extends React.Component {
 
   open() {
     // eslint-disable-next-line
-    this.modalRef && this.modalRef.classList.add('modal-custom-show');
+    this.modalRef && this.modalRef.classList.add(style['modal_custom_show']);
   }
 
   close() {
     // eslint-disable-next-line
-    this.modalRef && this.modalRef.classList.remove('modal-custom-show');
+    this.modalRef && this.modalRef.classList.remove(style['modal_custom_show']);
     // eslint-disable-next-line
     if (this.props.hasOwnProperty('onClose')) this.props.onClose();
   }
@@ -51,19 +51,21 @@ class Modal extends React.Component {
     return (
       // eslint-disable-next-line
       <div className={style.modal} ref={modal => this.modalRef = modal}>
-        <div className={style.modal_custom_header} style={modalHeaderStyle}>
-          {
-            !hideBackButton && <Image src={customBackIcon} onClick={this.close} alt="back" />
-          }
-          {
-            title && (<p className={style.modal_custom_title}>{title}</p>)
-          }
-          {
-             customRightIcon && <Image className={style.iconRight} src={customRightIcon} onClick={this.props.customRightIconClick} />
-          }
-        </div>
-        <div className={style.modal_custom_body} style={modalBodyStyle}>
-          {children}
+        <div className={style.content}>
+          <div className={style.modal_custom_header} style={modalHeaderStyle}>
+            {
+              !hideBackButton && <Image src={customBackIcon} onClick={this.close} alt="back" />
+            }
+            {
+              title && (<p className={style.modal_custom_title}>{title}</p>)
+            }
+            {
+              customRightIcon && <Image className={style.iconRight} src={customRightIcon} onClick={this.props.customRightIconClick} />
+            }
+          </div>
+          <div className={style.modal_custom_body} style={modalBodyStyle}>
+            {children}
+          </div>
         </div>
       </div>
     );

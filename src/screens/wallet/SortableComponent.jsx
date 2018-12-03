@@ -10,16 +10,16 @@ import {
 } from 'react-sortable-hoc';
 
 import WalletItem from './WalletItem';
-import './ListWalletItem.scss';
+import style from './ListWalletItem.scss';
 
-import iconMove from '@/assets/images/wallet/icons/icon-move.svg';
+import iconMove from 'src/assets/images/wallet/icons/icon-move.svg';
 
-const DragHandle = SortableHandle(() => <img className="iconMove" src={iconMove} />); // This can be any component you want
+const DragHandle = SortableHandle(() => <img className={style.iconMove} src={iconMove} />); // This can be any component you want
 
 const SortableItem = SortableElement(({item, isSortable, onItemClick, onMoreClick, onAddressClick}) => {
   
   return (
-    <div className="sortable-item">      
+    <div className={style.sortableItem}>
       <WalletItem onMoreClick={onMoreClick} onAddressClick={onAddressClick} onItemClick={onItemClick} key={Math.random()} wallet={item} isSortable={isSortable} />
       {isSortable ? 
         <DragHandle />
@@ -30,7 +30,7 @@ const SortableItem = SortableElement(({item, isSortable, onItemClick, onMoreClic
 
 const SortableList = SortableContainer(({items, isSortable, onItemClick, onMoreClick, onAddressClick}) => {
   return (
-    <div className="sortable-row">
+    <div className={style.sortableRow}>
       {items.map((item, index) => (
         <SortableItem onMoreClick={() => onMoreClick(item)} onAddressClick={() => onAddressClick(item)} onItemClick={() => onItemClick(item)} isSortable={isSortable} key={`item-${index}`} index={index} item={item} />
       ))}
