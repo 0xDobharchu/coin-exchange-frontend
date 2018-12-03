@@ -11,6 +11,7 @@ import Me from 'src/screens/me/pages/Me';
 import Wallet from 'src/screens/wallet';
 import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
 import AgreementPrivacy from 'src/screens/agreementPrivacy';
+import PromotionProgram from 'src/screens/promotionProgram';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
 import privateRoute from './privateRoute';
@@ -110,6 +111,11 @@ const routes = [
   {
     path: URL.AGREEMENT,
     component: AgreementPrivacy,
+    exact: true,
+  },
+  {
+    path: URL.PROMOTION_PROGRAM,
+    component: PromotionProgram,
     exact: true,
   }
 ];
