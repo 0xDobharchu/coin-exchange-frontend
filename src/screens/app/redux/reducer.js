@@ -1,5 +1,6 @@
 // import { APP } from 'src/constants';
 import SystemConfigModel from 'src/models/system';
+import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
 import APP_TYPE from './type';
 
 // import local from 'src/services/localStore';
@@ -30,7 +31,7 @@ const initState = {
 
   rootLoading: true,
 
-  locale: 'en', // local.get(APP.LOCALE) || 'en',
+  locale: FAIL_DEFAULT_LANGUAGE, // local.get(APP.LOCALE) || 'en',
 
   isCalling: false,
   isLoading: false,
