@@ -3,9 +3,13 @@ import { connect } from 'react-redux';
 import { updatePhoneNumberAction, submitPhoneCodeAction } from 'src/screens/auth/redux/action';
 import { showAlert } from 'src/screens/app/redux/action';
 import ClockCount from 'src/components/clockCount';
+import LabelLang from 'src/lang/components/LabelLang';
 import { DEFAULT_COUNTRY } from 'src/resources/constants/countries';
+import { injectIntl } from 'react-intl';
 import { FaCheck } from 'react-icons/fa';
 import styles from './styles.scss';
+
+const getIntlKey = (name) => `coin.components.phoneVerify.${name}`;
 
 class PhoneVerify extends Component {
   constructor() {
@@ -64,13 +68,13 @@ class PhoneVerify extends Component {
     updatePhoneNumberAction(phone).then(() => {
       const { showAlert } = this.props;
       showAlert({
-        message: 'We sent a code to your phone successfully',
+        message: <LabelLang id={getIntlKey('submitPhoneSuccessMsg')} />,
         type: 'success'
       });
     }).catch(() => {
       const { showAlert } = this.props;
       showAlert({
-        message: 'Sent code failed, please try again',
+        message: <LabelLang id={getIntlKey('submitPhoneFailedMsg')} />,
         type: 'danger'
       });
     });
@@ -82,7 +86,7 @@ class PhoneVerify extends Component {
     submitPhoneCodeAction(code).then(() => {
       const { showAlert } = this.props;
       showAlert({
-        message: 'Verify successfully',
+        message: <LabelLang id={getIntlKey('submitCodeSuccessMsg')} />,
         type: 'success'
       });
       this.handleCallbackData();
@@ -90,7 +94,7 @@ class PhoneVerify extends Component {
     }).catch(() => {
       const { showAlert } = this.props;
       showAlert({
-        message: 'Verify failed, please try again',
+        message: <LabelLang id={getIntlKey('submitCodeFailedMsg')} />,
         type: 'danger'
       });
     });
@@ -124,9 +128,9 @@ class PhoneVerify extends Component {
               disabled={!!verifiedPhone}
             />)
           }
-          { !verified && !isLocking && <button type='button' onClick={this.onSubmitPhone}>Submit</button> }
+          { !verifiedPhone && !verified && !isLocking && <button type='button' onClick={this.onSubmitPhone}><LabelLang id={getIntlKey('submitPhone')} /></button> }
           { isWaitingCode && isLocking && this.renderClock() }
-          { verified && (
+          { verified || !!verifiedPhone && (
             <div className={styles.prependPhone}>
               <FaCheck color='green' />
             </div>
@@ -141,9 +145,9 @@ class PhoneVerify extends Component {
                 onChange={this.onCodeChange}
                 value={code || ''}
                 type="number"
-                placeholder='Verify code'
+                placeholder={this.props.intl?.formatMessage({ id: getIntlKey('verifyCode') })}
               />
-              <button className={styles.btnCode} type='button' onClick={this.onSubmitCode}>Submit Code</button>
+              <button className={styles.btnCode} type='button' onClick={this.onSubmitCode}><LabelLang id={getIntlKey('submitCode')} /></button>
             </div>
           )
         }
@@ -163,4 +167,4 @@ const mapState = state => ({
   pendingPhone: state.auth.profile?.pending_phone_number || null,
 });
 
-export default connect(mapState, mapDispatch)(PhoneVerify);
+export default injectIntl(connect(mapState, mapDispatch)(PhoneVerify));

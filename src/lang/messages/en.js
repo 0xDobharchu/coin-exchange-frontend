@@ -762,6 +762,15 @@ export default {
       exchange: {
         amountLabel: 'Amount to {direction}',
         currency: 'Currency',
+      },
+      phoneVerify: {
+        submitPhoneSuccessMsg: 'We sent a code to your phone successfully',
+        submitPhoneFailedMsg: 'Sent code failed, please try again',
+        submitCodeSuccessMsg: 'Verify successfully',
+        submitCodeFailedMsg: 'Verify failed, please try again',
+        verifyCode: 'Verify code',
+        submitCode: 'Submit Code',
+        submitPhone: 'Submit'
       }
     }
   },
