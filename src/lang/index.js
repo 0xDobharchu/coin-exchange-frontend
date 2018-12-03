@@ -3,44 +3,29 @@ import PropTypes from 'prop-types';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { connect } from 'react-redux';
 import en from 'react-intl/locale-data/en';
-import fr from 'react-intl/locale-data/fr';
+import id from 'react-intl/locale-data/id';
+import km from 'react-intl/locale-data/km';
 import zh from 'react-intl/locale-data/zh';
-import de from 'react-intl/locale-data/de';
-import ja from 'react-intl/locale-data/ja';
-import ko from 'react-intl/locale-data/ko';
-import ru from 'react-intl/locale-data/ru';
-import es from 'react-intl/locale-data/es';
-import vi from 'react-intl/locale-data/vi';
+import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
 import messages from './messages';
 import { changeLang } from './action';
 
-
-addLocaleData([...en, ...fr, ...zh, ...de, ...ja, ...ko, ...ru, ...es, ...vi]);
+addLocaleData([...en, ...id, ...km, ...zh,]);
 // let lang = 'vi';
 
 if (!__SERVER__ && !window.Intl) {
   require.ensure([
     'intl',
     'intl/locale-data/jsonp/en.js',
-    'intl/locale-data/jsonp/es.js',
-    'intl/locale-data/jsonp/fr.js',
-    'intl/locale-data/jsonp/it.js',
+    'intl/locale-data/jsonp/id.js',
+    'intl/locale-data/jsonp/km.js',
     'intl/locale-data/jsonp/zh.js',
-    'intl/locale-data/jsonp/de.js',
-    'intl/locale-data/jsonp/ja.js',
-    'intl/locale-data/jsonp/ko.js',
-    'intl/locale-data/jsonp/ru.js',
   ], (require) => {
     require('intl');
     require('intl/locale-data/jsonp/en.js');
-    require('intl/locale-data/jsonp/es.js');
-    require('intl/locale-data/jsonp/fr.js');
-    require('intl/locale-data/jsonp/it.js');
+    require('intl/locale-data/jsonp/id.js');
+    require('intl/locale-data/jsonp/km.js');
     require('intl/locale-data/jsonp/zh.js');
-    require('intl/locale-data/jsonp/de.js');
-    require('intl/locale-data/jsonp/ja.js');
-    require('intl/locale-data/jsonp/ko.js');
-    require('intl/locale-data/jsonp/ru.js');
   });
 }
 
@@ -52,7 +37,7 @@ const IntlCustomProvider = ({ lang, children }) => (
 );
 
 IntlCustomProvider.defaultProps = {
-  lang: 'en',
+  lang: FAIL_DEFAULT_LANGUAGE,
   children: {}
 };
 
@@ -62,7 +47,7 @@ IntlCustomProvider.propsType = {
 };
 
 const mapState = state => ({
-  lang: state.langReducer.lang || 'en'
+  lang: state.langReducer.lang || FAIL_DEFAULT_LANGUAGE
 });
 const mapDispatch = { changeLang };
 export default connect(mapState, mapDispatch)(IntlCustomProvider);

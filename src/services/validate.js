@@ -6,6 +6,12 @@ function validateEmail(email) {
   return re.test(email);
 }
 
+function validatePhone(phone) {
+  // eslint-disable-next-line
+  const re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+  return re.test(phone);
+}
+
 // Enum
 const error = { // eslint-disable-line
   REQUIRED: 1,
@@ -31,6 +37,7 @@ errorText.IN_LIST = '%1$s must be valid';
 const valid = {
   required: value => (value ? '' : 'REQUIRED'),
   email: value => (validateEmail(value) ? '' : 'EMAIL'),
+  phone: value => (validatePhone(value) ? '' : 'PHONE'),
   char_compare_gt: gt => value => ((value.length >= gt) ? '' : 'CHAR_COMPARE_GT'),
   char_compare_lt: lt => value => ((value.length < lt) ? '' : 'CHAR_COMPARE_LT'),
   number_compare_gt: gt => value => ((value.length >= gt) ? '' : 'NUMBER_COMPARE_GT'),

@@ -4,15 +4,33 @@ const initState = {
   faqContent: [],
 };
 
-export default (state = initState, { type, payload }) => {
+export default (state = initState, { type, data }) => {
   switch (type) {
     case `${LANDINGPAGE_ACTION.GET_FAQ_CONTENT}_SUCCESS`: {
-      console.log('GET_FAQ_CONTENT', payload);
       return {
         ...state,
-        faqContent: payload,
+        faqContent: data,
       };
     }
+    case `${LANDINGPAGE_ACTION.GET_USER_AGREEMENT_CONTENT}_SUCCESS`: {
+      return {
+        ...state,
+        userAgreementContent: data?.content,
+      };
+    }
+    case `${LANDINGPAGE_ACTION.GET_PRIVACY_CONTENT}_SUCCESS`: {
+      return {
+        ...state,
+        privacyContent: data?.content,
+      };
+    }
+    case `${LANDINGPAGE_ACTION.GET_PROMOTION_CONTENT}_SUCCESS`: {
+      return {
+        ...state,
+        promotionContent: data?.content,
+      };
+    }
+
     default:
       return state;
   }

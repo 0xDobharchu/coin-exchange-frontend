@@ -1,0 +1,78 @@
+@import 'responsive';
+@import 'var';
+
+.container {
+  .card {
+    width: 100%;
+    .order-timeout {
+      width: 100%;
+      margin: 10px 0px 20px 0px;
+      text-align: center;
+      display: block;
+      .text {
+
+      }
+    }
+    .infos {
+      margin: 0px 0px 20px 0px;
+      .info-title {
+        font-weight: bold;
+      }
+      .info-value {
+        font-weight: 400;
+      }
+      .info-item {
+        margin: 5px 0px;
+        @include respond(sm) {
+          text-align: center;
+          margin: 10px 0px;
+        }
+      }
+    }
+    .note-container {
+      display: flex;
+      flex-direction: column;
+      .main-note {
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: red;
+        display: block;
+      }
+      .sub-note {
+        display: block;
+        padding: 5px 15px;
+        font-style: italic;
+      }
+    }
+  }
+  .wallet {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0px;
+    .address {
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 10px;
+      border: dotted 1px green;
+      border-radius: 6px;
+      .icon-copy {
+        margin: 0px 5px;
+        &:hover {
+          color: red;
+        }
+      }
+    }
+    .qr-code {
+      
+    }
+  }
+  .done-btn {
+    margin: 20px 0px;
+    width: 100%;
+  }
+}

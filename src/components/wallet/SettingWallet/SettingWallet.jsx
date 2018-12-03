@@ -2,36 +2,34 @@ import axios from 'axios';
 import React from 'react';
 import {injectIntl} from 'react-intl';
 import {connect} from "react-redux";
-import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
+import { showLoading, hideLoading, showAlert } from 'src/screens/app/redux/action';
 import PropTypes from 'prop-types';
-import local from '@/services/localStore';
-import { APP } from '@/constants';
+import local from 'src/services/localStore';
+import { APP } from 'src/constants';
 
-import { setLanguage } from '@/reducers/app/action';
+import { setLanguage } from 'src/screens/app/redux/action';
 
 import './SettingWallet.scss';
-import Dropdown from '@/components/core/controls/Dropdown';
+import Dropdown from 'src/components/core/controls/Dropdown';
 
 import '../WalletPreferences/WalletPreferences.scss';
 
-import Switch from '@/components/core/controls/Switch';
-import { newPasscode, requestWalletPasscode, updatePasscode } from '@/reducers/app/action';
+import Switch from 'src/components/core/controls/Switch';
+import { newPasscode, requestWalletPasscode, updatePasscode } from 'src/screens/app/redux/action';
 
-import iconLock from '@/assets/images/wallet/icons/icon-lock.svg';
-import iconCurrentcy from '@/assets/images/wallet/icons/icon-currency.svg';
-import iconNotifications from '@/assets/images/wallet/icons/icon-notifications.svg';
-import iconTwitter from '@/assets/images/wallet/icons/icon-twitter.svg';
-import iconFacebook from '@/assets/images/wallet/icons/icon-facebook.svg';
-import iconVk from '@/assets/images/wallet/icons/icon-vk.svg';
-import iconTelegram from '@/assets/images/wallet/icons/icon-telegram.svg';
-import iconBackupWallet from '@/assets/images/wallet/icons/icon-backup.svg';
-import iconRestoreWallet from '@/assets/images/wallet/icons/icon-restore.svg';
-import iconSupport from '@/assets/images/wallet/icons/icon-support.svg';
-import iconContact from '@/assets/images/wallet/icons/icon-address-book.svg';
+import iconLock from 'src/assets/images/wallet/icons/icon-lock.svg';
+import iconCurrentcy from 'src/assets/images/wallet/icons/icon-currency.svg';
+import iconNotifications from 'src/assets/images/wallet/icons/icon-notifications.svg';
+import iconTwitter from 'src/assets/images/wallet/icons/icon-twitter.svg';
+import iconFacebook from 'src/assets/images/wallet/icons/icon-facebook.svg';
+import iconVk from 'src/assets/images/wallet/icons/icon-vk.svg';
+import iconTelegram from 'src/assets/images/wallet/icons/icon-telegram.svg';
+import iconSupport from 'src/assets/images/wallet/icons/icon-support.svg';
+import iconContact from 'src/assets/images/wallet/icons/icon-address-book.svg';
 
-import Modal from '@/components/core/controls/Modal';
+import Modal from 'src/components/core/controls/Modal';
 import AddressBook from "../AddressBook";
-import iconAddContact from '@/assets/images/wallet/icons/icon-add-user.svg';
+import iconAddContact from 'src/assets/images/wallet/icons/icon-add-user.svg';
 
 class SettingWallet extends React.Component {
   constructor(props) {
@@ -192,7 +190,7 @@ class SettingWallet extends React.Component {
     let settings = this.state.settings;
     this.setState({
       listCurrenciesContent: (<Dropdown customResultCss={{"maxHeight": "none"}}
-              placeholder={messages.wallet.action.setting.label.select_alternative_currency}
+              placeholder={messages['wallet.action.setting.label.select_alternative_currency']}
               defaultId={settings.wallet.alternateCurrency}
               source={this.state.currencies}
               onItemSelected={this.onCurrenciesSelected}
@@ -214,29 +212,34 @@ class SettingWallet extends React.Component {
   }
 
   openVk=()=>{
+    if (__CLIENT__)
     window.open('https://vk.com/ninjadotorg', '_blank');
   }
   openTelegram=()=>{
+    if (__CLIENT__)
     window.open('https://t.me/ninja_org?ref=ninja-wallet', '_blank');
   }
   openFacebook=()=>{
+    if (__CLIENT__)
     window.open('https://www.facebook.com/ninjadotorg/?ref=ninja-wallet', '_blank');
   }
   openTwitter=()=>{
+    if (__CLIENT__)
     window.open('https://twitter.com/ninja_org?ref=ninja-wallet', '_blank');
   }
   openSupport=()=>{
+    if (__CLIENT__)
     $zopim.livechat.window.show();
   }
 
-  openAddressBook=()=>{    
+  openAddressBook=()=>{
       this.setState({addressBookContent: <AddressBook onRef={ref => (this.child = ref)}  modalHeaderStyle={this.props.modalHeaderStyle} modalBodyStyle={this.props.modalBodyStyle} customBackIcon={this.props.customBackIcon} />}, ()=>{
-        this.modalAddressBookRef.open();        
-      })    
-      
-  }  
+        this.modalAddressBookRef.open();
+      })
+
+  }
   onCloseAddressBook=()=>{
-    this.setState({addressBookContent: ""});        
+    this.setState({addressBookContent: ""});
   }
 
   openAddNewContact=()=>{
@@ -253,21 +256,21 @@ class SettingWallet extends React.Component {
 
         <div className="box-setting">
 
-            <Modal title={messages.wallet.action.setting.label.select_alternative_currency} onRef={modal => this.modalSelectCurrencyRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle}>
+            <Modal title={messages['wallet.action.setting.label.select_alternative_currency']} onRef={modal => this.modalSelectCurrencyRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle}>
               <div className="list-currency">
                   {this.state.listCurrenciesContent}
               </div>
             </Modal>
-             
 
-            <Modal onClose={()=>{this.onCloseAddressBook();}} title={messages.wallet.action.setting.label.address_book} onRef={modal => this.modalAddressBookRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle} modalBodyStyle={this.props.modalBodyStyle} customRightIcon={iconAddContact} customRightIconClick={()=>{this.openAddNewContact()}}>
+
+            <Modal onClose={()=>{this.onCloseAddressBook();}} title={messages['wallet.action.setting.label.address_book']} onRef={modal => this.modalAddressBookRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle} modalBodyStyle={this.props.modalBodyStyle} customRightIcon={iconAddContact} customRightIconClick={()=>{this.openAddNewContact()}}>
               {this.state.addressBookContent}
-            </Modal>                        
+            </Modal>
 
             <div className="item">
                 <img className="icon" src={iconLock} />
                 <div className="name" onClick={()=> {this.onClickPasscode();}}>
-                    <label>{messages.wallet.action.setting.label.passcode}</label>
+                    <label>{messages['wallet.action.setting.label.passcode']}</label>
                 </div>
                 <div className="value">
                   {this.state.switchContent}
@@ -277,7 +280,7 @@ class SettingWallet extends React.Component {
             <div className="item">
                 <img className="icon" src={iconNotifications} />
                 <div className="name">
-                    <label>{messages.wallet.action.setting.label.push_notifications}</label>
+                    <label>{messages['wallet.action.setting.label.push_notifications']}</label>
                 </div>
                 <div className="value">
                   <Switch isChecked={settings.wallet.push_notification} onChange={(isChecked)=> {this.onClickNotification(isChecked)}} />
@@ -287,7 +290,7 @@ class SettingWallet extends React.Component {
             <div className="item" onClick={()=> {this.onClickCurrency();}}>
                 <img className="icon" src={iconCurrentcy} />
                 <div className="name">
-                    <label>{messages.wallet.action.setting.label.alternative_currency}</label>
+                    <label>{messages['wallet.action.setting.label.alternative_currency']}</label>
                 </div>
                 <div className="value">
                   <span className="text">{settings.wallet.alternateCurrency}</span>
@@ -297,17 +300,17 @@ class SettingWallet extends React.Component {
              <div className="item" onClick={this.openAddressBook}>
                 <img className="icon" src={iconContact} />
                 <div className="name">
-                    <label>{messages.wallet.action.setting.label.select_alternative_currency}</label>
+                    <label>{messages['wallet.action.setting.label.select_alternative_currency']}</label>
                 </div>
                 <div className="value">
 
                 </div>
             </div>
-            
+
             <div className="item" onClick={this.openSupport}>
                 <img className="icon" src={iconSupport} />
                 <div className="name">
-                    <label>{messages.wallet.action.setting.label.support}</label>
+                    <label>{messages['wallet.action.setting.label.support']}</label>
                 </div>
                 <div className="value">
 
@@ -315,32 +318,11 @@ class SettingWallet extends React.Component {
             </div>
 
             <div className="item header">
-              <label>{messages.wallet.action.setting.label.wallet_account}</label>
+              <label>{messages['wallet.action.setting.label.wallet_account']}</label>
             </div>
-
-            <div className="item" onClick={this.props.onBackupWalletAccountClick}>
-                <img className="icon" src={iconBackupWallet} />
-                <div className="name">
-                    <label>{messages.wallet.action.backup.title}</label>
-                </div>
-                <div className="value">
-
-                </div>
-            </div>
-            <div className="item" onClick={this.props.onRestoreWalletAccountClick}>
-                <img className="icon" src={iconRestoreWallet} />
-                <div className="name">
-                    <label>{messages.wallet.action.restore.title}</label>
-                </div>
-                <div className="value">
-
-                </div>
-            </div>
-
-
 
             <div className="item header">
-              <label>{messages.wallet.action.setting.label.community}</label>
+              <label>{messages['wallet.action.setting.label.community']}</label>
             </div>
 
             <div className="item" onClick={()=> {this.openTwitter();}}>

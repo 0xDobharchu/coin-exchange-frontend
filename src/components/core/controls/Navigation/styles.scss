@@ -7,8 +7,7 @@
   right: 0;
   height: $footer-height;
   width: 100%;
-  // max-width: $app-width;
-  background: #FFFFFF;
+  background: $white;
   z-index: 2;
   box-shadow: 0 -2px 13px 0 rgba(221,235,242,0.50);
   .main {
@@ -25,22 +24,24 @@
       a {
         display: flex;
         flex-direction: column;
+        color: #ABAAAD;
+        cursor: pointer;
+        svg {
+          font-size: 24px;
+          margin: auto;
+        }
       }
       a:hover {
         text-decoration: none;
       }
       span {
+        margin-top: 5px;
         text-align: center;
+        color: white;
       }
       &.selected {
         a {
-          //color: rgba(248, 248, 248, 0.95);
-          span {
-            background-color: #1E4EFF;
-            border-radius: 9px;
-            color: #ffffff;
-            padding: 2px;
-          }
+          color: $primary-medium;
         }
       }
     }

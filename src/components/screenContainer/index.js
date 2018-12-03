@@ -1,14 +1,23 @@
 import React, { PureComponent } from 'react';
+import detectWindow from 'src/screens/app/components/Layout/styles.scss';
+import animations from 'src/assets/styles/animations';
+import cx from 'classnames';
 import Header from './header';
-import Footer from './footer';
+// import Footer from './footer';
+import styles from './styles.scss';
 
 class ScreenContainer extends PureComponent {
   render() {
+    const { children } = this.props;
     return (
       <React.Fragment>
-        <Header />
-        { this.props.children }
-        <Footer />
+        <div className={detectWindow.desktop}>
+          <Header />
+        </div>
+        <div className={cx(styles.body, animations.fadeIn)}>
+          { children }
+        </div>
+        {/* <Footer /> */}
       </React.Fragment>
     );
   }

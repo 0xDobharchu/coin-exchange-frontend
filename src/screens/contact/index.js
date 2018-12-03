@@ -1,18 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import createForm from '@/components/core/form/createForm';
-import { Field, formValueSelector } from 'redux-form';
-import textareaField, { textareaValidator } from 'src/components/core/form/fields/textarea';
-import { contactActions } from './action';
-import inputField, { inputValidator } from '@/components/core/form/fields/input';
+import createForm from 'src/components/core/form/createForm';
+import { formValueSelector } from 'redux-form';
+import textareaField from 'src/components/core/form/fields/textarea';
+import inputField from 'src/components/core/form/fields/input';
+import LabelLang from 'src/lang/components/LabelLang';
+import { FieldLang } from 'src/lang/components';
+import { isEmail, isRequired } from 'src/components/core/form/validator';
+import { URL } from 'src/resources/constants/url';
+import cx from 'classnames';
+import PhoneNumber from 'src/components/core/controls/phoneNumber';
+import { showAlert } from 'src/screens/app/redux/action';
+import contactActions from './action';
+import style from './style.scss';
 
 const ContactForm = createForm({
   propsReduxForm: {
-    form: 'ContactForm',
-    initialValues: {
-      input: '',
-    },
+    form: 'ContactForm'
   },
 });
 
@@ -21,81 +26,99 @@ const selectorForm = formValueSelector('ContactForm');
 class Contact extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      isSubmiting: false,
+      phone: '',
     };
   }
 
-  submitAddContact=() => {
-    this.setState({ isSubmiting: true });
-    const { fullname, email, phone, description } = this.props;
-    if (fullname && email && phone && description) {
-      console.log(fullname, email, phone, description);
-      this.props.addContact(fullname, email, phone, description).then((data) => {
+  submitAddContact = () => {
+    let { fullname, email, description } = this.props;
+    let phone = this.state.phone;
+
+    console.log(fullname, email, phone, description);
+    if (fullname && email && description) {
+      this.props.addContact(fullname, phone, email, description).then((data) => {
         console.log('data addContact', data);
-        this.setState({ isSubmiting: false });
-        alert('Contact success');
+        this.props.showAlert({
+          message: 'landingPage.contactUS.message',
+          timeOut: 6000,
+        });
+        this.props.history.push(URL.HOME);
       }, (err) => {
-        alert('Contact fail');
-        this.setState({ isSubmiting: false });
+        this.props.showAlert({
+          message: 'app.common.error',
+          type: 'danger',
+          timeOut: 2000,
+        });
         console.log('submitAddContact', err);
       });
     }
   }
 
-  render() {
-    const { isSubmiting } = this.state;
+  handleOnChange = (value) => {
+    console.log('phone', value);
+    this.setState({
+      phone: value
+    });
+  }
+
+  render() {    
     return (
-      <div className="row justify-content-md-center">
-        <div className="col-md-6">
-          <h2>Contact us</h2>
-          <ContactForm onSubmit={this.submitAddContact}>
-            <div className="form-group">
-              <label htmlFor="fullname">Your name</label>
-              <Field
-                name="fullname"
-                className="form-control"
-                component={inputField}
-                validate={inputValidator}
-                type="text"
-              />
+
+      <div className={cx('container', style['contact-warper'])}>
+        <div className="row">
+          <div className="col-sm-10 col-md-9 col-lg-7 mx-auto">
+            <h5 className={cx(style.contactTitle, 'text-center')}><LabelLang id="landingPage.contactUS.title" /></h5>
+            <div className={cx('card', style['contact-card'])}>
+              <div className="card-body">
+                <ContactForm onSubmit={this.submitAddContact}>
+                  <div className="form-group">
+                    <FieldLang
+                      name="fullname"
+                      className="form-control"
+                      component={inputField}
+                      validate={isRequired('landingPage.contactUS.requiredYourName')}
+                      type="text"
+                      placeholder="landingPage.contactUS.placeholderYourName"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <FieldLang
+                      name="email"
+                      className="form-control"
+                      component={inputField}
+                      validate={[isRequired('landingPage.contactUS.requiredEmail'), isEmail('landingPage.contactUS.notValidEmail')]}
+                      type="email"
+                      placeholder="landingPage.contactUS.placeholderYourEmail"
+                    />
+                  </div>
+                  <div className="form-group">
+                    {/* <FieldLang
+                      name="phone"
+                      className="form-control"
+                      component={inputField}
+                      placeholder="landingPage.contactUS.placeholderPhone"
+                      type="phone"
+                    /> */}
+                    <PhoneNumber value={this.state.phone} onChange={this.handleOnChange} defaultCountry='hk' regions='asia' inputStyle={{ width: '100%' }} />
+                  </div>
+                  <div className="form-group">
+                    <FieldLang
+                      name="description"
+                      className="form-control"
+                      component={textareaField}
+                      placeholder="landingPage.contactUS.placeholderDescription"
+                      type="text"
+                      validate={isRequired('landingPage.contactUS.requiredDescription')}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <button type="submit" className={cx('btn btn-primary btn-block', style.buttonContact)}><LabelLang id="landingPage.contactUS.contactButton" /></button>
+                  </div>
+                </ContactForm>
+              </div>
             </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <Field
-                name="email"
-                className="form-control"
-                component={inputField}
-                validate={inputValidator}
-                type="email"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="phone">Phone</label>
-              <Field
-                name="phone"
-                className="form-control"
-                component={inputField}
-                validate={inputValidator}
-                type="phone"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <Field
-                name="description"
-                className="form-control"
-                component={textareaField}
-                validate={textareaValidator}
-                type="description"
-              />
-            </div>
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary">Submit</button>
-              {isSubmiting && <img alt="is login" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />}
-            </div>
-          </ContactForm>
+          </div>
         </div>
       </div>
     );
@@ -111,6 +134,7 @@ const mapStateToProps = state => ({
 
 const mapDispatch = dispatch => ({
   addContact: bindActionCreators(contactActions.addContact, dispatch),
+  showAlert: bindActionCreators(showAlert, dispatch),
 });
 
 const connectedContactPage = connect(mapStateToProps, mapDispatch)(Contact);

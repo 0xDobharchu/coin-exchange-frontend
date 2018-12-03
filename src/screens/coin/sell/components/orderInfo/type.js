@@ -1,0 +1,2 @@
+const TAG = 'SCREENS/COIN/SELL/ODER_INFO';
+export const CHECK_ADDRESS = `${TAG}/CHECK_ADDRESS`;

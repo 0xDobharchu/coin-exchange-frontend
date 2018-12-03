@@ -1,18 +1,67 @@
+import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
 
 const mockState = {
-  token: '3Spjg41uj3CTsH9ts77AaVnyfOAHOjtqRzC9ZIUyv_AU5nKO_PK5DIgJ8A==',
+  token: '',
   profile: {
-    email: 'vankhoa@autonomous.nyc',
+    email: '',
     phone: '',
-  }
+    idVerificationLevel: 0,
+    verified: 1,
+    name: '',
+    language: FAIL_DEFAULT_LANGUAGE,
+    country: '',
+    currency: '',
+    phone_number: '',
+    id_type: '',
+    id_number: '',
+    back_image: '',
+    front_image: '',
+    selfie_image: '',
+    verification_level: '',
+    verification_status: '',
+    wallet: '',
+    security_2fa: false,
+  },
+  history: {
+    transactions: [],
+    count: 0
+  },
+  referrals: []
 };
 
-export default (state = mockState, { type, payload }) => {
+export default (state = mockState, { type, payload, data }) => {
   switch (type) {
+    case 'GET_PROFILE':
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          ...payload
+        }
+      };
     case 'UPDATE_AUTH_STATE':
       return {
         ...state,
         ...payload
+      };
+    case 'SCREENS/LOGIN/PROFILE_SUCCESS':
+    case 'UPDATE_PROFILE_INFO':
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          ...(payload || data)
+        }
+      };
+    case 'GET_TRANSACTIONS':
+      return {
+        ...state,
+        history: payload
+      };
+    case 'GET_REFERRALS':
+      return {
+        ...state,
+        referrals: []
       };
     default:
       return state;

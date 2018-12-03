@@ -1,29 +1,45 @@
 import { makeRequest } from 'src/redux/action';
-import { URL } from 'src/resources/constants/url';
+import { API_URL } from 'src/resources/constants/url';
 import { USER } from 'src/resources/constants/user';
-import { LOGIN } from './type';
+import authentication from 'src/utils/authentication';
+import { LOGIN, GET_PROFILE } from './type';
+
+const makeGetProfile = (dispatch) => makeRequest({
+  type: GET_PROFILE,
+  url: API_URL.USER.USER_PROFILE,
+  method: 'GET'
+}, dispatch);
 
 export const login = (username, password) => (dispatch) => {
   const makeLogin = makeRequest({
     type: LOGIN,
-    url: URL.USER_LOGIN,
+    url: API_URL.USER.USER_SIGN_IN,
     method: 'POST',
     data: {
       username,
       password
     }
   }, dispatch);
+
   return makeLogin().then((res) => {
-    if (res.refresh && res.access) {
-      localStorage.setItem(USER.ACCESS_TOKEN, res.access);
-      localStorage.setItem(USER.REFRESH_TOKEN, res.refresh);
+    if (res.refresh && res.access && __CLIENT__) {
+      authentication.setAccessToken(res.access);
+      authentication.setRefreshToken(res.refresh);
+      return makeGetProfile(dispatch)().then((profile) => {
+
+        const user = {name: profile.name, email: profile.email};
+        authentication.setCurrentUser(user);
+        return {
+          type: USER.LOGIN_SUCCESS,
+          isAuthenticated: true,
+          message: (profile.verification_level === 'level_1' && profile.verification_status === 'pending')
+        };
+      });
     } else {
-      alert('OH! something went wrong!');
+      return {type: USER.LOGIN_FAILURE};
     }
-    return USER.LOGIN_SUCCESS;
   }, (err) => {
     console.log(err);
-    alert('Username password do not match');
-    return USER.LOGIN_FAILURE;
+    return {type: USER.LOGIN_FAILURE};
   });
 };

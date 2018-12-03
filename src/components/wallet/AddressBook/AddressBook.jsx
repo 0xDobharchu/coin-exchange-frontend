@@ -2,29 +2,31 @@ import axios from 'axios';
 import React from 'react';
 import {injectIntl} from 'react-intl';
 import {connect} from "react-redux";
-import { showLoading, hideLoading, showAlert, showScanQRCode, showQRCodeContent } from '@/reducers/app/action';
-import QRCodeContent from '@/components/wallet/QRCodeContent';
+import { showLoading, hideLoading, showAlert, showQRCodeContent } from 'src/screens/app/redux/action';
+import QRCodeContent from 'src/components/wallet/QRCodeContent';
 import '../WalletPreferences/WalletPreferences.scss';
 
 import './AddressBook.scss';
 
-import iconAvatar from '@/assets/images/wallet/icons/avatar.svg';
+import iconAvatar from 'src/assets/images/wallet/icons/avatar.svg';
 
-import { ICON } from '@/components/wallet/images';
+import { ICON } from 'src/components/wallet/images';
 
-import Modal from '@/components/core/controls/Modal';
+import Modal from 'src/components/core/controls/Modal';
 
-import { MasterWallet } from '@/services/Wallets/MasterWallet';
+import { MasterWallet } from 'src/services/Wallets/MasterWallet';
 
-import Input from '../Input';
+import InputMobile from '../InputMobile';
 
-import iconSearch from '@/assets/images/wallet/icons/ic_search.svg';
+import iconSearch from 'src/assets/images/wallet/icons/ic_search.svg';
 
-import iconEdit from '@/assets/images/wallet/icons/icon-edit.svg';
+import iconEdit from 'src/assets/images/wallet/icons/icon-edit.svg';
 
 
-import {Contact} from '@/services/Wallets/Contact/Contact'
-import {ContactAddress} from '@/services/Wallets/Contact/ContactAddress'
+import {Contact} from 'src/services/Wallets/Contact/Contact';
+import {ContactAddress} from 'src/services/Wallets/Contact/ContactAddress';
+
+import { showQrCode } from 'src/components/barcodeScanner';
 
 function validateEmail(email) {  
   const re = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
@@ -273,7 +275,7 @@ class AddressBook extends React.Component {
         <div className="box-setting">                         
           <div className="list-address-book">            
 
-            <Modal title={this.state.needChoice ? messages.wallet.action.setting.label.select_an_address : (this.state.contactSelected ? this.state.contactSelected.name : "Detail")} onRef={modal => this.modalAddressBookDetailRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle} modalBodyStyle={this.props.modalBodyStyle} customRightIcon={iconEdit} customRightIconClick={()=>{this.openEditContact()}}>
+            <Modal title={this.state.needChoice ? messages['wallet.action.setting.label.select_an_address'] : (this.state.contactSelected ? this.state.contactSelected.name : "Detail")} onRef={modal => this.modalAddressBookDetailRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle} modalBodyStyle={this.props.modalBodyStyle} customRightIcon={iconEdit} customRightIconClick={()=>{this.openEditContact()}}>
                   {this.state.contactSelected &&
                     <div className="contact-detail">
 
@@ -285,7 +287,7 @@ class AddressBook extends React.Component {
 
                         <div className="item">                        
                             <div className="name">
-                              <label>{messages.wallet.action.setting.label.contact_name}</label>                            
+                              <label>{messages['wallet.action.setting.label.contact_name']}</label>                            
                             </div>                
                             <div className="value">
                               <span className="text">{this.state.contactSelected.name}</span>
@@ -294,7 +296,7 @@ class AddressBook extends React.Component {
                           
                           <div className="item">  
                             <div className="name">
-                                <label>{messages.wallet.action.setting.label.contact_email}</label>                            
+                                <label>{messages['wallet.action.setting.label.contact_email']}</label>                            
                             </div>                
                             <div className="value">
                                 <span className="text">{this.state.contactSelected.email}</span>
@@ -305,7 +307,7 @@ class AddressBook extends React.Component {
                           return (             
                             <div onClick={()=>{this.onFinish(item.address);}} key={"detail-" + i.toString()} className="item">   
                               <div className="name">
-                                  <label>{ item.name + ' ' + messages.wallet.action.setting.label.contact_address}</label>                            
+                                  <label>{ item.name + ' ' + messages['wallet.action.setting.label.contact_address']}</label>                            
                                   <span className="desc desc-long">{item.address}</span>
                               </div>                                              
                             </div>
@@ -316,14 +318,14 @@ class AddressBook extends React.Component {
   
                             <div className="item" onClick={()=> {this.onSendMoneyClick();}}>  
                               <div className="name">
-                                  <label className="green">{messages.wallet.action.setting.label.contact_send_money}</label>                            
+                                  <label className="green">{messages['wallet.action.setting.label.contact_send_money']}</label>                            
                               </div>                
                             </div> */}
                             <div className="item header header-empty"></div>
 
                             <div className="item" >  
                               <div className="name" onClick={()=>{this.onRemoveContactClick();}}>
-                                  <label className="red">{messages.wallet.action.setting.label.contact_remove}</label>                            
+                                  <label className="red">{messages['wallet.action.setting.label.contact_remove']}</label>                            
                               </div>                
                             </div>
                           </div>}
@@ -332,27 +334,27 @@ class AddressBook extends React.Component {
                     }
                                   
             </Modal>   
-            <Modal title={ this.state.isUpdate === false ?  messages.wallet.action.setting.label.contact_empty_button : messages.wallet.action.setting.label.update_title_text} onRef={modal => this.modaAddNewContactRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle}>
+            <Modal title={ this.state.isUpdate === false ?  messages['wallet.action.setting.label.contact_empty_button'] : messages['wallet.action.setting.label.update_title_text']} onRef={modal => this.modaAddNewContactRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle}>
               <div className="add-new-contact">
                   <div>                    
-                    <Input placeholder={messages.wallet.action.setting.label.contact_name} maxLength="40" value={this.state.newContact.name} onChange={(evt) => {this.onContactNameChange(evt)}} />
+                    <InputMobile placeholder={messages['wallet.action.setting.label.contact_name']} maxLength="40" value={this.state.newContact.name} onChange={(evt) => {this.onContactNameChange(evt)}} />
                   </div>
                   <div>                  
-                    <Input placeholder={messages.wallet.action.setting.label.contact_email} maxLength="40" value={this.state.newContact.email} onChange={(evt) => {this.onContactEmailChange(evt)}} />
+                    <InputMobile placeholder={messages['wallet.action.setting.label.contact_email']} maxLength="40" value={this.state.newContact.email} onChange={(evt) => {this.onContactEmailChange(evt)}} />
                   </div>
                   {this.state.newContact.addresses.map((item, i) => {  
                   return (             
                     <div key={`address-${i}`} className="qrcode-box">
-                      <span onClick={()=> {this.props.showScanQRCode({onFinish: (data) => {this.onQRCodeScaned(data, i);}});}}  className="icon-qr-code-black">{ICON.QRCode()}</span>                  
-                      <Input placeholder={`${item.name} ${messages.wallet.action.setting.label.contact_address}`} maxLength="100" value={item.address} onChange={(evt) => {this.onContactAddressChange(evt, i)}} />
-                      { i == 0 ? <div className={"add-new-address-label " + (this.state.newContact.addresses.length > 1 ? 'add-new-address-many' : '')}><span onClick={()=>{this.onAddNewAddressClick();}}>{messages.wallet.action.setting.label.add_new_address}</span></div>
-                        : <div className={"remove-address-label " + (i == this.state.newContact.addresses.length-1 ? 'remove-last-child': '')}><span onClick={()=>{this.onRemoveNewAddressClick(i);}}>{messages.wallet.action.setting.label.remove_new_address}</span></div>
+                      <span onClick={()=> {showQrCode({onData: (data) => {this.onQRCodeScaned(data, i);}});}}  className="icon-qr-code-black">{ICON.QRCode()}</span>                  
+                      <InputMobile placeholder={`${item.name} ${messages['wallet.action.setting.label.contact_address']}`} maxLength="100" value={item.address} onChange={(evt) => {this.onContactAddressChange(evt, i)}} />
+                      { i == 0 ? <div className={"add-new-address-label " + (this.state.newContact.addresses.length > 1 ? 'add-new-address-many' : '')}><span onClick={()=>{this.onAddNewAddressClick();}}>{messages['wallet.action.setting.label.add_new_address']}</span></div>
+                        : <div className={"remove-address-label " + (i == this.state.newContact.addresses.length-1 ? 'remove-last-child': '')}><span onClick={()=>{this.onRemoveNewAddressClick(i);}}>{messages['wallet.action.setting.label.remove_new_address']}</span></div>
                       }
                     </div>
                   )})}
 
                   <button type="button" onClick={()=> {this.onAddNewContactClick();}} disabled={invalid} className="btn button btn-primary button btn-add-new-address">
-                    { this.state.isUpdate === false ? messages.wallet.action.setting.label.contact_empty_button : messages.wallet.action.setting.label.update_button_text}
+                    { this.state.isUpdate === false ? messages['wallet.action.setting.label.contact_empty_button'] : messages['wallet.action.setting.label.update_button_text']}
                   </button>
               </div>
             </Modal>         
@@ -360,14 +362,14 @@ class AddressBook extends React.Component {
               {this.state.listAddressBook.length == 0 ?
               <div className="list-address-emtpy">
                 <img src={iconAvatar} />
-                <div className="address-emtpy-title">{messages.wallet.action.setting.label.contact_empty_title}</div>
-                <div className="address-emtpy-desc">{messages.wallet.action.setting.label.contact_empty_desc}</div>
-                <button onClick={()=>{this.openAddNewContact();}} className="address-emtpy-btn btn button btn-primary button">{messages.wallet.action.setting.label.contact_empty_button}</button>
+                <div className="address-emtpy-title">{messages['wallet.action.setting.label.contact_empty_title']}</div>
+                <div className="address-emtpy-desc">{messages['wallet.action.setting.label.contact_empty_desc']}</div>
+                <button onClick={()=>{this.openAddNewContact();}} className="address-emtpy-btn btn button btn-primary button">{messages['wallet.action.setting.label.contact_empty_button']}</button>
               </div>
               :
               <div className="list-contact-search-box">
                 <img src={iconSearch} />
-                <input onChange={(evt)=>{this.onSearchChange(evt);}} placeholder={messages.wallet.action.setting.label.contact_add_contact_search_box} type="text" className="form-control-custom form-control-custom-ex w-100" />
+                <input onChange={(evt)=>{this.onSearchChange(evt);}} placeholder={messages['wallet.action.setting.label.contact_add_contact_search_box']} type="text" className="form-control-custom form-control-custom-ex w-100" />
               </div>
               }
               <div id="lst-address-book">
@@ -398,8 +400,7 @@ const mapStateToProps = (state) => ({
 const mapDispatch = ({    
   showAlert,
   showLoading,
-  hideLoading,
-  showScanQRCode,
+  hideLoading,  
   showQRCodeContent,
 });
 

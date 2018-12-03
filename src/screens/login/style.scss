@@ -1,2 +1,37 @@
-a { cursor: pointer; }
-.help-block { font-size: 12px; }
+.login-warper {
+  margin-top: 50px;
+}
+.login-title {
+  margin-bottom: 20px;
+  color: #FFFFFF;
+  font-size: 26px;
+  font-weight: bold;
+  height: 26px;
+  letter-spacing: 0;
+}
+.login-card {
+  border-radius: 6px 6px 6px 6px;
+  box-shadow: 0 5px 29px -7px #000000;
+}
+.custom-checkbox {
+  border: none;
+  padding: 0;
+  label {
+    cursor: pointer;
+  }
+  .remember-me {
+    padding-top: 13px !important;
+  }
+}
+
+.button-login {
+  background: #5522DD;
+  border-radius: 6px 6px 6px 6px;
+  box-shadow: 0 6px 13px 0 #D7D0F5;
+  height: 50px;
+  width: 152px;
+}
+
+.link {
+  color: white;
+}

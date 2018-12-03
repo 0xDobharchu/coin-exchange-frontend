@@ -1,21 +1,24 @@
 /* eslint react/prop-types:0 */
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
+import {LabelLang} from 'src/lang/components';
+import cx from 'classnames';
 
 const inputField = ({
-  input, meta, toggle, list
+  input, meta, toggle, labelText, labelClassName, containerClassName, list ,className, handleOnChange
 }) => {
   const {
     onChange, onBlur, onFocus, value
   } = input;
-  const _toggle = toggle || 'Toggle';
+  const _toggle = toggle || '';
   const _list = list || [];
   const { error, touched } = meta;
   const shouldShowError = !!(touched && error);
   const selectedItem = _list.find(i => i.value === value) || {};
   return (
-    <div>
-      <Dropdown value={selectedItem.value}>
+    <div className={containerClassName ? containerClassName : ''}>
+      {labelText && (<label className={labelClassName ||  ''}>{ <LabelLang id={labelText} /> }</label>)}
+      <Dropdown value={selectedItem.value} className={cx('dropdown-warper', className || '')}>
         <Dropdown.Toggle variant="basic" onFocus={() => onFocus()} onBlur={() => onBlur()}>
           {selectedItem?.label || _toggle}
         </Dropdown.Toggle>
@@ -27,6 +30,9 @@ const inputField = ({
                   key={item.id || index}
                   onClick={() => {
                     onChange(item?.value);
+                    if (typeof handleOnChange === 'function') {
+                      handleOnChange(item?.value);
+                    }
                     if (typeof item?.onClick === 'function') {
                       item?.onClick();
                     }
@@ -40,7 +46,7 @@ const inputField = ({
           }
         </Dropdown.Menu>
       </Dropdown>
-      { shouldShowError && <span>{error}</span>}
+      { shouldShowError && <small className="text-danger"><LabelLang id={error} /></small>}
     </div>
   );
 };

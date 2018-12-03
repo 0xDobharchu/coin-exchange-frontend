@@ -1,0 +1,39 @@
+@import './mixins.scss';
+@import './_var.scss';
+
+/* Reusable class should be defined bellow
+  Read more https://github.com/css-modules/css-modules
+*/
+$scopeName: 'common';
+:global {
+  .#{$scopeName}-fluid {
+    @include full-screen;
+  }
+
+  .#{$scopeName}-container {
+    @include full-screen;
+    padding: 20px;
+    background-color: $background-color;
+  }
+
+  .#{$scopeName}-clickable {
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0 -2px 13px 0 rgba(221,235,242,0.50);
+      background-color:rgba(0, 0, 0, 0.02);
+    }
+  }
+  .#{$scopeName}-btn-large {
+    min-width: 227px;
+    height: 54px;
+    background: $primary-medium;
+  }
+  .#{$scopeName}-btn-medium {
+    width: 215px;
+    height: 44px; 
+  }
+  .#{$scopeName}-btn-medium {
+    width: 188px;
+    height: 36px;
+  }
+}

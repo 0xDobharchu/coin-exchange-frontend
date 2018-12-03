@@ -3,47 +3,48 @@ import PropTypes from 'prop-types';
 
 import {injectIntl} from 'react-intl';
 import {Field, change, clearFields} from "redux-form";
-import {fieldDropdown, fieldInput} from '@/components/core/form/customField'
+import {fieldDropdown, fieldInput} from 'src/components/core/form/customField'
 import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
-import Button from '@/components/core/controls/Button';
-import { API_URL } from "@/constants";
-import {getFiatCurrency} from '@/reducers/exchange/action';
-import {MasterWallet} from "@/services/Wallets/MasterWallet";
+import Button from 'src/components/core/controls/Button';
+import { API_URL } from 'src/resources/constants/url';
+import { makeRequest } from 'src/redux/action';
+import {MasterWallet} from "src/services/Wallets/MasterWallet";
 
-import { showLoading, hideLoading, showAlert } from '@/reducers/app/action';
-import { StringHelper } from '@/services/helper';
-import createForm from '@/components/core/form/createForm';
-import './ReceiveCoin.scss';
-import ExpandArrowSVG from '@/assets/images/wallet/icons/expand-arrow-green.svg';
-import iconSwitch from '@/assets/images/wallet/icons/icon-switch.png';
+import { showAlert } from 'src/screens/app/redux/action';
+import { StringHelper } from 'src/services/helper';
+import createForm from 'src/components/core/form/createForm';
+import style from './ReceiveCoin.scss';
+import ExpandArrowSVG from 'src/assets/images/wallet/icons/expand-arrow-green.svg';
+import iconSwitch from 'src/assets/images/wallet/icons/icon-switch.png';
 
 const QRCode = require('qrcode.react');
 
-window.Clipboard = (function (window, document, navigator) {
-  let textArea,
-    copy;
+if (__CLIENT__)
+  window.Clipboard = (function (window, document, navigator) {
+    let textArea,
+      copy;
 
-    function isOS() {
-      return navigator.userAgent.match(/ipad|iphone/i);
+      function isOS() {
+        return navigator.userAgent.match(/ipad|iphone/i);
+      }
+
+      function createTextArea(text) {
+        textArea = document.createElement('textArea');
+        textArea.value = text; document.body.appendChild(textArea);
+      }
+
+      function selectText() {
+      let range,
+        selection;
+        if (isOS()) {
+          range = document.createRange();
+          range.selectNodeContents(textArea);
+          selection = window.getSelection();
+          selection.removeAllRanges(); selection.addRange(range);
+          textArea.setSelectionRange(0, 999999); } else { textArea.select();
+          }
     }
-
-    function createTextArea(text) {
-      textArea = document.createElement('textArea');
-      textArea.value = text; document.body.appendChild(textArea);
-    }
-
-    function selectText() {
-    let range,
-      selection;
-      if (isOS()) {
-        range = document.createRange();
-        range.selectNodeContents(textArea);
-        selection = window.getSelection();
-        selection.removeAllRanges(); selection.addRange(range);
-        textArea.setSelectionRange(0, 999999); } else { textArea.select();
-        }
-  }
   function copyToClipboard() {
     document.execCommand('copy'); document.body.removeChild(textArea); }
 
@@ -79,7 +80,7 @@ class ReceiveCoin extends React.Component {
 
   showAlert(msg, type = 'success', timeOut = 3000, icon = '') {
     this.props.showAlert({
-      message: <div className="textCenter">{icon}{msg}</div>,
+      message: <div className={style.textCenter}>{icon}{msg}</div>,
       timeOut,
       type,
       callBack: () => {},
@@ -103,16 +104,17 @@ class ReceiveCoin extends React.Component {
     return new Promise((resolve, reject) => {
       let {wallet, currency} = this.props, result = 0;
 
-      if(wallet && currency){
+      if(wallet && currency){        
+
         this.props.getFiatCurrency({
-          PATH_URL: API_URL.EXCHANGE.GET_FIAT_CURRENCY,
-          qs: {fiat_currency: currency ? currency : 'USD', currency: cryptoCurrency ? cryptoCurrency : wallet.name},
-          successFn: (res) => {
-            let data = res.data;
-            result = currency == 'USD' ? data.price : data.fiat_amount;
+          url: API_URL.EXCHANGE.GET_FIAT_CURRENCY,          
+          params: {amount: 1, fiat_currency: currency ? currency : 'USD', currency: cryptoCurrency ? cryptoCurrency : wallet.name, direction: 'buy'},
+          onSuccess: (res) => {
+            let data = res;
+            result = currency == 'USD' ? data.fiat_amount : data.fiat_amount;
             resolve(result);
           },
-          errorFn: (err) => {
+          onError: (err) => {
             resolve(0);
           },
         });
@@ -261,19 +263,14 @@ class ReceiveCoin extends React.Component {
   }
 
   download = (value) => {
-    const canvas = document.querySelector('.box-qr-code > canvas');
+    const canvas = document.querySelector('.qrcode_data > canvas');
     this.downloadRef.href = canvas.toDataURL();
     this.downloadRef.download = this.state.walletSelected.getShortAddress() + "-" + value.toString() + "-" + this.state.walletSelected.name + ".png";
  }
 
   onItemSelectedWallet = (item) =>{
     let wallet = MasterWallet.convertObject(item);
-
-    // if(wallet.name != this.state.walletSelected.name){
-    //   this.resetForm();
-    //   this.setState({rate: 0});
-    // }
-
+    
     this.setState({ walletSelected: wallet}, async () => {
       if(wallet.name != this.state.currency)
         await this.setRate(wallet.name);
@@ -306,43 +303,37 @@ class ReceiveCoin extends React.Component {
 
     const qrCodeValue = this.genQRCodeValue();
 
-    let showDivAmount = this.state.walletSelected && this.state.rate;
-
-    // let value = (this.state.inputSendAmountValue != '' ? `,${this.state.inputSendAmountValue}` : '');
-    // if (this.state.isCurrency){
-    //   value = (this.state.switchValue != '' ? `,${this.state.switchValue}` : '');
-    // }
-    // let qrCodeValue = (this.state.walletSelected ? this.state.walletSelected.address : '') + value;
+    let showDivAmount = this.state.walletSelected && this.state.rate;    
 
     let symbol = this.state.isCurrency ? currency : (this.state.walletSelected ? StringHelper.format("{0}", this.state.walletSelected.name) : '');
 
     let placeholder = ((this.state.inputSendAmountValue == 0 || this.state.inputSendAmountValue.toString() == '') ? "0.0" : this.state.inputSendAmountValue.toString() ) + " " + symbol
 
     return (
-      <div className="receive-coins">
-          {/* <div className="bodyTitle"><span>{messages.wallet.action.receive.message} { this.state.walletSelected ? this.state.walletSelected.name : ''} </span></div> */}
-          <div className={['bodyBackup bodyShareAddress']}>
+      <div className={style['receive-coins']}>
+          {/* <div className="bodyTitle"><span>{messages['wallet.action.receive.message']} { this.state.walletSelected ? this.state.walletSelected.name : ''} </span></div> */}
+          <div className={style['bodyBackup'] + ' ' + style.bodyShareAddress}>
 
           {/* <div className="bodyTitle">
-            <span>{messages.wallet.action.receive.title2}</span>
+            <span>{messages['wallet.action.receive.title2']}</span>
           </div> */}
 
-          <div className="box-addresses">
+          <div className={style["box-addresses"]}>
 
-              <div className="box-address">
-                  <div className="addressDivPopup">{ this.state.walletSelected ? this.state.walletSelected.address : ''}&nbsp;
-                  <img className="expand-arrow" src={ExpandArrowSVG} alt="expand" />
+              <div className={style["box-address"]}>
+                  <div className={style["addressDivPopup"]}>{ this.state.walletSelected ? this.state.walletSelected.address : ''}&nbsp;
+                  <img className={style["expand-arrow"]} src={ExpandArrowSVG} alt="expand" />
                   </div>
               </div>
 
-              <div className="box-hide-wallet">
-                <ShowAddressWalletForm className="receivewallet-wrapper">
+              <div className={style["box-hide-wallet"]}>
+                <ShowAddressWalletForm className={style["receivewallet-wrapper"]}>
                 { this.state.walletSelected ?
 
                   <Field
                     name="showWalletSelected"
                     component={fieldDropdown}
-                    placeholder={messages.wallet.action.receive.placeholder.choose_wallet}
+                    placeholder={messages['wallet.action.receive.placeholder.choose_wallet']}
                     defaultText={this.state.walletSelected.text}
                     list={this.state.wallets}
                       onChange={(item) => {
@@ -357,24 +348,24 @@ class ReceiveCoin extends React.Component {
 
             </div>
 
-            <div className="box-qr-code">
-                <QRCode size={230} value={qrCodeValue} onClick={() => { Clipboard.copy(qrCodeValue); this.showToast(messages.wallet.action.receive.success.share);}} />
+            <div className={`${style["box-qr-code"]} qrcode_data`} title="click to copy the address">
+                <QRCode size={230} value={qrCodeValue} onClick={() => { Clipboard.copy(qrCodeValue); this.showToast(messages['wallet.action.receive.success.share']);}} />
             </div>
 
 
-            <div className="box-link">
-              <a className="link-copy-address" onClick={() => { Clipboard.copy(this.state.walletSelected.address); this.showToast(messages.wallet.action.receive.success.share);}}>{messages.wallet.action.receive.link.copy_address}</a>
-              <a className="link-download" ref={(ref) => this.downloadRef = ref} onClick={()=> {this.download(qrCodeValue);}}>
-                {messages.wallet.action.receive.link.download_qrcode}
+            <div className={style["box-link"]}>
+              <a className={style["link-copy-address"]} onClick={() => { Clipboard.copy(this.state.walletSelected.address); this.showToast(messages['wallet.action.receive.success.share']);}}>{messages['wallet.action.receive.link.copy_address']}</a>
+              <a className={style["link-download"]} ref={(ref) => this.downloadRef = ref} onClick={()=> {this.download(qrCodeValue);}}>
+                {messages['wallet.action.receive.link.download_qrcode']}
               </a>
             </div>
             
             {/* Don't support for Collectibles */}
             { !this.state.walletSelected.isCollectibles ?
-            <ReceiveWalletForm className="receivewallet-wrapper">
-              <div className="div-amount">
+            <ReceiveWalletForm className={style["receivewallet-wrapper"]}>
+              <div className={style["div-amount"]}>
                { showDivAmount ?
-                <div onClick={() => {this.switchValue(showDivAmount)}} className={"prepend-button"}>
+                <div onClick={() => {this.switchValue(showDivAmount)}} className={style["prepend-button"]}>
                   <img src={iconSwitch}/>
                   {/* ⋮  */}
                 </div>
@@ -385,7 +376,7 @@ class ReceiveCoin extends React.Component {
                   name="amountCoinTemp"
                   placeholder={placeholder}
                   type="text"
-                  className={["form-control", "amountCoinTemp"]}
+                  className={["form-control", style.amountCoinTemp]}
                   component={fieldInput}
                   autoComplete="off"
                 />
@@ -395,7 +386,7 @@ class ReceiveCoin extends React.Component {
                   name="amountCoin"
                   placeholder={"0.0"}
                   type="text"
-                  className={["form-control", "amountCoin"]}
+                  className={["form-control", style["amountCoin"]]}
                   component={fieldInput}
                   value={this.state.inputSendAmountValue}
                   onChange={evt => this.updateAddressAmountValue(evt)}
@@ -408,21 +399,21 @@ class ReceiveCoin extends React.Component {
             : ""}
 
             { !showDivAmount ? "" :
-                <div className="switch-value">
+                <div className={style["switch-value"]}>
                     ≈ {this.state.switchValue}&nbsp;
                     <b>{!this.state.isCurrency ? currency
                     : (this.state.walletSelected ? StringHelper.format("{0}", this.state.walletSelected.name) : '') } </b>
                 </div>
               }
 
-            {/* <div className="link-request-custom-amount" onClick={() => { this.modalCustomAmountRef.open(); this.setState({ inputSendAmountValue: '' }); }}>{messages.wallet.action.receive.button.request_amount}</div> */}
+            {/* <div className="link-request-custom-amount" onClick={() => { this.modalCustomAmountRef.open(); this.setState({ inputSendAmountValue: '' }); }}>{messages['wallet.action.receive.button.request_amount}</div> */}
 
             {/* <a className="button-download" ref={(ref) => this.downloadRef = ref} onClick={()=> {this.download(value);}}>
-                {messages.wallet.action.receive.link.download_qrcode}
+                {messages['wallet.action.receive.link.download_qrcode}
             </a>
 
-            <Button className="button" cssType="primary" onClick={() => { Clipboard.copy(this.state.walletSelected.address); this.showToast(messages.wallet.action.receive.success.share);}} >
-              {messages.wallet.action.receive.button.text}
+            <Button className="button" cssType="primary" onClick={() => { Clipboard.copy(this.state.walletSelected.address); this.showToast(messages['wallet.action.receive.success.share);}} >
+              {messages['wallet.action.receive.button.text}
             </Button> */}
           </div>
 
@@ -442,10 +433,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   rfChange: bindActionCreators(change, dispatch),
-  showAlert: bindActionCreators(showAlert, dispatch),
-  showLoading: bindActionCreators(showLoading, dispatch),
-  hideLoading: bindActionCreators(hideLoading, dispatch),
-  getFiatCurrency: bindActionCreators(getFiatCurrency, dispatch),
+  showAlert: bindActionCreators(showAlert, dispatch),  
+  getFiatCurrency: bindActionCreators(makeRequest, dispatch),
   clearFields: bindActionCreators(clearFields, dispatch),
 });
 

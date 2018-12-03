@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {injectIntl} from 'react-intl';
 import {connect} from "react-redux";
-import { MasterWallet } from "@/services/Wallets/MasterWallet";
+import { MasterWallet } from "src/services/Wallets/MasterWallet";
 import { bindActionCreators } from "redux";
-import Button from '@/components/core/controls/Button';
-import ModalDialog from '@/components/core/controls/ModalDialog';
-import { showLoading, hideLoading } from '@/reducers/app/action';
-import iconQRCodeBlack from '@/assets/images/wallet/icons/icon-qrcode-black.svg';
-import iconQRCodeWhite from '@/assets/images/wallet/icons/icon-qrcode-white.svg';
-import iconSelected from '@/assets/images/wallet/icons/check-circle-solid.svg';
-import './ListCoin.scss';
+import Button from 'src/components/core/controls/Button';
+import ModalDialog from 'src/components/core/controls/ModalDialog';
+// import { showLoading, hideLoading } from 'src/screens/app/redux/action';
+import iconQRCodeBlack from 'src/assets/images/wallet/icons/icon-qrcode-black.svg';
+import iconQRCodeWhite from 'src/assets/images/wallet/icons/icon-qrcode-white.svg';
+import iconSelected from 'src/assets/images/wallet/icons/check-circle-solid.svg';
+import style from './ListCoin.scss';
 
 const QRCode = require('qrcode.react');
 
@@ -39,12 +39,14 @@ class ListCoin extends React.Component {
 
   async componentDidMount() {
     let { walletSelected, wallets, crypto } = this.props;
-    this.props.showLoading();
+    // this.props.showLoading();
     if(!wallets){
       wallets = await this.getWallets();
     }
 
-    this.setState({wallets, walletSelected}, ()=> {this.props.hideLoading() });
+    this.setState({wallets, walletSelected}, ()=> {
+      // this.props.hideLoading() 
+    });
   }
 
   getWallets = () => {
@@ -88,12 +90,12 @@ class ListCoin extends React.Component {
 
   openQRCode=(wallet)=>{
     this.setState({
-      modalQRCode: <div className="qrBox">
-          <p className="address">{wallet.address}</p>
-          <div className="div-qr-code">
+      modalQRCode: <div className={style["qrBox"]}>
+          <p className={style["address"]}>{wallet.address}</p>
+          <div className={style["div-qr-code"]}>
             <QRCode size={250} value={wallet.address} />
           </div>
-          <Button className="btn-dark" block={true} onClick={()=> this.onClose() }>Close</Button>
+          <Button className={style["btn-dark"]} block={true} onClick={()=> this.onClose() }>Close</Button>
         </div>
       }, ()=> this.modalQRCodeRef.open());
   }
@@ -103,20 +105,20 @@ class ListCoin extends React.Component {
     if(wallets){
       return wallets.map(e => {
         let icon = '';
-        try{ icon = require("@/assets/images/wallet/icons/wallet/coins/" + e.name.toLowerCase() + '.svg')} catch (ex){console.log(ex)};
+        try{ icon = require("src/assets/images/wallet/icons/coins/" + e.name.toLowerCase() + '.svg')} catch (ex){console.log(ex)};
         let isLive = e.network === MasterWallet.ListCoin[e.className].Network.Mainnet;
         let isSelected = walletSelected && e.network == walletSelected.network && e.address == walletSelected.address && e.name == walletSelected.name;
 
-        return <div className={"coinName " + (!isLive && " test") + (isSelected ? " selected" : "")} key={e.name+e.network+e.address}>
+        return <div className={style["coinName"] + " " + (!isLive && style["test"]) + ' ' + (isSelected ? style["selected"] : "")} key={e.name+e.network+e.address}>
             <div className="row">
-              <div className="col-2 icon" onClick={()=> this.selectCoin(e)}><img src={isSelected ? iconSelected : icon} /></div>
+              <div className={"col-2 " + style["icon"]} onClick={()=> this.selectCoin(e)}><img src={isSelected ? iconSelected : icon} /></div>
               <div className="col-5" onClick={()=> this.selectCoin(e)}>
-                <div className="name">{e.title}</div>
-                <div className="address">{e.getShortAddress()}</div>
+                <div className={style["name"]}>{e.title}</div>
+                <div className={style["address"]}>{e.getShortAddress()}</div>
               </div>
-              <div className="col-5 text-right pr-3">
-                <div className="balance" onClick={()=> this.selectCoin(e)}>{e.balance} {e.name}</div>
-                <div className="qrcode"><img src={isSelected ? iconQRCodeWhite : iconQRCodeBlack}  onClick={()=> this.openQRCode(e)} /></div>
+              <div className={"col-5 " + style["text-right"] + " " + style["pr-3"]}>
+                <div className={style["balance"]} onClick={()=> this.selectCoin(e)}>{e.balance} {e.name}</div>
+                <div className={style["qrcode"]}><img src={isSelected ? iconQRCodeWhite : iconQRCodeBlack}  onClick={()=> this.openQRCode(e)} /></div>
 
               </div>
             </div>
@@ -131,9 +133,9 @@ class ListCoin extends React.Component {
     const { messages } = this.props.intl;
     const { modalQRCode } = this.state;
     return (
-      <div className="listCoin">
+      <div className={style["listCoin"]}>
         {this.showListCoin}
-        <ModalDialog className="qr-wrapper" onRef={modal => this.modalQRCodeRef = modal}>
+        <ModalDialog className={style["qr-wrapper"]} onRef={modal => this.modalQRCodeRef = modal}>
           {modalQRCode}
         </ModalDialog>
       </div>
@@ -148,8 +150,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showLoading: bindActionCreators(showLoading, dispatch),
-  hideLoading: bindActionCreators(hideLoading, dispatch),
+  // showLoading: bindActionCreators(showLoading, dispatch),
+  // hideLoading: bindActionCreators(hideLoading, dispatch),
 });
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ListCoin));

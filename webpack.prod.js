@@ -4,7 +4,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackIncludePlugin = require('html-webpack-include-assets-plugin');
 const merge = require('webpack-merge');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const commonConfig = require('./webpack.common');
+const commonEnv = require('./.env/.env.common');
+
+const env = {
+  ...commonEnv,
+};
 
 const cssLoader = [
   {
@@ -62,7 +68,14 @@ module.exports = merge(commonConfig, {
         test: /\.scss$/,
         use: [
           ...cssLoader,
-          { loader: 'sass-loader' },
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [
+                path.resolve(__dirname, 'src/assets/styles')
+              ]
+            }
+          },
         ],
       },
     ],
@@ -74,7 +87,7 @@ module.exports = merge(commonConfig, {
     // ]),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      title: 'The Coinbowl',
+      env: env,
       template: path.resolve(__dirname, 'src/template/app.html'),
       hash: true,
       minify: {
@@ -99,5 +112,8 @@ module.exports = merge(commonConfig, {
       filename: 'assets/main.[hash:8].css',
       chunkFilename: 'assets/[id].css',
     }),
+    new CopyWebpackPlugin([
+      { from: 'src/assets/images/template/og_image.png', to: 'images' },
+    ]),
   ],
 });

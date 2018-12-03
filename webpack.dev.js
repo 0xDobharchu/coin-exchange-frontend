@@ -4,6 +4,11 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackIncludePlugin = require('html-webpack-include-assets-plugin');
 const commonConfig = require('./webpack.common');
+const commonEnv = require('./.env/.env.common');
+
+const env = {
+  ...commonEnv,
+};
 
 const cssLoader = [
   'style-loader',
@@ -61,7 +66,15 @@ module.exports = merge(commonConfig, {
         test: /\.scss$/,
         use: [
           ...cssLoader,
-          { loader: 'sass-loader', options: { sourceMap: true } },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              includePaths: [
+                path.resolve(__dirname, 'src/assets/styles')
+              ]
+            }
+          },
         ],
       },
     ],
@@ -75,7 +88,7 @@ module.exports = merge(commonConfig, {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Ninja Project',
+      env: env,
       template: path.resolve(__dirname, 'src/template/app.html'),
     }),
     new HtmlWebpackIncludePlugin({

@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import {injectIntl} from 'react-intl';
 import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
-import Modal from '@/components/core/controls/Modal';
-import { showLoading, hideLoading } from '@/reducers/app/action';
-import { ICON } from '@/components/wallet/images';
-import ListCoin from '@/components/wallet/ListCoin';
-import './WalletSelected.scss';
+import Modal from 'src/components/core/controls/Modal';
+// import { showLoading, hideLoading } from 'src/screens/app/redux/action';
+// import { ICON } from 'src/components/wallet/images';
+import ListCoin from 'src/components/wallet/ListCoin';
+import style from './WalletSelected.scss';
+import expandArrowSVG from 'src/assets/images/icon/expand-arrow.svg';
 
 class WalletSelected extends React.Component {
   static propTypes = {
@@ -59,22 +60,21 @@ class WalletSelected extends React.Component {
 
   get showWallet(){
     const walletSelected = this.state.walletSelected;
-    let icon = '';
+    let coinIcon = '';
     try{
-      if(walletSelected)
-        icon = require("@/assets/images/wallet/icons/coin-square/" + walletSelected.name.toLowerCase() + '.svg');
+      if(walletSelected) coinIcon = require("src/assets/images/wallet/icons/coins/" + walletSelected.name.toLowerCase() + '.svg');
     } catch (ex){console.log(ex)};
     return (
-      <div className="walletSelected" onClick={() => {this.openListCoin() }}>
+      <div className={style["walletSelected"]} onClick={() => {this.openListCoin() }}>
         <div className="row">
-          <div className="col-2 icon"><img src={icon} /></div>
-          <div className="col-5">
-            <div className="name">{walletSelected && walletSelected.title}</div>
-            <div className="address">{walletSelected && walletSelected.getShortAddress()}</div>
+          <div className={'col-2 ' + style["icon"] + ' ' + style['col-padding']}><img src={coinIcon} /></div>
+          <div className={'col-5' + ' ' + style['col-padding']}>
+            <div className={style["name"]}>{walletSelected && walletSelected.title}</div>
+            <div className={style["address"]}>{walletSelected && walletSelected.getShortAddress()}</div>
           </div>
-          <div className="col-5 lastCol">
-            <div className="balance">{walletSelected && walletSelected.balance + " " + walletSelected.name}</div>
-            <div className="arrow">{ICON.ArrowDown()}</div>
+          <div className={"col-5 " + style["lastCol"] + ' ' + style['col-padding']}>
+            <div className={style["balance"]}>{walletSelected && walletSelected.balance + " " + walletSelected.name}</div>
+            <div className={style["arrow"]}><img src={expandArrowSVG} /></div>
           </div>
         </div>
       </div>);
@@ -89,7 +89,7 @@ class WalletSelected extends React.Component {
       <div className="">
         {this.showWallet}
 
-        <Modal title={messages.wallet.action.transfer.placeholder.select_wallet} onRef={modal => this.modalListCoinRef = modal}>
+        <Modal title={messages['wallet.action.transfer.placeholder.select_wallet']} onRef={modal => this.modalListCoinRef = modal}>
           {modalListCoin}
         </Modal>
       </div>
@@ -104,8 +104,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  showLoading: bindActionCreators(showLoading, dispatch),
-  hideLoading: bindActionCreators(hideLoading, dispatch),
+  // showLoading: bindActionCreators(showLoading, dispatch),
+  // hideLoading: bindActionCreators(hideLoading, dispatch),
 });
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(WalletSelected));
