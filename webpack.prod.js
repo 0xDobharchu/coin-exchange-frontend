@@ -80,7 +80,7 @@ module.exports = merge(commonConfig, {
       },
     ],
   },
-  devtool: 'source-map',
+  // devtool: 'source-map',
   plugins: [
     // new CopyPlugin([
     //   { from: path.resolve(__dirname, 'src/assets/libs'), to: path.resolve(__dirname, 'dist/client/assets/libs') }
