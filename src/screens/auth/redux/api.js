@@ -320,3 +320,26 @@ export const getReferrals = async () => {
     return [];
   }
 };
+
+export const uploadFile = async (file) => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    const options = {
+      url : '/user/file-upload/?type=verification',
+      method: 'POST',
+      data: formData,
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {
+        Authorization: 'Bearer ' + currentUser.getToken(),
+        'Content-type': 'multipart/form-data'
+      };
+    }
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR get upload file', err);
+    return [];
+  }
+};
