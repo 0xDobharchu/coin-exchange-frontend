@@ -54,12 +54,18 @@ class SellCryptoCoin extends React.Component {
   }
 
   isValidToSubmit = () => {
-    const { isAuth } = this.state;
+    const { isAuth, verifiedPhone } = this.state;
     if (!isAuth) return false;
     
-    const { currency, exchange: { amount, fiatAmount }, bankName, bankAccountName, bankAccountNumber } = this.props;
-    if (currency && amount && fiatAmount && bankName && bankAccountName && bankAccountNumber) {
-      return true;
+    const { currency, exchange: { amount, fiatAmount }, bankName, bankAccountName, bankAccountNumber, paymentMethod } = this.props;
+    if (currency && amount && fiatAmount) {
+      if (paymentMethod === PAYMENT_METHOD.TRANSFER && bankName && bankAccountName && bankAccountNumber) {
+        return true;
+      } else if (paymentMethod === PAYMENT_METHOD.TNG && verifiedPhone) {
+        return true;
+      } else {
+        return false;
+      }
     }
     return false;
   }
