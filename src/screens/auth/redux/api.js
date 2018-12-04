@@ -120,7 +120,7 @@ export const sendToGetPhoneCode = async (data) => {
     return res;
   } catch (err) {
     console.log('ERROR get smscode  phone number', err);
-    return null;
+    throw err;
   }
 };
 
