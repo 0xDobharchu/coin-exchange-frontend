@@ -6,6 +6,7 @@ import { API_URL } from 'src/resources/constants/url';
 import { DEFAULT_COUNTRY } from 'src/resources/constants/countries';
 import local from 'src/services/localStore';
 import makeRequest from 'src/redux/action';
+import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
 import APP_ACTION from './type';
 
 export const updateModal = payload => ({ type: APP_ACTION.UPDATE_MODAL, payload });
@@ -66,11 +67,11 @@ export const setRootLoading = rootLoading => ({ type: APP_ACTION.UPDATE_APP_STAT
 
 
 const continueAfterInitApp = (language, ref, dispatch, data) => {
-  const ipInfoRes = { language: 'en', bannedPrediction: false, bannedCash: false };
+  const ipInfoRes = { language: FAIL_DEFAULT_LANGUAGE, bannedPrediction: false, bannedCash: false };
   const languageSaved = local.get(APP.LOCALE);
 
   if (!languageSaved) {
-    ipInfoRes.language = data.languages?.[0] || 'en';
+    ipInfoRes.language = data.languages?.[0] || FAIL_DEFAULT_LANGUAGE;
   } else {
     ipInfoRes.language = languageSaved;
   }
