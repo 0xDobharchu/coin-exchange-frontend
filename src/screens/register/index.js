@@ -76,7 +76,8 @@ class RegisterPage extends React.Component {
     });
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     this.setState({ registering: true });
     const {
       name, username, password, country, recaptchaValue, agreement
@@ -202,7 +203,13 @@ class RegisterPage extends React.Component {
                     labelTextValues={{action}}
                   />
                   <div className="form-group">
-                    <button type="submit" className={cx('btn btn-primary btn-block', style.buttonRegister, registering ? 'disabled': '')}><LabelLang id="user.register.registerButton" /></button>
+                    <button
+                      type="submit"
+                      onClick={this.handleSubmit}
+                      className={cx('btn btn-primary btn-block', style.buttonRegister, registering ? 'disabled': '')}
+                    >
+                      <LabelLang id="user.register.registerButton" />
+                    </button>
                   </div>
                 </RegisterForm>
               </div>
