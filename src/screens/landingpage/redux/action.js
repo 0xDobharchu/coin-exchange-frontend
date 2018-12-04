@@ -36,3 +36,10 @@ export const getPromotionContent = (data) => makeRequest({
   params: data.params,
   withAuth: false
 });
+
+export const getHowItWorksContent = (data) => makeRequest({
+  type: LANDINGPAGE_ACTION.GET_HOW_IT_WORKS_CONTENT,
+  url: `${API_URL.LANDING.STATIC_PAGE}`,
+  params: data.params,
+  withAuth: false
+});
