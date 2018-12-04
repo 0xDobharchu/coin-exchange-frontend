@@ -814,6 +814,7 @@ export default {
     privacyPolicy: 'Privacy Policy',
     promotionPrograms: 'Promotion Programs',
     aboutUs: 'About Us',
+    howItworks: 'How It Works',
   },
   components: {
     userVerifyStatus: {
