@@ -1,0 +1,37 @@
+@import 'var';
+@import 'responsive';
+
+.container {
+  margin: 30px 0px;
+  .body {
+    > div:global(.row) {
+      margin: 5px 0px;
+    }
+    @include respond(xs) {
+      text-align: center;
+      > div:global(.row) {
+        margin: 8px 0px;
+      }
+    }
+  }
+
+  .label {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  .value {
+    font-weight: 400;
+    border-bottom: dashed 1px green;
+    font-size: 14px;
+  }
+
+  .edit-link {
+    text-align: center;
+    width: 100%;
+    span {
+      font-size: 12px;
+    }
+  }
+}
