@@ -139,6 +139,7 @@ export default {
     },
     bankInfo: {
       title: 'Bank Info',
+      desc: 'Add your bank account details now to receive attractive commission from referral programs and faster payment',
       bankName: 'Bank Name',
       bankAccountName: 'Bank Account Name',
       bankAccountNumber: 'Bank Account Number',
