@@ -1,0 +1,15 @@
+.container {
+  .dropzone {
+    width: 100%;
+    background: grey;
+    border: 5px dotted white;
+    padding: 10px;
+  }
+  img, button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  button {
+    background: #8c1828;
+  }
+}
