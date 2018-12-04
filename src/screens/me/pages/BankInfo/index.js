@@ -37,8 +37,6 @@ class BankInfo extends React.Component {
         <div className={style.content}>
           <LabelLang id="me.bankInfo.desc" />
         </div>
-        <label className={style.title}><LabelLang id="me.bankInfo.title" /></label>
-        <div className={style.lineTitle} />
         <div className={style.block1}>
           <BankInfoForm ref={this.bankInfoForm} isEditMode={false} onSubmit={this.handleSubmit} onDelete={this.handleDelete} />
         </div>

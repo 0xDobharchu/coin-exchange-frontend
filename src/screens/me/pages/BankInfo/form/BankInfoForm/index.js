@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Row, Col }from 'react-bootstrap';
-import { LabelLang, FieldLang } from 'src/lang/components';
+import { LabelLang, FieldLang, WrapperLang } from 'src/lang/components';
 import { Button, InputField } from 'src/components/custom';
 import style from './style.scss';
 
@@ -27,6 +27,16 @@ class BankInfoForm extends React.Component {
     return (
       <form className={style.container}>
         <Row className={style.row}>
+          <Col md={8}><label className={style.title}><LabelLang id="me.bankInfo.title" /></label></Col>
+          {!isEditMode && (
+          <Col md={4} className={style.rowBtns}>
+            <button type="button" className={style.btnUpdate} onClick={this.toggleEdit}><LabelLang id="app.common.update" /></button>
+            <button type="button" className={style.btnDelete} onClick={onDelete}><LabelLang id="app.common.delete" /></button>
+          </Col>)}
+        </Row>
+        <div className={style.lineTitle} />
+        <br />
+        <Row className={style.row}>
           <Col md={6}><LabelLang id="me.bankInfo.bankName" /></Col>
           <Col md={6}><FieldLang name="bankName" component={InputField} disabled={!isEditMode} placeholder="me.bankInfo.bankNameHolder" /></Col>
         </Row>
@@ -42,13 +52,11 @@ class BankInfoForm extends React.Component {
         {isEditMode && (
         <Row style={{ padding: '5px', marginTop: '10px' }}>
           <Col md={9} />
-          <Col md={3}><Button onClick={handleSubmit(onSubmit)} value="Save" /></Col>
-        </Row>)}
-        {!isEditMode && (
-        <Row style={{ padding: '5px', marginTop: '10px' }}>
-          <Col md={6} />
-          <Col md={3}><Button onClick={this.toggleEdit} value="Update" /></Col>
-          <Col md={3}><Button className={style.btnDelete} onClick={onDelete} value="Delete" /></Col>
+          <Col md={3}>
+            <WrapperLang>
+              {ts => <Button onClick={handleSubmit(onSubmit)} value={ts('app.common.save')} />}
+            </WrapperLang>
+          </Col>
         </Row>)}
       </form>
     );
