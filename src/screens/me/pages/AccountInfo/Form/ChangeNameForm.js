@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Row, Col }from 'react-bootstrap';
-import { Button } from 'src/components/custom';
+// import { Button } from 'src/components/custom';
 import { ChangeNickNameField } from '../ChangeNickName';
 
 // eslint-disable-next-line
@@ -12,7 +12,7 @@ const ChangeNameEmailForm = ({ handleSubmit, onSubmit }) => (
     <Field name="name" component={ChangeNickNameField} />
     <Row style={{ padding: '5px', marginTop: '10px' }}>
       <Col md={9} />
-      <Col md={3}><Button onClick={handleSubmit(onSubmit)} value="Save" /></Col>
+      {/* <Col md={3}><Button onClick={handleSubmit(onSubmit)} value="Save" /></Col> */}
     </Row>
   </form>
 );
