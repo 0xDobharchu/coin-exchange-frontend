@@ -15,6 +15,9 @@ export default {
       required: 'Required',
       copied: 'Copied',
       remove: 'Remove',
+      save: 'Save',
+      update: 'Update',
+      delete: 'Delete',
       fileupload: 'Try dropping some files here, or click to select files to upload.'
     }
   },
