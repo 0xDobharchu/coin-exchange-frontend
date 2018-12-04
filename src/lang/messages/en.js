@@ -722,7 +722,8 @@ export default {
       orderFailedMsg: 'Create order failed, please try again!',
       userAddress: 'Address',
       userPhone: 'Phone',
-      userNote: 'As soon as possible'
+      userNote: 'As soon as possible',
+      buyBtn: 'Buy {amount} {currency}'
     },
     sell: {
       prepareOrderFailed: 'Failed while preparing to order, please try again',
