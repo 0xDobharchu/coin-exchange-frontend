@@ -151,7 +151,7 @@ class BuyCryptoCoin extends React.Component {
   }
 
   render() {
-    const { paymentMethod, supportedCurrency, exchange, wallet } = this.props;
+    const { paymentMethod, supportedCurrency, exchange, wallet, intl } = this.props;
     const { orderInfo, showBankTransferInfo } = this.state;
     const isValid = this.isValidToSubmit();
     if (orderInfo && showBankTransferInfo) {
@@ -165,6 +165,7 @@ class BuyCryptoCoin extends React.Component {
             className='mt-4'
             component={walletSelectorField}
             validate={walletValidator}
+            intl={intl}
           />
           <Field
             name="exchange"
@@ -175,11 +176,13 @@ class BuyCryptoCoin extends React.Component {
             fiatCurrency={supportedCurrency[0]}
             currency={wallet?.currency}
             validate={exchangeValidator}
+            intl={intl}
           />
           <Field
             className='mt-4'
             name="paymentMethod"
             component={paymentMethodField}
+            intl={intl}
           />
           { this.renderCoD() }
           <ConfirmButton
@@ -188,7 +191,7 @@ class BuyCryptoCoin extends React.Component {
             buttonClassName={styles.submitBtn}
             label={(
               <span>
-                <FaLock /> Buy {exchange?.amount || 0} {exchange?.currency}
+                <FaLock /> <LabelLang id='coin.buy.buyBtn' values={{ amount: exchange?.amount || 0, currency: exchange?.currency}} />
               </span>
             )}
             onConfirm={this.makeOrder}
