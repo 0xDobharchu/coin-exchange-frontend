@@ -46,7 +46,8 @@ class Login extends React.Component {
     this.props.history.push(redirectTo);
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     this.setState({ loggingIn: true });
     const { username, password } = this.props;
     if (username && password) {
@@ -120,7 +121,13 @@ class Login extends React.Component {
                         <label htmlFor="keepSignin"><LabelLang id="user.login.keepSignin" /></label>
                       </div>
                       <div className="col-5 col-md-5 text-right">
-                        <button className={cx('btn btn-primary pull-right', style.buttonLogin, this.state.loggingIn ? 'disabled': '')} type="submit">Sign in</button>
+                        <button
+                          className={cx('btn btn-primary pull-right', style.buttonLogin, this.state.loggingIn ? 'disabled': '')}
+                          type="submit"
+                          onClick={this.handleSubmit}
+                        >
+                          <LabelLang id="user.login.loginButton" />
+                        </button>
                       </div>
                     </div>
                   </div>
