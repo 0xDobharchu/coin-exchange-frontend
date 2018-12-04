@@ -39,12 +39,31 @@ const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, update
     //   return;
     // }
     if (!code) {
-      updatePhoneNumberAction(phoneNumberValue).catch(showAlert({
-        message: 'me.accountLevel.alert.sendPhoneCodeSuccess',
-        timeOut: 3000,
-        type: 'success',
-      }));
+      updatePhoneNumberAction(phoneNumberValue).then(()=>{
+        showAlert({
+          message: 'me.accountLevel.alert.sendPhoneCodeSuccess',
+          timeOut: 3000,
+          type: 'success',
+        });
+      }).catch((e)=>{
+        if(e.code==='exceed_limit'){
+          showAlert({
+            message: 'me.accountLevel.alert.overSMSLimit',
+            timeOut: 3000,
+            type: 'danger',
+          });
+        }
+        else{
+          showAlert({
+            message: 'me.accountLevel.alert.error',
+            timeOut: 3000,
+            type: 'danger',
+          });
+        }
+
+      });
     } else {
+      console.log(code);
       submitPhoneCodeAction(code).then(showAlert({
         message: 'me.accountLevel.alert.lv2',
         timeOut: 3000,
