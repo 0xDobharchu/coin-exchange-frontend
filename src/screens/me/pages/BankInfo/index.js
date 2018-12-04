@@ -34,6 +34,9 @@ class BankInfo extends React.Component {
   render() {
     return (
       <div className={style.container}>
+        <div className={style.content}>
+          <LabelLang id="me.bankInfo.desc" />
+        </div>
         <label className={style.title}><LabelLang id="me.bankInfo.title" /></label>
         <div className={style.lineTitle} />
         <div className={style.block1}>
