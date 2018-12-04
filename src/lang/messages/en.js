@@ -154,10 +154,10 @@ export default {
       bankAccountNameHolder: 'Enter Bank Account Name',
       bankAccountNumberHolder: 'Enter Bank Account Number',
       alert: {
-        success: 'Update Success',
-        failed: 'Update Failed',
-        deleteSuccess: 'Delete Success',
-        deleteFailed: 'Delete Failed'
+        success: 'Successfully Updated',
+        failed: 'Failed To Update',
+        deleteSuccess: 'Successfully Deleted',
+        deleteFailed: 'Failed To Delete'
       },
       dialog: {
         update: {
