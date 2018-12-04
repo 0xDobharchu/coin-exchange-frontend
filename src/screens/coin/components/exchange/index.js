@@ -210,7 +210,7 @@ class Exchange extends Component {
             <InputGroup>
               <CurrencyInput
                 onFocus={() => onFocus()}
-                label={<LabelLang id={getIntlKey('amountLabel')} values={{ direction }} />}
+                label={<LabelLang id={getIntlKey('amountLabel')} values={{ direction: <LabelLang id={getIntlKey(direction)} /> }} />}
                 placeholder="0.0"
                 value={amount}
                 truncateLabel

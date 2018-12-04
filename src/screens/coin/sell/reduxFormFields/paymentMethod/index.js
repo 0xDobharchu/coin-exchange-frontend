@@ -22,9 +22,8 @@ const field = ({ input, meta, className = '' }) => {
             value: PAYMENT_METHOD.TRANSFER
           },
           {
-            nameIntl: getIntlKey('codName'),
-            value: PAYMENT_METHOD.COD,
-            infoIntl: getIntlKey('codInfo'),
+            nameIntl: getIntlKey('tngName'),
+            value: PAYMENT_METHOD.TNG,
           }
         ]}
       />

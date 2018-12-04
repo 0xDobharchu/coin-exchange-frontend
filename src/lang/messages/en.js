@@ -735,6 +735,7 @@ export default {
       paymentMethod: {
         wireTransferName: 'Wire transfer',
         codName: 'Cash on Delivery',
+        tngName: 'TNG',
         codInfo: 'State your time and place for meeting up and we will exchange in person.'
       },
       walletSelector: {
@@ -764,6 +765,17 @@ export default {
       exchange: {
         amountLabel: 'Amount to {direction}',
         currency: 'Currency',
+        buy: 'buy',
+        sell: 'sell'
+      },
+      phoneVerify: {
+        submitPhoneSuccessMsg: 'We sent a code to your phone successfully',
+        submitPhoneFailedMsg: 'Sent code failed, please try again',
+        submitCodeSuccessMsg: 'Verify successfully',
+        submitCodeFailedMsg: 'Verify failed, please try again',
+        verifyCode: 'Verify code',
+        submitCode: 'Submit Code',
+        submitPhone: 'Submit'
       }
     }
   },
