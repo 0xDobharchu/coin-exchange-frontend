@@ -13,7 +13,9 @@ export default {
     common: {
       error: 'OH! something went wrong!',
       required: 'Required',
-      copied: 'Copied'
+      copied: 'Copied',
+      remove: 'Remove',
+      fileupload: 'Try dropping some files here, or click to select files to upload.'
     }
   },
   headerBar: {
