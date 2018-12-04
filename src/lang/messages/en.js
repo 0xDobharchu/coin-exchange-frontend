@@ -786,16 +786,24 @@ export default {
       }
     }
   },
-  userVerifyStatus: {
-    level1Pending: 'To start trading, please take a few minutes to verify your account. {verify}',
-    verifyBtn: 'Verify now',
-    notLogin: 'Please sign in to start trading.{action}',
-    notLoginBtn: 'Sign In Now'
-  },
   static_page: {
     userAgreement: 'User Agreement',
     privacyPolicy: 'Privacy Policy',
     promotionPrograms: 'Promotion Programs',
     aboutUs: 'About Us',
+  },
+  components: {
+    userVerifyStatus: {
+      level1Pending: 'To start trading, please take a few minutes to verify your account. {verify}',
+      verifyBtn: 'Verify now',
+      notLogin: 'Please sign in to start trading.{action}',
+      notLoginBtn: 'Sign In Now'
+    },
+    confirmBtn: {
+      defaultMsg: 'Please confirm',
+      defaultConfirmText: 'Yes',
+      defaultDeclineText: 'No',
+      defaultLabelText: 'Confirm'
+    }
   }
 };
