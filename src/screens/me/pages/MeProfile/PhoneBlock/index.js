@@ -68,7 +68,23 @@ const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, update
         message: 'me.accountLevel.alert.lv2',
         timeOut: 3000,
         type: 'success'
-      }));
+      })).catch((e)=>{
+        if(e.code==='invalid_verification'){
+          showAlert({
+            message: 'me.accountLevel.alert.invalidCode',
+            timeOut: 3000,
+            type: 'danger',
+          });
+        }
+        else{
+          showAlert({
+            message: 'me.accountLevel.alert.error',
+            timeOut: 3000,
+            type: 'danger',
+          });
+        }
+
+      });
     }
   };
   const currentLevel = getCurrentLevel(level, levelStatus);
