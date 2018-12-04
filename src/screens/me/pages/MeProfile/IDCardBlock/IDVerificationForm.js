@@ -11,77 +11,88 @@ import { DOC_TYPES, getReachingLevel } from '../util';
 
 const required = value => (value || typeof value === 'number' ? undefined : 'Required');
 
-const DropDownField = () => (
-  <Field
-    name="id_type"
-    component={dropdownField}
-    list={DOC_TYPES}
-  />
-);
-
 // eslint-disable-next-line
-const IDVerificationForm = ({ initialValues, level, levelStatus, handleSubmit, onSubmit, change }) => {
-  const handleBackSuccess = (imgUrl) => change('back_image', imgUrl);
-  const handleFrontSuccess = (imgUrl) => change('front_image', imgUrl);
-  const backRemove = () => change('back_image', '');
-  const frontRemove = () => change('front_image', '');
+class IDVerificationForm extends React.Component {
 
-  return (
-    <div>
-      <Row>
-        <div className="col-12">
-          <p className="text label">
-            <LabelLang id="me.accountLevel.fullName" />
-          </p>
-          <FieldLang
-            name="id_name"
-            component={InputField}
-            validate={[required]}
-            placeholder="me.accountLevel.fullNameDesc"
-            disabled={getReachingLevel(level, levelStatus) >= 3}
-          />
-        </div>
-        <div className="col-12">
-          <p className="text label">
-            <LabelLang id="me.accountLevel.documentType" />
-          </p>
-          <DropDownField />
-        </div>
-        <div className="col-12">
-          <p className="text label">
-            <LabelLang id="me.accountLevel.documentNumber" />
-          </p>
-          <FieldLang
-            name="id_number"
-            component={InputField}
-            validate={[required]}
-            placeholder="me.accountLevel.documentNumber"
-            disabled={getReachingLevel(level, levelStatus) >= 3}
-          />
-        </div>
-        <div className="col-6">
-          <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
-            <LabelLang id="me.accountLevel.backPhoto" />
-          </p>
-          {!initialValues.back_image && <FileUploader onSuccess={handleBackSuccess} onRemove={backRemove} />}
-          {initialValues.back_image && <img alt="back_image" src={initialValues.back_image} />}
-        </div>
-        <div className="col-6">
-          <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
-            <LabelLang id="me.accountLevel.frontPhoto" />
-          </p>
-          {!initialValues.front_image && <FileUploader onSuccess={handleFrontSuccess} onRemove={frontRemove} />}
-          {initialValues.front_image && <img alt="front_image" src={initialValues.front_image} />}
-        </div>
-        {getReachingLevel(level, levelStatus) < 3 && (
-        <div className="col-12">
-          <Button onClick={handleSubmit(onSubmit)} variant="primary" size="lg" block>
-            <LabelLang id="me.accountLevel.submit" />
-          </Button>
-        </div>)}
-      </Row>
-    </div>);
-};
+  constructor(props) {
+    super(props);
+    this.state = {
+      isPassport: props.initialValues.id_type === DOC_TYPES[0].value
+    };
+  }
+
+  handleBackSuccess = (imgUrl) => this.props.change('back_image', imgUrl);
+  handleFrontSuccess = (imgUrl) => this.props.change('front_image', imgUrl);
+  backRemove = () => this.props.change('back_image', '');
+  frontRemove = () => this.props.change('front_image', '');
+  onSelectIdType = value => this.setState({ isPassport: value === DOC_TYPES[0].value });
+  render() {
+    // eslint-disable-next-line
+    const { initialValues, level, levelStatus, handleSubmit, onSubmit } = this.props;
+    return (
+      <div>
+        <Row>
+          <div className="col-12">
+            <p className="text label">
+              <LabelLang id="me.accountLevel.fullName" />
+            </p>
+            <FieldLang
+              name="id_name"
+              component={InputField}
+              validate={[required]}
+              placeholder="me.accountLevel.fullNameDesc"
+              disabled={getReachingLevel(level, levelStatus) >= 3}
+            />
+          </div>
+          <div className="col-12">
+            <p className="text label">
+              <LabelLang id="me.accountLevel.documentType" />
+            </p>
+            <Field
+              name="id_type"
+              handleOnChange={this.onSelectIdType}
+              component={dropdownField}
+              list={DOC_TYPES}
+            />
+          </div>
+          <div className="col-12">
+            <p className="text label">
+              <LabelLang id="me.accountLevel.documentNumber" />
+            </p>
+            <FieldLang
+              name="id_number"
+              component={InputField}
+              validate={[required]}
+              placeholder="me.accountLevel.documentNumber"
+              disabled={getReachingLevel(level, levelStatus) >= 3}
+            />
+          </div>
+          <div className={this.state.isPassport ? 'col-12': 'col-6'}>
+            <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
+              <LabelLang id="me.accountLevel.backPhoto" />
+            </p>
+            {!initialValues.back_image && <FileUploader onSuccess={this.handleBackSuccess} onRemove={this.backRemove} />}
+            {initialValues.back_image && <img alt="back_image" src={initialValues.back_image} />}
+          </div>
+          {!this.state.isPassport && (
+          <div className="col-6">
+            <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
+              <LabelLang id="me.accountLevel.frontPhoto" />
+            </p>
+            {!initialValues.front_image && <FileUploader onSuccess={this.handleFrontSuccess} onRemove={this.frontRemove} />}
+            {initialValues.front_image && <img alt="front_image" src={initialValues.front_image} />}
+          </div>)}
+          {getReachingLevel(level, levelStatus) < 3 && (
+          <div className="col-12">
+            <Button onClick={handleSubmit(onSubmit)} variant="primary" size="lg" block>
+              <LabelLang id="me.accountLevel.submit" />
+            </Button>
+          </div>)}
+        </Row>
+      </div>
+    );
+  }
+}
 
 const mapState = state => ({
   initialValues: {

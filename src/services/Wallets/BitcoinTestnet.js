@@ -1,6 +1,4 @@
-
 import { Bitcoin } from 'src/services/Wallets/Bitcoin';
-
 const bitcore = require('bitcore-lib');
 
 export class BitcoinTestnet extends Bitcoin {

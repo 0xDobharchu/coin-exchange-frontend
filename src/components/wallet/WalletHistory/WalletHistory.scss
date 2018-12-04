@@ -199,7 +199,7 @@
       letter-spacing: 0;
       text-transform: uppercase;
       color: #315E9E;
-      opacity: 0.54;
+      opacity: 0.54;      
 
       a{
         text-decoration: underline;
@@ -296,6 +296,10 @@
     .history-no-trans{
       text-align: center;
       margin-top: 25px;
+      button{
+        width: 300px;
+        margin-top: 20px;
+      }
     }
 
     .unconfirmation{

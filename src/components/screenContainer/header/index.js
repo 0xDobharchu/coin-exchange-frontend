@@ -14,6 +14,10 @@ const menus = {
     name: <LabelLang id="headerBar.home" />,
     link: URL.HOME
   },
+  promotion_programs: {
+    name: <LabelLang id="headerBar.promotionPrograms" />,
+    link: URL.PROMOTION_PROGRAM
+  },
   about_us: {
     name: <LabelLang id="headerBar.aboutUs" />,
     link: URL.ABOUT_US,

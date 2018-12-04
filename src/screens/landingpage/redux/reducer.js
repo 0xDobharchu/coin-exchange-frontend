@@ -6,6 +6,12 @@ const initState = {
 
 export default (state = initState, { type, data }) => {
   switch (type) {
+    case `${LANDINGPAGE_ACTION.GET_ABOUT_CONTENT}_SUCCESS`: {
+      return {
+        ...state,
+        aboutContent: data?.content,
+      };
+    }
     case `${LANDINGPAGE_ACTION.GET_FAQ_CONTENT}_SUCCESS`: {
       return {
         ...state,
@@ -22,6 +28,12 @@ export default (state = initState, { type, data }) => {
       return {
         ...state,
         privacyContent: data?.content,
+      };
+    }
+    case `${LANDINGPAGE_ACTION.GET_PROMOTION_CONTENT}_SUCCESS`: {
+      return {
+        ...state,
+        promotionContent: data?.content,
       };
     }
 

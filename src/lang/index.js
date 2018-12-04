@@ -6,9 +6,9 @@ import en from 'react-intl/locale-data/en';
 import id from 'react-intl/locale-data/id';
 import km from 'react-intl/locale-data/km';
 import zh from 'react-intl/locale-data/zh';
+import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
 import messages from './messages';
 import { changeLang } from './action';
-
 
 addLocaleData([...en, ...id, ...km, ...zh,]);
 // let lang = 'vi';
@@ -37,7 +37,7 @@ const IntlCustomProvider = ({ lang, children }) => (
 );
 
 IntlCustomProvider.defaultProps = {
-  lang: 'en',
+  lang: FAIL_DEFAULT_LANGUAGE,
   children: {}
 };
 
@@ -47,7 +47,7 @@ IntlCustomProvider.propsType = {
 };
 
 const mapState = state => ({
-  lang: state.langReducer.lang || 'en'
+  lang: state.langReducer.lang || FAIL_DEFAULT_LANGUAGE
 });
 const mapDispatch = { changeLang };
 export default connect(mapState, mapDispatch)(IntlCustomProvider);

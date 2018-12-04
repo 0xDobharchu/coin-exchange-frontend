@@ -172,13 +172,15 @@ class WalletHistory extends React.Component {
   }
 
   getNoTransactionYet(text) {
+    const { messages } = this.props.intl;
     const wallet = this.props.wallet;
 
     return <div className={style.historyNoTrans}>
       {wallet && !wallet.isLoading ?
         <div>
-          <img src={imgNoTrans} />
+          <img src={imgNoTrans} />          
           <div className={style.headerHistoryTx}>{text}</div>
+          <button> {messages['coin.buyTabTitle']}</button>
         </div>
         : <img className={style.iconLoadingHistory} src={iconLoadding} />}
     </div>

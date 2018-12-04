@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getPrivacyContent, getUserAgreementContent } from 'src/screens/landingpage/redux/action';
 import LabelLang from 'src/lang/components/LabelLang';
+import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
 import styles from './styles.scss';
 
 class AgreementPrivacy extends React.Component {
@@ -64,7 +65,7 @@ class AgreementPrivacy extends React.Component {
 const mapState = state => ({
   userAgreementContent: state.landingReducer.userAgreementContent,
   privacyContent: state.landingReducer.privacyContent,
-  locale: state.langReducer.lang || 'en'
+  locale: state.langReducer.lang || FAIL_DEFAULT_LANGUAGE
 });
 
 const mapDispatch = dispatch => ({

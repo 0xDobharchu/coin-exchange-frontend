@@ -6,11 +6,11 @@ import Register from 'src/screens/register';
 import forgetPassword from 'src/screens/forgetPassword';
 import forgetPasswordFinish from 'src/screens/forgetPassword/finish';
 import Coin from 'src/screens/coin';
-import Localization from 'src/screens/localization';
 import Me from 'src/screens/me/pages/Me';
 import Wallet from 'src/screens/wallet';
 import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
 import AgreementPrivacy from 'src/screens/agreementPrivacy';
+import PromotionProgram from 'src/screens/promotionProgram';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
 import privateRoute from './privateRoute';
@@ -67,11 +67,6 @@ const routes = [
     exact: true,
   },
   {
-    path: '/localization',
-    component: Localization,
-    exact: true,
-  },
-  {
     path: URL.ME,
     component: Me,
     exact: true,
@@ -102,6 +97,12 @@ const routes = [
     auth: true,
   },
   {
+    path: URL.ME_BANK_INFO,
+    component: Me,
+    exact: true,
+    auth: true,
+  },
+  {
     path: '/wallet/:address?',
     component: Wallet,    
     exact: false,
@@ -110,6 +111,11 @@ const routes = [
   {
     path: URL.AGREEMENT,
     component: AgreementPrivacy,
+    exact: true,
+  },
+  {
+    path: URL.PROMOTION_PROGRAM,
+    component: PromotionProgram,
     exact: true,
   }
 ];
