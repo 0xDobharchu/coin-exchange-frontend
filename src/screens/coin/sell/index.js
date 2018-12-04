@@ -218,7 +218,7 @@ class SellCryptoCoin extends React.Component {
   }
 
   render() {
-    const { supportedCurrency, exchange, currency, paymentMethod } = this.props;
+    const { supportedCurrency, exchange, currency, paymentMethod, intl } = this.props;
     const { walletAddress, isAuth } = this.state;
     const isValid = this.isValidToSubmit();
     if (walletAddress) {
@@ -247,11 +247,13 @@ class SellCryptoCoin extends React.Component {
             fiatCurrency={supportedCurrency[0]}
             currency={currency}
             validate={exchangeValidator}
+            intl={intl}
           />
           <Field
             name="paymentMethod"
             className='mt-4'
             component={paymentMethodField}
+            intl={intl}
           />
           { paymentMethod === PAYMENT_METHOD.TRANSFER && this.renderBankInfo() }
           { paymentMethod === PAYMENT_METHOD.TNG && isAuth && this.renderPhoneBlock() }
@@ -273,7 +275,12 @@ class SellCryptoCoin extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const bankInfo = state?.auth?.profile?.payment_info;
+  let bankInfo = state?.auth?.profile?.payment_info || {};
+  const bankValues = Object.values(bankInfo);
+  if (bankValues.length === 0 || !bankValues?.every(value => !!value)) {
+    bankInfo = null;
+  }
+
   return {
     paymentMethod: formSelector(state, 'paymentMethod'),
     exchange: formSelector(state, 'exchange'),
