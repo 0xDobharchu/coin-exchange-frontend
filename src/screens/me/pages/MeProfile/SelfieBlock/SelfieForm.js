@@ -23,7 +23,7 @@ const SelfieForm = ({ initialValues, level, levelStatus, handleSubmit, onSubmit,
           {initialValues.selfie_image && <img alt="selfie_image" src={initialValues.selfie_image} />}
         </div>
         {getReachingLevel(level, levelStatus) < 4 && (
-        <div className="col-12">
+        <div className="col-12" style={{ marginTop: '20px' }}>
           <Button onClick={handleSubmit(onSubmit)} variant="primary" size="lg" block>
             <LabelLang id="me.accountLevel.submit" />
           </Button>
