@@ -1,5 +1,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import { LabelLang } from 'src/lang/components';
 import { uploadFile } from 'src/screens/auth/redux/api';
 import style from './fileUpload.scss';
 
@@ -37,10 +38,10 @@ class FileUpload extends React.Component {
       <div className={style.container}>
         {!this.state.url && (
         <Dropzone className={style.dropzone} multiple={false} onDrop={this.handleOnDrop} onFileDialogCancel={this.handleOnCancel}>
-          <p>Try dropping some files here, or click to select files to upload.</p>
+          <p><LabelLang id="app.common.fileupload" /></p>
         </Dropzone>)}
         {this.state.url && (<img alt="f" src={this.state.url} />)}
-        {this.state.url && <button type="button" onClick={this.handleRemove}>Remove</button>}
+        {this.state.url && <button type="button" onClick={this.handleRemove}><LabelLang id="app.common.remove" /></button>}
       </div>
     );
   }

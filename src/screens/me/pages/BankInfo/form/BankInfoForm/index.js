@@ -18,6 +18,8 @@ class BankInfoForm extends React.Component {
   }
   toggleEdit = () => this.setState({ isEditMode: true });
   
+  switchViewMode = () => this.setState({ isEditMode: false });
+
   render() {
     // eslint-disable-next-line
     const { handleSubmit, onSubmit, onDelete } = this.props;
@@ -46,7 +48,7 @@ class BankInfoForm extends React.Component {
         <Row style={{ padding: '5px', marginTop: '10px' }}>
           <Col md={6} />
           <Col md={3}><Button onClick={this.toggleEdit} value="Update" /></Col>
-          <Col md={3}><Button onClick={onDelete} value="Delete" /></Col>
+          <Col md={3}><Button className={style.btnDelete} onClick={onDelete} value="Delete" /></Col>
         </Row>)}
       </form>
     );
@@ -63,8 +65,9 @@ const mapState = state => ({
 
 
 export default compose(
-  connect(mapState),
+  connect(mapState, null, null, { withRef: true }),
   reduxForm({
     form: 'BankInfoForm',
-  })
+    enableReinitialize: true,
+  },  { withRef: true }),
 )(BankInfoForm);

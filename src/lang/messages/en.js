@@ -13,7 +13,9 @@ export default {
     common: {
       error: 'OH! something went wrong!',
       required: 'Required',
-      copied: 'Copied'
+      copied: 'Copied',
+      remove: 'Remove',
+      fileupload: 'Try dropping some files here, or click to select files to upload.'
     }
   },
   headerBar: {
@@ -139,6 +141,7 @@ export default {
     },
     bankInfo: {
       title: 'Bank Info',
+      desc: 'Add your bank account details now to receive attractive commission from referral programs and faster payment',
       bankName: 'Bank Name',
       bankAccountName: 'Bank Account Name',
       bankAccountNumber: 'Bank Account Number',
@@ -148,6 +151,8 @@ export default {
       alert: {
         success: 'Update Success',
         failed: 'Update Failed',
+        deleteSuccess: 'Delete Success',
+        deleteFailed: 'Delete Failed'
       }
     }
   },
