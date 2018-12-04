@@ -130,6 +130,7 @@ export default {
       selfiePhoto: 'Your Selfie Photo',
       submit: 'Submit',
       ok: 'OK',
+      resend: 'Resend',
       alert: {
         lv2: 'Congratulation! Your level is upto level 2',
         lv3: 'Your request upto level 3 is sent',
@@ -141,6 +142,7 @@ export default {
         imageIdentifierPassportRequired: 'Passport Photo is requied',
         imageSelfieRequired: 'Image Selifie is required',
         overSMSLimit: 'You are over sms limit',
+        invalidCode: 'Your code is incorrect, please try again!',
         error: 'OH! something went wrong! Please try again',
       }
     },
