@@ -2,7 +2,8 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Field } from 'redux-form';
-import ReactPhoneInput from 'react-phone-input-2';
+// import ReactPhoneInput from 'react-phone-input-2';
+import PhoneNumber from 'src/components/core/controls/phoneNumber';
 
 class CountryPhone extends PureComponent {
   render() {
@@ -17,7 +18,7 @@ class CountryPhone extends PureComponent {
         onBlur,
       } = input;
 
-      return  <ReactPhoneInput name={name} value={value} onBlur={onBlur} {...this.props} />;
+      return  <PhoneNumber name={name} value={value} onBlur={onBlur} {...this.props} />;
     };
     return (<Field name={name} component={renderFieldPhone} />);
   }
