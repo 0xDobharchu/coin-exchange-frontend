@@ -158,6 +158,20 @@ export default {
         failed: 'Update Failed',
         deleteSuccess: 'Delete Success',
         deleteFailed: 'Delete Failed'
+      },
+      dialog: {
+        update: {
+          title: 'Confirm Update',
+          body: 'Are you sure to update?',
+          confirm: 'Yes',
+          cancel: 'No'
+        },
+        delete: {
+          title: 'Confirm Delete',
+          body: 'Are you sure to delete?',
+          confirm: 'Yes',
+          cancel: 'No'
+        }
       }
     }
   },
