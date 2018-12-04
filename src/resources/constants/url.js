@@ -18,7 +18,8 @@ export const URL = {
   ME_ACCOUNT_LEVEL: '/me/accountLevel',
   ME_HISTORY: '/me/history',
   ME_BANK_INFO: '/me/bankInfo',
-  PROMOTION_PROGRAM: '/promotion-programs'
+  PROMOTION_PROGRAM: '/promotion-programs',
+  HOW_IT_WORKS: '/how-it-works'
 };
 
 export const API_URL = {
