@@ -102,8 +102,7 @@ class Exchange extends Component {
       state.amount = 0;
       state.fiatAmount = value;
     }
-    this.setState({ ...state, exchangeType: EXCHANGE_TYPE[field], isExchanging: true }, this.getExchange);
-    this.setExchangeStatus(true);
+    this.setState({ ...state, exchangeType: EXCHANGE_TYPE[field] }, this.getExchange);
   }
 
   setExchangeStatus = (status = false) => {
