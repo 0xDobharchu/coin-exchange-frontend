@@ -709,13 +709,15 @@ export default {
       userNote: 'As soon as possible'
     },
     sell: {
-      prepareOrderFailed: 'Error while preparing to order, pls try again',
+      prepareOrderFailed: 'Failed while preparing to order, please try again',
+      addPaymentInfoFailed: 'Failed while adding your payment info',
       orderSuccessful: 'Your order was created successfully',
       orderFailed: 'Error while making new order, pls try again',
       bankName: 'Bank name',
       accountNumber: 'Account number',
       accountName: 'Account name',
-      phone: 'Phone number'
+      phone: 'Phone number',
+      sellBtn: 'Sell {amount} {currency}'
     },
     components: {
       bankTransferInfo: {
@@ -783,6 +785,13 @@ export default {
         verifyCode: 'Verify code',
         submitCode: 'Submit Code',
         submitPhone: 'Submit'
+      },
+      sellBankInfo: {
+        bankInfo: 'Your bank info',
+        bankName: 'Bank name',
+        bankAccountName: 'Account name',
+        bankAccountNumber: 'Account number',
+        gotoEdit: 'Edit your bank info?'
       }
     }
   },
