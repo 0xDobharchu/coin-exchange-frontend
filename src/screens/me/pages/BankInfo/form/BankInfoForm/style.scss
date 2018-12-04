@@ -1,9 +1,36 @@
+@import 'var';
+
 .container {
   width: 100%;
+  .title {
+    font-size: 20px;
+    font-weight: 600;
+    color: $primary-extra-bold;
+  }
+  .lineTitle {
+    height: 2px;
+    width: 100%;
+    background-color: #D8D8D8;
+  }
   .row {
     padding: 5px;
+    .rowBtns {
+      display: flex;
+      flex-direction: row;
+    }
   }
   .btnDelete {
     background: #8c1828;
+    font-size: 11px;
+    height: 25px;
+    width:100%;
+    margin: 5px;
+  }
+  .btnUpdate {
+    background: $primary-extra-bold;
+    font-size: 11px;
+    height: 25px;
+    width:100%;
+    margin: 5px;
   }
 }

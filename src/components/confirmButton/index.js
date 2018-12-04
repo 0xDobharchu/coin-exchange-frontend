@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import LabelLang from 'src/lang/components/LabelLang';
 import styles from './styles.scss';
 
 class ConfirmButton extends PureComponent {
@@ -87,10 +88,10 @@ ConfirmButton.defaultProps = {
   onFirstClick: null,
   containerClassName: '',
   buttonClassName: '',
-  message: 'Please confirm',
-  confirmText: 'Yes',
-  cancelText: 'No',
-  label: 'Confirm',
+  message: <LabelLang id='components.confirmBtn.defaultMsg' />,
+  confirmText: <LabelLang id='components.confirmBtn.defaultConfirmText' />,
+  cancelText: <LabelLang id='components.confirmBtn.defaultDeclineText' />,
+  label: <LabelLang id='components.confirmBtn.defaultLabelText' />,
   disabled: false,
 };
 
