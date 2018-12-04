@@ -139,7 +139,9 @@ export default {
         sendEmailCodeSuccess: 'We sent a verification code to your email',
         imageIdentifierRequired: 'Back/Front Image is required',
         imageIdentifierPassportRequired: 'Passport Photo is requied',
-        imageSelfieRequired: 'Image Selifie is required'
+        imageSelfieRequired: 'Image Selifie is required',
+        overSMSLimit: 'You are over sms limit',
+        error: 'OH! something went wrong! Please try again',
       }
     },
     bankInfo: {
