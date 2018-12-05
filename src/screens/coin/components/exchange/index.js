@@ -149,7 +149,7 @@ class Exchange extends Component {
       this.setExchangeStatus(false);
     } catch(e) {
       console.warn(e);
-      reqErrorAlert(e);
+      reqErrorAlert(e, { message: <LabelLang id={getIntlKey('exchangeFailed')} /> });
       this.resetExchangeData();
       this.setExchangeStatus(false);
     }
@@ -178,7 +178,7 @@ class Exchange extends Component {
       this.setExchangeStatus(false);
     } catch(e) {
       console.warn(e);
-      reqErrorAlert(e);
+      reqErrorAlert(e, { message: <LabelLang id={getIntlKey('exchangeFailed')} />});
       this.resetExchangeData();
       this.setExchangeStatus(false);
     }

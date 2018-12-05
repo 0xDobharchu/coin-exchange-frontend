@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AutocompleteInput from 'src/components/autocompleteInput';
+import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
+import LabelLang from 'src/lang/components/LabelLang';
 import { getPlace } from './redux/action';
 
 class PopularPlaces extends Component {
@@ -14,14 +16,19 @@ class PopularPlaces extends Component {
 
   componentDidMount() {
     const { getPlace, userCountry: country, language } = this.props;
-    getPlace({ country, language }).then(this.handerData).catch(console.error);
+    getPlace({ country, language }).then(this.handerData).catch(this.errorHandler);
   }
 
   componentDidUpdate(prevProps) {
     const { getPlace, userCountry, language } = this.props;
     if (prevProps.userCountry !== userCountry || prevProps.language !== language) {
-      getPlace({ country: userCountry, language }).then(this.handerData).catch(console.error);
+      getPlace({ country: userCountry, language }).then(this.handerData).catch(this.errorHandler);
     }
+  }
+
+  errorHandler = (e) => {
+    console.warn(e);
+    reqErrorAlert(e, { message: <LabelLang id='coin.components.popularPlace.getPlacesFailed' />});
   }
 
   handerData = (data = []) => {
@@ -60,7 +67,10 @@ const mapState = state => ({
 PopularPlaces.defaultProps = {
   userCountry: null,
   language: null,
-  className: ''
+  className: '',
+  onBlur: null,
+  onFocus: null,
+  placeholder: ''
 };
 
 PopularPlaces.propTypes = {
@@ -69,5 +79,8 @@ PopularPlaces.propTypes = {
   language: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   className: PropTypes.string,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
+  placeholder: PropTypes.string,
 };
 export default connect(mapState, { getPlace })(PopularPlaces);
