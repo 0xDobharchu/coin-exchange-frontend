@@ -29,7 +29,6 @@ const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, update
   const handleVerifyPhone = (values) => {
 
     const { phone: phoneNumberValue, code } = values;
-    console.log(values);
     // if (!phoneNumberValue || valid.phone(phoneNumberValue)) {
     //   showAlert({
     //     message: 'me.accountLevel.alert.invalidPhone',
@@ -63,12 +62,12 @@ const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, update
 
       });
     } else {
-      console.log(code);
-      submitPhoneCodeAction(code).then(showAlert({
-        message: 'me.accountLevel.alert.lv2',
-        timeOut: 3000,
-        type: 'success'
-      })).catch((e)=>{
+      submitPhoneCodeAction(code).then(()=>{
+        showAlert({
+          message: 'me.accountLevel.alert.lv2',
+          timeOut: 3000,
+          type: 'success'
+        });}).catch((e)=>{
         if(e.code==='invalid_verification'){
           showAlert({
             message: 'me.accountLevel.alert.invalidCode',
