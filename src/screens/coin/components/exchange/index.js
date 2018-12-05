@@ -147,6 +147,7 @@ class Exchange extends Component {
     } catch(e) {
       console.warn(e);
       reqErrorAlert(e);
+      this.resetExchangeData();
       this.setExchangeStatus(false);
     }
   }
@@ -175,8 +176,17 @@ class Exchange extends Component {
     } catch(e) {
       console.warn(e);
       reqErrorAlert(e);
+      this.resetExchangeData();
       this.setExchangeStatus(false);
     }
+  }
+
+  resetExchangeData = () => {
+    this.setState({
+      exchangeData: {},
+      fiatAmount: 0,
+      amount: 0,
+    }, this.dataCallbackHandler);
   }
 
   getExchange = () => {
