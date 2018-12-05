@@ -1,17 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { reduxForm } from 'redux-form';
+import {reduxForm} from 'redux-form';
 // import { FieldLang } from 'src/lang/components';
 import { LabelLang, FieldLang } from 'src/lang/components';
 // import ReactPhoneInput from 'react-phone-input-2';
 
 import style from '../styles.scss';
 import { getReachingLevel } from '../util';
-
-// const renderFieldPhone = ({ input }) => (
-//   <ReactPhoneInput {...input} defaultCountry='hk' regions='asia' placeholder="me.profile.text.phone.desc3" inputStyle={{ width: '100%' }} />
-// );
 
 // eslint-disable-next-line
 const PhoneForm = ({ handleSubmit, onSubmit, level, levelStatus, state }) => {
@@ -61,6 +57,7 @@ const PhoneForm = ({ handleSubmit, onSubmit, level, levelStatus, state }) => {
               onClick={handleSubmit(onSubmit)}
               type="button"
               className={style.submit_btn}
+              disabled={isPassLevel2}
             >
               <LabelLang id="me.accountLevel.ok" />
             </button>

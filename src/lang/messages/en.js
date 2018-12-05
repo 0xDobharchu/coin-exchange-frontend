@@ -141,7 +141,7 @@ export default {
         imageIdentifierRequired: 'Back/Front Image is required',
         imageIdentifierPassportRequired: 'Passport Photo is requied',
         imageSelfieRequired: 'Image Selifie is required',
-        overSMSLimit: 'You are over sms limit',
+        overSMSLimit: 'You entered wrong verification code 10 times already. Please use the last code sent to your phone to verify.',
         invalidCode: 'Your code is incorrect, please try again!',
         error: 'OH! something went wrong! Please try again',
       }
@@ -761,7 +761,7 @@ export default {
       paymentMethod: {
         wireTransferName: 'Wire transfer',
         codName: 'Cash on Delivery',
-        tngName: 'TNG',
+        tngName: 'TNG wallet',
         codInfo: 'State your time and place for meeting up and we will exchange in person.'
       },
       walletSelector: {

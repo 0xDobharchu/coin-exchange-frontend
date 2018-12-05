@@ -7,6 +7,8 @@ import { LabelLang, FieldLang, WrapperLang } from 'src/lang/components';
 import { Button, InputField } from 'src/components/custom';
 import style from './style.scss';
 
+const required = value => (value || typeof value === 'number' ? undefined : <LabelLang id="app.common.required" />);
+
 // eslint-disable-next-line
 class BankInfoForm extends React.Component {
 
@@ -38,15 +40,15 @@ class BankInfoForm extends React.Component {
         <br />
         <Row className={style.row}>
           <Col md={6}><LabelLang id="me.bankInfo.bankName" /></Col>
-          <Col md={6}><FieldLang name="bankName" component={InputField} disabled={!isEditMode} placeholder="me.bankInfo.bankNameHolder" /></Col>
+          <Col md={6}><FieldLang name="bankName" validate={[required]} component={InputField} disabled={!isEditMode} placeholder="me.bankInfo.bankNameHolder" /></Col>
         </Row>
         <Row className={style.row}>
           <Col md={6}><LabelLang id="me.bankInfo.bankAccountName" /></Col>
-          <Col md={6}><FieldLang name="bankAccountName" disabled={!isEditMode} component={InputField} placeholder="me.bankInfo.bankAccountNameHolder" /></Col>
+          <Col md={6}><FieldLang name="bankAccountName" validate={[required]} disabled={!isEditMode} component={InputField} placeholder="me.bankInfo.bankAccountNameHolder" /></Col>
         </Row>
         <Row className={style.row}>
           <Col md={6}><LabelLang id="me.bankInfo.bankAccountNumber" /></Col>
-          <Col md={6}><FieldLang name="bankAccountNumber" disabled={!isEditMode} component={InputField} placeholder="me.bankInfo.bankAccountNumberHolder" /></Col>
+          <Col md={6}><FieldLang name="bankAccountNumber" validate={[required]} disabled={!isEditMode} component={InputField} placeholder="me.bankInfo.bankAccountNumberHolder" /></Col>
         </Row>
         
         {isEditMode && (
