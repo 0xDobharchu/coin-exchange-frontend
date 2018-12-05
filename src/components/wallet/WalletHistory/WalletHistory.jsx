@@ -34,7 +34,7 @@ class WalletHistory extends React.Component {
   constructor(props) {
 
     super(props);
-    this._isMounted = false
+    // this._isMounted = false
 
     this.state = {
       transactions: [],
@@ -78,7 +78,7 @@ class WalletHistory extends React.Component {
 
   async componentDidUpdate() {
     
-    if (!this._isMounted) return;
+    // if (!this._isMounted) return;
 
     const { callUpdate } = this.props;
     let { callUpdate: stateCallUpdate, transactions } = this.state;
@@ -93,22 +93,23 @@ class WalletHistory extends React.Component {
   }
 
   componentWillUnmount() {
-    this._isMounted = false
+    // this._isMounted = false
 
-    this.setState ({
-      transactions: [],
-      internalTransactions: [],
-      transaction_detail: null,
-      tabActive: TAB.Transaction,
-      wallet: this.props.wallet,
-      pagenoTran: 1,
-      pagenoIT: 1,
-      callUpdate: false,
-      isDeskTop: this.props.isDeskTop|| true,
-    });
+    // this.setState ({
+    //   transactions: [],
+    //   internalTransactions: [],
+    //   transaction_detail: null,
+    //   tabActive: TAB.Transaction,
+    //   wallet: this.props.wallet,
+    //   pagenoTran: 1,
+    //   pagenoIT: 1,
+    //   callUpdate: false,
+    //   isDeskTop: this.props.isDeskTop|| false,
+    // });
   }
 
   async componentDidMount() {
+    console.log('zoooo');
     let { wallet, pagenoTran, pagenoIT, transactions, internalTransactions } = this.state;
 
     let cTransaction = this.getSessionStore(wallet, TAB.Transaction),
@@ -129,6 +130,8 @@ class WalletHistory extends React.Component {
     if (wallet && wallet.name != 'XRP') {
       wallet.balance = await wallet.getBalance();
       wallet.transaction_count = await wallet.getTransactionCount();
+
+      console.log('wallet.transaction_count', wallet.transaction_count);
 
       transactions = await wallet.getTransactionHistory(pagenoTran);
       if (this.checkAPINewest(cTransaction, transactions)) {
@@ -169,7 +172,7 @@ class WalletHistory extends React.Component {
       pagenoTran: pagenoTran,
       pagenoIT: pagenoIT
     });
-    this._isMounted = true;
+    // this._isMounted = true;
   }
 
   checkAPINewest(cTransaction, transactions) {
@@ -330,14 +333,14 @@ class WalletHistory extends React.Component {
   }
 
   showLoading(status) {
-    // this.props.showLoading({ message: '' });
+    this.props.showLoading();
   }
   hideLoading() {
-    // this.props.hideLoading();
+    this.props.hideLoading();
   }
 
   async detailTransaction(data) {
-    if (!this._isMounted) return;
+    // if (!this._isMounted) return;
 
     const wallet = this.props.wallet;
     if (wallet && data) {
@@ -468,7 +471,7 @@ class WalletHistory extends React.Component {
           {wallet && wallet.isHistorySupport === false ?
             this.getNoTransactionYet(messages['wallet.action.history.label.coming_soon'])
             :
-            <div className={style.historyCcontent} style={{height: 'calc(77vh - 150px)'}}>
+            <div className={style.historyCcontent} style={{height: 'calc(80vh - 115px)', overflow: 'auto'}}>
               {wallet && (wallet.name == "ETH" || wallet.isToken) && (this.state.internalTransactions && this.state.internalTransactions.length > 0) ?
                 <Tabs onChange={(tab, index) => this.setState({ tabActive: index })} tabs={[
                   { key: 't1', title: messages['wallet.action.history.label.transactions'] },

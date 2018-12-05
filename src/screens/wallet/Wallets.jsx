@@ -158,6 +158,8 @@ class Wallet extends React.Component {
             if (listWallet !== false) {
                 this.splitWalletData(listWallet);
                 this.getListBalace(listWallet);
+                if (this.state.isDeskTop)
+                    this.setDefaultDesktop();
             }
             else {
                 this.showAlert("Can not get your wallet now ...");
@@ -167,6 +169,12 @@ class Wallet extends React.Component {
 
         });
 
+    }
+    setDefaultDesktop() {                        
+        if (this.state.listMainWalletBalance.length > 0) {
+            let wallet = this.state.listMainWalletBalance[0];            
+            this.onWalletItemClick(wallet);
+        }                
     }
     updateDimensions() {
         this.setState({
@@ -241,6 +249,8 @@ class Wallet extends React.Component {
         let listCollectibleWallet = [];
 
         listWallet.forEach((wallet) => {
+
+            wallet.selected = false;
 
             // is Mainnet (coin, token, collectible)
             if (wallet.network === MasterWallet.ListCoin[wallet.className].Network.Mainnet) {
@@ -600,22 +610,48 @@ class Wallet extends React.Component {
     onWalletItemClick = (wallet, callUpdate) => {
 
         if (this.state.isDeskTop) {
-            this.setState({ walletSelected: wallet });
+            wallet.selected = true;
+            let lstWalletTemp = this.getAllWallet();
+            lstWalletTemp.forEach(wal => {if (wal != wallet){wal.selected = false;}});
+
+            let modalHistory = <WalletHistory
+                isDeskTop={this.state.isDeskTop}
+                onTransferClick={() => this.showTransfer(wallet)}
+                onReceiveClick={() => this.onAddressClick(wallet)}
+                onWarningClick={() => this.onWarningClick(wallet)}
+                wallet={wallet}                                                        
+                callUpdate={callUpdate}
+            />
+
+            if (this.state.modalHistory == ""){
+                this.setState({
+                    walletSelected: wallet,
+                    modalHistory                   
+                })
+            }
+            else{
+                this.setState({
+                    walletSelected: wallet,
+                    modalHistory: ""                  
+                }, ()=>{ this.setState({ modalHistory: modalHistory }) })
+            }
+
+            
         }
         else {
             this.setState({
                 walletSelected: wallet,
                 modalHistory:
-                    (
-                        <WalletHistory
-                            isDeskTop={this.state.isDeskTop}
-                            onTransferClick={() => this.showTransfer(wallet)}
-                            onReceiveClick={() => this.onAddressClick(wallet)}
-                            onWarningClick={() => this.onWarningClick(wallet)}
-                            wallet={wallet}                                                        
-                            callUpdate={callUpdate}
-                        />
-                    )
+                (
+                    <WalletHistory
+                        isDeskTop={this.state.isDeskTop}
+                        onTransferClick={() => this.showTransfer(wallet)}
+                        onReceiveClick={() => this.onAddressClick(wallet)}
+                        onWarningClick={() => this.onWarningClick(wallet)}
+                        wallet={wallet}                                                        
+                        callUpdate={callUpdate}
+                    />
+                )
             }, () => {
                 this.modalHistoryRef.open();
             });
@@ -625,8 +661,7 @@ class Wallet extends React.Component {
     }
     onUpdateWalletName = (wallet) => {
         this.setState({ walletSelected: wallet });
-        //update data wallet.
-        // MasterWallet.UpdateLocalStore(this.getAllWallet());
+        //update data wallet.        
         this.saveWallet(this.getAllWallet());
         this.onWalletItemClick(wallet);
     }
@@ -805,31 +840,7 @@ class Wallet extends React.Component {
                 }
             </Row>
         )
-    }
-
-    renderDetailDesktop() {
-        let wallet = this.state.walletSelected;
-        if (wallet == null) {
-            if (this.state.listMainWalletBalance.length > 0) {
-                wallet = this.state.listMainWalletBalance[0];
-            }
-        }
-        if (wallet) {
-            return (
-                <WalletHistory
-                    isDeskTop={this.state.isDeskTop}
-                    onTransferClick={() => this.showTransfer(wallet)}
-                    onReceiveClick={() => this.onAddressClick(wallet)}
-                    onWarningClick={() => this.onWarningClick(wallet)}
-                    onPreferencesClick={() => this.onOpenWalletPreferences(wallet)}
-                    wallet={wallet}                    
-                    modalHeaderStyle={this.modalHeaderStyle}
-                    callUpdate={false}
-                />
-            )
-        }
-        return null;
-    }
+    }    
 
     renderDesktopContent() {
         const { messages } = this.props.intl;        
@@ -856,7 +867,7 @@ class Wallet extends React.Component {
                                 </div>
                                 <div className={styles.walletWrapRight}>
                                     <div className={styles.walletDetail}>
-                                        {this.renderDetailDesktop()}
+                                        {this.state.modalHistory}
                                     </div>
                                 </div>
                             </div>
