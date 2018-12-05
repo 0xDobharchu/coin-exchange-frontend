@@ -321,12 +321,12 @@ export const getReferrals = async () => {
   }
 };
 
-export const uploadFile = async (file) => {
+export const uploadFile = async (file, type = 'verification') => {
   try {
     const formData = new FormData();
     formData.append('file', file);
     const options = {
-      url : '/user/file-upload/?type=verification',
+      url : `/user/file-upload/?type=${type}`,
       method: 'POST',
       data: formData,
     };
