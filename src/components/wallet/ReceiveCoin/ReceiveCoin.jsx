@@ -108,7 +108,7 @@ class ReceiveCoin extends React.Component {
 
         this.props.getFiatCurrency({
           url: API_URL.EXCHANGE.GET_FIAT_CURRENCY,          
-          params: {amount: 1, fiat_currency: currency ? currency : 'USD', currency: cryptoCurrency ? cryptoCurrency : wallet.name, direction: 'buy'},
+          params: {amount: 1, fiat_currency: currency ? currency : 'USD', currency: cryptoCurrency ? cryptoCurrency : wallet.name, direction: 'buy', type:'bank',level: 1 },
           onSuccess: (res) => {
             let data = res;
             result = currency == 'USD' ? data.fiat_amount : data.fiat_amount;
