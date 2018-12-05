@@ -1,7 +1,11 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import { LabelLang } from 'src/lang/components';
 import { uploadFile } from 'src/screens/auth/redux/api';
 import style from './fileUpload.scss';
+
+export const RECEIPT_TYPE = 'receipt';
+export const VERIFICATION_TYPE = 'verification';
 
 class FileUpload extends React.Component {
   
@@ -10,8 +14,10 @@ class FileUpload extends React.Component {
   }
 
   handleOnDrop = (files) => {
-    uploadFile(files[0]).then(({ url }) => {
-      console.log('results is', url);
+    // eslint-disable-next-line
+    const { type } = this.props;
+    const uploadType = type || VERIFICATION_TYPE;
+    uploadFile(files[0], uploadType).then(({ url }) => {
       // eslint-disable-next-line
       const { onSuccess } = this.props;
       this.setState({ url });
@@ -33,14 +39,18 @@ class FileUpload extends React.Component {
   handleOnCancel = f => f
   
   render() {
+    const { url } = this.state;
     return (
       <div className={style.container}>
-        {!this.state.url && (
+        {!url && (
         <Dropzone className={style.dropzone} multiple={false} onDrop={this.handleOnDrop} onFileDialogCancel={this.handleOnCancel}>
-          <p>Try dropping some files here, or click to select files to upload.</p>
+          <p><LabelLang id="app.common.fileupload" /></p>
         </Dropzone>)}
-        {this.state.url && (<img alt="f" src={this.state.url} />)}
-        {this.state.url && <button type="button" onClick={this.handleRemove}>Remove</button>}
+        {url && (<img alt={url} src={url} />)}
+        {url && (
+        <button type="button" onClick={this.handleRemove}>
+          <LabelLang id="app.common.remove" />
+        </button>)}
       </div>
     );
   }
