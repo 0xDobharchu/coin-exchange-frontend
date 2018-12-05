@@ -43,7 +43,7 @@ export const clearNotFound = () => ({ type: APP_ACTION.NOT_FOUND_REMOVE });
 export const setIpInfo = (ipInfo) => {
   console.log('Going to set Ip Info', ipInfo);
   local.save(APP.IP_INFO, ipInfo);
-  const isBannedIp = ['US'].indexOf(ipInfo.country) >= 0;
+  const isBannedIp = ['US'].indexOf(ipInfo.country_code) >= 0;
   const payload = {
     ipInfo,
     isBannedIp
@@ -93,11 +93,10 @@ export const initApp = (language, ref) => (dispatch) => {
       params : { auth: APP_ENV.ipfindKey },
       headers: { 'Content-Type': 'text/plain' },
     }).then((res) => {
-      const { data } = res;
-      const ipInfo = IpInfo.ipFind(data);
+      const ipInfo = IpInfo.ipFind(res);
 
       dispatch(setIpInfo(ipInfo));
-      continueAfterInitApp(language, ref, dispatch, data);
+      continueAfterInitApp(language, ref, dispatch, res);
     }).catch((e) => {
       console.log('App Action InitApp', e);
       // TO-DO: handle error
