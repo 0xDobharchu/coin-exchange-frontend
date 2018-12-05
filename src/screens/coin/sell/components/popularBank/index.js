@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AutocompleteInput from 'src/components/autocompleteInput';
+import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
+import LabelLang from 'src/lang/components/LabelLang';
 import { getBank } from './redux/action';
 
 class PopularPlaces extends Component {
@@ -14,14 +16,19 @@ class PopularPlaces extends Component {
 
   componentDidMount() {
     const { getBank, userCountry: country, language } = this.props;
-    getBank({ country, language }).then(this.handerData).catch(console.error);
+    getBank({ country, language }).then(this.handerData).catch(this.errorHandler);
   }
 
   componentDidUpdate(prevProps) {
     const { getBank, userCountry, language } = this.props;
     if (prevProps.userCountry !== userCountry || prevProps.language !== language) {
-      getBank({ country: userCountry, language }).then(this.handerData).catch(console.error);
+      getBank({ country: userCountry, language }).then(this.handerData).catch(this.errorHandler);
     }
+  }
+
+  errorHandler = (e) => {
+    console.warn(e);
+    reqErrorAlert(e, { message: <LabelLang id='coin.components.popularBanks.getBanksFailed' />});
   }
 
   handerData = (data = []) => {
@@ -60,7 +67,10 @@ const mapState = state => ({
 PopularPlaces.defaultProps = {
   userCountry: null,
   language: null,
-  className: ''
+  onBlur: null,
+  onFocus: null,
+  className: '',
+  placeholder: ''
 };
 
 PopularPlaces.propTypes = {
@@ -68,6 +78,9 @@ PopularPlaces.propTypes = {
   userCountry: PropTypes.string,
   language: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
   className: PropTypes.string,
+  placeholder: PropTypes.string,
 };
 export default connect(mapState, { getBank })(PopularPlaces);
