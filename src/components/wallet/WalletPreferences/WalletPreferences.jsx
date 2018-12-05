@@ -11,6 +11,7 @@ import { ENGINE_METHOD_DIGESTS } from 'constants';
 class WalletPreferences extends React.Component {
   constructor(props) {
     super(props);
+    this._isMounted = false
     this.state = {
       walletNameContent: "",
       walletName: this.props.wallet.title,
@@ -19,13 +20,23 @@ class WalletPreferences extends React.Component {
     this.messages = this.props.intl.messages;
   }
 
+  componentWillUnmount() {
+    this._isMounted = false
+  }
+
+  componentDidUpdate() {
+    this._isMounted = true;
+  }
+
   onHideBalanceChange = (isChecked) => {
+    if (!this._isMounted) return;
     this.props.wallet.hideBalance = isChecked;
     this.props.onUpdateWalletName(this.props.wallet);
   }
 
 
   handleWalletNameChange=(evt) => {
+    if (!this._isMounted) return;
     let value = evt.target.value;
     this.setState({walletName: value}, ()=>{
       this.renderModalName();
@@ -33,6 +44,7 @@ class WalletPreferences extends React.Component {
   }
 
   handleUpdateNameOnClick = () => {
+    if (!this._isMounted) return;
     if (this.state.walletName){
       this.props.wallet.title = this.state.walletName;
       this.props.onUpdateWalletName(this.props.wallet);
@@ -47,7 +59,7 @@ class WalletPreferences extends React.Component {
         <div className="update-name">
           <label>{this.messages['wallet.action.preferecens.update_name.label']}</label>
           <InputMobile required placeholder={this.messages['wallet.action.preferecens.update_name.title']} maxLength="40" value={this.state.walletName} onChange={(evt) => {this.handleWalletNameChange(evt)}} />
-          <button block type="button" onClick={()=> {this.handleUpdateNameOnClick();}} disabled={!this.state.walletName} className="button wallet-new-button btn-block">{this.messages['wallet.action.preferecens.update_name.button.save']}</button>
+          <button type="button" onClick={()=> {this.handleUpdateNameOnClick();}} disabled={!this.state.walletName} className="button wallet-new-button btn-block">{this.messages['wallet.action.preferecens.update_name.button.save']}</button>
         </div>
       )
     }, ()=>{
@@ -56,6 +68,7 @@ class WalletPreferences extends React.Component {
   }
 
   onOpenModalName=()=>{
+    if (!this._isMounted) return;
     this.setState({walletName : this.props.wallet.title}, ()=>{
       this.renderModalName();
     });
@@ -67,7 +80,7 @@ class WalletPreferences extends React.Component {
 
     return (
       <div>
-        <Modal onClose={()=>{this.setState({walletNameContent: ""})}} title="Wallet Name" onRef={modal => this.modalWalletNameRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle}>
+        <Modal onClose={()=>{this.setState({walletNameContent: ""})}} title="Wallet Name" onRef={modal => this.modalWalletNameRef = modal}>
           {this.state.walletNameContent}
         </Modal>
           <div className="box-setting">

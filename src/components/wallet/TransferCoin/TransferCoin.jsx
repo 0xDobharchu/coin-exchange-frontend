@@ -28,7 +28,6 @@ import { showQrCode } from 'src/components/barcodeScanner';
 
 import AddressBook from "../AddressBook";
 import iconAddContact from 'src/assets/images/wallet/icons/icon-add-user.svg';
-import customBackIcon from 'src/assets/images/wallet/icons/back-chevron-white.svg';
 
 import { userWallet } from 'src/screens/wallet/action';
 
@@ -70,8 +69,7 @@ class Transfer extends React.Component {
 
       userPassword: '',
       isShowPassword: true,
-    },
-    this.modalHeaderStyle = {color: "#fff", background: "#546FF7"};
+    },    
     this.modalBodyStyle = {padding: 0};
 
   }
@@ -208,7 +206,7 @@ class Transfer extends React.Component {
 
       this.props.getFiatCurrency({
         url: API_URL.EXCHANGE.GET_FIAT_CURRENCY,
-        params: {amount: 1, fiat_currency: fiat_currency, currency: currency, direction: 'buy'},
+        params: {amount: 1, fiat_currency: fiat_currency, currency: currency, direction: 'buy', type:'bank',level: 1},
         onSuccess: (res) => {
           let data = res;
           let result = fiat_currency == 'USD' ? data.fiat_amount : data.fiat_amount;
@@ -555,7 +553,7 @@ calcMaxAmount = () => {
 }
 
 onChooseFromContact =()=>{
-  this.setState({addressBookContent: <AddressBook needChoice={true} onSelected = {(item)=> {this.onSelectAddressBook(item);}} onRef={ref => (this.child = ref)}  modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle} customBackIcon={customBackIcon} />}, ()=>{
+  this.setState({addressBookContent: <AddressBook needChoice={true} onSelected = {(item)=> {this.onSelectAddressBook(item);}} onRef={ref => (this.child = ref)}  modalBodyStyle={this.modalBodyStyle} />}, ()=>{
     this.modalAddressBookRef.open();
   })
 
@@ -605,7 +603,7 @@ render() {
         </div>
         </ModalDialog>
 
-        <Modal onClose={()=>{this.onCloseAddressBook();}} title={messages['wallet.action.setting.label.select_a_contact']} onRef={modal => this.modalAddressBookRef = modal} customBackIcon={customBackIcon} modalHeaderStyle={this.modalHeaderStyle} modalBodyStyle={this.modalBodyStyle} customRightIcon={iconAddContact} customRightIconClick={()=>{this.openAddNewContact()}}>
+        <Modal onClose={()=>{this.onCloseAddressBook();}} title={messages['wallet.action.setting.label.select_a_contact']} onRef={modal => this.modalAddressBookRef = modal} modalBodyStyle={this.modalBodyStyle} customRightIcon={iconAddContact} customRightIconClick={()=>{this.openAddNewContact()}}>
               {this.state.addressBookContent}
         </Modal>
 

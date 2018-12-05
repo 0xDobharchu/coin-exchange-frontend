@@ -54,8 +54,7 @@ class WalletItem extends React.Component {
 
       return  (
 
-        <div className="itemWallet">
-          <div className="onlyMobile">
+        <div className={style.itemWallet}>          
               {!wallet.protected && <img className={style.safe} src={needBackup} /> }
               <img onClick={onItemClick} className={style.coinLogo} src={logo}/>
               <div className={style.itemCenter} onClick={onItemClick}>
@@ -73,11 +72,10 @@ class WalletItem extends React.Component {
                   <span className={style.address +  " hidden-xss-down"} onClick={onAddressClick}>
                       {this.showCryptoAddress}
                   </span>
-                  <span className={style.more} onClick={onMoreClick}><img src={dontIcon}/></span>
+                  {/* <span className={style.more} onClick={onMoreClick}><img src={dontIcon}/></span> */}
 
                 </span>
-              : ""}            
-            </div>
+              : ""}                        
             {/* <div className="onlyDesktop" style={{marginTop: "15px", marginLeft: "65px"}}>
               <button style={{width: "80px", height: "40px", backgroundColor: "transparent", border: "#c1c1c1 1px solid", color: "#000000", fontSize: "16px", marginRight: "15px"}}> Send </button> 
               <button style={{width: "80px", height: "40px", backgroundColor: "transparent", border: "#c1c1c1 1px solid", color: "#000000", fontSize: "16px", marginRight: "15px"}}> Receive </button> 

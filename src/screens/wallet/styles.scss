@@ -91,8 +91,6 @@
       
 
   // wallet:
-
-  // for item: need use for move:
   .wallet-box{
     // box-shadow: 2px 2px 13px 0 rgba(1,1,0,.1);
     // padding: 20px;
@@ -117,6 +115,7 @@
       padding-top: 15px;
       img, div{
         float: right;
+        cursor: pointer;
       }
     }
     .headerText{
@@ -139,75 +138,9 @@
     .header-icon-2{
       margin-left: 15px;
     }
-
-  }
-  // icon wallet item:
-  .coin-logo{
-    border-radius: 50%;
-    width: 45px;
-    display: inline-block;
-    float: left;
-    margin-right: 20px;
-  }
-  .warning {
-    color:#f5a621;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  .item-right{
-    display: inline-block;
-    float: right;
-    margin-top: 15px;
-  }
-  .item-center{
-    display: inline-block;
-    width: calc(100% - 120px);
-  }
-  .name {
-    font-size: rem-calc(15px);
-    font-weight: 400;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-  .balance {
-    font-size: rem-calc(16px);
-    letter-spacing: 0;
-    font-weight: 300;
-    opacity: 0.6;
   }
 
-  .address {
-    font-size: rem-calc(12px);
-    letter-spacing: 0;
-    text-align: left;
-    cursor: pointer;
-    text-transform: uppercase;
-    float: left;
-    // margin-right: 15px;
-    img{
-      width: 20px;
-      opacity: .7;
-    }
-  }
-  .more{
-    text-align: right;
-    width: 20px;
-    cursor: pointer;
-    float: right;
-  }
-  .safe{
-    position: absolute;
-    left: 34px;
-    top: -2px;
-    width: 16px;
-    border: #ffffff 1px solid;
-    border-radius: 16px;
-    box-shadow: 1px 0px 2px 1px rgba(9, 4, 21, 0.14);
-  }
-  .iconDefault{
-    margin-left: 8px;
-    width: 8px;
-  }
+  // for item: need use for move:  
   .iconChecked {
     margin: 10px;
     margin-top: 12%;
@@ -228,7 +161,7 @@
       min-height: 75px;
       position: relative;
 
-      background-image: url('../../assets/images/wallet/images/bg-home-wallet2.svg');
+      background-image: url('../../assets/images/wallet/images/bg-home-wallet3.svg');
       background-repeat: no-repeat;
       background-size: contain;
       background-color: #f4f4fb;
@@ -238,7 +171,7 @@
     .float-button-scan-qrcode{
       position: fixed;
       bottom: 45px;
-      right: 1px;
+      left: 1px;
       width: 75px;
       height: 75px;
       z-index: 1;
@@ -275,19 +208,22 @@
     }
 
     .logo-wallet{
-      margin: auto;
+      margin-right: 7px;
+      height: 25px;
+      margin-top: -5px;
     }
     .title-wallet{
       color: #fff;
       margin: auto;
-      font-weight: 600;
-      font-size: 18px;    
+      font-weight: 400;
+      font-size: 20px;    
       letter-spacing: 0;    
     }
 
     button:disabled{
       background: Silver;
       border-color:Silver;
+      color: #fff;
     }
 
     .feed-selected{
@@ -348,18 +284,8 @@
       span{
         color: #fff;
       }
-    }
-
-    .selectWalletKey{
-      width: 100%;
-      height: 40px;
-      margin-bottom: 30px
-    }
-    .input12Phrase{
-      margin-bottom: 20px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
+    }    
+    
     .bodyTitle{
       margin-left: 15px;
       margin-right: 15px;
@@ -560,15 +486,8 @@
     }
     .textCenter{
       text-align: center;
-    }
-    .dropdown-wallet{
-      margin: 0!important;
-      margin-bottom: 25px!important;
-    }
-    .wallet-create-footer{
-      padding-bottom: 130px;
-    }
-    
+    }    
+
     .bottom-sheet-wrapper{
       z-index: 2000;
     }
@@ -616,26 +535,7 @@
         padding: 0.3rem 0;
         clear: both;
       }
-    }  
-    
-    .wallet-box-add-new{
-      margin-bottom: 7px;
-      padding-left: 7px;
-      padding-right: 7px;
-      margin-top: 0 !important;
-      .feed {
-        margin-bottom: 7px;
-        padding: 0.625rem 0.3125rem 0.625rem 0.9375rem;
-        // min-height: 120px;
-        position: relative;
-        border-radius: 10px;
-        background-size: cover;
-      }
-      .name{
-        color: #fff;
-      }
-    }
-
+    }          
     .export-private-key{
       margin: auto;
       text-align: center;
@@ -701,6 +601,7 @@
   .wallet-new-button:disabled, .wallet-new-button.disabled {
     background :#c0c0c0;
     border-color: #c0c0c0;
+    color: #fff;
     border: none;
   }
 

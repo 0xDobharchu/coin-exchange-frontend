@@ -34,6 +34,8 @@ class WalletHistory extends React.Component {
   constructor(props) {
 
     super(props);
+    this._isMounted = false
+
     this.state = {
       transactions: [],
       internalTransactions: [],
@@ -75,6 +77,9 @@ class WalletHistory extends React.Component {
   }
 
   async componentDidUpdate() {
+    
+    if (!this._isMounted) return;
+
     const { callUpdate } = this.props;
     let { callUpdate: stateCallUpdate, transactions } = this.state;
     let stateHash = stateCallUpdate ? stateCallUpdate.data.hash : "";
@@ -88,7 +93,19 @@ class WalletHistory extends React.Component {
   }
 
   componentWillUnmount() {
+    this._isMounted = false
 
+    this.setState ({
+      transactions: [],
+      internalTransactions: [],
+      transaction_detail: null,
+      tabActive: TAB.Transaction,
+      wallet: this.props.wallet,
+      pagenoTran: 1,
+      pagenoIT: 1,
+      callUpdate: false,
+      isDeskTop: this.props.isDeskTop|| true,
+    });
   }
 
   async componentDidMount() {
@@ -152,6 +169,7 @@ class WalletHistory extends React.Component {
       pagenoTran: pagenoTran,
       pagenoIT: pagenoIT
     });
+    this._isMounted = true;
   }
 
   checkAPINewest(cTransaction, transactions) {
@@ -319,6 +337,8 @@ class WalletHistory extends React.Component {
   }
 
   async detailTransaction(data) {
+    if (!this._isMounted) return;
+
     const wallet = this.props.wallet;
     if (wallet && data) {
       if (wallet.name == "ETH" || wallet.isToken) {
@@ -338,7 +358,7 @@ class WalletHistory extends React.Component {
     const { messages } = this.props.intl;
 
     return (
-      <Modal customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle} title={messages['wallet.action.transaction.header']} onRef={modal => this.modalTransactionRef = modal} onClose={this.closeDetail}>
+      <Modal title={messages['wallet.action.transaction.header']} onRef={modal => this.modalTransactionRef = modal} onClose={this.closeDetail}>
         <WalletTransaction wallet={wallet} transaction_detail={this.state.transaction_detail} />
       </Modal>
     );
@@ -361,7 +381,7 @@ class WalletHistory extends React.Component {
                 <div className={style.balance}>{wallet.balance} {wallet.name}</div>
                 : <div className={style.balance}>[{messages['wallet.action.history.label.balance_hidden']}]</div>}
 
-              <div className={style.boxButton}>
+              <div className={style['box-button']}>
                 {!wallet.isCollectibles ? <div>
                   <div className={style.bt1}><button onClick={this.props.onTransferClick}>{messages['wallet.action.history.label.send']}</button></div>
                   <div className={style.bt2}><button onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</button></div>
@@ -412,10 +432,10 @@ class WalletHistory extends React.Component {
 
               <div className={style.boxButton}>                
                     {!wallet.isCollectibles ? <div>
-                      <div className={style.bt1}><div><img className={style.iconSend} src={iconSend} /><span onClick={this.props.onTransferClick}> {messages['wallet.action.history.label.send']}</span></div></div>
-                      <div className={style.bt2}><div><img className={style.iconReceive} src={iconReceive} /><span onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</span></div></div>
+                      <div className={style.bt1}><div onClick={this.props.onTransferClick}><img className={style.iconSend} src={iconSend} /><span onClick={this.props.onTransferClick}> {messages['wallet.action.history.label.send']}</span></div></div>
+                      <div className={style.bt2}><div onClick={this.props.onReceiveClick}><img className={style.iconReceive} src={iconReceive} /><span onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</span></div></div>
                       {
-                      <div className={style.bt3}><div><img className={style.iconPreference} src={iconPreference} /><span onClick={this.props.onWarningClick}>{messages['wallet.action.protect.text.need_backup']}</span></div></div>
+                      <div className={style.bt3}><div onClick={this.props.onPreferencesClick}><img className={style.iconPreference} src={iconPreference} /><span onClick={this.props.onWarningClick}>{messages['wallet.action.protect.text.need_backup']}</span></div></div>
                       }
                     </div>
                       :( <div>
