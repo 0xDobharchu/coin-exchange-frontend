@@ -809,6 +809,9 @@ export default {
         bankAccountName: 'Account name',
         bankAccountNumber: 'Account number',
         gotoEdit: 'Edit your bank info?'
+      },
+      popularPlace: {
+        invalidPlace: 'Invalid place'
       }
     }
   },
