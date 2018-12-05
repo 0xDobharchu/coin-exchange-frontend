@@ -13,7 +13,12 @@ export default {
     common: {
       error: 'OH! something went wrong!',
       required: 'Required',
-      copied: 'Copied'
+      copied: 'Copied',
+      remove: 'Remove',
+      save: 'Save',
+      update: 'Update',
+      delete: 'Delete',
+      fileupload: 'Try dropping some files here, or click to select files to upload.'
     }
   },
   headerBar: {
@@ -125,6 +130,7 @@ export default {
       selfiePhoto: 'Your Selfie Photo',
       submit: 'Submit',
       ok: 'OK',
+      resend: 'Resend',
       alert: {
         lv2: 'Congratulation! Your level is upto level 2',
         lv3: 'Your request upto level 3 is sent',
@@ -134,20 +140,40 @@ export default {
         sendEmailCodeSuccess: 'We sent a verification code to your email',
         imageIdentifierRequired: 'Back/Front Image is required',
         imageIdentifierPassportRequired: 'Passport Photo is requied',
-        imageSelfieRequired: 'Image Selifie is required'
+        imageSelfieRequired: 'Image Selifie is required',
+        overSMSLimit: 'You entered wrong verification code 10 times already. Please use the last code sent to your phone to verify.',
+        invalidCode: 'Your code is incorrect, please try again!',
+        error: 'OH! something went wrong! Please try again',
       }
     },
     bankInfo: {
       title: 'Bank Info',
+      desc: 'Add your bank account details now to receive attractive commission from referral programs and faster payment',
       bankName: 'Bank Name',
-      bankAccountName: 'Bank Account Name',
-      bankAccountNumber: 'Bank Account Number',
+      bankAccountName: 'Account Name',
+      bankAccountNumber: 'Account Number',
       bankNameHolder: 'Enter Bank Name',
       bankAccountNameHolder: 'Enter Bank Account Name',
       bankAccountNumberHolder: 'Enter Bank Account Number',
       alert: {
-        success: 'Update Success',
-        failed: 'Update Failed',
+        success: 'Successfully Updated',
+        failed: 'Failed To Update',
+        deleteSuccess: 'Successfully Deleted',
+        deleteFailed: 'Failed To Delete'
+      },
+      dialog: {
+        update: {
+          title: 'Confirm Update',
+          body: 'Are you sure to update?',
+          confirm: 'Yes',
+          cancel: 'No'
+        },
+        delete: {
+          title: 'Confirm Delete',
+          body: 'Are you sure to delete?',
+          confirm: 'Yes',
+          cancel: 'No'
+        }
       }
     }
   },
@@ -172,12 +198,12 @@ export default {
     },
     forgetPassword: {
       title: 'Forgot your password?',
-      description: 'Enter your email address to reset your password. You may need to check your spam folder or unblock no-reply@coinbowl.com.',
+      description: 'Please type your email you used to sign in to reset your password. You may need to check your spam folder or unblock info@coinbowl.com',
       username: 'Your email',
       requiredUsername: 'Email is required',
       notValidUsername: 'Invalid email address',
       submitButton: 'Submit',
-      resetPasswordIntro: 'If a Coinbowl account exists for {email}, an e-mail will be sent with further instructions.',
+      resetPasswordIntro: 'We have sent a link to your email. Please follow the instruction to sign in with new password',
       newPasswordTitle: 'Enter a new password for your {email} account.',
       password: 'New password',
       requiredPassword: 'Password is required',
@@ -696,16 +722,19 @@ export default {
       orderFailedMsg: 'Create order failed, please try again!',
       userAddress: 'Address',
       userPhone: 'Phone',
-      userNote: 'As soon as possible'
+      userNote: 'As soon as possible',
+      buyBtn: 'Buy {amount} {currency}'
     },
     sell: {
-      prepareOrderFailed: 'Error while preparing to order, pls try again',
+      prepareOrderFailed: 'Failed while preparing to order, please try again',
+      addPaymentInfoFailed: 'Failed while adding your payment info',
       orderSuccessful: 'Your order was created successfully',
       orderFailed: 'Error while making new order, pls try again',
       bankName: 'Bank name',
       accountNumber: 'Account number',
       accountName: 'Account name',
-      phone: 'Phone number'
+      phone: 'Phone number',
+      sellBtn: 'Sell {amount} {currency}'
     },
     components: {
       bankTransferInfo: {
@@ -732,6 +761,7 @@ export default {
       paymentMethod: {
         wireTransferName: 'Wire transfer',
         codName: 'Cash on Delivery',
+        tngName: 'TNG wallet',
         codInfo: 'State your time and place for meeting up and we will exchange in person.'
       },
       walletSelector: {
@@ -761,19 +791,46 @@ export default {
       exchange: {
         amountLabel: 'Amount to {direction}',
         currency: 'Currency',
+        buy: 'buy',
+        sell: 'sell'
+      },
+      phoneVerify: {
+        submitPhoneSuccessMsg: 'We sent a code to your phone successfully',
+        submitPhoneFailedMsg: 'Sent code failed, please try again',
+        submitCodeSuccessMsg: 'Verify successfully',
+        submitCodeFailedMsg: 'Verify failed, please try again',
+        verifyCode: 'Verify code',
+        submitCode: 'Submit Code',
+        submitPhone: 'Submit'
+      },
+      sellBankInfo: {
+        bankInfo: 'Your bank info',
+        bankName: 'Bank name',
+        bankAccountName: 'Account name',
+        bankAccountNumber: 'Account number',
+        gotoEdit: 'Edit your bank info?'
       }
     }
-  },
-  userVerifyStatus: {
-    level1Pending: 'To start trading, please take a few minutes to verify your account. {verify}',
-    verifyBtn: 'Verify now',
-    notLogin: 'Please sign in to start trading.{action}',
-    notLoginBtn: 'Sign In Now'
   },
   static_page: {
     userAgreement: 'User Agreement',
     privacyPolicy: 'Privacy Policy',
     promotionPrograms: 'Promotion Programs',
     aboutUs: 'About Us',
+    howItworks: 'How It Works',
+  },
+  components: {
+    userVerifyStatus: {
+      level1Pending: 'To start trading, please take a few minutes to verify your account. {verify}',
+      verifyBtn: 'Verify now',
+      notLogin: 'Please sign in to start trading.{action}',
+      notLoginBtn: 'Sign In Now'
+    },
+    confirmBtn: {
+      defaultMsg: 'Please confirm',
+      defaultConfirmText: 'Yes',
+      defaultDeclineText: 'No',
+      defaultLabelText: 'Confirm'
+    }
   }
 };

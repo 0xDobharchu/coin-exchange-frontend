@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { injectIntl } from 'react-intl';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import LabelLang from 'src/lang/components/LabelLang';
 import { USER_LEVEL, VERIFICATION_STATUS } from 'src/resources/constants/userVerification';
 import { URL } from 'src/resources/constants/url';
+import { injectIntl } from 'react-intl';
 import currentUser from 'src/utils/authentication';
 import styles from './styles.scss';
 
@@ -23,9 +23,9 @@ class UserVerifyStatus extends Component {
           <Card.Body>
             <span>
               <LabelLang
-                id="userVerifyStatus.level1Pending"
+                id="components.userVerifyStatus.level1Pending"
                 values={{
-                  verify: <Link to={URL.ME_ACCOUNT_LEVEL}><span className={styles.btn}><LabelLang id="userVerifyStatus.verifyBtn" /></span></Link>,
+                  verify: <Link to={URL.ME_ACCOUNT_LEVEL}><span className={styles.btn}><LabelLang id="components.userVerifyStatus.verifyBtn" /></span></Link>,
                 }}
               />
             </span>
@@ -38,9 +38,9 @@ class UserVerifyStatus extends Component {
           <Card.Body>
             <span>
               <LabelLang
-                id="userVerifyStatus.notLogin"
+                id="components.userVerifyStatus.notLogin"
                 values={{
-                  action: <Link to={URL.USER_SIGN_IN}><span className={styles.btn}><LabelLang id="userVerifyStatus.notLoginBtn" /></span></Link>,
+                  action: <Link to={URL.USER_SIGN_IN}><span className={styles.btn}><LabelLang id="components.userVerifyStatus.notLoginBtn" /></span></Link>,
                 }}
               />
             </span>

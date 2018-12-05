@@ -10,7 +10,7 @@ import { formatMoneyByLocale } from 'src/utils/format/curency';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import ClockCount from 'src/components/clockCount';
 import TooltipInfo from 'src/components/tooltipInfo';
-import FileUploader from 'src/components/fileUploader';
+import FileUploader, { RECEIPT_TYPE } from 'src/components/fileUploader';
 import Loading from 'src/components/loading';
 import LabelLang from 'src/lang/components/LabelLang';
 import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
@@ -256,7 +256,8 @@ class BankTransferInfo extends PureComponent {
         <Row className={styles.uploadContainer}>
           { showUploader &&
           (
-            <FileUploader
+            <FileUploader 
+              type={RECEIPT_TYPE}
               onSuccess={this.onUploaded}
               onRemove={this.onRemoveReceipt}
             />

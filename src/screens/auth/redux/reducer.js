@@ -52,7 +52,7 @@ export default (state = mockState, { type, payload, data }) => {
         profile: {
           ...state.profile,
           ...(payload || data),
-          payment_info: payload && payload.payment_info ? JSON.parse(payload.payment_info) : null
+          payment_info: payload && payload.payment_info ? JSON.parse(payload.payment_info) : {}
         }
       };
     case 'GET_TRANSACTIONS':
@@ -63,7 +63,7 @@ export default (state = mockState, { type, payload, data }) => {
     case 'GET_REFERRALS':
       return {
         ...state,
-        referrals: []
+        referrals: payload
       };
     default:
       return state;

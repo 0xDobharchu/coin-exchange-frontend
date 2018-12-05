@@ -29,7 +29,6 @@ const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, update
   const handleVerifyPhone = (values) => {
 
     const { phone: phoneNumberValue, code } = values;
-    console.log(values);
     // if (!phoneNumberValue || valid.phone(phoneNumberValue)) {
     //   showAlert({
     //     message: 'me.accountLevel.alert.invalidPhone',
@@ -39,17 +38,52 @@ const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, update
     //   return;
     // }
     if (!code) {
-      updatePhoneNumberAction(phoneNumberValue).catch(showAlert({
-        message: 'me.accountLevel.alert.sendPhoneCodeSuccess',
-        timeOut: 3000,
-        type: 'success',
-      }));
+      updatePhoneNumberAction(phoneNumberValue).then(()=>{
+        showAlert({
+          message: 'me.accountLevel.alert.sendPhoneCodeSuccess',
+          timeOut: 3000,
+          type: 'success',
+        });
+      }).catch((e)=>{
+        if(e.code==='exceed_limit'){
+          showAlert({
+            message: 'me.accountLevel.alert.overSMSLimit',
+            timeOut: 3000,
+            type: 'danger',
+          });
+        }
+        else{
+          showAlert({
+            message: 'me.accountLevel.alert.error',
+            timeOut: 3000,
+            type: 'danger',
+          });
+        }
+
+      });
     } else {
-      submitPhoneCodeAction(code).then(showAlert({
-        message: 'me.accountLevel.alert.lv2',
-        timeOut: 3000,
-        type: 'success'
-      }));
+      submitPhoneCodeAction(code).then(()=>{
+        showAlert({
+          message: 'me.accountLevel.alert.lv2',
+          timeOut: 3000,
+          type: 'success'
+        });}).catch((e)=>{
+        if(e.code==='invalid_verification'){
+          showAlert({
+            message: 'me.accountLevel.alert.invalidCode',
+            timeOut: 3000,
+            type: 'danger',
+          });
+        }
+        else{
+          showAlert({
+            message: 'me.accountLevel.alert.error',
+            timeOut: 3000,
+            type: 'danger',
+          });
+        }
+
+      });
     }
   };
   const currentLevel = getCurrentLevel(level, levelStatus);

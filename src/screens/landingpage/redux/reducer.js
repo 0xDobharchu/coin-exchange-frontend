@@ -36,6 +36,12 @@ export default (state = initState, { type, data }) => {
         promotionContent: data?.content,
       };
     }
+    case `${LANDINGPAGE_ACTION.GET_HOW_IT_WORKS_CONTENT}_SUCCESS`: {
+      return {
+        ...state,
+        howItWorksContent: data?.content,
+      };
+    }
 
     default:
       return state;

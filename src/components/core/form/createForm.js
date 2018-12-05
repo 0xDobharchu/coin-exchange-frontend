@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
 
 const Form = (props) => {
-  const { handleSubmit, children, className } = props;
+  const { handleSubmit, children, className, method } = props;
   return (
-    <form onSubmit={handleSubmit} className={className}>
+    <form onSubmit={handleSubmit} className={className} method={method}>
       {children}
     </form>
   );

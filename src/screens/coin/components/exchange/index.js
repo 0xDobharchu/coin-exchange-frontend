@@ -43,17 +43,17 @@ class Exchange extends Component {
   }
 
   componentDidMount() {
-    const { defaultCurrency, defaultFiatCurrency } = this.props;
+    const { defaultCurrency, defaultFiatCurrency, userCurrencySetting } = this.props;
     this.setState({
       currency: defaultCurrency,
-      fiatCurrency: defaultFiatCurrency,
+      fiatCurrency: userCurrencySetting || defaultFiatCurrency,
     });
     this.renderCurrencyList();
     this.renderFiatCurrencyList();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { orderType, supportedCurrency, defaultCurrency, options: { canChangeCurrency } } = this.props;
+    const { orderType, supportedCurrency, defaultCurrency, options: { canChangeCurrency }, userCurrencySetting } = this.props;
     const { currency, fiatCurrency } = this.state;
     if (prevProps?.orderType !== orderType) {
       this.getExchange();
@@ -63,10 +63,13 @@ class Exchange extends Component {
     }
     if (arrayXor(prevProps?.supportedCurrency, supportedCurrency)?.length !== 0) {
       this.renderFiatCurrencyList();
-      this.onSelectFiatCurrency(supportedCurrency[0]);
+      !userCurrencySetting && this.onSelectFiatCurrency(supportedCurrency[0]);
     }
     if (prevProps?.defaultCurrency !== defaultCurrency && !canChangeCurrency) {
       this.onSelectCurrency(defaultCurrency);
+    }
+    if (prevProps?.userCurrencySetting !== userCurrencySetting) {
+      this.onSelectFiatCurrency(userCurrencySetting);
     }
   }
 
@@ -102,8 +105,7 @@ class Exchange extends Component {
       state.amount = 0;
       state.fiatAmount = value;
     }
-    this.setState({ ...state, exchangeType: EXCHANGE_TYPE[field], isExchanging: true }, this.getExchange);
-    this.setExchangeStatus(true);
+    this.setState({ ...state, exchangeType: EXCHANGE_TYPE[field] }, this.getExchange);
   }
 
   setExchangeStatus = (status = false) => {
@@ -148,6 +150,7 @@ class Exchange extends Component {
     } catch(e) {
       console.warn(e);
       reqErrorAlert(e);
+      this.resetExchangeData();
       this.setExchangeStatus(false);
     }
   }
@@ -176,8 +179,17 @@ class Exchange extends Component {
     } catch(e) {
       console.warn(e);
       reqErrorAlert(e);
+      this.resetExchangeData();
       this.setExchangeStatus(false);
     }
+  }
+
+  resetExchangeData = () => {
+    this.setState({
+      exchangeData: {},
+      fiatAmount: 0,
+      amount: 0,
+    }, this.dataCallbackHandler);
   }
 
   getExchange = () => {
@@ -210,7 +222,7 @@ class Exchange extends Component {
             <InputGroup>
               <CurrencyInput
                 onFocus={() => onFocus()}
-                label={<LabelLang id={getIntlKey('amountLabel')} values={{ direction }} />}
+                label={<LabelLang id={getIntlKey('amountLabel')} values={{ direction: <LabelLang id={getIntlKey(direction)} /> }} />}
                 placeholder="0.0"
                 value={amount}
                 truncateLabel
@@ -280,6 +292,7 @@ Exchange.defaultProps = {
   onBlur: null,
   onFocus: null,
   onChange: null,
+  userCurrencySetting: null,
   options: {
     canChangeCurrency: true,
     canChangeFiatCurrency: true,
@@ -289,6 +302,7 @@ Exchange.defaultProps = {
 Exchange.propTypes = {
   defaultCurrency: PropTypes.oneOf(Object.values(CRYPTO_CURRENCY)),
   defaultFiatCurrency: PropTypes.oneOf(Object.values(FIAT_CURRENCY)),
+  userCurrencySetting: PropTypes.oneOf(Object.values(FIAT_CURRENCY)),
   direction: PropTypes.oneOf(Object.values(EXCHANGE_DIRECTION)),
   orderType: PropTypes.oneOf(Object.values(ORDER_TYPE)),
   getQuote: PropTypes.func.isRequired,
@@ -306,6 +320,7 @@ Exchange.propTypes = {
 
 const mapState = state => ({
   supportedCurrency: state?.app?.supportedCurrency?.length !== 0 ? state.app.supportedCurrency : [DEFAULT_FIAT_CURRENCY],
+  userCurrencySetting: state?.auth?.profile?.currency || null
 });
 
 export default connect(mapState, mapDispatch)(Exchange);
