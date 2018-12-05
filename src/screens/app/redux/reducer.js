@@ -1,9 +1,9 @@
 // import { APP } from 'src/constants';
 import SystemConfigModel from 'src/models/system';
 import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
+import local from 'src/services/localStore';
+import { APP } from 'src/resources/constants/app';
 import APP_TYPE from './type';
-
-// import local from 'src/services/localStore';
 
 const {
   HEADER_TITLE_SET,
@@ -59,7 +59,7 @@ const initState = {
   headerLeftContent: null,
   showHeader: false,
 
-  ipInfo: 'test', // local.get(APP.IP_INFO),
+  ipInfo: local.get(APP.IP_INFO),
 
   isBannedCash: false,
   isBannedPrediction: false,
