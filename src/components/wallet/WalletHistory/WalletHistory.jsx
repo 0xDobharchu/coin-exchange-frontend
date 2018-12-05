@@ -34,7 +34,7 @@ class WalletHistory extends React.Component {
   constructor(props) {
 
     super(props);
-    // this._isMounted = false
+    this._isMounted = false
 
     this.state = {
       transactions: [],
@@ -78,7 +78,7 @@ class WalletHistory extends React.Component {
 
   async componentDidUpdate() {
     
-    // if (!this._isMounted) return;
+    if (!this._isMounted) return;
 
     const { callUpdate } = this.props;
     let { callUpdate: stateCallUpdate, transactions } = this.state;
@@ -93,19 +93,19 @@ class WalletHistory extends React.Component {
   }
 
   componentWillUnmount() {
-    // this._isMounted = false
+    this._isMounted = false
 
-    // this.setState ({
-    //   transactions: [],
-    //   internalTransactions: [],
-    //   transaction_detail: null,
-    //   tabActive: TAB.Transaction,
-    //   wallet: this.props.wallet,
-    //   pagenoTran: 1,
-    //   pagenoIT: 1,
-    //   callUpdate: false,
-    //   isDeskTop: this.props.isDeskTop|| false,
-    // });
+    this.setState ({
+      transactions: [],
+      internalTransactions: [],
+      transaction_detail: null,
+      tabActive: TAB.Transaction,
+      wallet: this.props.wallet,
+      pagenoTran: 1,
+      pagenoIT: 1,
+      callUpdate: false,
+      isDeskTop: this.props.isDeskTop|| false,
+    });
   }
 
 
@@ -171,7 +171,7 @@ class WalletHistory extends React.Component {
       pagenoTran: pagenoTran,
       pagenoIT: pagenoIT
     });
-    // this._isMounted = true;
+    this._isMounted = true;
   }
 
   checkAPINewest(cTransaction, transactions) {
@@ -341,7 +341,7 @@ class WalletHistory extends React.Component {
   }
 
   async detailTransaction(data) {
-    // if (!this._isMounted) return;
+    if (!this._isMounted) return;
 
     const wallet = this.props.wallet;
     if (wallet && data) {
