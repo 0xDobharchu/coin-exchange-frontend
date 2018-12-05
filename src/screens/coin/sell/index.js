@@ -24,6 +24,7 @@ import OrderInfo from './components/orderInfo';
 import BankInfo from './components/bankInfo';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
 import paymentMethodField from './reduxFormFields/paymentMethod';
+import popularBankField, { popularBanksValidator } from './reduxFormFields/popularBank';
 import { makeOrder, genAddress } from './redux/action';
 import styles from './styles.scss';
 
@@ -182,12 +183,11 @@ class SellCryptoCoin extends React.Component {
     return (
       <div className={cx(styles.codInfo, 'mt-4')}>
         <Field
-          type="text"
           name="bankName"
           placeholder={formatMessage({ id: getIntlKey('bankName')})}
-          component={inputField}
-          containerClassName={styles.bankItem}
-          validate={isRequired()}
+          component={popularBankField}
+          containerClassname={styles.bankItem}
+          validate={popularBanksValidator}
         />
         <Field
           type="text"
@@ -277,6 +277,7 @@ class SellCryptoCoin extends React.Component {
 const mapStateToProps = (state) => {
   let bankInfo = state?.auth?.profile?.payment_info || {};
   const bankValues = Object.values(bankInfo);
+  const bankName = formSelector(state, 'bankName');
   if (bankValues.length === 0 || !bankValues?.every(value => !!value)) {
     bankInfo = null;
   }
@@ -287,7 +288,7 @@ const mapStateToProps = (state) => {
     userAddress: formSelector(state, 'address'),
     userPhone: formSelector(state, 'phone'),
     userNote: formSelector(state, 'noteAndTime'),
-    bankName: bankInfo?.bankName || formSelector(state, 'bankName'),
+    bankName: bankInfo?.bankName || bankName?.isValid ? bankName?.value : '',
     bankAccountNumber: bankInfo?.bankAccountNumber || formSelector(state, 'bankAccountNumber'),
     bankAccountName: bankInfo?.bankAccountName || formSelector(state, 'bankAccountName'),
     supportedCurrency: state?.app?.supportedCurrency || [],

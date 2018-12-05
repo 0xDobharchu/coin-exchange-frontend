@@ -35,6 +35,16 @@ class SystemConfig {
       active: data.active
     };
   }
+
+  static popularBank(data = {}) {
+    return {
+      id: data.id,
+      country: data.country,
+      language: data.language,
+      name: data.name,
+      active: data.active
+    };
+  }
 }
 
 export default SystemConfig;
