@@ -7,6 +7,8 @@ import PricePanel from 'src/screens/coin/components/pricePanel';
 import LabelLang from 'src/lang/components/LabelLang';
 import UserVerifyStatus from 'src/components/userVerifyStatus';
 import animations from 'src/assets/styles/animations';
+import { Link } from 'react-router-dom';
+import { URL } from 'src/resources/constants/url';
 import BuyCoin from './buy';
 import SellCoin from './sell';
 import styles from './styles.scss';
@@ -62,7 +64,7 @@ class Coin extends Component {
       <Container className={styles.container}>
         <Row className={styles.intro}>
           <h1><LabelLang id='coin.introText' /></h1>
-          <h3><LabelLang id='coin.subIntroText' /><FaPlayCircle className={styles.icon} /></h3>
+          <h3><Link to={URL.HOW_IT_WORKS}><LabelLang id='coin.subIntroText' /><FaPlayCircle className={styles.icon} /></Link></h3>
         </Row>
         <Row>
           <Col lg={3} className='order-2 order-lg-1'>
