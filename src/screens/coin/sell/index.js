@@ -186,7 +186,7 @@ class SellCryptoCoin extends React.Component {
           name="bankName"
           placeholder={formatMessage({ id: getIntlKey('bankName')})}
           component={inputField}
-          className={styles.bankItem}
+          containerClassName={styles.bankItem}
           validate={isRequired()}
         />
         <Field
@@ -194,7 +194,7 @@ class SellCryptoCoin extends React.Component {
           name="bankAccountNumber"
           placeholder={formatMessage({ id: getIntlKey('accountNumber')})}
           component={inputField}
-          className={styles.bankItem}
+          containerClassName={styles.bankItem}
           validate={isRequired()}
         />
         <Field
@@ -202,7 +202,7 @@ class SellCryptoCoin extends React.Component {
           name="bankAccountName"
           placeholder={formatMessage({ id: getIntlKey('accountName')})}
           component={inputField}
-          className={styles.bankItem}
+          containerClassName={styles.bankItem}
           validate={isRequired()}
         />
       </div>

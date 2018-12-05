@@ -2,14 +2,14 @@
 import React from 'react';
 import PopularPlaces from '../../components/popularPlaces';
 
-const field = ({ input, meta, className = '', placeholder }) => {
+const field = ({ input, meta, className = '', containerClassname,  placeholder }) => {
   const {
     onChange, onBlur, onFocus
   } = input;
   const { error, touched } = meta;
   const shouldShowError = !!(touched && error);
   return (
-    <div>
+    <div className={containerClassname}>
       <PopularPlaces
         className={className}
         placeholder={placeholder}

@@ -127,7 +127,7 @@ class BuyCryptoCoin extends React.Component {
           name="address"
           placeholder={formatMessage({ id: 'coin.buy.userAddress' })}
           component={popularPlacesField}
-          className={styles.codItem}
+          containerClassname={styles.codItem}
           validate={paymentMethod === PAYMENT_METHOD.COD ? [popularPlacesValidator] : null}
         />
         <Field
@@ -135,7 +135,7 @@ class BuyCryptoCoin extends React.Component {
           name="phone"
           placeholder={formatMessage({ id: 'coin.buy.userPhone' })}
           component={inputField}
-          className={styles.codItem}
+          containerClassName={styles.codItem}
           validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
         />
         <Field
@@ -143,7 +143,7 @@ class BuyCryptoCoin extends React.Component {
           placeholder={formatMessage({ id: 'coin.buy.userNote' })}
           name="noteAndTime"
           component={inputField}
-          className={styles.codItem}
+          containerClassName={styles.codItem}
           validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
         />
       </div>
