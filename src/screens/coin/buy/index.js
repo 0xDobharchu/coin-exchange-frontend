@@ -22,6 +22,7 @@ import BankTransferInfo from './components/bankTransferInfo';
 import walletSelectorField, { walletValidator } from './reduxFormFields/walletSelector';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
 import paymentMethodField from './reduxFormFields/paymentMethod';
+import popularPlacesField, { popularPlacesValidator } from './reduxFormFields/popularPlaces';
 import { makeOrder } from './redux/action';
 import styles from './styles.scss';
 
@@ -123,19 +124,18 @@ class BuyCryptoCoin extends React.Component {
     return (
       <div className={cx(styles.codInfo, 'mt-4', paymentMethod === PAYMENT_METHOD.COD ? styles.showCod : styles.hideCod)}>
         <Field
-          type="text"
           name="address"
           placeholder={formatMessage({ id: 'coin.buy.userAddress' })}
-          component={inputField}
-          className={styles.codItem}
-          validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
+          component={popularPlacesField}
+          containerClassname={styles.codItem}
+          validate={paymentMethod === PAYMENT_METHOD.COD ? [popularPlacesValidator] : null}
         />
         <Field
           type="text"
           name="phone"
           placeholder={formatMessage({ id: 'coin.buy.userPhone' })}
           component={inputField}
-          className={styles.codItem}
+          containerClassName={styles.codItem}
           validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
         />
         <Field
@@ -143,7 +143,7 @@ class BuyCryptoCoin extends React.Component {
           placeholder={formatMessage({ id: 'coin.buy.userNote' })}
           name="noteAndTime"
           component={inputField}
-          className={styles.codItem}
+          containerClassName={styles.codItem}
           validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
         />
       </div>
@@ -202,15 +202,18 @@ class BuyCryptoCoin extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  paymentMethod: formSelector(state, 'paymentMethod'),
-  exchange: formSelector(state, 'exchange'),
-  wallet: formSelector(state, 'wallet'),
-  userAddress: formSelector(state, 'address'),
-  userPhone: formSelector(state, 'phone'),
-  userNote: formSelector(state, 'noteAndTime'),
-  supportedCurrency: state?.app?.supportedCurrency || [],
-});
+const mapStateToProps = (state) => {
+  const address = formSelector(state, 'address');
+  return {
+    paymentMethod: formSelector(state, 'paymentMethod'),
+    exchange: formSelector(state, 'exchange'),
+    wallet: formSelector(state, 'wallet'),
+    userAddress: address?.isValid ? address?.value : '',
+    userPhone: formSelector(state, 'phone'),
+    userNote: formSelector(state, 'noteAndTime'),
+    supportedCurrency: state?.app?.supportedCurrency || [],
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   makeOrder: bindActionCreators(makeOrder, dispatch),
