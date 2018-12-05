@@ -5,14 +5,20 @@ import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
 
 class LabelLang extends PureComponent {
   render() {
-    // eslint-disable-next-line
-    return (
-      <FormattedMessage {...this.props}>
-        {(...params) => {
-          return params?.map((param, index) => <React.Fragment key={index}>{param}</React.Fragment>) || null;
-        }}
-      </FormattedMessage>
-    );
+    const { id } = this.props;
+
+    // if there is an valid DOM, just render it
+    if (typeof id !== 'string' && React.isValidElement(id)) {
+      return id;
+    } else {
+      return (
+        <FormattedMessage {...this.props}>
+          {(...params) => {
+            return params?.map((param, index) => <React.Fragment key={index}>{param}</React.Fragment>) || null;
+          }}
+        </FormattedMessage>
+      );
+    }
   }
 }
 

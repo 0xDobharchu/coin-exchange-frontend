@@ -1,42 +1,89 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { reduxForm } from 'redux-form';
-import { Row } from 'react-bootstrap';
+import {reduxForm} from 'redux-form';
 // import { FieldLang } from 'src/lang/components';
 import { LabelLang, FieldLang } from 'src/lang/components';
 // import ReactPhoneInput from 'react-phone-input-2';
 
 import style from '../styles.scss';
-import { getReachingLevel, getCurrentLevel  } from '../util';
-
-// const renderFieldPhone = ({ input }) => (
-//   <ReactPhoneInput {...input} defaultCountry='hk' regions='asia' placeholder="me.profile.text.phone.desc3" inputStyle={{ width: '100%' }} />
-// );
+import { getReachingLevel } from '../util';
 
 // eslint-disable-next-line
-const PhoneForm = ({ handleSubmit, onSubmit, level, levelStatus }) => {
+const PhoneForm = ({ handleSubmit, onSubmit, level, levelStatus, state }) => {
   // const handleOnChange = (values) => {
   //   change('phone', values);
   //   console.log(values);
   // };
   let CountryPhone = require('src/components/Phone/index').default;
+  const isSendPhoneCode = (level === 'level_2' && levelStatus === 'pending');
+  const isPassLevel2 = (getReachingLevel(level, levelStatus) > 2 || (getReachingLevel(level, levelStatus) === 2 && levelStatus === 'approved'));
+  const  handleChange=(e) =>{
+
+    if(e.target.value)
+      state.form.PhoneForm.initial.isButtonDisable = false;
+    else
+      state.form.PhoneForm.initial.isButtonDisable = true;
+
+  };
   return (
     <div>
-      <Row>
+      <div className="row">
         <div className="col-10">
-          {/* <ReactPhoneInput name='phone' value={phoneNumber} defaultCountry='hk' onChange={handleOnChange} regions='asia' placeholder="me.profile.text.phone.desc3" inputStyle={{ width: '100%' }} disabled={level === 'level_2' || level === 'level_3' || level === 'level_4'} /> */}
-          {/* <FieldLang name="phone" component={renderFieldPhone} disabled={getReachingLevel(level, levelStatus) >= 2} />*/}
-          {<CountryPhone name='phone' defaultCountry='hk' regions='asia' inputStyle={{ width: '100%' }} disabled={getReachingLevel(level, levelStatus) > 2 || (getReachingLevel(level, levelStatus) === 2 && levelStatus === 'approved')} /> }
+          {<CountryPhone
+            name='phone'
+            defaultCountry='hk'
+            regions='asia'
+            inputStyle={{ width: '100%' }}
+            disabled={isPassLevel2}
+          /> }
+        </div>
+        {isSendPhoneCode && (
+          <div className="col-2" style={{ paddingLeft: 0}}>
+            <button
+              onClick={handleSubmit(onSubmit)}
+              type="button"
+              disabled={!state.form?.PhoneForm?.initial.isButtonDisable}
+              className={style.submit_btn}
+            >
+              <LabelLang id="me.accountLevel.resend" />
+            </button>
+          </div>
+        )}
 
-        </div>
-        {level === 'level_2' && levelStatus === 'pending' && <div className="col-10" style={{ width: '100%', marginTop: '20px' }}><FieldLang style={{ width: '100%' }} name="code" component="input" type="text" placeholder="me.accountLevel.phoneCode" /></div>}
-        <div className="col-2" style={{ paddingLeft: 0 }}>
-          <button onClick={handleSubmit(onSubmit)} type="button" className={style.submit_btn} disabled={getCurrentLevel(level, levelStatus) >= 2}>
-            <LabelLang id="me.accountLevel.ok" />
-          </button>
-        </div>
-      </Row>
+        {!isSendPhoneCode && (
+          <div className="col-2" style={{ paddingLeft: 0}}>
+            <button
+              onClick={handleSubmit(onSubmit)}
+              type="button"
+              className={style.submit_btn}
+              disabled={isPassLevel2}
+            >
+              <LabelLang id="me.accountLevel.ok" />
+            </button>
+          </div>
+        )}
+      </div>
+      <div className="row">
+        {isSendPhoneCode && (
+          <div className="col-10" style={{ width: '100%', marginTop: '20px' }}>
+            <FieldLang style={{ width: '100%' }} name="code" component="input" type="text" placeholder="me.accountLevel.phoneCode" onChange={handleChange} />
+          </div>)}
+        {isSendPhoneCode && (
+          <div className="col-2" style={{ paddingLeft: 0,marginTop: '20px'  }}>
+            <button
+              disabled={state.form?.PhoneForm?.initial.isButtonDisable}
+              onClick={
+                handleSubmit(onSubmit)
+              }
+              type="button"
+              className={style.submit_btn}
+            >
+              <LabelLang id="me.accountLevel.ok" />
+            </button>
+          </div>)}
+
+      </div>
     </div>
   );
 };
@@ -44,9 +91,11 @@ const PhoneForm = ({ handleSubmit, onSubmit, level, levelStatus }) => {
 const mapState = state => ({
   initialValues: {
     phone: state.auth.profile.phone_number || state.auth.profile.pending_phone_number,
+    isButtonDisable: true,
   },
   level: state.auth.profile.verification_level,
   levelStatus: state.auth.profile.verification_status,
+  state: state,
 });
 export default compose(
   connect(mapState),

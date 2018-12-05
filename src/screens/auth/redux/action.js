@@ -24,8 +24,7 @@ export const updatePhoneNumberAction = (phone_number) => (dispatch) => new Promi
   updateProfile({ phone_number }).then(r => {
     if (!r) return;
     dispatch({ type: 'UPDATE_PROFILE_INFO', payload: { phone_number, verification_level: 'level_2', verification_status: 'pending' }});
-    sendToGetPhoneCode({ phone_number }).then(r => r).catch(err=>err);
-    resolve(true);
+    sendToGetPhoneCode({ phone_number }).then(r => resolve(r)).catch(err=>reject(err));
   }).catch(err => reject(err));
 });
 export const updateProfileAction = (data) => (dispatch) => new Promise((resolve, reject) => {

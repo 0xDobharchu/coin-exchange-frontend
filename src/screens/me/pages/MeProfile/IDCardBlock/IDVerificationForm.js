@@ -9,7 +9,7 @@ import dropdownField from 'src/components/core/form/fields/dropdown';
 import FileUploader from 'src/components/fileUploader';
 import { DOC_TYPES, getReachingLevel } from '../util';
 
-const required = value => (value || typeof value === 'number' ? undefined : 'Required');
+const required = value => (value || typeof value === 'number' ? undefined : <LabelLang id="app.common.required" />);
 
 // eslint-disable-next-line
 class IDVerificationForm extends React.Component {
@@ -67,23 +67,23 @@ class IDVerificationForm extends React.Component {
               disabled={getReachingLevel(level, levelStatus) >= 3}
             />
           </div>
-          <div className={this.state.isPassport ? 'col-12': 'col-6'}>
+          <div className="col-12">
             <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
               <LabelLang id="me.accountLevel.backPhoto" />
             </p>
             {!initialValues.back_image && <FileUploader onSuccess={this.handleBackSuccess} onRemove={this.backRemove} />}
-            {initialValues.back_image && <img alt="back_image" src={initialValues.back_image} />}
+            {initialValues.back_image && <img alt="back_image" style={{ width: '100%' }} src={initialValues.back_image} />}
           </div>
           {!this.state.isPassport && (
-          <div className="col-6">
+          <div className="col-12">
             <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
               <LabelLang id="me.accountLevel.frontPhoto" />
             </p>
             {!initialValues.front_image && <FileUploader onSuccess={this.handleFrontSuccess} onRemove={this.frontRemove} />}
-            {initialValues.front_image && <img alt="front_image" src={initialValues.front_image} />}
+            {initialValues.front_image && <img alt="front_image" style={{ width: '100%' }} src={initialValues.front_image} />}
           </div>)}
           {getReachingLevel(level, levelStatus) < 3 && (
-          <div className="col-12">
+          <div className="col-12" style={{ marginTop: '20px' }}>
             <Button onClick={handleSubmit(onSubmit)} variant="primary" size="lg" block>
               <LabelLang id="me.accountLevel.submit" />
             </Button>

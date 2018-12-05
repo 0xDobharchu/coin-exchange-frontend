@@ -1,6 +1,7 @@
 export const PAYMENT_METHOD = {
   TRANSFER: 'bank',
-  COD: 'cod'
+  COD: 'cod',
+  TNG: 'tng'
 };
 
 export const EXCHANGE_DIRECTION = {
@@ -10,5 +11,5 @@ export const EXCHANGE_DIRECTION = {
 
 export const ORDER_TYPE = {
   cod: 'cod',
-  bank: 'bank'
+  bank: 'bank',
 };

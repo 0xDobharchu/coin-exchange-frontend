@@ -120,7 +120,7 @@ export const sendToGetPhoneCode = async (data) => {
     return res;
   } catch (err) {
     console.log('ERROR get smscode  phone number', err);
-    return null;
+    throw err;
   }
 };
 
@@ -137,7 +137,7 @@ export const submitVerifyPhoneCode = async (code) => {
     return res;
   } catch (err) {
     console.log('ERROR get smscode  phone number', err);
-    return null;
+    throw err;
   }
 };
 
@@ -317,6 +317,29 @@ export const getReferrals = async () => {
     return res;
   } catch (err) {
     console.log('ERROR get currencies', err);
+    return [];
+  }
+};
+
+export const uploadFile = async (file, type = 'verification') => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    const options = {
+      url : `/user/file-upload/?type=${type}`,
+      method: 'POST',
+      data: formData,
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {
+        Authorization: 'Bearer ' + currentUser.getToken(),
+        'Content-type': 'multipart/form-data'
+      };
+    }
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR get upload file', err);
     return [];
   }
 };

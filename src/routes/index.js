@@ -11,6 +11,7 @@ import Wallet from 'src/screens/wallet';
 import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
 import AgreementPrivacy from 'src/screens/agreementPrivacy';
 import PromotionProgram from 'src/screens/promotionProgram';
+import HowItWorks from 'src/screens/howItWorks';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
 import privateRoute from './privateRoute';
@@ -116,6 +117,11 @@ const routes = [
   {
     path: URL.PROMOTION_PROGRAM,
     component: PromotionProgram,
+    exact: true,
+  },
+  {
+    path: URL.HOW_IT_WORKS,
+    component: HowItWorks,
     exact: true,
   }
 ];

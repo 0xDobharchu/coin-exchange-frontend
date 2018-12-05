@@ -1,12 +1,11 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { FieldLang, WrapperLang, LabelLang } from 'src/lang/components';
+import { WrapperLang, LabelLang } from 'src/lang/components';
 import { getCountries, getCurrenciesByCountry } from 'src/screens/auth/redux/api';
 import { Field, reduxForm } from 'redux-form';
-import { Row, Col }from 'react-bootstrap';
 import dropdownField from 'src/components/core/form/fields/dropdown';
-import { InputField, Button } from 'src/components/custom';
+import { Button } from 'src/components/custom';
 import style from './style.scss';
 
 // eslint-disable-next-line
@@ -40,7 +39,7 @@ class PersonalDetailForm extends React.Component {
     const { countries, currencies } = this.state;
     return (
       <form className={style.container}>
-        <label><LabelLang id="me.accountInfo.legalName" /></label>
+        {/* <label><LabelLang id="me.accountInfo.legalName" /></label>
         <Row>
           <Col md={6}>
             <FieldLang name="first_name" component={InputField} placeholder="me.accountInfo.firstName" />
@@ -48,7 +47,7 @@ class PersonalDetailForm extends React.Component {
           <Col md={6}>
             <FieldLang name="last_name" component={InputField} placeholder="me.accountInfo.lastName" />
           </Col>
-        </Row>
+        </Row> */}
         <label><LabelLang id="me.accountInfo.country" /></label>
         <Field
           name="country"
@@ -74,8 +73,8 @@ class PersonalDetailForm extends React.Component {
 
 const mapState = state => ({
   initialValues: {
-    first_name: state.auth.profile.first_name,
-    last_name: state.auth.profile.last_name,
+    // first_name: state.auth.profile.first_name,
+    // last_name: state.auth.profile.last_name,
     country: state.auth.profile.country,
     currency: state.auth.profile.currency,
   }

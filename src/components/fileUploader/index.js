@@ -1,54 +1,59 @@
 import React from 'react';
-import DropzoneComponent from 'react-dropzone-component';
+import Dropzone from 'react-dropzone';
+import { LabelLang } from 'src/lang/components';
+import { uploadFile } from 'src/screens/auth/redux/api';
+import style from './fileUpload.scss';
 
-export default class FileUploader extends React.Component {
-  constructor(props) {
-    super(props);
+export const RECEIPT_TYPE = 'receipt';
+export const VERIFICATION_TYPE = 'verification';
 
-    this.djsConfig = {
-      addRemoveLinks: true,
-      acceptedFiles: 'image/jpeg,image/png,image/gif'
-    };
-
-    this.componentConfig = {
-      iconFiletypes: ['.jpg', '.png', '.gif'],
-      showFiletypeIcon: true,
-      postUrl: 'http://35.198.235.226:2203/uploadHandler',
-    };
-
-    // If you want to attach multiple callbacks, simply
-    // create an array filled with all your callbacks.
-    this.callbackArray = [() => console.log('Hi!'), () => console.log('Ho!')];
-
-    // Simple callbacks work too, of course
-    this.callback = () => console.log('Hello!');
-
-    this.success = file => {
-      console.log('uploaded', file.name);
-      this.props.onSuccess('https://storage.googleapis.com/coin-exchange-staging/' + file.name);
-    };
-    this.progress = file => console.log('progress', file);
-
-    this.removedfile = file => {
-      console.log('removing...', file);
-      this.props.onRemove();
-    };
-    this.dropzone = null;
+class FileUpload extends React.Component {
+  
+  state = {
+    url: '',
   }
 
-  render() {
-    const config = this.componentConfig;
-    const djsConfig = this.djsConfig;
+  handleOnDrop = (files) => {
+    // eslint-disable-next-line
+    const { type } = this.props;
+    const uploadType = type || VERIFICATION_TYPE;
+    uploadFile(files[0], uploadType).then(({ url }) => {
+      // eslint-disable-next-line
+      const { onSuccess } = this.props;
+      this.setState({ url });
+      if (typeof onSuccess === 'function') {
+        onSuccess(url);
+      } 
+    }).catch(err => err);
+  }
 
-    // For a list of all possible events (there are many), see README.md!
-    const eventHandlers = {
-      init: dz => this.dropzone = dz,
-      drop: this.callbackArray,
-      addedfile: this.callback,
-      success: this.success,
-      removedfile: this.removedfile,
-      uploadprogress: this.progress
-    };
-    return (<DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />);
+  handleRemove = () => {
+    this.setState({ url : '' });
+    // eslint-disable-next-line
+    const { onRemove } = this.props;
+    if (typeof onRemove === 'function') {
+      onRemove();
+    }
+  }
+
+  handleOnCancel = f => f
+  
+  render() {
+    const { url } = this.state;
+    return (
+      <div className={style.container}>
+        {!url && (
+        <Dropzone className={style.dropzone} multiple={false} onDrop={this.handleOnDrop} onFileDialogCancel={this.handleOnCancel}>
+          <p><LabelLang id="app.common.fileupload" /></p>
+        </Dropzone>)}
+        {url && (<img alt={url} src={url} />)}
+        {url && (
+        <button type="button" onClick={this.handleRemove}>
+          <LabelLang id="app.common.remove" />
+        </button>)}
+      </div>
+    );
   }
 }
+
+export default FileUpload;

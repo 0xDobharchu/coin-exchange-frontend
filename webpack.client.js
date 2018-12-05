@@ -26,6 +26,7 @@ const optimization = {
         warnings: false,
         compress: {
           comparisons: false,
+          drop_console: true
         },
         parse: {},
         mangle: true,
@@ -36,7 +37,7 @@ const optimization = {
       },
       parallel: true,
       cache: true,
-      sourceMap: true,
+      // sourceMap: true,
     }),
     new OptimizeCSSAssetsPlugin({})
   ],

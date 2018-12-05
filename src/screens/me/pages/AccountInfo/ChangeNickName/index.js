@@ -21,7 +21,7 @@ export const ChangeNickNameField = ({ input }) => (
       <div className={style.col2_2}><LabelLang id="me.accountInfo.nickname_note" /></div>
     </div>
     <div className={style.col3}>
-      <input {...input} type="text" />
+      <input {...input} type="text" disabled="true" />
     </div>
   </div>
 );
