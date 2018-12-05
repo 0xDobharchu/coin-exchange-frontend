@@ -2,7 +2,6 @@ import LANDINGPAGE_ACTION from './type';
 
 const initState = {
   faqContent: [],
-  howItWorksContent: 'howItWorksContent'
 };
 
 export default (state = initState, { type, data }) => {
