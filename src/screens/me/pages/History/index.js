@@ -46,7 +46,7 @@ class History extends React.PureComponent {
 
               <Col xs={3}>{e.direction}</Col>
               <Col xs={3}>
-                <label>{`${Number(e.amount).toFixed(2)} ${e.currency}`}</label>
+                <label>{`${Number(e.amount).toFixed(3)} ${e.currency}`}</label>
                 <label>{`${e.fiat_local_amount} ${e.fiat_local_currency}`}</label>
               </Col>
               <Col xs={3}>
