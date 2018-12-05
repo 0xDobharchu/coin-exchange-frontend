@@ -812,6 +812,9 @@ export default {
       },
       popularPlace: {
         invalidPlace: 'Invalid place'
+      },
+      popularBanks: {
+        invalidBank: 'Invalid bank'
       }
     }
   },

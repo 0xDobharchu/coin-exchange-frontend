@@ -79,8 +79,8 @@ class AutocompleteInput extends Component {
     const { result } = this.state;
     if (result.length === 0) return null;
 
-    const items = result.map(({ value, label }) =>
-      <div className={styles.item} role="presentation" key={value} onClick={() => this.onClick(value)}><span>{label}</span></div>);
+    const items = result.map(({ value, label }, index) =>
+      <div className={styles.item} role="presentation" key={`${index}-${value}`} onClick={() => this.onClick(value)}><span>{label}</span></div>);
     if (items.length) {
       return (
         <div className={styles.items}>{items}</div>
