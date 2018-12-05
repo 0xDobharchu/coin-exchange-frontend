@@ -63,7 +63,7 @@ export default (state = mockState, { type, payload, data }) => {
     case 'GET_REFERRALS':
       return {
         ...state,
-        referrals: []
+        referrals: payload
       };
     default:
       return state;
