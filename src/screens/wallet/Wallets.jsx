@@ -63,6 +63,7 @@ import cx from 'classnames';
 import styles from './styles.scss';
 
 import logo from 'src/assets/images/logo-no-text.svg';
+import { URL } from 'src/resources/constants/url';
 
 
 if (__CLIENT__)
@@ -619,6 +620,7 @@ class Wallet extends React.Component {
                 onTransferClick={() => this.showTransfer(wallet)}
                 onReceiveClick={() => this.onAddressClick(wallet)}
                 onWarningClick={() => this.onWarningClick(wallet)}
+                goToBuyCoin={() => this.goToBuyCoin()}                
                 wallet={wallet}                                                        
                 callUpdate={callUpdate}
             />
@@ -656,8 +658,9 @@ class Wallet extends React.Component {
                 this.modalHistoryRef.open();
             });
         }
-
-
+    }
+    goToBuyCoin=()=>{
+        this.props.history.push(URL.HOME);
     }
     onUpdateWalletName = (wallet) => {
         this.setState({ walletSelected: wallet });

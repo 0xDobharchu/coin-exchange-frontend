@@ -15,12 +15,12 @@ import Modal from 'src/components/core/controls/Modal';
 import { Tabs } from 'rmc-tabs';
 
 import imgNoTrans from 'src/assets/images/wallet/images/no-transaction.svg';
-import iconLoadding from 'src/assets/images/icon/loading.svg.raw';
+// import iconLoadding from 'src/assets/images/icon/loading.svg.raw';
 import needBackupWhite from 'src/assets/images/wallet/icons/icon-need-backup-white.svg';
 import iconSend from 'src/assets/images/wallet/icons/icon-paper-plane.svg';
 import iconReceive from 'src/assets/images/wallet/icons/icon-get-money.svg';
 import iconPreference from 'src/assets/images/wallet/icons/icon-preference-gray.svg';
-
+import Loader from 'src/components/loading'
 const TAB = {
   Transaction: 0,
   Internal: 1
@@ -108,8 +108,9 @@ class WalletHistory extends React.Component {
     // });
   }
 
+
   async componentDidMount() {
-    console.log('zoooo');
+    
     let { wallet, pagenoTran, pagenoIT, transactions, internalTransactions } = this.state;
 
     let cTransaction = this.getSessionStore(wallet, TAB.Transaction),
@@ -129,9 +130,7 @@ class WalletHistory extends React.Component {
 
     if (wallet && wallet.name != 'XRP') {
       wallet.balance = await wallet.getBalance();
-      wallet.transaction_count = await wallet.getTransactionCount();
-
-      console.log('wallet.transaction_count', wallet.transaction_count);
+      wallet.transaction_count = await wallet.getTransactionCount();      
 
       transactions = await wallet.getTransactionHistory(pagenoTran);
       if (this.checkAPINewest(cTransaction, transactions)) {
@@ -201,9 +200,11 @@ class WalletHistory extends React.Component {
         <div>
           <img src={imgNoTrans} />          
           <div className={style.headerHistoryTx}>{text}</div>
-          <button> {messages['coin.buyTabTitle']}</button>
+          <button onClick={this.props.goToBuyCoin}> {messages['coin.buyTabTitle']}</button>
         </div>
-        : <img className={style.iconLoadingHistory} src={iconLoadding} />}
+        // : <img className={style.iconLoadingHistory} src={iconLoadding} />
+          :<Loader color="#3F2782" />
+        }
     </div>
   }
 
