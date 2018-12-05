@@ -2,7 +2,7 @@ import $http from 'src/utils/http';
 import IpInfo from 'src/models/IpInfo';
 import { APP } from 'src/resources/constants/app';
 import SystemConfigModel from 'src/models/system';
-import { API_URL } from 'src/resources/constants/url';
+import { API_URL, URL } from 'src/resources/constants/url';
 import { DEFAULT_COUNTRY } from 'src/resources/constants/countries';
 import local from 'src/services/localStore';
 import makeRequest from 'src/redux/action';
@@ -89,7 +89,7 @@ const continueAfterInitApp = (language, ref, dispatch, data) => {
 export const initApp = (language, ref) => (dispatch) => {
   try {
     $http({
-      url: 'https://ipfind.co/me',
+      url: URL.IP_DOMAIN,
       params : { auth: APP_ENV.ipfindKey },
       headers: { 'Content-Type': 'text/plain' },
     }).then((res) => {
