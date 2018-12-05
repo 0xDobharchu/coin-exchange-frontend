@@ -792,7 +792,8 @@ export default {
         amountLabel: 'Amount to {direction}',
         currency: 'Currency',
         buy: 'buy',
-        sell: 'sell'
+        sell: 'sell',
+        exchangeFailed: 'Failed while exchanging, please try again'
       },
       phoneVerify: {
         submitPhoneSuccessMsg: 'We sent a code to your phone successfully',
@@ -809,6 +810,14 @@ export default {
         bankAccountName: 'Account name',
         bankAccountNumber: 'Account number',
         gotoEdit: 'Edit your bank info?'
+      },
+      popularPlace: {
+        invalidPlace: 'Invalid place',
+        getPlacesFailed: 'Failed while getting popular places'
+      },
+      popularBanks: {
+        invalidBank: 'Invalid bank',
+        getBanksFailed: 'Failed while getting popular banks'
       }
     }
   },

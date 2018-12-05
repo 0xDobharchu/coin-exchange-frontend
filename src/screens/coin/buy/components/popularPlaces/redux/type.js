@@ -1,0 +1,2 @@
+const TAG = 'SCREENS/COIN/BUY/POPULAR_PLACE';
+export const GET_PLACE = `${TAG}/GET_PLACE`;

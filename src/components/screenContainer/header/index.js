@@ -9,7 +9,7 @@ import LabelLang from 'src/lang/components/LabelLang';
 import UserLogin from 'src/components/userLogin';
 import styles from './styles.scss';
 
-const menus = {
+export const menus = {
   home: {
     name: <LabelLang id="headerBar.home" />,
     link: URL.HOME
