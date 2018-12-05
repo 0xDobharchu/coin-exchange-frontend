@@ -130,6 +130,7 @@ export default {
       selfiePhoto: 'Your Selfie Photo',
       submit: 'Submit',
       ok: 'OK',
+      resend: 'Resend',
       alert: {
         lv2: 'Congratulation! Your level is upto level 2',
         lv3: 'Your request upto level 3 is sent',
@@ -141,6 +142,7 @@ export default {
         imageIdentifierPassportRequired: 'Passport Photo is requied',
         imageSelfieRequired: 'Image Selifie is required',
         overSMSLimit: 'You are over sms limit',
+        invalidCode: 'Your code is incorrect, please try again!',
         error: 'OH! something went wrong! Please try again',
       }
     },
@@ -148,16 +150,30 @@ export default {
       title: 'Bank Info',
       desc: 'Add your bank account details now to receive attractive commission from referral programs and faster payment',
       bankName: 'Bank Name',
-      bankAccountName: 'Bank Account Name',
-      bankAccountNumber: 'Bank Account Number',
+      bankAccountName: 'Account Name',
+      bankAccountNumber: 'Account Number',
       bankNameHolder: 'Enter Bank Name',
       bankAccountNameHolder: 'Enter Bank Account Name',
       bankAccountNumberHolder: 'Enter Bank Account Number',
       alert: {
-        success: 'Update Success',
-        failed: 'Update Failed',
-        deleteSuccess: 'Delete Success',
-        deleteFailed: 'Delete Failed'
+        success: 'Successfully Updated',
+        failed: 'Failed To Update',
+        deleteSuccess: 'Successfully Deleted',
+        deleteFailed: 'Failed To Delete'
+      },
+      dialog: {
+        update: {
+          title: 'Confirm Update',
+          body: 'Are you sure to update?',
+          confirm: 'Yes',
+          cancel: 'No'
+        },
+        delete: {
+          title: 'Confirm Delete',
+          body: 'Are you sure to delete?',
+          confirm: 'Yes',
+          cancel: 'No'
+        }
       }
     }
   },
@@ -706,7 +722,8 @@ export default {
       orderFailedMsg: 'Create order failed, please try again!',
       userAddress: 'Address',
       userPhone: 'Phone',
-      userNote: 'As soon as possible'
+      userNote: 'As soon as possible',
+      buyBtn: 'Buy {amount} {currency}'
     },
     sell: {
       prepareOrderFailed: 'Failed while preparing to order, please try again',
@@ -800,6 +817,7 @@ export default {
     privacyPolicy: 'Privacy Policy',
     promotionPrograms: 'Promotion Programs',
     aboutUs: 'About Us',
+    howItworks: 'How It Works',
   },
   components: {
     userVerifyStatus: {
