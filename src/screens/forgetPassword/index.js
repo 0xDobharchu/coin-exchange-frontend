@@ -39,14 +39,13 @@ class Contact extends React.Component {
     if (email) {
       this.props.resetPass(email).then(() => {
         this.setState({ isSubmiting: false });
-        const mess = `If a Coinbowl account exists for ${email}, an e-mail will be sent with further instructions.`;
         this.props.showAlert({
-          message: mess,
+          message: 'user.forgetPassword.resetPasswordIntro',
           timeOut: 5000,
         });
       }, (err) => {
         this.props.showAlert({
-          message: 'OH! something went wrong!',
+          message: 'app.common.error',
           type: 'danger',
           timeOut: 1000,
         });
