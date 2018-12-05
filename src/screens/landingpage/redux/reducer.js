@@ -2,6 +2,7 @@ import LANDINGPAGE_ACTION from './type';
 
 const initState = {
   faqContent: [],
+  howItWorksContent: 'howItWorksContent'
 };
 
 export default (state = initState, { type, data }) => {
@@ -34,6 +35,12 @@ export default (state = initState, { type, data }) => {
       return {
         ...state,
         promotionContent: data?.content,
+      };
+    }
+    case `${LANDINGPAGE_ACTION.GET_HOW_IT_WORKS_CONTENT}_SUCCESS`: {
+      return {
+        ...state,
+        howItWorksContent: data?.content,
       };
     }
 

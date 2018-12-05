@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { injectIntl } from 'react-intl';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import LabelLang from 'src/lang/components/LabelLang';
@@ -57,4 +56,4 @@ const mapState = state => ({
   verificationStatus: state?.auth?.profile?.verification_status || VERIFICATION_STATUS.PENDING,
 });
 
-export default injectIntl(connect(mapState, null)(UserVerifyStatus));
+export default connect(mapState, null)(UserVerifyStatus);
