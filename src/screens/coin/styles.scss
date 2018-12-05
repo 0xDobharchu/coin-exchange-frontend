@@ -26,6 +26,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      a {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        color: white;
+      }
     }
     .icon {
       margin: 10px;
