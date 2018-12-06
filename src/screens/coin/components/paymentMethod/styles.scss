@@ -7,6 +7,10 @@
     :global(.checkbox-warper) {
       margin-bottom: 0px;
       margin-right: 10px;
+
+      > span {
+        padding-left: 20px;
+      }
     }
   }
 }
