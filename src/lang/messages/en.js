@@ -129,6 +129,10 @@ export default {
       direction: {
         buy: 'Buy',
         sell: 'Sell'
+      },
+      alert: {
+        cancelSuccess: 'Successfully Cancelled',
+        cancelFailed: 'Failed To Cancel'
       }
     },
     accountLevel: {
