@@ -11,7 +11,7 @@ export const URL = {
   TEAM: '/team',
   COIN: '/coin',
   CONTACT: '/contact-us',
-  WALLET: '/wallet/:address?',
+  WALLET: '/wallet',
   ME: '/me',
   ME_PROFILE: '/me/profile',
   ME_SETTING: '/me/setting',
