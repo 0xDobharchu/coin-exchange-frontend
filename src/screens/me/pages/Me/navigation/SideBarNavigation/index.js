@@ -57,7 +57,7 @@ class SideBarNavigation extends React.PureComponent {
                   <Nav.Link eventKey={CHILD_ROUTES[3]}><LabelLang id="me.navigation.history" /></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey={CHILD_ROUTES[4]}><LabelLang id="me.navigation.bankInfo" /></Nav.Link>
+                  <Nav.Link eventKey={CHILD_ROUTES[4]}><LabelLang id="me.navigation.bankInfo" /><span style={{ color: 'red', marginLeft: '10px' }}>*</span></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link eventKey={CHILD_ROUTES[5]}><LabelLang id="me.navigation.referral" /></Nav.Link>
