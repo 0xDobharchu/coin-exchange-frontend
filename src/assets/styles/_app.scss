@@ -38,6 +38,7 @@
     text-align: center;
     letter-spacing: 0;
     border: none;
+    outline: none!important;
     cursor: pointer;
     &:disabled {
       color: $black-light;
@@ -64,8 +65,17 @@
       letter-spacing: 0;
     }
   }
+  // overwrite for tel imput lib
   .react-tel-input input[type=tel], .react-tel-input input[type=text]{
     height: 50px !important;
+  }
+  // overwrite for modal boostrab:
+  .modal-header .close span {
+    font-size: 45px!important;
+    font-weight: 100!important;
+    color: #2b2a2a!important;
+    opacity: 1;
+    line-height: 0.5;
   }
   .dropdown-warper {
     width: 100%;
