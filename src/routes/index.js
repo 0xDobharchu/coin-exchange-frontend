@@ -104,6 +104,12 @@ const routes = [
     auth: true,
   },
   {
+    path: URL.ME_REFERRAL,
+    component: Me,
+    exact: true,
+    auth: true,
+  },
+  {
     path: '/wallet',
     component: Wallet,
     exact: true,
