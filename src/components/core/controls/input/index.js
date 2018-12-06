@@ -4,12 +4,22 @@ import cx from 'classnames';
 import styles from './styles.scss';
 
 const Input = (props) => {
-  const { label, labelClassname, containerClassname, truncateLabel, name,  ...inputProps } = props;
+  const { label, labelClassname, containerClassname, truncateLabel, name, value, ...inputProps } = props;
+  if (!label) {
+    return (
+      <input
+        name={name}
+        value={value || ''}
+        {...inputProps}
+      />
+    );
+  }
   return (
     <label className={cx(styles.container, containerClassname)}>
       <span className={cx(styles.label, truncateLabel && 'text-truncate ', labelClassname)}>{label}</span>
       <input
         name={name}
+        value={value || ''}
         {...inputProps}
       />
     </label>
