@@ -70,6 +70,12 @@
   flex: 1 1 auto;
 }
 
+.loading{
+  text-align: center;
+  width: 100%;
+  margin-top: 30px;
+}
+
 .header{    
   padding: 0px 20px;
   flex: 0 0 54px;
@@ -106,38 +112,7 @@
       display: flex;
       flex-wrap: wrap;
       width: 100%;
-    }
-    .headerBox{
-      width: 100%;
-      padding: 20px;
-      border-bottom: 1px #f4f4f4 solid;
-      padding-bottom: 10px;
-      padding-top: 15px;
-      img, div{
-        float: right;
-        cursor: pointer;
-      }
-    }
-    .headerText{
-      font-size: 14px;
-      color: #090909;
-      letter-spacing: 0;
-      text-transform: uppercase;
-      color: #315E9E;
-    }
-    .headerLink{
-      font-size: 13px;
-      background: #5522DD;
-      letter-spacing: 0;
-      cursor: pointer;
-      float: right;
-      color: white;
-      padding: 3px 10px;
-      border-radius: 4px;
-    }
-    .header-icon-2{
-      margin-left: 15px;
-    }
+    }         
   }
 
   // for item: need use for move:  
@@ -383,76 +358,8 @@
       margin-bottom: 10px;
       font-weight: 400;
     }
-    .protectwallet-wrapper{
-      margin-top:30px;
-      font-weight: 300;
-      padding-bottom: 100px;
-      .msg1, .msg2, .msg3{
-        font-size: 20px;
-        line-height: 30px;
-        margin-bottom: 30px;
-      }
-
-      .msg2{
-        color:#9a9a9a;
-        font-size: 16px;
-        line-height: 25px;
-      }
-      .msg3 span{
-        font-size: 16px;
-        line-height: 25px;
-        top: 5px;
-      }
-
-      .cursor-initial{cursor: initial !important;}
-
-      .pass-phrase, .confirm-pass-phrase{
-        margin:10px;
-        padding: 10px;
-        background:#D8D8D8;
-        min-height: 152px;
-        text-align: center;
-        margin-top:25px;
-        div{
-          margin:7px;
-        }
-      }
-      .pass-phrase-link-copy{
-        text-align: center;
-        color: #1E4EFF;
-        cursor: pointer;
-        margin-top: 25px;
-      }
-
-      .confirm_pass_phrase{
-        background: #e2e2e2;
-      }
-
-      input[type=checkbox] {
-        width: 30px;
-        padding: 10px;
-      }
-
-      .footer{
-        height: 60px;
-        position: fixed;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100%;
-        max-width: 414px;
-        z-index: 2;
-        padding-left: 20px;
-        padding-right: 20px;
-        background: White;
-      }
-      p.modal-custom-title{
-        font-size:18px;
-      }
-    }
-    .wrong-pass-phrase{
-      padding: 20px 10px !important;
-    }
+    
+    
     .button-wallet{
       // position: fixed;
       // bottom: 0;

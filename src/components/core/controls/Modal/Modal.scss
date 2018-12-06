@@ -65,7 +65,18 @@ $blur_color: #868DAD;
   .modal_custom_header {
     display: flex;
     padding: 10px 15px;    
-    background-color: #f8f8f8;    
+    background-color: #f8f8f8;  
+    
+    .box-icon-back{
+      display: inherit;
+      width: 30px;      
+      margin-left: -10px;
+      padding-left: 10px;
+      transition: 0.3s;
+      :focus{
+        background: rgba(253, 249, 247, 0.5);
+      }
+    }
 
     .iconBackMobile{
       display: none;
