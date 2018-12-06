@@ -6,9 +6,10 @@ import Setting from '../../../Setting';
 import MeProfile from '../../../MeProfile';
 import History from '../../../History';
 import BankInfo from '../../../BankInfo';
+import Referral from '../../../Referral';
 import style from './style.scss';
 
-const CHILD_ROUTES = ['profile', 'setting', 'accountLevel', 'history', 'bankInfo'];
+const CHILD_ROUTES = ['profile', 'setting', 'accountLevel', 'history', 'bankInfo', 'referral'];
 
 class SideBarNavigation extends React.PureComponent {
   getActiveKey = path => {
@@ -18,6 +19,7 @@ class SideBarNavigation extends React.PureComponent {
       case '/me/accountLevel': return CHILD_ROUTES[2];
       case '/me/history': return CHILD_ROUTES[3];
       case '/me/bankInfo': return CHILD_ROUTES[4];
+      case '/me/referral': return CHILD_ROUTES[5];
       default: return CHILD_ROUTES[0];
     }
   }
@@ -57,6 +59,9 @@ class SideBarNavigation extends React.PureComponent {
                 <Nav.Item>
                   <Nav.Link eventKey={CHILD_ROUTES[4]}><LabelLang id="me.navigation.bankInfo" /></Nav.Link>
                 </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey={CHILD_ROUTES[5]}><LabelLang id="me.navigation.referral" /></Nav.Link>
+                </Nav.Item>
               </Nav>
             </Col>
             <Col sm={9}>
@@ -75,6 +80,9 @@ class SideBarNavigation extends React.PureComponent {
                 </Tab.Pane>
                 <Tab.Pane eventKey={CHILD_ROUTES[4]} className={style.scrollbar}>
                   <BankInfo />
+                </Tab.Pane>
+                <Tab.Pane eventKey={CHILD_ROUTES[5]} className={style.scrollbar}>
+                  <Referral />
                 </Tab.Pane>
               </Tab.Content>
             </Col>
