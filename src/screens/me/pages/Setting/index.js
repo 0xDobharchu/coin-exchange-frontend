@@ -13,7 +13,7 @@ const Setting = ({ updateProfileAction, showAlert }) => {
   const showSuccess = id => showMessage(id, 'success');
   const showError = id => showMessage(id, 'danger');
   const handleUpdateProfile = values => updateProfileAction(values).then(() => showSuccess('me.accountInfo.alert.success')).catch(() => showError('me.accountInfo.alert.failed'));
-
+  console.log('settings page========================================================');
   return (
     <div className={style.container}>
       <label className={style.title}><LabelLang id="me.setting.title" /></label>
