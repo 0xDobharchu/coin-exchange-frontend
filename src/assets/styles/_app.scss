@@ -54,7 +54,7 @@
     padding: 4px 15px;
     height: $input-height;
     background: $white;
-    border: 1px solid #DCDCDE;
+    border: 1px solid #E7E6EB;
     border-radius: 4px 4px 4px 4px;
     ::placeholder {
       color: #DCDCDE;
@@ -62,6 +62,19 @@
       font-weight: reg;
       text-align: left;
       letter-spacing: 0;
+    }
+  }
+
+  input {
+    border: 1px solid #E7E6EB;
+    &:active {
+      border: 1px solid #5522DD;
+    }
+    &:focus {
+      border: 1px solid #5522DD;
+    }
+    &:hover {
+      border: 1px solid #ABAAAD;
     }
   }
   .react-tel-input input[type=tel], .react-tel-input input[type=text]{
