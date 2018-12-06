@@ -36,7 +36,10 @@ class PopularPlaces extends Component {
       const label = `${d.name} (${d.address})`;
       return {
         label,
-        value: label
+        value: {
+          name: d.name,
+          address: d.address
+        }
       };
     });
     this.setState({ data: rs });
