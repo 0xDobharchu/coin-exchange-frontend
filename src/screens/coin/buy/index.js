@@ -59,7 +59,7 @@ class BuyCryptoCoin extends React.Component {
     if (address && currency && !invalidAddress && amount && fiatAmount) {
       if (paymentMethod === PAYMENT_METHOD.COD) {
         const { userAddress, userPhone, userNote } = this.props;
-        if (userAddress && userPhone && userNote) {
+        if (userAddress?.isValid && userPhone && userNote) {
           return true;
         }
       } else {
@@ -81,7 +81,7 @@ class BuyCryptoCoin extends React.Component {
       address: wallet?.address,
     };
     if (paymentMethod === PAYMENT_METHOD.COD) {
-      payload.user_info = JSON.stringify({ userAddress, userPhone, userNote });
+      payload.user_info = JSON.stringify({ userAddressName: userAddress?.value?.name, userAddress: userAddress?.value?.address, userPhone, userNote });
     }
     makeOrder(payload)
       .then(this.orderSuccessHandler)
@@ -203,12 +203,11 @@ class BuyCryptoCoin extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const address = formSelector(state, 'address');
   return {
     paymentMethod: formSelector(state, 'paymentMethod'),
     exchange: formSelector(state, 'exchange'),
     wallet: formSelector(state, 'wallet'),
-    userAddress: address?.isValid ? address?.value : '',
+    userAddress: formSelector(state, 'address'),
     userPhone: formSelector(state, 'phone'),
     userNote: formSelector(state, 'noteAndTime'),
     supportedCurrency: state?.app?.supportedCurrency || [],
@@ -223,7 +222,7 @@ const mapDispatchToProps = dispatch => ({
 BuyCryptoCoin.defaultProps = {
   wallet: {},
   exchange: {},
-  userAddress: '',
+  userAddress: {},
   userNote: '',
   userPhone: '',
   paymentMethod: null,
@@ -236,7 +235,7 @@ BuyCryptoCoin.propTypes = {
   exchange: PropTypes.object,
   wallet: PropTypes.object,
   paymentMethod: PropTypes.string,
-  userAddress: PropTypes.string,
+  userAddress: PropTypes.object,
   userNote: PropTypes.string,
   userPhone: PropTypes.string,
   makeOrder: PropTypes.func,
