@@ -123,7 +123,7 @@ AutocompleteInput.defaultProps = {
 AutocompleteInput.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.string,
+      value: PropTypes.any,
       label: PropTypes.string
     })
   ).isRequired,
