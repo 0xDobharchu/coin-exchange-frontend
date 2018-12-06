@@ -59,7 +59,7 @@ const initState = {
   headerLeftContent: null,
   showHeader: false,
 
-  ipInfo: local.get(APP.IP_INFO),
+  ipInfo: local.get(APP.IP_INFO) || {},
 
   isBannedCash: false,
   isBannedPrediction: false,
