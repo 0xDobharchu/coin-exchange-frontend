@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FaQrcode } from 'react-icons/fa';
-import { InputGroup, DropdownButton, Dropdown, FormControl } from 'react-bootstrap';
+import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import { showQrCode } from 'src/components/barcodeScanner';
+import Input from 'src/components/core/controls/input';
 import { injectIntl } from 'react-intl';
 import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
 import { MasterWallet } from 'src/services/Wallets/MasterWallet';
@@ -69,7 +70,7 @@ class WalletSelector extends Component {
     return (
       <div className={className}>
         <InputGroup>
-          <FormControl
+          <Input
             placeholder={formatMessage({ id: getIntlKey('qrScannerText') })}
             className={styles.input}
             value={address}
@@ -78,7 +79,7 @@ class WalletSelector extends Component {
             onFocus={() => onFocus()}
             type="text"
             name='wallet'
-            autoComplete='off'
+            autoCompleteOff
             ref={this.addressInputRef}
           />
           <InputGroup.Prepend>

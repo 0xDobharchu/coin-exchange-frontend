@@ -101,6 +101,7 @@ class AutocompleteInput extends Component {
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           value={term}
+          autoCompleteOff
         />
         { show && this.renderResult() }
       </div>
