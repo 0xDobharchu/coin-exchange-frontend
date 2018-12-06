@@ -18,6 +18,7 @@ export const URL = {
   ME_ACCOUNT_LEVEL: '/me/accountLevel',
   ME_HISTORY: '/me/history',
   ME_BANK_INFO: '/me/bankInfo',
+  ME_REFERRAL: '/me/referral',
   PROMOTION_PROGRAM: '/promotion-programs',
   HOW_IT_WORKS: '/how-it-works',
   IP_DOMAIN: 'https://ipfind.co/me',
