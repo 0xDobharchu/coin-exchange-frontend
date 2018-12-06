@@ -2,6 +2,7 @@ import React from 'react';
 import { Ethereum } from 'src/services/Wallets/Ethereum';
 import { LabelLang } from 'src/lang/components';
 import { Modal, Button, Row } from 'react-bootstrap';
+import ConfirmDialog from 'src/components/confirmDialog';
 import style from './popup.scss';
 
 const transformString = str =>  str ? (str.substring(0, 7) + '...'+ str.substring(str.length-5, str.length)) : '';
@@ -30,9 +31,16 @@ const getDirection = direction => {
 
 class PopupDetail extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.confirmDialogCancel = React.createRef();
+  }
   showData = (data) => {
     this.setState({ ...data });
   }
+
+  handleOnCancel = () => this.confirmDialogCancel.current.show();
+  onConfirmCancel = () => alert('success');
 
   render() {
     const { onHide } = this.props;
@@ -85,12 +93,20 @@ class PopupDetail extends React.Component {
           {status === 'pending' && direction === 'buy' && (
           <Row>
             <span><LabelLang id="me.history.action" /></span>
-            <button type="button"><LabelLang id="me.history.cancel" /></button>
+            <button type="button" onClick={this.handleOnCancel}><LabelLang id="me.history.cancel" /></button>
           </Row>)}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={onHide}><LabelLang id="me.history.close" /></Button>
         </Modal.Footer>
+        <ConfirmDialog
+          title={<LabelLang id="me.history.dialog.cancel.title" />}
+          body={<LabelLang id="me.history.dialog.cancel.body" />}
+          confirmText={<LabelLang id="me.history.dialog.cancel.confirm" />}
+          cancelText={<LabelLang id="me.history.dialog.cancel.cancel" />}
+          ref={this.confirmDialogCancel}
+          onConfirm={this.onConfirmCancel}
+        />
       </Modal>
     );
   }

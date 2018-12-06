@@ -118,6 +118,14 @@ export default {
         rejected: 'Rejected',
         expired: 'Expired',
       },
+      dialog: {
+        cancel: {
+          title: 'Cancel Order',
+          body: 'Are you sure to cancel?',
+          confirm: 'Yes',
+          cancel: 'No',
+        }
+      },
       direction: {
         buy: 'Buy',
         sell: 'Sell'
