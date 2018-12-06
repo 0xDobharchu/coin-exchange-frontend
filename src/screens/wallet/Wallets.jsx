@@ -21,7 +21,6 @@ import {
     fieldRadioButton
 } from 'src/components/core/form/customField';
 import { change, Field, formValueSelector } from 'redux-form';
-import ModalDialog from 'src/components/core/controls/ModalDialog';
 import Modal from 'src/components/core/controls/Modal';
 
 import Header from 'src/components/wallet/header';
@@ -64,17 +63,9 @@ import styles from './styles.scss';
 
 import logo from 'src/assets/images/logo-no-text.svg';
 import { URL } from 'src/resources/constants/url';
-import Loader from 'src/components/loading'
-
-
-if (__CLIENT__)
-    window.Clipboard = (function (window, document, navigator) {
-        let textArea,
-            copy; function isOS() { return navigator.userAgent.match(/ipad|iphone/i); } function createTextArea(text) { textArea = document.createElement('textArea'); textArea.value = text; document.body.appendChild(textArea); } function selectText() {
-                let range,
-                    selection; if (isOS()) { range = document.createRange(); range.selectNodeContents(textArea); selection = window.getSelection(); selection.removeAllRanges(); selection.addRange(range); textArea.setSelectionRange(0, 999999); } else { textArea.select(); }
-            } function copyToClipboard() { document.execCommand('copy'); document.body.removeChild(textArea); } copy = function (text) { createTextArea(text); selectText(); copyToClipboard(); }; return { copy };
-    }(window, document, navigator));
+import Loader from 'src/components/loading';
+import ConfirmDialog from 'src/components/confirmDialog';
+import { LabelLang } from 'src/lang/components';
 
 const nameFormSendWallet = 'sendWallet';
 const nameFormCreditCard = 'creditCard';
@@ -88,6 +79,7 @@ class Wallet extends React.Component {
         super(props);
 
         this.modalBodyStyle = { padding: 0 };
+        this.confirmDialogDelete = React.createRef();
 
         this.state = {
 
@@ -144,8 +136,9 @@ class Wallet extends React.Component {
         this.updateDimensions = this.updateDimensions.bind(this);
     }
     componentDidMount() {
+        
         let addressParram = this.props.match.params.address || false;
-        console.log('this.props', addressParram);
+        
         this.setState({ addressParram });
         window.addEventListener("resize", this.updateDimensions);
 
@@ -155,8 +148,7 @@ class Wallet extends React.Component {
 
         // todo call api get wallet data ...    
         this.props.userWallet().then((listWallet) => {
-
-            console.log('listWallet', listWallet);
+            
             if (listWallet !== false) {
                 this.splitWalletData(listWallet);
                 this.getListBalace(listWallet);
@@ -183,7 +175,7 @@ class Wallet extends React.Component {
             height: window.innerHeight,
             width: window.innerWidth
         });
-        console.log('window.innerWidth', window.innerWidth);
+        
         let isDeskTop = this.state.isDeskTop;
         if (window.innerWidth < MD_MAX_WITH) {
             if (isDeskTop) {
@@ -318,7 +310,7 @@ class Wallet extends React.Component {
 
     // actions:
     // Remove wallet function:
-    removeWallet = () => {
+    onConfirmDeleteWallet = () => {
         try {
             this.modalHistoryRef.close();
             this.modalWalletReferencesRef.close();
@@ -337,9 +329,11 @@ class Wallet extends React.Component {
                 // Update wallet master server:        
                 this.saveWallet(lstWalletTemp);
                 this.splitWalletData(lstWalletTemp);
+
+                if (this.state.isDeskTop)
+                    this.setDefaultDesktop();
             }
-        }
-        this.modalRemoveRef.close();
+        }        
     }
 
     // open transfer modal:
@@ -669,11 +663,15 @@ class Wallet extends React.Component {
         //update data wallet.        
         this.saveWallet(this.getAllWallet());
         this.onWalletItemClick(wallet);
+    } 
+    
+    confirmDeleteWallet = () => { 
+        this.confirmDialogDelete.current.show(); 
     }
 
     onOpenWalletPreferences = (wallet) => {
         this.setState({
-            modalWalletPreferences: (<WalletPreferences onDeleteWalletClick={() => { this.props.requestWalletPasscode({ onSuccess: () => { this.modalRemoveRef.open(); } }); }} onWarningClick={() => { this.onWarningClick(wallet); }} onExportPrivateKeyClick={() => { this.onExportPrivateKeyClick(wallet); }} onUpdateWalletName={(wallet) => { this.onUpdateWalletName(wallet); }} wallet={wallet} />)
+            modalWalletPreferences: (<WalletPreferences onDeleteWalletClick={this.confirmDeleteWallet} onWarningClick={() => { this.onWarningClick(wallet); }} onExportPrivateKeyClick={() => { this.onExportPrivateKeyClick(wallet); }} onUpdateWalletName={(wallet) => { this.onUpdateWalletName(wallet); }} wallet={wallet} />)
         }, () => {
             this.modalWalletReferencesRef.open();
         });
@@ -927,16 +925,16 @@ class Wallet extends React.Component {
                 </Modal>
 
                 {/* qrcode result detected modal popup*/}
-                <QRCodeContent onTransferClick={(data) => { this.showTransferFromQRCode(data); }} />
+                <QRCodeContent onTransferClick={(data) => { this.showTransferFromQRCode(data); }} />                
 
-                {/* ModalDialog for confirm remove wallet */}
-                <ModalDialog title={messages['wallet.action.remove.header']} onRef={modal => this.modalRemoveRef = modal}>
-                    <div className={styles.bodyConfirm}><span>{messages['wallet.action.remove.message']}</span></div>
-                    <div className={styles.bodyConfirm}>
-                        <Button className={cx(styles.left, styles.pl0, styles.pr0)} cssType="danger" onClick={this.removeWallet} >{messages['wallet.action.remove.button_yes']}</Button>
-                        <Button className={cx(styles.right, styles.pl0, styles.pr0)} cssType="secondary" onClick={() => { this.modalRemoveRef.close(); }}>{messages['wallet.action.remove.button_cancel']}</Button>
-                    </div>
-                </ModalDialog>
+                <ConfirmDialog
+                    title={<LabelLang id="wallet.action.remove.header" />}
+                    body={<LabelLang id="wallet.action.remove.message" />}
+                    confirmText={<LabelLang id="wallet.action.remove.button_yes" />}
+                    cancelText={<LabelLang id="wallet.action.remove.button_cancel" />}
+                    ref={this.confirmDialogDelete}
+                    onConfirm={this.onConfirmDeleteWallet}
+                    />
 
                 {/* ModalDialog for transfer coin */}
                 <Modal title={messages['wallet.action.transfer.header']} onRef={modal => this.modalSendRef = modal} onClose={this.closeTransfer}>

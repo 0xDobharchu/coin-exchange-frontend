@@ -60,7 +60,7 @@ class ListCoin extends React.Component {
         for(let wal of wallets){
           if(!wal.isCollectibles){
             wal.text = wal.getShortAddress() + " (" + wal.name + "-" + wal.getNetworkName() + ")";
-            if (process.env.isLive){
+            if (APP_ENV.isProduction){
               wal.text = wal.getShortAddress() + " (" + wal.className + " " + wal.name + ")";
             }
             wal.id = wal.address + "-" + wal.getNetworkName() + wal.name;

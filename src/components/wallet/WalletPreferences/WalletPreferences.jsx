@@ -24,9 +24,9 @@ class WalletPreferences extends React.Component {
     this._isMounted = false
   }
 
-  componentDidUpdate() {
-    this._isMounted = true;
-  }
+  componentDidMount() {
+    this._isMounted = true;  
+  }  
 
   onHideBalanceChange = (isChecked) => {
     if (!this._isMounted) return;
@@ -59,7 +59,7 @@ class WalletPreferences extends React.Component {
         <div className="update-name">
           <label>{this.messages['wallet.action.preferecens.update_name.label']}</label>
           <InputMobile required placeholder={this.messages['wallet.action.preferecens.update_name.title']} maxLength="40" value={this.state.walletName} onChange={(evt) => {this.handleWalletNameChange(evt)}} />
-          <button type="button" onClick={()=> {this.handleUpdateNameOnClick();}} disabled={!this.state.walletName} className="button wallet-new-button btn-block">{this.messages['wallet.action.preferecens.update_name.button.save']}</button>
+          <button type="button" onClick={this.handleUpdateNameOnClick} disabled={!this.state.walletName} className="button wallet-new-button btn-block">{this.messages['wallet.action.preferecens.update_name.button.save']}</button>
         </div>
       )
     }, ()=>{
@@ -67,7 +67,7 @@ class WalletPreferences extends React.Component {
     });
   }
 
-  onOpenModalName=()=>{
+  onOpenModalName=()=>{    
     if (!this._isMounted) return;
     this.setState({walletName : this.props.wallet.title}, ()=>{
       this.renderModalName();
@@ -84,7 +84,7 @@ class WalletPreferences extends React.Component {
           {this.state.walletNameContent}
         </Modal>
           <div className="box-setting">
-              <div className="item" onClick={()=> {this.onOpenModalName();}}>
+              <div className="item item-has-click" onClick={this.onOpenModalName}>
                   <div className="name">
                       <label>{this.messages['wallet.action.preferecens.list_item.wallet_name']}</label>
                   </div>
@@ -102,7 +102,7 @@ class WalletPreferences extends React.Component {
                   </div>
               </div>
 
-              <div className="item" onClick={this.props.onWarningClick}>
+              <div className="item item-has-click" onClick={this.props.onWarningClick}>
                   <div className="name">
                       <label>{this.messages['wallet.action.preferecens.list_item.backup_wallet']}</label>
                   </div>
@@ -111,7 +111,7 @@ class WalletPreferences extends React.Component {
                   </div>
               </div>
 
-              <div className="item" onClick={this.props.onExportPrivateKeyClick}>
+              <div className="item item-has-click" onClick={this.props.onExportPrivateKeyClick}>
                   <div className="name">
                       <label>{this.messages['wallet.action.preferecens.list_item.export_private_key']}</label>
                   </div>
@@ -121,7 +121,7 @@ class WalletPreferences extends React.Component {
               </div>
 
 
-              <div className="item" onClick={this.props.onDeleteWalletClick}>
+              <div className="item item-has-click" onClick={this.props.onDeleteWalletClick}>
                   <div className="name">
                       <label className="text-danger">{this.messages['wallet.action.preferecens.list_item.delete_wallet']}</label>
                   </div>
