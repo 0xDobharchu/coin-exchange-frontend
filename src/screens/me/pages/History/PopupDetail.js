@@ -13,18 +13,19 @@ const colorSchema = {
 const getOrderStatus = (status) => {
   const statusMsg = `me.history.orderStatus.${status}`;
   if (colorSchema.success.indexOf(status) >=0 ) {
-    return <span style={{ color: 'green' }}><LabelLang id={statusMsg} /></span>;
+    return <span className={style.success}><LabelLang id={statusMsg} /></span>;
   }
   if (colorSchema.danger.indexOf(status) >=0 ) {
-    return <span style={{ color: 'red' }}><LabelLang id={statusMsg} /></span>;
+    return <span className={style.danger}><LabelLang id={statusMsg} /></span>;
   }
   if (colorSchema.warning.indexOf(status) >=0 ) {
-    return <span style={{ color: 'yellow' }}><LabelLang id={statusMsg} /></span>;
+    return <span className={style.warning}><LabelLang id={statusMsg} /></span>;
   }
 };
 const getDirection = direction => {
   const statusMsg = `me.history.direction.${direction}`;
-  return <span style={{ color: direction === 'buy' ? 'green': 'red' }}><LabelLang id={statusMsg} /></span>;
+  const directionStyle = direction === 'buy' ? style.success : style.danger;
+  return <span className={directionStyle}><LabelLang id={statusMsg} /></span>;
 };
 
 class PopupDetail extends React.Component {

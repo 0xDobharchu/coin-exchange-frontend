@@ -23,5 +23,16 @@
       color: $primary-extra-bold;
       font-weight: 600;
     }
+    
+    .success {
+      color: $ce-green-semi-bold;
+    }
+    .danger {
+      color: $ce-red-semi-bold;
+    }
+    .warning {
+      color: $ce-yellow-semi-bold;
+    }
+    
   }
 }
