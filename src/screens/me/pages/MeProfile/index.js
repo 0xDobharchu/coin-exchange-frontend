@@ -26,7 +26,8 @@ class MeProfile extends React.PureComponent {
       this.props.sendEmailVerifyCodeAction(values.email_code).then(r => this.setState({ loading: false })).catch(err => err);
     } else {
       // eslint-disable-next-line
-      this.props.getProfileAction().then(r => this.setState({ loading: false })).catch(err => err);
+      // this.props.getProfileAction().then(r => this.setState({ loading: false })).catch(err => err);
+      this.setState({ loading: false });
     }
   }
   render() {
