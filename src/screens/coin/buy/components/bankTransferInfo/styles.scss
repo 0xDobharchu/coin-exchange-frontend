@@ -66,6 +66,7 @@
   }
   .upload-container {
     margin: 20px 0px;
+    width: 100%;
     :global(.dropzone) {
       width: 100%;
     }

@@ -52,7 +52,8 @@ export default {
       setting: 'My Setting',
       accountLevel: 'Account Level',
       history: 'History',
-      bankInfo: 'Bank Info'
+      bankInfo: 'Bank Info',
+      referral: 'Referral'
     },
     accountInfo: {
       email: 'Email',
