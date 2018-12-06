@@ -105,7 +105,31 @@ export default {
       action: 'Action',
       cancel: 'Cancel',
       close: 'Close',
-      detail: 'Detail'
+      detail: 'Transaction Detail',
+      orderStatus: {
+        pending: 'Pending',
+        processing: 'Processing',
+        fiat_transferring: 'Fiat Transferring',
+        transferring: 'Transferring',
+        transferred: 'Transferred',
+        success: 'Success',
+        transfer_failed: 'Transfer Failed',
+        cancelled: 'Cancelled',
+        rejected: 'Rejected',
+        expired: 'Expired',
+      },
+      dialog: {
+        cancel: {
+          title: 'Cancel Order',
+          body: 'Are you sure to cancel?',
+          confirm: 'Yes',
+          cancel: 'No',
+        }
+      },
+      direction: {
+        buy: 'Buy',
+        sell: 'Sell'
+      }
     },
     accountLevel: {
       head_text: 'Our verification process typically takes just a few minutes. This may take slightly longer outside business hours. Your information will remain 100% private.',
