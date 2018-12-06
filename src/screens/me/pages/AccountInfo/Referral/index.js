@@ -30,9 +30,9 @@ class Referral extends React.PureComponent {
           </Row>
           {referrals.map((e, i) => (
             <Row key={i} className={style.table_body}>
-              <Col xs={4}>DungT</Col>
-              <Col xs={4}>Finished</Col>
-              <Col xs={4}>{new Date(e.created_at).toLocaleString()}</Col>
+              <Col xs={4}>{e.name}</Col>
+              <Col xs={4}>{e.status}</Col>
+              <Col xs={4}>{new Date(e.date_joined).toLocaleString()}</Col>
             </Row>
           ))}
         </div>

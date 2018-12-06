@@ -35,20 +35,25 @@ class History extends React.PureComponent {
         <div className={style.block1}>
           <Row className={style.table_header}>
             <Col xs={3}><LabelLang id="me.history.date" /></Col>
-            <Col xs={3}><LabelLang id="me.history.refcode" /></Col>
             <Col xs={3}><LabelLang id="me.history.type" /></Col>
             <Col xs={3}><LabelLang id="me.history.amount" /></Col>
+            <Col xs={3}><LabelLang id="me.history.refcode" /></Col>
+
           </Row>
           {transactions.map((e, i) => (
             <Row key={i} className={style.table_body}>
               <Col xs={3}>{new Date(e.created_at).toLocaleString()}</Col>
-              <Col xs={3}>
-                <button type="button" onClick={this.handleOnSelect.bind(this, e)}><LabelLang id="me.history.viewDetail" /></button>
-              </Col>
+
               <Col xs={3}>{e.direction}</Col>
               <Col xs={3}>
-                <label>{`${Number(e.amount).toFixed(2)} ${e.currency}`}</label>
+                <label>{`${Number(e.amount).toFixed(3)} ${e.currency}`}</label>
                 <label>{`${e.fiat_local_amount} ${e.fiat_local_currency}`}</label>
+              </Col>
+              <Col xs={3}>
+                <label>{`${e.ref_code}`}</label>
+                <button type="button" onClick={this.handleOnSelect.bind(this, e)}>
+                  <LabelLang id="me.history.viewDetail" />
+                </button>
               </Col>
             </Row>
           ))}

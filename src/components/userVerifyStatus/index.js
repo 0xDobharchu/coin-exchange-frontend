@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import LabelLang from 'src/lang/components/LabelLang';
 import { USER_LEVEL, VERIFICATION_STATUS } from 'src/resources/constants/userVerification';
 import { URL } from 'src/resources/constants/url';
+import { injectIntl } from 'react-intl';
 import currentUser from 'src/utils/authentication';
 import styles from './styles.scss';
 
@@ -56,4 +57,4 @@ const mapState = state => ({
   verificationStatus: state?.auth?.profile?.verification_status || VERIFICATION_STATUS.PENDING,
 });
 
-export default connect(mapState, null)(UserVerifyStatus);
+export default injectIntl(connect(mapState, null)(UserVerifyStatus));

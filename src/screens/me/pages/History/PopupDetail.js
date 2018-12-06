@@ -10,11 +10,11 @@ class PopupDetail extends React.Component {
 
   render() {
     const { onHide } = this.props;
-    const { data :{ created_at, direction, amount, currency, status, fiat_local_amount, fiat_local_currency, link } } = this.props;
+    const { data :{ created_at, direction, amount, currency, status, fiat_local_amount, fiat_local_currency, link, ref_code } } = this.props;
     return (
       <Modal
         {...this.props}
-        size="sm"
+        size="large"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
@@ -28,6 +28,10 @@ class PopupDetail extends React.Component {
           <Row style={{ width: '100%' }}>
             <Col xs={3}><LabelLang id="me.history.date" /></Col>
             <Col xs={9}>{new Date(created_at).toLocaleString()}</Col>
+          </Row>
+          <Row style={{ width: '100%' }}>
+            <Col xs={3}><LabelLang id="me.history.refcode" /></Col>
+            <Col xs={9}>{ref_code}</Col>
           </Row>
           <Row style={{ width: '100%' }}>
             <Col xs={3}><LabelLang id="me.history.type" /></Col>

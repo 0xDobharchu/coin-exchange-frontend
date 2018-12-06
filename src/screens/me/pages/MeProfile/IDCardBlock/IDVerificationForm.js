@@ -9,7 +9,7 @@ import dropdownField from 'src/components/core/form/fields/dropdown';
 import FileUploader from 'src/components/fileUploader';
 import { DOC_TYPES, getReachingLevel } from '../util';
 
-const required = value => (value || typeof value === 'number' ? undefined : 'Required');
+const required = value => (value || typeof value === 'number' ? undefined : <LabelLang id="app.common.required" />);
 
 // eslint-disable-next-line
 class IDVerificationForm extends React.Component {

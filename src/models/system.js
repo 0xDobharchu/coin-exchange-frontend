@@ -22,6 +22,29 @@ class SystemConfig {
       active: data.active
     };
   }
+
+  static popularPlace(data = {}) {
+    return {
+      id: data.id,
+      country: data.country,
+      language: data.language,
+      name: data.name,
+      address: data.address,
+      latitude: data.latitude,
+      longitude: data.longitude,
+      active: data.active
+    };
+  }
+
+  static popularBank(data = {}) {
+    return {
+      id: data.id,
+      country: data.country,
+      language: data.language,
+      name: data.name,
+      active: data.active
+    };
+  }
 }
 
 export default SystemConfig;
