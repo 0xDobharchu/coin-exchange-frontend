@@ -7,10 +7,11 @@
     width: inherit;
     overflow: hidden;
     transition: 0.5s max-height;
-    > div {
-      .cod-item {
-        width: 100%;
-      }
+    .cod-item {
+      width: 100%;
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
     }
     &.show-cod {
       max-height: 300px;

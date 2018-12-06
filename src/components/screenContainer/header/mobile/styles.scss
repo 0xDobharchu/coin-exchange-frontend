@@ -1,0 +1,63 @@
+@import 'var';
+
+.container {
+  margin-bottom: 75px;
+  .header {
+    display: flex;
+    flex-direction: row;
+    background: #FFFFFF;
+    align-items: center;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 75px;
+    z-index: 997;
+    justify-content: space-between;
+    div {
+      width: 33%;
+      button {
+        height: 25px;
+        margin-left: 25px;
+      }
+    }
+  }
+  .sideBar {
+    position: fixed;
+    z-index: 999;
+    width: 250px;
+    height: 100vh;
+    top: 0;
+    left: -250px; // not active
+    background: #FFFFFF;
+    transition: all 0.5s;
+    &.active {
+      left: 0px;
+    }
+  }
+  .overlay {
+    top: 0px;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0, 0.7);
+    z-index: 998;
+    display: none; // active display block opacity 1
+    transition: all 0.3s ease-in-out;
+    &.active {
+      display: block;
+      opacity: 1;
+    }
+  }
+  .items {
+    display: flex;
+    flex-direction: column;
+    a {
+      padding: 10px;
+      color: $primary-extra-bold;
+    }
+    .itemActive {
+      background: $primary-extra-bold;
+      color: #FFFFFF;
+    }
+  }
+}

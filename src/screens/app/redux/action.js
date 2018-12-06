@@ -2,7 +2,7 @@ import $http from 'src/utils/http';
 import IpInfo from 'src/models/IpInfo';
 import { APP } from 'src/resources/constants/app';
 import SystemConfigModel from 'src/models/system';
-import { API_URL } from 'src/resources/constants/url';
+import { API_URL, URL } from 'src/resources/constants/url';
 import { DEFAULT_COUNTRY } from 'src/resources/constants/countries';
 import local from 'src/services/localStore';
 import makeRequest from 'src/redux/action';
@@ -43,7 +43,7 @@ export const clearNotFound = () => ({ type: APP_ACTION.NOT_FOUND_REMOVE });
 export const setIpInfo = (ipInfo) => {
   console.log('Going to set Ip Info', ipInfo);
   local.save(APP.IP_INFO, ipInfo);
-  const isBannedIp = ['US'].indexOf(ipInfo.country) >= 0;
+  const isBannedIp = ['US'].indexOf(ipInfo.country_code) >= 0;
   const payload = {
     ipInfo,
     isBannedIp
@@ -89,15 +89,14 @@ const continueAfterInitApp = (language, ref, dispatch, data) => {
 export const initApp = (language, ref) => (dispatch) => {
   try {
     $http({
-      url: 'https://ipfind.co/me',
+      url: URL.IP_DOMAIN,
       params : { auth: APP_ENV.ipfindKey },
       headers: { 'Content-Type': 'text/plain' },
     }).then((res) => {
-      const { data } = res;
-      const ipInfo = IpInfo.ipFind(data);
+      const ipInfo = IpInfo.ipFind(res);
 
       dispatch(setIpInfo(ipInfo));
-      continueAfterInitApp(language, ref, dispatch, data);
+      continueAfterInitApp(language, ref, dispatch, res);
     }).catch((e) => {
       console.log('App Action InitApp', e);
       // TO-DO: handle error
