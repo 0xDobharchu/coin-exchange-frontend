@@ -8,6 +8,20 @@
     border: none;
     flex: 1 1 auto;
     width: 1%;
+    &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: #CECDD1;
+      padding-left: 20px;
+    }
+
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color: #CECDD1;
+      padding-left: 20px;
+    }
+
+    &:-ms-input-placeholder { /* Microsoft Edge */
+      color: #CECDD1;
+      padding-left: 20px;
+    }
   }
   .dropdown {
     height: $input-height;
