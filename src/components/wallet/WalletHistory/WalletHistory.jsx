@@ -79,7 +79,7 @@ class WalletHistory extends React.Component {
   async componentDidUpdate() {
     
     if (!this._isMounted) return;
-
+    
     const { callUpdate } = this.props;
     let { callUpdate: stateCallUpdate, transactions } = this.state;
     let stateHash = stateCallUpdate ? stateCallUpdate.data.hash : "";
@@ -93,7 +93,7 @@ class WalletHistory extends React.Component {
   }
 
   componentWillUnmount() {
-    this._isMounted = false
+    this._isMounted = false    
 
     this.setState ({
       transactions: [],
@@ -110,7 +110,7 @@ class WalletHistory extends React.Component {
 
 
   async componentDidMount() {
-    
+            
     let { wallet, pagenoTran, pagenoIT, transactions, internalTransactions } = this.state;
 
     let cTransaction = this.getSessionStore(wallet, TAB.Transaction),

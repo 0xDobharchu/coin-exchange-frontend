@@ -61,7 +61,8 @@ class Modal extends React.Component {
         <div className={style.content}>
           <div className={style.modal_custom_header}>
             {
-              !hideBackButton && <Image className={style.iconBackMobile} src={iconBackWhite} onClick={this.close} alt="back" />
+              // eslint-disable-next-line
+              !hideBackButton && <div className={style.boxIconBack} onClick={this.close}><Image className={style.iconBackMobile} src={iconBackWhite} alt="back" /></div>
             }
             {
               title && (<p className={style.modal_custom_title}>{title}</p>)

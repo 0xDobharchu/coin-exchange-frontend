@@ -24,9 +24,9 @@ import { change, Field, formValueSelector } from 'redux-form';
 import ModalDialog from 'src/components/core/controls/ModalDialog';
 import Modal from 'src/components/core/controls/Modal';
 
-import Header from './Header';
+import Header from 'src/components/wallet/header';
 import WalletItem from 'src/components/wallet/WalletItem';
-import WalletProtect from './WalletProtect';
+import WalletProtect from 'src/components/wallet/WalletProtect';
 import WalletHistory from 'src/components/wallet/WalletHistory';
 import TransferCoin from 'src/components/wallet/TransferCoin';
 import ReceiveCoin from 'src/components/wallet/ReceiveCoin';
@@ -64,6 +64,7 @@ import styles from './styles.scss';
 
 import logo from 'src/assets/images/logo-no-text.svg';
 import { URL } from 'src/resources/constants/url';
+import Loader from 'src/components/loading'
 
 
 if (__CLIENT__)
@@ -85,7 +86,7 @@ class Wallet extends React.Component {
     constructor(props) {
 
         super(props);
-        
+
         this.modalBodyStyle = { padding: 0 };
 
         this.state = {
@@ -96,7 +97,7 @@ class Wallet extends React.Component {
             isDeskTop: false,
 
             // wallet:
-            isLoading: false,
+            isLoading: true,
             error: null,
             listMainWalletBalance: [],
             listTokenWalletBalance: [],
@@ -126,7 +127,7 @@ class Wallet extends React.Component {
             transactions: [],
             internalTransactions: [],
             isLoadMore: false,
-            alternateCurrency: 'USD',            
+            alternateCurrency: 'USD',
             modalTransferCoin: '',
             modalReceiveCoin: '',
             modalSetting: '',
@@ -171,11 +172,11 @@ class Wallet extends React.Component {
         });
 
     }
-    setDefaultDesktop() {                        
+    setDefaultDesktop() {
         if (this.state.listMainWalletBalance.length > 0) {
-            let wallet = this.state.listMainWalletBalance[0];            
+            let wallet = this.state.listMainWalletBalance[0];
             this.onWalletItemClick(wallet);
-        }                
+        }
     }
     updateDimensions() {
         this.setState({
@@ -276,7 +277,7 @@ class Wallet extends React.Component {
         });
 
         this.setState({
-            isLoading: true, listMainWalletBalance: listMainWallet, listTokenWalletBalance: listTokenWallet, listCollectibleWalletBalance: listCollectibleWallet, listTestWalletBalance: listTestWallet,
+            isLoading: false, listMainWalletBalance: listMainWallet, listTokenWalletBalance: listTokenWallet, listCollectibleWalletBalance: listCollectibleWallet, listTestWalletBalance: listTestWallet,
         });
     }
     async getSetting() {
@@ -394,9 +395,9 @@ class Wallet extends React.Component {
 
     // show create coin:
     showModalAddCoin = () => {
-        this.setState({createWalletContent: <CreateWallet onFinish={(wallet, phrase) => { this.successCreateWallet(wallet, phrase) }} />}, ()=>{
+        this.setState({ createWalletContent: <CreateWallet onFinish={(wallet, phrase) => { this.successCreateWallet(wallet, phrase) }} /> }, () => {
             this.modalCreateWalletRef.open();
-        })        
+        })
     }
     successCreateWallet = (newWallet, phrase) => {
         // call api to update:    
@@ -503,7 +504,7 @@ class Wallet extends React.Component {
         }, () => {
             this.modalReceiveCoinRef.open();
         });
-    }    
+    }
 
     saveWallet(wallets) {
         this.props.makeSaveWallet(wallets).then((result) => {
@@ -513,7 +514,7 @@ class Wallet extends React.Component {
 
         });
     }
-    
+
     onWarningClick = (wallet) => {
 
         // todo: decryp wallet:  
@@ -613,53 +614,54 @@ class Wallet extends React.Component {
         if (this.state.isDeskTop) {
             wallet.selected = true;
             let lstWalletTemp = this.getAllWallet();
-            lstWalletTemp.forEach(wal => {if (wal != wallet){wal.selected = false;}});
+            lstWalletTemp.forEach(wal => { if (wal != wallet) { wal.selected = false; } });
 
             let modalHistory = <WalletHistory
                 isDeskTop={this.state.isDeskTop}
                 onTransferClick={() => this.showTransfer(wallet)}
                 onReceiveClick={() => this.onAddressClick(wallet)}
                 onWarningClick={() => this.onWarningClick(wallet)}
-                goToBuyCoin={() => this.goToBuyCoin()}                
-                wallet={wallet}                                                        
+                goToBuyCoin={() => this.goToBuyCoin()}
+                wallet={wallet}
+                onPreferencesClick={() => this.onOpenWalletPreferences(wallet)}
                 callUpdate={callUpdate}
             />
 
-            if (this.state.modalHistory == ""){
+            if (this.state.modalHistory == "") {
                 this.setState({
                     walletSelected: wallet,
-                    modalHistory                   
-                })
+                    modalHistory
+                });
             }
-            else{
+            else {
                 this.setState({
                     walletSelected: wallet,
-                    modalHistory: ""                  
-                }, ()=>{ this.setState({ modalHistory: modalHistory }) })
+                    modalHistory: ""
+                }, () => { this.setState({ modalHistory }) });
             }
 
-            
+
         }
         else {
             this.setState({
                 walletSelected: wallet,
                 modalHistory:
-                (
-                    <WalletHistory
-                        isDeskTop={this.state.isDeskTop}
-                        onTransferClick={() => this.showTransfer(wallet)}
-                        onReceiveClick={() => this.onAddressClick(wallet)}
-                        onWarningClick={() => this.onWarningClick(wallet)}
-                        wallet={wallet}                                                        
-                        callUpdate={callUpdate}
-                    />
-                )
+                    (
+                        <WalletHistory
+                            isDeskTop={this.state.isDeskTop}
+                            onTransferClick={() => this.showTransfer(wallet)}
+                            onReceiveClick={() => this.onAddressClick(wallet)}
+                            onWarningClick={() => this.onWarningClick(wallet)}
+                            wallet={wallet}
+                            callUpdate={callUpdate}
+                        />
+                    )
             }, () => {
                 this.modalHistoryRef.open();
             });
         }
     }
-    goToBuyCoin=()=>{
+    goToBuyCoin = () => {
         this.props.history.push(URL.HOME);
     }
     onUpdateWalletName = (wallet) => {
@@ -723,7 +725,7 @@ class Wallet extends React.Component {
         let setting = local.get(APP.SETTING);
         setting = setting ? setting.wallet : false;
         return this.state.listTestWalletBalance.map(wallet => <WalletItem key={Math.random()} settingWallet={setting} wallet={wallet} onWarningClick={() => this.onWarningClick(wallet)} onAddressClick={() => this.onAddressClick(wallet)} />);
-    }    
+    }
 
     closeTransfer = () => {
         this.setState({ modalTransferCoin: '' });
@@ -843,10 +845,10 @@ class Wallet extends React.Component {
                 }
             </Row>
         )
-    }    
+    }
 
     renderDesktopContent() {
-        const { messages } = this.props.intl;        
+        const { messages } = this.props.intl;
         if (this.state.isDeskTop)
             return (
                 <div className={styles.walletContainer}>
@@ -863,10 +865,12 @@ class Wallet extends React.Component {
                             </h3> */}
                             <div className={styles.walletWrap}>
                                 <div className={styles.walletWrapLeft}>
-                                    <div className={styles.walletList}>
+                                    {this.state.isLoading ?
+                                    <div className={styles.loading}><Loader color="#3F2782" /></div>:
+                                    <div className={styles.walletList}>                                        
                                         {this.renderLiveCoin()}
                                         {this.renderTestNet()}
-                                    </div>
+                                    </div>}
                                 </div>
                                 <div className={styles.walletWrapRight}>
                                     <div className={styles.walletDetail}>
@@ -883,14 +887,14 @@ class Wallet extends React.Component {
 
 
     renderMobileContent() {
-        const { messages } = this.props.intl;        
+        const { messages } = this.props.intl;
         if (!this.state.isDeskTop)
             return (
                 <div className={styles.walletMobileContainer}>
                     <Container>
 
                         {/* 1. Header Wallet ============================================== */}
-                        <div id="header-wallet"><div className={styles.headerWallet}>                            
+                        <div id="header-wallet"><div className={styles.headerWallet}>
                             <div className={styles.titleWallet}><img className={styles.logoWallet} src={logo} />{messages['wallet.title']}</div>
                         </div></div>
                         {/* 2 List Coin */}
@@ -914,7 +918,7 @@ class Wallet extends React.Component {
 
                 {/* Modal wallet prefrences */}
                 <Modal customRightIconClick={() => { this.onOpenWalletPreferences(this.state.walletSelected); }} customRightIcon={customRightIcon} modalBodyStyle={this.modalBodyStyle} title={this.state.walletSelected ? this.state.walletSelected.title : messages['wallet.action.history.header']} onRef={modal => this.modalHistoryRef = modal} onClose={this.closeHistory}>
-                    {modalHistory}
+                    {!this.state.isDeskTop ? modalHistory : ''}
                 </Modal>
 
                 {/* wallet preferences  */}
@@ -937,7 +941,7 @@ class Wallet extends React.Component {
                 {/* ModalDialog for transfer coin */}
                 <Modal title={messages['wallet.action.transfer.header']} onRef={modal => this.modalSendRef = modal} onClose={this.closeTransfer}>
                     {modalTransferCoin}
-                </Modal>                
+                </Modal>
 
                 <Modal title={messages['wallet.action.protect.header']} onRef={modal => this.modalProtectRef = modal} onClose={this.closeSecure}>
                     {modalSecure}
@@ -983,7 +987,7 @@ const mapDispatch = ({
     showAlert,
     showLoading,
     hideLoading,
-    change,    
+    change,
     requestWalletPasscode,
     showQRCodeContent,
     showRequirePassword,
