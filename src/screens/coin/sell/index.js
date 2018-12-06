@@ -39,6 +39,7 @@ const SellForm = createForm({
   },
 });
 const formSelector = formValueSelector(sellFormName);
+const required = isRequired();
 
 class SellCryptoCoin extends React.Component {
   constructor(props) {
@@ -122,7 +123,9 @@ class SellCryptoCoin extends React.Component {
       fiat_local_currency: exchange?.fiatCurrency,
       direction: EXCHANGE_DIRECTION.sell,
       address: walletAddress,
-      order_user_payment_type: paymentMethod
+      order_user_payment_type: paymentMethod,
+      // order_type: bank|tng => bank, tng => tng
+      order_type: [PAYMENT_METHOD.TRANSFER, PAYMENT_METHOD.TNG].includes(paymentMethod) ? PAYMENT_METHOD.TRANSFER : paymentMethod,
     };
 
     if (paymentMethod === PAYMENT_METHOD.TRANSFER) {
@@ -194,7 +197,7 @@ class SellCryptoCoin extends React.Component {
           placeholder={formatMessage({ id: getIntlKey('accountNumber')})}
           component={inputField}
           containerClassName={styles.bankItem}
-          validate={isRequired()}
+          validate={required}
         />
         <Field
           type="text"
@@ -202,7 +205,7 @@ class SellCryptoCoin extends React.Component {
           placeholder={formatMessage({ id: getIntlKey('accountName')})}
           component={inputField}
           containerClassName={styles.bankItem}
-          validate={isRequired()}
+          validate={required}
         />
       </div>
     );
