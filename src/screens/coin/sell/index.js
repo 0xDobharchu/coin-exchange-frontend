@@ -39,6 +39,7 @@ const SellForm = createForm({
   },
 });
 const formSelector = formValueSelector(sellFormName);
+const required = isRequired();
 
 class SellCryptoCoin extends React.Component {
   constructor(props) {
@@ -194,7 +195,7 @@ class SellCryptoCoin extends React.Component {
           placeholder={formatMessage({ id: getIntlKey('accountNumber')})}
           component={inputField}
           containerClassName={styles.bankItem}
-          validate={isRequired()}
+          validate={required}
         />
         <Field
           type="text"
@@ -202,7 +203,7 @@ class SellCryptoCoin extends React.Component {
           placeholder={formatMessage({ id: getIntlKey('accountName')})}
           component={inputField}
           containerClassName={styles.bankItem}
-          validate={isRequired()}
+          validate={required}
         />
       </div>
     );
