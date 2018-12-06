@@ -19,7 +19,7 @@ class UserVerifyStatus extends Component {
     const { userLevel, verificationStatus } = this.props;
     if (currentUser.isLogin() && userLevel === USER_LEVEL.LEVEL_1 && verificationStatus === VERIFICATION_STATUS.PENDING) {
       return (
-        <Card className={styles.card} bg="warning">
+        <Card className={styles.card}>
           <Card.Body>
             <span>
               <LabelLang
@@ -34,7 +34,7 @@ class UserVerifyStatus extends Component {
       );
     } else if(!currentUser.isLogin()) {
       return (
-        <Card className={styles.card} bg="warning">
+        <Card className={styles.card}>
           <Card.Body>
             <span>
               <LabelLang

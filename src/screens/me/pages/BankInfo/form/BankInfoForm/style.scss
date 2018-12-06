@@ -23,14 +23,38 @@
     background: #8c1828;
     font-size: 11px;
     height: 25px;
-    width:100%;
+    // width:100%;
     margin: 5px;
   }
   .btnUpdate {
     background: $primary-extra-bold;
     font-size: 11px;
     height: 25px;
-    width:100%;
+    // width:100%;
     margin: 5px;
   }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    &:hover {
+      .dropdownContent {
+        display: block;
+      }
+    }
+    .dropdownContent {
+      display: none;
+      position: absolute;
+      background-color: #efefef;
+      min-width: 120px;
+      left: -95px;
+      z-index: 1;
+      .items {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+  // .dropdown:hover .dropdownContent {
+  //   display: block;
+  // }
 }

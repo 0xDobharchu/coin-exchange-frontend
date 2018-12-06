@@ -104,10 +104,17 @@ const routes = [
     auth: true,
   },
   {
-    path: '/wallet/:address?',
+    path: URL.ME_REFERRAL,
+    component: Me,
+    exact: true,
+    auth: true,
+  },
+  {
+    path: URL.WALLET,
     component: Wallet,    
     exact: false,
     strict: false,
+    auth: true
   },
   {
     path: URL.AGREEMENT,

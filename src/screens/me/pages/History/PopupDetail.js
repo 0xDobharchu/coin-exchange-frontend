@@ -1,6 +1,9 @@
 import React from 'react';
+import { Ethereum } from 'src/services/Wallets/Ethereum';
 import { LabelLang } from 'src/lang/components';
 import { Modal, Button, Row, Col } from 'react-bootstrap';
+
+const transformString = str =>  str ? (str.substring(0, 7) + '...'+ str.substring(str.length-5, str.length)) : '';
 
 class PopupDetail extends React.Component {
 
@@ -10,7 +13,10 @@ class PopupDetail extends React.Component {
 
   render() {
     const { onHide } = this.props;
-    const { data :{ created_at, direction, amount, currency, status, fiat_local_amount, fiat_local_currency, link, ref_code } } = this.props;
+    const { data :{ created_at, direction, amount, currency, status, fiat_local_amount, fiat_local_currency, tx_hash, ref_code } } = this.props;
+    const eth = new Ethereum();
+    eth.network = Ethereum.Network.Mainnet;
+    const linkHash = eth.getAPIUrlTransaction(tx_hash);
     return (
       <Modal
         {...this.props}
@@ -51,7 +57,7 @@ class PopupDetail extends React.Component {
           </Row>
           <Row style={{ width: '100%' }}>
             <Col xs={3}><LabelLang id="me.history.link" /></Col>
-            <Col xs={9}>{link || 'nolink'}</Col>
+            <Col xs={9}><a href={linkHash} target='_blank' rel='noopener noreferrer'>{transformString(tx_hash)}</a></Col>
           </Row>
           {status === 'pending' && (
           <Row style={{ width: '100%' }}>
