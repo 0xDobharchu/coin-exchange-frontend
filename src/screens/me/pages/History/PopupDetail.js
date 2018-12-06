@@ -1,15 +1,46 @@
 import React from 'react';
 import { Ethereum } from 'src/services/Wallets/Ethereum';
 import { LabelLang } from 'src/lang/components';
-import { Modal, Button, Row, Col } from 'react-bootstrap';
+import { Modal, Button, Row } from 'react-bootstrap';
+import ConfirmDialog from 'src/components/confirmDialog';
+import style from './popup.scss';
 
 const transformString = str =>  str ? (str.substring(0, 7) + '...'+ str.substring(str.length-5, str.length)) : '';
+const colorSchema = {
+  warning: ['pending', 'processing', 'fiat_transferring', 'transferring'],
+  success: ['transferred', 'success'],
+  danger: ['transfer_failed', 'cancelled', 'rejected', 'expired']
+};
+const getOrderStatus = (status) => {
+  const statusMsg = `me.history.orderStatus.${status}`;
+  if (colorSchema.success.indexOf(status) >=0 ) {
+    return <span className={style.success}><LabelLang id={statusMsg} /></span>;
+  }
+  if (colorSchema.danger.indexOf(status) >=0 ) {
+    return <span className={style.danger}><LabelLang id={statusMsg} /></span>;
+  }
+  if (colorSchema.warning.indexOf(status) >=0 ) {
+    return <span className={style.warning}><LabelLang id={statusMsg} /></span>;
+  }
+};
+const getDirection = direction => {
+  const statusMsg = `me.history.direction.${direction}`;
+  const directionStyle = direction === 'buy' ? style.success : style.danger;
+  return <span className={directionStyle}><LabelLang id={statusMsg} /></span>;
+};
 
 class PopupDetail extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.confirmDialogCancel = React.createRef();
+  }
   showData = (data) => {
     this.setState({ ...data });
   }
+
+  handleOnCancel = () => this.confirmDialogCancel.current.show();
+  onConfirmCancel = () => alert('success');
 
   render() {
     const { onHide } = this.props;
@@ -29,45 +60,53 @@ class PopupDetail extends React.Component {
             <LabelLang id="me.history.detail" />
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ justifyContent: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <br />
-          <Row style={{ width: '100%' }}>
-            <Col xs={3}><LabelLang id="me.history.date" /></Col>
-            <Col xs={9}>{new Date(created_at).toLocaleString()}</Col>
+        <Modal.Body className={style.container}>
+          <Row>
+            <span><LabelLang id="me.history.date" /></span>
+            <span>{new Date(created_at).toLocaleString()}</span>
           </Row>
-          <Row style={{ width: '100%' }}>
-            <Col xs={3}><LabelLang id="me.history.refcode" /></Col>
-            <Col xs={9}>{ref_code}</Col>
+          <Row>
+            <span><LabelLang id="me.history.refcode" /></span>
+            <span>{ref_code}</span>
           </Row>
-          <Row style={{ width: '100%' }}>
-            <Col xs={3}><LabelLang id="me.history.type" /></Col>
-            <Col xs={9}>{direction}</Col>
+          <Row>
+            <span><LabelLang id="me.history.type" /></span>
+            {getDirection(direction)}
           </Row>
-          <Row style={{ width: '100%' }}>
-            <Col xs={3}><LabelLang id="me.history.amount" /></Col>
-            <Col xs={9}>{`${Number(amount).toFixed(2)} ${currency}`}</Col>
+          <Row>
+            <span><LabelLang id="me.history.amount" /></span>
+            <span>{`${Number(amount).toFixed(2)} ${currency}`}</span>
           </Row>
-          <Row style={{ width: '100%' }}>
-            <Col xs={3}><LabelLang id="me.history.status" /></Col>
-            <Col xs={9}>{status || 'None'}</Col>
+          <Row>
+            <span><LabelLang id="me.history.status" /></span>
+            {getOrderStatus(status)}
           </Row>
-          <Row style={{ width: '100%' }}>
-            <Col xs={3}><LabelLang id="me.history.value" /></Col>
-            <Col xs={9}>{`${fiat_local_amount} ${fiat_local_currency}`}</Col>
+          <Row>
+            <span><LabelLang id="me.history.value" /></span>
+            <span>{`${fiat_local_amount} ${fiat_local_currency}`}</span>
           </Row>
-          <Row style={{ width: '100%' }}>
-            <Col xs={3}><LabelLang id="me.history.link" /></Col>
-            <Col xs={9}><a href={linkHash} target='_blank' rel='noopener noreferrer'>{transformString(tx_hash)}</a></Col>
-          </Row>
-          {status === 'pending' && (
-          <Row style={{ width: '100%' }}>
-            <Col xs={3}><LabelLang id="me.history.action" /></Col>
-            <Col xs={9}><button type="button"><LabelLang id="me.history.cancel" /></button></Col>
+          {tx_hash && (
+          <Row>
+            <span><LabelLang id="me.history.link" /></span>
+            <span><a href={linkHash} target='_blank' rel='noopener noreferrer'>{transformString(tx_hash)}</a></span>
+          </Row>)}
+          {status === 'pending' && direction === 'buy' && (
+          <Row>
+            <span><LabelLang id="me.history.action" /></span>
+            <button type="button" onClick={this.handleOnCancel}><LabelLang id="me.history.cancel" /></button>
           </Row>)}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={onHide}><LabelLang id="me.history.close" /></Button>
         </Modal.Footer>
+        <ConfirmDialog
+          title={<LabelLang id="me.history.dialog.cancel.title" />}
+          body={<LabelLang id="me.history.dialog.cancel.body" />}
+          confirmText={<LabelLang id="me.history.dialog.cancel.confirm" />}
+          cancelText={<LabelLang id="me.history.dialog.cancel.cancel" />}
+          ref={this.confirmDialogCancel}
+          onConfirm={this.onConfirmCancel}
+        />
       </Modal>
     );
   }
