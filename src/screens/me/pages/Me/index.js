@@ -19,7 +19,10 @@ class Me extends React.PureComponent {
   }
   render() {
     // eslint-disable-next-line
-    if (this.state.loading) return (<Loading />);
+    if (this.state.loading) return (
+      <div className={style.LoadingContainer}>
+        <Loading />
+      </div>);
     return (
       <div className={style.me}>
         <Container>
