@@ -107,11 +107,17 @@
       cursor: pointer;
       height: 0;
       width: 0;
+      background: $white;
+      border: 2px solid #DCDCDE;
       &:checked ~ .checkmark{
-        border-color: $text-black;
+        background: #5522DD;
         &:after {
           display: block;
         }
+      }
+      &:disabled ~.checkmark{
+        background: #DFDFEB;
+        border: 2px solid #C7C7D1;
       }
     }
     .checkmark {
@@ -121,7 +127,7 @@
       height: 24px;
       width: 24px;
       border-radius: 3px;
-      border: 2px solid $border-color;
+      border: 2px solid #DCDCDE;
       background-color: $white;
       cursor: pointer;
       &:after {
@@ -132,7 +138,7 @@
         top: 5px;
         width: 5px;
         height: 10px;
-        border: solid $text-black;
+        border: 2px solid $white;
         border-width: 0 3px 3px 0;
         -webkit-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
