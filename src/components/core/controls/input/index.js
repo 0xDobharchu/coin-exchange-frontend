@@ -4,12 +4,13 @@ import cx from 'classnames';
 import styles from './styles.scss';
 
 const Input = (props) => {
-  const { label, labelClassname, containerClassname, truncateLabel, name, value, ...inputProps } = props;
+  const { label, labelClassname, containerClassname, truncateLabel, name, value, autoCompleteOff, autoComplete, ...inputProps } = props;
   if (!label) {
     return (
       <input
         name={name}
         value={value || ''}
+        autoComplete={autoCompleteOff ? 'auto-complete-off-!trick!' : autoComplete}
         {...inputProps}
       />
     );
