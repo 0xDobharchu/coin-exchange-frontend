@@ -19,31 +19,31 @@
     position: absolute;
     right: 50%;
     transform: translateX(50%);
-    bottom: 25px;
+    bottom: 18px;
     @include respond(xs) {
       position: absolute;
       right: 0px;
       transform: translateY(50%) rotateZ(90deg);
-      bottom: initial;
+      bottom: -17px;
     }
   }
   .loading-icon {
     position: absolute;
     right: 50%;
     transform: translateX(50%);
-    bottom: 15px;
+    bottom: 8px;
     width: 50px;
     @include respond(xs) {
       position: absolute;
       right: 0px;
       transform: translateY(50%);
-      bottom: -15px;
+      bottom: -20px;
     }
   }
   .prepend {
     position: absolute;
     right: 0px;
-    bottom: 8px;
+    bottom: 0px;
     .dropdown {
       height: $input-height;
       button:global(.dropdown-toggle) {

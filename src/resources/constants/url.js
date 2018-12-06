@@ -44,6 +44,8 @@ export const API_URL = {
     GET_BANK_INFO: '/system/banks/', // GET system/banks/?currency=&country=
     SUBMIT_CONTACT: '/system/contacts/',
     GET_LANGUAGES: '/system/languages/',
+    GET_POPULAR_PLACE_BY_COUNTRY: '/system/popular-places/', // GET system/popular-places/?country=HK&language=zh-Hant-HK
+    GET_POPULAR_BANK_BY_COUNTRY: '/system/popular-banks/', // GET system/popular-places/?country=HK&language=zh-Hant-HK
   },
   LANDING: {
     STATIC_PAGE: '/content/static-page/',
