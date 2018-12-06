@@ -11,6 +11,8 @@ class AutocompleteInput extends Component {
       result: props.data || [],
       show: false,
       isValid: true,
+      value: null,
+      term: ''
     };
   }
 
@@ -32,28 +34,29 @@ class AutocompleteInput extends Component {
 
   handleCallbackData = () => {
     const { onChange, strict } = this.props;
-    const { term, data } = this.state;
-    const isValid = strict ? data.some(d => d.value === term) : true;
+    const { term, data, value } = this.state;
+    const isValid = strict ? data.some(d => d?.label === term) : true;
 
     this.setState({ isValid });
 
     if (typeof onChange === 'function') {
       onChange({
-        value: term,
+        term,
+        value: isValid ? value : null,
         isValid
       });
     }
   }
   
-  onClick = (value) => {
-    this.setState({ show: false, term: value });
+  onClick = (data) => {
+    this.setState({ show: false, term: data?.label, value: data?.value });
   }
 
   onChangeTerm = (e) => {
     const term = e?.target?.value || '';
     const { data } = this.state;
 
-    const result = data.filter(({ value }) => value?.includes(term));
+    const result = data.filter(({ label }) => label?.includes(term));
     this.setState({ result, term });
   }
 
@@ -79,8 +82,8 @@ class AutocompleteInput extends Component {
     const { result } = this.state;
     if (result.length === 0) return null;
 
-    const items = result.map(({ value, label }, index) =>
-      <div className={styles.item} role="presentation" key={`${index}-${value}`} onClick={() => this.onClick(value)}><span>{label}</span></div>);
+    const items = result.map((data, index) =>
+      <div className={styles.item} role="presentation" key={`${index}-${data?.label}`} onClick={() => this.onClick(data)}><span>{data?.label}</span></div>);
     if (items.length) {
       return (
         <div className={styles.items}>{items}</div>
@@ -101,6 +104,7 @@ class AutocompleteInput extends Component {
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           value={term}
+          autoCompleteOff
         />
         { show && this.renderResult() }
       </div>
@@ -119,7 +123,7 @@ AutocompleteInput.defaultProps = {
 AutocompleteInput.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.string,
+      value: PropTypes.any,
       label: PropTypes.string
     })
   ).isRequired,
