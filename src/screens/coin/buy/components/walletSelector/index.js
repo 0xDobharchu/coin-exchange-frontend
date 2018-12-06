@@ -87,7 +87,7 @@ class WalletSelector extends Component {
               className={cx(styles.icon, 'common-clickable')}
               size={20}
               onClick={() => {
-                this.addressInputRef?.current?.focus();
+                this.addressInputRef?.current?.input?.focus();
                 showQrCode({
                   onData: this.onChangeAddress,
                 });
