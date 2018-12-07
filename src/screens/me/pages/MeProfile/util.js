@@ -1,3 +1,6 @@
+import React from 'react';
+import { LabelLang } from 'src/lang/components';
+
 const APPROVED = 'approved';
 const PENDING = 'pending';
 const LEVEL = {
@@ -10,15 +13,15 @@ const { L1, L2, L3, L4 } = LEVEL;
 
 export const DOC_TYPES = [
   {
-    label: 'Passport',
+    label: <LabelLang id="me.accountLevel.idTypes.passport" />,
     value: 'passport',
   }, 
   {
-    label: 'Driver License',
+    label: <LabelLang id="me.accountLevel.idTypes.driver_license" />,
     value: 'driver_license'
   },
   {
-    label: 'Government ID Card',
+    label: <LabelLang id="me.accountLevel.idTypes.id_card" />,
     value: 'id_card'
   },
 ];
@@ -56,11 +59,12 @@ const getLevelNumber = (level) => {
 
 export const getStatusByLevel = (specficLevel, level, status) => {
   const levelNumber = getLevelNumber(level);
+  const statusLang = id => (<LabelLang id={`me.accountLevel.levelStatus.${id}`} />);
   if (specficLevel > levelNumber) return '';
-  if (specficLevel < levelNumber) return 'VERIFIED';
+  if (specficLevel < levelNumber) return statusLang('approved');
   if (specficLevel === levelNumber) {
-    if (status === APPROVED) return 'VERIFIED';
-    return status.toUpperCase();
+    if (status === APPROVED) return statusLang('approved');
+    return statusLang(status);
   }
 };
 export const getColorByLevel = (specficLevel, level, status) => {

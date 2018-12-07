@@ -5,25 +5,22 @@ import { Field, formValueSelector } from 'redux-form';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import createForm from 'src/components/core/form/createForm';
-import { isRequired } from 'src/components/core/form/validator';
 import { bindActionCreators } from 'redux';
 import { PAYMENT_METHOD, EXCHANGE_DIRECTION } from 'src/screens/coin/constant';
 import { DEFAULT_CURRENCY } from 'src/resources/constants/crypto';
 import { URL } from 'src/resources/constants/url';
 import ConfirmButton from 'src/components/confirmButton';
-import inputField from 'src/components/core/form/fields/input';
 import { showAlert } from 'src/screens/app/redux/action';
 import LabelLang from 'src/lang/components/LabelLang';
 import { FaLock } from 'react-icons/fa';
 import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
-import cx from 'classnames';
 import authUtil from 'src/utils/authentication';
 import BankTransferInfo from './components/bankTransferInfo';
 import walletSelectorField, { walletValidator } from './reduxFormFields/walletSelector';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
 import paymentMethodField from './reduxFormFields/paymentMethod';
-import popularPlacesField, { popularPlacesValidator } from './reduxFormFields/popularPlaces';
 import { makeOrder } from './redux/action';
+import CodFieldSet from '../components/codFieldSet';
 import styles from './styles.scss';
 
 const buyFormName = 'BuyForm';
@@ -119,37 +116,6 @@ class BuyCryptoCoin extends React.Component {
     this.resetState();
   }
 
-  renderCoD = () => {
-    const { paymentMethod, intl: { formatMessage } } = this.props;
-    return (
-      <div className={cx(styles.codInfo, 'mt-4', paymentMethod === PAYMENT_METHOD.COD ? styles.showCod : styles.hideCod)}>
-        <Field
-          name="address"
-          placeholder={formatMessage({ id: 'coin.buy.userAddress' })}
-          component={popularPlacesField}
-          containerClassname={styles.codItem}
-          validate={paymentMethod === PAYMENT_METHOD.COD ? [popularPlacesValidator] : null}
-        />
-        <Field
-          type="text"
-          name="phone"
-          placeholder={formatMessage({ id: 'coin.buy.userPhone' })}
-          component={inputField}
-          containerClassName={styles.codItem}
-          validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
-        />
-        <Field
-          type="text"
-          placeholder={formatMessage({ id: 'coin.buy.userNote' })}
-          name="noteAndTime"
-          component={inputField}
-          containerClassName={styles.codItem}
-          validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
-        />
-      </div>
-    );
-  }
-
   render() {
     const { paymentMethod, supportedCurrency, exchange, wallet, intl } = this.props;
     const { orderInfo, showBankTransferInfo } = this.state;
@@ -184,7 +150,7 @@ class BuyCryptoCoin extends React.Component {
             component={paymentMethodField}
             intl={intl}
           />
-          { this.renderCoD() }
+          <CodFieldSet show={paymentMethod === PAYMENT_METHOD.COD} intl={intl} className='mt-4' />
           <ConfirmButton
             disabled={!isValid}
             containerClassName='mt-5'
