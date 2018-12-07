@@ -41,7 +41,7 @@ class UserLogin extends React.PureComponent {
                 }
               },
               {
-                label: <LabelLang id="me.logout" />,
+                label: <LabelLang id="user.logout" />,
                 onClick:  () => {
                   currentUser.removeAccessToken();
                   this.props.history.push(URL.HOME);
