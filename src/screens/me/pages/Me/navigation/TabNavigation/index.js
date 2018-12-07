@@ -44,7 +44,7 @@ class TabNavigation extends React.PureComponent {
               <Tab eventKey={CHILD_ROUTES[0]} title={ts('me.navigation.accountInfo')} className={style.scrollbar}>
                 <AccountInfo />
               </Tab>
-              <Tab eventKey={CHILD_ROUTES[1]} title={ts('me.navigation.setting')} className={style.scrollbar}>
+              <Tab eventKey={CHILD_ROUTES[1]} title={ts('me.navigation.preferecens')} className={style.scrollbar}>
                 <Setting />
               </Tab>
               <Tab eventKey={CHILD_ROUTES[2]} title={ts('me.navigation.accountLevel')} className={style.scrollbar}>
