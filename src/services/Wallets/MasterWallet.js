@@ -383,7 +383,7 @@ export class MasterWallet {
       wallets.forEach((wallet) => {
         if (!lstDefault.hasOwnProperty(wallet.name)) { lstDefault[wallet.name] = null; }
         if (wallet.default) {
-          if (process.env.isLive) {
+          if (APP_ENV.isProduction) {
             if (wallet.network === MasterWallet.ListCoin[wallet.className].Network.Mainnet) {
               lstDefault[wallet.name] = wallet;
             }

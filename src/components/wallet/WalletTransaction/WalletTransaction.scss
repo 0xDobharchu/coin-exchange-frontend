@@ -1,0 +1,71 @@
+.transaction-detail-wrapper{
+    margin-top: 20px;
+    padding-bottom: 40px;
+    .col2{
+      width:auto;
+      font-size: 16px;
+      span{
+        font-size: 14px;
+        color:#6c757d;
+      }
+    }
+    .col1{
+      width:60px;
+      padding: 5px 0px 10px 0px;
+      float: left;
+    }
+
+    .confirmation{
+      border-top:solid 2px #1E4EFF;
+      clear: both;
+      margin: 15px 0px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border-bottom:solid 1px #ECECEC;
+      font-size: 14px;
+      overflow: hidden;
+
+      .status-failed, .status-error{
+        float: right;
+        color:#FF2D55;
+      }
+
+      .status-pending{
+        float: right;
+        color:orange;
+      }
+      .status-success{
+        float: right;
+        color:#4CD964;
+      }
+    }
+
+    .body{
+      padding-bottom: 10px;
+      clear: both;
+      overflow: hidden;
+
+      .value{
+        width:auto;
+        min-height: 30px;
+        word-wrap: break-word;
+        font-size: 14px;
+
+        .value-it{
+          margin-left: 120px;
+          padding-bottom: 10px;
+          display:list-item;
+        }
+      }
+
+      .key{
+        width:80px;
+        padding-right: 10px;
+        float: left;
+        color:#6c757d;
+        min-height: 30px;
+        font-size: 14px;
+        text-transform: capitalize;
+      }
+    }
+  }

@@ -1,0 +1,145 @@
+@import 'var';
+@import 'responsive';
+@import 'src/assets/styles/_var.scss';
+@import 'src/assets/styles/_functions.scss';
+
+.icon-short {
+    position: absolute;    
+    display: block;
+    width: 18px;
+    height: 11px;
+    opacity: .25;
+    cursor: row-resize;
+    background: linear-gradient(180deg, #000, #000 20%, #fff 0, #fff 40%, #000 0, #000 60%, #fff 0, #fff 80%, #000 0, #000);
+    right: 5px;
+    z-index: 100;
+    top: 20px;
+}
+.iconMove{
+    position: absolute;    
+    display: block;        
+    cursor: row-resize;    
+    right: 15px;
+    z-index: 100;
+    top: 14px;
+    width: 25px;
+}
+.sortable-row{
+    width: 100%;
+    // padding: 20px;
+}
+.sortable-item{
+    border-bottom: 1px #f4f4f4 solid;
+    // margin-bottom: 13px;
+    // padding-bottom: 13px;
+    padding: 20px;
+    position: relative;    
+    border-left: 1px #ffffff solid; 
+}
+
+.sortable-selected{
+  border-left: 1px #ac93e8 solid;
+  margin-left: 1px;
+  @media (max-width: 700px){        
+    border-left: none;
+    margin-left: 0;
+  }
+}
+
+.sortable-item:active:hover {
+    box-shadow: 0px 1px 0px 0 rgba(1, 1, 0, 0.1);
+}
+.sortable-item:last-child {
+    border-bottom: 0;
+    // margin-bottom: 0;
+    // padding-bottom: 0;
+}
+.itemWallet{
+    position: relative;
+}
+  // icon wallet item:
+  .coin-logo{
+    border-radius: 50%;
+    width: 45px;
+    display: inline-block;
+    float: left;
+    margin-right: 20px;
+  }
+  .warning {
+    color:#f5a621;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .item-right{
+    display: inline-block;
+    float: right;
+    margin-top: 15px;
+  }
+  .item-center{
+    display: inline-block;
+    width: calc(100% - 120px);
+    cursor: pointer;
+  }
+  .name {
+    font-size: rem-calc(15px);
+    font-weight: 400;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .balance {
+    font-size: rem-calc(16px);
+    letter-spacing: 0;
+    font-weight: 300;
+    opacity: 0.6;
+  }
+
+  .iconDefault{
+    margin-left: 8px;
+    width: 8px;
+  }
+
+  .address {
+    font-size: rem-calc(12px);
+    letter-spacing: 0;
+    text-align: left;
+    cursor: pointer;
+    text-transform: uppercase;
+    float: left;
+    // margin-right: 15px;
+    img{
+      width: 20px;
+      opacity: .7;
+    }
+  }
+  .more{
+    text-align: right;
+    width: 20px;
+    cursor: pointer;
+    float: right;
+  }
+  .safe{
+    position: absolute;
+    left: 34px;
+    top: -2px;
+    width: 16px;
+    border: #ffffff 1px solid;
+    border-radius: 16px;
+    box-shadow: 1px 0px 2px 1px rgba(9, 4, 21, 0.14);
+  }
+  .title {
+    font-size: 20px;
+    font-weight: 500;
+    color: $primary-extra-bold;
+  }
+  @media (max-width: 374px) {    
+    .coin-logo{
+      width: 36px;
+    }
+    .safe{
+      left: 28px;
+    }
+    .balance{
+      font-size: 0.9rem;
+    }   
+  }
+

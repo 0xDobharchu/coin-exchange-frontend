@@ -296,7 +296,7 @@ export default {
     }
   },
   wallet: {
-    title: 'Your Accounts',
+    title: 'Coinbowl Wallet',
     top_banner: {
       message: 'Shuriken Airdrop (limited)',
       button: 'Click here',

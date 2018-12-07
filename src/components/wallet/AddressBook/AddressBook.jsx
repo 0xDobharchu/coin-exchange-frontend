@@ -275,7 +275,7 @@ class AddressBook extends React.Component {
         <div className="box-setting">                         
           <div className="list-address-book">            
 
-            <Modal title={this.state.needChoice ? messages['wallet.action.setting.label.select_an_address'] : (this.state.contactSelected ? this.state.contactSelected.name : "Detail")} onRef={modal => this.modalAddressBookDetailRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle} modalBodyStyle={this.props.modalBodyStyle} customRightIcon={iconEdit} customRightIconClick={()=>{this.openEditContact()}}>
+            <Modal title={this.state.needChoice ? messages['wallet.action.setting.label.select_an_address'] : (this.state.contactSelected ? this.state.contactSelected.name : "Detail")} onRef={modal => this.modalAddressBookDetailRef = modal} modalBodyStyle={this.props.modalBodyStyle} customRightIcon={iconEdit} customRightIconClick={()=>{this.openEditContact()}}>
                   {this.state.contactSelected &&
                     <div className="contact-detail">
 
@@ -334,7 +334,7 @@ class AddressBook extends React.Component {
                     }
                                   
             </Modal>   
-            <Modal title={ this.state.isUpdate === false ?  messages['wallet.action.setting.label.contact_empty_button'] : messages['wallet.action.setting.label.update_title_text']} onRef={modal => this.modaAddNewContactRef = modal} customBackIcon={this.props.customBackIcon} modalHeaderStyle={this.props.modalHeaderStyle}>
+            <Modal title={ this.state.isUpdate === false ?  messages['wallet.action.setting.label.contact_empty_button'] : messages['wallet.action.setting.label.update_title_text']} onRef={modal => this.modaAddNewContactRef = modal}>
               <div className="add-new-contact">
                   <div>                    
                     <InputMobile placeholder={messages['wallet.action.setting.label.contact_name']} maxLength="40" value={this.state.newContact.name} onChange={(evt) => {this.onContactNameChange(evt)}} />

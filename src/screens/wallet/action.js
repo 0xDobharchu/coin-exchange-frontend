@@ -39,9 +39,7 @@ export const makeSaveWallet = masterWallet => (dispatch) => {
     url: API_URL.USER.USER_WALLET,
     method: 'PUT',
     data: {wallet: JSON.stringify(masterWallet)}
-  }, dispatch);
-
-  console.log("masterWallet...", masterWallet);
+  }, dispatch);  
   
   return setWallet().then(() => {    
     return true;
