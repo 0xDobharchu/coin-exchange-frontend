@@ -1,0 +1,12 @@
+.container {
+  transition: 300ms max-height, 300ms opacity;
+  &.show-tng {
+    max-height: 100px;
+    opacity: 1;
+  }
+  &.hide-tng {
+    max-height: 0px;
+    opacity: 0;
+    overflow: hidden;
+  }
+}
