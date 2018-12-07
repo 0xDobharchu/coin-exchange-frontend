@@ -6,7 +6,7 @@ import iconCreate from 'src/assets/images/wallet/icons/icon-create.svg';
 import iconReceived from 'src/assets/images/wallet/icons/icon-received.svg';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import style from './Wallet.scss';
+import style from './WalletTransaction.scss';
 
 const moment = require('moment');
 

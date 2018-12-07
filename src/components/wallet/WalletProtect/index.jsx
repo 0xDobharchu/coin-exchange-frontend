@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import style from './Wallet.scss';
+import style from './style.scss';
 
 import Button from 'src/components/core/controls/Button';
 import Checkbox from 'src/components/core/controls/Checkbox/Checkbox';

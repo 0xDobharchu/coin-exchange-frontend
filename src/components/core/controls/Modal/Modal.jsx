@@ -3,12 +3,20 @@ import PropTypes from 'prop-types';
 // component
 import Image from 'src/components/core/presentation/Image';
 // style
-import BackChevronSVG from 'src/assets/images/icon/back-chevron.svg';
+// import iconBackGray from 'src/assets/images/icon/back-chevron-gray.svg';
+import iconBackWhite from 'src/assets/images/wallet/icons/back-chevron-white.svg';
+// import iconBackBlue from 'src/assets/images/icon/back-chevron.svg';
+
+import iconRightCancel from 'src/assets/images/icon/icon-cancel.svg';
+
+import cx from 'classnames';
 import style from './Modal.scss';
 
 class Modal extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props) {    
+
+    super(props);    
+    
     // bind
     this.open = this.open.bind(this);
     // eslint-disable-next-line
@@ -37,31 +45,32 @@ class Modal extends React.Component {
     if (this.props.hasOwnProperty('onClose')) this.props.onClose();
   }
 
-  render() {
-    // eslint-disable-next-line
-    let customBackIcon = this.props.customBackIcon || BackChevronSVG;    
-    // eslint-disable-next-line
-    let modalHeaderStyle = this.props.modalHeaderStyle || {};
+  render() {        
+    
     // eslint-disable-next-line
     let modalBodyStyle = this.props.modalBodyStyle || {};
+
     // eslint-disable-next-line
     let customRightIcon = this.props.customRightIcon;
 
     const { title, children, hideBackButton } = this.props;
+
     return (
       // eslint-disable-next-line
       <div className={style.modal} ref={modal => this.modalRef = modal}>
         <div className={style.content}>
-          <div className={style.modal_custom_header} style={modalHeaderStyle}>
+          <div className={style.modal_custom_header}>
             {
-              !hideBackButton && <Image src={customBackIcon} onClick={this.close} alt="back" />
+              // eslint-disable-next-line
+              !hideBackButton && <div className={style.boxIconBack} onClick={this.close}><Image className={style.iconBackMobile} src={iconBackWhite} alt="back" /></div>
             }
             {
               title && (<p className={style.modal_custom_title}>{title}</p>)
             }
             {
-              customRightIcon && <Image className={style.iconRight} src={customRightIcon} onClick={this.props.customRightIconClick} />
+              customRightIcon && <Image className={cx(style.iconRight, this.iconRightMobile)} src={customRightIcon} onClick={this.props.customRightIconClick} />
             }
+            <Image className={style.iconRight + ' ' + style.iconCancelDesktop} src={iconRightCancel} onClick={this.close} alt="back" />
           </div>
           <div className={style.modal_custom_body} style={modalBodyStyle}>
             {children}
@@ -79,9 +88,7 @@ Modal.propTypes = {
   // onClose: PropTypes.func,
   // hideBackButton: PropTypes.bool,
 
-  // custom style:
-  // customBackIcon: PropTypes.any,// default gray icon: `BackChevronSVG`
-  // modalHeaderStyle: PropTypes.object, // Modal header style:  {color, background, icon:white/gray}
+  // custom style:    
   // modalBodyStyle: PropTypes.object, // Modal Body style.
 
   // right icon + action

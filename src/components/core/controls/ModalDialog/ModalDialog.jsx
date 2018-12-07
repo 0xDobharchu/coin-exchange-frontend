@@ -48,7 +48,7 @@ class ModalDialog extends React.Component {
     const { title, children, className, close } = this.props;
     return (
       <div className={`${style['modal']} ${style['modal-dialog-custom']} ${className || ''}`} ref={modal => this.modalRef = modal}>
-        <div className={`${style['modal-backdrop']} ${style['show']}`} />
+        <div className={`${style['modal-backdrop']} show`} />
         <div className={style['position']} role="presentation" onClick={this.onClosePanel}>
           <div className={`${style['modal-dialog-content']} ${style['animated']}`} role="presentation" onClick={e => e.stopPropagation()} ref={content => this.contentRef = content}>
             {close && (
