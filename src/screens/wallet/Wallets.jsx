@@ -540,7 +540,7 @@ class Wallet extends React.Component {
 
         this.setState({
             walletSelected: wallet,
-            modalSecure: <WalletProtect onCopy={this.onCopyProtected}
+            modalSecure: <WalletProtect onCopy={()=>{ this.onCopyProtected(walletEncrypt); }}
                 step={1}
                 wallet={walletEncrypt}
                 callbackSuccess={() => { this.successWalletProtect(wallet); }}
@@ -581,7 +581,7 @@ class Wallet extends React.Component {
         if (walletEncrypt === false) {
             this.showError(messages['requirePassword.passNotMatch']);
             this.setState({ isRestoreLoading: false, userPassword: '' }, () => {
-                this.onExportPrivateKeyClick();
+                this.onExportPrivateKeyClick(wallet);
             });
             return;
         }
@@ -590,7 +590,7 @@ class Wallet extends React.Component {
             exportPrivateContent: (
                 <div className={styles.exportPrivateKey}>
                     <div className={styles.exTitle}>{messages['wallet.action.export_private_key.title']}</div>
-                    <QRCode size={230} value={walletEncrypt.privateKey} onClick={() => { Clipboard.copy(this.state.walletSelected.privateKey); this.showToast(messages['wallet.action.copy.success']); }} />
+                    <QRCode size={230} value={walletEncrypt.privateKey} onClick={() => { Clipboard.copy(walletEncrypt.privateKey); this.showToast(messages['wallet.action.copy.success']); }} />
                     <div className={styles.exDesc}>{messages['wallet.action.export_private_key.desc']} </div>
                     <Button onClick={() => { Clipboard.copy(walletEncrypt.privateKey); this.showToast(messages['wallet.action.copy.success']); }}>Copy</Button>
                 </div>
@@ -758,9 +758,9 @@ class Wallet extends React.Component {
         this.autoCheckBalance(this.state.walletSelected.address, this.state.inputAddressAmountValue);
     }
 
-    onCopyProtected = () => {
+    onCopyProtected = (walletEncrypt) => {
         const { messages } = this.props.intl;
-        Clipboard.copy(this.state.walletSelected.mnemonic);
+        Clipboard.copy(walletEncrypt.mnemonic);
         this.showToast(messages['wallet.action.copy.success']);
     }
 
