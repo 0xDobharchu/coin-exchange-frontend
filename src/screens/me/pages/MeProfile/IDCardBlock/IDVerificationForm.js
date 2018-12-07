@@ -1,15 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import isRequired from 'src/components/core/form/validator/isRequired';
 import { reduxForm, Field } from 'redux-form';
 import { Row, Button } from 'react-bootstrap';
 import { InputField } from 'src/components/custom';
 import { LabelLang, FieldLang } from 'src/lang/components';
 import dropdownField from 'src/components/core/form/fields/dropdown';
-import FileUploader from 'src/components/fileUploader';
+import { FileUploadField } from 'src/components/fileUploader';
+// import FileUploadField from 'src/components/fileUploader/FileUploadField';
 import { DOC_TYPES, getReachingLevel } from '../util';
 
-const required = value => (value || typeof value === 'number' ? undefined : <LabelLang id="app.common.required" />);
+const required = isRequired();
 
 // eslint-disable-next-line
 class IDVerificationForm extends React.Component {
@@ -21,14 +23,16 @@ class IDVerificationForm extends React.Component {
     };
   }
 
-  handleBackSuccess = (imgUrl) => this.props.change('back_image', imgUrl);
-  handleFrontSuccess = (imgUrl) => this.props.change('front_image', imgUrl);
-  backRemove = () => this.props.change('back_image', '');
-  frontRemove = () => this.props.change('front_image', '');
   onSelectIdType = value => this.setState({ isPassport: value === DOC_TYPES[0].value });
+  isRejected = () => {
+    // eslint-disable-next-line
+    const { level, levelStatus} = this.props;
+    return level === 'level_3' && levelStatus === 'rejected';
+  }
   render() {
     // eslint-disable-next-line
     const { initialValues, level, levelStatus, handleSubmit, onSubmit } = this.props;
+    const { isPassport } = this.state;
     return (
       <div>
         <Row>
@@ -71,16 +75,20 @@ class IDVerificationForm extends React.Component {
             <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
               <LabelLang id="me.accountLevel.backPhoto" />
             </p>
-            {!initialValues.back_image && <FileUploader onSuccess={this.handleBackSuccess} onRemove={this.backRemove} />}
-            {initialValues.back_image && <img alt="back_image" style={{ width: '100%' }} src={initialValues.back_image} />}
+            {(!initialValues.back_image || this.isRejected()) && (
+              <Field name="back_image" component={FileUploadField} />
+            )}
+            {(initialValues.back_image && !this.isRejected()) && <img alt="back_image" style={{ width: '100%' }} src={initialValues.back_image} />}
           </div>
-          {!this.state.isPassport && (
+          {!isPassport && (
           <div className="col-12">
             <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
               <LabelLang id="me.accountLevel.frontPhoto" />
             </p>
-            {!initialValues.front_image && <FileUploader onSuccess={this.handleFrontSuccess} onRemove={this.frontRemove} />}
-            {initialValues.front_image && <img alt="front_image" style={{ width: '100%' }} src={initialValues.front_image} />}
+            {(!initialValues.front_image || this.isRejected()) && (
+              <Field name="front_image" component={FileUploadField} />
+            )}
+            {(initialValues.front_image && !this.isRejected()) && <img alt="front_image" style={{ width: '100%' }} src={initialValues.front_image} />}
           </div>)}
           {getReachingLevel(level, levelStatus) < 3 && (
           <div className="col-12" style={{ marginTop: '20px' }}>
