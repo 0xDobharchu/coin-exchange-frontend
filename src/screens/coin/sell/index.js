@@ -224,7 +224,6 @@ class SellCryptoCoin extends React.Component {
         <SellForm className={cx(styles.form, walletAddress ? styles.hideForm : styles.showForm)}>
           <Field
             name="exchange"
-            className='mt-4'
             component={exchangeField}
             direction={EXCHANGE_DIRECTION.sell}
             fiatCurrency={supportedCurrency[0]}
