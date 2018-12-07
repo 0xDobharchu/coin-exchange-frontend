@@ -7,6 +7,12 @@ import forgetPassword from 'src/screens/forgetPassword';
 import forgetPasswordFinish from 'src/screens/forgetPassword/finish';
 import Coin from 'src/screens/coin';
 import Me from 'src/screens/me/pages/Me';
+import AccountInfo from 'src/screens/me/pages/AccountInfo';
+import Setting from 'src/screens/me/pages/Setting';
+import MeProfile from 'src/screens/me/pages/MeProfile';
+import MeHistory from 'src/screens/me/pages/History';
+import BankInfo from 'src/screens/me/pages/BankInfo';
+import Referral from 'src/screens/me/pages/Referral';
 import Wallet from 'src/screens/wallet';
 import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
 import AgreementPrivacy from 'src/screens/agreementPrivacy';
@@ -70,45 +76,48 @@ const routes = [
   {
     path: URL.ME,
     component: Me,
-    exact: true,
+    // exact: true,
     auth: true,
+    routes: [
+      {
+        path: URL.ME_PROFILE,
+        component: AccountInfo,
+        exact: true,
+        auth: true,
+      },
+      {
+        path: URL.ME_SETTING,
+        component: Setting,
+        exact: true,
+        auth: true,
+      },
+      {
+        path: URL.ME_ACCOUNT_LEVEL,
+        component: MeProfile,
+        exact: true,
+        auth: true,
+      },
+      {
+        path: URL.ME_HISTORY,
+        component: MeHistory,
+        exact: true,
+        auth: true,
+      },
+      {
+        path: URL.ME_BANK_INFO,
+        component: BankInfo,
+        exact: true,
+        auth: true,
+      },
+      {
+        path: URL.ME_REFERRAL,
+        component: Referral,
+        exact: true,
+        auth: true,
+      }
+    ]
   },
-  {
-    path: URL.ME_PROFILE,
-    component: Me,
-    exact: true,
-    auth: true,
-  },
-  {
-    path: URL.ME_SETTING,
-    component: Me,
-    exact: true,
-    auth: true,
-  },
-  {
-    path: URL.ME_ACCOUNT_LEVEL,
-    component: Me,
-    exact: true,
-    auth: true,
-  },
-  {
-    path: URL.ME_HISTORY,
-    component: Me,
-    exact: true,
-    auth: true,
-  },
-  {
-    path: URL.ME_BANK_INFO,
-    component: Me,
-    exact: true,
-    auth: true,
-  },
-  {
-    path: URL.ME_REFERRAL,
-    component: Me,
-    exact: true,
-    auth: true,
-  },
+  
   {
     path: URL.WALLET,
     component: Wallet,    

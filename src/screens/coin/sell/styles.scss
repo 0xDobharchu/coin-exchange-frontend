@@ -19,4 +19,16 @@
   .submit-btn {
     width: 100%;
   }
+  .order-info, .form {
+    transition: 500ms max-height, 500ms opacity;
+    &.show-form, &.show-order-info {
+      max-height: 1000px;
+      opacity: 1;
+    }
+    &.hide-form, &.hide-order-info  {
+      max-height: 0px;
+      opacity: 0;
+      overflow: hidden;
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import { Field, formValueSelector, destroy } from 'redux-form';
+import { Field, formValueSelector } from 'redux-form';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import createForm from 'src/components/core/form/createForm';
@@ -30,7 +30,6 @@ const getIntlKey = (name) => `coin.sell.${name}`;
 const sellFormName = 'SellForm';
 const SellForm = createForm({
   propsReduxForm: {
-    destroyOnUnmount: false,
     form: sellFormName,
     initialValues: {
       paymentMethod: PAYMENT_METHOD.TRANSFER,
@@ -48,11 +47,6 @@ class SellCryptoCoin extends React.Component {
       isAuth: authUtil.isLogin() || false,
       verifiedPhone: null,
     };
-  }
-
-  componentWillUnmount() {
-    const { rfDestroy } = this.props;
-    rfDestroy(sellFormName);
   }
 
   isValidToSubmit = () => {
@@ -212,31 +206,30 @@ class SellCryptoCoin extends React.Component {
     const { supportedCurrency, exchange, paymentMethod, intl } = this.props;
     const { walletAddress, isAuth } = this.state;
     const isValid = this.isValidToSubmit();
-    if (walletAddress) {
-      const exchangeInfo = {
-        amount: exchange?.amount,
-        currency: exchange?.currency,
-        fiatAmount: exchange?.fiatAmount,
-        fiatCurrency: exchange?.fiatCurrency,
-      };
-      return (
+    const orderType = this.getOrderType();
+    const exchangeInfo = {
+      amount: exchange?.amount,
+      currency: exchange?.currency,
+      fiatAmount: exchange?.fiatAmount,
+      fiatCurrency: exchange?.fiatCurrency,
+    };
+
+    return (
+      <div className={styles.container}>
         <OrderInfo
+          className={cx(styles.orderInfo, walletAddress ? styles.showOrderInfo : styles.hideOrderInfo)}
           generatedAddress={walletAddress}
           orderInfo={exchangeInfo}
           onMakeOrder={this.makeOrder}
         />
-      );
-    }
-    return (
-      <div className={styles.container}>
-        <SellForm>
+        <SellForm className={cx(styles.form, walletAddress ? styles.hideForm : styles.showForm)}>
           <Field
             name="exchange"
-            className='mt-4'
             component={exchangeField}
             direction={EXCHANGE_DIRECTION.sell}
             fiatCurrency={supportedCurrency[0]}
             validate={exchangeValidator}
+            orderType={orderType}
             intl={intl}
           />
           <Field
@@ -252,6 +245,7 @@ class SellCryptoCoin extends React.Component {
             disabled={!isValid}
             containerClassName='mt-5'
             buttonClassName={styles.submitBtn}
+            message={<LabelLang id={getIntlKey('confirmMsg')} values={{ amount: exchange?.amount || 0, currency: exchange?.currency }} />}
             label={(
               <span>
                 <FaLock /> <LabelLang id={getIntlKey('sellBtn')} values={{ amount: exchange?.amount || 0, currency: exchange?.currency }} />
@@ -290,7 +284,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
   makeOrder: bindActionCreators(makeOrder, dispatch),
   genAddress: bindActionCreators(genAddress, dispatch),
-  rfDestroy: bindActionCreators(destroy, dispatch),
   showAlert: bindActionCreators(showAlert, dispatch),
   updateProfileAction: bindActionCreators(updateProfileAction, dispatch),
 });
@@ -317,7 +310,6 @@ SellCryptoCoin.propTypes = {
   makeOrder: PropTypes.func,
   showAlert: PropTypes.func,
   supportedCurrency: PropTypes.array,
-  rfDestroy: PropTypes.func.isRequired,
   genAddress: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
