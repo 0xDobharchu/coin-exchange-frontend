@@ -1,0 +1,14 @@
+.bank-info {
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  .bank-item {
+    width: 100%;
+    display: flex;
+    margin-bottom: 15px;
+    flex-direction: column;
+    > input {
+      width: inherit;
+    }
+  }
+}

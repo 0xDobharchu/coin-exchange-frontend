@@ -1,18 +1,16 @@
 .container {
   max-width: 1024px;
   background-color: white;
-  .cod-info {
-    display: flex;
-    flex-direction: column;
-    width: inherit;
-    .bank-item {
-      width: 100%;
-      display: flex;
-      margin-bottom: 15px;
-      flex-direction: column;
-      > input {
-        width: inherit;
-      }
+  .bank-info {
+    transition: 300ms max-height, 300ms opacity;
+    &.show-bank {
+      max-height: 300px;
+      opacity: 1;
+    }
+    &.hide-bank {
+      max-height: 0px;
+      opacity: 0;
+      overflow: hidden;
     }
   }
   .row-item {
