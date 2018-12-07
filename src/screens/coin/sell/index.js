@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import { PAYMENT_METHOD, EXCHANGE_DIRECTION } from 'src/screens/coin/constant';
 import cx from 'classnames';
 import { URL } from 'src/resources/constants/url';
+// import { DEFAULT_CURRENCY } from 'src/resources/constants/crypto';
 import ConfirmButton from 'src/components/confirmButton';
 import inputField from 'src/components/core/form/fields/input';
 import { showAlert } from 'src/screens/app/redux/action';

@@ -1,0 +1,317 @@
+.historywallet-wrapper{
+    padding-bottom: 40px;
+    font-weight: 300;
+
+    .history-content{
+      margin-top: 15px;    
+    }
+
+    ul.history-tab {
+      margin: 10px 0px 0px 0px;
+      padding: 0px;
+      border-bottom:solid 2px #007bff;
+      overflow: hidden;
+
+      li {
+        list-style: none;
+        float: left;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        margin-right: 5px;
+        color: Gray;
+        background: #ECECEC;
+        padding: 5px 10px;
+        font-size: 14px;
+      }
+
+      li.active {
+        background: #007bff;
+        color: white;
+      }
+    }
+
+
+    .history-balance{
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 14px;
+      text-align: center;
+    }
+    .loader {
+      border-top: 3px solid blue;
+      border-right: 3px solid green;
+      border-bottom: 3px solid red;
+      border-left: 3px solid pink;
+      border-radius: 50%;
+      width: 12px;
+      height: 12px;
+      animation: spin 2s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    .icon-loading-history{
+      width: 100%;
+    }
+    .wallet-detail{
+      text-align: center;
+      color: #fff;
+      background-color: #3F2782;
+      background-image: url('../../../assets/images/wallet/images/bg-home-wallet3.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      overflow: hidden;
+      .logo-detail{
+        width: 47px;
+        border: #c1c1c1 1px solid;
+        border-radius: 50%;
+        margin-top: 15px;
+      }
+      .balance{
+        margin-top: 10px;
+      }
+      .box-warning{
+        background-color: #F5A623;
+        color: #fff;
+        font-size: 16px;
+        padding: 15px;
+        img{
+          width: 3.8px;
+          margin-right: 5px;
+        }
+      }
+      .box-button{
+        overflow: hidden;
+        margin-top: 15px;
+        margin-bottom: 25px;
+        div{
+          overflow: hidden;
+        }
+        .bt1{
+          width: 50%;
+          float: left;
+        }
+        .bt2{
+          width: 50%;
+          float: right;
+        }
+        .bt{
+          width: 100%;
+          button{
+            width: 60%;
+          }
+        }
+        button{
+          border-radius: 4px;
+          width: 140px;
+          background: transparent;
+          border: #c1c1c1 1px solid;
+          color: #fff;
+          font-size: 16px;
+          line-height: 35px;
+          outline: none;
+        }
+      }
+    }
+    
+    .headerDesktop{      
+      overflow: hidden;
+      .logo-detail{
+        width: 60px;    
+        max-width: 60px; 
+        height: 60px;   
+        border-radius: 50%;
+        margin-top: 15px;
+        display: none;
+      }
+      .boxName{        
+        padding-top: 20px;
+        margin-left: 20px;
+        display: none;
+      }
+      .boxButton{        
+        margin: auto;
+        .bt2{
+          margin-left: 50px;
+          margin-right: 50px;
+        }
+        .bt1, .bt2, .bt3{
+          display: inline;
+          button{
+            width: 160px;
+            margin-right: 20px;
+          }
+          div{
+            height: 60px;
+            width: 60px;
+            margin: 0.2em auto;            
+            color: #0070ba;
+            border: 1px solid #000000;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            display: inline-block;
+            -moz-transition: background-color 0.4s ease-in-out;
+            -webkit-transition: background-color 0.4s ease-in-out;
+            -ms-transition: background-color 0.4s ease-in-out;
+            transition: background-color 0.4s ease-in-out;
+            text-decoration: none;
+            position: relative;            
+            cursor: pointer;
+            span{
+              display: none;
+            }
+            .iconSend{
+              width: 28px;
+              top: 15px;
+              position: absolute;
+              left: 11px;
+            }
+            .iconReceive{
+              left: 13px;
+              width: 35px;
+              position: absolute;
+              top: 10px;
+            }
+            .iconPreference{
+              left: 16px;
+              width: 28px;
+              position: absolute;
+              top: 15px;
+            }
+          }
+        }
+      }
+      
+      .rowHeader{
+        margin: 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+    }
+    .header-history-tx{
+      font-size: 14px;
+      text-align: center;
+      padding: 10px;
+      overflow: hidden;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: #315E9E;
+      opacity: 0.54;      
+
+      a{
+        text-decoration: underline;
+        font-size: 14px;
+        text-transform: none;
+        color: Black;
+      }
+    }
+    
+
+    .row{
+      flex-wrap: nowrap !important;
+      display: block;
+      border-bottom: solid 1px #ECECEC;
+      padding: 15px 0px;
+      border-radius: 6px;
+      margin: 0 10px;
+      margin-left: 5px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .label-self{
+      color:purple;
+      font-size: 16px;
+      padding-bottom: 7px;
+    }
+
+    .label-sent{
+      color:#1E4EFF;
+      font-size: 16px;
+      padding-bottom: 7px;
+    }
+
+    .label-received{
+      color:#4CD964;
+      font-size: 16px;
+      padding-bottom: 7px;
+    }
+
+    .label-create{
+      color:palevioletred;
+      font-size: 16px;
+      padding-bottom: 7px;
+    }
+
+    .history-address{
+      color:#8A8A8F;
+      font-size: 14px;
+      float: none;
+
+      .addr{
+        margin-left: 60px;
+      }
+    }
+
+    .time{
+      color:#8A8A8F;
+      font-size: 14px;
+      padding-bottom: 7px;
+    }
+
+    .value-self{
+      font-size: 16px;
+      color:purple;
+    }
+
+    .value-sent{
+      font-size: 16px;
+      color:#FF2D55;
+    }
+
+    .value-received{
+      font-size: 16px;
+      color:#4CD964;
+    }
+
+    .col3{
+      width:auto;
+      float: right;
+      text-align: right;
+      padding-right: 15px;
+    }
+    .col2{width:180px;}
+    .col1{
+      width:60px;
+      padding: 10px 10px 20px 15px;
+      float: left;
+    }
+    .url {
+      padding-left: 60px;
+      padding-top: 5px;
+    }
+    .history-no-trans{
+      text-align: center;
+      margin-top: 25px;
+      button{
+        width: 300px;
+        margin-top: 20px;
+      }
+    }
+
+    .unconfirmation{
+      background: #dc606c;
+      color:white;
+      border-radius: 4px;
+      font-size: 12px;
+      text-align: center;
+      width: 80px;
+      float: right;
+    }
+  }

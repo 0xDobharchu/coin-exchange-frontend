@@ -40,8 +40,12 @@ class PopupDetail extends React.Component {
   }
 
   handleOnCancel = () => this.confirmDialogCancel.current.show();
-  onConfirmCancel = () => alert('success');
-
+  onConfirmCancel = () => {
+    const { onCancelTransaction, data: { id } }= this.props;
+    if (typeof onCancelTransaction === 'function') {
+      onCancelTransaction(id);
+    }
+  }
   render() {
     const { onHide } = this.props;
     const { data :{ created_at, direction, amount, currency, status, fiat_local_amount, fiat_local_currency, tx_hash, ref_code } } = this.props;

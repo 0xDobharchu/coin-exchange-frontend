@@ -92,7 +92,7 @@ export const changePassword = async (data) => {
 export const getTransactions = async () => {
   try {
     const options = {
-      url : '/exchange/orders/?direction=buy',
+      url : '/exchange/orders/',
       method: 'GET'
     };
     if(currentUser.isLogin()) {
@@ -341,5 +341,27 @@ export const uploadFile = async (file, type = 'verification') => {
   } catch (err) {
     console.log('ERROR get upload file', err);
     return [];
+  }
+};
+
+export const cancelTransaction = async (id) => {
+  try {
+    const options = {
+      url : '/exchange/orders/' + id,
+      method: 'DELETE',
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {
+        Authorization: 'Bearer ' + currentUser.getToken()
+      };
+    }
+    // const res = 
+    await http(options);
+    const res =  await getTransactions();
+    console.log('REDSS  is', res);
+    return res;
+  } catch (err) {
+    console.log('ERROR cancelTransaction', err);
+    throw err;
   }
 };

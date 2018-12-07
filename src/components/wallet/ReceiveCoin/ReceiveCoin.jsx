@@ -108,7 +108,7 @@ class ReceiveCoin extends React.Component {
 
         this.props.getFiatCurrency({
           url: API_URL.EXCHANGE.GET_FIAT_CURRENCY,          
-          params: {amount: 1, fiat_currency: currency ? currency : 'USD', currency: cryptoCurrency ? cryptoCurrency : wallet.name, direction: 'buy'},
+          params: {amount: 1, fiat_currency: currency ? currency : 'USD', currency: cryptoCurrency ? cryptoCurrency : wallet.name, direction: 'buy', type:'bank',level: 1 },
           onSuccess: (res) => {
             let data = res;
             result = currency == 'USD' ? data.fiat_amount : data.fiat_amount;
@@ -165,7 +165,7 @@ class ReceiveCoin extends React.Component {
         // if(!wallet.isCollectibles){
 
           wallet.text = wallet.getShortAddress() + " (" + wallet.name + "-" + wallet.getNetworkName() + ")";
-          if (process.env.isLive){
+          if (APP_ENV.isProduction){
             wallet.text = wallet.getShortAddress() + " (" + wallet.className + " " + wallet.name + ")";
           }
           wallet.id = wallet.address + wallet.getNetworkName() + wallet.name;
@@ -181,7 +181,7 @@ class ReceiveCoin extends React.Component {
 
     if (walletDefault){
       walletDefault.text = walletDefault.getShortAddress() + " (" + walletDefault.name + "-" + walletDefault.getNetworkName() + ")";
-      if (process.env.isLive){
+      if (APP_ENV.isProduction){
         walletDefault.text = walletDefault.getShortAddress() + " (" + walletDefault.className + " " + walletDefault.name + ")";
       }
       walletDefault.id = walletDefault.address + walletDefault.getNetworkName() + walletDefault.name;

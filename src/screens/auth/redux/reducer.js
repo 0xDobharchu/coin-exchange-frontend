@@ -60,6 +60,15 @@ export default (state = mockState, { type, payload, data }) => {
         ...state,
         history: payload
       };
+    case 'UPDATE_TRANSACTION': {
+      return {
+        ...state,
+        history: {
+          ...state.history,
+          transactions: state.history.transactions.map(e => e.id === payload.id ? payload : e)
+        }
+      };
+    }
     case 'GET_REFERRALS':
       return {
         ...state,
