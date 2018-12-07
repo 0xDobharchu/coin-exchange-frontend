@@ -48,7 +48,7 @@ class SideBarNavigation extends React.PureComponent {
                   <Nav.Link eventKey={CHILD_ROUTES[0]}><LabelLang id="me.navigation.accountInfo" /></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey={CHILD_ROUTES[1]}><LabelLang id="me.navigation.setting" /></Nav.Link>
+                  <Nav.Link eventKey={CHILD_ROUTES[1]}><LabelLang id="me.navigation.preferecens" /></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link eventKey={CHILD_ROUTES[2]}><LabelLang id="me.navigation.accountLevel" /></Nav.Link>
