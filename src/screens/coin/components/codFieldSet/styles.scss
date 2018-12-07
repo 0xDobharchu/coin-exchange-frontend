@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   width: inherit;
-  overflow: hidden;
   transition: 300ms max-height, 300ms opacity;
   .cod-item {
     width: 100%;
@@ -17,5 +16,6 @@
   &.hide-cod {
     max-height: 0px;
     opacity: 0;
+    overflow: hidden;
   }
 }

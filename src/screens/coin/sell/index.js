@@ -5,14 +5,11 @@ import { Field, formValueSelector, destroy } from 'redux-form';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import createForm from 'src/components/core/form/createForm';
-import { isRequired } from 'src/components/core/form/validator';
 import { bindActionCreators } from 'redux';
 import { PAYMENT_METHOD, EXCHANGE_DIRECTION } from 'src/screens/coin/constant';
 import cx from 'classnames';
 import { URL } from 'src/resources/constants/url';
-// import { DEFAULT_CURRENCY } from 'src/resources/constants/crypto';
 import ConfirmButton from 'src/components/confirmButton';
-import inputField from 'src/components/core/form/fields/input';
 import { showAlert } from 'src/screens/app/redux/action';
 import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
 import LabelLang from 'src/lang/components/LabelLang';
@@ -21,10 +18,10 @@ import { updateProfileAction } from 'src/screens/auth/redux/action';
 import authUtil from 'src/utils/authentication';
 import OrderInfo from './components/orderInfo';
 import BankInfo from './components/bankInfo';
+import BankInfoFieldSet from './components/bankInfoFieldSet';
 import TNG from './components/tng';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
 import paymentMethodField from './reduxFormFields/paymentMethod';
-import popularBankField, { popularBanksValidator } from './reduxFormFields/popularBank';
 import { makeOrder, genAddress } from './redux/action';
 import CodFieldSet from '../components/codFieldSet';
 import styles from './styles.scss';
@@ -41,7 +38,6 @@ const SellForm = createForm({
   },
 });
 const formSelector = formValueSelector(sellFormName);
-const required = isRequired();
 
 class SellCryptoCoin extends React.Component {
   constructor(props) {
@@ -203,43 +199,13 @@ class SellCryptoCoin extends React.Component {
     this.setState({ verifiedPhone });
   }
 
-  renderBankInfoInput = () => {
-    const { intl: { formatMessage } } = this.props;
+  renderBankInfo = () => {
+    const { bankInfo, intl, paymentMethod } = this.props;
     return (
-      <div className={cx(styles.bankInfo, 'mt-4')}>
-        <Field
-          name="bankName"
-          placeholder={formatMessage({ id: getIntlKey('bankName')})}
-          component={popularBankField}
-          containerClassname={styles.bankItem}
-          validate={popularBanksValidator}
-        />
-        <Field
-          type="text"
-          name="bankAccountNumber"
-          placeholder={formatMessage({ id: getIntlKey('accountNumber')})}
-          component={inputField}
-          containerClassName={styles.bankItem}
-          validate={required}
-        />
-        <Field
-          type="text"
-          name="bankAccountName"
-          placeholder={formatMessage({ id: getIntlKey('accountName')})}
-          component={inputField}
-          containerClassName={styles.bankItem}
-          validate={required}
-        />
+      <div className={cx(styles.bankInfo, paymentMethod === PAYMENT_METHOD.TRANSFER ? cx('mt-4', styles.showBank) : styles.hideBank)}>
+        { bankInfo ? <BankInfo bankInfo={bankInfo} /> : <BankInfoFieldSet show={paymentMethod === PAYMENT_METHOD.TRANSFER} intl={intl} />}
       </div>
     );
-  }
-
-  renderBankInfo = () => {
-    const { bankInfo } = this.props;
-    if (bankInfo) {
-      return <BankInfo bankInfo={bankInfo} />;
-    }
-    return this.renderBankInfoInput();
   }
 
   render() {
@@ -279,9 +245,9 @@ class SellCryptoCoin extends React.Component {
             component={paymentMethodField}
             intl={intl}
           />
-          { paymentMethod === PAYMENT_METHOD.TRANSFER && this.renderBankInfo() }
+          { this.renderBankInfo() }
           { isAuth && <TNG show={paymentMethod === PAYMENT_METHOD.TNG} onTngVerified={this.onTngVerified} className='mt-4' /> }
-          <CodFieldSet show={paymentMethod === PAYMENT_METHOD.COD} intl={intl} />
+          <CodFieldSet show={paymentMethod === PAYMENT_METHOD.COD} intl={intl} className='mt-4' />
           <ConfirmButton
             disabled={!isValid}
             containerClassName='mt-5'

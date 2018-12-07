@@ -2,17 +2,15 @@
   max-width: 1024px;
   background-color: white;
   .bank-info {
-    display: flex;
-    flex-direction: column;
-    width: inherit;
-    .bank-item {
-      width: 100%;
-      display: flex;
-      margin-bottom: 15px;
-      flex-direction: column;
-      > input {
-        width: inherit;
-      }
+    transition: 300ms max-height, 300ms opacity;
+    &.show-bank {
+      max-height: 300px;
+      opacity: 1;
+    }
+    &.hide-bank {
+      max-height: 0px;
+      opacity: 0;
+      overflow: hidden;
     }
   }
   .row-item {
@@ -20,12 +18,5 @@
   }
   .submit-btn {
     width: 100%;
-  }
-  .tng {
-    display: flex;
-    flex-direction: column;
-    width: inherit;
-    &.show-tng {}
-    &.hide-tng {}
   }
 }
