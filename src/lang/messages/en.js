@@ -765,7 +765,8 @@ export default {
       userAddress: 'Address',
       userPhone: 'Phone',
       userNote: 'As soon as possible',
-      buyBtn: 'Buy {amount} {currency}'
+      buyBtn: 'Buy {amount} {currency}',
+      confirmMsg: 'Do you want to buy {amount} {currency}?'
     },
     sell: {
       prepareOrderFailed: 'Failed while preparing to order, please try again',
@@ -776,7 +777,8 @@ export default {
       accountNumber: 'Account number',
       accountName: 'Account name',
       phone: 'Phone number',
-      sellBtn: 'Sell {amount} {currency}'
+      sellBtn: 'Sell {amount} {currency}',
+      confirmMsg: 'Do you want to sell {amount} {currency}?'
     },
     components: {
       bankTransferInfo: {
