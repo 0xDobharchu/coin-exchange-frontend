@@ -129,6 +129,10 @@ export default {
       direction: {
         buy: 'Buy',
         sell: 'Sell'
+      },
+      alert: {
+        cancelSuccess: 'Successfully Cancelled',
+        cancelFailed: 'Failed To Cancel'
       }
     },
     accountLevel: {
@@ -292,7 +296,7 @@ export default {
     }
   },
   wallet: {
-    title: 'Your Accounts',
+    title: 'Coinbowl Wallet',
     top_banner: {
       message: 'Shuriken Airdrop (limited)',
       button: 'Click here',

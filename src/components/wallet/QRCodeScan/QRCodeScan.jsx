@@ -15,7 +15,6 @@ import { hideScanQRCode } from 'src/screens/app/redux/action';
 import './QRCodeScan.scss';
 
 import BrowserDetect from 'src/services/browser-detect';
-import BackChevronSVGWhite from 'src/assets/images/wallet/icons/back-chevron-white.svg';
 
 class QRCodeScan extends React.Component {
 
@@ -111,7 +110,7 @@ render() {
 
   {/* QR code dialog */}
   return (
-        <Modal onClose={() => this.oncloseQrCode()} title={messages['wallet.action.transfer.label.scan_qrcode']} onRef={modal => this.modalScanQrCodeMainRef = modal} customBackIcon={BackChevronSVGWhite} modalHeaderStyle={{color: "#fff", background: "#546FF7"}} modalBodyStyle={{"padding": 0}} >
+        <Modal onClose={() => this.oncloseQrCode()} title={messages['wallet.action.transfer.label.scan_qrcode']} onRef={modal => this.modalScanQrCodeMainRef = modal} modalBodyStyle={{"padding": 0}} >
             {!isLoaded && <div style={{ textAlign: 'center', marginTop: '10px' }}>{messages['wallet.action.transfer.label.init_scanner']}</div>}
             {/* {this.state.isShow || this.state.legacyMode ?
               <QrReader

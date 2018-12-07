@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { showAlert } from 'src/screens/app/redux/action';
 import { LabelLang } from 'src/lang/components';
 import Loading from 'src/components/loading';
-import { getTransactionsAction } from 'src/screens/auth/redux/action';
+import { getTransactionsAction, cancelTransactionAction } from 'src/screens/auth/redux/action';
 import { Row, Col } from 'react-bootstrap';
 import PopupDetail from './PopupDetail';
 import style from './style.scss';
@@ -15,6 +16,11 @@ class History extends React.PureComponent {
     selectedItem: {},
   }
 
+  // eslint-disable-next-line
+  showMessage = (message, type) => this.props.showAlert({ message, type });
+  showSuccess = id => this.showMessage(id, 'success');
+  showError = id => this.showMessage(id, 'danger');
+
   componentDidMount() {
     // eslint-disable-next-line
     this.props.getTransactionsAction().then(() => this.setState({ loading: false }));
@@ -23,6 +29,17 @@ class History extends React.PureComponent {
     this.setState({ isShow: true, selectedItem: e });
   }
   modelClode = () => this.setState({ isShow: false });
+
+  handleCancelTransaction = (id) => {
+    const { selectedItem } = this.state;
+    // eslint-disable-next-line
+    this.props.cancelTransactionAction(id).then(() => {
+      this.showSuccess('me.history.alert.cancelSuccess');
+      this.setState({ selectedItem: { ...selectedItem, status: 'cancelled' }});
+    }).catch(() => {
+      this.showError('me.history.alert.cancelFailed');
+    });
+  }
   render() {
     // eslint-disable-next-line
     if (this.state.loading) return (<Loading />);
@@ -58,7 +75,7 @@ class History extends React.PureComponent {
             </Row>
           ))}
         </div>
-        <PopupDetail show={this.state.isShow} data={this.state.selectedItem} onHide={this.modelClode} />
+        <PopupDetail show={this.state.isShow} data={this.state.selectedItem} onHide={this.modelClode} onCancelTransaction={this.handleCancelTransaction} />
       </div>
     );
   }
@@ -68,5 +85,5 @@ const mapState = state => ({
   history: state.auth.history
 });
 
-const mapDispatch = { getTransactionsAction };
+const mapDispatch = { getTransactionsAction, cancelTransactionAction, showAlert };
 export default connect(mapState, mapDispatch)(History);
