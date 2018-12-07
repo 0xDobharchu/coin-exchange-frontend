@@ -21,9 +21,9 @@ export const sendEmailVerifyCodeAction = (code) => (dispatch) => new Promise((re
 
 export const updatePhoneNumberAction = (phone_number) => (dispatch) => new Promise((resolve, reject) => {
   // dispatch({ type: 'UPDATE_PROFILE_INFO', payload: { phone_number }});
-  updateProfile({ phone_number }).then(r => {
-    if (!r) return;
-    dispatch({ type: 'UPDATE_PROFILE_INFO', payload: { phone_number, verification_level: 'level_2', verification_status: 'pending' }});
+  updateProfile({ phone_number }).then(payload => {
+    if (!payload) return;
+    dispatch({ type: 'UPDATE_PROFILE_INFO', payload });
     sendToGetPhoneCode({ phone_number }).then(r => resolve(r)).catch(err=>reject(err));
   }).catch(err => reject(err));
 });
