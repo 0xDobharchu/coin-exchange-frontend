@@ -173,6 +173,17 @@ export default {
         overSMSLimit: 'You entered wrong verification code 10 times already. Please use the last code sent to your phone to verify.',
         invalidCode: 'Your code is incorrect, please try again!',
         error: 'OH! something went wrong! Please try again',
+      },
+      levelStatus: {
+        pending: 'Pending',
+        processing: 'Processing',
+        rejected: 'Rejected',
+        approved: 'Verified',
+      },
+      idTypes: {
+        passport: 'Passport',
+        driver_license: 'Driver License',
+        id_card: 'Government ID Card'
       }
     },
     bankInfo: {
