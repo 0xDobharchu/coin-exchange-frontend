@@ -1,7 +1,7 @@
 .container {
   max-width: 1024px;
   background-color: white;
-  .cod-info {
+  .bank-info {
     display: flex;
     flex-direction: column;
     width: inherit;
@@ -20,5 +20,12 @@
   }
   .submit-btn {
     width: 100%;
+  }
+  .tng {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    &.show-tng {}
+    &.hide-tng {}
   }
 }

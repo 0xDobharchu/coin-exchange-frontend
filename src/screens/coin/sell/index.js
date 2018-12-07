@@ -19,13 +19,14 @@ import LabelLang from 'src/lang/components/LabelLang';
 import { FaLock } from 'react-icons/fa';
 import { updateProfileAction } from 'src/screens/auth/redux/action';
 import authUtil from 'src/utils/authentication';
-import PhoneVerify from './components/phoneVerify';
 import OrderInfo from './components/orderInfo';
 import BankInfo from './components/bankInfo';
+import TNG from './components/tng';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
 import paymentMethodField from './reduxFormFields/paymentMethod';
 import popularBankField, { popularBanksValidator } from './reduxFormFields/popularBank';
 import { makeOrder, genAddress } from './redux/action';
+import CodFieldSet from '../components/codFieldSet';
 import styles from './styles.scss';
 
 const getIntlKey = (name) => `coin.sell.${name}`;
@@ -62,11 +63,23 @@ class SellCryptoCoin extends React.Component {
     const { isAuth, verifiedPhone } = this.state;
     if (!isAuth) return false;
     
-    const { exchange: { amount, fiatAmount }, bankName, bankAccountName, bankAccountNumber, paymentMethod, bankInfo } = this.props;
+    const {
+      exchange: { amount, fiatAmount },
+      bankName,
+      bankAccountName,
+      bankAccountNumber,
+      paymentMethod,
+      bankInfo,
+      userAddress,
+      userPhone,
+      userNote
+    } = this.props;
     if (amount && fiatAmount) {
       if (paymentMethod === PAYMENT_METHOD.TRANSFER && (bankInfo || (bankName && bankAccountName && bankAccountNumber))) {
         return true;
       } else if (paymentMethod === PAYMENT_METHOD.TNG && verifiedPhone) {
+        return true;
+      } else if (paymentMethod === PAYMENT_METHOD.COD && userAddress?.isValid && userPhone && userNote) {
         return true;
       } else {
         return false;
@@ -114,9 +127,13 @@ class SellCryptoCoin extends React.Component {
       bankName,
       bankAccountName,
       bankAccountNumber,
-      paymentMethod
+      paymentMethod,
+      userAddress,
+      userPhone,
+      userNote
     } = this.props;
     const { walletAddress, verifiedPhone } = this.state;
+    const orderType = this.getOrderType();
     const payload = {
       amount: String(exchange?.amount),
       currency: exchange?.currency,
@@ -124,9 +141,8 @@ class SellCryptoCoin extends React.Component {
       fiat_local_currency: exchange?.fiatCurrency,
       direction: EXCHANGE_DIRECTION.sell,
       address: walletAddress,
-      order_user_payment_type: paymentMethod,
-      // order_type: bank|tng => bank, tng => tng
-      order_type: [PAYMENT_METHOD.TRANSFER, PAYMENT_METHOD.TNG].includes(paymentMethod) ? PAYMENT_METHOD.TRANSFER : paymentMethod,
+      order_user_payment_type: orderType,
+      order_type: orderType,
     };
 
     if (paymentMethod === PAYMENT_METHOD.TRANSFER) {
@@ -136,6 +152,14 @@ class SellCryptoCoin extends React.Component {
     if (paymentMethod === PAYMENT_METHOD.TNG) {
       payload.user_info = JSON.stringify({ bankUserPhoneNumber: verifiedPhone });
     }
+
+    if (paymentMethod === PAYMENT_METHOD.COD) {
+      // order_user_payment_type only avaiable on bank type
+      payload.order_user_payment_type = '';
+      
+      payload.user_info = JSON.stringify({ userAddressName: userAddress?.value?.name, userAddress: userAddress?.value?.address, userPhone, userNote });
+    }
+
     makeOrder(payload)
       .then(this.orderSuccessHandler)
       .catch(this.orderFailedHandler);
@@ -159,6 +183,12 @@ class SellCryptoCoin extends React.Component {
     });
   }
 
+  getOrderType = () => {
+    // order_type: bank|tng => bank, tng => tng
+    const { paymentMethod } = this.props;
+    return [PAYMENT_METHOD.TRANSFER, PAYMENT_METHOD.TNG].includes(paymentMethod) ? PAYMENT_METHOD.TRANSFER : paymentMethod;
+  }
+
   resetState = () => {
     this.setState({
       walletAddress: null
@@ -173,18 +203,10 @@ class SellCryptoCoin extends React.Component {
     this.setState({ verifiedPhone });
   }
 
-  renderPhoneBlock = () => {
-    return (
-      <div className={cx(styles.codInfo, 'mt-4')}>
-        <PhoneVerify onVerified={this.onTngVerified} />
-      </div>
-    );
-  }
-
   renderBankInfoInput = () => {
     const { intl: { formatMessage } } = this.props;
     return (
-      <div className={cx(styles.codInfo, 'mt-4')}>
+      <div className={cx(styles.bankInfo, 'mt-4')}>
         <Field
           name="bankName"
           placeholder={formatMessage({ id: getIntlKey('bankName')})}
@@ -258,7 +280,8 @@ class SellCryptoCoin extends React.Component {
             intl={intl}
           />
           { paymentMethod === PAYMENT_METHOD.TRANSFER && this.renderBankInfo() }
-          { paymentMethod === PAYMENT_METHOD.TNG && isAuth && this.renderPhoneBlock() }
+          { isAuth && <TNG show={paymentMethod === PAYMENT_METHOD.TNG} onTngVerified={this.onTngVerified} className='mt-4' /> }
+          <CodFieldSet show={paymentMethod === PAYMENT_METHOD.COD} intl={intl} />
           <ConfirmButton
             disabled={!isValid}
             containerClassName='mt-5'
@@ -315,6 +338,9 @@ SellCryptoCoin.defaultProps = {
   bankName: '',
   bankAccountName: '',
   bankAccountNumber: '',
+  userAddress: {},
+  userNote: '',
+  userPhone: '',
   bankInfo: null
 };
 
@@ -332,6 +358,9 @@ SellCryptoCoin.propTypes = {
   bankName: PropTypes.string,
   bankAccountName: PropTypes.string,
   bankAccountNumber: PropTypes.string,
+  userAddress: PropTypes.object,
+  userNote: PropTypes.string,
+  userPhone: PropTypes.string,
 };
 
 export default withRouter(injectIntl(connect(mapStateToProps, mapDispatchToProps)(SellCryptoCoin)));

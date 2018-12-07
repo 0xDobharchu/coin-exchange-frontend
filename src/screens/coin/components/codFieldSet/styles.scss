@@ -1,0 +1,21 @@
+.cod-info {
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  overflow: hidden;
+  transition: 300ms max-height, 300ms opacity;
+  .cod-item {
+    width: 100%;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+  &.show-cod {
+    max-height: 300px;
+    opacity: 1;
+  }
+  &.hide-cod {
+    max-height: 0px;
+    opacity: 0;
+  }
+}

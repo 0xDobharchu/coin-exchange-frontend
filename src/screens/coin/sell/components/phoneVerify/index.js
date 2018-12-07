@@ -124,7 +124,7 @@ class PhoneVerify extends Component {
               defaultCountry={DEFAULT_COUNTRY.toLowerCase()}
               regions='asia'
               onChange={this.onPhoneChange}
-              value={phone}
+              value={phone || ''}
               disabled={!!verifiedPhone}
             />)
           }
