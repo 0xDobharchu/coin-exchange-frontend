@@ -84,8 +84,8 @@ class Wallet extends React.Component {
         this.state = {
 
             addressParram: false,
-            height: window.innerHeight,
-            width: window.innerWidth,
+            height: __CLIENT__ ? window.innerHeight : 0,
+            width: __CLIENT__ ? window.innerWidth : 0,
             isDeskTop: false,
 
             // wallet:
@@ -140,7 +140,8 @@ class Wallet extends React.Component {
         let addressParram = this.props.match.params.address || false;
         
         this.setState({ addressParram });
-        window.addEventListener("resize", this.updateDimensions);
+        if (__CLIENT__)
+            window.addEventListener("resize", this.updateDimensions);
 
         this.updateDimensions();
 
@@ -171,6 +172,7 @@ class Wallet extends React.Component {
         }
     }
     updateDimensions() {
+        if (!__CLIENT__) return;
         this.setState({
             height: window.innerHeight,
             width: window.innerWidth
@@ -195,7 +197,7 @@ class Wallet extends React.Component {
         if (this.state.isDeskTop) {
             if (this.state.addressParram === false) {
                 this.setState({ walletSelected: this.state.listWallet[0] });
-                window.location.href = window.location.href + "/" + walletSelected.toString();
+                // window.location.href = window.location.href + "/" + walletSelected.toString();
             }
             else {
                 // todo: find in list with address
@@ -215,7 +217,8 @@ class Wallet extends React.Component {
     }
 
     componentWillUnmount() {
-        window.removeEventListener("resize", this.updateDimensions);
+        if (__CLIENT__)
+            window.removeEventListener("resize", this.updateDimensions);
     }
 
     showAlert(msg, type = 'success', timeOut = 3000, icon = '') {
@@ -783,7 +786,8 @@ class Wallet extends React.Component {
     }
 
     getETHFree = () => {
-        window.open('https://www.rinkeby.io/#faucet', '_blank');
+        if (__CLIENT__)
+            window.open('https://www.rinkeby.io/#faucet', '_blank');
         // let data="ninja-redeem:NINJA-1C1QN0r5SItfzGqp06graZPLZR2?value=234";
         // let result = MasterWallet.getQRCodeDetail(data);
         // this.props.showQRCodeContent({
