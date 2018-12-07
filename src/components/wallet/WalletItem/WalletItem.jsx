@@ -14,8 +14,10 @@ import bgCollectibles from 'src/assets/images/wallet/images/tokenerc721-mainnet.
 
 import needBackup from 'src/assets/images/wallet/icons/need-backup.svg';
 
+// import iconPreference from 'src/assets/images/wallet/icons/icon-preference-gray.svg';
+import dontIcon from '@/assets/images/wallet/icons/3-dot-icon-black.svg';
 
-import style from './Wallet.scss';
+import style from './ListWalletItem.scss';
 
 
 
@@ -52,28 +54,35 @@ class WalletItem extends React.Component {
 
       return  (
 
-        <div>
-            {!wallet.protected && <img className={style.safe} src={needBackup} /> }
-            <img onClick={onItemClick} className={style.coinLogo} src={logo}/>
-            <div className={style.itemCenter} onClick={onItemClick}>
-              <div className={style.name}>
-                {wallet.title}
-                {wallet.default ? <img className={style.iconDefault} src={iconChecked}/> : ''}
+        <div className={style.itemWallet}>          
+              {!wallet.protected && <img className={style.safe} src={needBackup} /> }
+              <img onClick={onItemClick} className={style.coinLogo} src={logo}/>
+              <div className={style.itemCenter} onClick={onItemClick}>
+                <div className={style.name}>
+                  {wallet.title}
+                  {wallet.default ? <img className={style.iconDefault} src={iconChecked}/> : ''}
+                </div>
+                {!wallet.hideBalance ?
+                <span className={style.balance}> {wallet.getShortBalance()} {wallet.name} </span>
+                :<span className={style.balance}>[{messages['wallet.action.history.label.balance_hidden']}]</span> }
               </div>
-              {!wallet.hideBalance ?
-              <span className={style.balance}> {wallet.getShortBalance()} {wallet.name} </span>
-              :<span className={style.balance}>[{messages['wallet.action.history.label.balance_hidden']}]</span> }
-            </div>
 
-            {!isSortable ?
-              <span className={style.itemRight}>
-                <span className={style.address +  " hidden-xss-down"} onClick={onAddressClick}>
-                    {this.showCryptoAddress}
+              {!isSortable ?
+                <span className={style.itemRight}>
+                  <span className={style.address +  " hidden-xss-down"} onClick={onAddressClick}>
+                      {this.showCryptoAddress}
+                  </span>
+                  {/* <span className={style.more} onClick={onMoreClick}><img src={dontIcon}/></span> */}
+
                 </span>
-                {/* <span className={style.more} onClick={onMoreClick}><img src={dontIcon}/></span> */}
+              : ""}                        
+            {/* <div className="onlyDesktop" style={{marginTop: "15px", marginLeft: "65px"}}>
+              <button style={{width: "80px", height: "40px", backgroundColor: "transparent", border: "#c1c1c1 1px solid", color: "#000000", fontSize: "16px", marginRight: "15px"}}> Send </button> 
+              <button style={{width: "80px", height: "40px", backgroundColor: "transparent", border: "#c1c1c1 1px solid", color: "#000000", fontSize: "16px", marginRight: "15px"}}> Receive </button> 
+              <img style={{width: "30px"}} src={iconPreference}/>
+              
 
-              </span>
-            : ""}            
+            </div> */}
           </div>
       );
   }
@@ -86,5 +95,6 @@ WalletItem.propTypes = {
   onAddressClick: PropTypes.func,
   isSortable: PropTypes.any,
   onItemClick: PropTypes.func,
+  onMoreClick: PropTypes.func,
 };
 export default injectIntl(WalletItem);

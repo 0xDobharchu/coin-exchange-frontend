@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import style from './Wallet.scss';
+import style from './style.scss';
 
 
 class Header extends React.Component {
@@ -19,7 +19,7 @@ class Header extends React.Component {
     else    
       html = <div onClick={onLinkClick} className={style.headerLink}>{linkTitle}</div>
     if (icon2){
-      html = <div> <img className={style.headerIcon2} onClick={onIcon2Click} src={icon2} />{html} </div>
+      html = <div> <img className={style['header-icon-2']} onClick={onIcon2Click} src={icon2} />{html} </div>
     }
     return html;
     

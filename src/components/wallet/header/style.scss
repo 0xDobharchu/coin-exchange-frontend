@@ -1,0 +1,31 @@
+.headerText{
+    font-size: 14px;
+    color: #090909;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: #315E9E;
+  }
+.headerLink{
+    font-size: 13px;
+    background: #5522DD;
+    letter-spacing: 0;
+    cursor: pointer;
+    float: right;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 4px;
+}
+.headerBox{
+    width: 100%;
+    padding: 20px;
+    border-bottom: 1px #f4f4f4 solid;
+    padding-bottom: 10px;
+    padding-top: 15px;
+    img, div{
+        float: right;
+        cursor: pointer;
+    }
+}
+.header-icon-2{
+    margin-left: 15px;
+}

@@ -7,7 +7,7 @@ import iconChecked from 'src/assets/images/wallet/icons/icon-checked-wallet.svg'
 
 
 import PropTypes from 'prop-types';
-import style from './Wallet.scss';
+import style from './style.scss';
 
 class CoinTemp extends React.Component {
 
