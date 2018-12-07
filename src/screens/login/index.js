@@ -47,7 +47,7 @@ class Login extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
+    (e && e.preventDefault) && e.preventDefault();
     this.setState({ loggingIn: true });
     const { username, password } = this.props;
     if (username && password) {
@@ -79,9 +79,14 @@ class Login extends React.Component {
         this.setState({ loggingIn: false });
       });
     }
+    return false;
   }
 
   render() {
+    const requiredUsername = isRequired('user.login.requiredUsername');
+    const checkEmail = isEmail('user.login.notValidUsername');
+    const requiredPassword = isRequired('user.login.requiredPassword');
+    const checkPassword = isPassword(8, 'user.login.notValidPassword');
     return (
       <div className={cx('container', style.loginWarper)}>
         <div className="row">
@@ -94,7 +99,7 @@ class Login extends React.Component {
                     name="username"
                     containerClassName="form-group"
                     component={inputField}
-                    validate={[isRequired('user.login.requiredUsername'), isEmail('user.login.notValidUsername')]}
+                    validate={[requiredUsername, checkEmail]}
                     type="email"
                     className='form-control'
                     placeholder="user.login.username"
@@ -104,7 +109,7 @@ class Login extends React.Component {
                     name="password"
                     className="form-control"
                     component={inputField}
-                    validate={[isRequired('user.login.requiredPassword'), isPassword(8)]}
+                    validate={[requiredPassword, checkPassword]}
                     type="password"
                     placeholder="user.login.password"
                   />
@@ -124,7 +129,6 @@ class Login extends React.Component {
                         <button
                           className={cx('btn btn-primary pull-right', style.buttonLogin, this.state.loggingIn ? 'disabled': '')}
                           type="submit"
-                          onClick={this.handleSubmit}
                         >
                           <LabelLang id="user.login.loginButton" />
                         </button>
