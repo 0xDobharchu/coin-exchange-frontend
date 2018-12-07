@@ -35,7 +35,7 @@
       color: $placeholder-color;
     }
 
-    input, textarea {
+    input, textarea, input:hover, textarea:hover, input:focus, textarea:focus, input:active, textarea:active {
       position:absolute;
       top:$input-top;
       z-index:1;

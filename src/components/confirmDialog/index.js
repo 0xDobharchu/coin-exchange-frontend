@@ -38,9 +38,9 @@ class ConfirmDialog extends React.Component {
         <Modal.Body style={{ justifyContent: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           {body}
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={this.hide}>{cancelText}</Button>
-          <Button variant="primary" onClick={this.handleConfirm}>{confirmText}</Button>
+        <Modal.Footer style={{ display: 'flex', justifyContent: 'space-around', flexDirection: 'row' }}>
+          <Button variant="primary" style={{ minWidth: '70px' }} onClick={this.hide}>{cancelText}</Button>
+          <Button variant="secondary" style={{ minWidth: '70px' }} onClick={this.handleConfirm}>{confirmText}</Button>
         </Modal.Footer>
       </Modal>
     );
