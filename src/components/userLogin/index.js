@@ -35,13 +35,13 @@ class UserLogin extends React.PureComponent {
             toggle={currentUser.getCurrentUser().name}
             list={[
               {
-                label: currentUser.getCurrentUser().name,
+                label: <LabelLang id="user.setting" />,
                 onClick:  () => {
                   this.props.history.push(URL.ME);
                 }
               },
               {
-                label: <LabelLang id="user.logout" />,
+                label: <LabelLang id="me.logout" />,
                 onClick:  () => {
                   currentUser.removeAccessToken();
                   this.props.history.push(URL.HOME);
