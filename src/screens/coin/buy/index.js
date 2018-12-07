@@ -150,7 +150,7 @@ class BuyCryptoCoin extends React.Component {
             component={paymentMethodField}
             intl={intl}
           />
-          <CodFieldSet show={paymentMethod === PAYMENT_METHOD.COD} intl={intl} />
+          <CodFieldSet show={paymentMethod === PAYMENT_METHOD.COD} intl={intl} className='mt-4' />
           <ConfirmButton
             disabled={!isValid}
             containerClassName='mt-5'

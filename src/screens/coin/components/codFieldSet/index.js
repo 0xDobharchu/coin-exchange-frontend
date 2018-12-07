@@ -8,10 +8,10 @@ import styles from './styles.scss';
 
 const required = isRequired();
 const CodFieldSet = (props) => {
-  const { show, intl: { formatMessage } } = props;
+  const { show, intl: { formatMessage }, className } = props;
 
   return (
-    <div className={cx(styles.codInfo, 'mt-4', show ? styles.showCod : styles.hideCod)}>
+    <div className={cx(styles.codInfo, show ? cx(styles.showCod, className) : styles.hideCod)}>
       <Field
         name="address"
         placeholder={formatMessage({ id: 'coin.buy.userAddress' })}
