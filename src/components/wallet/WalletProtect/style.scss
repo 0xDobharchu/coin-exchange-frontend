@@ -22,7 +22,7 @@
     .cursor-initial{cursor: initial !important;}
 
     .pass-phrase, .confirm-pass-phrase{
-      margin:10px;
+      margin:10px 0;
       padding: 10px;
       background:#D8D8D8;
       min-height: 152px;
@@ -69,5 +69,10 @@
     }
     .textCenter{
         text-align: center;
-      } 
+    } 
+
+    button{
+      margin-top: 30px;
+    }
+
   }
