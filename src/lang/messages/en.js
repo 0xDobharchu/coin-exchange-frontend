@@ -220,6 +220,7 @@ export default {
       registerButton: 'Don\'t have an account?',
       forgetPassword: 'Forget password?',
       requiredPassword: 'Please enter your password',
+      notValidPassword: 'Password must be 8 characters or more',
       notValidUsername: 'Invalid email address',
       requiredUsername: 'Please enter your email',
       loginFailure: 'Email and password not match.',
