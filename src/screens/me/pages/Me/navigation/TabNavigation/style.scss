@@ -9,6 +9,7 @@
   nav {
     // border: 1px solid red;
     a {
+      min-width: 33.3%;
       color: $primary-extra-bold;
       border: 1px solid $primary-extra-bold !important;
       display: flex;
