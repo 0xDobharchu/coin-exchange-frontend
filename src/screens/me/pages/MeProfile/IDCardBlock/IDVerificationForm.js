@@ -8,7 +8,6 @@ import { InputField } from 'src/components/custom';
 import { LabelLang, FieldLang } from 'src/lang/components';
 import dropdownField from 'src/components/core/form/fields/dropdown';
 import { FileUploadField } from 'src/components/fileUploader';
-// import FileUploadField from 'src/components/fileUploader/FileUploadField';
 import { DOC_TYPES, getReachingLevel } from '../util';
 
 const required = isRequired();
@@ -116,9 +115,6 @@ const mapState = state => ({
 export default compose(
   connect(mapState),
   reduxForm({
-    form: 'IDVerificationForm',
-    // validate,
-    // warn,
-    // enableReinitialize: true,
+    form: 'IDVerificationForm'
   })
 )(IDVerificationForm);
