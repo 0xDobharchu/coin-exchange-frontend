@@ -48,8 +48,8 @@ export default {
   },
   me: {
     navigation: {
-      accountInfo: 'My Profile',      
-      preferecens: 'Preferecens',
+      accountInfo: 'My Profile',
+      preferecens: 'Preferences',
       accountLevel: 'Account Level',
       history: 'History',
       bankInfo: 'Bank Info',
