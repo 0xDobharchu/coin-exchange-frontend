@@ -206,6 +206,7 @@ class SellCryptoCoin extends React.Component {
     const { supportedCurrency, exchange, paymentMethod, intl } = this.props;
     const { walletAddress, isAuth } = this.state;
     const isValid = this.isValidToSubmit();
+    const orderType = this.getOrderType();
     const exchangeInfo = {
       amount: exchange?.amount,
       currency: exchange?.currency,
@@ -228,6 +229,7 @@ class SellCryptoCoin extends React.Component {
             direction={EXCHANGE_DIRECTION.sell}
             fiatCurrency={supportedCurrency[0]}
             validate={exchangeValidator}
+            orderType={orderType}
             intl={intl}
           />
           <Field
@@ -243,6 +245,7 @@ class SellCryptoCoin extends React.Component {
             disabled={!isValid}
             containerClassName='mt-5'
             buttonClassName={styles.submitBtn}
+            message={<LabelLang id={getIntlKey('confirmMsg')} values={{ amount: exchange?.amount || 0, currency: exchange?.currency }} />}
             label={(
               <span>
                 <FaLock /> <LabelLang id={getIntlKey('sellBtn')} values={{ amount: exchange?.amount || 0, currency: exchange?.currency }} />
