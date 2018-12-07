@@ -32,7 +32,8 @@ class Contact extends React.Component {
     };
   }
 
-  submitResetPass=() => {
+  submitResetPass=(e) => {
+    (e && e.preventDefault) && e.preventDefault();
     this.setState({ isSubmiting: true });
     const { email } = this.props;
 
@@ -53,10 +54,13 @@ class Contact extends React.Component {
         console.log('submitResetPass', err);
       });
     }
+    return false;
   };
 
   render() {
     const { isSubmiting } = this.state;
+    const requiredUsername = isRequired('user.forgetPassword.requiredUsername');
+    const checkUsername = isEmail('user.forgetPassword.notValidUsername');
     return (
       <div className={cx('container', style.forgetPasswordWarper)}>
         <div className="row">
@@ -67,19 +71,21 @@ class Contact extends React.Component {
             <div className={style.description}><LabelLang id="user.forgetPassword.description" /></div>
             <div className={cx('card', style.forgetPasswordCard)}>
               <div className="card-body">
-                <ForgetPassForm onSubmit={this.submitResetPass}>
+                <ForgetPassForm onSubmit={this.submitResetPass} method="post">
                   <div className="form-group">
                     <FieldLang
                       name="email"
                       className="form-control"
                       component={inputField}
-                      validate={[isRequired(<LabelLang id="user.forgetPassword.requiredUsername" />), isEmail(<LabelLang id="user.forgetPassword.notValidUsername" />)]}
+                      validate={[requiredUsername, checkUsername]}
                       type="email"
                       placeholder="user.forgetPassword.username"
                     />
                   </div>
                   <div className="form-group">
-                    <button type="submit" className={cx('btn btn-primary btn-block', style.buttonForgetPassword, isSubmiting ? ' disabled': '' )}><LabelLang id="user.forgetPassword.submitButton" /></button>
+                    <button type="submit" className={cx('btn btn-primary btn-block', style.buttonForgetPassword, isSubmiting ? ' disabled': '' )}>
+                      <LabelLang id="user.forgetPassword.submitButton" />
+                    </button>
                   </div>
                 </ForgetPassForm>
               </div>
