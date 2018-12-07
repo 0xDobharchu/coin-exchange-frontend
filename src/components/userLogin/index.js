@@ -35,7 +35,7 @@ class UserLogin extends React.PureComponent {
             toggle={currentUser.getCurrentUser().name}
             list={[
               {
-                label: currentUser.getCurrentUser().name,
+                label: <LabelLang id="user.setting" />,
                 onClick:  () => {
                   this.props.history.push(URL.ME);
                 }
