@@ -48,8 +48,8 @@ export default {
   },
   me: {
     navigation: {
-      accountInfo: 'My Profile',
-      setting: 'My Setting',
+      accountInfo: 'My Profile',      
+      preferecens: 'Preferecens',
       accountLevel: 'Account Level',
       history: 'History',
       bankInfo: 'Bank Info',
@@ -209,6 +209,7 @@ export default {
   COIN_EXCHANGE_LP_FAQ_TITLE: 'Frequently asked questions',
   'landing_page.label.footer': 'Coinbowl.com is an online exchange developed by Shanzhai Limited, a Hong Kong based company, offering bulk crypto purchasing at competitive prices with full delivery service.<br />Join the dojo: <a href="https://t.me/coin_bowl" class="landing-link">t.me/coin_bowl</a><br />Contact us: <a href="mailto:support@coin_bowl.com" class="landing-link" target="_top">support@coin_bowl.com</a>',
   user: {
+    setting: 'Settings',
     logout: 'Sign out',
     login: {
       title: 'Sign in to Coinbowl',
@@ -219,6 +220,7 @@ export default {
       registerButton: 'Don\'t have an account?',
       forgetPassword: 'Forget password?',
       requiredPassword: 'Please enter your password',
+      notValidPassword: 'Password must be 8 characters or more',
       notValidUsername: 'Invalid email address',
       requiredUsername: 'Please enter your email',
       loginFailure: 'Email and password not match.',

@@ -23,8 +23,6 @@ import style from './style.scss';
 const RegisterForm = createForm({
   propsReduxForm: {
     form: 'RegisterForm',
-    initialValues: {
-    },
   },
 });
 
@@ -77,13 +75,13 @@ class RegisterPage extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
+    (e && e.preventDefault) && e.preventDefault();
     this.setState({ registering: true });
     const {
       name, username, password, country, recaptchaValue, agreement
     } = this.props;
     const { referral } = this.state;
-
+    console.log(123213213);
     if (name && username && password && country && recaptchaValue && agreement) {
       this.props.registerBound({
         name,
@@ -121,6 +119,7 @@ class RegisterPage extends React.Component {
         this.setState({ registering: false });
       });
     }
+    return false;
   }
 
   verifyCallback(recaptchaToken) {
@@ -130,6 +129,15 @@ class RegisterPage extends React.Component {
   render() {
     const { registering, countryList, defaultCountry} = this.state;
     const action = <Link target="_blank" to={URL.AGREEMENT}><LabelLang id='user.register.agreementAction' /></Link>;
+    const requiredNickname = isRequired('user.register.requiredNickName');
+    const checkNickname = isNickName('user.register.notValidNickName');
+    const requiredUsername = isRequired('user.register.requiredUsername');
+    const checkUsername = isEmail('user.register.notValidUsername');
+    const requiredPassword = isRequired('user.register.requiredPassword');
+    const checkPassword = isPassword(8, 'user.register.notValidPassword');
+    const requiredCaptcha = isRequired('user.register.notValidReCaptcha');
+    const requiredCountry = isRequired('user.register.requiredCountry');
+    const requiredAgreement = mustChecked('user.register.requiredAgreement', true);
     return (
       <div className={cx('container', style['register-warper'])}>
         <div className="row">
@@ -142,7 +150,7 @@ class RegisterPage extends React.Component {
                     name="name"
                     containerClassName="form-group"
                     component={inputField}
-                    validate={[isRequired('user.register.requiredNickName'), isNickName('user.register.notValidNickName')]}
+                    validate={[requiredNickname, checkNickname]}
                     type="text"
                     className="form-control"
                     placeholder="user.register.placeholderNickName"
@@ -151,7 +159,7 @@ class RegisterPage extends React.Component {
                     name="username"
                     containerClassName="form-group"
                     component={inputField}
-                    validate={[isRequired('user.register.requiredUsername'), isEmail('user.register.notValidUsername')]}
+                    validate={[requiredUsername, checkUsername]}
                     type="email"
                     className='form-control'
                     placeholder="user.register.username"
@@ -161,7 +169,7 @@ class RegisterPage extends React.Component {
                     name="password"
                     className="form-control"
                     component={inputField}
-                    validate={[isRequired('user.register.requiredPassword'), isPassword(8)]}
+                    validate={[requiredPassword, checkPassword]}
                     type="password"
                     placeholder="user.register.password"
                   />
@@ -170,7 +178,7 @@ class RegisterPage extends React.Component {
                     name="country"
                     className="form-control"
                     component={dropdownField}
-                    validate={isRequired('user.register.requiredCountry')}
+                    validate={requiredCountry}
                     toggle={<LabelLang id="user.register.placeholderCountry" />}
                     value={defaultCountry}
                     list={countryList}
@@ -187,7 +195,7 @@ class RegisterPage extends React.Component {
                       name="recaptchaValue"
                       className="form-control"
                       component={inputField}
-                      validate={isRequired('user.register.notValidReCaptcha')}
+                      validate={requiredCaptcha}
                       type="hidden"
                     />
                   </div>
@@ -197,7 +205,7 @@ class RegisterPage extends React.Component {
                     id="agreement"
                     component={checkBoxField}
                     type="checkbox"
-                    validate={mustChecked('user.register.requiredAgreement', true)}
+                    validate={requiredAgreement}
                     className="form-check-input"
                     labelText="user.register.agreement"
                     labelTextValues={{action}}
@@ -205,7 +213,6 @@ class RegisterPage extends React.Component {
                   <div className="form-group">
                     <button
                       type="submit"
-                      onClick={this.handleSubmit}
                       className={cx('btn btn-primary btn-block', style.buttonRegister, registering ? 'disabled': '')}
                     >
                       <LabelLang id="user.register.registerButton" />
