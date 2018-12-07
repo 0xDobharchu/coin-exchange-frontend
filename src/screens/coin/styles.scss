@@ -89,15 +89,19 @@
       }
     }
     .content {
-      min-height: 400px;
+      min-height: 600px;
       margin: 20px 0px;
       .tab-content {
         height: 100%;
+        transition: opacity 0.3s, max-height 0.3s;
         &.active {
-          display: block;
+          max-height: 800px;
+          opacity: 1;
         }
         &.hidden {
-          display: none;
+          max-height: 0px;
+          overflow: hidden;
+          opacity: 0;
         }
       }
     }
