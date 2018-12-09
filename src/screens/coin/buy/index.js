@@ -155,6 +155,7 @@ class BuyCryptoCoin extends React.Component {
             disabled={!isValid}
             containerClassName='mt-5'
             buttonClassName={styles.submitBtn}
+            message={<LabelLang id='coin.buy.confirmMsg' values={{ amount: exchange?.amount || 0, currency: exchange?.currency }} />}
             label={(
               <span>
                 <FaLock /> <LabelLang id='coin.buy.buyBtn' values={{ amount: exchange?.amount || 0, currency: exchange?.currency}} />
