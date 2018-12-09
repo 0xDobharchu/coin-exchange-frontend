@@ -1,3 +1,5 @@
+@import 'var';
+
 .container {
   color: red;
 }
@@ -9,4 +11,8 @@
 .button {
   min-width: 100px;
   margin: 15px;
+  &.cancel {
+    color: initial;
+    background-color: #F1F0F5;
+  }
 }

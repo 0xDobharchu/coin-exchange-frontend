@@ -25,6 +25,14 @@ class OrderInfo extends Component {
     };
   }
 
+  static getDerivedStateFromProps(nextProps, nextState) {
+    const state = {};
+    if (nextState?.orderInfo !== nextProps?.orderInfo) {
+      state.orderInfo = nextProps.orderInfo || {};
+    }
+    return state;
+  }
+
   refreshPrice = () => {
     const { getQuote } = this.props;
     const { orderInfo: { amount, currency, fiatCurrency } } = this.state;
@@ -46,7 +54,6 @@ class OrderInfo extends Component {
       });
     });
   }
-
 
   prepareToOrder = async () => {
     try {
@@ -149,12 +156,9 @@ class OrderInfo extends Component {
   }
 
   render() {
-    const { generatedAddress } = this.props;
-    if (!generatedAddress) {
-      return null;
-    }
+    const { generatedAddress, className } = this.props;
     return (
-      <Container className={styles.container}>
+      <Container className={cx(styles.container, className)}>
         <Row>
           <Card border="secondary" className={styles.card}>
             <Card.Header><LabelLang id={getIntlKey('cardName')} /></Card.Header>
@@ -201,12 +205,15 @@ const mapDispatchToProps = {
 
 OrderInfo.defaultProps = {
   onMakeOrder: null,
+  className: '',
+  generatedAddress: null
 };
 
 OrderInfo.propTypes = {
   showAlert: PropTypes.func.isRequired,
-  generatedAddress: PropTypes.string.isRequired,
+  generatedAddress: PropTypes.string,
   onMakeOrder: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export default connect(null, mapDispatchToProps)(OrderInfo);
