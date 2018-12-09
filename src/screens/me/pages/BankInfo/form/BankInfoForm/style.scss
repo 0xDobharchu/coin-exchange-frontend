@@ -19,6 +19,12 @@
       flex-direction: row;
     }
   }
+  .rowTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 16px;
+  }
   .btnDelete {
     background: #8c1828;
     font-size: 11px;
