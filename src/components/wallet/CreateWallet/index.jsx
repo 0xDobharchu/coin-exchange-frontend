@@ -12,7 +12,7 @@ import Button from 'src/components/core/controls/Button';
 import Input from 'src/components/core/controls/input';
 import Dropdown from 'src/components/core/controls/Dropdown';
 import { MasterWallet } from 'src/services/Wallets/MasterWallet';
-import { showLoading, hideLoading, showAlert } from 'src/screens/app/redux/action';
+import { showLoading, hideLoading, showAlert, showRequirePassword } from 'src/screens/app/redux/action';
 import { connect } from 'react-redux';
 
 class CreateWallet extends React.Component {
@@ -23,6 +23,7 @@ class CreateWallet extends React.Component {
             countCheckCoinToCreate: 0,
             erroValueBackup: false,
             isRestoreLoading: false,
+            input12PhraseValue: '',
         }
     }
     componentDidMount() {
@@ -42,31 +43,36 @@ class CreateWallet extends React.Component {
 
         this.setState({ erroValueBackup: false, listCoinTempToCreate: listCoinTemp, countCheckCoinToCreate });
     }
-    createNewWallets = () => {        
-        this.setState({ isRestoreLoading: true, erroValueBackup: false });
-        const listCoinTemp = this.state.listCoinTempToCreate;
+    createNewWallets = () => {
 
-        const phrase = this.state.input12PhraseValue.trim();
+        this.props.showRequirePassword({
 
-        // todo: popup request password:
-        let password = '12345678';
-        const newWallet = MasterWallet.createNewWallet(listCoinTemp, phrase, password);
+            onFinish: (userPassword) => {
 
-        if (newWallet == false) {
-            this.setState({ isRestoreLoading: false, erroValueBackup: true });
+                this.setState({ isRestoreLoading: true, erroValueBackup: false });
+                const listCoinTemp = this.state.listCoinTempToCreate;
 
-            if (phrase != '') {
-                this.showError('wallet.action.create.error.recovery_words_invalid')
+                const phrase = this.state.input12PhraseValue.toString().trim();
+
+                const newWallet = MasterWallet.createNewWallet(listCoinTemp, phrase, userPassword);
+
+                if (newWallet == false) {
+                    this.setState({ isRestoreLoading: false, erroValueBackup: true });
+
+                    if (phrase != '') {
+                        this.showError('wallet.action.create.error.recovery_words_invalid')
+                    }
+                    else {
+                        this.showError('wallet.action.create.error.random');
+                    }
+                } else {
+
+                    if (this.props.onFinish) {
+                        this.props.onFinish(newWallet, phrase);
+                    }
+                }
             }
-            else {
-                this.showError('wallet.action.create.error.random');
-            }
-        } else {
-
-            if (this.props.onFinish){
-                this.props.onFinish(newWallet, phrase);
-            }
-        }
+        });
     }
     update12PhraseValue = (evt) => {
         this.setState({
@@ -93,10 +99,10 @@ class CreateWallet extends React.Component {
     render() {
         const { messages } = this.props.intl;
 
-        const invalidInput = this.state.walletKeyDefaultToCreate == 2 && this.state.input12PhraseValue.trim().split(/\s+/g).length != 12;
+        const invalidInput = this.state.walletKeyDefaultToCreate == 2 && this.state.input12PhraseValue.toString().trim().split(/\s+/g).length != 12;
 
         const invalidSelectedCoin = this.state.countCheckCoinToCreate == 0
-        
+
         return (
             <div className={styles['wallet-box-add-new']}>
                 <Row className={styles.list}>
@@ -127,7 +133,7 @@ class CreateWallet extends React.Component {
                             placeholder={messages['wallet.action.create.placeholder.phrase']}
                             required
                             value={this.state.input12PhraseValue}
-                            className={ (this.state.erroValueBackup || invalidInput) ?  styles['input-phrase-error'] : styles['input-phrase']}
+                            className={(this.state.erroValueBackup || invalidInput) ? styles['input-phrase-error'] : styles['input-phrase']}
                             onChange={evt => this.update12PhraseValue(evt)}
                         />
                         : ''
@@ -138,7 +144,7 @@ class CreateWallet extends React.Component {
                 <Button block isLoading={this.state.isRestoreLoading} disabled={invalidInput || invalidSelectedCoin} className={"button " + styles.buttonWallet} cssType="primary" onClick={() => { this.createNewWallets(); }} >
                     {messages['wallet.action.create.button.create']}
                 </Button>
-                
+
             </div>
         )
     }
@@ -147,10 +153,11 @@ const mapState = (state) => ({
 
 });
 
-const mapDispatch = ({    
+const mapDispatch = ({
     showAlert,
     showLoading,
-    hideLoading,    
+    hideLoading,
+    showRequirePassword,
 });
 
 export default injectIntl(connect(mapState, mapDispatch)(CreateWallet));

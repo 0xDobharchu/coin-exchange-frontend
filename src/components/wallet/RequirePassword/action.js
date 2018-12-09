@@ -10,9 +10,8 @@ export const vefiryPassword = (password) => (dispatch) => {
         data: { password }
     }, dispatch);
 
-    return makeVefiryPassword().then((res) => {
-        console.log(res);
-        return res === "true"   
+    return makeVefiryPassword().then((res) => {        
+        return res === true
     }, (err) => {
         console.log(err);
         return false;

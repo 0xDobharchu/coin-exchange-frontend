@@ -512,8 +512,7 @@ class Wallet extends React.Component {
         });
     }
 
-    onWarningClick = (wallet) => {
-
+    onWarningClick = (wallet) => {        
         // todo: decryp wallet:  
         if (this.state.userPassword === '') {
             this.props.showRequirePassword({
@@ -823,7 +822,7 @@ class Wallet extends React.Component {
                 </Row>
                 <Row className={styles.list}>
                     {this.state.listMainWalletBalance.length > 0 ?
-                        <SortableComponent onSortableSuccess={items => this.onSortableCoinSuccess(items)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} isSortable={this.state.listSortable.coin} items={this.state.listMainWalletBalance} />
+                        <SortableComponent onWarningClick={item => this.onWarningClick(item)} onSortableSuccess={items => this.onSortableCoinSuccess(items)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} isSortable={this.state.listSortable.coin} items={this.state.listMainWalletBalance} />
                         : ''}
                 </Row>
             </Row>
@@ -841,7 +840,7 @@ class Wallet extends React.Component {
                 {!process.env.isProduction &&
                     <Row className={styles.list}>
                         {this.state.listTestWalletBalance.length > 0 ?
-                            <SortableComponent onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} items={this.state.listTestWalletBalance} />
+                            <SortableComponent onWarningClick={item => this.onWarningClick(item)}  onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} items={this.state.listTestWalletBalance} />
                             : ''}
                     </Row>
                 }
