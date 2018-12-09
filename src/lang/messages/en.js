@@ -79,6 +79,13 @@ export default {
         status: 'Status',
         date: 'Date'
       },
+      referralEarningTitle: 'Referral Earning',
+      referralEarning: {
+        from: 'From',
+        type: 'Type',
+        value: 'Value',
+        date: 'Date'
+      },
       alert: {
         passwordSuccess: 'Update Password Success',
         passwordFailed: 'Update Password Failed',
