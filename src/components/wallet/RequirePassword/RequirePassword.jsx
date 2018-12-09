@@ -54,13 +54,12 @@ class RequirePassword extends React.Component {
   onVerifyPasswordClick = () => {
     
     this.setState({isLoading: true})
-    this.props.verifyPassword(this.state.password).then((result) => {
-
-      if (result !== false) {
+    this.props.verifyPassword(this.state.password).then((result) => {      
+      if (result === true) {
         this.onFinish();
       }
       else {
-        this.setState({password: '', isFail: true});                
+        this.setState({password: '', isFail: true});
       }
 
     }).finally(() => {
