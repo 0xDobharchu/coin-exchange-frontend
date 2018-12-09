@@ -15,7 +15,7 @@
         font-size: 16px;
         font-weight: 400;
         text-decoration: none;
-        transition: all 0.2s;
+        transition: all 0.2s linear;
       }
       .active {
         color: $primary-extra-bold;
@@ -31,7 +31,7 @@
       flex-direction: row;
       flex-wrap: wrap;
       padding: 6px;
-      background: $primary-medium;
+      background: #FFFFFF;
 
       a {
         min-width: 32%;
@@ -44,6 +44,7 @@
         text-decoration: none;
         transition: all 0.2s;
         color: $primary-medium;
+        font-weight: 400;
       }
       .active {
         background: $primary-extra-bold;

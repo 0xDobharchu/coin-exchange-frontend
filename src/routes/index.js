@@ -80,6 +80,12 @@ const routes = [
     auth: true,
     routes: [
       {
+        path: URL.ME,
+        component: AccountInfo,
+        exact: true,
+        auth: true,
+      },
+      {
         path: URL.ME_PROFILE,
         component: AccountInfo,
         exact: true,
