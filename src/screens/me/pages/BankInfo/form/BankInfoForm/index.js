@@ -29,10 +29,10 @@ class BankInfoForm extends React.Component {
     const { isEditMode } = this.state;
     return (
       <form className={style.container}>
-        <Row className={style.row}>
-          <Col md={11}><label className={style.title}><LabelLang id="me.bankInfo.title" /></label></Col>
+        <Row className={style.rowTitle}>
+          <label className={style.title}><LabelLang id="me.bankInfo.title" /></label>
           {!isEditMode && (
-          <Col md={1} className={style.dropdown}>
+          <div className={style.dropdown}>
             <img src={optionSvg} alt="options" />
             <div className={style.dropdownContent}>
               <div className={style.items}>
@@ -40,7 +40,7 @@ class BankInfoForm extends React.Component {
                 <button type="button" className={style.btnDelete} onClick={onDelete}><LabelLang id="app.common.delete" /></button>
               </div>
             </div>
-          </Col>)}
+          </div>)}
         </Row>
         <div className={style.lineTitle} />
         <br />

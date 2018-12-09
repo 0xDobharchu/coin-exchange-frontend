@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
-// import loading from 'src/assets/images/icon/loading.svg.raw';
+import { BeatLoader } from 'react-spinners';
+import Loader from 'src/components/loading';
 // style
 import './Button.scss';
 
@@ -98,12 +99,12 @@ class Button extends React.PureComponent {
   }
 
   loading() {
-    // if (this.props.isLoading) {
-    //   return <span dangerouslySetInnerHTML={{ __html: loading }} />;
-    // }
-    // if (this.props.app.isCalling && !this.getImmunity()) {
-    //   return <span dangerouslySetInnerHTML={{ __html: loading }} />;
-    // }
+    if (this.props.isLoading) {
+      return <Loader as={BeatLoader} size={15} margin="8px" color="#fff" />;
+    }
+    if (this.props.app.isCalling && !this.getImmunity()) {
+      return <Loader as={BeatLoader} size={15} color="#fff" margin="8px" />;
+    }
     return null;
   }
 
@@ -155,7 +156,8 @@ class Button extends React.PureComponent {
         }}
       >
         {this.loading()}
-        {children}
+
+        { !isLoading ? children : ''}
       </Tag>
     );
   }

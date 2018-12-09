@@ -47,7 +47,7 @@ class WalletItem extends React.Component {
   }
 
   render(){
-      const {wallet, onAddressClick, isSortable, onItemClick} =  this.props;
+      const {wallet, onAddressClick, isSortable, onItemClick, onWarningClick} =  this.props;
       const { messages } = this.props.intl;      
       let logo = require("src/assets/images/wallet/icons/coins/" + wallet.icon);
       try{ logo = require("src/assets/images/wallet/icons/coins/" + wallet.getCoinLogo());} catch (e){};
@@ -55,7 +55,7 @@ class WalletItem extends React.Component {
       return  (
 
         <div className={style.itemWallet}>          
-              {!wallet.protected && <img className={style.safe} src={needBackup} /> }
+              {!wallet.protected && <img onClick={onWarningClick} className={style.safe} src={needBackup} /> }
               <img onClick={onItemClick} className={style.coinLogo} src={logo}/>
               <div className={style.itemCenter} onClick={onItemClick}>
                 <div className={style.name}>
