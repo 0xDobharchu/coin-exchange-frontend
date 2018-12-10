@@ -9,7 +9,7 @@ import { getColorByLevel, getStatusByLevel } from '../util';
 
 
 // eslint-disable-next-line
-const EmailBlock = ({ style, showAlert, email, level, levelStatus }) => {
+const EmailBlock = ({ style, msg, showAlert, email, level, levelStatus }) => {
   const handleVerifyEmail = (values) => {
     console.log('submit email values is', values);
     sendEmailVerify().then(r => {
@@ -20,17 +20,6 @@ const EmailBlock = ({ style, showAlert, email, level, levelStatus }) => {
         type: 'success'
       });
     });
-    // const { email: emailForm } = values;
-    // if (emailForm) {
-    //   if (valid.email(emailForm)) {
-    //     console.log('email is invalid');
-    //     showAlert({
-    //       message: <MyMessage id="me.profile.verify.alert.notValid.client.email" />,
-    //       timeOut: 3000,
-    //       type: 'danger'
-    //     });
-    //   }
-    // }
   };
 
   return (
@@ -44,7 +33,7 @@ const EmailBlock = ({ style, showAlert, email, level, levelStatus }) => {
         </div>
       </div>
       <div className={style.content}>
-        <p className={style.text}><LabelLang id="me.accountLevel.wrm1" /></p>
+        <p className={style.text}><LabelLang id="me.accountLevel.wrm1" values={msg} /></p>
       </div>
       <EmailForm onSubmit={handleVerifyEmail} />
     </div>
