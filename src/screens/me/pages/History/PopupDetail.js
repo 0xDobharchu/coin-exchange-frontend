@@ -5,6 +5,7 @@ import { Modal, Button, Row } from 'react-bootstrap';
 import ConfirmDialog from 'src/components/confirmDialog';
 import style from './popup.scss';
 
+const getBtcTransaction = hash => `https://www.blockchain.com/btc/tx/${hash}`;
 const transformString = str =>  str ? (str.substring(0, 7) + '...'+ str.substring(str.length-5, str.length)) : '';
 const colorSchema = {
   warning: ['pending', 'processing', 'fiat_transferring', 'transferring'],
@@ -51,7 +52,7 @@ class PopupDetail extends React.Component {
     const { data :{ created_at, direction, amount, currency, status, fiat_local_amount, fiat_local_currency, tx_hash, ref_code } } = this.props;
     const eth = new Ethereum();
     eth.network = Ethereum.Network.Mainnet;
-    const linkHash = eth.getAPIUrlTransaction(tx_hash);
+    const linkHash = currency === 'ETH' ? eth.getAPIUrlTransaction(tx_hash) : getBtcTransaction(tx_hash);
     return (
       <Modal
         {...this.props}
