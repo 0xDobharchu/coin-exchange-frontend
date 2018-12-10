@@ -10,20 +10,25 @@
       display: flex;
       flex-direction: column;
       a {
-        color: $black-medium;
+        color: $primary-extra-bold;
         margin: 15px 0px;
         font-size: 16px;
         font-weight: 400;
         text-decoration: none;
-        transition: all 0.2s linear;
+        // transition: all 0.2s linear;
+        max-width: 150px;
+        padding: 5px 10px;
       }
       .active {
-        color: $primary-extra-bold;
-        font-weight: 600;
-        &::before {
-          content: '― ';
-          color: $primary-medium;
-        }
+        color: #FFFFFF;
+        font-weight: 400;
+        border-radius: 5px;
+        background: $primary-extra-bold;
+        box-shadow: 0 5px 29px -7px #000000;
+        // &::before {
+        //   content: '― ';
+        //   color: $primary-medium;
+        // }
       }
     }
     @media screen and (max-width: 768px){
