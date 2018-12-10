@@ -365,3 +365,22 @@ export const cancelTransaction = async (id) => {
     throw err;
   }
 };
+
+export const getAccountLevelByCurrency = async (currency) => {
+  try {
+    const options = {
+      url : `/system/currency-level-limits/?currency=${currency}`,
+      method: 'GET',
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {
+        Authorization: 'Bearer ' + currentUser.getToken()
+      };
+    } 
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR cancelTransaction', err);
+    throw err;
+  }
+};

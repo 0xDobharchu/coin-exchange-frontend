@@ -23,7 +23,6 @@ class GeneralSettingForm extends React.Component {
   }
 
   render() {
-    console.log('RENDER GeneralSettingForm', this.props);
     // eslint-disable-next-line
     const { handleSubmit, onSubmit } = this.props;
     const { languages } = this.state;
