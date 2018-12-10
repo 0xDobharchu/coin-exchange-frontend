@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import { getProfileAction }from 'src/screens/auth/redux/action';
 import { Container } from 'react-bootstrap';
 import Loading from 'src/components/loading';
-import detectWindow from 'src/screens/app/components/Layout/styles.scss';
 import style from './style.scss';
-// import TabNavigation from './navigation/TabNavigation';
-import SideBarNavigation from './navigation/SideBarNavigation';
+import Navigation from './navigation';
 
 class Me extends React.PureComponent {
   state = {
@@ -24,10 +22,8 @@ class Me extends React.PureComponent {
       </div>);
     return (
       <div className={style.me}>
-        <Container>
-          <div className={detectWindow.desktop} style={{ height: '100%' }}>
-            <SideBarNavigation {...this.props} />
-          </div>
+        <Container className={style.container}>
+          <Navigation {...this.props} />
         </Container>
       </div>
     );

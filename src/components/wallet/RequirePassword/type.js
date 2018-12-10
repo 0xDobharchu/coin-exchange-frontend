@@ -1,0 +1,2 @@
+const TAG = 'SCREENS/WALLET';
+export const VERYFY_PASSWORD = `${TAG}/VERYFY_PASSWORD`;
