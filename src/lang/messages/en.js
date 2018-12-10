@@ -844,7 +844,8 @@ export default {
         currency: 'Currency',
         buy: 'buy',
         sell: 'sell',
-        exchangeFailed: 'Failed while exchanging, please try again'
+        exchangeFailed: 'Failed while exchanging, please try again',
+        minAmount: '{currency} amount must be greater than {amount}'
       },
       phoneVerify: {
         submitPhoneSuccessMsg: 'We sent a code to your phone successfully',

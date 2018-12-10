@@ -3,9 +3,9 @@ import { API_URL } from 'src/resources/constants/url';
 import CoinModel from 'src/models/coin';
 import { GET_QUOTE } from './type';
 
-export const getQuote = params => dispatch => {
+export const getQuote = ({ params, withAuth = false }) => dispatch => {
   const req = makeRequest({
-    withAuth: false,
+    withAuth,
     type: GET_QUOTE,
     url: API_URL.COIN.GET_QUOTE,
     params
@@ -16,9 +16,9 @@ export const getQuote = params => dispatch => {
   });
 };
 
-export const getQuoteReverse = params => dispatch => {
+export const getQuoteReverse = ({ params, withAuth = false }) => dispatch => {
   const req = makeRequest({
-    withAuth: false,
+    withAuth,
     type: GET_QUOTE,
     url: API_URL.COIN.GET_QUOTE_REVERSE,
     params

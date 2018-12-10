@@ -41,10 +41,10 @@
     outline: none!important;
     cursor: pointer;
     &:disabled {
-      // color: $black-light;
-      // background-color: #F1F0F5;
-      background-color: $primary-hover;
-      border-color: $primary-hover;
+      color: $steel;
+      background-color: $athens-gray;
+      // background-color: $primary-hover;
+      // border-color: $primary-hover;
       cursor: not-allowed;
     }
   }
