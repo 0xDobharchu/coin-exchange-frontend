@@ -132,8 +132,23 @@ export class MasterWallet {
     return masterWallet;
   }
 
-  static updateNewPassword(oldPassword, newPassword){
-
+  static updateNewPassword(oldPassword, newPassword, wallets){
+    let newListWallet = [];
+    wallets.forEach((wallet) => {      
+      if (wallet != false) {
+        // descryp with oldPassword 
+        let newWallet = wallet.descryp(oldPassword);
+        // enscryp with newPassword:
+        if (newWallet !== false){
+          newWallet.enscrypt(newPassword);
+          newListWallet.push(newWallet);
+        }
+        else{
+          console.log("can not decryp wallet: ", wallet.address);
+        }                
+      }
+    });
+    return newListWallet;
   }
 
   // return list coin temp for create/import:
@@ -249,6 +264,21 @@ export class MasterWallet {
       if (e !== BreakException) throw e;
     }
     return false;
+  }  
+
+  static convertToListObject(walletListJson){
+    if (walletListJson) {
+      let wallets = JSON.parse(walletListJson);
+      let listWallet = [];
+      wallets.forEach((walletJson) => {
+        const wallet = MasterWallet.convertObject(walletJson);
+        if (wallet != false) {
+          listWallet.push(wallet);
+        }
+      });
+      return listWallet;
+    }
+    else return [];
   }
 
   static convertObject(walletJson) {
