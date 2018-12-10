@@ -130,9 +130,11 @@ class Exchange extends Component {
     try {
       const { direction, getQuote, orderType } = this.props;
       const { currency, fiatCurrency, isAuth, amount } = this.state;
-      if (!amount) return;
+      if (!amount) {
+        return this.resetExchangeData();
+      }
       this.setExchangeStatus(true);
-      const exchangeData = await getQuote({
+      const exchangeData = await getQuote({params: {
         amount,
         currency,
         fiat_currency: fiatCurrency,
@@ -140,7 +142,7 @@ class Exchange extends Component {
         user_check: isAuth ? 1 : 0,
         direction,
         order_type: orderType
-      });
+      }, withAuth: isAuth });
       const fiatAmount = this.getFiatAmount(exchangeData);
       this.setState({
         exchangeData,
@@ -160,9 +162,11 @@ class Exchange extends Component {
       const { fiatAmount } = this.state;
       const { direction, orderType, getQuoteReverse } = this.props;
       const { currency, fiatCurrency, isAuth } = this.state;
-      if (!fiatAmount) return;
+      if (!fiatAmount) {
+        return this.resetExchangeData();
+      }
       this.setExchangeStatus(true);
-      const exchangeData = await getQuoteReverse({
+      const exchangeData = await getQuoteReverse({ params: {
         fiat_amount: fiatAmount,
         currency,
         fiat_currency: fiatCurrency,
@@ -170,7 +174,7 @@ class Exchange extends Component {
         user_check: isAuth ? 1 : 0,
         direction,
         order_type: orderType
-      });
+      }, withAuth: isAuth });
       this.setState({
         exchangeData,
         amount: exchangeData?.amount || 0
