@@ -33,7 +33,7 @@ const CodFieldSet = (props) => {
         name="noteAndTime"
         component={inputField}
         containerClassName={styles.codItem}
-        validate={show ? required : []}
+        // validate={show ? required : []}
       />
     </div>
   );

@@ -261,7 +261,7 @@ class SellCryptoCoin extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
   let bankInfo = state?.auth?.profile?.payment_info || {};
   const bankValues = Object.values(bankInfo);
   const bankName = formSelector(state, 'bankName');
@@ -275,7 +275,7 @@ const mapStateToProps = (state) => {
     exchange: formSelector(state, 'exchange'),
     userAddress: formSelector(state, 'address'),
     userPhone: formSelector(state, 'phone'),
-    userNote: formSelector(state, 'noteAndTime'),
+    userNote: formSelector(state, 'noteAndTime') || props.intl?.formatMessage({ id: 'coin.buy.userNote' }),
     bankName: bankInfo?.bankName || bankName?.isValid ? bankName?.value : '',
     bankAccountNumber: bankInfo?.bankAccountNumber || formSelector(state, 'bankAccountNumber'),
     bankAccountName: bankInfo?.bankAccountName || formSelector(state, 'bankAccountName'),

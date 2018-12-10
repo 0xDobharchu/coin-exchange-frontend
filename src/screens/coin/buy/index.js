@@ -171,14 +171,14 @@ class BuyCryptoCoin extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
   return {
     paymentMethod: formSelector(state, 'paymentMethod'),
     exchange: formSelector(state, 'exchange'),
     wallet: formSelector(state, 'wallet'),
     userAddress: formSelector(state, 'address'),
     userPhone: formSelector(state, 'phone'),
-    userNote: formSelector(state, 'noteAndTime'),
+    userNote: formSelector(state, 'noteAndTime') || props.intl?.formatMessage({ id: 'coin.buy.userNote' }),
     supportedCurrency: state?.app?.supportedCurrency || [],
     isFormValid: isValid(buyFormName)(state)
   };
