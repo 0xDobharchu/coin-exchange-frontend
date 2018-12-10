@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import { Field, formValueSelector } from 'redux-form';
+import { Field, formValueSelector, isValid } from 'redux-form';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import createForm from 'src/components/core/form/createForm';
@@ -51,7 +51,9 @@ class SellCryptoCoin extends React.Component {
 
   isValidToSubmit = () => {
     const { isAuth, verifiedPhone } = this.state;
+    const { isFormValid } = this.props;
     if (!isAuth) return false;
+    if (!isFormValid) return false;
     
     const {
       exchange: { amount, fiatAmount },
@@ -268,6 +270,7 @@ const mapStateToProps = (state) => {
   }
 
   return {
+    isFormValid: isValid(sellFormName)(state),
     paymentMethod: formSelector(state, 'paymentMethod'),
     exchange: formSelector(state, 'exchange'),
     userAddress: formSelector(state, 'address'),
@@ -300,7 +303,8 @@ SellCryptoCoin.defaultProps = {
   userAddress: {},
   userNote: '',
   userPhone: '',
-  bankInfo: null
+  bankInfo: null,
+  isFormValid: false,
 };
 
 SellCryptoCoin.propTypes = {
@@ -319,6 +323,7 @@ SellCryptoCoin.propTypes = {
   userAddress: PropTypes.object,
   userNote: PropTypes.string,
   userPhone: PropTypes.string,
+  isFormValid: PropTypes.bool,
 };
 
 export default withRouter(injectIntl(connect(mapStateToProps, mapDispatchToProps)(SellCryptoCoin)));
