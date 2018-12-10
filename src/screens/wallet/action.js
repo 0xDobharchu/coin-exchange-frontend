@@ -48,15 +48,7 @@ export const updateWallet = (oldPassword, newPassword) => {
   const getWallet = makeRequest({
     type: WALLET,
     url: API_URL.USER.USER_WALLET,
-  });
-
-  // set wallet
-  const setWallet = (wallets) => makeRequest({
-    type: WALLET,
-    url: API_URL.USER.USER_WALLET,
-    method: 'PUT',
-    data: { wallet: JSON.stringify(masterWallet) }
-  });
+  });    
 
   return getWallet().then((res) => {
     if (res.wallet) {
@@ -64,13 +56,12 @@ export const updateWallet = (oldPassword, newPassword) => {
       if (wallets.length > 0){
         let newWallets = MasterWallet.updateNewPassword(oldPassword, newPassword, wallets);
         if (newWallets.length > 0){
-
-          return setWallet(newWallets).then(() => {
-            return true;
-          }, (err) => {
-            console.log(err);            
-            return false;
-          });
+          return makeRequest({
+            type: WALLET,
+            url: API_URL.USER.USER_WALLET,
+            method: 'PUT',
+            data: { wallet: JSON.stringify(newWallets) }
+          });          
         }
       }      
     }    
