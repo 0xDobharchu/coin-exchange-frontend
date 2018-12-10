@@ -93,15 +93,14 @@
       margin: 20px 0px;
       .tab-content {
         height: 100%;
-        transition: opacity 0.3s, max-height 0.3s;
+        transition: opacity 0.3s;
         &.active {
-          max-height: 800px;
           opacity: 1;
+          display: block;
         }
         &.hidden {
-          max-height: 0px;
-          overflow: hidden;
           opacity: 0;
+          display: none;
         }
       }
     }

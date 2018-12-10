@@ -36,14 +36,14 @@ class OrderInfo extends Component {
   refreshPrice = () => {
     const { getQuote } = this.props;
     const { orderInfo: { amount, currency, fiatCurrency } } = this.state;
-    getQuote({
+    getQuote({params: {
       amount,
       currency,
       fiat_currency: fiatCurrency,
       check: 0,
       user_check: 0,
       direction: EXCHANGE_DIRECTION.sell,
-    }).then(info => {
+    }}).then(info => {
       this.setState({
         orderInfo: {
           amount: info?.amount,
