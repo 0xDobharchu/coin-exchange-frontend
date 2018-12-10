@@ -9,6 +9,7 @@ import { LabelLang, FieldLang } from 'src/lang/components';
 import dropdownField from 'src/components/core/form/fields/dropdown';
 import { FileUploadField } from 'src/components/fileUploader';
 import { DOC_TYPES, getReachingLevel } from '../util';
+import style from './styles.scss';
 
 const required = isRequired();
 
@@ -33,7 +34,7 @@ class IDVerificationForm extends React.Component {
     const { initialValues, level, levelStatus, handleSubmit, onSubmit } = this.props;
     const { isPassport } = this.state;
     return (
-      <div>
+      <div className={style.container}>
         <Row>
           <div className="col-12">
             <p className="text label">
@@ -71,7 +72,7 @@ class IDVerificationForm extends React.Component {
             />
           </div>
           <div className="col-12">
-            <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
+            <p className="text label" style={{ marginTop: '20px' }}>
               <LabelLang id="me.accountLevel.backPhoto" />
             </p>
             {(!initialValues.back_image || this.isRejected()) && (
@@ -81,7 +82,7 @@ class IDVerificationForm extends React.Component {
           </div>
           {!isPassport && (
           <div className="col-12">
-            <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
+            <p className="text label" style={{ marginTop: '20px' }}>
               <LabelLang id="me.accountLevel.frontPhoto" />
             </p>
             {(!initialValues.front_image || this.isRejected()) && (
