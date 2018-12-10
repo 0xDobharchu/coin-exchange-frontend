@@ -16,8 +16,8 @@ export const CRYPTO_CURRENCY_FULLNAME = {
 export const CRYPTO_CURRENCY_LIST = Object.values(CRYPTO_CURRENCY).map(item => ({ value: item, text: CRYPTO_CURRENCY_NAME[item] }));
 
 export const MIN_AMOUNT = {
-  [CRYPTO_CURRENCY.ETH]: 0.01,
-  [CRYPTO_CURRENCY.BTC]: 0.001,
+  [CRYPTO_CURRENCY.ETH]: 0.1,
+  [CRYPTO_CURRENCY.BTC]: 0.01,
 };
 
 export const DEFAULT_CURRENCY = CRYPTO_CURRENCY.ETH;
