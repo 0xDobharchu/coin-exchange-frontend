@@ -7,6 +7,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import style from './style.scss';
 import SocialBox from './socialBox';
 import ReferralList from './ReferralList';
+import ReferralEarningList from './ReferralEarningList';
 
 // eslint-disable-next-line
 const Referral = ({ name, showAlert }) => {
@@ -41,6 +42,10 @@ const Referral = ({ name, showAlert }) => {
         
       </div>
       <ReferralList />
+
+      <label className={style.title}><LabelLang id="me.accountInfo.referralEarningTitle" /></label>
+      <div className={style.lineTitle} />
+      <ReferralEarningList />
     </div>
   );
 };

@@ -41,7 +41,7 @@ class IDCardBlock extends React.PureComponent {
 
   render() {
     // eslint-disable-next-line
-    const { style, verified, level, levelStatus } = this.props;
+    const { style, msg, verified, level, levelStatus } = this.props;
     const currentLevel = getCurrentLevel(level, levelStatus);
 
     return (
@@ -51,11 +51,11 @@ class IDCardBlock extends React.PureComponent {
             <LabelLang id="me.accountLevel.step3" />
           </p>
           <div className={style.extend}>
-            <span className={`badge badge-${getColorByLevel(4, level, levelStatus)}`}>{getStatusByLevel(4, level, levelStatus)}</span>
+            <span className={`badge badge-${getColorByLevel(3, level, levelStatus)}`}>{getStatusByLevel(3, level, levelStatus)}</span>
           </div>
         </div>
         <div className={style.content}>
-          <p className={style.text}><LabelLang id="me.accountLevel.wrm3" /></p>
+          <p className={style.text}><LabelLang id="me.accountLevel.wrm3" values={msg} /></p>
         </div>
         {2 <= currentLevel && <IDVerificationForm onSubmit={this.handleSubmitForm} />}
       </div>

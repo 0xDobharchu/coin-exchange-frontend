@@ -4,7 +4,7 @@ import { getProfileAction }from 'src/screens/auth/redux/action';
 import { Container } from 'react-bootstrap';
 import Loading from 'src/components/loading';
 import style from './style.scss';
-import SideBarNavigation from './navigation/SideBarNavigation';
+import Navigation from './navigation';
 
 class Me extends React.PureComponent {
   state = {
@@ -23,7 +23,7 @@ class Me extends React.PureComponent {
     return (
       <div className={style.me}>
         <Container className={style.container}>
-          <SideBarNavigation {...this.props} />
+          <Navigation {...this.props} />
         </Container>
       </div>
     );

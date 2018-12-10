@@ -5,38 +5,13 @@ import { updatePhoneNumberAction, submitPhoneCodeAction } from 'src/screens/auth
 import { LabelLang } from 'src/lang/components';
 // import valid from 'src/services/validate';
 import PhoneForm from './PhoneForm';
-import {getCurrentLevel} from '../util';
-
-const getStatusColor = (level, status) => {
-  if (level === 'level_3') return 'success';
-  const statusObj = [
-    { label: 'pending', value: 'warning' },
-    { label: 'approved', value: 'success' },
-  ].find(e => e.label === status) || null;
-  return statusObj ? statusObj.value : 'danger';
-};
-const getLevelStatus = (level, status) => {
-  if (level === 'level_3') return 'VERIFIED';
-  if (level === 'level_2') {
-    if (status == 'approved') return 'VERIFIED';
-    else return status.toUpperCase();
-  }
-  return '';
-};
+import { getColorByLevel, getCurrentLevel, getStatusByLevel } from '../util';
 
 // eslint-disable-next-line
-const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, updatePhoneNumberAction, submitPhoneCodeAction }) => {
+const PhoneBlock = ({ style, msg, showAlert, phone_number, level, levelStatus, updatePhoneNumberAction, submitPhoneCodeAction }) => {
   const handleVerifyPhone = (values) => {
 
     const { phone: phoneNumberValue, code } = values;
-    // if (!phoneNumberValue || valid.phone(phoneNumberValue)) {
-    //   showAlert({
-    //     message: 'me.accountLevel.alert.invalidPhone',
-    //     timeOut: 3000,
-    //     type: 'danger'
-    //   });
-    //   return;
-    // }
     if (!code) {
       updatePhoneNumberAction(phoneNumberValue).then(()=>{
         showAlert({
@@ -95,11 +70,11 @@ const PhoneBlock = ({ style, showAlert, phone_number, level, levelStatus, update
           <LabelLang id="me.accountLevel.step2" />
         </p>
         <div className={style.extend}>
-          <span className={`badge badge-${getStatusColor(level, levelStatus)}`}>{getLevelStatus(level, levelStatus)}</span>
+          <span className={`badge badge-${getColorByLevel(2, level, levelStatus)}`}>{getStatusByLevel(2, level, levelStatus)}</span>
         </div>
       </div>
       <div className={style.content}>
-        <p className={style.text}><LabelLang id="me.accountLevel.wrm2" /></p>
+        <p className={style.text}><LabelLang id="me.accountLevel.wrm2" values={msg} /></p>
       </div>
       {1 <= currentLevel  && <PhoneForm onSubmit={handleVerifyPhone} />}
     </div>
