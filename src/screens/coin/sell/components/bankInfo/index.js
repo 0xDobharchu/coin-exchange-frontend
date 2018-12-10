@@ -43,7 +43,7 @@ const BankInfo = ({ bankInfo = {} }) => {
 };
 
 BankInfo.propTypes = {
-  bankInfo: PropTypes.object.isRequired
+  bankInfo: PropTypes.object.isRequired,
 };
 
 export default BankInfo;
