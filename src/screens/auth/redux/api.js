@@ -1,6 +1,7 @@
 import { API_URL } from 'src/resources/constants/url';
 import http from 'src/utils/http';
 import currentUser from 'src/utils/authentication';
+import {updateWallet} from 'src/screens/wallet/action';
 
 export const fetchProfile = async () => {
   try {
@@ -82,6 +83,10 @@ export const changePassword = async (data) => {
       options.headers = {Authorization: 'Bearer ' + currentUser.getToken() };
     }
     const res = await http(options);
+
+    // update wallet data with new password:    
+    try { updateWallet(data.old_password, data.password);} catch (err) { console.log('ERROR updateWallet', err); }
+
     return res;
   } catch (err) {
     console.log('ERROR changePassword', err);
