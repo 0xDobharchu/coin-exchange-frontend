@@ -1,5 +1,8 @@
 import http from 'src/utils/http';
 import currentUser from 'src/utils/authentication';
+import configureStore from 'src/redux/store';
+
+const store = configureStore();
 
 const DISPATCH_TYPE = {
   SUCCESS: 'SUCCESS',
@@ -24,7 +27,7 @@ export const makeRequest = (config = {}, _dispatch) => {
   return async (d) => {
     let dispatch = d;
     if (typeof d !== 'function') {
-      dispatch = _dispatch;
+      dispatch = _dispatch || store.dispatch;
     }
 
     if (typeof dispatch !== 'function') {
@@ -56,6 +59,7 @@ export const makeRequest = (config = {}, _dispatch) => {
       }
       return Promise.resolve(res);
     } catch (e) {
+      console.log('loi cmnnr', e.message);
       dispatch(makeAction({ type, data: e, more, dispatchType: DISPATCH_TYPE.ERROR }));
       if (typeof onError === 'function') {
         console.warn('Should use Promise instead of callback!');

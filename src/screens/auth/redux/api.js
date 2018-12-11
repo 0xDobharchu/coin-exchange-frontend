@@ -85,7 +85,7 @@ export const changePassword = async (data) => {
     const res = await http(options);
 
     // update wallet data with new password:    
-    try { updateWallet(data.old_password, data.password);} catch (err) { console.log('ERROR updateWallet', err); }
+    try { updateWallet(data.old_password, data.password);} catch (err) { console.log('ERROR changePassword->updateWallet', err); }
 
     return res;
   } catch (err) {
