@@ -3,39 +3,50 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { showAlert } from 'src/screens/app/redux/action';
 import { EXCHANGE_DIRECTION } from 'src/screens/coin/constant';
+import { URL } from 'src/resources/constants/url';
 import QrCode from 'qrcode.react';
 import { formatMoneyByLocale } from 'src/utils/format/curency';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import ClockCount from 'src/components/clockCount';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { getQuote } from 'src/screens/coin/components/exchange/action';
+import { withRouter } from 'react-router-dom';
 import cx from 'classnames';
+import OptionMenu from 'src/components/optionMenu';
 import { FaRegCopy } from 'react-icons/fa';
 import LabelLang from 'src/lang/components/LabelLang';
+import { isEmpty } from 'lodash';
 import styles from './styles.scss';
-import { checkAddress } from './action';
+import { checkAddress, makeOrder } from './action';
 
 const getIntlKey = (name) => `coin.components.sellOrderInfo.${name}`;
 
 class OrderInfo extends Component {
-  constructor(props) {
+  constructor() {
     super();
     this.state = {
-      orderInfo: props?.orderInfo || {},
+      exchangeData: {},
     };
   }
 
   static getDerivedStateFromProps(nextProps, nextState) {
     const state = {};
-    if (nextState?.orderInfo !== nextProps?.orderInfo) {
-      state.orderInfo = nextProps.orderInfo || {};
+    if (isEmpty(nextState.exchangeData) && nextProps.pendingOrder?.exchangeData) {
+      state.exchangeData = nextProps.pendingOrder?.exchangeData;
     }
     return state;
   }
 
+  componentDidMount() {
+    this.refreshPrice();
+  }
+
   refreshPrice = () => {
+    const { exchangeData } = this.state;
+    if (isEmpty(exchangeData)) return;
+
     const { getQuote } = this.props;
-    const { orderInfo: { amount, currency, fiatCurrency } } = this.state;
+    const { amount, currency, fiatCurrency } = exchangeData;
     getQuote({params: {
       amount,
       currency,
@@ -44,26 +55,64 @@ class OrderInfo extends Component {
       user_check: 0,
       direction: EXCHANGE_DIRECTION.sell,
     }}).then(info => {
-      this.setState({
-        orderInfo: {
-          amount: info?.amount,
-          currency: info?.currency,
-          fiatAmount: info?.fiatLocalAmount,
-          fiatCurrency: info?.fiatLocalCurrency,
-        }
+      info && this.setState({
+        exchangeData: info
       });
+    });
+  }
+
+  makeOrder = () => {
+    const { makeOrder, pendingOrder: { orderType, userInfo, orderUserPaymentType }, generatedAddress } = this.props;
+    const { exchangeData } = this.state;
+    const payload = {
+      amount: String(exchangeData?.amount),
+      currency: exchangeData?.currency,
+      fiat_local_amount: String(exchangeData?.fiatAmount),
+      fiat_local_currency: exchangeData?.fiatCurrency,
+      direction: EXCHANGE_DIRECTION.sell,
+      address: generatedAddress,
+      order_user_payment_type: orderUserPaymentType,
+      order_type: orderType,
+      user_info: userInfo && JSON.stringify(userInfo)
+    };
+
+    makeOrder(payload)
+      .then(this.orderSuccessHandler)
+      .catch(this.orderFailedHandler);
+  }
+
+  orderSuccessHandler = (/* orderInfo */) => {
+    const { showAlert, history, onFinishOrder } = this.props;
+    if (typeof onFinishOrder === 'function') {
+      onFinishOrder();
+    }
+    showAlert({
+      message: <LabelLang id={getIntlKey('orderSuccessful')} />,
+      timeOut: 1000,
+    });
+    history.push(URL.ME_HISTORY);
+  }
+
+  orderFailedHandler = () => {
+    const { showAlert } = this.props;
+    showAlert({
+      message: <LabelLang id={getIntlKey('orderFailed')} />,
+      type: 'danger',
+      timeOut: 1000,
     });
   }
 
   prepareToOrder = async () => {
     try {
-      const { checkAddress, showAlert, generatedAddress, onMakeOrder } = this.props;
-      const { orderInfo: { currency } } = this.state;
+      const { exchangeData } = this.state;
+      const { checkAddress, showAlert, generatedAddress } = this.props;
+
+      if (isEmpty(exchangeData) || !generatedAddress) return;
+
+      const { currency } = exchangeData;
       const isAddressValid = await checkAddress({ currency, address: generatedAddress });
       if (isAddressValid?.hasTransaction) {
-        if (typeof onMakeOrder === 'function') {
-          onMakeOrder();
-        }
+        this.makeOrder();
       } else {
         showAlert({
           message: <LabelLang id={getIntlKey('transferCoinFirst')} />,
@@ -91,6 +140,7 @@ class OrderInfo extends Component {
   }
 
   renderAddressWallet = (generatedAddress) => {
+    if (!generatedAddress) return null;
     return (
       <CopyToClipboard text={generatedAddress} onCopy={this.copied}>
         <div className={cx(styles.wallet, 'common-clickable')}>
@@ -105,7 +155,7 @@ class OrderInfo extends Component {
   }
 
   renderInfo = () => {
-    const { orderInfo: { fiatAmount, fiatCurrency, amount, currency } } = this.state;
+    const { exchangeData: { fiatAmount, fiatCurrency, amount, currency } } = this.state;
     const infos = [
       {
         id: 1,
@@ -128,6 +178,13 @@ class OrderInfo extends Component {
         ))}
       </Container>
     );
+  }
+
+  onCancel = () => {
+    const { onCancelOrder } = this.props;
+    if (typeof onCancelOrder === 'function') {
+      onCancelOrder();
+    }
   }
 
   renderNotes = () => {
@@ -156,12 +213,24 @@ class OrderInfo extends Component {
   }
 
   render() {
-    const { generatedAddress, className } = this.props;
+    const { generatedAddress, className, pendingOrder } = this.props;
+    if (!pendingOrder || !generatedAddress) return null;
     return (
       <Container className={cx(styles.container, className)}>
         <Row>
           <Card border="secondary" className={styles.card}>
-            <Card.Header><LabelLang id={getIntlKey('cardName')} /></Card.Header>
+            <Card.Header className="d-flex justify-content-between align-items-center">
+              <LabelLang id={getIntlKey('cardName')} />
+              <OptionMenu
+                items={[
+                  {
+                    label: <LabelLang id={getIntlKey('cancelOrder')} />,
+                    onClick: this.onCancel,
+                  }
+                ]}
+                drop='left'
+              />
+            </Card.Header>
             <Card.Body>
               <Container>
                 <Row className={styles.orderTimeout}>
@@ -178,7 +247,7 @@ class OrderInfo extends Component {
                   {this.renderInfo()}
                 </Row>
                 <Row>
-                  { generatedAddress && this.renderAddressWallet(generatedAddress) }
+                  {this.renderAddressWallet(generatedAddress)}
                 </Row>
                 <Row>
                   {this.renderNotes()}
@@ -200,20 +269,31 @@ class OrderInfo extends Component {
 const mapDispatchToProps = {
   showAlert,
   checkAddress,
-  getQuote
+  getQuote,
+  makeOrder,
 };
 
+const mapState = state => ({
+  generatedAddress: state.sellCoinReducer.generatedAddress,
+  pendingOrder: state.sellCoinReducer.pendingOrder,
+});
+
 OrderInfo.defaultProps = {
-  onMakeOrder: null,
   className: '',
-  generatedAddress: null
+  generatedAddress: null,
+  pendingOrder: null,
+  onFinishOrder: null
 };
 
 OrderInfo.propTypes = {
   showAlert: PropTypes.func.isRequired,
+  pendingOrder: PropTypes.object,
   generatedAddress: PropTypes.string,
-  onMakeOrder: PropTypes.func,
   className: PropTypes.string,
+  makeOrder: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  getQuote: PropTypes.func.isRequired,
+  onFinishOrder: PropTypes.func,
 };
 
-export default connect(null, mapDispatchToProps)(OrderInfo);
+export default withRouter(connect(mapState, mapDispatchToProps)(OrderInfo));
