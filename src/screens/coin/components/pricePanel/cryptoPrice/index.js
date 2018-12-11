@@ -8,6 +8,7 @@ import { EXCHANGE_ACTION } from 'src/resources/constants/exchange';
 import CryptoGraph from 'src/screens/coin/components/pricePanel/cryptoGraph';
 import LabelLang from 'src/lang/components/LabelLang';
 import { ORDER_TYPE } from 'src/screens/coin/constant';
+import {FIAT_CURRENCY} from 'src/resources/constants/fiat';
 import styles from './styles.scss';
 
 const getIntlKey = (name) => `coin.components.pricePanel.${name}`;
@@ -125,7 +126,7 @@ const mapDispatch = {
 
 const mapState = (state, props) => ({
   country: state.app?.userCountry,
-  currencyByLocal: state.app?.supportedCurrency[0],
+  currencyByLocal: state.auth?.profile?.currency || FIAT_CURRENCY.USD,
   sellPrice: state.screenCoinReducer.sellPrice[props?.crypto?.id],
   buyPrice: state.screenCoinReducer.buyPrice[props?.crypto?.id],
 });
