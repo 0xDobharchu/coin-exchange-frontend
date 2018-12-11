@@ -12,6 +12,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { getQuote } from 'src/screens/coin/components/exchange/action';
 import { withRouter } from 'react-router-dom';
 import cx from 'classnames';
+import OptionMenu from 'src/components/optionMenu';
 import { FaRegCopy } from 'react-icons/fa';
 import LabelLang from 'src/lang/components/LabelLang';
 import { isEmpty } from 'lodash';
@@ -179,6 +180,13 @@ class OrderInfo extends Component {
     );
   }
 
+  onCancel = () => {
+    const { onCancelOrder } = this.props;
+    if (typeof onCancelOrder === 'function') {
+      onCancelOrder();
+    }
+  }
+
   renderNotes = () => {
     const notes = {
       main_note: getIntlKey('mainNote'),
@@ -211,7 +219,19 @@ class OrderInfo extends Component {
       <Container className={cx(styles.container, className)}>
         <Row>
           <Card border="secondary" className={styles.card}>
-            <Card.Header><LabelLang id={getIntlKey('cardName')} /></Card.Header>
+            <Card.Header className="d-flex justify-content-between align-items-center">
+              <LabelLang id={getIntlKey('cardName')} />
+              <OptionMenu
+                items={[
+                  {
+                    label: <LabelLang id={getIntlKey('cancelOrder')} />,
+                    onClick: this.onCancel,
+                  }
+                ]}
+                drop='left'
+                flip
+              />
+            </Card.Header>
             <Card.Body>
               <Container>
                 <Row className={styles.orderTimeout}>
