@@ -59,6 +59,7 @@ export const makeRequest = (config = {}, _dispatch) => {
       }
       return Promise.resolve(res);
     } catch (e) {
+      console.log('loi cmnnr', e.message);
       dispatch(makeAction({ type, data: e, more, dispatchType: DISPATCH_TYPE.ERROR }));
       if (typeof onError === 'function') {
         console.warn('Should use Promise instead of callback!');
