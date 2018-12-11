@@ -1,7 +1,8 @@
 export const PAYMENT_METHOD = {
   TRANSFER: 'bank',
   COD: 'cod',
-  TNG: 'tng'
+  TNG: 'tng',
+  PAYONEER: 'payoneer'
 };
 
 export const EXCHANGE_DIRECTION = {
