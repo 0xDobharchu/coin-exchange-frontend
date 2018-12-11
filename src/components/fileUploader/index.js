@@ -2,6 +2,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import { LabelLang } from 'src/lang/components';
 import { uploadFile } from 'src/screens/auth/redux/api';
+import FileUploadFieldComp from './FileUploadField';
 import style from './fileUpload.scss';
 
 export const RECEIPT_TYPE = 'receipt';
@@ -11,6 +12,17 @@ class FileUpload extends React.Component {
   
   state = {
     url: '',
+  }
+
+  static getDerivedStateFromProps(props) {
+    console.log('getDerivedStateFromProps');
+    // if (this.props.url === props.url) return null;
+    if (props.url) {
+      return {
+        url: props.url
+      };
+    }
+    return null;
   }
 
   handleOnDrop = (files) => {
@@ -28,6 +40,7 @@ class FileUpload extends React.Component {
   }
 
   handleRemove = () => {
+    console.log('handle Remove', this.state, this.props);
     this.setState({ url : '' });
     // eslint-disable-next-line
     const { onRemove } = this.props;
@@ -39,6 +52,7 @@ class FileUpload extends React.Component {
   handleOnCancel = f => f
   
   render() {
+    console.log('File Uploader', this.state, this.props);
     const { url } = this.state;
     return (
       <div className={style.container}>
@@ -57,3 +71,5 @@ class FileUpload extends React.Component {
 }
 
 export default FileUpload;
+
+export const FileUploadField = FileUploadFieldComp;

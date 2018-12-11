@@ -1,11 +1,12 @@
 import { API_URL } from 'src/resources/constants/url';
 import http from 'src/utils/http';
 import currentUser from 'src/utils/authentication';
+import {updateWallet} from 'src/screens/wallet/action';
 
 export const fetchProfile = async () => {
   try {
     const options = {
-      url : '/user/profile/',
+      url : API_URL.ME.PROFILE,
       method: 'GET',
     };
     if(currentUser.isLogin()) {
@@ -14,7 +15,7 @@ export const fetchProfile = async () => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('ERROR GET PROFILE', err);
+    console.log('ERROR fetchProfile', err);
     return null;
   }
 };
@@ -22,7 +23,7 @@ export const fetchProfile = async () => {
 export const sendEmailVerify = async () => {
   try {
     const options = {
-      url : '/user/verify-email/',
+      url : API_URL.ME.VERIFY_EMAIL,
       method: 'POST',
     };
     if(currentUser.isLogin()) {
@@ -31,7 +32,7 @@ export const sendEmailVerify = async () => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('sendEmailVerify', err);
+    console.log('ERROR sendEmailVerify', err);
     return false;
   }
 };
@@ -39,7 +40,7 @@ export const sendEmailVerify = async () => {
 export const sendEmailVerifyCode = async (code) => {
   try {
     const options = {
-      url : `/user/verify-email/?code=${code}`,
+      url : `${API_URL.ME.VERIFY_EMAIL}?code=${code}`,
       method: 'PUT',
     };
     if(currentUser.isLogin()) {
@@ -48,7 +49,7 @@ export const sendEmailVerifyCode = async (code) => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('sendEmailVerifyCode', err);
+    console.log('ERROR sendEmailVerifyCode', err);
     return false;
   }
 };
@@ -56,7 +57,7 @@ export const sendEmailVerifyCode = async (code) => {
 export const updateProfile = async (data) => {
   try {
     const options = {
-      url : '/user/profile/',
+      url : API_URL.ME.PROFILE,
       method: 'PATCH',
       data
     };
@@ -66,7 +67,7 @@ export const updateProfile = async (data) => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('ERROR update phone number', err);
+    console.log('ERROR updateProfile', err);
     return null;
   }
 };
@@ -74,7 +75,7 @@ export const updateProfile = async (data) => {
 export const changePassword = async (data) => {
   try {
     const options = {
-      url : '/user/change-password/',
+      url : API_URL.ME.CHANGE_PASSWORD,
       method: 'POST',
       data
     };
@@ -82,9 +83,13 @@ export const changePassword = async (data) => {
       options.headers = {Authorization: 'Bearer ' + currentUser.getToken() };
     }
     const res = await http(options);
+
+    // update wallet data with new password:    
+    try { updateWallet(data.old_password, data.password);} catch (err) { console.log('ERROR changePassword->updateWallet', err); }
+
     return res;
   } catch (err) {
-    console.log('ERROR update phone number', err);
+    console.log('ERROR changePassword', err);
     throw err;
   }
 };
@@ -92,7 +97,7 @@ export const changePassword = async (data) => {
 export const getTransactions = async () => {
   try {
     const options = {
-      url : '/exchange/orders/?direction=buy',
+      url : API_URL.ME.EXCHANGE_ORDERS,
       method: 'GET'
     };
     if(currentUser.isLogin()) {
@@ -101,7 +106,7 @@ export const getTransactions = async () => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('ERROR update phone number', err);
+    console.log('ERROR getTransactions', err);
     throw err;
   }
 };
@@ -109,7 +114,7 @@ export const getTransactions = async () => {
 export const sendToGetPhoneCode = async (data) => {
   try {
     const options = {
-      url : '/user/verify-phone/',
+      url : API_URL.ME.VERIFY_PHONE,
       method: 'POST',
       data
     };
@@ -119,7 +124,7 @@ export const sendToGetPhoneCode = async (data) => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('ERROR get smscode  phone number', err);
+    console.log('ERROR sendToGetPhoneCode', err);
     throw err;
   }
 };
@@ -127,7 +132,7 @@ export const sendToGetPhoneCode = async (data) => {
 export const submitVerifyPhoneCode = async (code) => {
   try {
     const options = {
-      url : `/user/verify-phone/?code=${code}`,
+      url : `${API_URL.ME.VERIFY_PHONE}?code=${code}`,
       method: 'PUT',
     };
     if(currentUser.isLogin()) {
@@ -136,7 +141,7 @@ export const submitVerifyPhoneCode = async (code) => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('ERROR get smscode  phone number', err);
+    console.log('ERROR submitVerifyPhoneCode', err);
     throw err;
   }
 };
@@ -152,7 +157,7 @@ export const submitVerifyPhoneCode = async (code) => {
 export const submitIdCard = async (data) => {
   try {
     const options = {
-      url : 'user/verify-id/',
+      url : API_URL.ME.VERIFY_IDCARD,
       method: 'POST',
       data
     };
@@ -162,7 +167,7 @@ export const submitIdCard = async (data) => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('ERROR get smscode  phone number', err);
+    console.log('ERROR submitIdCard', err);
     return null;
   }
 };
@@ -170,7 +175,7 @@ export const submitIdCard = async (data) => {
 export const submitSelfie = async (data) => {
   try {
     const options = {
-      url : 'user/verify-selfie/',
+      url : API_URL.ME.VERIFY_SELFIE,
       method: 'POST',
       data
     };
@@ -180,7 +185,7 @@ export const submitSelfie = async (data) => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('ERROR get smscode  phone number', err);
+    console.log('ERROR submitSelfie', err);
     return null;
   }
 };
@@ -189,7 +194,7 @@ export const submitSelfie = async (data) => {
 export const getTwoFactorCode = async () => {
   try {
     const options = {
-      url : '/user/two-fa/',
+      url : API_URL.ME.TWO_FACTOR,
       method: 'POST',
     };
     if(currentUser.isLogin()) {
@@ -198,7 +203,7 @@ export const getTwoFactorCode = async () => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('ERROR update phone number', err);
+    console.log('ERROR getTwoFactorCode', err);
     throw err;
   }
 };
@@ -207,7 +212,7 @@ export const getTwoFactorCode = async () => {
 export const sendTwoFactorCode = async (code) => {
   try {
     const options = {
-      url : '/user/two-fa/',
+      url : API_URL.ME.TWO_FACTOR,
       method: 'PUT',
     };
     if(currentUser.isLogin()) {
@@ -219,7 +224,7 @@ export const sendTwoFactorCode = async (code) => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('ERROR update phone number', err);
+    console.log('ERROR sendTwoFactorCode', err);
     throw err;
   }
 };
@@ -228,7 +233,7 @@ export const sendTwoFactorCode = async (code) => {
 export const disableTwoFactorCode = async (code) => {
   try {
     const options = {
-      url : '/user/two-fa/',
+      url : API_URL.ME.TWO_FACTOR,
       method: 'DELETE',
     };
     if(currentUser.isLogin()) {
@@ -240,7 +245,7 @@ export const disableTwoFactorCode = async (code) => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('ERROR update phone number', err);
+    console.log('ERROR disableTwoFactorCode', err);
     throw err;
   }
 };
@@ -259,7 +264,7 @@ export const getCountries = async () => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('ERROR get countries', err);
+    console.log('ERROR getCountries', err);
     return [];
   }
 };
@@ -278,7 +283,7 @@ export const getLanguages = async () => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('ERROR get languages', err);
+    console.log('ERROR getLanguages', err);
     return [];
   }
 };
@@ -297,7 +302,7 @@ export const getCurrenciesByCountry = async (country) => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('ERROR get currencies', err);
+    console.log('ERROR getCurrenciesByCountry', err);
     return [];
   }
 };
@@ -305,7 +310,7 @@ export const getCurrenciesByCountry = async (country) => {
 export const getReferrals = async () => {
   try {
     const options = {
-      url : '/user/referrals/',
+      url : API_URL.ME.REFERRALS,
       method: 'GET',
     };
     if(currentUser.isLogin()) {
@@ -316,7 +321,7 @@ export const getReferrals = async () => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('ERROR get currencies', err);
+    console.log('ERROR getReferrals', err);
     return [];
   }
 };
@@ -326,7 +331,7 @@ export const uploadFile = async (file, type = 'verification') => {
     const formData = new FormData();
     formData.append('file', file);
     const options = {
-      url : `/user/file-upload/?type=${type}`,
+      url : `${API_URL.ME.FILE_UPLOAD}?type=${type}`,
       method: 'POST',
       data: formData,
     };
@@ -339,7 +344,46 @@ export const uploadFile = async (file, type = 'verification') => {
     const res = await http(options);
     return res;
   } catch (err) {
-    console.log('ERROR get upload file', err);
+    console.log('ERROR uploadFile', err);
     return [];
+  }
+};
+
+export const cancelTransaction = async (id) => {
+  try {
+    const options = {
+      url : API_URL.ME.EXCHANGE_ORDERS + id,
+      method: 'DELETE',
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {
+        Authorization: 'Bearer ' + currentUser.getToken()
+      };
+    } 
+    await http(options);
+    const res =  await getTransactions();
+    return res;
+  } catch (err) {
+    console.log('ERROR cancelTransaction', err);
+    throw err;
+  }
+};
+
+export const getAccountLevelByCurrency = async (currency) => {
+  try {
+    const options = {
+      url : `${API_URL.ME.CURRENCY_LEVEL_LIMIT}?currency=${currency}`,
+      method: 'GET',
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {
+        Authorization: 'Bearer ' + currentUser.getToken()
+      };
+    } 
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR getAccountLevelByCurrency', err);
+    throw err;
   }
 };

@@ -1,30 +1,48 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import styles from './styles.scss';
 
-const Input = (props) => {
-  const { label, labelClassname, containerClassname, truncateLabel, name, value, ...inputProps } = props;
-  if (!label) {
-    return (
+class Input extends PureComponent {
+  constructor() {
+    super();
+
+    this.input = null;
+  }
+
+  render() {
+    const {
+      label,
+      labelClassname,
+      containerClassname,
+      truncateLabel,
+      name,
+      value,
+      autoCompleteOff,
+      autoComplete,
+      ...inputProps
+    } = this.props;
+
+    const input = (
       <input
+        ref={input => this.input = input}
         name={name}
         value={value || ''}
+        autoComplete={autoCompleteOff ? 'auto-complete-off-!trick!' : autoComplete}
         {...inputProps}
       />
     );
+    if (!label) {
+      return input;
+    }
+    return (
+      <label className={cx(styles.container, containerClassname)}>
+        <span className={cx(styles.label, truncateLabel && 'text-truncate ', labelClassname)}>{label}</span>
+        {input}
+      </label>
+    );
   }
-  return (
-    <label className={cx(styles.container, containerClassname)}>
-      <span className={cx(styles.label, truncateLabel && 'text-truncate ', labelClassname)}>{label}</span>
-      <input
-        name={name}
-        value={value || ''}
-        {...inputProps}
-      />
-    </label>
-  );
-};
+}
 
 Input.propTypes = {
   type: PropTypes.string,

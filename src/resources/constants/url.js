@@ -18,6 +18,7 @@ export const URL = {
   ME_ACCOUNT_LEVEL: '/me/accountLevel',
   ME_HISTORY: '/me/history',
   ME_BANK_INFO: '/me/bankInfo',
+  ME_REFERRAL: '/me/referral',
   PROMOTION_PROGRAM: '/promotion-programs',
   HOW_IT_WORKS: '/how-it-works',
   IP_DOMAIN: 'https://ipfind.co/me',
@@ -37,6 +38,7 @@ export const API_URL = {
     USER_PROFILE: '/user/profile/', // GET /user/profile
     USER_FORGET_PASSWORD: '/user/forgot-password/', // POST user/forgot-password/
     USER_FORGET_PASSWORD_FINISH: '/user/reset-password/', // POST user/forgot-password/reset/
+    USER_VERYFY_PASSWORD: '/user/verify-password/'
   },
   SYSTEM: {
     COUNTRY : '/system/country-default-configs/?time=3423434', // GET /system/country-default-configs/
@@ -65,6 +67,19 @@ export const API_URL = {
     // GET /exchange/deposited-address/?address=&currency=
     CHECK_ADDRESS: '/exchange/deposited-address/',
   },
+  ME: {
+    PROFILE: '/user/profile/',
+    VERIFY_EMAIL: '/user/verify-email/',
+    CHANGE_PASSWORD: '/user/change-password/',
+    EXCHANGE_ORDERS: '/exchange/orders/',
+    VERIFY_PHONE: '/user/verify-phone/',
+    VERIFY_IDCARD: '/user/verify-id/',
+    VERIFY_SELFIE: '/user/verify-selfie/',
+    TWO_FACTOR: '/user/two-fa/',
+    REFERRALS: '/user/referrals/',
+    FILE_UPLOAD: '/user/file-upload/',
+    CURRENCY_LEVEL_LIMIT: '/system/currency-level-limits/',
+  }
 };
 
 export const LANDING_PAGE_TYPE = {

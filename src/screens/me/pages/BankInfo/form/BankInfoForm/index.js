@@ -5,6 +5,7 @@ import { reduxForm } from 'redux-form';
 import { Row, Col }from 'react-bootstrap';
 import { LabelLang, FieldLang, WrapperLang } from 'src/lang/components';
 import { Button, InputField } from 'src/components/custom';
+import optionSvg from './iconMore.svg';
 import style from './style.scss';
 
 const required = value => (value || typeof value === 'number' ? undefined : <LabelLang id="app.common.required" />);
@@ -28,13 +29,18 @@ class BankInfoForm extends React.Component {
     const { isEditMode } = this.state;
     return (
       <form className={style.container}>
-        <Row className={style.row}>
-          <Col md={8}><label className={style.title}><LabelLang id="me.bankInfo.title" /></label></Col>
+        <Row className={style.rowTitle}>
+          <label className={style.title}><LabelLang id="me.bankInfo.title" /></label>
           {!isEditMode && (
-          <Col md={4} className={style.rowBtns}>
-            <button type="button" className={style.btnUpdate} onClick={this.toggleEdit}><LabelLang id="app.common.update" /></button>
-            <button type="button" className={style.btnDelete} onClick={onDelete}><LabelLang id="app.common.delete" /></button>
-          </Col>)}
+          <div className={style.dropdown}>
+            <img src={optionSvg} alt="options" />
+            <div className={style.dropdownContent}>
+              <div className={style.items}>
+                <button type="button" className={style.btnUpdate} onClick={this.toggleEdit}><LabelLang id="app.common.update" /></button>
+                <button type="button" className={style.btnDelete} onClick={onDelete}><LabelLang id="app.common.delete" /></button>
+              </div>
+            </div>
+          </div>)}
         </Row>
         <div className={style.lineTitle} />
         <br />

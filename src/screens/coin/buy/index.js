@@ -1,29 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import { Field, formValueSelector } from 'redux-form';
+import { Field, formValueSelector, isValid } from 'redux-form';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import createForm from 'src/components/core/form/createForm';
-import { isRequired } from 'src/components/core/form/validator';
 import { bindActionCreators } from 'redux';
 import { PAYMENT_METHOD, EXCHANGE_DIRECTION } from 'src/screens/coin/constant';
 import { DEFAULT_CURRENCY } from 'src/resources/constants/crypto';
 import { URL } from 'src/resources/constants/url';
 import ConfirmButton from 'src/components/confirmButton';
-import inputField from 'src/components/core/form/fields/input';
 import { showAlert } from 'src/screens/app/redux/action';
 import LabelLang from 'src/lang/components/LabelLang';
 import { FaLock } from 'react-icons/fa';
 import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
-import cx from 'classnames';
 import authUtil from 'src/utils/authentication';
 import BankTransferInfo from './components/bankTransferInfo';
 import walletSelectorField, { walletValidator } from './reduxFormFields/walletSelector';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
 import paymentMethodField from './reduxFormFields/paymentMethod';
-import popularPlacesField, { popularPlacesValidator } from './reduxFormFields/popularPlaces';
 import { makeOrder } from './redux/action';
+import CodFieldSet from '../components/codFieldSet';
 import styles from './styles.scss';
 
 const buyFormName = 'BuyForm';
@@ -54,12 +51,14 @@ class BuyCryptoCoin extends React.Component {
 
   isValidToSubmit = () => {
     const { isAuth } = this.state;
+    const { isFormValid } = this.props;
+    if (!isFormValid) return false;
     if (!isAuth) return false;
     const { wallet: { address, currency, invalidAddress }, exchange: { amount, fiatAmount }, paymentMethod } = this.props;
     if (address && currency && !invalidAddress && amount && fiatAmount) {
       if (paymentMethod === PAYMENT_METHOD.COD) {
         const { userAddress, userPhone, userNote } = this.props;
-        if (userAddress && userPhone && userNote) {
+        if (userAddress?.isValid && userPhone && userNote) {
           return true;
         }
       } else {
@@ -81,7 +80,7 @@ class BuyCryptoCoin extends React.Component {
       address: wallet?.address,
     };
     if (paymentMethod === PAYMENT_METHOD.COD) {
-      payload.user_info = JSON.stringify({ userAddress, userPhone, userNote });
+      payload.user_info = JSON.stringify({ userAddressName: userAddress?.value?.name, userAddress: userAddress?.value?.address, userPhone, userNote });
     }
     makeOrder(payload)
       .then(this.orderSuccessHandler)
@@ -119,37 +118,6 @@ class BuyCryptoCoin extends React.Component {
     this.resetState();
   }
 
-  renderCoD = () => {
-    const { paymentMethod, intl: { formatMessage } } = this.props;
-    return (
-      <div className={cx(styles.codInfo, 'mt-4', paymentMethod === PAYMENT_METHOD.COD ? styles.showCod : styles.hideCod)}>
-        <Field
-          name="address"
-          placeholder={formatMessage({ id: 'coin.buy.userAddress' })}
-          component={popularPlacesField}
-          containerClassname={styles.codItem}
-          validate={paymentMethod === PAYMENT_METHOD.COD ? [popularPlacesValidator] : null}
-        />
-        <Field
-          type="text"
-          name="phone"
-          placeholder={formatMessage({ id: 'coin.buy.userPhone' })}
-          component={inputField}
-          containerClassName={styles.codItem}
-          validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
-        />
-        <Field
-          type="text"
-          placeholder={formatMessage({ id: 'coin.buy.userNote' })}
-          name="noteAndTime"
-          component={inputField}
-          containerClassName={styles.codItem}
-          validate={paymentMethod === PAYMENT_METHOD.COD ? [isRequired()] : null}
-        />
-      </div>
-    );
-  }
-
   render() {
     const { paymentMethod, supportedCurrency, exchange, wallet, intl } = this.props;
     const { orderInfo, showBankTransferInfo } = this.state;
@@ -184,11 +152,12 @@ class BuyCryptoCoin extends React.Component {
             component={paymentMethodField}
             intl={intl}
           />
-          { this.renderCoD() }
+          <CodFieldSet show={paymentMethod === PAYMENT_METHOD.COD} intl={intl} className='mt-4' />
           <ConfirmButton
             disabled={!isValid}
             containerClassName='mt-5'
             buttonClassName={styles.submitBtn}
+            message={<LabelLang id='coin.buy.confirmMsg' values={{ amount: exchange?.amount || 0, currency: exchange?.currency }} />}
             label={(
               <span>
                 <FaLock /> <LabelLang id='coin.buy.buyBtn' values={{ amount: exchange?.amount || 0, currency: exchange?.currency}} />
@@ -202,16 +171,16 @@ class BuyCryptoCoin extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const address = formSelector(state, 'address');
+const mapStateToProps = (state, props) => {
   return {
     paymentMethod: formSelector(state, 'paymentMethod'),
     exchange: formSelector(state, 'exchange'),
     wallet: formSelector(state, 'wallet'),
-    userAddress: address?.isValid ? address?.value : '',
+    userAddress: formSelector(state, 'address'),
     userPhone: formSelector(state, 'phone'),
-    userNote: formSelector(state, 'noteAndTime'),
+    userNote: formSelector(state, 'noteAndTime') || props.intl?.formatMessage({ id: 'coin.buy.userNote' }),
     supportedCurrency: state?.app?.supportedCurrency || [],
+    isFormValid: isValid(buyFormName)(state)
   };
 };
 
@@ -223,25 +192,27 @@ const mapDispatchToProps = dispatch => ({
 BuyCryptoCoin.defaultProps = {
   wallet: {},
   exchange: {},
-  userAddress: '',
+  userAddress: {},
   userNote: '',
   userPhone: '',
   paymentMethod: null,
   makeOrder: null,
   showAlert: null,
-  supportedCurrency: []
+  supportedCurrency: [],
+  isFormValid: false
 };
 
 BuyCryptoCoin.propTypes = {
   exchange: PropTypes.object,
   wallet: PropTypes.object,
   paymentMethod: PropTypes.string,
-  userAddress: PropTypes.string,
+  userAddress: PropTypes.object,
   userNote: PropTypes.string,
   userPhone: PropTypes.string,
   makeOrder: PropTypes.func,
   showAlert: PropTypes.func,
   supportedCurrency: PropTypes.array,
+  isFormValid: PropTypes.bool,
 };
 
 export default withRouter(injectIntl(connect(mapStateToProps, mapDispatchToProps)(BuyCryptoCoin)));
