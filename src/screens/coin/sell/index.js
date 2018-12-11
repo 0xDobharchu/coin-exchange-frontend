@@ -8,7 +8,6 @@ import createForm from 'src/components/core/form/createForm';
 import { bindActionCreators } from 'redux';
 import { PAYMENT_METHOD, EXCHANGE_DIRECTION } from 'src/screens/coin/constant';
 import cx from 'classnames';
-import { URL } from 'src/resources/constants/url';
 import ConfirmButton from 'src/components/confirmButton';
 import { showAlert } from 'src/screens/app/redux/action';
 import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
@@ -22,7 +21,7 @@ import BankInfoFieldSet from './components/bankInfoFieldSet';
 import TNG from './components/tng';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
 import paymentMethodField from './reduxFormFields/paymentMethod';
-import { makeOrder, genAddress } from './redux/action';
+import { genAddress, addPendingOrder, clearPendingOrder } from './redux/action';
 import CodFieldSet from '../components/codFieldSet';
 import styles from './styles.scss';
 
@@ -43,7 +42,6 @@ class SellCryptoCoin extends React.Component {
     super(props);
 
     this.state = {
-      walletAddress: null,
       isAuth: authUtil.isLogin() || false,
       verifiedPhone: null,
     };
@@ -83,7 +81,6 @@ class SellCryptoCoin extends React.Component {
   genAddress = (currency) => {
     const { genAddress } = this.props;
     return genAddress(currency).then(walletAddress => {
-      this.setState({ walletAddress });
       return walletAddress;
     }).catch(reqErrorAlert);
   }
@@ -103,7 +100,11 @@ class SellCryptoCoin extends React.Component {
           });
           throw e;
         });
-      this.genAddress(currency);
+      const genAddr = await this.genAddress(currency);
+      if (genAddr) {
+        // save order info to redux store
+        this.addPendingOrder();
+      }
     } catch(e) {
       showAlert({
         message: <LabelLang id={getIntlKey('prepareOrderFailed')} />,
@@ -112,9 +113,8 @@ class SellCryptoCoin extends React.Component {
     }
   }
 
-  makeOrder = () => {
+  addPendingOrder = () => {
     const {
-      makeOrder,
       exchange,
       bankName,
       bankAccountName,
@@ -122,57 +122,33 @@ class SellCryptoCoin extends React.Component {
       paymentMethod,
       userAddress,
       userPhone,
-      userNote
+      userNote,
+      addPendingOrder
     } = this.props;
-    const { walletAddress, verifiedPhone } = this.state;
+    const { verifiedPhone } = this.state;
     const orderType = this.getOrderType();
-    const payload = {
-      amount: String(exchange?.amount),
-      currency: exchange?.currency,
-      fiat_local_amount: String(exchange?.fiatAmount),
-      fiat_local_currency: exchange?.fiatCurrency,
-      direction: EXCHANGE_DIRECTION.sell,
-      address: walletAddress,
-      order_user_payment_type: orderType,
-      order_type: orderType,
+    const data = {
+      exchangeData: exchange,
+      orderUserPaymentType: orderType,
+      orderType
     };
 
     if (paymentMethod === PAYMENT_METHOD.TRANSFER) {
-      payload.user_info = JSON.stringify({ bankName, bankAccountName, bankAccountNumber });
+      data.userInfo = { bankName, bankAccountName, bankAccountNumber };
     }
 
     if (paymentMethod === PAYMENT_METHOD.TNG) {
-      payload.user_info = JSON.stringify({ bankUserPhoneNumber: verifiedPhone });
+      data.userInfo = { bankUserPhoneNumber: verifiedPhone };
     }
 
     if (paymentMethod === PAYMENT_METHOD.COD) {
       // order_user_payment_type only avaiable on bank type
-      payload.order_user_payment_type = '';
+      data.orderUserPaymentType = '';
       
-      payload.user_info = JSON.stringify({ userAddressName: userAddress?.value?.name, userAddress: userAddress?.value?.address, userPhone, userNote });
+      data.userInfo = { userAddressName: userAddress?.value?.name, userAddress: userAddress?.value?.address, userPhone, userNote };
     }
 
-    makeOrder(payload)
-      .then(this.orderSuccessHandler)
-      .catch(this.orderFailedHandler);
-  }
-
-  orderSuccessHandler = (/* orderInfo */) => {
-    const { showAlert, history } = this.props;
-    showAlert({
-      message: <LabelLang id={getIntlKey('orderSuccessful')} />,
-      timeOut: 1000,
-    });
-    history.push(URL.ME_HISTORY);
-  }
-
-  orderFailedHandler = () => {
-    const { showAlert } = this.props;
-    showAlert({
-      message: <LabelLang id={getIntlKey('orderFailed')} />,
-      type: 'danger',
-      timeOut: 1000,
-    });
+    addPendingOrder(data);
   }
 
   getOrderType = () => {
@@ -181,18 +157,13 @@ class SellCryptoCoin extends React.Component {
     return [PAYMENT_METHOD.TRANSFER, PAYMENT_METHOD.TNG].includes(paymentMethod) ? PAYMENT_METHOD.TRANSFER : paymentMethod;
   }
 
-  resetState = () => {
-    this.setState({
-      walletAddress: null
-    });
-  }
-
-  onBankTransferDone = () => {
-    this.resetState();
-  }
-
   onTngVerified = (verifiedPhone) => {
     this.setState({ verifiedPhone });
+  }
+
+  onFinishOrder = () => {
+    const { clearPendingOrder } = this.props;
+    clearPendingOrder();
   }
 
   renderBankInfo = () => {
@@ -205,26 +176,23 @@ class SellCryptoCoin extends React.Component {
   }
 
   render() {
-    const { supportedCurrency, exchange, paymentMethod, intl } = this.props;
-    const { walletAddress, isAuth } = this.state;
+    const { supportedCurrency, exchange, paymentMethod, intl, pendingOrder } = this.props;
+    const { isAuth } = this.state;
     const isValid = this.isValidToSubmit();
     const orderType = this.getOrderType();
-    const exchangeInfo = {
-      amount: exchange?.amount,
-      currency: exchange?.currency,
-      fiatAmount: exchange?.fiatAmount,
-      fiatCurrency: exchange?.fiatCurrency,
-    };
+
+    if (pendingOrder) {
+      return (
+        <OrderInfo
+          className={styles.orderInfo}
+          onFinishOrder={this.onFinishOrder}
+        />
+      );
+    }
 
     return (
       <div className={styles.container}>
-        <OrderInfo
-          className={cx(styles.orderInfo, walletAddress ? styles.showOrderInfo : styles.hideOrderInfo)}
-          generatedAddress={walletAddress}
-          orderInfo={exchangeInfo}
-          onMakeOrder={this.makeOrder}
-        />
-        <SellForm className={cx(styles.form, walletAddress ? styles.hideForm : styles.showForm)}>
+        <SellForm className={styles.form}>
           <Field
             name="exchange"
             component={exchangeField}
@@ -281,21 +249,22 @@ const mapStateToProps = (state, props) => {
     bankAccountNumber: bankInfo?.bankAccountNumber || formSelector(state, 'bankAccountNumber'),
     bankAccountName: bankInfo?.bankAccountName || formSelector(state, 'bankAccountName'),
     supportedCurrency: state?.app?.supportedCurrency || [],
+    pendingOrder: state.sellCoinReducer.pendingOrder,
     bankInfo
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  makeOrder: bindActionCreators(makeOrder, dispatch),
   genAddress: bindActionCreators(genAddress, dispatch),
   showAlert: bindActionCreators(showAlert, dispatch),
   updateProfileAction: bindActionCreators(updateProfileAction, dispatch),
+  addPendingOrder: bindActionCreators(addPendingOrder, dispatch),
+  clearPendingOrder: bindActionCreators(clearPendingOrder, dispatch),
 });
 
 SellCryptoCoin.defaultProps = {
   exchange: {},
   paymentMethod: PAYMENT_METHOD.TRANSFER,
-  makeOrder: null,
   showAlert: null,
   supportedCurrency: [],
   bankName: '',
@@ -306,18 +275,17 @@ SellCryptoCoin.defaultProps = {
   userPhone: '',
   bankInfo: null,
   isFormValid: false,
+  pendingOrder: null
 };
 
 SellCryptoCoin.propTypes = {
   exchange: PropTypes.object,
   bankInfo: PropTypes.object,
   paymentMethod: PropTypes.string,
-  makeOrder: PropTypes.func,
   showAlert: PropTypes.func,
   supportedCurrency: PropTypes.array,
   genAddress: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
   bankName: PropTypes.string,
   bankAccountName: PropTypes.string,
   bankAccountNumber: PropTypes.string,
@@ -325,6 +293,9 @@ SellCryptoCoin.propTypes = {
   userNote: PropTypes.string,
   userPhone: PropTypes.string,
   isFormValid: PropTypes.bool,
+  addPendingOrder: PropTypes.func.isRequired,
+  clearPendingOrder: PropTypes.func.isRequired,
+  pendingOrder: PropTypes.object,
 };
 
 export default withRouter(injectIntl(connect(mapStateToProps, mapDispatchToProps)(SellCryptoCoin)));
