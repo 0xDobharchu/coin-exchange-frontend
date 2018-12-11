@@ -97,14 +97,14 @@ export class MasterWallet {
     const masterWallet = [];
 
     let defaultWallet = [1, 3];// eth main, eth test, btc main, btc test => local web
-    if (process.env.isProduction) { // // eth main, eth test, btc main, btc test => live web
+    if (APP_ENV.isProduction) { // // eth main, eth test, btc main, btc test => live web
       defaultWallet = [0, 1, 2];
     }
 
     for (const k1 in MasterWallet.ListDefaultCoin) {
       for (const k2 in MasterWallet.ListDefaultCoin[k1].Network) {
         // check production, only get mainnet:
-        if (process.env.isProduction && k2 != 'Mainnet') {
+        if (APP_ENV.isProduction && k2 != 'Mainnet') {
           break;
         }
         // init a wallet:
@@ -124,15 +124,31 @@ export class MasterWallet {
     // set default item:
     for (let i = 0; i < defaultWallet.length; i++) {
       masterWallet[defaultWallet[i]].default = true;
-    }
-
-    // Save to local store:
-    /// MasterWallet.UpdateLocalStore(masterWallet);
+    }    
 
     const t1 = performance.now();
 
     MasterWallet.log(`Call to createMasterWallet took ${t1 - t0} milliseconds.`);
     return masterWallet;
+  }
+
+  static updateNewPassword(oldPassword, newPassword, wallets){
+    let newListWallet = [];
+    wallets.forEach((wallet) => {      
+      if (wallet != false) {
+        // descryp with oldPassword 
+        let newWallet = wallet.descryp(oldPassword);
+        // enscryp with newPassword:
+        if (newWallet !== false){
+          newWallet.enscrypt(newPassword);
+          newListWallet.push(newWallet);
+        }
+        else{
+          console.log("can not decryp wallet: ", wallet.address);
+        }                
+      }
+    });
+    return newListWallet;
   }
 
   // return list coin temp for create/import:
@@ -141,7 +157,7 @@ export class MasterWallet {
     for (const k1 in MasterWallet.ListDefaultCoin) {
       for (const k2 in MasterWallet.ListDefaultCoin[k1].Network) {
         // check production, only get mainnet:
-        if (process.env.isProduction && k2 != 'Mainnet') {
+        if (APP_ENV.isProduction && k2 != 'Mainnet') {
           break;
         }
         const wallet = new MasterWallet.ListDefaultCoin[k1]();
@@ -153,7 +169,7 @@ export class MasterWallet {
     return tempWallet;
   }
 
-  // for create new wallet:
+  // for create new wallet (add new wallet from user):
   static createNewWallet(listCoinTemp, mnemonic, password) {
     let isImport = false;
     if (mnemonic == '') {
@@ -170,168 +186,21 @@ export class MasterWallet {
         wallet.mnemonic = mnemonic;
         wallet.protected = isImport;
         // create address, private-key ...
-        wallet.createAddressPrivatekey();          
+        wallet.createAddressPrivatekey();
         wallet.enscrypt(password);
         listCoinSelected.push(wallet);
       }
-    });    
+    });
     return listCoinSelected;
   }
 
-  static AddToken(newToken) {
-    const wallets = MasterWallet.getWalletDataLocalString();
-    if (wallets === false) return false;
-    wallets.push(JSON.parse(JSON.stringify(newToken)));
-    MasterWallet.UpdateLocalStore(wallets, true);
-    return true;
-  }
-
-  static UpdateLocalStore(masterWallet, sync = false) {
-    // encrypt wallet:
-    // const encryptWalletData = MasterWallet.encrypt(JSON.stringify(masterWallet));
-
-    // localStore.save(MasterWallet.KEY, encryptWalletData);
-
-    // // call api update list address:
-    // if (sync) {
-    //   MasterWallet.SyncWalletAddress();
-    // }
-  }
-
-  static getListWalletAddressJson() {
-    const masterWallet = MasterWallet.getWalletDataLocalString();
-
-    const listAddresses = [];
-
-    masterWallet.forEach((wallet) => {
-      if (listAddresses.indexOf(wallet.address) === -1) {
-        listAddresses.push(wallet.address);
-      }
-    });
-    return JSON.stringify(listAddresses);
-  }
-
-  static SyncWalletAddress() {
-    try {
-      const listAddresses = MasterWallet.getListWalletAddressJson();
-
-      console.log('update wallet addresses ...');
-      const token = localStore.get(APP.AUTH_TOKEN);
-
-      const defaultHeaders = {
-        'Content-Type': 'application/json', Payload: token
-      };
-
-      const data = new FormData();
-      data.append('wallet_addresses', listAddresses);
-
-      const endpoint = 'user/profile';
-
-      const response = axios({
-        method: 'POST',
-        timeout: BASE_API.TIMEOUT,
-        headers: defaultHeaders,
-        url: `${BASE_API.BASE_URL}/${endpoint}`,
-        data
-      });
-      console.log('update wallet response ', response);
-    } catch (error) {
-      console.error('callAPI: ', error);
-    }
-  }
-
-  static NotifyUserTransfer(from_address, to_address) {
-    const data = {
-      notification: {
-        title: 'Nofification',
-        body: `You have a transaction from ${from_address}`,
-        click_action: 'https://ninja.org/wallet',
-      },
-      data: {
-        action: 'transfer',
-        data: { to_address, from_address },
-      },
-      to: to_address,
-    };
-
-    const token = localStore.get(APP.AUTH_TOKEN);
-
-    const defaultHeaders = {
-      'Content-Type': 'application/json', Payload: token
-    };
-
-    const endpoint = 'user/notification';
-
-    const response = axios.post(
-      `${BASE_API.BASE_URL}/${endpoint}`,
-      JSON.stringify(data),
-      { headers: defaultHeaders }
-    );
-
-    console.log('called NotifyUserTransfer ', response);
-  }
-
-  static UpdateBalanceItem(item) {
-    const wallets = MasterWallet.getMasterWallet();
+  static UpdateBalanceItem(item, wallets) {    
     wallets.forEach((wallet) => {
       if (wallet.address === item.address && wallet.network === item.network) {
         wallet.balance = item.balance;
       }
-    });
-    MasterWallet.UpdateLocalStore(wallets);
+    });    
   }
-
-  // Restore wallets:
-  static RestoreMasterWallet(masterWalletDataString) {
-    // todo: need verify invalid data:
-    localStore.save(MasterWallet.KEY, masterWalletDataString);
-    const masterWallet = JSON.parse(masterWalletDataString);
-    localStore.save(MasterWallet.KEY, masterWallet);
-    return masterWallet;
-  }
-
-
-  // get wallet data string local store:
-  static getWalletDataLocalString() {
-    const wallets = localStore.get(MasterWallet.KEY);
-
-    if (wallets === false) return false;
-
-    // check is json or encrypt data:
-    if (typeof (wallets) !== 'object') {
-      const walletDecrypt = MasterWallet.decrypt(wallets);
-      const walletsObject = MasterWallet.IsJsonString(walletDecrypt);
-      if (walletsObject !== false) {
-        return walletsObject;
-      }
-    } else {
-      // backup:
-      try { localStore.save('backup', CryptoJS.AES.encrypt(JSON.stringify(wallets), 'backup').toString()); } catch (e) { console.log(e); }
-      MasterWallet.UpdateLocalStore(wallets);
-    }
-
-    return wallets;
-  }
-
-  // Get list wallet from store local:
-  static getMasterWallet() {
-    const wallets = MasterWallet.getWalletDataLocalString();
-
-    if (wallets == false) return false;
-
-    const listWallet = [];
-    let hasTestnet = false;
-
-    wallets.forEach((walletJson) => {
-      const wallet = MasterWallet.convertObject(walletJson);
-      if (wallet != false) {
-        listWallet.push(wallet);
-      }
-    });
-
-    return listWallet;
-  }
-
 
   static filterWalletByName(wallets, coinName) {
 
@@ -395,6 +264,21 @@ export class MasterWallet {
       if (e !== BreakException) throw e;
     }
     return false;
+  }  
+
+  static convertToListObject(walletListJson){
+    if (walletListJson) {
+      let wallets = JSON.parse(walletListJson);
+      let listWallet = [];
+      wallets.forEach((walletJson) => {
+        const wallet = MasterWallet.convertObject(walletJson);
+        if (wallet != false) {
+          listWallet.push(wallet);
+        }
+      });
+      return listWallet;
+    }
+    else return [];
   }
 
   static convertObject(walletJson) {
@@ -433,89 +317,11 @@ export class MasterWallet {
     } catch (e) {
       return false;
     }
-  }
-
-  static restoreWallets(dataString) {
-    try {
-      let jsonData = MasterWallet.IsJsonString(dataString);
-
-      // check encrypt if not json ?
-      if (jsonData === false) {
-        jsonData = MasterWallet.decrypt(dataString);
-        if (jsonData !== false) {
-          jsonData = MasterWallet.IsJsonString(jsonData);
-        }
-      }
-
-      let auth_token = false;
-      let wallets = false;
-      let chat_encryption_keypair = false;
-
-      if (jsonData !== false) {
-        if (jsonData.hasOwnProperty('auth_token')) {
-          auth_token = jsonData.auth_token;
-        }
-        if (jsonData.hasOwnProperty('chat_encryption_keypair')) {
-          chat_encryption_keypair = jsonData.chat_encryption_keypair;
-        }
-        if (jsonData.hasOwnProperty('wallets')) {
-          wallets = jsonData.wallets;
-        } else {
-          // for old user without keys auth_token + chat_encryption_keypair
-          wallets = jsonData;
-        }
-
-        if (Array.isArray(wallets)) {
-          const listWallet = [];
-          wallets.forEach((walletJson) => {
-            const wallet = MasterWallet.convertObject(walletJson);
-            if (wallet) {
-              listWallet.push(wallet);
-              // throw BreakException;
-            }
-          });
-          MasterWallet.UpdateLocalStore(listWallet);
-          if (auth_token !== false) {
-            localStore.save(APP.AUTH_TOKEN, auth_token);
-          }
-          if (chat_encryption_keypair !== false) {
-            localStore.save(APP.CHAT_ENCRYPTION_KEYPAIR, chat_encryption_keypair);
-          }
-          return listWallet;
-        }
-      }
-    } catch (e) {
-      // console.log('Wallet is invaild', e);
-    }
-    return false;
-  }
+  }  
 
   static log(data, key = MasterWallet.KEY) {
     console.log(`%c ${StringHelper.format('{0}: ', key)}`, 'background: #222; color: #bada55', data);
-  }
-
-  // static encrypt(message) {
-  //   try {
-  //     const WALLET_SECRET_KEY = process.env.WALLET_SECRET_KEY;
-  //     const ciphertext = CryptoJS.AES.encrypt(message, WALLET_SECRET_KEY);
-  //     return ciphertext.toString();
-  //   } catch (e) {
-  //     console.log('encrypt', e);
-  //     return false;
-  //   }
-  // }
-  //
-  // static decrypt(ciphertext) {
-  //   try {
-  //     const WALLET_SECRET_KEY = process.env.WALLET_SECRET_KEY;
-  //     const bytes = CryptoJS.AES.decrypt(ciphertext, WALLET_SECRET_KEY);
-  //     const plaintext = bytes.toString(CryptoJS.enc.Utf8);
-  //     return plaintext;
-  //   } catch (e) {
-  //     console.log('decrypt', e);
-  //     return false;
-  //   }
-  // }
+  } 
 
   /**
   * Get coin type from its wallet address
