@@ -1,0 +1,24 @@
+.container {
+  transition: 300ms max-height, 300ms opacity;
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  &.show {
+    max-height: 100px;
+    opacity: 1;
+  }
+  &.hide {
+    max-height: 0px;
+    opacity: 0;
+    overflow: hidden;
+  }
+  .item {
+    width: 100%;
+    display: flex;
+    margin-bottom: 15px;
+    flex-direction: column;
+    > input {
+      width: inherit;
+    }
+  }
+}
