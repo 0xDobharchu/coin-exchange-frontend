@@ -64,7 +64,7 @@ class MeProfile extends React.PureComponent {
             {<SelfieBlock style={style} />}
           </Col>
         </Row>
-        <Row style={{ height: '60px' }} />
+        {/* <Row style={{ height: '60px' }} /> */}
       </Container>
     );
   }

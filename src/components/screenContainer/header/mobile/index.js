@@ -1,7 +1,10 @@
 import React from 'react';
 import { URL } from 'src/resources/constants/url';
 import { Link, withRouter } from 'react-router-dom';
-import logo from 'src/assets/images/logo_white.svg';
+import logo from 'src/assets/images/logo.svg';
+import close from 'src/assets/images/close.svg';
+import switchbtn from 'src/assets/images/switchbtn.svg';
+// import switch from 'src/assets/images/switch.svg';
 import currentUser from 'src/utils/authentication';
 import cx from 'classnames';
 import ChangeLanguage from 'src/components/changeLanguage';
@@ -32,21 +35,24 @@ class HeaderMobile extends React.Component {
     this.props.history.push(URL.HOME);
   }
 
+  // eslint-disable-next-line
+  redirectHome = () => this.props.history.push(URL.HOME);
+  
   render() {
     console.log('buttons', buttons);
     return (
       <div className={style.container}>
         <div className={style.header}>
-          {/* <button type="button" onClick={this.openSideBar}>Open sidebar</button> */}
-          <div><button type="button" onClick={this.openSideBar}>=</button></div>
-          <img src={logo} alt="coinbowl-logo" />
-          <div />
+          <img src={logo} role="presentation" onClick={this.redirectHome} alt="coinbowl-logo" />
+          <img src={switchbtn} role="presentation" onClick={this.openSideBar} alt="Menu" />
         </div>
         <div className={this.getStateCss(style.sideBar)}>
           <div className={style.items}>
             <div className={style.itemHeader}>
               {currentUser.isLogin() ? <span>{currentUser.getCurrentUser().name}</span> : <span />}
-              <div role="presentation" onClick={this.closeSideBar}><span>X</span></div>
+              <div role="presentation" onClick={this.closeSideBar}>
+                <img src={close} alt="close" />
+              </div>
             </div>
             {
             Object.entries(menus).map(([ key, menu ]) => (!menu.auth || menu.auth === currentUser.isLogin()) && (
