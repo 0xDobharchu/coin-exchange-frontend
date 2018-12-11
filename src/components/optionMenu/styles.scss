@@ -1,0 +1,12 @@
+@import 'var';
+
+.icon {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  display: block;
+  &:hover {
+    border: solid 1px $lavender-gray;
+    border-radius: 50%;
+  }
+}
