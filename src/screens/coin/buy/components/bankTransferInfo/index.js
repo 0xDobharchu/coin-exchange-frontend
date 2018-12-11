@@ -14,6 +14,7 @@ import FileUploader, { RECEIPT_TYPE } from 'src/components/fileUploader';
 import Loading from 'src/components/loading';
 import LabelLang from 'src/lang/components/LabelLang';
 import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
+import OptionMenu from 'src/components/optionMenu';
 import cx from 'classnames';
 import { getBankInfo, addReceiptOrder } from './action';
 import styles from './styles.scss';
@@ -168,6 +169,13 @@ class BankTransferInfo extends PureComponent {
     });
   }
 
+  onCancel = () => {
+    const { onCancelOrder } = this.props;
+    if (typeof onCancelOrder === 'function') {
+      onCancelOrder();
+    }
+  }
+
   renderInfo() {
     const { data, isLoading } = this.state;
     if (isLoading) {
@@ -224,7 +232,18 @@ class BankTransferInfo extends PureComponent {
       <Container className={styles.container}>
         <Row>
           <Card border="secondary" className={styles.card}>
-            <Card.Header><LabelLang id={getIntlKey('nameCard')} /></Card.Header>
+            <Card.Header className="d-flex justify-content-between align-items-center">
+              <LabelLang id={getIntlKey('nameCard')} />
+              <OptionMenu
+                items={[
+                  {
+                    label: <LabelLang id={getIntlKey('cancelOrder')} />,
+                    onClick: this.onCancel,
+                  }
+                ]}
+                drop='left'
+              />
+            </Card.Header>
             <Card.Body>
               <Container>
                 <Row>
@@ -286,7 +305,8 @@ class BankTransferInfo extends PureComponent {
 BankTransferInfo.defaultProps = {
   orderInfo: {},
   bankInfo: null,
-  getBankInfo: null
+  getBankInfo: null,
+  onCancelOrder: null
 };
 
 BankTransferInfo.propTypes = {
@@ -295,6 +315,9 @@ BankTransferInfo.propTypes = {
   showAlert: PropTypes.func.isRequired,
   bankInfo: PropTypes.object,
   getBankInfo: PropTypes.func,
+  onCancelOrder: PropTypes.func,
+  addReceiptOrder: PropTypes.func.isRequired,
+  userCountry: PropTypes.string.isRequired
 };
 
 const mapState = (state) => {
