@@ -61,7 +61,7 @@ class MainLayout extends React.Component {
         <div className="content">
           {children}
         </div>
-        {this.renderNavigation(this.props)}
+        {/* {this.renderNavigation(this.props)} */}
         <Alert />
         <Loading />
         <WalletPasscode />
