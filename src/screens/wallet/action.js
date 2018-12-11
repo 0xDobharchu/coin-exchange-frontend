@@ -45,29 +45,35 @@ export const makeSaveWallet = masterWallet => (dispatch) => {
 export const updateWallet = (oldPassword, newPassword) => {
 
   // get wallet
-  const getWallet = makeRequest({
+  let getWallet = makeRequest({
     type: WALLET,
     url: API_URL.USER.USER_WALLET,
-  });    
+  });
+
+  let setWallet = (wallets) => makeRequest({
+    type: WALLET,
+    url: API_URL.USER.USER_WALLET,
+    method: 'PUT',
+    data: { wallet: JSON.stringify(wallets) }
+  });
 
   return getWallet().then((res) => {
     if (res.wallet) {
-      let wallets = MasterWallet.convertToListObject(res.wallet); 
-      if (wallets.length > 0){
-        let newWallets = MasterWallet.updateNewPassword(oldPassword, newPassword, wallets);
-        if (newWallets.length > 0){
-          return makeRequest({
-            type: WALLET,
-            url: API_URL.USER.USER_WALLET,
-            method: 'PUT',
-            data: { wallet: JSON.stringify(newWallets) }
+      let wallets = MasterWallet.convertToListObject(res.wallet);      
+      if (wallets.length > 0) {
+        let newWallets = MasterWallet.updateNewPassword(oldPassword, newPassword, wallets);        
+        if (newWallets.length > 0) {          
+          return setWallet(newWallets)().then((res) => {            
+            return true;
+          }, (err) => {            
+            return false;
           });          
         }
-      }      
-    }    
+      }
+    }
   }, (err) => {
-    console.log(err);    
+    console.log('updateWallet error', err);
     return false;
-  }); 
+  });
 };
 
