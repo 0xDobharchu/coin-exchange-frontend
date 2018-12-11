@@ -2,6 +2,7 @@
 
 .container {
   background-color: #efefef;
+  margin-bottom: -60px;
   @media screen and (min-width: 768px){
     padding-top: 31px;
   }
@@ -66,7 +67,7 @@
       padding: 35px 50px;
     }
     @media screen and (max-width: 768px){
-      height: calc(100vh - 77px - 156px);
+      height: calc(100vh - 77px);
       padding-top: 31px;
     }
   }
