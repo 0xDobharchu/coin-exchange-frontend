@@ -5,7 +5,7 @@
   .header {
     display: flex;
     flex-direction: row;
-    background: #FFFFFF;
+    background: $primary-extra-bold;
     align-items: center;
     position: fixed;
     top: 0px;
@@ -13,12 +13,8 @@
     height: 75px;
     z-index: 997;
     justify-content: space-between;
-    div {
-      width: 33%;
-      button {
-        height: 25px;
-        margin-left: 25px;
-      }
+    img {
+      margin: 10px;
     }
   }
   .sideBar {
@@ -59,7 +55,7 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      margin-bottom: 70px;
+      margin-bottom: 40px;
       padding-left: 15px;
       span {
         font-weight: 600;
@@ -106,7 +102,7 @@
         button {
           border: 1px solid #E7E6EB;
           color: $primary-extra-bold !important;
-          padding-left: 20px;
+          padding: 0px 20px;
         }
       } 
     }
