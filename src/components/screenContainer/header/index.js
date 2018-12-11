@@ -37,7 +37,7 @@ export const menus = {
   },
 };
 
-const buttons = {
+export const buttons = {
   sign_in: {
     name: <LabelLang id="headerBar.signIn" />,
     link: URL.USER_SIGN_IN,
