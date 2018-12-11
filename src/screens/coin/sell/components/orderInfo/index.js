@@ -229,7 +229,6 @@ class OrderInfo extends Component {
                   }
                 ]}
                 drop='left'
-                flip
               />
             </Card.Header>
             <Card.Body>
