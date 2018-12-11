@@ -19,6 +19,7 @@ import OrderInfo from './components/orderInfo';
 import BankInfo from './components/bankInfo';
 import BankInfoFieldSet from './components/bankInfoFieldSet';
 import TNG from './components/tng';
+import Payoneer from './components/payoneer';
 import exchangeField, { exchangeValidator } from './reduxFormFields/exchange';
 import paymentMethodField from './reduxFormFields/paymentMethod';
 import { genAddress, addPendingOrder, clearPendingOrder } from './redux/action';
@@ -62,7 +63,8 @@ class SellCryptoCoin extends React.Component {
       bankInfo,
       userAddress,
       userPhone,
-      userNote
+      userNote,
+      payoneerEmail
     } = this.props;
     if (amount && fiatAmount) {
       if (paymentMethod === PAYMENT_METHOD.TRANSFER && (bankInfo || (bankName && bankAccountName && bankAccountNumber))) {
@@ -71,7 +73,9 @@ class SellCryptoCoin extends React.Component {
         return true;
       } else if (paymentMethod === PAYMENT_METHOD.COD && userAddress?.isValid && userPhone && userNote) {
         return true;
-      } else {
+      } else if (paymentMethod === PAYMENT_METHOD.PAYONEER && payoneerEmail) {
+        return true;
+      }else {
         return false;
       }
     }
@@ -123,22 +127,27 @@ class SellCryptoCoin extends React.Component {
       userAddress,
       userPhone,
       userNote,
-      addPendingOrder
+      addPendingOrder,
+      payoneerEmail
     } = this.props;
     const { verifiedPhone } = this.state;
     const orderType = this.getOrderType();
     const data = {
       exchangeData: exchange,
-      orderUserPaymentType: orderType,
+      orderUserPaymentType: paymentMethod,
       orderType
     };
-
+    
     if (paymentMethod === PAYMENT_METHOD.TRANSFER) {
       data.userInfo = { bankName, bankAccountName, bankAccountNumber };
     }
 
     if (paymentMethod === PAYMENT_METHOD.TNG) {
       data.userInfo = { bankUserPhoneNumber: verifiedPhone };
+    }
+
+    if (paymentMethod === PAYMENT_METHOD.PAYONEER) {
+      data.userInfo = { email: payoneerEmail };
     }
 
     if (paymentMethod === PAYMENT_METHOD.COD) {
@@ -154,7 +163,7 @@ class SellCryptoCoin extends React.Component {
   getOrderType = () => {
     // order_type: bank|tng => bank, tng => tng
     const { paymentMethod } = this.props;
-    return [PAYMENT_METHOD.TRANSFER, PAYMENT_METHOD.TNG].includes(paymentMethod) ? PAYMENT_METHOD.TRANSFER : paymentMethod;
+    return [PAYMENT_METHOD.TRANSFER, PAYMENT_METHOD.TNG, PAYMENT_METHOD.PAYONEER].includes(paymentMethod) ? PAYMENT_METHOD.TRANSFER : paymentMethod;
   }
 
   onTngVerified = (verifiedPhone) => {
@@ -215,6 +224,7 @@ class SellCryptoCoin extends React.Component {
           />
           { this.renderBankInfo() }
           { isAuth && <TNG show={paymentMethod === PAYMENT_METHOD.TNG} onTngVerified={this.onTngVerified} className='mt-4' /> }
+          { <Payoneer show={paymentMethod === PAYMENT_METHOD.PAYONEER} className='mt-4' intl={intl} /> }
           <CodFieldSet show={paymentMethod === PAYMENT_METHOD.COD} intl={intl} className='mt-4' />
           <ConfirmButton
             disabled={!isValid}
@@ -249,6 +259,7 @@ const mapStateToProps = (state, props) => {
     exchange: formSelector(state, 'exchange'),
     userAddress: formSelector(state, 'address'),
     userPhone: formSelector(state, 'phone'),
+    payoneerEmail: formSelector(state, 'payoneerEmail'),
     userNote: formSelector(state, 'noteAndTime') || props.intl?.formatMessage({ id: 'coin.buy.userNote' }),
     bankName: bankInfo?.bankName || bankName?.isValid ? bankName?.value : '',
     bankAccountNumber: bankInfo?.bankAccountNumber || formSelector(state, 'bankAccountNumber'),
@@ -275,6 +286,7 @@ SellCryptoCoin.defaultProps = {
   bankName: '',
   bankAccountName: '',
   bankAccountNumber: '',
+  payoneerEmail: '',
   userAddress: {},
   userNote: '',
   userPhone: '',
@@ -294,6 +306,7 @@ SellCryptoCoin.propTypes = {
   bankName: PropTypes.string,
   bankAccountName: PropTypes.string,
   bankAccountNumber: PropTypes.string,
+  payoneerEmail: PropTypes.string,
   userAddress: PropTypes.object,
   userNote: PropTypes.string,
   userPhone: PropTypes.string,

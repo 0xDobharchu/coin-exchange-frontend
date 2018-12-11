@@ -783,7 +783,8 @@ export default {
       accountName: 'Account name',
       phone: 'Phone number',
       sellBtn: 'Sell {amount} {currency}',
-      confirmMsg: 'Do you want to sell {amount} {currency}?'
+      confirmMsg: 'Do you want to sell {amount} {currency}?',
+      payoneerEmail: 'Payoneer email'
     },
     components: {
       bankTransferInfo: {
@@ -811,6 +812,7 @@ export default {
         wireTransferName: 'Wire transfer',
         codName: 'Cash on Delivery',
         tngName: 'TNG wallet',
+        payoneerName: 'Payoneer',
         codInfo: 'State your time and place for meeting up and we will exchange in person.'
       },
       walletSelector: {
