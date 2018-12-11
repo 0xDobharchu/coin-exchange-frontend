@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getProfileAction, sendEmailVerifyCodeAction }from 'src/screens/auth/redux/action';
+import { getAccountLevelByCurrency } from 'src/screens/auth/redux/api';
+import { getProfileAction, sendEmailVerifyCodeAction } from 'src/screens/auth/redux/action';
 import { Col, Container, Row } from 'react-bootstrap';
 import { LabelLang } from 'src/lang/components';
 import Loading from 'src/components/loading';
@@ -16,6 +17,7 @@ class MeProfile extends React.PureComponent {
     super(props);
     this.state = {
       loading: true,
+      msgs: [],
     };
   }
   componentDidMount() {
@@ -26,10 +28,19 @@ class MeProfile extends React.PureComponent {
       this.props.sendEmailVerifyCodeAction(values.email_code).then(r => this.setState({ loading: false })).catch(err => err);
     } else {
       // eslint-disable-next-line
-      // this.props.getProfileAction().then(r => this.setState({ loading: false })).catch(err => err);
-      this.setState({ loading: false });
+      const { profile: { currency } } = this.props;
+      getAccountLevelByCurrency(currency).then(msgs => {
+        this.setState({ loading: false, msgs });
+      });
     }
   }
+  getMsgByLevel = (level) => {
+    const { msgs } = this.state;
+    const { currency, limit } = msgs.find(e => e.level === level);
+    console.log('getMsg by level1', currency, limit);
+    return { currency, limit };
+  }
+
   render() {
     // eslint-disable-next-line
     if (this.state.loading) return (<Loading />);
@@ -41,13 +52,13 @@ class MeProfile extends React.PureComponent {
         </Row>
         <Row>
           <Col md={12}>
-            <EmailBlock style={style} />
+            <EmailBlock style={style} msg={this.getMsgByLevel('level_1')} />
           </Col>
           <Col md={12}>
-            {<PhoneBlock style={style} />}
+            {<PhoneBlock style={style} msg={this.getMsgByLevel('level_2')} />}
           </Col>
           <Col md={12}>
-            {<IDCardBlock style={style} />}
+            {<IDCardBlock style={style} msg={this.getMsgByLevel('level_3')} />}
           </Col>
           <Col md={12}>
             {<SelfieBlock style={style} />}

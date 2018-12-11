@@ -67,6 +67,19 @@ export const API_URL = {
     // GET /exchange/deposited-address/?address=&currency=
     CHECK_ADDRESS: '/exchange/deposited-address/',
   },
+  ME: {
+    PROFILE: '/user/profile/',
+    VERIFY_EMAIL: '/user/verify-email/',
+    CHANGE_PASSWORD: '/user/change-password/',
+    EXCHANGE_ORDERS: '/exchange/orders/',
+    VERIFY_PHONE: '/user/verify-phone/',
+    VERIFY_IDCARD: '/user/verify-id/',
+    VERIFY_SELFIE: '/user/verify-selfie/',
+    TWO_FACTOR: '/user/two-fa/',
+    REFERRALS: '/user/referrals/',
+    FILE_UPLOAD: '/user/file-upload/',
+    CURRENCY_LEVEL_LIMIT: '/system/currency-level-limits/',
+  }
 };
 
 export const LANDING_PAGE_TYPE = {

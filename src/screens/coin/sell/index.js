@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import { Field, formValueSelector } from 'redux-form';
+import { Field, formValueSelector, isValid } from 'redux-form';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import createForm from 'src/components/core/form/createForm';
@@ -51,7 +51,9 @@ class SellCryptoCoin extends React.Component {
 
   isValidToSubmit = () => {
     const { isAuth, verifiedPhone } = this.state;
+    const { isFormValid } = this.props;
     if (!isAuth) return false;
+    if (!isFormValid) return false;
     
     const {
       exchange: { amount, fiatAmount },
@@ -259,20 +261,22 @@ class SellCryptoCoin extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
   let bankInfo = state?.auth?.profile?.payment_info || {};
-  const bankValues = Object.values(bankInfo);
+  const bankValues = Object.values(bankInfo)?.map((value = '') => value?.trim());
   const bankName = formSelector(state, 'bankName');
+
   if (bankValues.length === 0 || !bankValues?.every(value => !!value)) {
     bankInfo = null;
   }
 
   return {
+    isFormValid: isValid(sellFormName)(state),
     paymentMethod: formSelector(state, 'paymentMethod'),
     exchange: formSelector(state, 'exchange'),
     userAddress: formSelector(state, 'address'),
     userPhone: formSelector(state, 'phone'),
-    userNote: formSelector(state, 'noteAndTime'),
+    userNote: formSelector(state, 'noteAndTime') || props.intl?.formatMessage({ id: 'coin.buy.userNote' }),
     bankName: bankInfo?.bankName || bankName?.isValid ? bankName?.value : '',
     bankAccountNumber: bankInfo?.bankAccountNumber || formSelector(state, 'bankAccountNumber'),
     bankAccountName: bankInfo?.bankAccountName || formSelector(state, 'bankAccountName'),
@@ -300,7 +304,8 @@ SellCryptoCoin.defaultProps = {
   userAddress: {},
   userNote: '',
   userPhone: '',
-  bankInfo: null
+  bankInfo: null,
+  isFormValid: false,
 };
 
 SellCryptoCoin.propTypes = {
@@ -319,6 +324,7 @@ SellCryptoCoin.propTypes = {
   userAddress: PropTypes.object,
   userNote: PropTypes.string,
   userPhone: PropTypes.string,
+  isFormValid: PropTypes.bool,
 };
 
 export default withRouter(injectIntl(connect(mapStateToProps, mapDispatchToProps)(SellCryptoCoin)));
