@@ -778,8 +778,6 @@ export default {
     sell: {
       prepareOrderFailed: 'Failed while preparing to order, please try again',
       addPaymentInfoFailed: 'Failed while adding your payment info',
-      orderSuccessful: 'Your order was created successfully',
-      orderFailed: 'Error while making new order, pls try again',
       bankName: 'Bank name',
       accountNumber: 'Account number',
       accountName: 'Account name',
@@ -833,7 +831,9 @@ export default {
         },
         cardName: 'ORDER INFO',
         priceWillUpdateIn: 'Price will be updated after',
-        orderBtn: 'Finish'
+        orderBtn: 'Finish',
+        orderSuccessful: 'Your order was created successfully',
+        orderFailed: 'Error while making new order, pls try again',
       },
       pricePanel: {
         buy: 'Buy',
