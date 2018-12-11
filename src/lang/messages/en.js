@@ -834,6 +834,7 @@ export default {
         orderBtn: 'Finish',
         orderSuccessful: 'Your order was created successfully',
         orderFailed: 'Error while making new order, pls try again',
+        cancelOrder: 'Cancel Order'
       },
       pricePanel: {
         buy: 'Buy',

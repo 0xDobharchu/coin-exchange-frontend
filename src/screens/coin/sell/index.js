@@ -144,7 +144,7 @@ class SellCryptoCoin extends React.Component {
     if (paymentMethod === PAYMENT_METHOD.COD) {
       // order_user_payment_type only avaiable on bank type
       data.orderUserPaymentType = '';
-      
+
       data.userInfo = { userAddressName: userAddress?.value?.name, userAddress: userAddress?.value?.address, userPhone, userNote };
     }
 
@@ -161,9 +161,13 @@ class SellCryptoCoin extends React.Component {
     this.setState({ verifiedPhone });
   }
 
-  onFinishOrder = () => {
+  clearPendingOrder = () => {
     const { clearPendingOrder } = this.props;
     clearPendingOrder();
+  }
+
+  onFinishOrder = () => {
+    this.clearPendingOrder();
   }
 
   renderBankInfo = () => {
@@ -186,6 +190,7 @@ class SellCryptoCoin extends React.Component {
         <OrderInfo
           className={styles.orderInfo}
           onFinishOrder={this.onFinishOrder}
+          onCancelOrder={this.clearPendingOrder}
         />
       );
     }
