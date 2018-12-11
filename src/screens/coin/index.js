@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 import { Container, Col, Row } from 'react-bootstrap';
 import ReviewList from 'src/components/reviewList';
 import { FaPlayCircle } from 'react-icons/fa';
@@ -38,10 +39,16 @@ class Coin extends Component {
   }
 
   componentDidMount() {
-    const { sellPendingOrder } = this.props;
+    const { sellPendingOrder, buyPendingOrder } = this.props;
+    let activeTab = TAB_ID.BUY;
     if (sellPendingOrder) {
-      this.setState({ activeTab: TAB_ID.SELL });
+      activeTab = TAB_ID.SELL;
     }
+    if (buyPendingOrder) {
+      activeTab = TAB_ID.BUY;
+    }
+
+    this.setState({ activeTab });
   }
 
   onSelectTab = (key) => {
@@ -108,6 +115,16 @@ class Coin extends Component {
 
 const mapState = state => ({
   sellPendingOrder: state.sellCoinReducer.pendingOrder,
+  buyPendingOrder: state.buyCoinReducer.pendingOrder,
 });
 
+Coin.defaultProps = {
+  sellPendingOrder: null,
+  buyPendingOrder: null,
+};
+
+Coin.propTypes = {
+  sellPendingOrder: PropTypes.object,
+  buyPendingOrder: PropTypes.object,
+};
 export default connect(mapState)(Coin);
