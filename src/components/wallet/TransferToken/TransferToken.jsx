@@ -158,7 +158,7 @@ class TransferToken extends React.Component {
 
           // get balance for first item + update to local store:
           walletDefault.balance = wallets[i].balance;
-          MasterWallet.UpdateBalanceItem(walletDefault);
+          // MasterWallet.UpdateBalanceItem(walletDefault);
         }
       }
 
@@ -229,7 +229,7 @@ class TransferToken extends React.Component {
       if (success.hasOwnProperty('status')){
         if (success.status == 1){
           this.onFinish(success.data);
-          MasterWallet.NotifyUserTransfer(walletSelected.address, inputAddressAmountValue);
+          // MasterWallet.NotifyUserTransfer(walletSelected.address, inputAddressAmountValue);
         }
         else{
           this.showError(this.getMessage(success.message));

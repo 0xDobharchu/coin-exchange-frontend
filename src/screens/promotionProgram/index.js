@@ -35,14 +35,14 @@ class PromotionProgram extends React.Component {
     return (
       <div>
         {promotionContent && (
-        <div>
-          <h5 className={styles.pdFaq}>
-            <LabelLang id="static_page.promotionPrograms" />
-          </h5>
-          <div className="container">
-            <div className={styles.contactWrap} dangerouslySetInnerHTML={{ __html: promotionContent }} />
+          <div>
+            <h5 className={styles.pdFaq}>
+              <LabelLang id="static_page.promotionPrograms" />
+            </h5>
+            <div className="container">
+              <div className={styles.contactWrap} dangerouslySetInnerHTML={{ __html: promotionContent }} />
+            </div>
           </div>
-        </div>
         )}
       </div>
     );

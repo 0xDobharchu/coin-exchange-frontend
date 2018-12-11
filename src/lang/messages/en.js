@@ -778,14 +778,13 @@ export default {
     sell: {
       prepareOrderFailed: 'Failed while preparing to order, please try again',
       addPaymentInfoFailed: 'Failed while adding your payment info',
-      orderSuccessful: 'Your order was created successfully',
-      orderFailed: 'Error while making new order, pls try again',
       bankName: 'Bank name',
       accountNumber: 'Account number',
       accountName: 'Account name',
       phone: 'Phone number',
       sellBtn: 'Sell {amount} {currency}',
-      confirmMsg: 'Do you want to sell {amount} {currency}?'
+      confirmMsg: 'Do you want to sell {amount} {currency}?',
+      payoneerEmail: 'Payoneer email'
     },
     components: {
       bankTransferInfo: {
@@ -813,6 +812,7 @@ export default {
         wireTransferName: 'Wire transfer',
         codName: 'Cash on Delivery',
         tngName: 'TNG wallet',
+        payoneerName: 'Payoneer',
         codInfo: 'State your time and place for meeting up and we will exchange in person.'
       },
       walletSelector: {
@@ -833,7 +833,10 @@ export default {
         },
         cardName: 'ORDER INFO',
         priceWillUpdateIn: 'Price will be updated after',
-        orderBtn: 'Finish'
+        orderBtn: 'Finish',
+        orderSuccessful: 'Your order was created successfully',
+        orderFailed: 'Error while making new order, pls try again',
+        cancelOrder: 'Cancel Order'
       },
       pricePanel: {
         buy: 'Buy',
@@ -892,6 +895,47 @@ export default {
       defaultConfirmText: 'Yes',
       defaultDeclineText: 'No',
       defaultLabelText: 'Confirm'
+    }
+  },
+  promotion_programs: {
+    termAndConditions: 'Term & Conditions',
+    early_bird_program: {
+      title: 'Early Bird Program',
+      description: 'You will instantly receive 20 HKD after finishing the first three transactions.',
+      numTermAndConditions: '4',
+      termAndConditions: [
+        'You must be one of the first 1,000 users.',
+        'The total value of the first three transactions must be equal or more than 1,000 HKD.',
+        'If the total value of the first two transactions already reached 1,000 HKD or more, you still have to complete the third transaction to receive 20 HKD.',
+        'Once you make the first transaction, you have 5 days to finish two other transactions to get your reward.',
+      ]
+    },
+    referral_program: {
+      title: 'Referral Program',
+      description: 'For users (who receive the referral link), you will instantly get back 45 HKD as soon as you buy or sell over 3,000 USD on CoinBowl.',
+      user: {
+        title: 'For users',
+        description: '(who receive the referral link), you will instantly get back 45 HKD as soon as you buy or sell over 3,000 USD on CoinBowl.',
+        numDescriptions: '0',
+        termAndConditions: [
+          'Visiting CoinBowl via referral link.',
+          'Total amount of trading (both buy and sell are counted) is equal or more than 3,000 HKD.',
+        ]
+      },
+      referrer: {
+        title: 'For Referrer',
+        description: '(who send the referral link), you will get 25 HKD instantly when your referred person trades over 3,000 HKD.',
+        numDescriptions: '2',
+        descriptions: [
+          'In the first month, you will get 0.2% commission on every transaction from referred person.',
+          'From the second month, you will still get 0.12% commission on every transactions from referred person.'
+        ],
+        termAndConditions: [
+          'Only users visiting CoinBowl via your referral link are counted.',
+          'You can only get 25 HKD for your first three referred people.',
+          'Afterwards, you can only get the commission on their transactions.',
+        ]
+      }
     }
   }
 };

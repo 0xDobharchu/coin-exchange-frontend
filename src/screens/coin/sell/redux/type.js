@@ -1,3 +1,4 @@
 const TAG = 'SCREENS/COIN/SELL';
-export const MAKE_ORDER = `${TAG}/MAKE_ORDER`;
 export const GEN_ADDRESS = `${TAG}/GEN_ADDRESS`;
+export const ADD_PENDING_ORDER = `${TAG}/ADD_PENDING_ORDER`;
+export const CLEAR_PENDING_ORDER = `${TAG}/CLEAR_PENDING_ORDER`;
