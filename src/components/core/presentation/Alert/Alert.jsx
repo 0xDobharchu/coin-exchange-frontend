@@ -1,4 +1,5 @@
 import React from 'react';
+import { MdClose } from 'react-icons/md';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import LabelLang from 'src/lang/components/LabelLang';
@@ -75,12 +76,10 @@ class Alert extends React.PureComponent {
       <div className={`alert ${style.alerts} animated ${tyleClassName} ${isShow && style.slideInDown}`} role="alert">
         {
           isShowClose && (
-            <button type="button" className="close" onClick={() => this.setState({ isShow: false })}>
-              <span>&times;</span>
-            </button>
+            <MdClose className={style.close} onClick={() => this.setState({ isShow: false })} />
           )
         }
-        <LabelLang id={message} values={values} />
+        <span><LabelLang id={message} values={values} /></span>
       </div>
     );
   }
