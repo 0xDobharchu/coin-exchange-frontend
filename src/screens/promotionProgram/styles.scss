@@ -1,15 +1,122 @@
-.pd-faq {
-    font-weight: bold;
-    font-size: 26px;
-    text-align: center;
-    color: white;
-    margin-top: 20px;
-}
+@import 'src/assets/styles/_var.scss';
 
-.contactWrap{
-    background-color: rgb(255, 255, 255);
-    border-radius: 6px 6px 6px 6px;
-    box-shadow: 0 5px 29px -7px #000000;
-    margin-top: 50px;
-    padding: 30px;
+.container {
+    .header {
+        color: white;
+        letter-spacing: 0;
+        line-height: 29px;
+        font-weight: $semi-bold;
+    }
+
+    .content {
+        background: white;
+        .termAndCondition {
+            font-size: 30px;
+            color: #0D0031;
+            letter-spacing: 0;
+            line-height: 29px;
+            font-weight: $semi-bold;
+        }
+        .text {
+            font-size: 18px;
+            color: #0D0031;
+            letter-spacing: 0;
+            line-height: 29px;
+            font-weight: $normal;
+        }
+
+        .userHeader {
+            display: flex;
+            flex-direction: column;
+            .userTitle {
+                display: flex;
+                .userTitleName {
+                    font-size: 20px;
+                    color: #3911A8;
+                    letter-spacing: 0;
+                    line-height: 29px;
+                    font-weight: $semi-bold;
+                }
+                .userTitleContent {
+                    font-size: 16px;
+                    color: #49484A;
+                    letter-spacing: 0;
+                    font-weight: $normal;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px){
+        .header {
+            font-size: 18px;
+            margin-top: 25px;
+            margin-left: 25px;
+        }
+
+        .banner-container {
+            display: flex;
+            flex-direction: column;
+            margin: 25px;
+            //position: absolute;
+        }
+
+        .content {
+            margin-top: 25px;
+            padding: 25px;
+
+            .termAndCondition {
+                margin-top: 25px;
+                margin-bottom: 25px;
+            }
+            .userHeader {
+                margin-top: 25px;
+                margin-bottom: 10px;
+                .userTitle {
+                    .userTitleName {
+                        margin-left: 14px;
+                    }
+                }
+            }
+
+        }
+
+    }
+    @media screen and (min-width: 768px){
+        .header {
+            font-size: 36px;
+            color: white;
+            letter-spacing: 0;
+            line-height: 29px;
+            font-weight: $semi-bold;
+            margin-top: 69px;
+            margin-left: 182px;
+        }
+
+        .banner-container {
+            display: flex;
+            margin-top: 59px;
+            margin-left: 182px;
+            margin-right: 182px;
+            position: absolute;
+        }
+
+        .content {
+            margin-top: 265px;
+            padding: 200px 182px 60px;
+            .termAndCondition {
+                margin-top: 44px;
+                margin-bottom: 44px;
+            }
+            .userHeader {
+                margin-top: 50px;
+                margin-bottom: 10px;
+                .userTitle {
+                    .userTitleName {
+                        margin-left: 14px;
+                    }
+                }
+            }
+        }
+    }
 }
