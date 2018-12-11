@@ -65,7 +65,7 @@ class ConfirmButton extends PureComponent {
     return (
       <div className={`${styles.container} ${containerClassName}`}>
         <button type="submit" disabled={disabled && !onFirstClick} className={`${styles.confirmBtn} ${buttonClassName}`} onClick={this.onClick}>{label}</button>
-        <Modal show={showModal} backdrop='static'>
+        <Modal show={showModal} backdrop='static' centered>
           <Modal.Body>
             <div className={styles.content}>
               <span className={styles.desc}>{message}</span>

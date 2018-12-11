@@ -23,10 +23,10 @@ const detectCurrencyType = (currency) => {
 };
 
 const intlNumberFormat = (value, options) => {
-  const frame = /(?<int>^[\d]+)(?<dot>[.])?(?<frac>[\d]+)?/.exec(value);
-  const int = frame?.groups.int || 0;
-  const dot = frame?.groups.dot || '';
-  const frac = frame?.groups.frac?.substr(0, options?.maximumFractionDigits || 2) || '';
+  const frame = /(^[\d]+)([.])?([\d]+)?/.exec(value) || [];
+  const int = frame[1] || 0;
+  const dot = frame[2] || '';
+  const frac = frame[3]?.substr(0, options?.maximumFractionDigits || 2) || '';
   if (Number.parseFloat(value) > 1000) {
     const formatedValue = new Intl.NumberFormat('en-US', options).format(int);
     if (formatedValue === String(NaN)) {

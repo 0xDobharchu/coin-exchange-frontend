@@ -1,0 +1,73 @@
+@import 'var';
+
+.container {
+  background-color: #efefef;
+  @media screen and (min-width: 768px){
+    padding-top: 31px;
+  }
+  .sideBar {
+    @media screen and (min-width: 768px){
+      display: flex;
+      flex-direction: column;
+      a {
+        color: $primary-extra-bold;
+        margin: 15px 0px;
+        font-size: 16px;
+        font-weight: 400;
+        text-decoration: none;
+        // transition: all 0.2s linear;
+        max-width: 150px;
+        padding: 5px 10px;
+      }
+      .active {
+        color: #FFFFFF;
+        font-weight: 400;
+        border-radius: 5px;
+        background: $primary-extra-bold;
+        box-shadow: 0 5px 29px -7px #000000;
+        // &::before {
+        //   content: '― ';
+        //   color: $primary-medium;
+        // }
+      }
+    }
+    @media screen and (max-width: 768px){
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding: 6px;
+      background: #FFFFFF;
+
+      a {
+        min-width: 32%;
+        background: #FFFFFF;
+        border: 0.5px solid $primary-extra-bold;
+        border-radius: 10px;
+        padding: 5px;
+        margin: 3px auto;
+        text-align: center;
+        text-decoration: none;
+        transition: all 0.2s;
+        color: $primary-medium;
+        font-weight: 400;
+      }
+      .active {
+        background: $primary-extra-bold;
+        color: #FFFFFF;
+        box-shadow: 0 5px 29px -7px #000000
+      }
+    }
+  }
+  .scrollbar {
+    height: calc(100vh - 77px - 31px - 10px);
+    overflow: scroll;
+    background: #FFFFFF;
+    @media screen and (min-width: 768px){
+      padding: 35px 50px;
+    }
+    @media screen and (max-width: 768px){
+      height: calc(100vh - 77px - 156px);
+      padding-top: 31px;
+    }
+  }
+}

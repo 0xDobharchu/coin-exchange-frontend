@@ -38,42 +38,13 @@ class ListCoin extends React.Component {
   }
 
   async componentDidMount() {
-    let { walletSelected, wallets, crypto } = this.props;
-    // this.props.showLoading();
-    if(!wallets){
-      wallets = await this.getWallets();
-    }
+    // let { walletSelected, wallets, crypto } = this.props;
+    // this.props.showLoading();    
 
-    this.setState({wallets, walletSelected}, ()=> {
-      // this.props.hideLoading() 
-    });
-  }
-
-  getWallets = () => {
-    const { crypto } = this.props;
-    return new Promise(async (resolve, reject) => {
-      let wallets = crypto ? await MasterWallet.getWallets(crypto) : await MasterWallet.getMasterWallet();
-
-      // set name + text for list:
-      let listWalletCoin = [];
-      if (wallets.length > 0){
-        for(let wal of wallets){
-          if(!wal.isCollectibles){
-            wal.text = wal.getShortAddress() + " (" + wal.name + "-" + wal.getNetworkName() + ")";
-            if (process.env.isLive){
-              wal.text = wal.getShortAddress() + " (" + wal.className + " " + wal.name + ")";
-            }
-            wal.id = wal.address + "-" + wal.getNetworkName() + wal.name;
-
-            wal.balance = wal.formatNumber(await wal.getBalance());
-            listWalletCoin.push(wal);
-          }
-        }
-
-        resolve(listWalletCoin);
-      }
-    });
-  }
+    // this.setState({wallets, walletSelected}, ()=> {
+    //   // this.props.hideLoading() 
+    // });
+  } 
 
   selectCoin = (wallet) => {
     const { onSelect } = this.props;

@@ -1,0 +1,78 @@
+.protectwallet-wrapper{
+    margin-top:30px;
+    font-weight: 300;
+    padding-bottom: 100px;
+    .msg1, .msg2, .msg3{
+      font-size: 20px;
+      line-height: 30px;
+      margin-bottom: 30px;
+    }
+
+    .msg2{
+      color:#9a9a9a;
+      font-size: 16px;
+      line-height: 25px;
+    }
+    .msg3 span{
+      font-size: 16px;
+      line-height: 25px;
+      top: 5px;
+    }
+
+    .cursor-initial{cursor: initial !important;}
+
+    .pass-phrase, .confirm-pass-phrase{
+      margin:10px 0;
+      padding: 10px;
+      background:#D8D8D8;
+      min-height: 152px;
+      text-align: center;
+      margin-top:25px;
+      div{
+        margin:7px;
+      }
+    }
+    .pass-phrase-link-copy{
+      text-align: center;
+      color: #1E4EFF;
+      cursor: pointer;
+      margin-top: 25px;
+    }
+
+    .confirm_pass_phrase{
+      background: #e2e2e2;
+    }
+
+    input[type=checkbox] {
+      width: 30px;
+      padding: 10px;
+    }
+
+    .footer{
+      height: 60px;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 414px;
+      z-index: 2;
+      padding-left: 20px;
+      padding-right: 20px;
+      background: White;
+    }
+    p.modal-custom-title{
+      font-size:18px;
+    }
+    .wrong-pass-phrase{
+        padding: 20px 10px !important;
+    }
+    .textCenter{
+        text-align: center;
+    } 
+
+    button{
+      margin-top: 30px;
+    }
+
+  }

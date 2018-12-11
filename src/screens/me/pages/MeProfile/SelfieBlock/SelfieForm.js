@@ -1,17 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { Row, Button } from 'react-bootstrap';
 import { LabelLang } from 'src/lang/components';
-import FileUploader from 'src/components/fileUploader';
+import { FileUploadField } from 'src/components/fileUploader';
 import { getReachingLevel } from '../util';
 
 // eslint-disable-next-line
 const SelfieForm = ({ initialValues, level, levelStatus, handleSubmit, onSubmit, change }) => {
-  const handleOnSuccess = (imgUrl) => change('selfie_image', imgUrl);
-  const handleRemove = () => change('selfie_image', '');
-
+  const isRejected = () => level === 'level_4' && levelStatus === 'rejected';
   return (
     <div>
       <Row>
@@ -19,8 +17,10 @@ const SelfieForm = ({ initialValues, level, levelStatus, handleSubmit, onSubmit,
           <p className="text label" style={{ textAlign: 'center', marginTop: '20px' }}>
             <LabelLang id="me.accountLevel.selfiePhoto" />
           </p>
-          {!initialValues.selfie_image && <FileUploader onSuccess={handleOnSuccess} onRemove={handleRemove} />}
-          {initialValues.selfie_image && <img alt="selfie_image" src={initialValues.selfie_image} />}
+          {(!initialValues.selfie_image || isRejected()) && (
+            <Field name="selfie_image" component={FileUploadField} />
+          )}
+          {(initialValues.selfie_image && !isRejected()) && <img alt="selfie_image" style={{ width: '100%' }} src={initialValues.selfie_image} />}
         </div>
         {getReachingLevel(level, levelStatus) < 4 && (
         <div className="col-12" style={{ marginTop: '20px' }}>

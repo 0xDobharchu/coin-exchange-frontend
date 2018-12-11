@@ -49,10 +49,11 @@ export default {
   me: {
     navigation: {
       accountInfo: 'My Profile',
-      setting: 'My Setting',
+      preferecens: 'Preferences',
       accountLevel: 'Account Level',
       history: 'History',
-      bankInfo: 'Bank Info'
+      bankInfo: 'Bank Info',
+      referral: 'Referral'
     },
     accountInfo: {
       email: 'Email',
@@ -76,6 +77,13 @@ export default {
       referral: {
         name: 'Name',
         status: 'Status',
+        date: 'Date'
+      },
+      referralEarningTitle: 'Referral Earning',
+      referralEarning: {
+        from: 'From',
+        type: 'Type',
+        value: 'Value',
         date: 'Date'
       },
       alert: {
@@ -104,7 +112,35 @@ export default {
       action: 'Action',
       cancel: 'Cancel',
       close: 'Close',
-      detail: 'Detail'
+      detail: 'Transaction Detail',
+      orderStatus: {
+        pending: 'Pending',
+        processing: 'Processing',
+        fiat_transferring: 'Fiat Transferring',
+        transferring: 'Transferring',
+        transferred: 'Transferred',
+        success: 'Success',
+        transfer_failed: 'Transfer Failed',
+        cancelled: 'Cancelled',
+        rejected: 'Rejected',
+        expired: 'Expired',
+      },
+      dialog: {
+        cancel: {
+          title: 'Cancel Order',
+          body: 'Are you sure to cancel?',
+          confirm: 'Yes',
+          cancel: 'No',
+        }
+      },
+      direction: {
+        buy: 'Buy',
+        sell: 'Sell'
+      },
+      alert: {
+        cancelSuccess: 'Successfully Cancelled',
+        cancelFailed: 'Failed To Cancel'
+      }
     },
     accountLevel: {
       head_text: 'Our verification process typically takes just a few minutes. This may take slightly longer outside business hours. Your information will remain 100% private.',
@@ -112,9 +148,9 @@ export default {
       step2: 'Level 2 : Phone Verification',
       step3: 'Level 3 : ID Card Verification',
       step4: 'Level 4 : Upload Photo Selfie',
-      wrm1: 'Trade with a limit upto 500 USD a day.',
-      wrm2: 'Trade with the top limit of 2000 USD a day.',
-      wrm3: 'Trade with the top limit of 5000 USD a day.',
+      wrm1: 'Trade with a limit upto {limit} {currency} a day.',
+      wrm2: 'Trade with the top limit of {limit} {currency} a day.',
+      wrm3: 'Trade with the top limit of {limit} {currency} a day.',
       wrm4: 'Unlimited Amount.',
       lv3desc: 'To comply with relevant anti-money laundering (AML) and counter-terrorism financing (CTF) laws and regulations.',
       fullName: 'Full Name',
@@ -144,6 +180,17 @@ export default {
         overSMSLimit: 'You entered wrong verification code 10 times already. Please use the last code sent to your phone to verify.',
         invalidCode: 'Your code is incorrect, please try again!',
         error: 'OH! something went wrong! Please try again',
+      },
+      levelStatus: {
+        pending: 'Pending',
+        processing: 'Processing',
+        rejected: 'Rejected',
+        approved: 'Verified',
+      },
+      idTypes: {
+        passport: 'Passport',
+        driver_license: 'Driver License',
+        id_card: 'Government ID Card'
       }
     },
     bankInfo: {
@@ -180,6 +227,7 @@ export default {
   COIN_EXCHANGE_LP_FAQ_TITLE: 'Frequently asked questions',
   'landing_page.label.footer': 'Coinbowl.com is an online exchange developed by Shanzhai Limited, a Hong Kong based company, offering bulk crypto purchasing at competitive prices with full delivery service.<br />Join the dojo: <a href="https://t.me/coin_bowl" class="landing-link">t.me/coin_bowl</a><br />Contact us: <a href="mailto:support@coin_bowl.com" class="landing-link" target="_top">support@coin_bowl.com</a>',
   user: {
+    setting: 'Settings',
     logout: 'Sign out',
     login: {
       title: 'Sign in to Coinbowl',
@@ -190,6 +238,7 @@ export default {
       registerButton: 'Don\'t have an account?',
       forgetPassword: 'Forget password?',
       requiredPassword: 'Please enter your password',
+      notValidPassword: 'Password must be 8 characters or more',
       notValidUsername: 'Invalid email address',
       requiredUsername: 'Please enter your email',
       loginFailure: 'Email and password not match.',
@@ -267,7 +316,7 @@ export default {
     }
   },
   wallet: {
-    title: 'Your Accounts',
+    title: 'Coinbowl Wallet',
     top_banner: {
       message: 'Shuriken Airdrop (limited)',
       button: 'Click here',
@@ -723,18 +772,19 @@ export default {
       userAddress: 'Address',
       userPhone: 'Phone',
       userNote: 'As soon as possible',
-      buyBtn: 'Buy {amount} {currency}'
+      buyBtn: 'Buy {amount} {currency}',
+      confirmMsg: 'Do you want to buy {amount} {currency}?'
     },
     sell: {
       prepareOrderFailed: 'Failed while preparing to order, please try again',
       addPaymentInfoFailed: 'Failed while adding your payment info',
-      orderSuccessful: 'Your order was created successfully',
-      orderFailed: 'Error while making new order, pls try again',
       bankName: 'Bank name',
       accountNumber: 'Account number',
       accountName: 'Account name',
       phone: 'Phone number',
-      sellBtn: 'Sell {amount} {currency}'
+      sellBtn: 'Sell {amount} {currency}',
+      confirmMsg: 'Do you want to sell {amount} {currency}?',
+      payoneerEmail: 'Payoneer email'
     },
     components: {
       bankTransferInfo: {
@@ -762,6 +812,7 @@ export default {
         wireTransferName: 'Wire transfer',
         codName: 'Cash on Delivery',
         tngName: 'TNG wallet',
+        payoneerName: 'Payoneer',
         codInfo: 'State your time and place for meeting up and we will exchange in person.'
       },
       walletSelector: {
@@ -782,7 +833,10 @@ export default {
         },
         cardName: 'ORDER INFO',
         priceWillUpdateIn: 'Price will be updated after',
-        orderBtn: 'Finish'
+        orderBtn: 'Finish',
+        orderSuccessful: 'Your order was created successfully',
+        orderFailed: 'Error while making new order, pls try again',
+        cancelOrder: 'Cancel Order'
       },
       pricePanel: {
         buy: 'Buy',
@@ -793,7 +847,8 @@ export default {
         currency: 'Currency',
         buy: 'buy',
         sell: 'sell',
-        exchangeFailed: 'Failed while exchanging, please try again'
+        exchangeFailed: 'Failed while exchanging, please try again',
+        minAmount: '{currency} amount must be greater than {amount}'
       },
       phoneVerify: {
         submitPhoneSuccessMsg: 'We sent a code to your phone successfully',
@@ -840,6 +895,47 @@ export default {
       defaultConfirmText: 'Yes',
       defaultDeclineText: 'No',
       defaultLabelText: 'Confirm'
+    }
+  },
+  promotion_programs: {
+    termAndConditions: 'Term & Conditions',
+    early_bird_program: {
+      title: 'Early Bird Program',
+      description: 'You will instantly receive 20 HKD after finishing the first three transactions.',
+      numTermAndConditions: '4',
+      termAndConditions: [
+        'You must be one of the first 1,000 users.',
+        'The total value of the first three transactions must be equal or more than 1,000 HKD.',
+        'If the total value of the first two transactions already reached 1,000 HKD or more, you still have to complete the third transaction to receive 20 HKD.',
+        'Once you make the first transaction, you have 5 days to finish two other transactions to get your reward.',
+      ]
+    },
+    referral_program: {
+      title: 'Referral Program',
+      description: 'For users (who receive the referral link), you will instantly get back 45 HKD as soon as you buy or sell over 3,000 USD on CoinBowl.',
+      user: {
+        title: 'For users',
+        description: '(who receive the referral link), you will instantly get back 45 HKD as soon as you buy or sell over 3,000 USD on CoinBowl.',
+        numDescriptions: '0',
+        termAndConditions: [
+          'Visiting CoinBowl via referral link.',
+          'Total amount of trading (both buy and sell are counted) is equal or more than 3,000 HKD.',
+        ]
+      },
+      referrer: {
+        title: 'For Referrer',
+        description: '(who send the referral link), you will get 25 HKD instantly when your referred person trades over 3,000 HKD.',
+        numDescriptions: '2',
+        descriptions: [
+          'In the first month, you will get 0.2% commission on every transaction from referred person.',
+          'From the second month, you will still get 0.12% commission on every transactions from referred person.'
+        ],
+        termAndConditions: [
+          'Only users visiting CoinBowl via your referral link are counted.',
+          'You can only get 25 HKD for your first three referred people.',
+          'Afterwards, you can only get the commission on their transactions.',
+        ]
+      }
     }
   }
 };

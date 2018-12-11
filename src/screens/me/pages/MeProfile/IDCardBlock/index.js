@@ -4,24 +4,7 @@ import { showAlert } from 'src/screens/app/redux/action';
 import { submitVerifyLevel3Action } from 'src/screens/auth/redux/action';
 import { LabelLang } from 'src/lang/components';
 import IDVerificationForm from './IDVerificationForm';
-import { DOC_TYPES, getCurrentLevel} from '../util';
-
-const getStatusColor = (level, status) => {
-  if (level === 'level_4') return 'success';
-  const statusObj = [
-    { label: 'pending', value: 'warning' },
-    { label: 'approved', value: 'success' },
-  ].find(e => e.label === status) || null;
-  return statusObj ? statusObj.value : 'danger';
-};
-const getLevelStatus = (level, status) => {
-  if (level === 'level_4') return 'VERIFIED';
-  if (level === 'level_3') {
-    if (status == 'approved') return 'VERIFIED';
-    else return status.toUpperCase();
-  }
-  return '';
-};
+import { DOC_TYPES, getColorByLevel, getCurrentLevel, getStatusByLevel} from '../util';
 
 class IDCardBlock extends React.PureComponent {
 
@@ -58,7 +41,7 @@ class IDCardBlock extends React.PureComponent {
 
   render() {
     // eslint-disable-next-line
-    const { style, verified, level, levelStatus } = this.props;
+    const { style, msg, verified, level, levelStatus } = this.props;
     const currentLevel = getCurrentLevel(level, levelStatus);
 
     return (
@@ -68,11 +51,11 @@ class IDCardBlock extends React.PureComponent {
             <LabelLang id="me.accountLevel.step3" />
           </p>
           <div className={style.extend}>
-            <span className={`badge badge-${getStatusColor(level, levelStatus)}`}>{getLevelStatus(level, levelStatus)}</span>
+            <span className={`badge badge-${getColorByLevel(3, level, levelStatus)}`}>{getStatusByLevel(3, level, levelStatus)}</span>
           </div>
         </div>
         <div className={style.content}>
-          <p className={style.text}><LabelLang id="me.accountLevel.wrm3" /></p>
+          <p className={style.text}><LabelLang id="me.accountLevel.wrm3" values={msg} /></p>
         </div>
         {2 <= currentLevel && <IDVerificationForm onSubmit={this.handleSubmitForm} />}
       </div>
