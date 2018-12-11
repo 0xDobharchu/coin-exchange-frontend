@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import Alert from 'src/components/core/presentation/Alert';
-import Navigation from 'src/components/core/controls/Navigation';
+// import Navigation from 'src/components/core/controls/Navigation';
 import WalletPasscode from 'src/components/wallet/WalletPasscode/WalletPasscode';
 import RequirePassword from 'src/components/wallet/RequirePassword/RequirePassword';
 import styles from './styles.scss';
@@ -18,9 +18,9 @@ class Layout extends PureComponent {
         <div className={cx('common-fluid', styles.content)}>
           {children}
         </div>
-        <div className={styles.mobile}>
+        {/* <div className={styles.mobile}>
           <Navigation location={location} />
-        </div>
+        </div> */}
         {/* <Loading /> */}
         <Alert />
         <WalletPasscode />
