@@ -10,7 +10,8 @@ class PopularPlaces extends Component {
   constructor() {
     super();
     this.state = {
-      data: []
+      data: [],
+      selectedId: null
     };
   }
 
@@ -26,34 +27,46 @@ class PopularPlaces extends Component {
     }
   }
 
+  setDefaultValue = (value) => {
+    if (!value) return;
+
+    const { data } = this.state;
+    const found = data?.find(d => d?.value === value);
+    found && this.setState({ selectedId: found?.id });
+  }
+
   errorHandler = (e) => {
     console.warn(e);
     reqErrorAlert(e, { message: <LabelLang id='coin.components.popularBanks.getBanksFailed' />});
   }
 
   handerData = (data = []) => {
-    const rs = data.map(d => {
+    const { defaultValue } = this.props;
+    const rs = data.map((d, index) => {
       const label = d.name;
       return {
+        id: index,
         label,
         value: label
       };
     });
-    this.setState({ data: rs });
+    this.setState({ data: rs }, () => { this.setDefaultValue(defaultValue); });
   }
 
   render() {
-    const { data } = this.state;
-    const { placeholder, onChange, onBlur, onFocus, className } = this.props;
+    const { data, selectedId } = this.state;
+    const { placeholder, onChange, onBlur, onFocus, className, disabled } = this.props;
     return (
       <AutocompleteInput
         data={data}
+        selectedId={selectedId}
         onChange={onChange}
         onBlur={onBlur}
         onFocus={onFocus}
         strict
         placeholder={placeholder}
         inputClassname={className}
+        disabled={disabled}
       />
     );
   }
@@ -70,7 +83,9 @@ PopularPlaces.defaultProps = {
   onBlur: null,
   onFocus: null,
   className: '',
-  placeholder: ''
+  placeholder: '',
+  defaultValue: null,
+  disabled: false
 };
 
 PopularPlaces.propTypes = {
@@ -82,5 +97,7 @@ PopularPlaces.propTypes = {
   onFocus: PropTypes.func,
   className: PropTypes.string,
   placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  defaultValue: PropTypes.string,
 };
 export default connect(mapState, { getBank })(PopularPlaces);
