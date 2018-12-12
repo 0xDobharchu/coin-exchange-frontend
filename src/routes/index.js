@@ -37,6 +37,9 @@ const routes = [
     path: URL.HOME,
     component: Coin,
     exact: true,
+    containerProps: {
+      bodyWrapper: false
+    }
   },
   {
     path: URL.FAQ_URL,
