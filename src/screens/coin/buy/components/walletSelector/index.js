@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FaQrcode } from 'react-icons/fa';
+// import { FaQrcode } from 'react-icons/fa';
 import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import { showQrCode } from 'src/components/barcodeScanner';
 import Input from 'src/components/core/controls/input';
 import { injectIntl } from 'react-intl';
 import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
 import { MasterWallet } from 'src/services/Wallets/MasterWallet';
-import cx from 'classnames';
+// import cx from 'classnames';
+import { ICON } from 'src/components/wallet/images';
 import styles from './styles.scss';
 
 const getIntlKey = (name) => `coin.components.walletSelector.${name}`;
@@ -63,6 +64,14 @@ class WalletSelector extends Component {
     ));
   }
 
+  onQRCodeScanClick=()=>{
+    this.addressInputRef?.current?.input?.focus();
+    showQrCode({
+      onData: this.onChangeAddress,
+    });
+    return false;
+  }
+
   render() {
     const { onFocus, onBlur, markRequired, intl: { formatMessage } } = this.props;
     const { address, currencyListRendered, currency } = this.state;
@@ -83,16 +92,16 @@ class WalletSelector extends Component {
             ref={this.addressInputRef}
           />
           <InputGroup.Prepend>
-            <FaQrcode
+
+            <span onKeyDown={this.onQRCodeScanClick} onClick={this.onQRCodeScanClick} className={styles.iconQrCodeScan} role="presentation">{ICON.QRCode()}</span>
+
+            {/* <FaQrcode
               className={cx(styles.icon, 'common-clickable')}
               size={20}
               onClick={() => {
-                this.addressInputRef?.current?.input?.focus();
-                showQrCode({
-                  onData: this.onChangeAddress,
-                });
+               
               }}
-            />
+            /> */}
             <DropdownButton
               className={styles.dropdown}
               // as={InputGroup.Prepend}
