@@ -11,9 +11,9 @@ class ProgramItem extends React.Component {
   }
 
   render() {
-    const { logo, title, description, programType, index } = this.props;
+    const { logo, title, description, index } = this.props;
     return (
-      <div className={styles.programItem} onClick={() => this.props.choosePromotionProgram(programType)} onKeyPress={this.props.choosePromotionProgram} role="button" tabIndex={index}>
+      <div className={styles.programItem} role="button" tabIndex={index}>
         <div className={styles.logo}>
           <img src={logo} alt="" className={styles.image}  />
         </div>

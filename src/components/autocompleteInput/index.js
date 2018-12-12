@@ -27,9 +27,19 @@ class AutocompleteInput extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { term } = this.state;
+    const { selectedId } = this.props;
     if (term !== prevState.term) {
       this.handleCallbackData();
     }
+    if (selectedId && selectedId !== prevProps.selectedId) {
+      this.setDefaultValueViaId(selectedId);
+    }
+  }
+
+  setDefaultValueViaId = (id) => {
+    const { data } = this.props;
+    const found = data?.find(d => d?.id === id);
+    found && this.setState({ value: found.value, term: found.label, isValid: true });
   }
 
   handleCallbackData = () => {
@@ -82,8 +92,8 @@ class AutocompleteInput extends Component {
     const { result } = this.state;
     if (result.length === 0) return null;
 
-    const items = result.map((data, index) =>
-      <div className={styles.item} role="presentation" key={`${index}-${data?.label}`} onClick={() => this.onClick(data)}><span>{data?.label}</span></div>);
+    const items = result.map(data =>
+      <div className={styles.item} role="presentation" key={data?.id} onClick={() => this.onClick(data)}><span>{data?.label}</span></div>);
     if (items.length) {
       return (
         <div className={styles.items}>{items}</div>
@@ -93,11 +103,11 @@ class AutocompleteInput extends Component {
 
   render() {
     const { show, term, isValid } = this.state;
-    const { placeholder, containerClassname, inputClassname } = this.props;
+    const { containerClassname, inputClassname, strict, onChange, data, selectedId, ...inputProps } = this.props;
     return (
       <div className={cx(styles.container, containerClassname)}>
         <Input
-          placeholder={placeholder}
+          {...inputProps}
           onChange={this.onChangeTerm}
           name="autocomplete-input"
           className={cx(styles.input, inputClassname, !isValid && 'border-danger')}
@@ -115,23 +125,30 @@ class AutocompleteInput extends Component {
 AutocompleteInput.defaultProps = {
   onChange: null,
   strict: false,
-  placeholder: '',
   containerClassname: '',
-  inputClassname: ''
+  inputClassname: '',
+  selectedId: null
 };
 
 AutocompleteInput.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ]),
       value: PropTypes.any,
       label: PropTypes.string
     })
   ).isRequired,
   onChange: PropTypes.func,
   strict: PropTypes.bool,
-  placeholder: PropTypes.string,
   containerClassname: PropTypes.string,
   inputClassname: PropTypes.string,
+  selectedId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
 };
 
 export default AutocompleteInput;

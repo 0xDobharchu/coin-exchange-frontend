@@ -28,7 +28,7 @@ import privateRoute from './privateRoute';
     component: YourComponent,
     componentProps: { name: 'Component Name' },
     auth: bool ==> need to auth to see this view
-    noContainer: bool ==> wrapper container with header & footer
+    containerProps: { header: true [,headerProps] , footer: true [,footerProps], bodyWrapper: true, noContainer: false }; noContainer = true to render children without container
     ...react-router props
   },
  */
