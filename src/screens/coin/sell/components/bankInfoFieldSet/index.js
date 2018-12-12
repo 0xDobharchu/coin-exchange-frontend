@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import { Field } from 'redux-form';
 import inputField from 'src/components/core/form/fields/input';
-import { isRequired } from 'src/components/core/form/validator';
+import isRequired from 'src/components/core/form/validator/isRequired';
 import popularBankField, { popularBanksValidator } from './reduxFormFields/popularBank';
 import styles from './styles.scss';
 

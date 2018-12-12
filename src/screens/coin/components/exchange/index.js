@@ -138,7 +138,7 @@ class Exchange extends Component {
         amount,
         currency,
         fiat_currency: fiatCurrency,
-        check: 0,
+        check: isAuth ? 1 : 0,
         user_check: isAuth ? 1 : 0,
         direction,
         order_type: orderType
@@ -170,7 +170,7 @@ class Exchange extends Component {
         fiat_amount: fiatAmount,
         currency,
         fiat_currency: fiatCurrency,
-        check: 0,
+        check: isAuth ? 1 : 0,
         user_check: isAuth ? 1 : 0,
         direction,
         order_type: orderType
