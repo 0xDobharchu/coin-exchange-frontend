@@ -10,7 +10,8 @@ class PopularPlaces extends Component {
   constructor() {
     super();
     this.state = {
-      data: []
+      data: [],
+      selectedId: null
     };
   }
 
@@ -26,15 +27,26 @@ class PopularPlaces extends Component {
     }
   }
 
+  setDefaultValue = (value) => {
+    if (!value) return;
+
+    const { name, address } = value;
+    const { data } = this.state;
+    const found = data?.find(d => d?.value?.name === name && d?.value?.address === address);
+    found && this.setState({ selectedId: found?.id });
+  }
+
   errorHandler = (e) => {
     console.warn(e);
     reqErrorAlert(e, { message: <LabelLang id='coin.components.popularPlace.getPlacesFailed' />});
   }
 
   handerData = (data = []) => {
-    const rs = data.map(d => {
+    const { defaultValue } = this.props;
+    const rs = data.map((d, index) => {
       const label = `${d.name} (${d.address})`;
       return {
+        id: index,
         label,
         value: {
           name: d.name,
@@ -42,21 +54,23 @@ class PopularPlaces extends Component {
         }
       };
     });
-    this.setState({ data: rs });
+    this.setState({ data: rs }, () => { this.setDefaultValue(defaultValue); });
   }
 
   render() {
-    const { data } = this.state;
-    const { placeholder, onChange, onBlur, onFocus, className } = this.props;
+    const { data, selectedId } = this.state;
+    const { placeholder, onChange, onBlur, onFocus, className, disabled } = this.props;
     return (
       <AutocompleteInput
         data={data}
+        selectedId={selectedId}
         onChange={onChange}
         onBlur={onBlur}
         onFocus={onFocus}
         strict
         placeholder={placeholder}
         inputClassname={className}
+        disabled={disabled}
       />
     );
   }
@@ -73,7 +87,9 @@ PopularPlaces.defaultProps = {
   className: '',
   onBlur: null,
   onFocus: null,
-  placeholder: ''
+  placeholder: '',
+  defaultValue: null,
+  disabled: false,
 };
 
 PopularPlaces.propTypes = {
@@ -85,5 +101,10 @@ PopularPlaces.propTypes = {
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  defaultValue: PropTypes.shape({
+    name: PropTypes.string,
+    address: PropTypes.string,
+  })
 };
 export default connect(mapState, { getPlace })(PopularPlaces);

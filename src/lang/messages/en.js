@@ -938,5 +938,10 @@ export default {
         ]
       }
     }
+  },
+  pageNotFound: {
+    pageNotFound: 'Page not found',
+    descText: 'Sorry we couldn\'t find what you were looking for.',
+    backHome: 'Back to Home'
   }
 };
