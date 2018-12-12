@@ -4,6 +4,7 @@
   position: relative;
   border: 1px solid #ced4da;
   border-radius: 4px 4px 4px 4px;
+  margin-left: 1px;
   .input {
     border: none;
     flex: 1 1 auto;
@@ -40,5 +41,9 @@
     top: 50%;
     transform: translateY(-50%);
     margin: 0px 20px;
+  }
+  .iconQrCodeScan{
+    margin: 0px 20px;
+    margin-top: 15px
   }
 }

@@ -476,13 +476,12 @@ export class Ethereum extends Wallet {
     const url = `${this.constructor.API[this.getNetworkName()]}?module=proxy&action=eth_getTransactionByHash&txhash=${hash}&apikey=${API_KEY}`;
     const response = await axios.get(url);
     if (response.status == 200) {
-      result = response.data.result;
-
-      const web3 = this.getWeb3();
-      result.gas = web3.utils.hexToNumber(result.gas);
-      result.gasPrice = web3.utils.hexToNumber(result.gasPrice);
-      result.value = web3.utils.hexToNumber(result.value);
-      result.transactionIndex = web3.utils.hexToNumber(result.transactionIndex);
+      result = response.data.result;      
+      const web3 = this.getWeb3();      
+      result.gas = web3.utils.hexToNumber(result.gas);      
+      result.gasPrice = web3.utils.hexToNumber(result.gasPrice);      
+      result.value = Web3.utils.hexToNumberString(result.value);      
+      result.transactionIndex = web3.utils.hexToNumber(result.transactionIndex);            
     }
     return result;
   }
