@@ -1,2 +1,3 @@
 const TAG = 'SCREENS/COIN/SELL/ODER_INFO';
 export const CHECK_ADDRESS = `${TAG}/CHECK_ADDRESS`;
+export const MAKE_ORDER = `${TAG}/MAKE_ORDER`;

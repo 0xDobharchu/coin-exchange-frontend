@@ -28,6 +28,10 @@ const field = ({ input, meta, className = '' }) => {
           {
             nameIntl: getIntlKey('codName'),
             value: PAYMENT_METHOD.COD,
+          },
+          {
+            nameIntl: getIntlKey('payoneerName'),
+            value: PAYMENT_METHOD.PAYONEER,
           }
         ]}
       />
