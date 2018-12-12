@@ -806,7 +806,8 @@ export default {
         saveReceiptFailedMsg: 'Your receipt was not uploaded, please try again',
         getBankInfoFailedMsg: 'Get bank info failed, please try again',
         retryGetBankInfo: 'No bank info data {retry}',
-        retryBtn: 'Retry?'
+        retryBtn: 'Retry?',
+        cancelOrder: 'Cancel Order'
       },
       paymentMethod: {
         wireTransferName: 'Wire transfer',
