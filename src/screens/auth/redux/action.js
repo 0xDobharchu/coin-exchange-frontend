@@ -1,6 +1,6 @@
 import {
   fetchProfile, sendEmailVerifyCode, updateProfile, sendToGetPhoneCode, submitVerifyPhoneCode, submitIdCard, submitSelfie,
-  getTransactions, getReferrals, cancelTransaction
+  getTransactions, getReferrals, cancelTransaction, getReferralEarningPromotion, getReferralEarningReferral
 } from './api';
 
 export const getProfileAction = () => (dispatch) => new Promise((resolve, reject) => {
@@ -91,6 +91,30 @@ export const cancelTransactionAction = (id) => (dispatch) => new Promise((resolv
       transactions: r.results
     };
     dispatch({ type: 'GET_TRANSACTIONS', payload });
+    resolve(true);
+  }).catch(err => reject(err));
+});
+
+export const getRefEarningPromotionAction = () => (dispatch) => new Promise((resolve, reject) => {
+  getReferralEarningPromotion().then(r => {
+    if (!r) return;
+    const payload = {
+      count: r.count,
+      results: r.results
+    };
+    dispatch({ type: 'GET_REFERRAL_EARNING_PROMOTION', payload });
+    resolve(true);
+  }).catch(err => reject(err));
+});
+
+export const getRefEarningReferralAction = () => (dispatch) => new Promise((resolve, reject) => {
+  getReferralEarningReferral().then(r => {
+    if (!r) return;
+    const payload = {
+      count: r.count,
+      results: r.results
+    };
+    dispatch({ type: 'GET_REFERRAL_EARNING_REFERRAL', payload });
     resolve(true);
   }).catch(err => reject(err));
 });

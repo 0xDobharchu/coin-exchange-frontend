@@ -27,7 +27,16 @@ const mockState = {
     transactions: [],
     count: 0
   },
-  referrals: []
+  referrals: [],
+  referralsEarningPromotion: {
+    count: 0,
+    results: []
+  },
+  referralsEarningReferral: {
+    count: 0,
+    results: []
+  },
+
 };
 
 export default (state = mockState, { type, payload, data }) => {
@@ -73,6 +82,16 @@ export default (state = mockState, { type, payload, data }) => {
       return {
         ...state,
         referrals: payload
+      };
+    case 'GET_REFERRAL_EARNING_PROMOTION':
+      return {
+        ...state,
+        referralsEarningPromotion: payload,
+      };
+    case 'GET_REFERRAL_EARNING_REFERRAL':
+      return {
+        ...state,
+        referralsEarningReferral: payload,
       };
     default:
       return state;
