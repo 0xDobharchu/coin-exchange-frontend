@@ -5,7 +5,7 @@ import PrivateRoute from './privateRoute';
 export default (routes = []) => {
   return routes.map((route, index) => {
     const Component = route.auth ? PrivateRoute : RouteWrapper;
-    return <Component noContainer key={`${route.path}-${index}`} {...route} />;
+    return <Component containerProps={{ noContainer: true }} key={`${route.path}-${index}`} {...route} />;
   });
 };
 
