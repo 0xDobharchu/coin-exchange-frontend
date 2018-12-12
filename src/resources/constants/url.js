@@ -80,6 +80,8 @@ export const API_URL = {
     REFERRALS: '/user/referrals/',
     FILE_UPLOAD: '/user/file-upload/',
     CURRENCY_LEVEL_LIMIT: '/system/currency-level-limits/',
+    REFERRALS_EARNING_PROMOTION: '/exchange/promotions/',
+    REFERRALS_EARNING_REFERRALS: '/exchange/referrals/',
   }
 };
 

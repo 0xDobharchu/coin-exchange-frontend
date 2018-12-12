@@ -2,7 +2,7 @@
 
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: column;  
   padding-top: 38.5px;
   .title {
     font-size: 20px;
@@ -15,7 +15,7 @@
     background-color: #D8D8D8;
   }
   .block1 {
-    // margin-bottom: 38.5px;
+    margin-bottom: 38.5px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

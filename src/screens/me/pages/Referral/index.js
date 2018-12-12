@@ -8,6 +8,7 @@ import style from './style.scss';
 import SocialBox from './socialBox';
 import ReferralList from './ReferralList';
 import ReferralEarningList from './ReferralEarningList';
+import ReferralEarningReferral from './ReferralEarningReferral';
 
 // eslint-disable-next-line
 const Referral = ({ name, showAlert }) => {
@@ -46,6 +47,7 @@ const Referral = ({ name, showAlert }) => {
       <label className={style.title}><LabelLang id="me.accountInfo.referralEarningTitle" /></label>
       <div className={style.lineTitle} />
       <ReferralEarningList />
+      <ReferralEarningReferral />
     </div>
   );
 };

@@ -1,3 +1,6 @@
+@import 'var';
+@import 'responsive';
+
 .container {
   max-width: 1024px;
   background-color: white;
@@ -25,5 +28,20 @@
   }
   .submit-btn {
     width: 100%;
+    @include respond(xs) {
+      border-radius: 0px;
+      height: 60px;
+      position: fixed;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      font-weight: 500;
+      font-size: 18px;
+      z-index: 10;
+      &:not([disabled]) {
+        background-color: $ce-cyan-medium;
+        color: white;
+      }
+    }
   }
 }
