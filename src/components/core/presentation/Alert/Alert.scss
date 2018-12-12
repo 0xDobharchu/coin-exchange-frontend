@@ -10,7 +10,14 @@
     margin: 0 auto;
     z-index: $z-index-alert;
     border: none !important;
-    border-radius: 0 !important;
+    border-radius: 0px 0px 3px 3px !important;
+
+    .close {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      margin: 5px;
+    }
 }
 
 .alert-success{
