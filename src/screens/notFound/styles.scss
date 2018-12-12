@@ -1,0 +1,46 @@
+@import 'var';
+@import 'responsive';
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  span {
+    color: white;
+  }
+  .not-found {
+    padding: 50px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    @include respond(xs) {
+      padding: 50px 10px;
+    }
+    span {
+      &:first-child {
+        font-size: 40px;
+        font-weight: 600;
+        text-transform: uppercase;
+        @include respond(xs) {
+          font-size: 30px;
+        }
+      }
+      &:last-child {
+        font-size: 20px;
+        @include respond(xs) {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+  .back-home {
+    padding: 5px 20px;
+    display: block;
+    border: groove 2px;
+  }
+}
