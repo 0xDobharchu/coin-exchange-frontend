@@ -6,7 +6,7 @@ import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
 import LabelLang from 'src/lang/components/LabelLang';
 import { getBank } from './redux/action';
 
-class PopularPlaces extends Component {
+class PopularBanks extends Component {
   constructor() {
     super();
     this.state = {
@@ -77,7 +77,7 @@ const mapState = state => ({
   language: state?.langReducer?.lang
 });
 
-PopularPlaces.defaultProps = {
+PopularBanks.defaultProps = {
   userCountry: null,
   language: null,
   onBlur: null,
@@ -88,7 +88,7 @@ PopularPlaces.defaultProps = {
   disabled: false
 };
 
-PopularPlaces.propTypes = {
+PopularBanks.propTypes = {
   getBank: PropTypes.func.isRequired,
   userCountry: PropTypes.string,
   language: PropTypes.string,
@@ -100,4 +100,4 @@ PopularPlaces.propTypes = {
   disabled: PropTypes.bool,
   defaultValue: PropTypes.string,
 };
-export default connect(mapState, { getBank })(PopularPlaces);
+export default connect(mapState, { getBank })(PopularBanks);
