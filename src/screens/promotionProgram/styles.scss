@@ -85,28 +85,24 @@
     @media screen and (min-width: 768px){
         .header {
             font-size: 36px;
-            color: white;
-            letter-spacing: 0;
-            line-height: 29px;
-            font-weight: $semi-bold;
             margin-top: 69px;
             margin-left: 182px;
         }
 
         .banner-container {
             display: flex;
-            margin-top: 59px;
+            margin-top: 80px;
             margin-left: 182px;
             margin-right: 182px;
             position: absolute;
         }
 
         .content {
-            margin-top: 265px;
+            margin-top: 225px;
             padding: 200px 182px 60px;
             .termAndCondition {
-                margin-top: 44px;
-                margin-bottom: 44px;
+                margin-top: 20px;
+                margin-bottom: 22px;
             }
             .userHeader {
                 margin-top: 50px;
