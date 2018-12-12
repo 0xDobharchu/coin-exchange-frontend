@@ -778,14 +778,13 @@ export default {
     sell: {
       prepareOrderFailed: 'Failed while preparing to order, please try again',
       addPaymentInfoFailed: 'Failed while adding your payment info',
-      orderSuccessful: 'Your order was created successfully',
-      orderFailed: 'Error while making new order, pls try again',
       bankName: 'Bank name',
       accountNumber: 'Account number',
       accountName: 'Account name',
       phone: 'Phone number',
       sellBtn: 'Sell {amount} {currency}',
-      confirmMsg: 'Do you want to sell {amount} {currency}?'
+      confirmMsg: 'Do you want to sell {amount} {currency}?',
+      payoneerEmail: 'Payoneer email'
     },
     components: {
       bankTransferInfo: {
@@ -807,12 +806,14 @@ export default {
         saveReceiptFailedMsg: 'Your receipt was not uploaded, please try again',
         getBankInfoFailedMsg: 'Get bank info failed, please try again',
         retryGetBankInfo: 'No bank info data {retry}',
-        retryBtn: 'Retry?'
+        retryBtn: 'Retry?',
+        cancelOrder: 'Cancel Order'
       },
       paymentMethod: {
         wireTransferName: 'Wire transfer',
         codName: 'Cash on Delivery',
         tngName: 'TNG wallet',
+        payoneerName: 'Payoneer',
         codInfo: 'State your time and place for meeting up and we will exchange in person.'
       },
       walletSelector: {
@@ -833,7 +834,10 @@ export default {
         },
         cardName: 'ORDER INFO',
         priceWillUpdateIn: 'Price will be updated after',
-        orderBtn: 'Finish'
+        orderBtn: 'Finish',
+        orderSuccessful: 'Your order was created successfully',
+        orderFailed: 'Error while making new order, pls try again',
+        cancelOrder: 'Cancel Order'
       },
       pricePanel: {
         buy: 'Buy',
