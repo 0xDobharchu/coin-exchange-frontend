@@ -23,7 +23,9 @@ class ReferralEarningReferral extends React.PureComponent {
     const { referralsEarningReferral : { results }  } = this.props;
     return (
       <div className={style.container}>
-        <div className={style.title}>Referral</div>
+        <div className={style.title}>
+          <LabelLang id="me.accountInfo.referralEarningReferralTitle" />
+        </div>
         <div className={style.block1}>
           <Row className={style.table_header}>
             <Col xs={4}><LabelLang id="me.accountInfo.referralEarning.from" /></Col>
