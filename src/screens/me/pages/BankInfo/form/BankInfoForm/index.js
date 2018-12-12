@@ -5,6 +5,7 @@ import { reduxForm } from 'redux-form';
 import { Row, Col }from 'react-bootstrap';
 import { LabelLang, FieldLang, WrapperLang } from 'src/lang/components';
 import { Button, InputField } from 'src/components/custom';
+import popularBankField from 'src/screens/coin/sell/components/bankInfoFieldSet/reduxFormFields/popularBank';
 import optionSvg from './iconMore.svg';
 import style from './style.scss';
 
@@ -46,7 +47,9 @@ class BankInfoForm extends React.Component {
         <br />
         <Row className={style.row}>
           <Col md={6}><LabelLang id="me.bankInfo.bankName" /></Col>
-          <Col md={6}><FieldLang name="bankName" validate={[required]} component={InputField} disabled={!isEditMode} placeholder="me.bankInfo.bankNameHolder" /></Col>
+          <Col md={6}>
+            <FieldLang name="bankName" validate={[required]} component={popularBankField} disabled={!isEditMode} placeholder="me.bankInfo.bankNameHolder" />
+          </Col>
         </Row>
         <Row className={style.row}>
           <Col md={6}><LabelLang id="me.bankInfo.bankAccountName" /></Col>
