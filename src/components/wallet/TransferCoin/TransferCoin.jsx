@@ -42,6 +42,8 @@ const TAB = {
   Internal: 1
 }
 
+import LogManager from 'src/services/logs/logmanage';
+
 
 class Transfer extends React.Component {
   static propTypes = {
@@ -99,7 +101,7 @@ class Transfer extends React.Component {
   async componentDidMount() {
 
     await this.getWalletDefault();
-    // this.props.hideLoading();
+    // this.props.hideLoading();    
 
     await this.setRate();
 
@@ -117,7 +119,7 @@ class Transfer extends React.Component {
     const { onFinish } = this.props;
 
     if (onFinish) {
-      let result = {"toAddress": this.state.inputAddressAmountValue, "fromWallet": this.state.walletSelected, "amountCoin": this.state.inputSendAmountValue, data: data}
+      let result = {"toAddress": this.state.inputAddressAmountValue, "fromWallet": this.state.walletSelected.address, "amountCoin": this.state.inputSendAmountValue, data: data}
 
       try{
         if(data && data.hash){
@@ -135,11 +137,25 @@ class Transfer extends React.Component {
           transactions.unshift(newTran);
           this.setSessionStore(this.state.walletSelected, TAB.Transaction, transactions);
         }
+        onFinish(result);
       }
       catch(e){
-      }
+        // save event:
+        LogManager.saveLog(
+          LogManager.PAGE_EVENT.wallet.transfer.name, 
+          LogManager.PAGE_EVENT.wallet.transfer.event.transferFail,
+          `error data: ${e.message}`
+        );
+        return;
+      }      
 
-      onFinish(result);
+      // save event:
+      LogManager.saveLog(
+        LogManager.PAGE_EVENT.wallet.transfer.name, 
+        LogManager.PAGE_EVENT.wallet.transfer.event.transferSuccess,
+        `data: ${JSON.stringify(result)}`
+      );
+
     } else {
 
     }
@@ -320,6 +336,12 @@ class Transfer extends React.Component {
 
   openSendCoin = () => {
       this.modalConfirmTranferRef.open();
+      // save event:
+      LogManager.saveLog(
+        LogManager.PAGE_EVENT.wallet.transfer.name, 
+        LogManager.PAGE_EVENT.wallet.transfer.event.transferButtonSubmitClick,
+        'Open confirm modal'
+      );
   }
 
   invalidateTransferCoins = (value) => {
@@ -493,6 +515,12 @@ openQrcode = () => {
   showQrCode({
     onData: this.handleScan,
   });
+  // save event:
+  LogManager.saveLog(
+    LogManager.PAGE_EVENT.wallet.transfer.name, 
+    LogManager.PAGE_EVENT.wallet.transfer.event.qrCodeScanClick,
+    'value: open'
+  );
 }
 
 selectWallet = async (walletSelected) => {
@@ -528,10 +556,17 @@ async getFeeLevel(walletSelected){
 handleOnChange = (value) => {
   this.setState({
     volume: value
-  })
+  });
+  // save event:
+  LogManager.saveLog(
+    LogManager.PAGE_EVENT.wallet.transfer.name, 
+    LogManager.PAGE_EVENT.wallet.transfer.event.changeFeeClick,
+    `value: ${value}`
+  );
 }
 
-calcMaxAmount = () => {
+calcMaxAmount = () => {  
+
   const { walletSelected, listFeeObject, volume } = this.state;
   const { messages } = this.props.intl;
 
@@ -550,13 +585,26 @@ calcMaxAmount = () => {
   this.setState({inputSendAmountValue: result}, ()=>{
     this.updateAddressAmountValue(null, result);
   });
+
+  // save event: 
+  LogManager.saveLog(
+    LogManager.PAGE_EVENT.wallet.transfer.name, 
+    LogManager.PAGE_EVENT.wallet.transfer.event.maxValueClick,
+    `value: ${result}`
+  );
+
 }
 
 onChooseFromContact =()=>{
   this.setState({addressBookContent: <AddressBook needChoice={true} onSelected = {(item)=> {this.onSelectAddressBook(item);}} onRef={ref => (this.child = ref)}  modalBodyStyle={this.modalBodyStyle} />}, ()=>{
     this.modalAddressBookRef.open();
   })
-
+  // save event:
+  LogManager.saveLog(
+    LogManager.PAGE_EVENT.wallet.transfer.name, 
+    LogManager.PAGE_EVENT.wallet.transfer.event.fromContactClick,
+    ''
+  );
 }
 
 onCloseAddressBook=()=>{
