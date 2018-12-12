@@ -15,18 +15,15 @@ const checkAuth = () => {
   }
 };
 
-const PrivateRoute = ({ component: Component, routes, path, noContainer, componentProps, ...rest }) => (
+const PrivateRoute = ({ component: Component, routes, path, noContainer, componentProps, containerProps, ...rest }) => (
   <Route
     {...rest}
     path={path}
     render={props => {
       if (checkAuth()) {
-        const COM = <Component {...props} {...componentProps} routes={routes} />;
         // pass the sub-routes down to keep nesting
-        if (noContainer) {
-          return COM;
-        }
-        return <ScreenContainer>{COM}</ScreenContainer>;
+        const COM = <Component {...props} {...componentProps} routes={routes} />;
+        return <ScreenContainer {...containerProps}>{COM}</ScreenContainer>;
       }
       return (
         <Redirect
