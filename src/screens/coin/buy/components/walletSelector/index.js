@@ -7,7 +7,7 @@ import Input from 'src/components/core/controls/input';
 import { injectIntl } from 'react-intl';
 import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
 import { MasterWallet } from 'src/services/Wallets/MasterWallet';
-// import cx from 'classnames';
+import cx from 'classnames';
 import { ICON } from 'src/components/wallet/images';
 import styles from './styles.scss';
 
@@ -93,7 +93,7 @@ class WalletSelector extends Component {
           />
           <InputGroup.Prepend>
 
-            <span onKeyDown={this.onQRCodeScanClick} onClick={this.onQRCodeScanClick} className={styles.iconQrCodeScan} role="presentation">{ICON.QRCode()}</span>
+            <span onKeyDown={this.onQRCodeScanClick} onClick={this.onQRCodeScanClick} className={cx(styles.iconQrCodeScan, 'common-clickable')} role="presentation">{ICON.QRCode()}</span>
 
             {/* <FaQrcode
               className={cx(styles.icon, 'common-clickable')}
