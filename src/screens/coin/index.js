@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 import { Container, Col, Row } from 'react-bootstrap';
 import ReviewList from 'src/components/reviewList';
 import { FaPlayCircle } from 'react-icons/fa';
@@ -8,17 +9,22 @@ import LabelLang from 'src/lang/components/LabelLang';
 import UserVerifyStatus from 'src/components/userVerifyStatus';
 import animations from 'src/assets/styles/animations';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { URL } from 'src/resources/constants/url';
 import BuyCoin from './buy';
 import SellCoin from './sell';
 import styles from './styles.scss';
 
+const TAB_ID = {
+  BUY: 'BUY',
+  SELL: 'SELL'
+};
 const TABS = {
-  BUY: {
+  [TAB_ID.BUY]: {
     title: <LabelLang id='coin.buyTabTitle' />,
     component: <BuyCoin />
   },
-  SELL: {
+  [TAB_ID.SELL]: {
     title: <LabelLang id='coin.sellTabTitle' />,
     component: <SellCoin />
   }
@@ -30,6 +36,19 @@ class Coin extends Component {
     this.state = {
       activeTab: Object.keys(TABS)[0],
     };
+  }
+
+  componentDidMount() {
+    const { sellPendingOrder, buyPendingOrder } = this.props;
+    let activeTab = TAB_ID.BUY;
+    if (sellPendingOrder) {
+      activeTab = TAB_ID.SELL;
+    }
+    if (buyPendingOrder) {
+      activeTab = TAB_ID.BUY;
+    }
+
+    this.setState({ activeTab });
   }
 
   onSelectTab = (key) => {
@@ -94,4 +113,18 @@ class Coin extends Component {
   }
 }
 
-export default Coin;
+const mapState = state => ({
+  sellPendingOrder: state.sellCoinReducer.pendingOrder,
+  buyPendingOrder: state.buyCoinReducer.pendingOrder,
+});
+
+Coin.defaultProps = {
+  sellPendingOrder: null,
+  buyPendingOrder: null,
+};
+
+Coin.propTypes = {
+  sellPendingOrder: PropTypes.object,
+  buyPendingOrder: PropTypes.object,
+};
+export default connect(mapState)(Coin);
