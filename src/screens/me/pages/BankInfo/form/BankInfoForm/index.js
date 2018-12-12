@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { Row, Col }from 'react-bootstrap';
 import { LabelLang, FieldLang, WrapperLang } from 'src/lang/components';
+import isRequired from 'src/components/core/form/validator/isRequired';
 import { Button, InputField } from 'src/components/custom';
-import popularBankField from 'src/screens/coin/sell/components/bankInfoFieldSet/reduxFormFields/popularBank';
+import popularBankField from '../fields/popularBank';
 import optionSvg from './iconMore.svg';
 import style from './style.scss';
 
-const required = value => (value || typeof value === 'number' ? undefined : <LabelLang id="app.common.required" />);
+const required = isRequired();
 
 // eslint-disable-next-line
 class BankInfoForm extends React.Component {
