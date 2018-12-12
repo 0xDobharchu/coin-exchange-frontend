@@ -38,7 +38,8 @@ export const API_URL = {
     USER_PROFILE: '/user/profile/', // GET /user/profile
     USER_FORGET_PASSWORD: '/user/forgot-password/', // POST user/forgot-password/
     USER_FORGET_PASSWORD_FINISH: '/user/reset-password/', // POST user/forgot-password/reset/
-    USER_VERYFY_PASSWORD: '/user/verify-password/'
+    USER_VERYFY_PASSWORD: '/user/verify-password/',
+    USER_LOG: '/user/logs/'
   },
   SYSTEM: {
     COUNTRY : '/system/country-default-configs/?time=3423434', // GET /system/country-default-configs/
