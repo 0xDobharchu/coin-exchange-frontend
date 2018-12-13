@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Loading from 'src/components/loading';
 import { LabelLang } from 'src/lang/components';
-import { getRefEarningPromotionAction } from 'src/screens/auth/redux/action';
+import { getRefEarningReferralAction } from 'src/screens/auth/redux/action';
 import { Row, Col } from 'react-bootstrap';
 import style from './style.scss';
 
-class ReferralEarning extends React.PureComponent {
+class ReferralEarningReferral extends React.PureComponent {
 
   state = {
     loading: true,
@@ -14,17 +14,17 @@ class ReferralEarning extends React.PureComponent {
 
   componentDidMount() {
     // eslint-disable-next-line
-    this.props.getRefEarningPromotionAction().then(() => this.setState({ loading: false }));
+    this.props.getRefEarningReferralAction().then(() => this.setState({ loading: false }));
   }
   render() {
     // eslint-disable-next-line
     if (this.state.loading) return (<Loading />);
     // eslint-disable-next-line
-    const { referralsEarningPromotion : { results }  } = this.props;
+    const { referralsEarningReferral : { results }  } = this.props;
     return (
       <div className={style.container}>
         <div className={style.title}>
-          <LabelLang id="me.accountInfo.referralEarningPromotionTitle" />
+          <LabelLang id="me.accountInfo.referralEarningReferralTitle" />
         </div>
         <div className={style.block1}>
           <Row className={style.table_header}>
@@ -47,8 +47,8 @@ class ReferralEarning extends React.PureComponent {
 }
 
 const mapState = state => ({
-  referralsEarningPromotion: state.auth.referralsEarningPromotion
+  referralsEarningReferral: state.auth.referralsEarningReferral
 });
 
-const mapDispatch = { getRefEarningPromotionAction };
-export default connect(mapState, mapDispatch)(ReferralEarning);
+const mapDispatch = { getRefEarningReferralAction };
+export default connect(mapState, mapDispatch)(ReferralEarningReferral);

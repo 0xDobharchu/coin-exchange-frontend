@@ -4,7 +4,7 @@ import Input from 'src/components/core/controls/input';
 import cx from 'classnames';
 import styles from './styles.scss';
 
-class AutocompleteInput extends Component {
+class AutocompleteField extends Component {
   constructor(props) {
     super();
     this.state = {
@@ -44,17 +44,14 @@ class AutocompleteInput extends Component {
 
   handleCallbackData = () => {
     const { onChange, strict } = this.props;
+    // eslint-disable-next-line
     const { term, data, value } = this.state;
     const isValid = strict ? data.some(d => d?.label === term) : true;
 
     this.setState({ isValid });
 
     if (typeof onChange === 'function') {
-      onChange({
-        term,
-        value: isValid ? value : null,
-        isValid
-      });
+      onChange(term);
     }
   }
   
@@ -102,8 +99,8 @@ class AutocompleteInput extends Component {
   }
 
   render() {
-    const { show, term, isValid } = this.state;
-    const { containerClassname, inputClassname, strict, onChange, data, selectedId, ...inputProps } = this.props;
+    const { show, isValid } = this.state;
+    const { containerClassname, inputClassname, strict, onChange, data, selectedId, value, ...inputProps } = this.props;
     return (
       <div className={cx(styles.container, containerClassname)}>
         <Input
@@ -113,7 +110,7 @@ class AutocompleteInput extends Component {
           className={cx(styles.input, inputClassname, !isValid && 'border-danger')}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
-          value={term}
+          value={value}
           autoCompleteOff
         />
         { show && this.renderResult() }
@@ -122,7 +119,7 @@ class AutocompleteInput extends Component {
   }
 }
 
-AutocompleteInput.defaultProps = {
+AutocompleteField.defaultProps = {
   onChange: null,
   strict: false,
   containerClassname: '',
@@ -130,7 +127,7 @@ AutocompleteInput.defaultProps = {
   selectedId: null
 };
 
-AutocompleteInput.propTypes = {
+AutocompleteField.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([
@@ -151,4 +148,4 @@ AutocompleteInput.propTypes = {
   ]),
 };
 
-export default AutocompleteInput;
+export default AutocompleteField;

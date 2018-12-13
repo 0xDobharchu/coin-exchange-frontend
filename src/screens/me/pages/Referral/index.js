@@ -8,10 +8,11 @@ import style from './style.scss';
 import SocialBox from './socialBox';
 import ReferralList from './ReferralList';
 import ReferralEarningList from './ReferralEarningList';
+import ReferralEarningReferral from './ReferralEarningReferral';
 
 // eslint-disable-next-line
 const Referral = ({ name, showAlert }) => {
-  const getReferralLink = () => window.location.origin + '/sign-up?referral=' + name;
+  const getReferralLink = () => window.location.origin + '/referral/' + name;
   const handleFocus = event => { event.target.select(); };
   const showMessage = (message, type) => showAlert({ message, type });
   const showSuccess = id => showMessage(id, 'success');
@@ -25,13 +26,13 @@ const Referral = ({ name, showAlert }) => {
           {/* <input value={getReferralLink()} /> */}
           <div className="input-group" style={{marginTop: '10px'}}>
             <input onFocus={handleFocus} type="text" className={'form-control ' + style.inputReferalLink} value={getReferralLink()} readOnly aria-label="referral link" aria-describedby="referral-link" />
-            <div className="input-group-append" style={{marginLeft: '10px'}}>              
+            <div className="input-group-append" style={{marginLeft: '10px'}}>
               <CopyToClipboard text={getReferralLink()} onCopy={()=>showSuccess('wallet.refers.success.copy_link')}>
                 <Button value="Copy" />
               </CopyToClipboard>
             </div>
-            
-          </div> 
+
+          </div>
 
         </div>
         <WrapperLang>
@@ -39,13 +40,14 @@ const Referral = ({ name, showAlert }) => {
             <SocialBox socialLink={getReferralLink()} socialText={ts('app.description')} />
           }
         </WrapperLang>
-        
+
       </div>
       <ReferralList />
 
       <label className={style.title}><LabelLang id="me.accountInfo.referralEarningTitle" /></label>
       <div className={style.lineTitle} />
       <ReferralEarningList />
+      <ReferralEarningReferral />
     </div>
   );
 };

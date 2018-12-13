@@ -387,3 +387,41 @@ export const getAccountLevelByCurrency = async (currency) => {
     throw err;
   }
 };
+
+export const getReferralEarningPromotion = async () => {
+  try {
+    const options = {
+      url : API_URL.ME.REFERRALS_EARNING_PROMOTION,
+      method: 'GET',
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {
+        Authorization: 'Bearer ' + currentUser.getToken()
+      };
+    }
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR getReferralEarningPromotion', err);
+    return [];
+  }
+};
+
+export const getReferralEarningReferral = async () => {
+  try {
+    const options = {
+      url : API_URL.ME.REFERRALS_EARNING_REFERRALS,
+      method: 'GET',
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {
+        Authorization: 'Bearer ' + currentUser.getToken()
+      };
+    }
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR getReferralEarningReferral', err);
+    return [];
+  }
+};

@@ -7,6 +7,7 @@ import { DEFAULT_COUNTRY } from 'src/resources/constants/countries';
 import local from 'src/services/localStore';
 import makeRequest from 'src/redux/action';
 import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
+import { changeLang } from 'src/lang/action';
 import APP_ACTION from './type';
 
 export const updateModal = payload => ({ type: APP_ACTION.UPDATE_MODAL, payload });
@@ -65,28 +66,33 @@ export const setLanguage = (data, autoDetect = true) => ({
 // |-- loading
 export const setRootLoading = rootLoading => ({ type: APP_ACTION.UPDATE_APP_STATE, payload: { rootLoading } });
 
+const continueAfterInitApp = (language, ref, dispatch, data, getState) => {
+  const supportedLanguages = Object.keys(getState()?.app?.supportedLanguages || {});
 
-const continueAfterInitApp = (language, ref, dispatch, data) => {
-  const ipInfoRes = { language: FAIL_DEFAULT_LANGUAGE, bannedPrediction: false, bannedCash: false };
+  const ipInfoRes = { language: FAIL_DEFAULT_LANGUAGE, bannedCash: false };
   const languageSaved = local.get(APP.LOCALE);
 
+  let langFirst = data.languages?.[0];
+  langFirst = langFirst === 'zh-HK' ? 'zh-Hant-HK' : langFirst;
+
   if (!languageSaved) {
-    ipInfoRes.language = data.languages?.[0] || FAIL_DEFAULT_LANGUAGE;
+    ipInfoRes.language = langFirst || FAIL_DEFAULT_LANGUAGE;
   } else {
     ipInfoRes.language = languageSaved;
   }
 
   const completedLanguage = language || ipInfoRes.language;
-  console.log('completed language', completedLanguage);
-  if (APP.isSupportedLanguages.indexOf(completedLanguage) >= 0) {
-    console.log('set lang', completedLanguage);
-    dispatch(setLanguage(completedLanguage, !language));
+  if (supportedLanguages.indexOf(completedLanguage) >= 0) {
+  //   console.log('set lang', completedLanguage);
+  //   dispatch(setLanguage(completedLanguage, !language));
+    dispatch(changeLang(completedLanguage));
   }
+
   dispatch(setRootLoading(false));
 
 };
 
-export const initApp = (language, ref) => (dispatch) => {
+export const initApp = (language, ref) => (dispatch, getState) => {
   try {
     $http({
       url: URL.IP_DOMAIN,
@@ -96,7 +102,7 @@ export const initApp = (language, ref) => (dispatch) => {
       const ipInfo = IpInfo.ipFind(res);
 
       dispatch(setIpInfo(ipInfo));
-      continueAfterInitApp(language, ref, dispatch, res);
+      continueAfterInitApp(language, ref, dispatch, res, getState);
     }).catch((e) => {
       console.log('App Action InitApp', e);
       // TO-DO: handle error
@@ -149,5 +155,7 @@ export const getSupportLanguages = () => (dispatch) => {
     type: APP_ACTION.GET_SUPPORT_LANGUAGES,
     withAuth: false,
   }, dispatch);
-  return req();
+  return req().then(() => {
+    dispatch(initApp());
+  });
 };
