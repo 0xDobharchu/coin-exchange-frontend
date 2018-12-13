@@ -4,8 +4,10 @@ import { injectIntl } from 'react-intl';
 import { Field, formValueSelector, isValid } from 'redux-form';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import cx from 'classnames';
 import createForm from 'src/components/core/form/createForm';
 import { bindActionCreators } from 'redux';
+import { debounce } from 'lodash';
 import { PAYMENT_METHOD, EXCHANGE_DIRECTION } from 'src/screens/coin/constant';
 import { DEFAULT_CURRENCY } from 'src/resources/constants/crypto';
 import { URL } from 'src/resources/constants/url';
@@ -44,7 +46,43 @@ class BuyCryptoCoin extends React.Component {
 
     this.state = {
       isAuth: authUtil.isLogin() || false,
+      floatSubmitBtn: false,
     };
+
+    this.submitBtnContainer = React.createRef();
+  }
+
+  componentDidMount() {
+    this.setupScrollEvent();
+  }
+
+  componentWillUnmount() {
+    this.setupScrollEvent({ remove: true });
+  }
+
+  detectSubmitBtn = () => {
+    // only use on browser
+    if (!__CLIENT__) return;
+
+    const elBound = this.submitBtnContainer?.current?.getBoundingClientRect();
+    if ((elBound?.height + elBound?.top ) >= window?.outerHeight) {
+      this.setState({ floatSubmitBtn: true });
+    } else if (elBound?.height === elBound?.top && elBound?.top === 0) { // do nothing if el has been hidden
+      return;
+    } else {
+      this.setState({ floatSubmitBtn: false });
+    }
+  }
+
+  setupScrollEvent = ({ remove } = {}) => {
+    const fn = debounce(this.detectSubmitBtn, 100);
+    // only use on browser
+    if (!__CLIENT__) return;
+
+    if (remove) {
+      window?.removeEventListener('scroll', fn);
+    } else
+      window?.addEventListener('scroll', fn);
   }
 
   isValidToSubmit = () => {
@@ -110,6 +148,7 @@ class BuyCryptoCoin extends React.Component {
   }
 
   render() {
+    const { floatSubmitBtn } = this.state;
     const { paymentMethod, supportedCurrency, exchange, wallet, intl, pendingOrder, clearPendingOrder } = this.props;
     const isValid = this.isValidToSubmit();
     if (pendingOrder) {
@@ -143,18 +182,20 @@ class BuyCryptoCoin extends React.Component {
             intl={intl}
           />
           <CodFieldSet show={paymentMethod === PAYMENT_METHOD.COD} intl={intl} className='mt-4' />
-          <ConfirmButton
-            disabled={!isValid}
-            containerClassName='mt-5'
-            buttonClassName={styles.submitBtn}
-            message={<LabelLang id='coin.buy.confirmMsg' values={{ amount: exchange?.amount || 0, currency: exchange?.currency }} />}
-            label={(
-              <span>
-                <FaLock /> <LabelLang id='coin.buy.buyBtn' values={{ amount: exchange?.amount || 0, currency: exchange?.currency}} />
-              </span>
-            )}
-            onConfirm={this.makeOrder}
-          />
+          <div className={styles.submitBtnContainer} ref={this.submitBtnContainer}>
+            <ConfirmButton
+              disabled={!isValid}
+              containerClassName='mt-5'
+              buttonClassName={cx(styles.submitBtn, floatSubmitBtn && styles.floatSubmitBtn)}
+              message={<LabelLang id='coin.buy.confirmMsg' values={{ amount: exchange?.amount || 0, currency: exchange?.currency }} />}
+              label={(
+                <span>
+                  <FaLock /> <LabelLang id='coin.buy.buyBtn' values={{ amount: exchange?.amount || 0, currency: exchange?.currency}} />
+                </span>
+              )}
+              onConfirm={this.makeOrder}
+            />
+          </div>
         </BuyForm>
       </div>
     );
