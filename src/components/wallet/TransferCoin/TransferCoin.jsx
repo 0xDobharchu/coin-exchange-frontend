@@ -561,7 +561,7 @@ handleOnChange = (value) => {
   LogManager.saveLog(
     LogManager.PAGE_EVENT.wallet.transfer.name, 
     LogManager.PAGE_EVENT.wallet.transfer.event.changeFeeClick,
-    `value: ${value}`
+    `level: ${value}`
   );
 }
 
