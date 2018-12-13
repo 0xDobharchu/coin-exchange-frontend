@@ -1,4 +1,5 @@
 @import 'var';
+@import 'src/assets/styles/_functions.scss';
 
 .walletContainer{
 
@@ -144,7 +145,7 @@
 
     .float-button-scan-qrcode{
       position: fixed;
-      bottom: 45px;
+      bottom: -10px;
       left: 1px;
       width: 75px;
       height: 75px;

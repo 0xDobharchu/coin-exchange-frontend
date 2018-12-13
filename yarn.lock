@@ -2479,7 +2479,7 @@ code-point-at@^1.0.0:
 
 "coinexchangei18n@github:ninjadotorg/coin-exchange-i18n":
   version "1.0.0"
-  resolved "https://codeload.github.com/ninjadotorg/coin-exchange-i18n/tar.gz/873989a11276ec256c229f8e325d0147b874a10a"
+  resolved "https://codeload.github.com/ninjadotorg/coin-exchange-i18n/tar.gz/103ed1106816130ff023c2ad93efb7b08545917f"
   dependencies:
     "@babel/core" "^7.1.2"
     "@babel/node" "^7.0.0"
