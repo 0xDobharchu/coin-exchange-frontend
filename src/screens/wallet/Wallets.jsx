@@ -138,12 +138,14 @@ class Wallet extends React.Component {
         this.updateDimensions = this.updateDimensions.bind(this);
     }
     componentDidMount() {
-        
+
         let addressParram = this.props.match.params.address || false;
-        
+
         this.setState({ addressParram });
-        if (__CLIENT__)
+        if (__CLIENT__) {
             window.addEventListener("resize", this.updateDimensions);
+            // try { document.querySelector(".common-fluid").style.backgroundColor = '#f4f4fb'; } catch (e) { };
+        }
 
         this.updateDimensions();
 
@@ -151,7 +153,7 @@ class Wallet extends React.Component {
 
         // todo call api get wallet data ...    
         this.props.userWallet().then((listWallet) => {
-            
+
             if (listWallet !== false) {
                 this.splitWalletData(listWallet);
                 this.getListBalace(listWallet);
@@ -179,7 +181,7 @@ class Wallet extends React.Component {
             height: window.innerHeight,
             width: window.innerWidth
         });
-        
+
         let isDeskTop = this.state.isDeskTop;
         if (window.innerWidth < MD_MAX_WITH) {
             if (isDeskTop) {
@@ -219,8 +221,10 @@ class Wallet extends React.Component {
     }
 
     componentWillUnmount() {
-        if (__CLIENT__)
+        if (__CLIENT__) {
             window.removeEventListener("resize", this.updateDimensions);
+            // try { document.querySelector(".common-fluid").style.backgroundColor = '#3F2782'; } catch (e) { };
+        }
     }
 
     showAlert(msg, type = 'success', timeOut = 3000, icon = '') {
@@ -338,13 +342,13 @@ class Wallet extends React.Component {
                 if (this.state.isDeskTop)
                     this.setDefaultDesktop();
             }
-        }    
+        }
         // save event:
         LogManager.saveLog(
-            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name,
             LogManager.PAGE_EVENT.wallet.walletHomePage.event.removeWalletSuccess,
             `wallet address: ${wallet.address}`
-        );    
+        );
     }
 
     // open transfer modal:
@@ -405,8 +409,8 @@ class Wallet extends React.Component {
         });
         // save event:
         LogManager.saveLog(
-            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
-            LogManager.PAGE_EVENT.wallet.walletHomePage.event.newWalletButtonClick,            
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name,
+            LogManager.PAGE_EVENT.wallet.walletHomePage.event.newWalletButtonClick,
         );
     }
     successCreateWallet = (newWallet, phrase) => {
@@ -430,7 +434,7 @@ class Wallet extends React.Component {
 
         // save event:
         LogManager.saveLog(
-            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name,
             LogManager.PAGE_EVENT.wallet.walletHomePage.event.createWalletSuccess,
             `wallet address: ${newWallet.address}`
         );
@@ -485,7 +489,7 @@ class Wallet extends React.Component {
         });
         // save event:
         LogManager.saveLog(
-            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name,
             LogManager.PAGE_EVENT.wallet.walletHomePage.event.transferButtonClick,
             `wallet address: ${wallet.address}`
         );
@@ -514,7 +518,7 @@ class Wallet extends React.Component {
         });
         // save event:
         LogManager.saveLog(
-            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name,
             LogManager.PAGE_EVENT.wallet.walletHomePage.event.showTransferFromScanQRCode,
             `dataAddress: ${dataAddress}`
         );
@@ -537,7 +541,7 @@ class Wallet extends React.Component {
         });
         // save event:
         LogManager.saveLog(
-            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name,
             LogManager.PAGE_EVENT.wallet.walletHomePage.event.receiveButtonClick,
             `wallet address: ${wallet.address}`
         );
@@ -552,7 +556,7 @@ class Wallet extends React.Component {
         });
     }
 
-    onWarningClick = (wallet) => {        
+    onWarningClick = (wallet) => {
         // todo: decryp wallet:  
         if (this.state.userPassword === '') {
             this.props.showRequirePassword({
@@ -568,7 +572,7 @@ class Wallet extends React.Component {
         }
         // save event:
         LogManager.saveLog(
-            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name,
             LogManager.PAGE_EVENT.wallet.walletHomePage.event.protectedButtonClick,
             `wallet address: ${wallet.address}`
         );
@@ -588,7 +592,7 @@ class Wallet extends React.Component {
 
         this.setState({
             walletSelected: wallet,
-            modalSecure: <WalletProtect onCopy={()=>{ this.onCopyProtected(walletEncrypt); }}
+            modalSecure: <WalletProtect onCopy={() => { this.onCopyProtected(walletEncrypt); }}
                 step={1}
                 wallet={walletEncrypt}
                 callbackSuccess={() => { this.successWalletProtect(wallet); }}
@@ -622,7 +626,7 @@ class Wallet extends React.Component {
         }
         // save event:
         LogManager.saveLog(
-            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name,
             LogManager.PAGE_EVENT.wallet.walletHomePage.event.exportWalletItemClick,
             `wallet address: ${wallet.address}`
         );
@@ -654,7 +658,7 @@ class Wallet extends React.Component {
         });
         // save event:
         LogManager.saveLog(
-            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name,
             LogManager.PAGE_EVENT.wallet.walletHomePage.event.exportPrivateKeyItemClick,
             `wallet address: ${wallet.address}`
         );
@@ -722,10 +726,10 @@ class Wallet extends React.Component {
         //update data wallet.        
         this.saveWallet(this.getAllWallet());
         this.onWalletItemClick(wallet);
-    } 
-    
-    confirmDeleteWallet = () => { 
-        this.confirmDialogDelete.current.show(); 
+    }
+
+    confirmDeleteWallet = () => {
+        this.confirmDialogDelete.current.show();
     }
 
     onOpenWalletPreferences = (wallet) => {
@@ -737,7 +741,7 @@ class Wallet extends React.Component {
 
         // save event:
         LogManager.saveLog(
-            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name,
             LogManager.PAGE_EVENT.wallet.walletHomePage.event.preferencesButtonClick,
             `wallet address: ${wallet.address}`
         );
@@ -845,7 +849,7 @@ class Wallet extends React.Component {
         // for form wallet detail:
         if (this.state.modalHistory != '') {
             this.onWalletItemClick(wallet);
-        }        
+        }
     }
 
     getETHFree = () => {
@@ -904,7 +908,7 @@ class Wallet extends React.Component {
                 {!process.env.isProduction &&
                     <Row className={styles.list}>
                         {this.state.listTestWalletBalance.length > 0 ?
-                            <SortableComponent onWarningClick={item => this.onWarningClick(item)}  onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} items={this.state.listTestWalletBalance} />
+                            <SortableComponent onWarningClick={item => this.onWarningClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} items={this.state.listTestWalletBalance} />
                             : ''}
                     </Row>
                 }
@@ -923,15 +927,15 @@ class Wallet extends React.Component {
                             <div className={styles.header}>
                                 <span className={styles.title}> {messages['wallet.title']} </span>
                             </div>
-                            
+
                             <div className={styles.walletWrap}>
                                 <div className={styles.walletWrapLeft}>
                                     {this.state.isLoading ?
-                                    <div className={styles.loading}><Loader color="#3F2782" /></div>:
-                                    <div className={styles.walletList}>                                        
-                                        {this.renderLiveCoin()}
-                                        {this.renderTestNet()}
-                                    </div>}
+                                        <div className={styles.loading}><Loader color="#3F2782" /></div> :
+                                        <div className={styles.walletList}>
+                                            {this.renderLiveCoin()}
+                                            {this.renderTestNet()}
+                                        </div>}
                                 </div>
                                 <div className={styles.walletWrapRight}>
                                     <div className={styles.walletDetail}>
@@ -988,7 +992,7 @@ class Wallet extends React.Component {
                 </Modal>
 
                 {/* qrcode result detected modal popup*/}
-                <QRCodeContent onTransferClick={(data) => { this.showTransferFromQRCode(data); }} />                
+                <QRCodeContent onTransferClick={(data) => { this.showTransferFromQRCode(data); }} />
 
                 <ConfirmDialog
                     title={<LabelLang id="wallet.action.remove.header" />}
@@ -997,7 +1001,7 @@ class Wallet extends React.Component {
                     cancelText={<LabelLang id="wallet.action.remove.button_cancel" />}
                     ref={this.confirmDialogDelete}
                     onConfirm={this.onConfirmDeleteWallet}
-                    />
+                />
 
                 {/* ModalDialog for transfer coin */}
                 <Modal title={messages['wallet.action.transfer.header']} onRef={modal => this.modalSendRef = modal} onClose={this.closeTransfer}>

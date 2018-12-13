@@ -10,6 +10,7 @@ const initState = {
 export default (state = initState, { type, payload }) => {
   switch (type) {
     case CHANGE_LANG:
+      console.log('CHANGE_LANG', payload);
       local.save(APP.LOCALE, payload);
       return {
         lang: payload

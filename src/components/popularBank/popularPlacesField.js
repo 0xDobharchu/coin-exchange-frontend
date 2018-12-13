@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import AutocompleteInput from 'src/components/autocompleteInput';
+import AutocompleteField from 'src/components/autocompleteField';
 import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
 import LabelLang from 'src/lang/components/LabelLang';
 import { getBank } from './redux/action';
 
-class PopularBanks extends Component {
+class PopularPlacesField extends Component {
   constructor() {
     super();
     this.state = {
@@ -55,9 +55,9 @@ class PopularBanks extends Component {
 
   render() {
     const { data, selectedId } = this.state;
-    const { placeholder, onChange, onBlur, onFocus, className, disabled } = this.props;
+    const { placeholder, onChange, onBlur, onFocus, className, disabled, value } = this.props;
     return (
-      <AutocompleteInput
+      <AutocompleteField
         data={data}
         selectedId={selectedId}
         onChange={onChange}
@@ -67,6 +67,7 @@ class PopularBanks extends Component {
         placeholder={placeholder}
         inputClassname={className}
         disabled={disabled}
+        value={value}
       />
     );
   }
@@ -77,7 +78,7 @@ const mapState = state => ({
   language: state?.langReducer?.lang
 });
 
-PopularBanks.defaultProps = {
+PopularPlacesField.defaultProps = {
   userCountry: null,
   language: null,
   onBlur: null,
@@ -85,10 +86,11 @@ PopularBanks.defaultProps = {
   className: '',
   placeholder: '',
   defaultValue: null,
-  disabled: false
+  disabled: false,
+  value: '',
 };
 
-PopularBanks.propTypes = {
+PopularPlacesField.propTypes = {
   getBank: PropTypes.func.isRequired,
   userCountry: PropTypes.string,
   language: PropTypes.string,
@@ -99,5 +101,6 @@ PopularBanks.propTypes = {
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   defaultValue: PropTypes.string,
+  value: PropTypes.string,
 };
-export default connect(mapState, { getBank })(PopularBanks);
+export default connect(mapState, { getBank })(PopularPlacesField);
