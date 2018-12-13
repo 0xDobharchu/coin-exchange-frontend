@@ -699,6 +699,7 @@ export default {
           coming_soon: 'Coming soon ...',
           send: 'Send',
           receive: 'Receive',
+          option: 'Options'
         },
       },
     },
