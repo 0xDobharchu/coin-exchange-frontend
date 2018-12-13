@@ -82,11 +82,12 @@ const continueAfterInitApp = (language, ref, dispatch, data) => {
 
   const completedLanguage = language || ipInfoRes.language;
   console.log('completed language', completedLanguage);
-  // if (APP.isSupportedLanguages.indexOf(completedLanguage) >= 0) {
+  if (APP.isSupportedLanguages.indexOf(completedLanguage) >= 0) {
   //   console.log('set lang', completedLanguage);
   //   dispatch(setLanguage(completedLanguage, !language));
-  // }
-  dispatch(changeLang(completedLanguage));
+    dispatch(changeLang(completedLanguage));
+  }
+
   dispatch(setRootLoading(false));
 
 };
