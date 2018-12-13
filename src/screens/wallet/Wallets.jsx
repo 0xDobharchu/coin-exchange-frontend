@@ -61,7 +61,7 @@ import cx from 'classnames';
 
 import styles from './styles.scss';
 
-import logo from 'src/assets/images/logo-no-text.svg';
+// import logo from 'src/assets/images/logo-no-text.svg';
 import { URL } from 'src/resources/constants/url';
 import Loader from 'src/components/loading';
 import ConfirmDialog from 'src/components/confirmDialog';
@@ -923,11 +923,7 @@ class Wallet extends React.Component {
                             <div className={styles.header}>
                                 <span className={styles.title}> {messages['wallet.title']} </span>
                             </div>
-
-                            {/* <h3>
-                                Window width: {this.state.width} and height: {this.state.height}
-                                is Destop {this.state.isDeskTop.toString()}
-                            </h3> */}
+                            
                             <div className={styles.walletWrap}>
                                 <div className={styles.walletWrapLeft}>
                                     {this.state.isLoading ?
@@ -960,7 +956,7 @@ class Wallet extends React.Component {
 
                         {/* 1. Header Wallet ============================================== */}
                         <div id="header-wallet"><div className={styles.headerWallet}>
-                            <div className={styles.titleWallet}><img className={styles.logoWallet} src={logo} />{messages['wallet.title']}</div>
+                            <div className={styles.titleWallet}>{messages['app.navigation.wallet']}</div>
                         </div></div>
                         {/* 2 List Coin */}
                         {this.renderLiveCoin()}
