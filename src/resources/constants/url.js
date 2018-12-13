@@ -21,6 +21,7 @@ export const URL = {
   ME_REFERRAL: '/me/referral',
   PROMOTION_PROGRAM: '/promotion-programs',
   HOW_IT_WORKS: '/how-it-works',
+  REFERRAL: '/referral',
   IP_DOMAIN: 'https://ipfind.co/me',
 };
 
