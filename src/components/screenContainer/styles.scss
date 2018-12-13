@@ -1,4 +1,5 @@
-$header-height: 75px;
+@import 'var';
+
 .body {
   padding-bottom: 60px;
   padding-top: $header-height;
@@ -8,4 +9,5 @@ $header-height: 75px;
   position: fixed;
   z-index: 1000;
   height: $header-height;
+  background-color: $primary-extra-bold;
 }
