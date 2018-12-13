@@ -8,6 +8,7 @@ import createForm from 'src/components/core/form/createForm';
 import { bindActionCreators } from 'redux';
 import { PAYMENT_METHOD, EXCHANGE_DIRECTION } from 'src/screens/coin/constant';
 import cx from 'classnames';
+import { debounce } from 'lodash';
 import ConfirmButton from 'src/components/confirmButton';
 import { showAlert } from 'src/screens/app/redux/action';
 import reqErrorAlert from 'src/utils/errorHandler/reqErrorAlert';
@@ -45,7 +46,43 @@ class SellCryptoCoin extends React.Component {
     this.state = {
       isAuth: authUtil.isLogin() || false,
       verifiedPhone: null,
+      floatSubmitBtn: false,
     };
+
+    this.submitBtnContainer = React.createRef();
+  }
+
+  componentDidMount() {
+    this.setupScrollEvent();
+  }
+
+  componentWillUnmount() {
+    this.setupScrollEvent({ remove: true });
+  }
+
+  detectSubmitBtn = () => {
+    // only use on browser
+    if (!__CLIENT__) return;
+
+    const elBound = this.submitBtnContainer?.current?.getBoundingClientRect();
+    if ((elBound?.height + elBound?.top ) >= window?.outerHeight) {
+      this.setState({ floatSubmitBtn: true });
+    } else if (elBound?.height === elBound?.top && elBound?.top === 0) { // do nothing if el has been hidden
+      return;
+    } else {
+      this.setState({ floatSubmitBtn: false });
+    }
+  }
+
+  setupScrollEvent = ({ remove } = {}) => {
+    const fn = debounce(this.detectSubmitBtn, 100);
+    // only use on browser
+    if (!__CLIENT__) return;
+
+    if (remove) {
+      window?.removeEventListener('scroll', fn);
+    } else
+      window?.addEventListener('scroll', fn);
   }
 
   isValidToSubmit = () => {
@@ -190,7 +227,7 @@ class SellCryptoCoin extends React.Component {
 
   render() {
     const { supportedCurrency, exchange, paymentMethod, intl, pendingOrder } = this.props;
-    const { isAuth } = this.state;
+    const { isAuth, floatSubmitBtn } = this.state;
     const isValid = this.isValidToSubmit();
     const orderType = this.getOrderType();
 
@@ -226,18 +263,20 @@ class SellCryptoCoin extends React.Component {
           { isAuth && <TNG show={paymentMethod === PAYMENT_METHOD.TNG} onTngVerified={this.onTngVerified} className='mt-4' /> }
           { <Payoneer show={paymentMethod === PAYMENT_METHOD.PAYONEER} className='mt-4' intl={intl} /> }
           <CodFieldSet show={paymentMethod === PAYMENT_METHOD.COD} intl={intl} className='mt-4' />
-          <ConfirmButton
-            disabled={!isValid}
-            containerClassName='mt-5'
-            buttonClassName={styles.submitBtn}
-            message={<LabelLang id={getIntlKey('confirmMsg')} values={{ amount: exchange?.amount || 0, currency: exchange?.currency }} />}
-            label={(
-              <span>
-                <FaLock /> <LabelLang id={getIntlKey('sellBtn')} values={{ amount: exchange?.amount || 0, currency: exchange?.currency }} />
-              </span>
-            )}
-            onConfirm={this.prepareToOrder}
-          />
+          <div className={styles.submitBtnContainer} ref={this.submitBtnContainer}>
+            <ConfirmButton
+              disabled={!isValid}
+              containerClassName='mt-5'
+              buttonClassName={cx(styles.submitBtn, floatSubmitBtn && styles.floatSubmitBtn)}
+              message={<LabelLang id={getIntlKey('confirmMsg')} values={{ amount: exchange?.amount || 0, currency: exchange?.currency }} />}
+              label={(
+                <span>
+                  <FaLock /> <LabelLang id={getIntlKey('sellBtn')} values={{ amount: exchange?.amount || 0, currency: exchange?.currency }} />
+                </span>
+              )}
+              onConfirm={this.prepareToOrder}
+            />
+          </div>
         </SellForm>
       </div>
     );
