@@ -14,10 +14,10 @@ class ScreenContainer extends PureComponent {
     const { header } = this.props;
     return (
       <React.Fragment>
-        <div className={detectWindow.desktop}>
+        <div className={cx(detectWindow.desktop, styles.header)}>
           <Header {...typeof header ==='object' ? header : {}} />
         </div>
-        <div className={detectWindow.mobile}>
+        <div className={cx(detectWindow.mobile, styles.header)}>
           <div><HeaderMobile {...typeof header ==='object' ? header : {}} /></div>
         </div>
       </React.Fragment>
