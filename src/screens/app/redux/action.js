@@ -155,7 +155,7 @@ export const getSupportLanguages = () => (dispatch) => {
     type: APP_ACTION.GET_SUPPORT_LANGUAGES,
     withAuth: false,
   }, dispatch);
-  return req().then(res => {
+  return req().then(() => {
     dispatch(initApp());
   });
 };
