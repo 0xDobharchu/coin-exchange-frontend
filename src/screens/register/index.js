@@ -87,7 +87,8 @@ class RegisterPage extends React.Component {
     const {
       name, username, password, country, recaptchaValue, agreement
     } = this.props;
-    // const { referral } = this.state;
+    const { referral } = this.state;
+    console.log(referral);// ? may be undefine ...
     console.log(123213213);
     if (name && username && password && country && recaptchaValue && agreement) {
       this.props.registerBound({
