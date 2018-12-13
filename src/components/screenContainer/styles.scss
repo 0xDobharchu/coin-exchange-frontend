@@ -1,3 +1,11 @@
+$header-height: 75px;
 .body {
   padding-bottom: 60px;
+  padding-top: $header-height;
+}
+.header {
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+  height: $header-height;
 }

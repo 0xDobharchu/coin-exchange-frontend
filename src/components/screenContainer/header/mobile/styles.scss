@@ -1,7 +1,7 @@
 @import 'var';
 
 .container {
-  margin-bottom: 75px;
+  margin-bottom: $header-height;
   .header {
     display: flex;
     flex-direction: row;
@@ -10,7 +10,7 @@
     position: fixed;
     top: 0px;
     width: 100%;
-    height: 75px;
+    height: $header-height;
     z-index: 997;
     justify-content: space-between;
     img {

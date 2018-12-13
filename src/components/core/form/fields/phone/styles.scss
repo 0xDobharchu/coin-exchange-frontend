@@ -1,0 +1,5 @@
+.container {
+  div:global(.react-tel-input) > input {
+    width: inherit;
+  }
+}
