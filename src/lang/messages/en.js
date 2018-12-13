@@ -88,6 +88,9 @@ export default {
         value: 'Value',
         date: 'Date'
       },
+      apiTokenTitle: 'Api Token',
+      apiTokenDelete: 'Delete',
+      apiTokenNew: 'New',
       alert: {
         passwordSuccess: 'Update Password Success',
         passwordFailed: 'Update Password Failed',

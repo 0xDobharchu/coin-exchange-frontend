@@ -86,6 +86,9 @@ const routes = [
     component: Me,
     // exact: true,
     auth: true,
+    containerProps: {
+      bodyWrapper: false
+    },
     routes: [
       {
         path: URL.ME,
