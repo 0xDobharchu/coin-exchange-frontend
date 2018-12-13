@@ -39,10 +39,12 @@
 
 .sortable-selected{
   border-left: 1px #ac93e8 solid;
+  background-color: #f7f7f7;
   margin-left: 1px;
   @media (max-width: 700px){        
     border-left: none;
     margin-left: 0;
+    background-color: #ffffff;
   }
 }
 

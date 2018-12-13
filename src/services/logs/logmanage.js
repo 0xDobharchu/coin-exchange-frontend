@@ -27,6 +27,7 @@ export default class LogManager {
         event: {
           qrCodeCopyClick: 'qrCodeCopyClick',
           downloadQrCodeClick: 'downloadQrCodeClick',
+          addressCopyButtonClick: 'addressCopyButtonClick',
         }
       },
       requirePassword:{

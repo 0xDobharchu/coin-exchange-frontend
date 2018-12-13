@@ -318,6 +318,20 @@ class ReceiveCoin extends React.Component {
     );
   }
 
+  onCopyAddressButtonClick=(qrCodeValue)=>{
+
+    const { messages } = this.props.intl;
+    Clipboard.copy(qrCodeValue); 
+    this.showToast(messages['wallet.action.receive.success.share']);
+
+    // save event:
+    LogManager.saveLog(
+      LogManager.PAGE_EVENT.wallet.receive.name, 
+      LogManager.PAGE_EVENT.wallet.receive.event.addressCopyButtonClick,      
+      `data: ${qrCodeValue}`
+    );
+  }
+
   render() {
     const { messages } = this.props.intl;
     let { currency } = this.props;
@@ -433,10 +447,10 @@ class ReceiveCoin extends React.Component {
             {/* <a className="button-download" ref={(ref) => this.downloadRef = ref} onClick={()=> {this.download(value);}}>
                 {messages['wallet.action.receive.link.download_qrcode}
             </a>
-
-            <Button className="button" cssType="primary" onClick={() => { Clipboard.copy(this.state.walletSelected.address); this.showToast(messages['wallet.action.receive.success.share);}} >
-              {messages['wallet.action.receive.button.text}
-            </Button> */}
+             */}
+             <Button className={style['button-copy'] + ' btn-block'} cssType="primary" onClick={() => { this.onCopyAddressButtonClick(qrCodeValue);}} >
+              {messages['wallet.action.receive.button.text']}
+            </Button>
           </div>
 
       </div>
