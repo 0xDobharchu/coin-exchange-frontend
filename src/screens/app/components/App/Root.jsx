@@ -32,9 +32,9 @@ class Root extends React.Component {
   componentDidMount() {
     const querystring = window.location.search.replace('?', '');
     const querystringParsed = qs.parse(querystring);
-    const { language, ref } = querystringParsed;
-    const { initApp, getSupportCountry, getSupportLanguages, getProfileAction, getCountryCurrency, ipInfo: { country: countryFromIp } } = this.props;
-    initApp(language, ref);
+    // const { language, ref } = querystringParsed;
+    const { getSupportCountry, getSupportLanguages, getProfileAction, getCountryCurrency, ipInfo: { country: countryFromIp } } = this.props;
+    // initApp(language, ref);
     getSupportCountry();
     getSupportLanguages();
     getCountryCurrency(countryFromIp);
