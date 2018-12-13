@@ -1,6 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import { DEFAULT_COUNTRY } from 'src/resources/constants/countries';
 import Loadable from 'react-loadable';
 
 
@@ -25,7 +26,11 @@ class PhoneNumber extends PureComponent {
     const { phoneCom: PhoneCom } = this.state;  
     if (PhoneCom)
       return (
-        <PhoneCom {...this.props} />
+        <PhoneCom
+          defaultCountry={DEFAULT_COUNTRY.toLowerCase()}
+          regions='asia'
+          {...this.props}
+        />
       );
     return null;
   }
