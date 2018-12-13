@@ -16,6 +16,8 @@ import { hideRequirePassword } from 'src/screens/app/redux/action';
 import verifyPassword from './action';
 import LabelLang from 'src/lang/components/LabelLang';
 
+import LogManager from 'src/services/logs/logmanage';
+
 class RequirePassword extends React.Component {
 
   static propTypes = {
@@ -60,6 +62,11 @@ class RequirePassword extends React.Component {
       }
       else {
         this.setState({password: '', isFail: true});
+        // save event:
+        LogManager.saveLog(
+          LogManager.PAGE_EVENT.wallet.requirePassword.name, 
+          LogManager.PAGE_EVENT.wallet.requirePassword.event.requirePasswordFail,      
+        );
       }
 
     }).finally(() => {
@@ -77,6 +84,11 @@ class RequirePassword extends React.Component {
     else {
 
     }
+    // save event:
+    LogManager.saveLog(
+      LogManager.PAGE_EVENT.wallet.requirePassword.name, 
+      LogManager.PAGE_EVENT.wallet.requirePassword.event.requirePasswordPass,
+    );
   }
 
   onClose = () => {
