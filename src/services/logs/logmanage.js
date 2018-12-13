@@ -8,7 +8,7 @@ export default class LogManager {
   static PAGE_EVENT = {
     wallet: {
       transfer: {
-        name: 'transfer',
+        name: 'transfer-page',
         event: {
           maxValueClick: 'maxValueClick',
           changeFeeClick: 'changeFeeClick',
@@ -21,14 +21,57 @@ export default class LogManager {
           transferSuccess: 'transferSuccess',
           transferFail: 'transferFail',
         }
+      },
+      receive: {
+        name: 'receive-page',
+        event: {
+          qrCodeCopyClick: 'qrCodeCopyClick',
+          downloadQrCodeClick: 'downloadQrCodeClick',
+        }
+      },
+      requirePassword:{
+        name: 'requirePassword',
+        event: {
+          requirePasswordFail: 'requirePasswordFail',
+          requirePasswordPass: 'requirePasswordPass',
+        }
+      },
+      walletHomePage: {
+        name: 'wallet-home-page',
+        event: {
+          transferButtonClick: 'transferButtonClick',
+          receiveButtonClick: 'transferButtonClick',
+          protectedButtonClick: 'protectedButtonClick',
+          preferencesButtonClick: 'protectedButtonClick',
+          floatButtonClick: 'floatButtonClick',
+          newWalletButtonClick: 'newWalletButtonClick',
+          sortWalletListIconClick: 'sortWalletListIconClick',
+          createWalletSuccess: 'createWalletSuccess',
+          showTransferFromScanQRCode: 'showTransferFromScanQRCode',
+          exportWalletItemClick: 'exportWalletItemClick',
+          exportPrivateKeyItemClick: 'exportPrivateKeyItemClick',          
+          removeWalletSuccess: 'removeWalletSuccess',
+        }
+      },
+      protected: {
+        name: 'protected-page',
+        event: {
+          protectedWalletSuccess: 'protectedWalletSuccess',
+          protectedWalletFail: 'protectedWalletFail',
+          protectedStep1Click: 'protectedStep1Click',
+          protectedStep2Click: 'protectedStep2Click',
+          protectedStep3Click: 'protectedStep3Click',
+          protectedTryStep3Click: 'protectedTryStep3Click',
+
+        }
       }
     }
   }
 
   static saveLog(name = '', action = '', description = '') {
 
-    const local_time = moment().valueOf();
-    const path = __CLIENT__ ? window.URL : '';
+    const local_time = moment().format('MMM DD, YYYY, h:mm:ss a'); 
+    const path = __CLIENT__ ? window.location.href : '';
     const status = 1;
 
     const data = {

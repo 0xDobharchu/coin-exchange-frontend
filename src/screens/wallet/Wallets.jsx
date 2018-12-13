@@ -67,6 +67,8 @@ import Loader from 'src/components/loading';
 import ConfirmDialog from 'src/components/confirmDialog';
 import { LabelLang } from 'src/lang/components';
 
+import LogManager from 'src/services/logs/logmanage';
+
 const nameFormSendWallet = 'sendWallet';
 const nameFormCreditCard = 'creditCard';
 const defaultOffset = 500;
@@ -336,7 +338,13 @@ class Wallet extends React.Component {
                 if (this.state.isDeskTop)
                     this.setDefaultDesktop();
             }
-        }        
+        }    
+        // save event:
+        LogManager.saveLog(
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.event.removeWalletSuccess,
+            `wallet address: ${wallet.address}`
+        );    
     }
 
     // open transfer modal:
@@ -394,7 +402,12 @@ class Wallet extends React.Component {
     showModalAddCoin = () => {
         this.setState({ createWalletContent: <CreateWallet onFinish={(wallet, phrase) => { this.successCreateWallet(wallet, phrase) }} /> }, () => {
             this.modalCreateWalletRef.open();
-        })
+        });
+        // save event:
+        LogManager.saveLog(
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.event.newWalletButtonClick,            
+        );
     }
     successCreateWallet = (newWallet, phrase) => {
         // call api to update:    
@@ -412,6 +425,15 @@ class Wallet extends React.Component {
         this.setState({ createWalletContent: "" });
         this.splitWalletData(listNewWallet);
         this.modalCreateWalletRef.close();
+
+        console.log('newWallet', newWallet);
+
+        // save event:
+        LogManager.saveLog(
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.event.createWalletSuccess,
+            `wallet address: ${newWallet.address}`
+        );
     }
 
 
@@ -461,6 +483,12 @@ class Wallet extends React.Component {
             }
 
         });
+        // save event:
+        LogManager.saveLog(
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.event.transferButtonClick,
+            `wallet address: ${wallet.address}`
+        );
     }
     showTransferFromQRCode = (dataAddress) => {
         this.props.requestWalletPasscode({
@@ -484,6 +512,12 @@ class Wallet extends React.Component {
                 });
             }
         });
+        // save event:
+        LogManager.saveLog(
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.event.showTransferFromScanQRCode,
+            `dataAddress: ${dataAddress}`
+        );
     }
 
     showReceive(wallet) {
@@ -501,6 +535,12 @@ class Wallet extends React.Component {
         }, () => {
             this.modalReceiveCoinRef.open();
         });
+        // save event:
+        LogManager.saveLog(
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.event.receiveButtonClick,
+            `wallet address: ${wallet.address}`
+        );
     }
 
     saveWallet(wallets) {
@@ -526,12 +566,18 @@ class Wallet extends React.Component {
         else {
             this.protectedWallet(wallet);
         }
+        // save event:
+        LogManager.saveLog(
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.event.protectedButtonClick,
+            `wallet address: ${wallet.address}`
+        );
     }
 
     protectedWallet = (wallet) => {
         // if (!wallet.protected) {
         const { messages } = this.props.intl;
-        const walletEncrypt = this.state.walletSelected.descryp(this.state.userPassword);
+        const walletEncrypt = wallet.descryp(this.state.userPassword);
         if (walletEncrypt === false) {
             this.showError(messages['requirePassword.passNotMatch']);
             this.setState({ isRestoreLoading: false, userPassword: '' }, () => {
@@ -574,6 +620,12 @@ class Wallet extends React.Component {
         else {
             this.exportPrivateKey(wallet);
         }
+        // save event:
+        LogManager.saveLog(
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.event.exportWalletItemClick,
+            `wallet address: ${wallet.address}`
+        );
     }
     exportPrivateKey = (wallet) => {
         const { messages } = this.props.intl;
@@ -599,8 +651,13 @@ class Wallet extends React.Component {
             )
         }, () => {
             this.modalExportPrivateKeyRef.open();
-        })
-
+        });
+        // save event:
+        LogManager.saveLog(
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.event.exportPrivateKeyItemClick,
+            `wallet address: ${wallet.address}`
+        );
     }
     onCloseExportPrivateKey = () => {
         this.setState({ exportPrivateContent: '' });
@@ -677,6 +734,13 @@ class Wallet extends React.Component {
         }, () => {
             this.modalWalletReferencesRef.open();
         });
+
+        // save event:
+        LogManager.saveLog(
+            LogManager.PAGE_EVENT.wallet.walletHomePage.name, 
+            LogManager.PAGE_EVENT.wallet.walletHomePage.event.preferencesButtonClick,
+            `wallet address: ${wallet.address}`
+        );
     }
 
     onAddressClick = (wallet) => {
@@ -781,7 +845,7 @@ class Wallet extends React.Component {
         // for form wallet detail:
         if (this.state.modalHistory != '') {
             this.onWalletItemClick(wallet);
-        }
+        }        
     }
 
     getETHFree = () => {
