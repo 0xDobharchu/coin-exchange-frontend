@@ -232,7 +232,7 @@ export default {
   COIN_EXCHANGE_LP_FAQ_TITLE: 'Frequently asked questions',
   'landing_page.label.footer': 'Coinbowl.com is an online exchange developed by Shanzhai Limited, a Hong Kong based company, offering bulk crypto purchasing at competitive prices with full delivery service.<br />Join the dojo: <a href="https://t.me/coin_bowl" class="landing-link">t.me/coin_bowl</a><br />Contact us: <a href="mailto:support@coin_bowl.com" class="landing-link" target="_top">support@coin_bowl.com</a>',
   user: {
-    setting: 'Settings',
+    setting: 'Profile',
     logout: 'Sign out',
     login: {
       title: 'Sign in to Coinbowl',
@@ -702,6 +702,7 @@ export default {
           coming_soon: 'Coming soon ...',
           send: 'Send',
           receive: 'Receive',
+          option: 'Options'
         },
       },
     },

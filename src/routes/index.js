@@ -140,7 +140,10 @@ const routes = [
     component: Wallet,
     exact: false,
     strict: false,
-    auth: true
+    auth: true,
+    containerProps: {
+      bodyWrapper: false
+    }
   },
   {
     path: URL.AGREEMENT,
