@@ -4,8 +4,10 @@
   background: #FFFFFF;
   box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.10);
   flex-grow: 1;
+  max-width: 48%;
 
   .logo {
+    max-height: 50%;
     height: 50%;
     .image {
       display: block;
@@ -16,18 +18,23 @@
     }
   }
 
-  .title {
-    font-size: 30px;
-    color: black;
-    letter-spacing: 0;
-    font-weight: $semi-bold;
-  }
-  .description {
-    font-size: 16px;
-    color: #7E7D80;
-    letter-spacing: 0;
-    line-height: 24px;
-    font-weight: $normal;
+  .content {
+    max-height: 50%;
+    height: 50%;
+    padding-top: 20px;
+    .title {
+      font-size: 30px;
+      color: black;
+      letter-spacing: 0;
+      font-weight: $semi-bold;
+    }
+    .description {
+      font-size: 16px;
+      color: #7E7D80;
+      letter-spacing: 0;
+      line-height: 24px;
+      font-weight: $normal;
+    }
   }
 
   @media screen and (max-width: 768px) {

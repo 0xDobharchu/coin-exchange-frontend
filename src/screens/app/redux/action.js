@@ -82,6 +82,8 @@ const continueAfterInitApp = (language, ref, dispatch, data, getState) => {
   }
 
   const completedLanguage = language || ipInfoRes.language;
+  console.log('supportedLanguages', supportedLanguages);
+  console.log('completedLanguage', completedLanguage);
   if (supportedLanguages.indexOf(completedLanguage) >= 0) {
   //   console.log('set lang', completedLanguage);
   //   dispatch(setLanguage(completedLanguage, !language));
@@ -155,7 +157,8 @@ export const getSupportLanguages = () => (dispatch) => {
     type: APP_ACTION.GET_SUPPORT_LANGUAGES,
     withAuth: false,
   }, dispatch);
-  return req().then(() => {
+  return req().then((res) => {
+    console.log('getSupportLanguages',res);
     dispatch(initApp());
   });
 };
