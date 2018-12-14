@@ -35,6 +35,11 @@ export const menus = {
     link: URL.WALLET,
     auth: true
   },
+  howItWorks: {
+    name: <LabelLang id="headerBar.howItWorks" />,
+    link: URL.HOW_IT_WORKS,
+    className: 'd-block d-md-none'
+  },
 };
 
 export const buttons = {

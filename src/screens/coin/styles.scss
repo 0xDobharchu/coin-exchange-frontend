@@ -3,8 +3,8 @@
 
 .container {
   padding-bottom: 70px;
+  padding-top: $header-height;
   @include respond(xs) {
-    padding-top: $header-height;
     background: linear-gradient(to bottom, $primary-extra-bold 0%,$primary-extra-bold 250px,#000000 250px,#F8F8F8 250px,#F8F8F8 100%);
   }
   > div:global(.row > div) {
@@ -18,7 +18,7 @@
     text-align: center;
     margin: 30px 0px;
     padding: 0px 30px;
-    @include respond(xs) {
+    @include respond(sm) {
       margin: 30px 0px 10px 0px;
     }
     h1 {
