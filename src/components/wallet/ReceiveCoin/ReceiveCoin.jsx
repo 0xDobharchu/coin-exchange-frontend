@@ -20,6 +20,8 @@ import iconSwitch from 'src/assets/images/wallet/icons/icon-switch.png';
 
 const QRCode = require('qrcode.react');
 
+import LogManager from 'src/services/logs/logmanage';
+
 if (__CLIENT__)
   window.Clipboard = (function (window, document, navigator) {
     let textArea,
@@ -266,6 +268,13 @@ class ReceiveCoin extends React.Component {
     const canvas = document.querySelector('.qrcode_data > canvas');
     this.downloadRef.href = canvas.toDataURL();
     this.downloadRef.download = this.state.walletSelected.getShortAddress() + "-" + value.toString() + "-" + this.state.walletSelected.name + ".png";
+
+    // save event:
+    LogManager.saveLog(
+      LogManager.PAGE_EVENT.wallet.receive.name, 
+      LogManager.PAGE_EVENT.wallet.receive.event.downloadQrCodeClick,      
+      `data-link: ${this.downloadRef.download}`
+    );
  }
 
   onItemSelectedWallet = (item) =>{
@@ -296,11 +305,38 @@ class ReceiveCoin extends React.Component {
     return "";
   }
 
+  onQRCodeClick=(qrCodeValue)=>{    
+    const { messages } = this.props.intl;
+    Clipboard.copy(qrCodeValue); 
+    this.showToast(messages['wallet.action.receive.success.share']);
+
+    // save event:
+    LogManager.saveLog(
+      LogManager.PAGE_EVENT.wallet.receive.name, 
+      LogManager.PAGE_EVENT.wallet.receive.event.qrCodeCopyClick,      
+      `data: ${qrCodeValue}`
+    );
+  }
+
+  onCopyAddressButtonClick=(qrCodeValue)=>{
+
+    const { messages } = this.props.intl;
+    Clipboard.copy(qrCodeValue); 
+    this.showToast(messages['wallet.action.receive.success.share']);
+
+    // save event:
+    LogManager.saveLog(
+      LogManager.PAGE_EVENT.wallet.receive.name, 
+      LogManager.PAGE_EVENT.wallet.receive.event.addressCopyButtonClick,      
+      `data: ${qrCodeValue}`
+    );
+  }
+
   render() {
     const { messages } = this.props.intl;
     let { currency } = this.props;
-    if(!currency) currency = "USD";
-
+    if(!currency) currency = "USD";   
+    
     const qrCodeValue = this.genQRCodeValue();
 
     let showDivAmount = this.state.walletSelected && this.state.rate;    
@@ -349,12 +385,12 @@ class ReceiveCoin extends React.Component {
             </div>
 
             <div className={`${style["box-qr-code"]} qrcode_data`} title="click to copy the address">
-                <QRCode size={230} value={qrCodeValue} onClick={() => { Clipboard.copy(qrCodeValue); this.showToast(messages['wallet.action.receive.success.share']);}} />
+                <QRCode size={230} value={qrCodeValue} onClick={()=>{this.onQRCodeClick(qrCodeValue)}} />
             </div>
 
 
             <div className={style["box-link"]}>
-              <a className={style["link-copy-address"]} onClick={() => { Clipboard.copy(this.state.walletSelected.address); this.showToast(messages['wallet.action.receive.success.share']);}}>{messages['wallet.action.receive.link.copy_address']}</a>
+              <a className={style["link-copy-address"]} onClick={()=>{this.onQRCodeClick(qrCodeValue)}} >{messages['wallet.action.receive.link.copy_address']}</a>
               <a className={style["link-download"]} ref={(ref) => this.downloadRef = ref} onClick={()=> {this.download(qrCodeValue);}}>
                 {messages['wallet.action.receive.link.download_qrcode']}
               </a>
@@ -411,10 +447,10 @@ class ReceiveCoin extends React.Component {
             {/* <a className="button-download" ref={(ref) => this.downloadRef = ref} onClick={()=> {this.download(value);}}>
                 {messages['wallet.action.receive.link.download_qrcode}
             </a>
-
-            <Button className="button" cssType="primary" onClick={() => { Clipboard.copy(this.state.walletSelected.address); this.showToast(messages['wallet.action.receive.success.share);}} >
-              {messages['wallet.action.receive.button.text}
-            </Button> */}
+             */}
+             <Button className={style['button-copy'] + ' btn-block'} cssType="primary" onClick={() => { this.onCopyAddressButtonClick(qrCodeValue);}} >
+              {messages['wallet.action.receive.button.text']}
+            </Button>
           </div>
 
       </div>

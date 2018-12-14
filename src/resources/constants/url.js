@@ -83,6 +83,7 @@ export const API_URL = {
     CURRENCY_LEVEL_LIMIT: '/system/currency-level-limits/',
     REFERRALS_EARNING_PROMOTION: '/exchange/promotions/',
     REFERRALS_EARNING_REFERRALS: '/exchange/referrals/',
+    API_TOKEN: '/user/api-token/',
   }
 };
 

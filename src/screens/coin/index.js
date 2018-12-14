@@ -88,7 +88,7 @@ class Coin extends Component {
               <PricePanel />
             </div>
           </Col>
-          <Col lg={6} className='order-1 order-lg-2' style={{ zIndex: 1 }}>
+          <Col lg={6} className='order-1 order-lg-2'>
             <div className={styles.main}>
               <UserVerifyStatus />
               <div className={styles.header}>

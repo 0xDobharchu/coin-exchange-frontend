@@ -9,6 +9,7 @@ import ChangePassword from './ChangePassword';
 import EmailBlock from './EmailBlock';
 import ChangeNameForm from './Form/ChangeNameForm';
 import PersonalDetailForm from './Form/PersonalDetailForm';
+import ApiToken from './ApiToken';
 import style from './style.scss';
 
 // eslint-disable-next-line
@@ -41,6 +42,10 @@ const AccountInfo = ({ updateProfileAction, showAlert }) => {
           <PersonalDetailForm onSubmit={handleUpdateNickname} />
         </Col>
       </Row>
+      <div className={style.block1} />
+      <label className={style.title}><LabelLang id="me.accountInfo.apiTokenTitle" /></label>
+      <div className={style.lineTitle} />
+      <ApiToken />
     </div>
   );
 };
