@@ -8,7 +8,7 @@
   .logined {
     border: none !important;
     button {
-      color: white !important;
+      color: white;
     }
     @include respond(md) {
       padding: 0px;
