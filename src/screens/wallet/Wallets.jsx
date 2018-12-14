@@ -85,10 +85,9 @@ class Wallet extends React.Component {
 
         this.state = {
 
-            addressParram: false,
             height: __CLIENT__ ? window.innerHeight : 0,
             width: __CLIENT__ ? window.innerWidth : 0,
-            isDeskTop: false,
+            isDeskTop: this.state > MD_MAX_WITH,
 
             // wallet:
             isLoading: true,
@@ -139,12 +138,8 @@ class Wallet extends React.Component {
     }
     componentDidMount() {
 
-        let addressParram = this.props.match.params.address || false;
-
-        this.setState({ addressParram });
         if (__CLIENT__) {
             window.addEventListener("resize", this.updateDimensions);
-            // try { document.querySelector(".common-fluid").style.backgroundColor = '#f4f4fb'; } catch (e) { };
         }
 
         this.updateDimensions();
@@ -155,10 +150,8 @@ class Wallet extends React.Component {
         this.props.userWallet().then((listWallet) => {
 
             if (listWallet !== false) {
-                this.splitWalletData(listWallet);
+                this.splitWalletData(listWallet, true);
                 this.getListBalace(listWallet);
-                if (this.state.isDeskTop)
-                    this.setDefaultDesktop();
             }
             else {
                 this.showAlert("Can not get your wallet now ...");
@@ -223,10 +216,32 @@ class Wallet extends React.Component {
     componentWillUnmount() {
         if (__CLIENT__) {
             window.removeEventListener("resize", this.updateDimensions);
-            // try { document.querySelector(".common-fluid").style.backgroundColor = '#3F2782'; } catch (e) { };
+            this.unlisten();
         }
     }
+    componentWillMount() {
+        this.unlisten = this.props.history.listen((location, action) => {
+            if (this.state.isDeskTop) {
+                console.log("on route change", location, action);
+                if (action === 'POP') {
+                    let addressParram = this.props.match.params.address || false;
+                    console.log('addressParram', addressParram);
 
+                    const lstWalletTemp = this.getAllWallet();
+
+                    if (lstWalletTemp.length > 0) {
+                        lstWalletTemp.forEach((wal, i) => {
+                            if (wal.address === addressParram) {
+                                this.onWalletItemClick(wal, false, false);
+                                return;
+                            }
+                        });
+                    }
+                }
+            }
+
+        });
+    }
     showAlert(msg, type = 'success', timeOut = 3000, icon = '') {
         this.props.showAlert({
             message: <div className={styles.textCenter}>{icon}{msg}</div>,
@@ -245,15 +260,38 @@ class Wallet extends React.Component {
         this.showAlert(mst, 'success', 4000, ICON.SuccessChecked());
     }
 
-    splitWalletData(listWallet) {
+    splitWalletData(listWallet, firstLoad = false) {
         let listMainWallet = [];
         let listTestWallet = [];
         let listTokenWallet = [];
         let listCollectibleWallet = [];
 
-        listWallet.forEach((wallet) => {
+        let hasSelected = false;
+        let addressParram = this.props.match.params.address || false;
 
-            wallet.selected = false;
+        console.log('this.state.isDeskTop', this.state.isDeskTop)
+        console.log('this.state.addressParram', this.state.addressParram)
+
+        listWallet.forEach((wallet) => {            
+            if (this.state.isDeskTop) {
+                // handle for first load list -> selected first item default + show on url
+                if (firstLoad) {
+                    if (hasSelected === false) {
+                        if (!this.state.addressParram) {
+                            this.props.history.push('/wallet/' + wallet.address);
+                            wallet.selected = true;
+                            hasSelected = wallet;                            
+                        }
+                        else if (wallet.address === this.state.addressParram) {
+                            wallet.selected = true;
+                            hasSelected = wallet;
+                        }
+                    }
+                    else {
+                        wallet.selected = false;
+                    }
+                }
+            }
 
             // is Mainnet (coin, token, collectible)
             if (wallet.network === MasterWallet.ListCoin[wallet.className].Network.Mainnet) {
@@ -280,6 +318,9 @@ class Wallet extends React.Component {
         this.setState({
             isLoading: false, listMainWalletBalance: listMainWallet, listTokenWalletBalance: listTokenWallet, listCollectibleWalletBalance: listCollectibleWallet, listTestWalletBalance: listTestWallet,
         });
+        if (hasSelected){
+            this.onWalletItemClick(hasSelected);
+        }
     }
     async getSetting() {
         let setting = local.get(APP.SETTING), alternateCurrency = "USD";
@@ -347,7 +388,7 @@ class Wallet extends React.Component {
         LogManager.saveLog(
             LogManager.PAGE_EVENT.wallet.walletHomePage.name,
             LogManager.PAGE_EVENT.wallet.walletHomePage.event.removeWalletSuccess,
-            `wallet address: ${wallet.address}`
+            `wallet address: ${walletTmp.address}`
         );
     }
 
@@ -430,13 +471,15 @@ class Wallet extends React.Component {
         this.splitWalletData(listNewWallet);
         this.modalCreateWalletRef.close();
 
-        console.log('newWallet', newWallet);
+        this.setState({ walletSelected: newWallet[0] }, () => {
+            if (this.isDeskTop) this.onWalletItemClick(newWallet[0]);
+        })
 
         // save event:
         LogManager.saveLog(
             LogManager.PAGE_EVENT.wallet.walletHomePage.name,
             LogManager.PAGE_EVENT.wallet.walletHomePage.event.createWalletSuccess,
-            `wallet address: ${newWallet.address}`
+            `wallet address: ${newWallet[0].address}`
         );
     }
 
@@ -666,7 +709,10 @@ class Wallet extends React.Component {
     onCloseExportPrivateKey = () => {
         this.setState({ exportPrivateContent: '' });
     }
-    onWalletItemClick = (wallet, callUpdate) => {
+    onWalletItemClick = (wallet, callUpdate, pushHistory = true) => {
+
+        if (this.state.isDeskTop && pushHistory)
+            this.props.history.push(wallet.address);
 
         if (this.state.isDeskTop) {
             wallet.selected = true;
