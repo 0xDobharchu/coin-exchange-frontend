@@ -29,7 +29,8 @@ export default {
     faq: 'FAQ',
     wallet: 'Wallet',
     signIn: 'Sign In',
-    signUp: 'Sign Up'
+    signUp: 'Sign Up',
+    howItWorks: 'How it works'
   },
   error: {
     required: 'Required',
