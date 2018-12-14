@@ -1,42 +1,96 @@
-@import 'var';
-.headerContainer {
-  padding: 15px;
-  max-height: $header-height;
+@import 'style';
+.headerWarper {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  .logo {
-    width: 65px;
-  }
-
-  .items {
-    display: flex;
-    .menu-item {
-      margin: 0px 20px;
-      color: #FFFFFF;
-      font-size: 16px;
-      font-weight: 200;
-      text-align: left;
-      letter-spacing: 0;
-      display: flex;
-      align-items: center;
-    }
-  }
-
-  .button {
-    width: 117px;
-    color: #FFFFFF;
+  height: 100%;
+  background-color: white;
+  span, button, a {
+    color: #000000;
     font-size: 16px;
     font-weight: normal;
-    letter-spacing: 0;
-    background-color: transparent;
-    cursor: pointer;
-    outline: none;
-    margin-left: 15px;
+    letter-spacing: 0.5px;
   }
-  .active {
-    background: #39DDE3;
-    font-weight: 600;
-    letter-spacing: 0.22px;
+  .headerContainer {
+    max-width: 1140px;
+    padding: 0px 15px;
+    width: 100%;
+    max-height: $header-height;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // @include respond(md) {
+    //   padding: 15px;
+    // }
+      
+    .logo {
+      width: 65px;
+    }
+    .items {
+      display: flex;
+      .menu-item {
+        font-size: 16px;
+        font-weight: normal;
+        letter-spacing: 0.5px;
+        margin: 0px 20px;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        @include respond(md) {
+          margin: 0px 10px;
+        }
+        &.link-active {
+          color: $primary-medium;
+          font-size: 16px;
+          font-weight: bold;
+          letter-spacing: 0.5px;  
+        }
+      }
+    }
+  
+    .buttons {
+      display: flex;
+      .button {
+        width: 117px;
+        font-size: 16px;
+        font-weight: normal;
+        letter-spacing: 0;
+        background-color: transparent;
+        cursor: pointer;
+        outline: none;
+        margin-left: 15px;
+        white-space: nowrap;
+    
+        @include respond(md) {
+          width: auto;
+          padding: 0px 5px;
+        }
+      }
+      .active {
+        background: $primary-medium;
+        font-weight: 600;
+        letter-spacing: 0.22px;
+        color: white;
+      }
+    }
+    .user-header {
+      margin-left: 3px;
+      position: relative;
+      &:before {
+        display: block;
+        position: absolute;
+        content: '';
+        width: 1px;
+        height: $btn-height-small;
+        background-color: #E7E6EB;
+      }
+    }
+    .language-header {
+      button {
+        color: #000000;
+      }
+    }
   }
 }
