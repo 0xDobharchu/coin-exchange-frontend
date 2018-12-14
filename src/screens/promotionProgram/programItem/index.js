@@ -17,7 +17,7 @@ class ProgramItem extends React.Component {
         <div className={styles.logo}>
           <img src={logo} alt="" className={styles.image}  />
         </div>
-        <div>
+        <div className={styles.content}>
           <div className={styles.title}>{title}</div>
           <div className={styles.description}>{description}</div>
         </div>
