@@ -1,6 +1,7 @@
 @import 'var';
 
 .container {
+  padding-top: $header-height;
   .title {
     padding: 75px 190px;
     background: $primary-medium;
