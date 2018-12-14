@@ -39,7 +39,6 @@ class HeaderMobile extends React.Component {
   redirectHome = () => this.props.history.push(URL.HOME);
   
   render() {
-    console.log('buttons', buttons);
     return (
       <div className={style.container}>
         <div className={style.header}>

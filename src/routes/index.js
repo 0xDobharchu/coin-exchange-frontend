@@ -18,6 +18,7 @@ import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
 import AgreementPrivacy from 'src/screens/agreementPrivacy';
 import PromotionProgram from 'src/screens/promotionProgram';
 import HowItWorks from 'src/screens/howItWorks';
+import StaticPage from 'src/screens/static';
 import routeWrapper from './routeWraper';
 import renderRoutes from './renderRoutes';
 import privateRoute from './privateRoute';
@@ -162,6 +163,14 @@ const routes = [
     path: URL.HOW_IT_WORKS,
     component: HowItWorks,
     exact: true,
+  },
+  {
+    path: URL.STATIC_PAGE + '/:id',
+    component: StaticPage,
+    exact: true,
+    containerProps: {
+      bodyWrapper: false
+    }
   }
 ];
 
