@@ -912,7 +912,9 @@ export default {
     commission: {
       title: 'Commission',
       description: 'Referrers will forever receive 0.2% commission on every transactions made by referred people.'
-    }
+    },
+    textRequireLogin: '"Get your referral link here and start earning with your friends. Sign In Now to get your referral code"',
+    signInNow: 'Sign in now'
   },
   pageNotFound: {
     pageNotFound: 'Page not found',

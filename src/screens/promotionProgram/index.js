@@ -1,22 +1,27 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import LabelLang from 'src/lang/components/LabelLang';
 import referralIcon from 'src/assets/images/promotionPrograms/referral_program.svg';
 import earlyBirdIcon from 'src/assets/images/promotionPrograms/early_bird_program.svg';
 import ProgramItem from 'src/screens/promotionProgram/programItem';
+import {LabelLang, HtmlLang} from 'src/lang/components';
+import cx from 'classnames';
+import {Link} from 'react-router-dom';
+import {URL} from 'src/resources/constants/url';
+import ReferralBox from 'src/screens/me/pages/Referral/referralBox';
+import currentUser from 'src/utils/authentication';
 import styles from './styles.scss';
 
 const programs = [
   {
     logo: referralIcon,
     title: <LabelLang id='promotion_programs.referral_program.title' />,
-    description: <LabelLang id='promotion_programs.referral_program.description' />,
+    description: <HtmlLang id='promotion_programs.referral_program.description' />,
     key: 'referral'
   },
   {
     logo: earlyBirdIcon,
     title: <LabelLang id='promotion_programs.commission.title' />,
-    description: <LabelLang id='promotion_programs.commission.description' />,
+    description: <HtmlLang id='promotion_programs.commission.description' />,
     key: 'commission'
   },
 ];
@@ -27,24 +32,6 @@ const benefits = [];
 for (let i = 0; i < numBenefits; i++) {
   benefits.push(<LabelLang id={`promotion_programs.referral_program.benefits.content.${i}`} />);
 }
-
-const numHowToDo = 1;
-const howToDo = [];
-
-for (let i = 0; i < numHowToDo; i++) {
-  howToDo.push(<LabelLang id={`promotion_programs.referral_program.howToDo.content.${i}`} />);
-}
-
-const referralContent = [
-  {
-    title: <LabelLang id="promotion_programs.referral_program.benefits.title" />,
-    content: benefits
-  },
-  {
-    title: <LabelLang id="promotion_programs.referral_program.howToDo.title" />,
-    content: howToDo
-  }
-];
 
 class PromotionProgram extends React.Component {
   constructor(props) {
@@ -63,38 +50,36 @@ class PromotionProgram extends React.Component {
         </div>
         <div className={styles.bannerContainer}>
           {programs.map((item) => {
-            const { logo, title, description, key } = item;
+            const {logo, title, description, key} = item;
             index++;
             return (
-              <ProgramItem logo={logo} title={title} description={description} key={key} programType={key} index={index} />
+              <ProgramItem
+                logo={logo}
+                title={title}
+                description={description}
+                key={key}
+                programType={key}
+                index={index}
+              />
             );
           })}
         </div>
-        {/*<div className={styles.content}>
-          {
-            referralContent.map(item => {
-              index++;
-              const {title, content} = item;
-              index++;
-              return (
-                <div key={index}>
-                  <div className={styles.termAndCondition}>
-                    {title}
-                    <hr />
-                  </div>
-                  <ul>
-                    {
-                      content.map(ct => {
-                        index++;
-                        return (<li key={index}>{ct}</li>);
-                      })
-                    }
-                  </ul>
-                </div>
-              );
-            })
+        <div className={styles.content}>
+          {currentUser.isLogin() ? (
+            <ReferralBox />
+          ) : (
+            <div className={styles.login}>
+              <label className={styles.title}><LabelLang id="promotion_programs.textRequireLogin" /></label>
+              <Link to={URL.USER_SIGN_IN}>
+                <button type="button" className={cx(styles.active, styles.button)}><LabelLang
+                  id="promotion_programs.signInNow"
+                />
+                </button>
+              </Link>
+            </div>
+          )
           }
-        </div>*/}
+        </div>
       </div>
     );
   }
