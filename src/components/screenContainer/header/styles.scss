@@ -78,6 +78,9 @@
     .user-header {
       margin-left: 3px;
       position: relative;
+      button {
+        color: #000000;
+      }
       &:before {
         display: block;
         position: absolute;
@@ -85,6 +88,9 @@
         width: 1px;
         height: $btn-height-small;
         background-color: #E7E6EB;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
       }
     }
     .language-header {
