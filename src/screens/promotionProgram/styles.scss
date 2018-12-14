@@ -1,118 +1,109 @@
 @import 'src/assets/styles/_var.scss';
 
 .container {
+  .header {
+    color: white;
+    letter-spacing: 0;
+    line-height: 29px;
+    font-weight: $semi-bold;
+  }
+
+  .content {
+    background: white;
+    .termAndCondition {
+      font-size: 30px;
+      color: #0D0031;
+      letter-spacing: 0;
+      line-height: 29px;
+      font-weight: $semi-bold;
+    }
+    .text {
+      font-size: 18px;
+      color: #0D0031;
+      letter-spacing: 0;
+      line-height: 29px;
+      font-weight: $normal;
+    }
+
+    .userHeader {
+      display: flex;
+      flex-direction: column;
+      .userTitle {
+        display: flex;
+        .userTitleName {
+          font-size: 20px;
+          color: #3911A8;
+          letter-spacing: 0;
+          line-height: 29px;
+          font-weight: $semi-bold;
+        }
+        .userTitleContent {
+          font-size: 16px;
+          color: #49484A;
+          letter-spacing: 0;
+          font-weight: $normal;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
     .header {
-        color: white;
-        letter-spacing: 0;
-        line-height: 29px;
-        font-weight: $semi-bold;
+      font-size: 18px;
+      margin-top: 25px;
+      margin-left: 25px;
+    }
+
+    .banner-container {
+      display: flex;
+      flex-direction: column;
+      margin: 25px;
+    }
+  }
+  @media screen and (min-width: 768px) {
+    .header {
+      font-size: 36px;
+      margin-top: 69px;
+      margin-left: 182px;
+    }
+
+    .banner-container {
+      display: flex;
+      margin-top: 50px;
+      margin-left: 182px;
+      margin-right: 182px;
+      position: absolute;
+      justify-content: space-between;
     }
 
     .content {
-        background: white;
-        .termAndCondition {
-            font-size: 30px;
-            color: #0D0031;
-            letter-spacing: 0;
-            line-height: 29px;
-            font-weight: $semi-bold;
-        }
-        .text {
-            font-size: 18px;
-            color: #0D0031;
-            letter-spacing: 0;
-            line-height: 29px;
-            font-weight: $normal;
-        }
+      margin-top: 228px;
+      padding: 200px 182px 60px;
 
-        .userHeader {
-            display: flex;
-            flex-direction: column;
-            .userTitle {
-                display: flex;
-                .userTitleName {
-                    font-size: 20px;
-                    color: #3911A8;
-                    letter-spacing: 0;
-                    line-height: 29px;
-                    font-weight: $semi-bold;
-                }
-                .userTitleContent {
-                    font-size: 16px;
-                    color: #49484A;
-                    letter-spacing: 0;
-                    font-weight: $normal;
-                }
-            }
+      .login {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 59px;
+
+        .button {
+          color: #FFFFFF;
+          font-size: 16px;
+          font-weight: normal;
+          letter-spacing: 0;
+          background-color: transparent;
+          cursor: pointer;
+          outline: none;
+          padding: 0 50px;
+          margin-top: 25px;
         }
+        .active {
+          background: $primary-extra-bold;
+          font-weight: 600;
+          letter-spacing: 0.22px;
+        }
+      }
     }
-
-    @media screen and (max-width: 768px){
-        .header {
-            font-size: 18px;
-            margin-top: 25px;
-            margin-left: 25px;
-        }
-
-        .banner-container {
-            display: flex;
-            flex-direction: column;
-            margin: 25px;
-            //position: absolute;
-        }
-
-        .content {
-            margin-top: 25px;
-            padding: 25px;
-
-            .termAndCondition {
-                margin-top: 25px;
-                margin-bottom: 25px;
-            }
-            .userHeader {
-                margin-top: 25px;
-                margin-bottom: 10px;
-                .userTitle {
-                    .userTitleName {
-                        margin-left: 14px;
-                    }
-                }
-            }
-
-        }
-
-    }
-    @media screen and (min-width: 768px){
-        .header {
-            font-size: 36px;
-            margin-top: 69px;
-            margin-left: 182px;
-        }
-
-        .banner-container {
-            display: flex;
-            margin-top: 80px;
-            margin-left: 182px;
-            margin-right: 182px;
-            position: absolute;
-        }
-
-        .content {
-            margin-top: 225px;
-            padding: 200px 182px 60px;
-            .termAndCondition {
-                margin-top: 20px;
-                margin-bottom: 22px;
-            }
-            .userHeader {
-                margin-top: 50px;
-                margin-bottom: 10px;
-                .userTitle {
-                    .userTitleName {
-                        margin-left: 14px;
-                    }
-                }
-            }
-        }
-    }
+  }
 }

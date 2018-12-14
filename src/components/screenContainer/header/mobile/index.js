@@ -39,7 +39,6 @@ class HeaderMobile extends React.Component {
   redirectHome = () => this.props.history.push(URL.HOME);
   
   render() {
-    console.log('buttons', buttons);
     return (
       <div className={style.container}>
         <div className={style.header}>
@@ -56,7 +55,7 @@ class HeaderMobile extends React.Component {
             </div>
             {
             Object.entries(menus).map(([ key, menu ]) => (!menu.auth || menu.auth === currentUser.isLogin()) && (
-              <Link to={menu.link} key={key} className={this.checkActive(menu.link)}>
+              <Link to={menu.link} key={key} className={cx(this.checkActive(menu.link), menu.className)}>
                 <span className={style.menuItem}>
                   {menu.name}
                   {menu.icon}
