@@ -61,25 +61,25 @@
             //position: absolute;
         }
 
-        .content {
-            margin-top: 25px;
-            padding: 25px;
-
-            .termAndCondition {
-                margin-top: 25px;
-                margin-bottom: 25px;
-            }
-            .userHeader {
-                margin-top: 25px;
-                margin-bottom: 10px;
-                .userTitle {
-                    .userTitleName {
-                        margin-left: 14px;
-                    }
-                }
-            }
-
-        }
+        //.content {
+        //    margin-top: 25px;
+        //    padding: 25px;
+        //
+        //    .termAndCondition {
+        //        margin-top: 25px;
+        //        margin-bottom: 25px;
+        //    }
+        //    .userHeader {
+        //        margin-top: 25px;
+        //        margin-bottom: 10px;
+        //        .userTitle {
+        //            .userTitleName {
+        //                margin-left: 14px;
+        //            }
+        //        }
+        //    }
+        //
+        //}
 
     }
     @media screen and (min-width: 768px){
@@ -97,22 +97,22 @@
             position: absolute;
         }
 
-        .content {
-            margin-top: 225px;
-            padding: 200px 182px 60px;
-            .termAndCondition {
-                margin-top: 20px;
-                margin-bottom: 22px;
-            }
-            .userHeader {
-                margin-top: 50px;
-                margin-bottom: 10px;
-                .userTitle {
-                    .userTitleName {
-                        margin-left: 14px;
-                    }
-                }
-            }
-        }
+        //.content {
+        //    margin-top: 225px;
+        //    padding: 200px 182px 60px;
+        //    .termAndCondition {
+        //        margin-top: 20px;
+        //        margin-bottom: 22px;
+        //    }
+        //    .userHeader {
+        //        margin-top: 50px;
+        //        margin-bottom: 10px;
+        //        .userTitle {
+        //            .userTitleName {
+        //                margin-left: 14px;
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

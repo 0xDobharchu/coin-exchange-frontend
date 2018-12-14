@@ -2,21 +2,22 @@ import React from 'react';
 import {connect} from 'react-redux';
 import LabelLang from 'src/lang/components/LabelLang';
 import referralIcon from 'src/assets/images/promotionPrograms/referral_program.svg';
+import earlyBirdIcon from 'src/assets/images/promotionPrograms/early_bird_program.svg';
 import ProgramItem from 'src/screens/promotionProgram/programItem';
 import styles from './styles.scss';
 
 const programs = [
-  // {
-  //   logo: earlyBirdIcon,
-  //   title: <LabelLang id='promotion_programs.early_bird_program.title' />,
-  //   description: <LabelLang id='promotion_programs.early_bird_program.description' />,
-  //   key: 'earlyBird'
-  // },
   {
     logo: referralIcon,
     title: <LabelLang id='promotion_programs.referral_program.title' />,
     description: <LabelLang id='promotion_programs.referral_program.description' />,
     key: 'referral'
+  },
+  {
+    logo: earlyBirdIcon,
+    title: <LabelLang id='promotion_programs.commission.title' />,
+    description: <LabelLang id='promotion_programs.commission.description' />,
+    key: 'commission'
   },
 ];
 
@@ -69,7 +70,7 @@ class PromotionProgram extends React.Component {
             );
           })}
         </div>
-        <div className={styles.content}>
+        {/*<div className={styles.content}>
           {
             referralContent.map(item => {
               index++;
@@ -93,7 +94,7 @@ class PromotionProgram extends React.Component {
               );
             })
           }
-        </div>
+        </div>*/}
       </div>
     );
   }
