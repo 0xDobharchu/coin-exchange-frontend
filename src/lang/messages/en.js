@@ -908,21 +908,14 @@ export default {
   promotion_programs: {
     referral_program: {
       title: 'Referral Program',
-      description: 'You will instantly receive 20 HKD after finishing the first three transactions.',
-      benefits: {
-        title: 'Benefits:',
-        content: [
-          'Both referrer and referred person will instantly get 100 HKD as soon as referred person buys or sells crypto worth of at least 1,000 HKD on https://coinbowl.com.',
-          'Afterwards, referrers will forever receive 0.2% commission on every transactions made by referred people.'
-        ]
-      },
-      howToDo: {
-        title: 'How to do:',
-        content: [
-          'Copy your referral link then send to other people.'
-        ]
-      },
-    }
+      description: 'Both referrer and referred person will instantly get 100 HKD as soon as referred person buys or sells crypto worth of at least 1,000 HKD on <strong>https://coinbowl.com.</strong>',
+    },
+    commission: {
+      title: 'Commission',
+      description: 'Referrers will forever receive 0.2% commission on every transactions made by referred people.'
+    },
+    textRequireLogin: '"Get your referral link here and start earning with your friends. Sign In Now to get your referral code"',
+    signInNow: 'Sign in now'
   },
   pageNotFound: {
     pageNotFound: 'Page not found',
