@@ -1,19 +1,17 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
+import { FormattedHTMLMessage } from 'react-intl';
+import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
 
-class HtmlLang extends PureComponent {
+class MyFormatMessage extends PureComponent {
   render() {
-    const { intl } = this.props;
-    return (<div>{intl.formatMessage({ id: 'helloWorld' })}</div>);
+    // eslint-disable-next-line
+    return (<FormattedHTMLMessage {...this.props} />);
   }
 }
 
-HtmlLang.defaultProps = {
-  intl: null,
-};
+const mapState = state => ({
+  lang: state.langReducer.lang || FAIL_DEFAULT_LANGUAGE
+});
 
-HtmlLang.propTypes = {
-  intl: PropTypes.func,
-};
-export default injectIntl(HtmlLang);
+export default connect(mapState, null)(MyFormatMessage);
