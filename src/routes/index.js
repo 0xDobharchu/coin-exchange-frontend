@@ -165,6 +165,9 @@ const routes = [
     path: URL.STATIC_PAGE + '/:id',
     component: StaticPage,
     exact: true,
+    containerProps: {
+      bodyWrapper: false
+    }
   }
 ];
 
