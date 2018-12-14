@@ -1,0 +1,12 @@
+@import 'var';
+.container {
+  margin-top: 30px;
+  .token {
+    padding: 10px 5px;
+    border: 0.5px solid $primary-extra-bold;
+    word-break: break-all;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+}

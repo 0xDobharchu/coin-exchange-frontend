@@ -2,11 +2,10 @@ import React from 'react';
 import cx from 'classnames';
 import { Field } from 'redux-form';
 import inputField from 'src/components/core/form/fields/input';
-import { isRequired } from 'src/components/core/form/validator';
+import phoneField, { phoneValidator } from 'src/components/core/form/fields/phone';
 import popularPlacesField, { popularPlacesValidator } from './reduxFormFields/popularPlaces';
 import styles from './styles.scss';
 
-const required = isRequired();
 const CodFieldSet = (props) => {
   const { show, intl: { formatMessage }, className } = props;
 
@@ -20,12 +19,11 @@ const CodFieldSet = (props) => {
         validate={show ? popularPlacesValidator : []}
       />
       <Field
-        type="text"
         name="phone"
         placeholder={formatMessage({ id: 'coin.buy.userPhone' })}
-        component={inputField}
+        component={phoneField}
         containerClassName={styles.codItem}
-        validate={show ? required : []}
+        validate={show ? phoneValidator : []}
       />
       <Field
         type="text"

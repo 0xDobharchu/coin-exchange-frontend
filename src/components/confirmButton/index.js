@@ -64,7 +64,7 @@ class ConfirmButton extends PureComponent {
     const { disabled, message, confirmText, cancelText, onFirstClick, containerClassName, buttonClassName, label } = this.props;
     return (
       <div className={`${styles.container} ${containerClassName}`}>
-        <button type="submit" disabled={disabled && !onFirstClick} className={`${styles.confirmBtn} ${buttonClassName}`} onClick={this.onClick}>{label}</button>
+        <button type="submit" disabled={disabled && !onFirstClick} className={cx(styles.confirmBtn, buttonClassName)} onClick={this.onClick}>{label}</button>
         <Modal show={showModal} backdrop='static' centered>
           <Modal.Body>
             <div className={styles.content}>

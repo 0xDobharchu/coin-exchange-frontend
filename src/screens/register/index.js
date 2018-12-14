@@ -32,12 +32,21 @@ class RegisterPage extends React.Component {
   constructor(props) {
     super(props);
 
-    const params = queryString.parse(this.props.location.search);
+    let params = queryString.parse(this.props.location.search);
+    let referral = '';
+    if(!params.referral) {
+      if(this.props.location.pathname.indexOf(URL.REFERRAL) !== - 1) {
+        referral = this.props.location.pathname.split('/');
+        referral = referral[referral.length-1];
+      }
+    } else {
+      referral = params.referral;
+    }
     this.state = {
       registering: false,
       defaultCountry: '',
       countryList: [],
-      referral: params.referral || '',
+      referral: referral,
     };
     this._reCaptchaRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
