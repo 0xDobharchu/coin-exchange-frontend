@@ -1,0 +1,17 @@
+@import 'var';
+
+.container {
+  padding-top: $header-height;
+  .title {
+    padding: 75px 190px;
+    background: $primary-medium;
+    font-size: 36px;
+    color: #FFFFFF;
+    font-weight: 600;
+  }
+  .content {
+    padding: 50px 190px;
+    background: #FFFFFF;
+    min-height: 80vh;
+  }
+}
