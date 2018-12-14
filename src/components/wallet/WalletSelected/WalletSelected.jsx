@@ -28,7 +28,7 @@ class WalletSelected extends React.Component {
       walletSelected: this.props.walletSelected,
       wallets: this.props.wallets,
       modalListCoin: ''
-    }
+    }    
   }
 
   async componentDidMount() {
