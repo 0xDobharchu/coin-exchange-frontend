@@ -1,6 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import logo from 'src/assets/images/logo.svg';
+import React, { PureComponent } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import logo from 'src/assets/images/logo_white.svg';
 import cx from 'classnames';
 import { URL } from 'src/resources/constants/url';
 import currentUser from 'src/utils/authentication';
@@ -55,39 +56,64 @@ export const buttons = {
   },
 };
 
-const Header = () => {
+class Header extends PureComponent {
+  constructor(props) {
+    super();
+    this.state = { currentRoute: props?.history?.location?.pathname };
+  }
 
-  return (
-    <header className={styles.headerWarper}>
-      <div className={cx('container',styles.headerContainer)}>
-        <Link to={URL.HOME}>
-          <img className={styles.logo} src={logo} alt="coinbowl-logo" />
-        </Link>
-        <div className={styles.items}>
-          {
-          Object.entries(menus).map(([ key, menu ]) => (!menu.auth || menu.auth === currentUser.isLogin()) && (
-            <Link to={menu.link} key={key}>
-              <span className={styles.menuItem}>
-                {menu.name}
-                {menu.icon}
-              </span>
-            </Link>
-          ))
-        }
-        </div>
-        <ChangeLanguage />
-        {currentUser.isLogin() ? (
-          <UserLogin />
-        ): (
-          <div className={styles.buttons}>
+  handlerClick = (url) => {
+    if (!url) return;
+    const { history } = this.props;
+    const { location: { pathname } } = history;
+    history?.push(url);
+
+    this.setState({ currentRoute: pathname });
+  }
+
+  render () {
+    const { currentRoute } = this.state;
+    return (
+      <header className={styles.headerWarper}>
+        <div className={cx(styles.headerContainer)}>
+          <Link to={URL.HOME}>
+            <img className={styles.logo} src={logo} alt="coinbowl-logo" />
+          </Link>
+          <div className={styles.items}>
             {
-            Object.entries(buttons).map(([ key, button ]) => (
-              <Link to={button.link} key={key}><button type="button" className={cx(styles[button.className], styles.button)}>{button.name}</button></Link>
+            Object.entries(menus).map(([ key, menu ]) => (!menu.auth || menu.auth === currentUser.isLogin()) && (
+              <span role="presentation" onClick={() => this.handlerClick(menu.link)} key={key} className={cx('common-clickable', menu.className)}>
+                <span className={cx(styles.menuItem, currentRoute === menu.link && styles.linkActive)}>
+                  {menu.name}
+                  {menu.icon}
+                </span>
+              </span>
             ))
           }
-          </div>) }
-      </div>
-    </header>
-  );};
+          </div>
+          <ChangeLanguage className={styles.languageHeader} />
+          <div className={styles.divider} />
+          <div className={styles.userHeader}>
+            {currentUser.isLogin() ? (
+              <UserLogin />
+            ): (
+              <div className={styles.buttons}>
+                {
+                Object.entries(buttons).map(([ key, button ]) => (
+                  <Link to={button.link} key={key}><button type="button" className={cx(styles[button.className], styles.button)}>{button.name}</button></Link>
+                ))
+              }
+              </div>) }
+          </div>
+        </div>
+      </header>
+    );
+  }
+}
 
-export default Header;
+Header.propTypes = {
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+};
+
+export default withRouter(Header);
