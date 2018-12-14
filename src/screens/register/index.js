@@ -35,8 +35,10 @@ class RegisterPage extends React.Component {
     let params = queryString.parse(this.props.location.search);
     let referral = '';
     if(!params.referral) {
-      referral = this.props.location.pathname.indexOf(URL.REFERRAL) !== - 1 ?  this.props.location.pathname.split('/') : [];
-      referral = referral[referral.length-1];
+      if(this.props.location.pathname.indexOf(URL.REFERRAL) !== - 1) {
+        referral = this.props.location.pathname.split('/');
+        referral = referral[referral.length-1];
+      }
     } else {
       referral = params.referral;
     }
