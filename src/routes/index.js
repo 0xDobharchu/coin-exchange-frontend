@@ -154,6 +154,9 @@ const routes = [
     path: URL.PROMOTION_PROGRAM,
     component: PromotionProgram,
     exact: true,
+    containerProps: {
+      bodyWrapper: false
+    }
   },
   {
     path: URL.HOW_IT_WORKS,

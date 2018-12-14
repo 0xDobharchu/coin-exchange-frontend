@@ -26,13 +26,6 @@ const programs = [
   },
 ];
 
-const numBenefits = 2;
-const benefits = [];
-
-for (let i = 0; i < numBenefits; i++) {
-  benefits.push(<LabelLang id={`promotion_programs.referral_program.benefits.content.${i}`} />);
-}
-
 class PromotionProgram extends React.Component {
   constructor(props) {
     super(props);
@@ -66,7 +59,9 @@ class PromotionProgram extends React.Component {
         </div>
         <div className={styles.content}>
           {currentUser.isLogin() ? (
-            <ReferralBox />
+            <div className={styles.referralBox}>
+              <ReferralBox />
+            </div>
           ) : (
             <div className={styles.login}>
               <label className={styles.title}><LabelLang id="promotion_programs.textRequireLogin" /></label>
