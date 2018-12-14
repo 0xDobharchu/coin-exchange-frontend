@@ -88,6 +88,7 @@ class RegisterPage extends React.Component {
       name, username, password, country, recaptchaValue, agreement
     } = this.props;
     const { referral } = this.state;
+    console.log(referral);// ? may be undefine ...
     console.log(123213213);
     if (name && username && password && country && recaptchaValue && agreement) {
       this.props.registerBound({
@@ -96,7 +97,7 @@ class RegisterPage extends React.Component {
         password,
         country,
         recaptchaValue,
-        referral
+        referral: '',
       }).then((res) => {
         if (res === USER.REGISTER_SUCCESS) {
           console.log('Register successfully');
