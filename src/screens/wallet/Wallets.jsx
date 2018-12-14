@@ -900,12 +900,12 @@ class Wallet extends React.Component {
         const { messages } = this.props.intl;
         return (
             <Row className={styles.walletBox}>
-                {!process.env.isProduction ?
+                {!APP_ENV.isProduction ?
                     <Row className={styles.list}>
                         <Header title={messages['wallet.action.create.label.test_net']} hasLink linkTitle={messages['wallet.action.create.button.request_free_eth']} onLinkClick={this.getETHFree} />
                     </Row>
                     : ''}
-                {!process.env.isProduction &&
+                {!APP_ENV.isProduction &&
                     <Row className={styles.list}>
                         {this.state.listTestWalletBalance.length > 0 ?
                             <SortableComponent onWarningClick={item => this.onWarningClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} items={this.state.listTestWalletBalance} />
