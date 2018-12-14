@@ -18,18 +18,23 @@
     }
   }
 
-  .title {
-    font-size: 30px;
-    color: black;
-    letter-spacing: 0;
-    font-weight: $semi-bold;
-  }
-  .description {
-    font-size: 16px;
-    color: #7E7D80;
-    letter-spacing: 0;
-    line-height: 24px;
-    font-weight: $normal;
+  .content {
+    max-height: 50%;
+    height: 50%;
+    padding-top: 20px;
+    .title {
+      font-size: 30px;
+      color: black;
+      letter-spacing: 0;
+      font-weight: $semi-bold;
+    }
+    .description {
+      font-size: 16px;
+      color: #7E7D80;
+      letter-spacing: 0;
+      line-height: 24px;
+      font-weight: $normal;
+    }
   }
 
   @media screen and (max-width: 768px) {
