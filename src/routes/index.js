@@ -136,9 +136,9 @@ const routes = [
   },
 
   {
-    path: URL.WALLET,
+    path: '/wallet/:address?',//URL.WALLET,
     component: Wallet,
-    exact: false,
+    exact: true,
     strict: false,
     auth: true,
     containerProps: {

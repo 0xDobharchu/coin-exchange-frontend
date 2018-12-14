@@ -124,23 +124,29 @@
     
     margin-top: $header-height;
 
-    .wallet-mobile-container{
-      padding: 0 0 60px 0;
-      margin: 0 auto;
-      min-height: 100vh;
-      max-width: 414px;
-      overflow: hidden;
-
-      margin-bottom: 7px;
-      padding: rem-calc(10px 5px 10px 0);
-      min-height: 75px;
-      position: relative;
+    .wallet-mobile-container{      
 
       background-image: url('../../assets/images/wallet/images/bg-home-wallet3.svg');
+      
+      // background-color: #f4f4fb;
+      max-width: 414px;
+      overflow: hidden;
+      min-height: 75px;
+      position: relative;
       background-repeat: no-repeat;
-      background-size: contain;
-      background-color: #f4f4fb;
+      background-size: contain;      
+      // height: calc(100vh - #{$header-height});
+      background-color: #F8F8F8;
+      margin: 0px;
       padding-bottom: 60px;
+
+      .wallet-box{
+        // box-shadow: 2px 2px 13px 0 rgba(1,1,0,.1);
+        box-shadow: 0 5px 29px -7px rgba(0, 0, 0, 0.5);
+        border-radius: 6px;
+        overflow: hidden;
+        margin: 0;
+      }
     }
 
     .float-button-scan-qrcode{
