@@ -7,16 +7,21 @@
   //position: absolute;
   //right: 0px;
   color: white;
-  padding: 10px;
   cursor: pointer;
   .country-name {
     font-size: rem-calc(14px);
     font-weight: bold;
   }
-}
-.change-language {
-  border: none !important;
-  button {
-    color: white !important;
+  .change-language {
+    padding: 0px;
+    width: 110px;
+    @include respond(sm) {
+      width: inherit;
+    }
+    border: none !important;
+    button {
+      color: white;
+    }
   }
+  
 }

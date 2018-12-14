@@ -5,11 +5,16 @@
 
 .logined-container {
   display: inline-block;
-}
-.logined {
-  border: none !important;
-  button {
-    color: white !important;
+  .logined {
+    border: none !important;
+    button {
+      color: white !important;
+    }
+    @include respond(md) {
+      padding: 0px;
+      padding-left: 3px;
+      width: 80px;
+    }
   }
 }
 .icon {
@@ -26,4 +31,8 @@
   color: #fff;
   font-size: 16px;
   margin-right: 10px;
+  @include respond(md) {
+    display: flex;
+    margin: 0px 0px 0px 5px;
+  }
 }
