@@ -56,7 +56,7 @@ class HeaderMobile extends React.Component {
             </div>
             {
             Object.entries(menus).map(([ key, menu ]) => (!menu.auth || menu.auth === currentUser.isLogin()) && (
-              <Link to={menu.link} key={key} className={this.checkActive(menu.link)}>
+              <Link to={menu.link} key={key} className={cx(this.checkActive(menu.link), menu.className)}>
                 <span className={style.menuItem}>
                   {menu.name}
                   {menu.icon}
