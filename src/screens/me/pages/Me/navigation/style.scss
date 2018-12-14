@@ -2,7 +2,7 @@
 
 .container {
   background-color: #efefef;
-  margin-bottom: -60px;
+  // margin-bottom: -60px;
   @media screen and (min-width: 768px){
     padding-top: 31px;
   }
@@ -60,14 +60,14 @@
     }
   }
   .scrollbar {
-    height: calc(100vh - 77px - 31px - 10px);
+    height: calc(100vh - #{$header-height} - 31px - 10px);
     overflow: scroll;
     background: #FFFFFF;
     @media screen and (min-width: 768px){
       padding: 35px 50px;
     }
     @media screen and (max-width: 768px){
-      height: calc(100vh - 77px);
+      height: calc(100vh - #{$header-height});
       padding-top: 31px;
     }
   }

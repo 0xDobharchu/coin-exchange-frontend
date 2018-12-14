@@ -12,7 +12,7 @@ import Setting from 'src/screens/me/pages/Setting';
 import MeProfile from 'src/screens/me/pages/MeProfile';
 import MeHistory from 'src/screens/me/pages/History';
 import BankInfo from 'src/screens/me/pages/BankInfo';
-import Referral from 'src/screens/me/pages/Referral';
+import MyReferral from 'src/screens/me/pages/Referral';
 import Wallet from 'src/screens/wallet';
 import CoinBowlFAQ from 'src/screens/landingpage/CoinBowlFAQ';
 import AgreementPrivacy from 'src/screens/agreementPrivacy';
@@ -67,6 +67,11 @@ const routes = [
     exact: true,
   },
   {
+    path: URL.REFERRAL,
+    component: Register,
+    //exact: true,
+  },
+  {
     path: URL.USER_FORGET_PASSWORD,
     component: forgetPassword,
     exact: true,
@@ -81,6 +86,9 @@ const routes = [
     component: Me,
     // exact: true,
     auth: true,
+    containerProps: {
+      bodyWrapper: false
+    },
     routes: [
       {
         path: URL.ME,
@@ -120,19 +128,22 @@ const routes = [
       },
       {
         path: URL.ME_REFERRAL,
-        component: Referral,
+        component: MyReferral,
         exact: true,
         auth: true,
       }
     ]
   },
-  
+
   {
     path: URL.WALLET,
-    component: Wallet,    
+    component: Wallet,
     exact: false,
     strict: false,
-    auth: true
+    auth: true,
+    containerProps: {
+      bodyWrapper: false
+    }
   },
   {
     path: URL.AGREEMENT,

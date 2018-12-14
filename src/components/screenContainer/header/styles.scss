@@ -1,12 +1,12 @@
+@import 'var';
 .headerContainer {
   padding: 15px;
-  max-height: 77px;
+  max-height: $header-height;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #3F2782;
   .logo {
-    width: 75px;
+    width: 65px;
   }
 
   .items {

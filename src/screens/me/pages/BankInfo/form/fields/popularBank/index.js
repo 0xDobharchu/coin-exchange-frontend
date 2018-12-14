@@ -1,6 +1,6 @@
 /* eslint react/prop-types:0 */
 import React from 'react';
-import PopularPlacesField from 'src/components/popularBank/PopularPlacesField';
+import PopularPlacesField from 'src/components/popularBank/popularPlacesField';
 
 const field = ({ input, meta, className = '', containerClassname,  placeholder, ...restProps }) => {
   const {

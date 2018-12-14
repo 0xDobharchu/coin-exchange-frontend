@@ -425,3 +425,35 @@ export const getReferralEarningReferral = async () => {
     return [];
   }
 };
+
+const callApiToken = async (method) => {
+  try {
+    const options = {
+      url : API_URL.ME.API_TOKEN,
+      method,
+    };
+    if(currentUser.isLogin()) {
+      options.headers = {
+        Authorization: 'Bearer ' + currentUser.getToken()
+      };
+    }
+    const res = await http(options);
+    return res;
+  } catch (err) {
+    console.log('ERROR getReferralEarningReferral', err);
+    return [];
+  }
+};
+export const getApiToken = async () => {
+  return await callApiToken('GET');
+};
+
+export const deleteApiToken = async () => {
+  return await callApiToken('DELETE');
+};
+
+export const updateApiToken = async () => {
+  return await callApiToken('POST');
+};
+
+
