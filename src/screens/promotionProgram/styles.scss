@@ -58,29 +58,7 @@
       display: flex;
       flex-direction: column;
       margin: 25px;
-      //position: absolute;
     }
-
-    //.content {
-    //    margin-top: 25px;
-    //    padding: 25px;
-    //
-    //    .termAndCondition {
-    //        margin-top: 25px;
-    //        margin-bottom: 25px;
-    //    }
-    //    .userHeader {
-    //        margin-top: 25px;
-    //        margin-bottom: 10px;
-    //        .userTitle {
-    //            .userTitleName {
-    //                margin-left: 14px;
-    //            }
-    //        }
-    //    }
-    //
-    //}
-
   }
   @media screen and (min-width: 768px) {
     .header {
@@ -91,7 +69,7 @@
 
     .banner-container {
       display: flex;
-      margin-top: 60px;
+      margin-top: 50px;
       margin-left: 182px;
       margin-right: 182px;
       position: absolute;
