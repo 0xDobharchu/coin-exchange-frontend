@@ -36,7 +36,7 @@ const mockState = {
     count: 0,
     results: []
   },
-
+  tokenApi: '',
 };
 
 export default (state = mockState, { type, payload, data }) => {

@@ -1,6 +1,7 @@
 import {
   fetchProfile, sendEmailVerifyCode, updateProfile, sendToGetPhoneCode, submitVerifyPhoneCode, submitIdCard, submitSelfie,
-  getTransactions, getReferrals, cancelTransaction, getReferralEarningPromotion, getReferralEarningReferral
+  getTransactions, getReferrals, cancelTransaction, getReferralEarningPromotion, getReferralEarningReferral,
+  getApiToken, deleteApiToken, updateApiToken
 } from './api';
 
 export const getProfileAction = () => (dispatch) => new Promise((resolve, reject) => {
@@ -115,6 +116,38 @@ export const getRefEarningReferralAction = () => (dispatch) => new Promise((reso
       results: r.results
     };
     dispatch({ type: 'GET_REFERRAL_EARNING_REFERRAL', payload });
+    resolve(true);
+  }).catch(err => reject(err));
+});
+
+export const getApiTokenAction = () => (dispatch) => new Promise((resolve, reject) => {
+  getApiToken().then((r) => {
+    if (!r) return;
+    const payload = {
+      tokenApi: r.token
+    };
+    dispatch({ type: 'UPDATE_AUTH_STATE', payload });
+    resolve(true);
+  }).catch(err => reject(err));
+});
+export const deleteApiTokenAction = () => (dispatch) => new Promise((resolve, reject) => {
+  deleteApiToken().then(() => {
+    // if (!r) return;
+    const payload = {
+      tokenApi: ''
+    };
+    dispatch({ type: 'UPDATE_AUTH_STATE', payload });
+    resolve(true);
+  }).catch(err => reject(err));
+});
+
+export const updateApiTokenAction = () => (dispatch) => new Promise((resolve, reject) => {
+  updateApiToken().then((r) => {
+    if (!r) return;
+    const payload = {
+      tokenApi: r.token
+    };
+    dispatch({ type: 'UPDATE_AUTH_STATE', payload });
     resolve(true);
   }).catch(err => reject(err));
 });

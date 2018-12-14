@@ -38,12 +38,12 @@ class ListCoin extends React.Component {
   }
 
   async componentDidMount() {
-    // let { walletSelected, wallets, crypto } = this.props;
+    let { walletSelected, wallets, crypto } = this.props;
     // this.props.showLoading();    
 
-    // this.setState({wallets, walletSelected}, ()=> {
-    //   // this.props.hideLoading() 
-    // });
+    this.setState({wallets, walletSelected}, ()=> {
+      // this.props.hideLoading() 
+    });
   } 
 
   selectCoin = (wallet) => {

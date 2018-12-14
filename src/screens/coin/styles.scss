@@ -4,6 +4,7 @@
 .container {
   padding-bottom: 70px;
   @include respond(xs) {
+    padding-top: $header-height;
     background: linear-gradient(to bottom, $primary-extra-bold 0%,$primary-extra-bold 250px,#000000 250px,#F8F8F8 250px,#F8F8F8 100%);
   }
   > div:global(.row > div) {
@@ -65,6 +66,9 @@
     background: $white;;
     box-shadow: 0 5px 29px -7px #000000;
     border-radius: 6px;
+    @include respond(xs) {
+      padding: 10px;;
+    }
     .header {
       height: $btn-height-medium;
       display: flex;

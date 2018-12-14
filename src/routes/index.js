@@ -86,6 +86,9 @@ const routes = [
     component: Me,
     // exact: true,
     auth: true,
+    containerProps: {
+      bodyWrapper: false
+    },
     routes: [
       {
         path: URL.ME,
@@ -137,7 +140,10 @@ const routes = [
     component: Wallet,
     exact: false,
     strict: false,
-    auth: true
+    auth: true,
+    containerProps: {
+      bodyWrapper: false
+    }
   },
   {
     path: URL.AGREEMENT,

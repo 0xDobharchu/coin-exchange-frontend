@@ -134,9 +134,10 @@
       }
       .boxButton{        
         margin: auto;
+        height: 100px;
         .bt2{
-          margin-left: 50px;
-          margin-right: 50px;
+          margin-left: 70px;
+          margin-right: 70px;
         }
         .bt1, .bt2, .bt3{
           display: inline;
@@ -148,7 +149,7 @@
             height: 60px;
             width: 60px;
             margin: 0.2em auto;            
-            color: #0070ba;
+            // color: #0070ba;
             border: 1px solid #000000;
             background: rgba(255, 255, 255, 0.8);
             border-radius: 50%;
@@ -161,7 +162,11 @@
             position: relative;            
             cursor: pointer;
             span{
-              display: none;
+              bottom: -25px;
+              position: absolute;
+              width: 100%;
+              text-align: center;
+              font-weight: 300;
             }
             .iconSend{
               width: 28px;
