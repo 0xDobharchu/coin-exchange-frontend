@@ -229,15 +229,33 @@ class Wallet extends React.Component {
 
                     const lstWalletTemp = this.getAllWallet();
 
-                    if (lstWalletTemp.length > 0) {
-                        lstWalletTemp.forEach((wal, i) => {
-                            if (wal.address === addressParram) {
-                                this.onWalletItemClick(wal, false, false);
-                                return;
-                            }
-                        });
+                    if (addressParram){
+                        if (lstWalletTemp.length > 0) {
+                            lstWalletTemp.forEach((wal, i) => {
+                                if (wal.address === addressParram) {
+                                    this.onWalletItemClick(wal, false, false);
+                                    return;
+                                }
+                            });
+                        }
                     }
+                    else if (location.pathname === '/wallet')
+                    {
+                        if (__CLIENT__)
+                        {
+                            window.location.reload();
+                        }
+                    }                    
                 }
+                else if (action === 'PUSH') {                    
+                    if (location.pathname === '/wallet')
+                    {
+                        if (__CLIENT__)
+                        {
+                            window.location.reload();
+                        }
+                    }
+                }                
             }
 
         });

@@ -14,7 +14,7 @@
 }
 
 .fullHeightBox{
-  height: calc(100vh - 150px);
+  height: calc(100vh - 120px);
 }
 
 .container {
@@ -135,7 +135,7 @@
       position: relative;
       background-repeat: no-repeat;
       background-size: contain;      
-      // height: calc(100vh - #{$header-height});
+      min-height: calc(100vh - #{$header-height});
       background-color: #F8F8F8;
       margin: 0px;
       padding-bottom: 60px;
