@@ -92,7 +92,6 @@ class Header extends PureComponent {
           }
           </div>
           <ChangeLanguage className={styles.languageHeader} />
-          <div className={styles.divider} />
           <div className={styles.userHeader}>
             {currentUser.isLogin() ? (
               <UserLogin />
