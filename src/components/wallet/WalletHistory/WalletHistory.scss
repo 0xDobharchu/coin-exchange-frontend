@@ -138,6 +138,10 @@
         .bt2{
           margin-left: 70px;
           margin-right: 70px;
+          @media (max-width: 1000px){        
+            margin-left: 30px;
+            margin-right: 30px;
+          }
         }
         .bt1, .bt2, .bt3{
           display: inline;
