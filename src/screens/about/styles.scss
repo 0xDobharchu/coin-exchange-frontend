@@ -11,5 +11,152 @@
     border-radius: 6px 6px 6px 6px;
     box-shadow: 0 5px 29px -7px #000000;
     margin-top: 50px;
-    padding: 30px;
+    padding: 30px;           
+}
+
+.aboutContainer{
+    width: 100%;    
+    background-color: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    margin: 0;
+    padding: 25px 0;
+    min-width: 100%;
+    padding-top: 130px;
+    font-weight: normal;
+    :global {
+        .intro {            
+            .title1 {
+                font-size: 16.0px;
+                color: rgba(13,0,48,1.0);
+                text-align: left;
+                letter-spacing: .22px;
+                line-height: 19.0px;
+            }
+            .title2{
+                font-size: 48.0px;
+                color: rgba(13,0,48,1.0);
+                text-align: left;
+                letter-spacing: .67px;
+                line-height: 65.0px;
+                margin-top: 20px;
+            }
+            .desc {
+                font-size: 24.0px;
+                color: rgba(13,0,48,1.0);
+                text-align: left;
+                letter-spacing: .33px;
+                line-height: 35.0px;
+                margin-top: 40px;
+            }            
+        }   
+        .brief {
+            margin-top: 70px;            
+            .title {
+                font-size: 36.0px;
+                color: rgba(13,0,48,1.0);
+                text-align: left;
+                letter-spacing: .5px;
+                line-height: 49.0px;
+            }
+            .desc{
+                margin-bottom: 50px;
+                p {
+                    font-size: 18.0px;
+                    color: rgba(0,0,0,1.0);
+                    text-align: left;
+                    line-height: 34.0px;
+                    margin-top: 30px;
+                    margin-bottom: 30px;
+                }
+            }            
+        }
+        .brief-hongkong {
+            margin-bottom: 50px;
+            .bg {
+                width: 100%;
+            }
+            .info {
+                font-size: 16.0px;
+                color: rgba(0,0,0,1.0);
+                text-align: left;
+                letter-spacing: .22px;
+                line-height: 24.0px;
+                margin-top: 50px;
+            }
+        }
+        .priorities{
+            margin: 50px 0 50px 0;
+            .header {
+                font-size: 36.0px;
+                color: rgba(13,0,48,1.0);
+                text-align: center;
+                letter-spacing: .5px;
+                line-height: 49.0px;                
+            }
+            .title {
+                font-size: 24.0px;
+                color: rgba(0,0,0,1.0);
+                text-align: left;
+                margin-bottom: 50px;
+            }
+            .desc {
+                font-size: 18.0px;
+                color: rgba(13,0,49,1.0);
+                text-align: left;
+                line-height: 34.0px;
+                margin-bottom: 50px;
+            }
+            .title-organ {
+                font-size: 24.0px;
+                color: rgba(255,177,34,1.0);
+                text-align: left;
+                line-height: 33.0px;
+                margin-bottom: 20px;
+                margin-top: 20px;
+            }
+            .title-green {
+                font-size: 24.0px;
+                color: rgba(88,187,38,1.0);
+                text-align: left;
+                line-height: 33.0px;                
+                margin-bottom: 20px;
+                margin-top: 20px;
+            }
+            .title-blue {
+                font-size: 24.0px;
+                color: rgba(73,237,242,1.0);
+                text-align: left;
+                line-height: 33.0px;
+                margin-bottom: 20px;
+                margin-top: 20px;
+            }
+            .list-item {
+                margin-left: -17px;
+                ul {
+                    list-style-type: circle;                
+                    li {                
+                        font-size: 18.0px;
+                        color: rgba(13,0,49,1.0);
+                        text-align: left;
+                        line-height: 34.0px;
+                    }
+                }                
+            }
+            .icon {
+                text-align: center;
+                margin-top: 25px;
+                margin-right: -25px;
+            }
+            
+        }
+    }  
 }
