@@ -48,29 +48,42 @@ const optimization = {
   nodeEnv: 'production',
   sideEffects: true,
   concatenateModules: true,
+  runtimeChunk: 'single',
   splitChunks: {
     chunks: 'all',
-    minSize: 30000,
+    maxInitialRequests: Infinity,
+    minSize: 0,
     maxSize: 300000,
     minChunks: 1,
     maxAsyncRequests: 5,
-    maxInitialRequests: 3,
     name: true,
     cacheGroups: {
-      commons: {
+      vendor: {
         test: /[\\/]node_modules[\\/]/,
-        name: 'vendor',
-        chunks: 'all',
-      },
-      main: {
-        chunks: 'all',
-        minChunks: 2,
-        reuseExistingChunk: true,
-        enforce: true,
+        name(module) {
+          // get the name. E.g. node_modules/packageName/not/this/part.js
+          // or node_modules/packageName
+          const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+
+          // npm package names are URL-safe, but some servers don't like @ symbols
+          return `npm.${packageName.replace('@', '')}`;
+        },
       },
     },
+    // cacheGroups: {
+    //   commons: {
+    //     test: /[\\/]node_modules[\\/]/,
+    //     name: 'vendor',
+    //     chunks: 'all',
+    //   },
+    //   main: {
+    //     chunks: 'all',
+    //     minChunks: 2,
+    //     reuseExistingChunk: true,
+    //     enforce: true,
+    //   },
+    // },
   },
-  runtimeChunk: true,
 };
 
 const cssLoader = [
