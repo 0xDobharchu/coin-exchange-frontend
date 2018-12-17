@@ -93,12 +93,98 @@
                 margin-top: 50px;
             }
         }
+
+        .grant{            
+            width: 100%;
+            img {
+                width: 100%;
+            }
+            
+            @media (max-width: 1700px){
+                .col-xxl-12 {
+                    -webkit-box-flex: 0;
+                    -ms-flex: 0 0 50%;
+                    flex: 0 0 50%;
+                    max-width: 50%;
+                }
+            }   
+            @media (max-width: 1600px){
+                .col-xxl-12 {
+                    -webkit-box-flex: 0;
+                    -ms-flex: 0 0 50%;
+                    flex: 0 0 50%;
+                    max-width: 50%;
+                }
+            }  
+            @media (max-width: 1400px){
+                .col-xxl-12 {
+                    -webkit-box-flex: 0;
+                    -ms-flex: 0 0 100%;
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
+                width: 85%;
+                margin: auto;
+            }                                        
+            .grant-info {
+                background-color: rgba(255,255,255,1.0);
+                margin-left: -250px;
+                margin-top: 55px;
+                padding: 50px;
+                width: 85%;             
+                @media (max-width: 1900px) {
+                    margin-left: 0;
+                    margin-top: 10px;
+                } 
+                @media (max-width: 1600px){
+                    margin-top: 0px;
+                    padding-top: 0;
+                    width: 100%;
+                }       
+                @media (max-width: 1400px){
+                    margin-top: 50px;
+                    padding: 0;
+                }                            
+            }
+
+            .title {
+                margin-bottom: 50px;
+            }
+            
+            .title-gray {
+                font-size: 36.0px;
+                color: rgba(13,0,48,1.0);
+                text-align: left;
+                letter-spacing: .5px;
+                line-height: 49.0px;
+            }
+            .title-blue {
+                text-align: left;
+                letter-spacing: .5px;
+                line-height: 49.0px;
+                color: rgba(85,34,221,1.0);
+                font-size: 36.0px;
+            }
+            .desc {
+                font-size: 18.0px;
+                color: rgba(13,0,48,1.0);
+                text-align: left;
+                letter-spacing: .25px;
+                line-height: 31.0px;
+            }
+        }
+
         .priorities{
             margin: 50px 0 50px 0;
             .header {
                 font-size: 36.0px;
                 color: rgba(13,0,48,1.0);
                 text-align: center;
+                @media (max-width: 576px) {
+                    text-align: left;
+                }
+                
+
                 letter-spacing: .5px;
                 line-height: 49.0px;                
             }
@@ -155,6 +241,9 @@
                 text-align: center;
                 margin-top: 25px;
                 margin-right: -25px;
+                img {
+                    width: 50px;
+                }
             }
             
         }
