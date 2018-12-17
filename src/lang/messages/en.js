@@ -95,6 +95,7 @@ export default {
       apiTokenCopy: 'Copy',
       alert: {
         apiTokenCopyLinkSuccess: 'ApiToken copied to clipboard.',
+        renewSuccess: 'Renew Token Success',
         passwordSuccess: 'Update Password Success',
         passwordFailed: 'Update Password Failed',
         success: 'Success',
@@ -102,6 +103,14 @@ export default {
       },
       validate: {
         newPasswordRequired: 'New Password is required'
+      },
+      dialog: {
+        renew: {
+          title: 'Confirm Renew',
+          body: 'Are you sure to renew api token?',
+          confirm: 'Yes',
+          cancel: 'No'
+        }
       }
     },
     setting: {
