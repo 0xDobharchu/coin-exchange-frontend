@@ -46,6 +46,9 @@ const routes = [
     path: URL.FAQ_URL,
     component: CoinBowlFAQ,
     exact: true,
+    containerProps: {
+      bodyWrapper: false
+    }
   },
   {
     path: URL.CONTACT,
