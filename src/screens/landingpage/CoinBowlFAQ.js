@@ -1,12 +1,11 @@
 import React from 'react';
-import ProjectDetail from 'src/components/projectDetail';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import LabelLang from 'src/lang/components/LabelLang';
 import { FAIL_DEFAULT_LANGUAGE } from 'src/resources/constants/languages';
+import Faq from 'src/components/FAQ/';
 import { getFaqContent } from './redux/action';
 import styles from './styles.scss';
-import Faq from 'src/components/FAQ/';
 
 class CoinBowlFAQ extends React.PureComponent {
   constructor(props) {
