@@ -37,25 +37,17 @@ class AgreementPrivacy extends React.Component {
     return (
       <div>
         {userAgreementContent && (
-        <div>
-          <h5 className={styles.pdFaq}>
-            <LabelLang id="static_page.userAgreement" />
-          </h5>
-          <div className="container">
-            <div className={styles.contactWrap} dangerouslySetInnerHTML={{ __html: userAgreementContent }} />
+          <div className={styles.container}>
+            <div className={styles.title}><LabelLang id="static_page.userAgreement" /></div>
+            <div className={styles.content} dangerouslySetInnerHTML={{ __html: userAgreementContent }} />
           </div>
-        </div>
         )}
 
         {privacyContent && (
-        <div>
-          <h5 className={styles.pdFaq}>
-            <LabelLang id="static_page.privacyPolicy" />
-          </h5>
-          <div className="container">
-            <div className={styles.contactWrap} dangerouslySetInnerHTML={{ __html: privacyContent }} />
+          <div className={styles.container}>
+            <div className={styles.title} style={{ paddingTop: '20px' }}><LabelLang id="static_page.privacyPolicy" /></div>
+            <div className={styles.content} dangerouslySetInnerHTML={{ __html: privacyContent }} />
           </div>
-        </div>
         )}
       </div>
     );
