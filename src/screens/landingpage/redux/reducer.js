@@ -10,6 +10,7 @@ export default (state = initState, { type, data }) => {
       return {
         ...state,
         aboutContent: data?.content,
+        staticTitle: data?.title,
       };
     }
     case `${LANDINGPAGE_ACTION.GET_FAQ_CONTENT}_SUCCESS`: {
