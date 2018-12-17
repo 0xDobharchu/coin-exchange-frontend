@@ -89,6 +89,35 @@ class About extends React.Component {
 
           </Row>
 
+        </Container>
+
+        <div className="grant">
+          <Row>
+            <Col xs={12} xl={7} md={12} className="col-xxl-12">
+              <img alt="coinbolw" src="https://storage.googleapis.com/coin-exchange-staging/static-pages/about-us/btc-atm.png" />
+            </Col>
+            <Col xs={12} xl={5} md={12} className="col-xxl-12">
+              <div className="grant-info">
+                <div className="title"> 
+                  <span className="title-gray">
+                    CoinBowl’s mission is to grant Asian people a &nbsp; 
+                  </span>
+                  <span className="title-blue">
+                    direct access to crypto world
+                  </span>
+                </div>
+                <div className="desc">
+                  CoinBowl’s mission is to grant Asian people a direct access to crypto world
+                  It is reasonable to confidently expect that cryptocurrency based on blockchain technology would be the payment method of future since it is not controlled by any government or organization. 
+                  <br /><br />
+                  This system enabling users to transfer money to anywhere instantly at significantly low price is rebuilding global economy. Cryptocurrency is a tool that can not only improve payment system for the sake of convenience but also stimulate technological innovation in other fields. This is what we choose to make the world greater.
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </div>
+
+        <Container>
           <Row className="priorities">
             <Col>
               <div className="header">CoinBowl’s Priorities</div>
@@ -114,7 +143,7 @@ class About extends React.Component {
                 Cryptocurrency might be the currency of the future but this expectation can not come true unless everyone has the right to own cryptocurrency. Even in crypto supported countries, it is not much easy to buy and sell crypto. CoinBowl, with its straightforward UX/UI design, secure payment gateway and various payment method, will make trading as much convenient as possible.
               </div>
             </Col>            
-          </Row>
+          </Row>          
 
           <Row className="priorities">
             <Col>
@@ -125,12 +154,12 @@ class About extends React.Component {
           <Row className="priorities">
             <Col>
               <Row className="item">
-                <Col md={2}>
+                <Col xsHidden xs={2} md={2} className="hidden-xs">
                   <div className="icon">
                     <img alt="coinbowl-icon" className="bg" src="https://storage.googleapis.com/coin-exchange-staging/static-pages/about-us/icon-brief-1.svg" />                    
                   </div>
                 </Col>
-                <Col md={20}>
+                <Col xs={10} md={10}>
                   <div className="title-organ">Effective communication</div>
                   <div className="list-item">
                     <ul className="list">
@@ -142,12 +171,12 @@ class About extends React.Component {
               </Row>              
 
               <Row className="item">
-                <Col md={2}>
+                <Col xsHidden xs={2} md={2} className="hidden-xs" d-xs-none>
                   <div className="icon">
-                    <img alt="coinbowl-icon" className="bg" src="https://storage.googleapis.com/coin-exchange-staging/static-pages/about-us/icon-brief-1.svg" />                    
+                    <img alt="coinbowl-icon" className="bg" src="https://storage.googleapis.com/coin-exchange-staging/static-pages/about-us/icon-brief-3.svg" />                    
                   </div>
                 </Col>
-                <Col md={20}>
+                <Col xs={10} md={10}>
                   <div className="title-green">Genuine sympathy</div>
                   <div className="list-item">
                     <ul className="list">
@@ -162,12 +191,12 @@ class About extends React.Component {
               </Row>
 
               <Row className="item">
-                <Col md={2}>
+                <Col xsHidden xs={2} md={2} className="hidden-xs">
                   <div className="icon">
-                    <img alt="coinbowl-icon" className="bg" src="https://storage.googleapis.com/coin-exchange-staging/static-pages/about-us/icon-brief-1.svg" />                    
+                    <img alt="coinbowl-icon" className="bg" src="https://storage.googleapis.com/coin-exchange-staging/static-pages/about-us/icon-brief-3.svg" />                    
                   </div>
                 </Col>
-                <Col md={20}>
+                <Col md={10} xs={10}>
                   <div className="title-blue">Efficient work</div>
                   <div className="list-item">
                     <ul className="list">
