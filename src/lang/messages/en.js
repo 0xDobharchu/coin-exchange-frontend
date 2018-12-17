@@ -91,8 +91,10 @@ export default {
       },
       apiTokenTitle: 'Api Token',
       apiTokenDelete: 'Delete',
-      apiTokenNew: 'New',
+      apiTokenNew: 'Renew',
+      apiTokenCopy: 'Copy',
       alert: {
+        apiTokenCopyLinkSuccess: 'ApiToken copied to clipboard.',
         passwordSuccess: 'Update Password Success',
         passwordFailed: 'Update Password Failed',
         success: 'Success',
