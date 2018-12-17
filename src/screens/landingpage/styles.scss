@@ -4,6 +4,7 @@
 .container {
   @media screen and (max-width: 768px) {
     padding-top: 15px;
+    margin-right: 0px;
     .title {
       padding: 75px rem-calc(21px) 25px;
       background: $primary-semi-bold;
