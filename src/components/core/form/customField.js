@@ -1,8 +1,8 @@
 /* eslint react/prop-types:0 */
 import React from 'react';
 import {
-  DropdownItem, DropdownMenu, DropdownToggle, UncontrolledButtonDropdown
-} from 'reactstrap';
+  DropdownItem, Dropdown
+} from 'react-bootstrap';
 import Cleave from 'cleave.js/react';
 import { BigNumber } from 'bignumber.js';
 import cx from 'classnames';
@@ -50,13 +50,13 @@ export const fieldDropdown = customField(({
     txtSelectedItem = selectedItem.text;
   }
   return (
-    <UncontrolledButtonDropdown className={classNameWrapper}>
-      <DropdownToggle caret={caret} color="light" block className={classNameDropdownToggle} disabled={disabled}>
+    <Dropdown className={classNameWrapper}>
+      <Dropdown.Toggle caret={caret} color="light" block className={classNameDropdownToggle} disabled={disabled}>
         {txtSelectedItem}
-      </DropdownToggle>
+      </Dropdown.Toggle>
       {
         caret && (
-          <DropdownMenu className={style['custom-dropdown-item']}>
+          <Dropdown.Menu className={style['custom-dropdown-item']}>
             {
               list.map(item => (
                 <DropdownItem
@@ -68,10 +68,10 @@ export const fieldDropdown = customField(({
                 </DropdownItem>
               ))
             }
-          </DropdownMenu>
+          </Dropdown.Menu>
         )
       }
-    </UncontrolledButtonDropdown>
+    </Dropdown>
   );
 });
 
