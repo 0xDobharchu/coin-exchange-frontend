@@ -56,7 +56,24 @@ const config = {
       },
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|raw)$/i,
-        loader: 'ignore-loader'
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+              fallback: {
+                loader: 'file-loader',
+                options: {
+                  outputPath: 'assets',
+                  name() {
+                    return '[name]-[hash:8].[ext]';
+                  },
+                  emitFile: false,
+                } 
+              }
+            }
+          }
+        ]
       },
     ]
   },

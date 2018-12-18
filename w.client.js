@@ -52,7 +52,7 @@ const optimization = {
   splitChunks: {
     chunks: 'all',
     maxInitialRequests: Infinity,
-    minSize: 0,
+    minSize: 70000,
     maxSize: 300000,
     cacheGroups: {
       vendor: {
@@ -274,7 +274,7 @@ const prodConfig = {
 };
 
 module.exports = function(env = {}) {
-  console.log(env);
+
   return {
     ...config,
     ...production ? prodConfig : devConfig,
