@@ -18,10 +18,18 @@ import configureStore from 'src/redux/store';
 
 const store = configureStore();
 const container = document.getElementById('root-app');
-ReactDom.render(
+const render = COM => ReactDom.render(
   <Router>
     <Provider store={store}>
-      <App />
+      <COM />
     </Provider>
   </Router>, container
 );
+
+render(App);
+
+if (module.hot) {
+  module.hot.accept('src/app', () => {
+    render(App);
+  });
+}

@@ -4,7 +4,7 @@ module.exports = {
     [
       '@babel/preset-env',
       {
-        forceAllTransforms: true
+        forceAllTransforms: true,
       },
     ],
     '@babel/preset-react',
@@ -19,10 +19,6 @@ module.exports = {
         'transform': 'lodash/${member}',
         'preventFullImport': true
       },
-      'react-icons': {
-        'transform': 'react-icons/md/${member}',
-        'preventFullImport': true
-      }
     }],
     '@babel/plugin-syntax-dynamic-import',
     'transform-function-bind',

@@ -9,6 +9,10 @@ import 'src/assets/styles/_app.scss';
 class App extends Component {
   componentDidMount() {
     zopim.init();
+
+    // hidden overload init loading
+    const overlayEl = window.document.getElementById('init-overlay');
+    overlayEl && (overlayEl.style.display = 'none');
   }
 
   render() {
