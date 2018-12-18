@@ -37,10 +37,14 @@ class CoinBowlFAQ extends React.PureComponent {
     } = this.props;
 
     return (
-      <div>
-        {faqContent && (
-          <div className={styles.container}>
+      <div className={styles.container}>
+        <div className={styles.titleContainer}>
+          <div className="container">
             <div className={styles.title}><LabelLang id="COIN_EXCHANGE_LP_FAQ_TITLE" /></div>
+          </div>
+        </div>
+        {faqContent && (
+          <div className="container">
             <div className={styles.content}>
               <Faq faq={faqContent} />
             </div>
