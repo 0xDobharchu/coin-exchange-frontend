@@ -11,7 +11,7 @@ import Navigation from 'src/components/core/controls/Navigation';
 import Alert from 'src/components/core/presentation/Alert';
 import Loading from 'src/components/core/controls/Loading';
 import WalletPasscode from 'src/components/Wallet/WalletPasscode';
-import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody } from 'react-bootstrap';
 import QRCodeScan from 'src/components/Wallet/QRCodeScan/QRCodeScan';
 
 class MainLayout extends React.Component {

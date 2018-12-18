@@ -59,6 +59,9 @@ const routes = [
     path: URL.ABOUT_US,
     component: About,
     exact: true,
+    containerProps: {
+      bodyWrapper: false
+    }
   },
   {
     path: URL.USER_SIGN_IN,

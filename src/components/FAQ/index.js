@@ -17,7 +17,7 @@ class Faq extends React.PureComponent {
       <div>
         { faq && (
           <div className="row" id="faq" ref={(c) => { this.faq = c; }}>
-            <div className="col">
+            <div>
               <div>
                 {faq.map((item) => {
                   const { question, answer, order } = item;
