@@ -1,9 +1,8 @@
-module.exports = ({ ctx, env }) => {
-  const isProduction = env === 'production';
+module.exports = ({ ctx }) => {
   return ({
     plugins: {
-      precss: isProduction ? {} : false,
-      autoprefixer: isProduction ? {
+      precss: {},
+      autoprefixer: {
         ...ctx ? ctx.options.autoprefixer : {},
         browsers: [
           '>1%',
@@ -11,7 +10,7 @@ module.exports = ({ ctx, env }) => {
           'Firefox ESR',
           'not ie < 9',
         ],
-      } : false,
+      },
     },
   });
 };

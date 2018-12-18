@@ -2,18 +2,22 @@
 @import 'functions';
 
 .container {
+  background: white;
+  .title-container {
+    background: $primary-semi-bold;
+  }
   @media screen and (max-width: 768px) {
     padding-top: 15px;
     margin-right: 0px;
-    .title {
-      padding: 75px rem-calc(21px) 25px;
-      background: $primary-semi-bold;
-      font-size: 18px;
-      color: #FFFFFF;
-      font-weight: 600;
+    .title-container {
+      .title {
+        padding: 75px 0 25px;
+        font-size: 18px;
+        color: #FFFFFF;
+        font-weight: 600;
+      }
     }
     .content {
-      padding: 0px 0px;
       background: #FFFFFF;
       min-height: 80vh;
     }
@@ -21,15 +25,16 @@
 
   @media screen and (min-width: 768px) {
     padding-top: $header-height;
-    .title {
-      padding: 75px 190px;
-      background: $primary-semi-bold;
-      font-size: 36px;
-      color: #FFFFFF;
-      font-weight: 600;
+    .title-container {
+      .title {
+        padding: 75px 0px;
+        font-size: 36px;
+        color: #FFFFFF;
+        font-weight: 600;
+      }
     }
     .content {
-      padding: 0px 190px;
+      padding: 25px 0px;
       background: #FFFFFF;
       min-height: 80vh;
     }
