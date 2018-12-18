@@ -39,52 +39,26 @@ class About extends React.Component {
 
     return (
       <div className={styles.aboutContainer}>
-        <Container>
-          <Row>
-            <Col md={2} />
-            <Col sm={{ span: 12, offset: 0 }} xs={{ span: 12, offset: 0 }} md={8}>
-              <div className="intro">
-                <div className="title1">
-                  ABOUT COINBOWL
-                </div>
-                <div className="title2">
-                  Where you can buy crypto at significantly low price.
-                </div>
-                <div className="desc">
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-                </div>
-              </div>
-            </Col>
-            <Col md={2} />
-          </Row>
-
+        <Container>          
           <Row>
             <Col xs={12} md={6}>
               <div className="brief">
                 <div className="title">
-                  In brief
+                  About Coinbowl
                 </div>
                 <div className="desc">
                   <p>
-                    Shanzhai Limited is a technology company founded in 2015 based in Hong Kong. Working in e-commerce field, we aimed at providing customers satisfying experience in purchasing online. To follow growing trend towards crypto, Shanzhai has made a leap into crypto area by launching a new crypto online exchange named CoinBowl
+                    Coinbowl.com is a new crypto exchange specifically designed for people living in Asia, who have had limited access to crypto markets. CoinBowl enables users to trade large amounts of crypto at great prices. Users can buy or sell an uncapped quantity of crypto with 1 price for 1 order. CoinBowl is partnered with a secure payment gateway including TNG and Payoneer, accepting both cash payments and bank transfers, making transactions are equally easy on and offline. CoinBowl’s friendly, straightforward UI/UX design makes it accessible for both seasoned traders and newbies alike. We also offer delivery on demand, arranging direct payment in convenient public places like coffee shops. Especially, no fee is charged at all.
                   </p>
-                  <p>
-                    Coinbowl.com is a new crypto exchange specifically designed for people living in Asia, who have had limited access to crypto markets. CoinBowl enables users to trade large amounts of crypto at great prices. Users can buy or sell an uncapped quantity of crypto with 1 price for 1 order.
-                  </p>
-                  <p>
-                    This movement is expected to continue our run of success in other fields and transform Shanzhai into a diversified investment company. We also have offices in New York, California, Jakarta and Phnom Penh.
-                  </p>
+                  
                 </div>
               </div>
             </Col>
 
-            <Col xs={12} md={6} className="brief-hongkong">
+            <Col md={6} className="brief-hongkong d-none d-sm-block">
               <Row>
                 <Col> <img alt="coinbowl-hongkong" className="bg" src="https://storage.googleapis.com/coin-exchange-staging/static-pages/about-us/hongkong-map.svg" /> </Col>
-              </Row>
-              <Row>
-                <Col md={{ span: 6, offset: 3 }} className="info">COMPANY INFO:<br /><br />Name: Shanzhai Limited<br /><br />Mailing Address: Flat A, 18/F, 88 Commercial Building, 28-34 Wing Lok Street, Sheung Wan, Hong Kong </Col>
-              </Row>
+              </Row>              
             </Col>
 
           </Row>
@@ -100,15 +74,14 @@ class About extends React.Component {
               <div className="grant-info">
                 <div className="title"> 
                   <span className="title-gray">
-                    CoinBowl’s mission is to grant Asian people a &nbsp; 
+                    CoinBowl’s mission is to grant Asian people a&nbsp;
                   </span>
                   <span className="title-blue">
                     direct access to crypto world
                   </span>
                 </div>
                 <div className="desc">
-                  CoinBowl’s mission is to grant Asian people a direct access to crypto world
-                  It is reasonable to confidently expect that cryptocurrency based on blockchain technology would be the payment method of future since it is not controlled by any government or organization. 
+                  It is reasonable to confidently expect that cryptocurrency based on blockchain technology would be the payment method of future since it is not controlled by any government or organization.
                   <br /><br />
                   This system enabling users to transfer money to anywhere instantly at significantly low price is rebuilding global economy. Cryptocurrency is a tool that can not only improve payment system for the sake of convenience but also stimulate technological innovation in other fields. This is what we choose to make the world greater.
                 </div>
@@ -126,41 +99,47 @@ class About extends React.Component {
 
           <Row className="priorities">                        
             <Col xs={12} md={6}>
-              <div className="title">
-                Become the  <br />
-                cheapest source of crypto
-              </div>
-              <div className="desc">
-                We are trying utmost to give users significantly low price. As crypto market is fluctuating wildly time to time, being able to buy crypto at the most competitive price is the first priority of any investor or trader. To bring substantial benefits for our users, CoinBowl always offers the most attractive price in the market as promised.
+              <div className="box-color">
+                <div> <img alt="coinbolw" src="https://storage.googleapis.com/coin-exchange-staging/static-pages/about-us/icon-about-coinbowl.svg" /> </div>
+                <div className="title">
+                  Become the  <br />
+                  cheapest source of crypto
+                </div>
+                <div className="desc">
+                  We are trying utmost to give users significantly low price. As crypto market is fluctuating wildly time to time, being able to buy crypto at the most competitive price is the first priority of any investor or trader. To bring substantial benefits for our users, CoinBowl always offers the most attractive price in the market as promised.
+                </div>
               </div>
             </Col>
             <Col xs={12} md={6}>
-              <div className="title">
-                Become the most <br />
-                convenient exchange
-              </div>
-              <div className="desc">
-                Cryptocurrency might be the currency of the future but this expectation can not come true unless everyone has the right to own cryptocurrency. Even in crypto supported countries, it is not much easy to buy and sell crypto. CoinBowl, with its straightforward UX/UI design, secure payment gateway and various payment method, will make trading as much convenient as possible.
+              <div className="box-color">
+                <div> <img alt="coinbolw" src="https://storage.googleapis.com/coin-exchange-staging/static-pages/about-us/icon-about-hand.svg" /> </div>
+                <div className="title">
+                  Become the most <br />
+                  convenient exchange
+                </div>
+                <div className="desc">
+                  Cryptocurrency might be the currency of the future but this expectation can not come true unless everyone has the right to own cryptocurrency. Even in crypto supported countries, it is not much easy to buy and sell crypto. CoinBowl, with its straightforward UX/UI design, secure payment gateway and various payment method, will make trading as much convenient as possible.
+                </div>
               </div>
             </Col>            
           </Row>          
 
           <Row className="priorities">
             <Col>
-              <div className="header">CoinBowl’s Priorities</div>
+              <div className="header">CoinBowl’s Values</div>
             </Col>
           </Row>
 
           <Row className="priorities">
             <Col>
               <Row className="item">
-                <Col xsHidden xs={2} md={2} className="hidden-xs">
+                <Col md={1} className="d-none d-sm-block">
                   <div className="icon">
                     <img alt="coinbowl-icon" className="bg" src="https://storage.googleapis.com/coin-exchange-staging/static-pages/about-us/icon-brief-1.svg" />                    
                   </div>
                 </Col>
-                <Col xs={10} md={10}>
-                  <div className="title-organ">Effective communication</div>
+                <Col md={10} xs={10} className="desc-right">
+                  <div className="title-value">Effective communication</div>
                   <div className="list-item">
                     <ul className="list">
                       <li>Connecting with thecrypto community via a wide range of channels from online to offline.</li>
@@ -171,13 +150,13 @@ class About extends React.Component {
               </Row>              
 
               <Row className="item">
-                <Col xsHidden xs={2} md={2} className="hidden-xs" d-xs-none>
+                <Col md={1} className="d-none d-sm-block">
                   <div className="icon">
-                    <img alt="coinbowl-icon" className="bg" src="https://storage.googleapis.com/coin-exchange-staging/static-pages/about-us/icon-brief-3.svg" />                    
+                    <img alt="coinbowl-icon" className="bg" src="https://storage.googleapis.com/coin-exchange-staging/static-pages/about-us/icon-brief-2.svg" />                    
                   </div>
                 </Col>
-                <Col xs={10} md={10}>
-                  <div className="title-green">Genuine sympathy</div>
+                <Col md={10} xs={10} className="desc-right">
+                  <div className="title-value">Genuine sympathy</div>
                   <div className="list-item">
                     <ul className="list">
                       <li>Taking care of not only about the company, but also our customers.</li>
@@ -191,13 +170,13 @@ class About extends React.Component {
               </Row>
 
               <Row className="item">
-                <Col xsHidden xs={2} md={2} className="hidden-xs">
+                <Col md={1} className="d-none d-sm-block">
                   <div className="icon">
                     <img alt="coinbowl-icon" className="bg" src="https://storage.googleapis.com/coin-exchange-staging/static-pages/about-us/icon-brief-3.svg" />                    
                   </div>
                 </Col>
-                <Col md={10} xs={10}>
-                  <div className="title-blue">Efficient work</div>
+                <Col md={10} xs={10} className="desc-right">
+                  <div className="title-value">Efficient work</div>
                   <div className="list-item">
                     <ul className="list">
                       <li>Working more efficiently and smarterly rather than working harder.</li>
