@@ -13,5 +13,56 @@
     padding: 50px 190px;
     background: #FFFFFF;
     min-height: 80vh;
+    div[class="step"] {
+      margin: 50px 0;
+      display: flex;
+      flex-direction: column;
+      div[class="title"] {
+        padding: 0 15px;
+        border-left: 5px solid #49EDF2;
+        color: #0D0031;
+        p:first-child {
+          font-size: 16px;
+          font-weight: 400;
+        }
+        p:nth-child(2) {
+          font-size: 42px;
+          margin-bottom: 0;
+          font-weight: 600;
+        }
+      }
+      div:nth-child(2) {
+        font-size: 20px;
+        font-weight: 400;
+        padding: 0 20px;
+        margin-top: 30px;
+        color: #0D0031;
+        a {
+          font-weight: 600;
+          color: #0D0031;
+        }
+      }
+    }
+    div[class="img"] {
+      text-align: center;
+      margin: 50px 0px;
+      padding: 0 20px;
+    }
+    div[class="desc"] {
+      p {
+        font-size: 20px;
+        font-weight: 400;
+        padding: 0 20px;
+        color: #0D0031;
+      }
+    }
+    div[class="boxItems"] {
+      margin: 20px;
+      border: 1px solid #DCDCDE;
+      padding: 20px;
+      p:before {
+        content: url('./question_mark.svg')
+      }
+    }
   }
 }
