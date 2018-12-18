@@ -7,6 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
 const PORT = process.env.PORT || '1337';
@@ -15,7 +16,6 @@ const commonEnv = require('./.env/.env.common');
 const clientEnv = require('./.env/.env.client');
 
 console.info(`CLIENT: Webpack is running in ${process.env.NODE_ENV || 'development' } mode`);
-console.log(process.env.PUBLIC_PATH);
 
 const env = {
   ...commonEnv,
@@ -41,7 +41,7 @@ const optimization = {
       },
       parallel: true,
       cache: true,
-      // sourceMap: true,
+      sourceMap: false,
     }),
     new OptimizeCSSAssetsPlugin({})
   ],
@@ -54,9 +54,6 @@ const optimization = {
     maxInitialRequests: Infinity,
     minSize: 0,
     maxSize: 300000,
-    minChunks: 1,
-    maxAsyncRequests: 5,
-    name: true,
     cacheGroups: {
       vendor: {
         test: /[\\/]node_modules[\\/]/,
@@ -70,19 +67,6 @@ const optimization = {
         },
       },
     },
-    // cacheGroups: {
-    //   commons: {
-    //     test: /[\\/]node_modules[\\/]/,
-    //     name: 'vendor',
-    //     chunks: 'all',
-    //   },
-    //   main: {
-    //     chunks: 'all',
-    //     minChunks: 2,
-    //     reuseExistingChunk: true,
-    //     enforce: true,
-    //   },
-    // },
   },
 };
 
@@ -183,10 +167,30 @@ const clientModule = {
 };
 
 const config = {
-  entry: 'src/client', // string | object | array  // defaults to './src'
+  entry: {
+    main: 'src/client',
+    // about: 'src/screens/about',
+    // agreementPrivacy: 'src/screens/agreementPrivacy',
+    // coin: 'src/screens/coin',
+    // contact: 'src/screens/contact',
+    // forgetPassword: 'src/screens/forgetPassword',
+    // howItWorks: 'src/screens/howItWorks',
+    // login: 'src/screens/login',
+    // meAccountInfo: 'src/screens/me/pages/AccountInfo',
+    // meBankInfo: 'src/screens/me/pages/BankInfo',
+    // meHistory: 'src/screens/me/pages/History',
+    // me: 'src/screens/me/pages/Me',
+    // meMeProfile: 'src/screens/me/pages/MeProfile',
+    // meReferral: 'src/screens/me/pages/Referral',
+    // meSetting: 'src/screens/me/pages/Setting',
+    // notFound: 'src/screens/notFound',
+    // promotionProgram: 'src/screens/promotionProgram',
+    // register: 'src/screens/register',
+    // wallet: 'src/screens/wallet',
+  },
   module: clientModule,
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.scss', '.node'],
+    extensions: ['.mjs', '.js', '.jsx', '.json', '.scss', '.node'],
     alias: {
       src: path.resolve(__dirname, 'src'),
       '@': path.resolve(__dirname, 'src'),
@@ -269,11 +273,15 @@ const prodConfig = {
   optimization
 };
 
-module.exports = {
-  ...config,
-  ...production ? prodConfig : devConfig,
-  plugins: [
-    ...config.plugins,
-    ...production ? prodConfig.plugins : devConfig.plugins
-  ],
+module.exports = function(env = {}) {
+  console.log(env);
+  return {
+    ...config,
+    ...production ? prodConfig : devConfig,
+    plugins: [
+      ...config.plugins,
+      ...production ? prodConfig.plugins : devConfig.plugins,
+      ...env.analyzerMode ? [new BundleAnalyzerPlugin()] : []
+    ],
+  };
 };
