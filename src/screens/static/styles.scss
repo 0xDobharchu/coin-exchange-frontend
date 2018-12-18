@@ -4,13 +4,20 @@
   padding-top: $header-height;
   .title {
     padding: 75px 190px;
-    background: $primary-semi-bold;
+    @media screen and (max-width: 768px){
+      padding: 75px 10px;
+    }
+    color: #0D0031;
     font-size: 36px;
-    color: #FFFFFF;
+    background: #FFFFFF;
     font-weight: 600;
+    text-align: center;
   }
   .content {
     padding: 50px 190px;
+    @media screen and (max-width: 768px){
+      padding: 75px 10px;
+    }
     background: #FFFFFF;
     min-height: 80vh;
     div[class="step"] {
@@ -27,6 +34,9 @@
         }
         p:nth-child(2) {
           font-size: 42px;
+          @media screen and (max-width: 768px){
+            font-size: 30px;
+          }
           margin-bottom: 0;
           font-weight: 600;
         }
