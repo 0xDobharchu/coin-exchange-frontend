@@ -46,6 +46,9 @@ const routes = [
     path: URL.FAQ_URL,
     component: CoinBowlFAQ,
     exact: true,
+    containerProps: {
+      bodyWrapper: false
+    }
   },
   {
     path: URL.CONTACT,
@@ -153,6 +156,9 @@ const routes = [
     path: URL.AGREEMENT,
     component: AgreementPrivacy,
     exact: true,
+    containerProps: {
+      bodyWrapper: false
+    }
   },
   {
     path: URL.PROMOTION_PROGRAM,
