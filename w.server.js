@@ -7,7 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 const commonEnv = require('./.env/.env.common');
 const serverEnv = require('./.env/.env.server');
-const clientConfig = require('./w.client');
+const clientConfig = require('./w.client')();
 
 const env = {
   ...commonEnv,
