@@ -30,12 +30,12 @@ class StaticPage extends React.Component {
   }
 
   render() {
-    const { aboutContent, match } = this.props;
+    const { staticTitle, aboutContent } = this.props;
     return (
       <div>
         {aboutContent && (
           <div className={style.container}>
-            <div className={style.title}>{match.params.id.toUpperCase()}</div> 
+            <div className={style.title}>{staticTitle}</div>
             <div className={style.content} dangerouslySetInnerHTML={{ __html: aboutContent }} />
           </div>
         )}
@@ -46,6 +46,7 @@ class StaticPage extends React.Component {
 
 const mapState = state => ({
   aboutContent: state.landingReducer.aboutContent,
+  staticTitle: state.landingReducer.staticTitle,
   locale: state.langReducer.lang || FAIL_DEFAULT_LANGUAGE
 });
 

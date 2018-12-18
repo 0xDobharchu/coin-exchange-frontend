@@ -35,7 +35,7 @@ class About extends React.Component {
     return null;
   }
 
-  render() {
+  render1() {
 
     return (
       <div className={styles.aboutContainer}>
@@ -218,23 +218,16 @@ class About extends React.Component {
 
   }
 
-  // render1() {
-  //   const { aboutContent } = this.props;
-  //   return (
-  //     <div>
-  //       {aboutContent && (
-  //         <div>
-  //           <h5 className={styles.pdFaq}>
-  //             <LabelLang id="static_page.aboutUs" />
-  //           </h5>
-  //           <div className="container">
-  //             <div className={styles.contactWrap} dangerouslySetInnerHTML={{ __html: aboutContent }} />
-  //           </div>
-  //         </div>
-  //       )}
-  //     </div>
-  //   );
-  // }
+  render() {
+    const { aboutContent } = this.props;
+    return (
+      <div className={styles.aboutContainer}>
+        {aboutContent && (
+          <div dangerouslySetInnerHTML={{ __html: aboutContent }} />
+        )}
+      </div>
+    );
+  }
 
 
 }
