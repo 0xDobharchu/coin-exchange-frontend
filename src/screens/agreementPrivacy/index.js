@@ -35,7 +35,7 @@ class AgreementPrivacy extends React.Component {
   render() {
     const { userAgreementContent, privacyContent } = this.props;
     return (
-      <div >
+      <div>
         {userAgreementContent && (
           <div className={styles.container}>
             <div className={styles.titleContainer}>
