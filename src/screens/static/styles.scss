@@ -20,6 +20,19 @@
     }
     background: #FFFFFF;
     min-height: 80vh;
+    div[class="video"] {
+      text-align: center;
+      iframe {
+        width: 80vw;
+        height: 45vw;
+        max-width: 960px;
+        max-height: 540px;
+        @media screen and (max-width: 768px){
+          width: 95vw;
+          height: 53vw;
+        }
+      }
+    }
     div[class="step"] {
       margin: 50px 0;
       display: flex;
