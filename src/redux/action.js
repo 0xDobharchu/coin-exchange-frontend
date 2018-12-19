@@ -36,6 +36,9 @@ export const makeRequest = (config = {}, _dispatch) => {
     dispatch(makeAction({ type, dispatchType: DISPATCH_TYPE.CALLING, more, data: { payload: data, url, method: METHOD } }));
     try {
 
+      if (!APP_ENV.isProduction) {
+        params['noneCacheUrl'] = new Date().getTime();
+      }
       const options = {
         url,
         method: METHOD,
