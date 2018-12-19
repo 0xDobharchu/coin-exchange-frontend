@@ -268,6 +268,7 @@ const prodConfig = {
     }),
     new CopyWebpackPlugin([
       { from: 'src/assets/images/template/og_image.png', to: 'assets' },
+      { from: 'src/sw.js', to: 'sw.js' },
     ]),
   ],
   optimization
