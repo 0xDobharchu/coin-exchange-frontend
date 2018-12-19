@@ -268,6 +268,9 @@ const prodConfig = {
     }),
     new CopyWebpackPlugin([
       { from: 'src/assets/images/template/og_image.png', to: 'assets' },
+      { from: 'src/assets/images/app_icon_192.png', to: 'assets' },
+      { from: 'src/assets/images/app_icon_512.png', to: 'assets' },
+      { from: 'src/manifest.json', to: 'assets' },
       { from: 'src/sw.js', to: 'sw.js' },
     ]),
   ],
