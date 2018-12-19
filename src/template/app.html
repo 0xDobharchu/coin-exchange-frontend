@@ -24,7 +24,7 @@
   <meta name="twitter:description" content="" />
   <meta name="twitter:image" content="" />
   <!--/ SEO -->
-
+  <link rel="manifest" href="/public/assets/manifest.json">
   <link
     rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"
@@ -129,7 +129,6 @@
     window.addEventListener('error', function(event) {
       var errorEl = document.getElementById('error-occur-init');
       errorEl && (errorEl.style.display = 'block');
-      setTimeout(function() { location.reload(); } , 5000);
     });
   </script>
 </head>
@@ -140,7 +139,7 @@
 <!-- End Google Tag Manager (noscript) -->
   <div id="init-overlay" class="init-loading">
     <div>
-      <span id="error-occur-init">Sorry, error occurred! The page will be refresh in 5s</span>
+      <span id="error-occur-init">Sorry, error occurred! Please try again</span>
       <div id='loading-indicator-init' class="lds-ripple">
         <div></div>
         <div></div>
