@@ -507,10 +507,6 @@ handleScan=(data) =>{
   }
 }
 
-oncloseQrCode=() => {
-  this.setState({ qrCodeOpen: false });
-}
-
 openQrcode = () => {
   showQrCode({
     onData: this.handleScan,

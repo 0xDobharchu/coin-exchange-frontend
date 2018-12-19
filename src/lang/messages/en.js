@@ -337,71 +337,7 @@ export default {
     top_banner: {
       message: 'Shuriken Airdrop (limited)',
       button: 'Click here',
-    },
-    refers: {
-      header: 'Shuriken Airdrop Mission',
-      error: {
-        submit_telegram: 'Couldn\'t find you on Telegram. Please exit the group and try again.',
-        submit_twitter: 'You haven\'t followed us yet. Please try again.',
-        confirm_code: 'Verification code is wrong. Please try again!',
-        verify_code: 'Can\'t send verify email',
-        get_token: 'Referral incomplete. Please try again.',
-      },
-      success: {
-        submit_telegram: 'Welcome to our telegram group!',
-        submit_twitter: 'Thanks for following us on Twitter.',
-        confirm_code: 'Your email has been verified.',
-        verify_code: 'Verification code has been sent to your email.',
-        get_token: 'Success! 60 shurikens have been added to your wallet.',
-        copy_link: 'Referral link copied to clipboard.',
-      },
-      button: {
-        verified: 'Verified',
-        verify: 'Verify',
-        confirm: 'Confirm',
-        reset_email: 'Reset email',
-        get_token: 'Just give me tokens',
-      },
-      text: {
-        title: '60 shiny Shurikens (SHURI).',
-        telegram: 'Say hello on telegram.',
-        telegram2: 'Leave your best joke for a chance to win more Shuri.',
-        twitter: 'Twitter',
-        twitter2: 'Our social media guy says we need followers on ',
-        ninja_name: 'Receive your randomly generated ninja name.',
-        referral_link: 'This is your super sexy referral link. You get 20 shurikens for every new ninja.',
-        menu_amount: 'Shurikens straight into your pocket, when new ninjas bet through your referral link.',
-        menu_total: 'ninja{0} you\'ve brought in.',
-        profile_link: 'Share to get 20 free tokens.',
-      },
-      placeholder: {
-        telegram_username: 'Your telegram alias',
-        twitter_username: 'Your twitter username',
-        email: 'Verification code',
-        email2: 'Your favourite fake email',
-      },
-      label: {
-        menu: 'Your clan',
-        menu_description: 'Track your referrals and rewards here.',
-      },
-      table: {
-        header: {
-          user: 'User',
-          date: 'Date',
-          referalValue: 'Referal Value',
-        },
-      },
-    },
-    refers_dashboard: {
-      header: 'Shuriken Airdrop Mission',
-      title: 'This is your super sexy referral link. You get 20 shurikens for every new ninja.',
-      text: {
-        copy_link: 'Referral link copied to clipboard.',
-        note: 'Do not change your alias or this link will be unvalid',
-        number_ninjas: 'You brought {0} ninjas to the dojo.',
-        number_total: 'Total reward: {0} SHURI',
-      },
-    },
+    },    
     action: {
       payment: {
         button: {

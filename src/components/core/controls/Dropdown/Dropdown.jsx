@@ -105,8 +105,8 @@ class Dropdown extends React.PureComponent {
     } = this.state;
 
     return (
-      <div className={`${style.dropdown} ${style.dropdown_custom} ${className || ''}`}>
-        <button type="button" className={`btn ${isShow ? 'show-flex' : ''}`} onClick={this.handleShow}>
+      <div className={`${style.dropdown_custom} ${style.dropdown} ${className || ''}`}>
+        <button type="button" className={`btn ${isShow ? style.show_flex : ''}`} onClick={this.handleShow}>
           <p>{text}</p>
           <div>
             <img src={ExpandArrowSVG} alt="expand arrow" />
@@ -123,7 +123,7 @@ class Dropdown extends React.PureComponent {
                   // eslint-disable-next-line
                   ref={search => this.searchBoxRef = search}
                 />
-                <img className="search-icon" src={SEARCH_ICON_SVG} alt="search icon" />
+                <img className={style.search_icon} src={SEARCH_ICON_SVG} alt="search icon" />
               </li>
             )
           }

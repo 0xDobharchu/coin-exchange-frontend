@@ -269,16 +269,18 @@ export class MasterWallet {
   static convertToListObject(walletListJson){
     if (walletListJson) {
       let wallets = JSON.parse(walletListJson);
-      let listWallet = [];
-      wallets.forEach((walletJson) => {
-        const wallet = MasterWallet.convertObject(walletJson);
-        if (wallet != false) {
-          listWallet.push(wallet);
-        }
-      });
-      return listWallet;
+      let listWallet = [];      
+      if (Array.isArray(wallets)){
+        wallets.forEach((walletJson) => {
+          const wallet = MasterWallet.convertObject(walletJson);
+          if (wallet != false) {
+            listWallet.push(wallet);
+          }
+        });
+        return listWallet;
+      }          
     }
-    else return [];
+    return [];    
   }
 
   static convertObject(walletJson) {

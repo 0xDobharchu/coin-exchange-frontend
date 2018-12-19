@@ -1,3 +1,3 @@
-import Wallet from './Wallets.jsx';
+import Wallet from './wallet.jsx';
 
 export default Wallet;

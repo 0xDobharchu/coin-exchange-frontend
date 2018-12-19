@@ -52,6 +52,11 @@ export default class LogManager {
           exportWalletItemClick: 'exportWalletItemClick',
           exportPrivateKeyItemClick: 'exportPrivateKeyItemClick',          
           removeWalletSuccess: 'removeWalletSuccess',
+          newTokenButtonClick: 'newTokenButtonClick',
+          newCollectableButtonClick: 'newCollectableButtonClick',
+          createTokenSuccess: 'createTokenSuccess',
+          createCollectableSuccess: 'createCollectableSuccess',
+
         }
       },
       protected: {

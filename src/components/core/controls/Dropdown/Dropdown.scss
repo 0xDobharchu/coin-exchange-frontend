@@ -4,10 +4,11 @@
 $gray: #ededed;
 .dropdown_custom {
   width: 100%;
+  
   button {
     display: flex;
     width: 100%;
-    padding: rem-calc(11px 21px);
+    // padding: rem-calc(11px 21px);
     border: 1px solid $gray;
     border-radius: 6px;
     background: transparent;
@@ -28,7 +29,7 @@ $gray: #ededed;
       text-align: right;
     }
   }
-  button.show_flex {
+  .show_flex {
     border-bottom: 1px solid $white;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -87,7 +88,7 @@ $gray: #ededed;
       position: relative;
       .search_icon {
         position: absolute;
-        right: 0;
+        right: 10px;
         top: 50%;
         transform: translate(-50%, -50%);
       }
