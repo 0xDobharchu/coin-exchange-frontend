@@ -1,14 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="25px" height="11px" viewBox="0 0 25 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
-    <title>Group 2</title>
-    <desc>Created with Sketch.</desc>
-    <g id="HOME" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Home-full" transform="translate(-369.000000, -117.000000)" fill="#FFFFFF">
-            <g id="Group-2" transform="translate(369.000000, 117.000000)">
-                <rect id="Rectangle" x="0" y="0" width="25" height="3.14285714" rx="1.57142857"></rect>
-                <rect id="Rectangle-Copy" x="0" y="7.85714286" width="25" height="3.14285714" rx="1.57142857"></rect>
-            </g>
-        </g>
-    </g>
-</svg>
+version https://git-lfs.github.com/spec/v1
+oid sha256:fb64e10c6558b3ad983e81f5ce11fe8755ccc68d5d5b6797bab0c363c0883147
+size 845
