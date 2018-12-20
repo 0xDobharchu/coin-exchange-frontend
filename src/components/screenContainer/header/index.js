@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import logo from 'src/assets/images/logo_white.svg';
+import logo from 'src/assets/images/logo.svg';
 import cx from 'classnames';
 import { URL } from 'src/resources/constants/url';
 import currentUser from 'src/utils/authentication';
@@ -38,7 +38,7 @@ export const menus = {
   },
   howItWorks: {
     name: <LabelLang id="headerBar.howItWorks" />,
-    link: URL.HOW_IT_WORKS,
+    link: `${URL.STATIC_PAGE}/how_it_works`,
     className: 'd-block d-md-none'
   },
 };

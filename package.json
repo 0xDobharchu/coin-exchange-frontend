@@ -19,7 +19,6 @@
     "pm2-del": "pm2 del coinbowl",
     "lint": "eslint --ext .js --ext .jsx src/",
     "precommit": "yarn lint",
-    "build-sw": "workbox injectManifest workbox-config.js",
     "test": "__tests__/fake_test.sh"
   },
   "author": "",
@@ -143,7 +142,6 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
     "webpack-merge": "^4.1.4",
-    "webpack-node-externals": "^1.7.2",
-    "workbox-webpack-plugin": "^3.6.3"
+    "webpack-node-externals": "^1.7.2"
   }
 }
