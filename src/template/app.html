@@ -24,13 +24,12 @@
   <meta name="twitter:description" content="" />
   <meta name="twitter:image" content="" />
   <!--/ SEO -->
-
+  <link rel="manifest" href="/public/assets/manifest.json">
   <link
     rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"
     crossorigin="anonymous"
   >
-  <link rel="stylesheet" type="text/css" href="../../node_modules/dropzone/dist/min/dropzone.min.css" />
     <% if (htmlWebpackPlugin.options.env.social.isUseSocial) { %>
       <script>
         console.log(navigator.userAgent);var userAgent=navigator.userAgent,speed_insight=userAgent.indexOf("Speed Insights");!speed_insight>=0&&(console.log("not Speed Insights"),console.log("start load analytics script"),function(e,n,t,o,s,a,c){e.GoogleAnalyticsObject=s,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,a=n.createElement(t),c=n.getElementsByTagName(t)[0],a.async=1,a.src="//www.google-analytics.com/analytics.js",c.parentNode.insertBefore(a,c)}(window,document,"script",0,"ga"),console.log("end load analytics script"));
@@ -124,7 +123,14 @@
         opacity: 0;
       }
     }
+    #error-occur-init { display: none; }
   </style>
+  <script>
+    window.addEventListener('error', function(event) {
+      var errorEl = document.getElementById('error-occur-init');
+      errorEl && (errorEl.style.display = 'block');
+    });
+  </script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -133,8 +139,11 @@
 <!-- End Google Tag Manager (noscript) -->
   <div id="init-overlay" class="init-loading">
     <div>
-      <div class="lds-ripple"><div></div><div></div></div>
-      <span>Just a moment...</span>
+      <span id="error-occur-init">Sorry, error occurred! Please try again</span>
+      <div id='loading-indicator-init' class="lds-ripple">
+        <div></div>
+        <div></div>
+      </div><span>Just a moment...</span>
     </div>
   </div>
   <div id="root-app"></div>
