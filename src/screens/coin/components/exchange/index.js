@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { InputGroup, Container, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
 import CurrencyInput from 'src/components/currencyInput';
-import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
+import { CRYPTO_CURRENCY, DEFAULT_CURRENCY } from 'src/resources/constants/crypto';
 import { DEFAULT_FIAT_CURRENCY, FIAT_CURRENCY } from 'src/resources/constants/fiat';
 import { FaArrowsAltH } from 'react-icons/fa';
 import cx from 'classnames';
@@ -53,7 +53,7 @@ class Exchange extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { orderType, supportedCurrency, defaultCurrency, options: { canChangeCurrency }, userCurrencySetting } = this.props;
+    const { orderType, supportedCurrency, defaultCurrency, options: { canChangeCurrency }, userCurrencySetting, supportedCryptoCurrencies } = this.props;
     const { currency, fiatCurrency } = this.state;
     if (prevProps?.orderType !== orderType) {
       this.getExchange();
@@ -71,10 +71,14 @@ class Exchange extends Component {
     if (prevProps?.userCurrencySetting !== userCurrencySetting) {
       this.onSelectFiatCurrency(userCurrencySetting);
     }
+    if (arrayXor(supportedCryptoCurrencies, prevProps.supportedCryptoCurrencies)?.length !== 0) {
+      this.renderCurrencyList();
+    }
   }
 
   renderCurrencyList = () => {
-    const rendered = Object.values(CRYPTO_CURRENCY).map(c =>(
+    const { supportedCryptoCurrencies } = this.props;
+    const rendered = Object.values(supportedCryptoCurrencies).map(c =>(
       <Dropdown.Item key={c} onClick={() => this.onSelectCurrency(c)}>{c}</Dropdown.Item>
     ));
     this.setState({
@@ -288,7 +292,7 @@ class Exchange extends Component {
 const mapDispatch = { getQuote, getQuoteReverse };
 
 Exchange.defaultProps = {
-  defaultCurrency: CRYPTO_CURRENCY.ETH,
+  defaultCurrency: DEFAULT_CURRENCY,
   defaultFiatCurrency: DEFAULT_FIAT_CURRENCY,
   direction: EXCHANGE_DIRECTION.buy,
   orderType: ORDER_TYPE.bank,
@@ -323,6 +327,7 @@ Exchange.propTypes = {
 };
 
 const mapState = state => ({
+  supportedCryptoCurrencies: state?.app?.supportedCryptoCurrencies,
   supportedCurrency: state?.app?.supportedCurrency?.length !== 0 ? state.app.supportedCurrency : [DEFAULT_FIAT_CURRENCY],
   userCurrencySetting: state?.auth?.profile?.currency || null
 });

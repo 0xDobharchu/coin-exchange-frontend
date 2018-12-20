@@ -5,7 +5,9 @@ import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import { showQrCode } from 'src/components/barcodeScanner';
 import Input from 'src/components/core/controls/input';
 import { injectIntl } from 'react-intl';
-import { CRYPTO_CURRENCY } from 'src/resources/constants/crypto';
+import { connect } from 'react-redux';
+import { xor as arrayXor } from 'lodash';
+import { DEFAULT_CURRENCY } from 'src/resources/constants/crypto';
 import { MasterWallet } from 'src/services/Wallets/MasterWallet';
 import cx from 'classnames';
 import { ICON } from 'src/components/wallet/images';
@@ -20,32 +22,35 @@ class WalletSelector extends Component {
       invalidAddress: false,
       address: '',
       currencyListRendered: null,
-      currency: CRYPTO_CURRENCY.ETH,
+      currency: DEFAULT_CURRENCY,
     };
 
     this.addressInputRef = React.createRef();
   }
 
   componentDidMount() {
-    this.setState({
-      currencyListRendered: this.renderCurrencyList()
-    });
+    this.renderCurrencyList();
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { currency, address, invalidAddress } = this.state;
+    const { supportedCryptoCurrencies } = this.props;
     const { onChange } = this.props;
     if (prevState?.currency !== currency || prevState.address !== address) {
       if (typeof onChange === 'function') {
         onChange({ address, currency, invalidAddress });
       }
     }
+    if (arrayXor(supportedCryptoCurrencies, prevProps.supportedCryptoCurrencies)?.length !== 0) {
+      this.renderCurrencyList();
+    }
   }
 
   onChangeAddress = (address) => {
     const state = { address };
+    const { supportedCryptoCurrencies } = this.props;
     const detectCurrency = MasterWallet.getCoinSymbolFromAddress(address);
-    if (detectCurrency && detectCurrency?.symbol && CRYPTO_CURRENCY[detectCurrency?.symbol]) {
+    if (detectCurrency && detectCurrency?.symbol && supportedCryptoCurrencies[detectCurrency?.symbol]) {
       state.currency = detectCurrency.symbol;
       state.invalidAddress = false;
     } else {
@@ -59,9 +64,11 @@ class WalletSelector extends Component {
   }
 
   renderCurrencyList = () => {
-    return Object.values(CRYPTO_CURRENCY).map(c =>(
+    const { supportedCryptoCurrencies } = this.props;
+    const list = Object.values(supportedCryptoCurrencies).map(c =>(
       <Dropdown.Item key={c} onClick={() => this.onSelectCurrency(c)}>{c}</Dropdown.Item>
     ));
+    this.setState({ currencyListRendered: list });
   }
 
   onQRCodeScanClick=()=>{
@@ -122,7 +129,8 @@ WalletSelector.defaultProps = {
   onChange: null,
   onBlur: null,
   onFocus: null,
-  markRequired: false
+  markRequired: false,
+  supportedCryptoCurrencies: []
 };
 
 WalletSelector.propTypes = {
@@ -130,5 +138,8 @@ WalletSelector.propTypes = {
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   markRequired: PropTypes.bool,
+  supportedCryptoCurrencies: PropTypes.array,
 };
-export default injectIntl(WalletSelector);
+
+const mapState = state => ({ supportedCryptoCurrencies: state?.app?.supportedCryptoCurrencies });
+export default injectIntl(connect(mapState)(WalletSelector));
