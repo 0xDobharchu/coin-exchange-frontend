@@ -264,12 +264,12 @@ const prodConfig = {
     }),
     new MiniCssExtractPlugin({
       filename: 'assets/main.[hash:8].css',
-      chunkFilename: 'assets/[id].css',
+      chunkFilename: 'assets/[id].[chunkhash:8].css',
     }),
     new CopyWebpackPlugin([
       { from: 'src/assets/images/template/og_image.png', to: 'assets' },
-      { from: 'src/assets/images/app_icon_192.png', to: 'assets' },
-      { from: 'src/assets/images/app_icon_512.png', to: 'assets' },
+      { from: 'src/assets/icons/app/192.png', to: 'assets/app_icon_192.png' },
+      { from: 'src/assets/icons/app/512.png', to: 'assets/app_icon_512.png' },
       { from: 'src/manifest.json', to: 'assets' },
       { from: 'src/sw.js', to: 'sw.js' },
     ]),
