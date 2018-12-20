@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { initApp, getCountryCurrency, getSupportCountry, getSupportLanguages } from 'src/screens/app/redux/action';
 import { getProfileAction } from 'src/screens/auth/redux/action';
 import currentUser from 'src/utils/authentication';
+import PwaInstallRequest from 'src/components/pwaInstallRequest';
 
 // import I18n from 'src/components/App/I18n';
 import IntlCustomProvider from 'src/lang';
@@ -50,6 +51,7 @@ class Root extends React.Component {
         <Layout {...props}>
           {children}
           <BarcodeScanner />
+          <PwaInstallRequest />
         </Layout>
       </IntlCustomProvider>
     );
