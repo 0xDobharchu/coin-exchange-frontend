@@ -17,8 +17,22 @@ importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.5.0/workbox
 
 if (workbox) {
   console.log('Yay! Workbox is loaded 🎉');
+  workbox.routing.registerRoute(
+    /\/$/,
+    workbox.strategies.networkFirst()
+  );
 
-  workbox.precaching.precacheAndRoute([]);
+  workbox.routing.registerRoute(
+    ({ url }) => /\.(png|gif|jpg|jpeg|svg|css|js)(\?.+)?$/.test(url),
+    workbox.strategies.cacheFirst({
+      cacheName: 'assets',
+      plugins: [
+        new workbox.expiration.Plugin({
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+        }),
+      ],
+    })
+  );
 } else {
   console.log('Boo! Workbox didn\'t load 😬');
 }

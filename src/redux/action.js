@@ -21,7 +21,7 @@ const makeAction = ({ type, data, more, dispatchType }) => {
 
 export const makeRequest = (config = {}, _dispatch) => {
   const {
-    type, url, method, data, onSuccess, onError, onFinal, params, withAuth = true, more = {}
+    type, url, method, data, onSuccess, onError, onFinal, params = [], withAuth = true, more = {}
   } = config;
   const METHOD = method ? String(method).toLowerCase() : 'get';
   return async (d) => {
