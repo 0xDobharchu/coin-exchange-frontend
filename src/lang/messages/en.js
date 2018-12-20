@@ -932,5 +932,12 @@ export default {
     pageNotFound: 'Page not found',
     descText: 'Sorry we couldn\'t find what you were looking for.',
     backHome: 'Back to Home'
+  },
+  pwaInstallRequest: {
+    msg: 'Add Coinbowl app to access quickly from your home screen',
+    noBtn: 'Later',
+    yesBtn: 'Yes, thanks',
+    addFailed: 'Failed while adding app, please try later',
+    added: 'Nice! Next time you can access Coinbowl quickly from the app.'
   }
 };
