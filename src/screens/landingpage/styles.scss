@@ -4,7 +4,12 @@
 .container {
   background: white;
   .title-container {
-    background: $primary-semi-bold;
+    background: $primary-extra-bold;
+    .title {
+      color: #FFFFFF;
+      font-weight: 600;
+      text-align: center;
+    }
   }
   @media screen and (max-width: 768px) {
     padding-top: 15px;
@@ -13,8 +18,6 @@
       .title {
         padding: 75px 0 25px;
         font-size: 18px;
-        color: #FFFFFF;
-        font-weight: 600;
       }
     }
     .content {
@@ -29,8 +32,6 @@
       .title {
         padding: 75px 0px;
         font-size: 36px;
-        color: #FFFFFF;
-        font-weight: 600;
       }
     }
     .content {

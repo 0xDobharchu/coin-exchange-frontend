@@ -16,14 +16,17 @@ limitations under the License.
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.5.0/workbox-sw.js');
 
 if (workbox) {
-  console.log('Yay! Workbox is loaded 🎉');
+  var apiTest = /\/api\//;
+  var assetTest = /\.(png|gif|jpg|jpeg|svg|css|js)(\?.+)?$/;
   workbox.routing.registerRoute(
-    /\/$/,
-    workbox.strategies.networkFirst()
+    ({ url }) => !assetTest.test(url) && !apiTest.test(url),
+    workbox.strategies.networkFirst({
+      cacheName: 'navigate',
+    })
   );
 
   workbox.routing.registerRoute(
-    ({ url }) => /\.(png|gif|jpg|jpeg|svg|css|js)(\?.+)?$/.test(url),
+    ({ url }) => assetTest.test(url),
     workbox.strategies.cacheFirst({
       cacheName: 'assets',
       plugins: [

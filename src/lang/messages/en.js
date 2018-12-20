@@ -241,7 +241,7 @@ export default {
       }
     }
   },
-  COIN_EXCHANGE_LP_FAQ_TITLE: 'Frequently asked questions',
+  COIN_EXCHANGE_LP_FAQ_TITLE: 'Frequently Asked Questions',
   'landing_page.label.footer': 'Coinbowl.com is an online exchange developed by Shanzhai Limited, a Hong Kong based company, offering bulk crypto purchasing at competitive prices with full delivery service.<br />Join the dojo: <a href="https://t.me/coin_bowl" class="landing-link">t.me/coin_bowl</a><br />Contact us: <a href="mailto:support@coin_bowl.com" class="landing-link" target="_top">support@coin_bowl.com</a>',
   user: {
     setting: 'Profile',
@@ -314,7 +314,7 @@ export default {
   },
   landingPage: {
     contactUS:{
-      title: 'Contact US',
+      title: 'Contact Us',
       yourName: 'Your name',
       requiredYourName: 'Your name is required',
       placeholderYourName: 'Enter your name',
@@ -925,12 +925,19 @@ export default {
       title: 'Commission',
       description: 'Referrers will forever receive 0.2% commission on every transactions made by referred people.'
     },
-    textRequireLogin: '"Get your referral link here and start earning with your friends. Sign In Now to get your referral code"',
+    textRequireLogin: 'Get your referral link here and start earning with your friends. Sign In Now to get your referral code',
     signInNow: 'Sign in now'
   },
   pageNotFound: {
     pageNotFound: 'Page not found',
     descText: 'Sorry we couldn\'t find what you were looking for.',
     backHome: 'Back to Home'
+  },
+  pwaInstallRequest: {
+    msg: 'Add Coinbowl app to access quickly from your home screen',
+    noBtn: 'Later',
+    yesBtn: 'Yes, thanks',
+    addFailed: 'Failed while adding app, please try later',
+    added: 'Nice! Next time you can access Coinbowl quickly from the app.'
   }
 };
