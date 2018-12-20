@@ -1,14 +1,27 @@
 @import 'var';
 .container {
   margin-top: 30px;
-  .token {
-    padding: 10px 5px;
-    border: 0.5px solid $primary-extra-bold;
-    word-break: break-all;
-    border-radius: 5px;
-    margin-bottom: 10px;
+  .tokenClipboard {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .token {
+      width: 80%;
+      min-width: 300px;
+      padding: 10px 5px;
+      border: 0.5px solid $primary-extra-bold;
+      word-break: break-all;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    .copy {
+      width: 20%;
+      height: 45px;
+      min-width: 120px;
+    }
   }
-  input[type=button] {
+  
+  .renew {
     margin-top: 20px;
   }
 }
