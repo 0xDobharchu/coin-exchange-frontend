@@ -29,8 +29,8 @@ export const URL = {
 export const API_URL = {
   EXCHANGE: {
     GET_FIAT_CURRENCY: 'exchange/quote',
-
     REVIEWS: 'exchange/reviews/',
+    GET_SUPPORT_CURRENCY: 'exchange/currencies/'
   },
   USER: {
     USER_SIGN_IN: '/token/', // POST /user/token
