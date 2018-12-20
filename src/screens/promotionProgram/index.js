@@ -38,42 +38,44 @@ class PromotionProgram extends React.Component {
     let index = 0;
     return (
       <div className={styles.container}>
-        <div className={styles.header}>
-          <LabelLang id="static_page.promotionPrograms" />
-        </div>
-        <div className={styles.bannerContainer}>
-          {programs.map((item) => {
-            const {logo, title, description, key} = item;
-            index++;
-            return (
-              <ProgramItem
-                logo={logo}
-                title={title}
-                description={description}
-                key={key}
-                programType={key}
-                index={index}
-              />
-            );
-          })}
-        </div>
-        <div className={styles.content}>
-          {currentUser.isLogin() ? (
-            <div className={styles.referralBox}>
-              <ReferralBox />
-            </div>
-          ) : (
-            <div className={styles.login}>
-              <label className={styles.title}><LabelLang id="promotion_programs.textRequireLogin" /></label>
-              <Link to={URL.USER_SIGN_IN}>
-                <button type="button" className={cx(styles.active, styles.button)}><LabelLang
-                  id="promotion_programs.signInNow"
+        <div className="container">
+          <div className={styles.header}>
+            <LabelLang id="static_page.promotionPrograms" />
+          </div>
+          <div className={styles.bannerContainer}>
+            {programs.map((item) => {
+              const {logo, title, description, key} = item;
+              index++;
+              return (
+                <ProgramItem
+                  logo={logo}
+                  title={title}
+                  description={description}
+                  key={key}
+                  programType={key}
+                  index={index}
                 />
-                </button>
-              </Link>
-            </div>
-          )
-          }
+              );
+            })}
+          </div>
+          <div className={styles.content}>
+            {currentUser.isLogin() ? (
+              <div className={styles.referralBox}>
+                <ReferralBox />
+              </div>
+            ) : (
+              <div className={styles.login}>
+                <label className={styles.title}><LabelLang id="promotion_programs.textRequireLogin" /></label>
+                <Link to={URL.USER_SIGN_IN}>
+                  <button type="button" className={cx(styles.active, styles.button)}><LabelLang
+                    id="promotion_programs.signInNow"
+                  />
+                  </button>
+                </Link>
+              </div>
+            )
+            }
+          </div>
         </div>
       </div>
     );
