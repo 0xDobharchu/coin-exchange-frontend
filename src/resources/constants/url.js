@@ -20,7 +20,7 @@ export const URL = {
   ME_BANK_INFO: '/me/bankInfo',
   ME_REFERRAL: '/me/referral',
   PROMOTION_PROGRAM: '/promotion-programs',
-  HOW_IT_WORKS: '/how-it-works',
+  HOW_IT_WORKS: '/static/how_it_works',
   REFERRAL: '/referral',
   IP_DOMAIN: 'https://ipfind.co/me',
   STATIC_PAGE: '/static',
