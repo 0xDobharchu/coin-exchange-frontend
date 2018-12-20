@@ -1,3 +1,9 @@
+# Install Git LFS
+```
+brew install git-lfs (if not installed)
+git lfs install
+git lfs pull
+```
 # Client development
 ```sh
 yarn start-client:dev
