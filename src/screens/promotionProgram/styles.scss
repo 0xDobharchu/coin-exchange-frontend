@@ -7,6 +7,7 @@
     letter-spacing: 0;
     line-height: 29px;
     font-weight: $semi-bold;
+    text-align: center;
   }
 
   .content {
@@ -22,6 +23,11 @@
       align-items: center;
       margin-top: 59px;
       padding: 20px 10px;
+
+      .title {
+        font-weight: bold;
+        font-size: 25px;
+      }
 
       .button {
         color: #FFFFFF;
@@ -46,29 +52,24 @@
     .header {
       font-size: 18px;
       margin-top: 25px;
-      margin-left: 25px;
     }
 
     .banner-container {
       display: flex;
       flex-direction: column;
-      margin: 25px;
     }
   }
   @media screen and (min-width: 768px) {
     .header {
       font-size: 36px;
       margin-top: 39px;
-      margin-left: 182px;
     }
 
     .banner-container {
       display: flex;
       margin-top: 50px;
-      margin-left: 182px;
-      margin-right: 182px;
       position: absolute;
-      justify-content: space-between;
+      justify-content: space-evenly;
     }
 
     .content {

@@ -25,7 +25,7 @@ function renderFullPage(appString, preloadedState, callback) {
     path.resolve(__dirname, '../client/index.html'),
     'utf8',
     (er, html) => {
-      if (er) return callback(er.message);
+      if (er) return callback('Internal error, please try again!');
       const newHtml = html.replace(
         '<div id="root-app"></div>',
         `<div id="root-app">${appString}</div>
