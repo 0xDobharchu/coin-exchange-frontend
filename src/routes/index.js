@@ -1,6 +1,6 @@
 import { URL } from 'src/resources/constants/url';
 import Contact from 'src/screens/contact';
-// import About from 'src/screens/about';
+import About from 'src/screens/about';
 import Login from 'src/screens/login';
 import Register from 'src/screens/register';
 import forgetPassword from 'src/screens/forgetPassword';
@@ -54,14 +54,14 @@ const routes = [
     component: Contact,
     exact: true,
   },
-  // {
-  //   path: URL.ABOUT_US,
-  //   component: About,
-  //   exact: true,
-  //   containerProps: {
-  //     bodyWrapper: false
-  //   }
-  // },
+  {
+    path: URL.ABOUT_US,
+    component: About,
+    exact: true,
+    containerProps: {
+      bodyWrapper: false
+    }
+  },
   {
     path: URL.USER_SIGN_IN,
     component: Login,
@@ -168,7 +168,7 @@ const routes = [
     }
   },
   {
-    path: '/:id',
+    path: URL.STATIC_PAGE,
     component: StaticPage,
     exact: true,
     containerProps: {
