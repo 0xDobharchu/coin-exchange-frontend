@@ -17,10 +17,10 @@ const Footer = () => (
           <Link to={URL.PROMOTION_PROGRAM}><LabelLang id="footer.referralProgram" /></Link>
         </div>
         <div className={style.bold}>
-          <Link to="/digital-assets"><LabelLang id="footer.assetIntro" /></Link>
+          <Link to="/static/digital-assets"><LabelLang id="footer.assetIntro" /></Link>
         </div>
         <div className={style.bold}>
-          <Link to="/api_reference"><LabelLang id="footer.apiDocumentation" /></Link>
+          <Link to="/static/api-reference"><LabelLang id="footer.apiDocumentation" /></Link>
         </div>
       </div>
       <div className={style.col}>
