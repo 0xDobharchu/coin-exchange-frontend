@@ -168,7 +168,7 @@ const routes = [
     }
   },
   {
-    path: '/static/:id',
+    path: URL.STATIC_PAGE,
     component: StaticPage,
     exact: true,
     containerProps: {

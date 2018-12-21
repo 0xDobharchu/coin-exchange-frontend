@@ -23,7 +23,7 @@ export const URL = {
   HOW_IT_WORKS: '/static/how-it-works',
   REFERRAL: '/referral',
   IP_DOMAIN: 'https://ipfind.co/me',
-  STATIC_PAGE: '/static',
+  STATIC_PAGE: '/static/:id',
 };
 
 export const API_URL = {
