@@ -883,20 +883,17 @@ class Wallet extends React.Component {
         this.showReceive(wallet)
     }
     onSortableCoinSuccess = (items) => {
-        this.setState({ listMainWalletBalance: items }, () => {
-            // MasterWallet.UpdateLocalStore(this.getAllWallet());
+        this.setState({ listMainWalletBalance: items }, () => {            
             this.saveWallet(this.getAllWallet());
         });
     }
     onSortableTokenSuccess = (items) => {
-        this.setState({ listTokenWalletBalance: items }, () => {
-            // MasterWallet.UpdateLocalStore(this.getAllWallet());
+        this.setState({ listTokenWalletBalance: items }, () => {            
             this.saveWallet(this.getAllWallet());
         });
     }
     onSortableCollectibleSuccess = (items) => {
-        this.setState({ listCollectibleWalletBalance: items }, () => {
-            // MasterWallet.UpdateLocalStore(this.getAllWallet());
+        this.setState({ listCollectibleWalletBalance: items }, () => {            
             this.saveWallet(this.getAllWallet());
         });
     }
