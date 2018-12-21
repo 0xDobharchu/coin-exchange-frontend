@@ -66,16 +66,14 @@ class WalletItem extends React.Component {
                 <span className={style.balance}> {wallet.getShortBalance()} {wallet.name} </span>
                 :<span className={style.balance}>[{messages['wallet.action.history.label.balance_hidden']}]</span> }
               </div>
-
-              {!isSortable ?
-                <span className={style.itemRight}>
-                  <span className={style.address +  " hidden-xss-down"} onClick={onAddressClick}>
-                      {this.showCryptoAddress}
-                  </span>
-                  {/* <span className={style.more} onClick={onMoreClick}><img src={dontIcon}/></span> */}
-
+              
+              <span className={style.itemRight}>
+                <span className={style.address +  " hidden-xss-down"} onClick={onAddressClick}>
+                    {this.showCryptoAddress}
                 </span>
-              : ""}                        
+                {/* <span className={style.more} onClick={onMoreClick}><img src={dontIcon}/></span> */}
+
+              </span>              
             {/* <div className="onlyDesktop" style={{marginTop: "15px", marginLeft: "65px"}}>
               <button style={{width: "80px", height: "40px", backgroundColor: "transparent", border: "#c1c1c1 1px solid", color: "#000000", fontSize: "16px", marginRight: "15px"}}> Send </button> 
               <button style={{width: "80px", height: "40px", backgroundColor: "transparent", border: "#c1c1c1 1px solid", color: "#000000", fontSize: "16px", marginRight: "15px"}}> Receive </button> 

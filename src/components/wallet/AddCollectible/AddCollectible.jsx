@@ -125,7 +125,7 @@ class AddCollectible extends React.Component {
     const { onFinish } = this.props;
 
     if (onFinish) {
-      onFinish({ "data": this.state.CollectibleType });
+      onFinish({ "data": this.state.collectibleType });
     } else {
 
     }
@@ -135,9 +135,7 @@ class AddCollectible extends React.Component {
     
     let coinDefault = 'ETH';
 
-    const wallets = this.props.wallets || [];   
-    
-    console.log("wallets from colectable: ", wallets);
+    const wallets = this.props.wallets || [];           
 
     let listWalletETH = [];
     let walletDefault = false;
@@ -212,7 +210,7 @@ class AddCollectible extends React.Component {
       // create from walet sellected:
       collectibleType.createFromWallet(this.state.walletSelected);
 
-      this.setState({ collectibleType: collectibleType }, ()=>{
+      this.setState({ collectibleType: collectibleType }, ()=>{        
         this.showSuccess("Successfully added collectible");
         this.onFinish();
       });

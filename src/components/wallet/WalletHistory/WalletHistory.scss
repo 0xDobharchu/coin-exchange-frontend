@@ -143,7 +143,11 @@
             margin-right: 30px;
           }
         }
-        .bt1, .bt2, .bt3{
+        .bt {
+          margin-left: 20px;
+          margin-right: 20px;
+        }
+        .bt1, .bt2, .bt3, .bt{
           display: inline;
           button{
             width: 160px;

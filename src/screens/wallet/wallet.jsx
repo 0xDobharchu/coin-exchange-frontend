@@ -24,7 +24,6 @@ import { change, Field, formValueSelector } from 'redux-form';
 import Modal from 'src/components/core/controls/Modal';
 
 import Header from 'src/components/wallet/header';
-import WalletItem from 'src/components/wallet/WalletItem';
 import WalletProtect from 'src/components/wallet/WalletProtect';
 import WalletHistory from 'src/components/wallet/WalletHistory';
 import TransferCoin from 'src/components/wallet/TransferCoin';
@@ -503,18 +502,13 @@ class Wallet extends React.Component {
     // add custom token:
     addedCustomToken = (dataNewToken) =>{        
         
-        const newToken = dataNewToken.data;
-
-        console.log('newToken', newToken);        
+        const newToken = dataNewToken.data;        
         
         // call api to update:    
-        const lstWalletTemp = this.getAllWallet();
+        const listNewWallet = this.getAllWallet();        
 
-        const listNewWallet = lstWalletTemp.push(newToken);
-
-        console.log('listNewWallet', listNewWallet); 
+        listNewWallet.push(newToken);
         
-        return;
 
         this.saveWallet(listNewWallet);
 
@@ -539,14 +533,12 @@ class Wallet extends React.Component {
     //add Collectible
     addedCollectible = (dataNewToken) =>{
 
-        const newToken = dataNewToken.data;
-
-        console.log('newToken', newToken);
+        const newToken = dataNewToken.data;        
 
         // call api to update:    
-        const lstWalletTemp = this.getAllWallet();
+        const listNewWallet = this.getAllWallet();
 
-        const listNewWallet = lstWalletTemp.push(newToken);
+        listNewWallet.push(newToken);
 
         this.saveWallet(listNewWallet);
 
@@ -1020,7 +1012,7 @@ class Wallet extends React.Component {
                         : <Header title={messages['wallet.action.create.label.header_collectibles']} hasLink={true} linkTitle={messages['wallet.action.create.button.done']} onLinkClick={this.updateSortableForCollectible} />
                     }
                 </Row>
-                <Row className="list">
+                <Row className={styles['list']}>
                     {this.state.listCollectibleWalletBalance.length > 0 ?
                         <SortableComponent onSortableSuccess={items => this.onSortableCollectibleSuccess(items)} onMoreClick={item => this.onMoreClick(item)} onAddressClick={item => this.onAddressClick(item)} onItemClick={item => this.onWalletItemClick(item)} isSortable={this.state.listSortable.collectitble} items={this.state.listCollectibleWalletBalance} />
                         : ''}

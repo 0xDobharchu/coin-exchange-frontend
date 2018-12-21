@@ -443,10 +443,10 @@ class WalletHistory extends React.Component {
                       }
                     </div>
                       :( <div>
-                      <div className={style.bt}><div><span onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</span></div></div>
-                      {//!wallet.protected &&
-                        <div className={style.bt3}><div><span onClick={this.props.onWarningClick}>{messages['me.navigation.preferecens']}</span></div></div>
-                      }
+                      <div className={style.bt}><div onClick={this.props.onReceiveClick}><img className={style.iconReceive} src={iconReceive} /><span onClick={this.props.onReceiveClick}>{messages['wallet.action.history.label.receive']}</span></div></div>
+                      
+                      <div className={style.bt}><div onClick={this.props.onPreferencesClick}><img className={style.iconPreference} src={iconPreference} /><span onClick={this.props.onWarningClick}>{messages['wallet.action.history.label.option']}</span></div></div>
+                      
                       </div>
                       )
                     }                                                     

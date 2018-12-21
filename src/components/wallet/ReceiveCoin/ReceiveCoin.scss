@@ -31,7 +31,7 @@
       position: absolute;
       background: #fff;
       left: 0;
-      top: 0;
+      top: 5px;
       width: 100%;
     }
     .btn-group > .btn:first-child{
@@ -207,16 +207,37 @@
       border-color: #fa6b49;
     }
   }
-  .dropdown-custom-item{
-    margin: 0;
-  }
-  .dropdown-custom-menu{
-    text-align: left;
-  }
-  .dropdown-receive{
-    margin: 0!important;
-    margin-bottom: 25px!important;
-    margin-top: 20px!important;
+  :global {
+    .dropdown {
+      .btn, button {
+        // padding-left: 10px;
+        // width: 100%;
+        background-color: transparent;
+        // text-align: left;
+        // color: #8a8a8f;
+        // border: 1px solid #ededed;
+        // border-radius: 6px;
+        color: transparent;
+        &:focus, &:active {
+          outline: none!important;
+          box-shadow: none!important;
+          background: transparent;  
+          border: none!important;      
+          color: transparent;  
+        }  
+      }
+    }
+    .dropdown-custom-item{
+      margin: 0;
+    }
+    .dropdown-custom-menu{
+      text-align: left;
+    }
+    .dropdown-receive{
+      margin: 0!important;
+      margin-bottom: 25px!important;
+      margin-top: 20px!important;
+    }
   }
   .addressDivPopup {
     margin-top: 0;

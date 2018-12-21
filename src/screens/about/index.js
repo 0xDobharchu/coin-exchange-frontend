@@ -21,13 +21,13 @@ class About extends React.Component {
 
   componentDidMount() {
     const { locale } = this.props;
-    this.props.getAboutContent({ params: { language: locale, page: 'about_us' } });
+    this.props.getAboutContent({ params: { language: locale, page: 'about-us' } });
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (JSON.stringify(nextProps.locale) !== JSON.stringify(prevState.locale)) {
       const { locale } = nextProps;
-      nextProps.getAboutContent({ params: { language: locale, page: 'about_us' } });
+      nextProps.getAboutContent({ params: { language: locale, page: 'about-us' } });
 
       return { locale: nextProps.locale };
     }
