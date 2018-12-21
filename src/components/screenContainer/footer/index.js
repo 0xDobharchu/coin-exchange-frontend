@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { URL } from 'src/resources/constants/url';
 import { WrapperLang, LabelLang } from 'src/lang/components';
-import SocialBox from 'src/screens/me/pages/Referral/socialBox';
+import SocialBox from './socialBox';
 import style from './styles.scss';
 
 
