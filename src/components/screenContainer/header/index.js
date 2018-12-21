@@ -38,7 +38,7 @@ export const menus = {
   },
   howItWorks: {
     name: <LabelLang id="headerBar.howItWorks" />,
-    link: `${URL.STATIC_PAGE}/how_it_works`,
+    link: URL.HOW_IT_WORKS,
     className: 'd-block d-md-none'
   },
 };
