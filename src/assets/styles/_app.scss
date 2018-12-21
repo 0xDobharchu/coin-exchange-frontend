@@ -289,7 +289,10 @@ div.filepicker {
 // }
 .dropdown-toggle {
   &::after {
-    content: '∨';
+    // content: '∨';
+    content: '';      
+    font-family: FontAwesome5ProLight; 
+    font-family: "Font Awesome 5 Pro";
     border-top: 0;
     margin-right: 10px;
     margin-left: 0px;
@@ -301,7 +304,8 @@ div.filepicker {
     &::after {
       // content: '∨';
       content: '';        
-      font-family: FontAwesome5ProLight;
+      font-family: FontAwesome5ProLight; 
+      font-family: "Font Awesome 5 Pro";
       border-top: 0;
       margin-top: 0px;
     }
