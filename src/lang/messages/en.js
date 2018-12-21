@@ -22,9 +22,9 @@ export default {
     }
   },
   footer: {
-    privacy: 'Privacy',
-    referralProgram: 'Referral Program',
-    assetIntro: 'Asset Intro',
+    privacy: 'Privacy Policy & User Agreement',
+    referralProgram: 'Promotion Programs',
+    assetIntro: 'Digital Asset',
     apiDocumentation: 'Api Documentation',
     aboutTitle: 'About CoinBowl',
     aboutDesc: 'Coinbowl.com is a new crypto exchange specifically designed for people living in Asia, who have had limited access to crypto markets. CoinBowl enables users to trade large amounts of crypto at great prices. Users can buy or sell an uncapped quantity of crypto with 1 price for 1 order'
