@@ -1,7 +1,7 @@
 import React from 'react';
 import { URL } from 'src/resources/constants/url';
 import { Link, withRouter } from 'react-router-dom';
-import logo from 'src/assets/images/logo.svg';
+import logo from 'src/assets/images/logo_white_2.svg';
 import close from 'src/assets/images/close.svg';
 import switchbtn from 'src/assets/images/switchbtn.svg';
 // import switch from 'src/assets/images/switch.svg';

@@ -15,6 +15,7 @@ const PORT = process.env.PORT || 8000;
 app.use(morgan('short'));
 app.use('/public', express.static(path.join(__dirname, '../client')));
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
+app.use('/sw.js', express.static(path.join(__dirname, '../client/sw.js')));
 
 global.__SERVER__ = true;
 global.__CLIENT__ = false;
@@ -24,7 +25,7 @@ function renderFullPage(appString, preloadedState, callback) {
     path.resolve(__dirname, '../client/index.html'),
     'utf8',
     (er, html) => {
-      if (er) return callback(er.message);
+      if (er) return callback('Internal error, please try again!');
       const newHtml = html.replace(
         '<div id="root-app"></div>',
         `<div id="root-app">${appString}</div>

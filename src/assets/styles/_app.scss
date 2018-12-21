@@ -284,6 +284,28 @@ div.filepicker {
   color: #FFFFFF !important;
   background-color: $primary-extra-bold !important;
 }
+// .dropdown-toggle.btn.btn-basic:after {
+//   content: '﹀'
+// }
+.dropdown-toggle {
+  &::after {
+    content: '∨';
+    border-top: 0;
+    margin-right: 10px;
+    margin-left: 0px;
+    vertical-align: 1px;
+  }
+}
+.dropdown-warper {
+  .dropdown-toggle {
+    &::after {
+      content: '∨';
+      border-top: 0;
+      margin-top: 0px;
+    }
+  }
+}
+
   @import '../../../node_modules/dropzone/dist/min/dropzone.min.css';
 }
 
