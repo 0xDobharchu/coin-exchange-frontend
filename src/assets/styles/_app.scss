@@ -290,21 +290,25 @@ div.filepicker {
 .dropdown-toggle {
   &::after {
     // content: '∨';
-    // border-top: 0;
-    // margin-right: 10px;
-    // margin-left: 0px;
-    // vertical-align: 1px;
+    content: '';      
+    font-family: FontAwesome5ProLight; 
+    font-family: "Font Awesome 5 Pro";
+    border-top: 0;
+    margin-right: 10px;
+    margin-left: 0px;
+    vertical-align: 1px;
   }
 }
 .dropdown-warper {
   .dropdown-toggle {
-    // &::after {
-    //   // content: '∨';
-    //   content: '';        
-    //   font-family: FontAwesome5ProLight;
-    //   border-top: 0;
-    //   margin-top: 0px;
-    // }
+    &::after {
+      // content: '∨';
+      content: '';        
+      font-family: FontAwesome5ProLight; 
+      font-family: "Font Awesome 5 Pro";
+      border-top: 0;
+      margin-top: 0px;
+    }
   }
 }
 
