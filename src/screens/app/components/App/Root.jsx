@@ -16,6 +16,7 @@ import IntlCustomProvider from 'src/lang';
 import 'src/assets/styles/someone-fonts/light.css';
 import Layout from 'src/screens/app/components/Layout';
 import BarcodeScanner from 'src/components/barcodeScanner';
+import ScrollToTop from './ScrollToTop';
 
 class Root extends React.Component {
   static propTypes = {
@@ -51,7 +52,9 @@ class Root extends React.Component {
     return (
       <IntlCustomProvider>
         <Layout {...props}>
-          {children}
+          <ScrollToTop>
+            {children}
+          </ScrollToTop>
           <BarcodeScanner />
           <PwaInstallRequest />
         </Layout>
