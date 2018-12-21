@@ -20,7 +20,7 @@ export const URL = {
   ME_BANK_INFO: '/me/bankInfo',
   ME_REFERRAL: '/me/referral',
   PROMOTION_PROGRAM: '/promotion-programs',
-  HOW_IT_WORKS: '/how-it-works',
+  HOW_IT_WORKS: '/static/how_it_works',
   REFERRAL: '/referral',
   IP_DOMAIN: 'https://ipfind.co/me',
   STATIC_PAGE: '/static',
@@ -29,8 +29,8 @@ export const URL = {
 export const API_URL = {
   EXCHANGE: {
     GET_FIAT_CURRENCY: 'exchange/quote',
-
     REVIEWS: 'exchange/reviews/',
+    GET_SUPPORT_CURRENCY: 'exchange/currencies/'
   },
   USER: {
     USER_SIGN_IN: '/token/', // POST /user/token

@@ -4,11 +4,12 @@
   padding-top: $header-height;
   .title {
     padding: 75px 190px;
-    @media screen and (max-width: 768px){
-      padding: 75px 10px;
-    }
     color: #0D0031;
     font-size: 36px;
+    @media screen and (max-width: 768px){
+      padding: 30px 10px;
+      font-size: 28px;
+    }
     background: #FFFFFF;
     font-weight: 600;
     text-align: center;
@@ -16,10 +17,23 @@
   .content {
     padding: 50px 190px;
     @media screen and (max-width: 768px){
-      padding: 75px 10px;
+      padding: 0px 10px;
     }
     background: #FFFFFF;
     min-height: 80vh;
+    div[class="video"] {
+      text-align: center;
+      iframe {
+        width: 80vw;
+        height: 45vw;
+        max-width: 960px;
+        max-height: 540px;
+        @media screen and (max-width: 768px){
+          width: 95vw;
+          height: 53vw;
+        }
+      }
+    }
     div[class="step"] {
       margin: 50px 0;
       display: flex;

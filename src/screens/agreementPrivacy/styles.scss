@@ -4,7 +4,7 @@
 .container {
     background: white;
     .title-container {
-        background: $primary-semi-bold;
+        background: $primary-extra-bold;
     }
     @media screen and (max-width: 768px) {
         padding-top: 15px;
@@ -15,10 +15,11 @@
                 font-size: 18px;
                 color: #FFFFFF;
                 font-weight: 600;
+                text-align: center;
             }
         }
         .content {
-            padding: rem-calc(21px) rem-calc(21px);
+            padding: rem-calc(25px) 0px rem-calc(50px);
             background: #FFFFFF;
             min-height: 80vh;
         }
@@ -32,10 +33,11 @@
                 font-size: 36px;
                 color: #FFFFFF;
                 font-weight: 600;
+                text-align: center;
             }
         }
         .content {
-            padding: 25px 190px;
+            padding: rem-calc(25px) 0px rem-calc(50px);
             background: #FFFFFF;
             min-height: 80vh;
         }

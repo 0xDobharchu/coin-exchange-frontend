@@ -21,7 +21,7 @@ const makeAction = ({ type, data, more, dispatchType }) => {
 
 export const makeRequest = (config = {}, _dispatch) => {
   const {
-    type, url, method, data, onSuccess, onError, onFinal, params, withAuth = true, more = {}
+    type, url, method, data, onSuccess, onError, onFinal, params = [], withAuth = true, more = {}
   } = config;
   const METHOD = method ? String(method).toLowerCase() : 'get';
   return async (d) => {
@@ -36,6 +36,9 @@ export const makeRequest = (config = {}, _dispatch) => {
     dispatch(makeAction({ type, dispatchType: DISPATCH_TYPE.CALLING, more, data: { payload: data, url, method: METHOD } }));
     try {
 
+      if (!APP_ENV.isProduction) {
+        params['noneCacheUrl'] = new Date().getTime();
+      }
       const options = {
         url,
         method: METHOD,

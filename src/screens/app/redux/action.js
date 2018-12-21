@@ -162,3 +162,12 @@ export const getSupportLanguages = () => (dispatch) => {
     dispatch(initApp());
   });
 };
+
+export const getSupportCryptoCurrencies = () => (dispatch) => {
+  const req = makeRequest({
+    url: API_URL.EXCHANGE.GET_SUPPORT_CURRENCY,
+    type: APP_ACTION.GET_SUPPORT_CURRENCY,
+    withAuth: false,
+  }, dispatch);
+  return req().then(res => res || []);
+};
