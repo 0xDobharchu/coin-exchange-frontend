@@ -1,23 +1,26 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+import { URL } from 'src/resources/constants/url';
 import { WrapperLang, LabelLang } from 'src/lang/components';
 import SocialBox from 'src/screens/me/pages/Referral/socialBox';
 import style from './styles.scss';
+
 
 const Footer = () => (
   <footer className={style.container}>
     <div className={style.footer}>
       <div className={style.col}>
         <div className={style.bold}>
-          <LabelLang id="footer.privacy" />
+          <Link to={URL.AGREEMENT}><LabelLang id="footer.privacy" /></Link>
         </div>
         <div className={style.bold}>
-          <LabelLang id="footer.referralProgram" />
+          <Link to={URL.PROMOTION_PROGRAM}><LabelLang id="footer.referralProgram" /></Link>
         </div>
         <div className={style.bold}>
-          <LabelLang id="footer.assetIntro" />
+          <Link to="/digital-assets"><LabelLang id="footer.assetIntro" /></Link>
         </div>
         <div className={style.bold}>
-          <LabelLang id="footer.apiDocumentation" />
+          <Link to="/api_reference"><LabelLang id="footer.apiDocumentation" /></Link>
         </div>
       </div>
       <div className={style.col}>
