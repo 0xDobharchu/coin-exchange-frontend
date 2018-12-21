@@ -13,6 +13,7 @@ import IntlCustomProvider from 'src/lang';
 // styles
 // import 'src/styles/main';
 // import 'src/styles/custom-icons/styles.css';
+import 'src/assets/styles/someone-fonts/light.css';
 import Layout from 'src/screens/app/components/Layout';
 import BarcodeScanner from 'src/components/barcodeScanner';
 
