@@ -1,26 +1,29 @@
 @import 'src/assets/styles/_var.scss';
 
 .program-item {
-  background: #FFFFFF;
+  //background: #FFFFFF;
   box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.10);
-  flex-grow: 1;
+  //flex-grow: 1;
 
   .logo {
     max-height: 50%;
     height: 50%;
+    opacity: 0.75;
+    background: white;
     .image {
       display: block;
       margin-left: auto;
       margin-right: auto;
       max-width:100%;
       max-height:100%;
+      height: 100%;
     }
   }
 
   .content {
     max-height: 50%;
     height: 50%;
-    padding-top: 20px;
+    background: white;
     .title {
       font-size: 30px;
       color: black;
@@ -37,12 +40,23 @@
   }
 
   @media screen and (max-width: 768px) {
-    padding: 20px;
     margin-bottom: 25px;
+    .logo {
+      padding: 20px 20px 0px 20px;
+    }
+
+    .content {
+      padding: 20px 20px 20px 20px;
+    }
   }
   @media screen and (min-width: 768px) {
-    opacity: 0.75;
-    padding: 20px;
-    max-width: 48%;
+    max-width: 40%;
+    .logo {
+      padding: 20px 20px 0px 20px;
+    }
+
+    .content {
+      padding: 20px 20px 20px 20px;
+    }
   }
 }
