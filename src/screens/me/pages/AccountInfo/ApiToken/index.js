@@ -45,11 +45,13 @@ class ApiToken extends React.Component {
       <WrapperLang>
         {ts => (
           <div className={style.container}>
-            {tokenApi && <div className={style.token}>{tokenApi}</div>}
-            <CopyToClipboard text={tokenApi} onCopy={this.handleOnClickCopy}>
-              <Button value={ts('me.accountInfo.apiTokenCopy')} />
-            </CopyToClipboard>
-            <Button type="button" onClick={this.handleUpdate} value={ts('me.accountInfo.apiTokenNew')} />
+            <div className={style.tokenClipboard}>
+              {tokenApi && <div className={style.token}>{tokenApi}</div>}
+              <CopyToClipboard text={tokenApi} onCopy={this.handleOnClickCopy}>
+                <Button className={style.copy} value={ts('me.accountInfo.apiTokenCopy')} />
+              </CopyToClipboard>
+            </div>
+            <Button type="button" className={style.renew} onClick={this.handleUpdate} value={ts('me.accountInfo.apiTokenNew')} />
             <ConfirmDialog
               title={ts('me.accountInfo.dialog.renew.title')}
               body={ts('me.accountInfo.dialog.renew.body')}

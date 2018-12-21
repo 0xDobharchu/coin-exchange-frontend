@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import btcIcon from 'src/assets/icons/coin/btc.svg';
 import ethIcon from 'src/assets/icons/coin/eth.svg';
 import { injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
 import { CRYPTO_CURRENCY, CRYPTO_CURRENCY_FULLNAME } from 'src/resources/constants/crypto';
 import CryptoPrice from './cryptoPrice';
 import styles from './styles.scss';
@@ -21,7 +23,10 @@ const CRYPTOS = [
 
 
 class PricePanel extends Component {
-  renderList = () => CRYPTOS.map(crypto => <CryptoPrice key={crypto?.id} crypto={crypto} />);
+  renderList = () => {
+    const { supportedCryptoCurrencies } = this.props;
+    return CRYPTOS.map(crypto => supportedCryptoCurrencies.includes(crypto.id) ? <CryptoPrice key={crypto?.id} crypto={crypto} /> : null);
+  };
 
   render() {
     return (
@@ -32,4 +37,16 @@ class PricePanel extends Component {
   }
 }
 
-export default injectIntl(PricePanel);
+const mapState = state => ({
+  supportedCryptoCurrencies: state?.app?.supportedCryptoCurrencies
+});
+
+PricePanel.defaultProps = {
+  supportedCryptoCurrencies: [],
+};
+
+PricePanel.propTypes = {
+  supportedCryptoCurrencies: PropTypes.array,
+};
+
+export default injectIntl(connect(mapState)(PricePanel));
