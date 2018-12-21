@@ -299,7 +299,9 @@ div.filepicker {
 .dropdown-warper {
   .dropdown-toggle {
     &::after {
-      content: '∨';
+      // content: '∨';
+      content: '';        
+      font-family: FontAwesome5ProLight;
       border-top: 0;
       margin-top: 0px;
     }
