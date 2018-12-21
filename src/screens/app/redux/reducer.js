@@ -23,7 +23,8 @@ const {
   HIDE_QRCODE_CONTENT,
   SHOW_REQUIRE_PASSWORD,
   HIDE_REQUIRE_PASSWORD,
-  GET_SUPPORT_LANGUAGES
+  GET_SUPPORT_LANGUAGES,
+  GET_SUPPORT_CURRENCY
 } = APP_TYPE;
 
 const initState = {
@@ -79,6 +80,7 @@ const initState = {
   supportedCountry: [],
   supportedCurrency: [],
   userCountry: null,
+  supportedCryptoCurrencies: []
 };
 
 export default (state = initState, action) => {
@@ -174,6 +176,11 @@ export default (state = initState, action) => {
       return {
         ...state,
         supportedLanguages: action?.data || {}
+      };
+    case `${GET_SUPPORT_CURRENCY}_SUCCESS`:
+      return {
+        ...state,
+        supportedCryptoCurrencies: action?.data || []
       };
     default:
       return state;
