@@ -58,7 +58,9 @@ class PromotionProgram extends React.Component {
               );
             })}
           </div>
-          <div className={styles.content}>
+        </div>
+        <div className={styles.content}>
+          <div className="container">
             {currentUser.isLogin() ? (
               <div className={styles.referralBox}>
                 <ReferralBox />
